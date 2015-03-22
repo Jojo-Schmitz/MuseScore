@@ -72,7 +72,8 @@ MuseScore {
                                     for (var i = 0; i < graceChords.length; i++) {
                                           // iterate through all grace chords
                                           var notes = graceChords[i].notes;
-                                          func(note);
+                                          for (var j = 0; j < graceChords[i].notes.length; j++)
+                                                func(notes[j]);
                                     }
                                     var notes = cursor.element.notes;
                                     for (var i = 0; i < notes.length; i++) {
