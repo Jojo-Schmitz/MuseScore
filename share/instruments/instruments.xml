@@ -9390,6 +9390,12 @@
                   <Channel>
                         <program value="42"/>
                   </Channel>
+                  <Channel name="pizzicato">
+                        <program value="45"/>
+                  </Channel>
+                  <Channel name="tremolo">
+                        <program value="44"/>
+                  </Channel>
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="viola-da-gamba-tablature">
