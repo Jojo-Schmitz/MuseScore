@@ -1415,6 +1415,10 @@ QT_TRANSLATE_NOOP("InstrumentsXML", "Classical Guitar"),
 //: Classical Guitar
 QT_TRANSLATE_NOOP("InstrumentsXML", "Guit."),
 QT_TRANSLATE_NOOP("InstrumentsXML", "Classical Guitar [Tablature]"),
+QT_TRANSLATE_NOOP("InstrumentsXML", "Contra Guitar"),
+//: Contra Guitar
+QT_TRANSLATE_NOOP("InstrumentsXML", "C Guit."),
+QT_TRANSLATE_NOOP("InstrumentsXML", "Contra Guitar [Tablature]"),
 QT_TRANSLATE_NOOP("InstrumentsXML", "Acoustic Guitar"),
 //: Acoustic Guitar
 QT_TRANSLATE_NOOP("InstrumentsXML", "Guit."),
