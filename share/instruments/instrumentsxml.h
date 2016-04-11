@@ -1108,8 +1108,8 @@ QT_TRANSLATE_NOOP("InstrumentsXML", "Clv."),
 QT_TRANSLATE_NOOP("InstrumentsXML", "Castanets"),
 //: Castanets
 QT_TRANSLATE_NOOP("InstrumentsXML", "Cst."),
-QT_TRANSLATE_NOOP("InstrumentsXML", "Guiro"),
-//: Guiro
+QT_TRANSLATE_NOOP("InstrumentsXML", "Güiro"),
+//: Güiro
 QT_TRANSLATE_NOOP("InstrumentsXML", "Gro."),
 QT_TRANSLATE_NOOP("InstrumentsXML", "Maracas"),
 //: Maracas
@@ -1554,6 +1554,21 @@ QT_TRANSLATE_NOOP("InstrumentsXML", "5-str. Electric Bass"),
 //: 5-str. Electric Bass
 QT_TRANSLATE_NOOP("InstrumentsXML", "El. B."),
 QT_TRANSLATE_NOOP("InstrumentsXML", "5-str. Electric Bass [Tablature]"),
+QT_TRANSLATE_NOOP("InstrumentsXML", "Prima"),
+//: Prima
+QT_TRANSLATE_NOOP("InstrumentsXML", "Pr."),
+QT_TRANSLATE_NOOP("InstrumentsXML", "Brač"),
+//: Brač
+QT_TRANSLATE_NOOP("InstrumentsXML", "Br."),
+QT_TRANSLATE_NOOP("InstrumentsXML", "Čelo"),
+//: Čelo
+QT_TRANSLATE_NOOP("InstrumentsXML", "Č."),
+QT_TRANSLATE_NOOP("InstrumentsXML", "Bugarija"),
+//: Bugarija
+QT_TRANSLATE_NOOP("InstrumentsXML", "Bu."),
+QT_TRANSLATE_NOOP("InstrumentsXML", "Berda"),
+//: Berda
+QT_TRANSLATE_NOOP("InstrumentsXML", "Be."),
 QT_TRANSLATE_NOOP("InstrumentsXML", "Strings"),
 QT_TRANSLATE_NOOP("InstrumentsXML", "Erhu"),
 //: Erhu
