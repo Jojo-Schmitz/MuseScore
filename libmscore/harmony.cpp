@@ -500,11 +500,15 @@ static int convertNote(const QString& s, NoteSpellingType noteSpelling, NoteCase
       int n = s.size();
       QString acc = s.right(n-acci);
       if (acc != "") {
-            if (acc.startsWith("bb")) {
+            if (acc.startsWith("bb") || acc.startsWith("\u226d\u226d")) {
                   alter = -2;
                   idx += 2;
                   }
-            else if (acc.startsWith("b")) {
+            else if (acc.startsWith("\u1d12b")) {
+                  alter = -2;
+                  idx += 1;
+                  }
+            else if (acc.startsWith("b") || acc.startsWith("\u226d")) {
                   alter = -1;
                   idx += 1;
                   }
@@ -524,15 +528,15 @@ static int convertNote(const QString& s, NoteSpellingType noteSpelling, NoteCase
                   alter = -1;
                   idx += 1;
                   }
-            else if (acc.startsWith("##")) {
+            else if (acc.startsWith("##") || acc.startsWith("\u0266f\u0266f")) {
                   alter = 2;
                   idx += 2;
                   }
-            else if (acc.startsWith("x")) {
+            else if (acc.startsWith("x") || acc.startsWith("\u1d12a")) {
                   alter = 2;
                   idx += 1;
                   }
-            else if (acc.startsWith("#")) {
+            else if (acc.startsWith("#") || acc.startsWith("\u0266f")) {
                   alter = 1;
                   idx += 1;
                   }
