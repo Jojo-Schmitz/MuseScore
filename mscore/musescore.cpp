@@ -2174,6 +2174,11 @@ void setMscoreLocale(QString localeName)
             localeName = QLocale::system().name();
             if (MScore::debugMode)
                   qDebug("real localeName <%s>", qPrintable(localeName));
+            if (localeName == "en_AU") {
+                  localeName = "en_GB"; // otherwise Australia would fall back to US English
+                  if (MScore::debugMode)
+                        qDebug("modified localeName <%s>", qPrintable(localeName));
+                  }
             }
 
       // find the most recent translation file
@@ -3251,8 +3256,6 @@ AboutBoxDialog::AboutBoxDialog()
             versionLabel->setText(tr("Version: %1").arg(VERSION));
       revisionLabel->setText(tr("Revision: %1").arg(revision));
       setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
-
-      copyRevisionButton->setIcon(*icons[int(Icons::copy_ICON)]);
 
       copyrightLabel->setText(QString("<span style=\"font-size:10pt;\">%1</span>")
                               .arg(tr(   "Visit %1www.musescore.org%2 for new versions and more information.\n"
