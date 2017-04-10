@@ -5551,12 +5551,10 @@ void ExportMusicXml::harmony(Harmony const* const h, FretDiagram const* const fd
                                           kindTextExtension[i] = kindText[i];
                                     int kindExtension = kindTextExtension.toInt();
                                     if (tagDegree <= kindExtension && (tagDegree & 1) && (kindExtension & 1))
-                                          degreeText = "\"\"";
+                                          degreeText = " text=\"\"";
                                     }
-                              if (degreeText.isEmpty())
-                                    xml.stag("degree");
-                              else
-                                    xml.stag("degree text=" + degreeText);
+
+                              xml.stag("degree");
                               int alter = 0;
                               int idx = 3;
                               if (tag[idx] == '#') {
@@ -5567,10 +5565,11 @@ void ExportMusicXml::harmony(Harmony const* const h, FretDiagram const* const fd
                                     alter = -1;
                                     ++idx;
                                     }
-                              xml.tag("degree-value", tag.mid(idx));
+
+                              xml.tag(QString("degree-value%1"), tag.mid(idx)).arg(degreeText);
                               xml.tag("degree-alter", alter);     // finale insists on this even if 0
                               if (tag.startsWith("add"))
-                                    xml.tag("degree-type", "add");
+                                    xml.tag(QString("degree-type%1"), "add").arg(degreeText);
                               else if (tag.startsWith("sub"))
                                     xml.tag("degree-type", "subtract");
                               else if (tag.startsWith("alt"))
