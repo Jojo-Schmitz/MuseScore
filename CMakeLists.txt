@@ -68,7 +68,7 @@ include (CreatePrecompiledHeader)
 
 set (CMAKE_AUTOMOC TRUE)
 
-set(MSCORE_UNSTABLE  TRUE)          # mark as unstable
+set(MSCORE_UNSTABLE  FALSE)          # mark as unstable
 
 set(USE_SSE           TRUE)
 set(SCRIPT_INTERFACE  TRUE)
@@ -112,6 +112,7 @@ option(BUILD_PULSEAUDIO "Build with support for Pulseaudio audio backend." ON)
 option(BUILD_ALSA "Build with support for ALSA audio backend." ON)
 option(BUILD_PORTAUDIO "Build with support for Portaudio audio backend." ON)
 option(BUILD_PORTMIDI "Build with support for PortAudio's MIDI features." ${BUILD_PORTAUDIO}) # PortAudio required
+option(BUILD_WEBKIT "Built in webkit support" ON)
 option(BUILD_PCH "Build using precompiled headers." OFF)
 
 if (APPLE)
@@ -212,7 +213,12 @@ SET(QT_USE_QTXML         TRUE)
 SET(QT_USE_QTSVG         TRUE)
 SET(QT_USE_QTNETWORK     TRUE)
 SET(QT_USE_QTDESIGNER    TRUE)
-SET(QT_USE_QTWEBKIT      TRUE)
+IF (BUILD_WEBKIT)
+  SET(QT_USE_QTWEBKIT    TRUE)
+  SET(USE_WEBKIT 1)
+ELSE (BUILD_WEBKIT)
+  SET(QT_USE_QTWEBKIT    FALSE)
+ENDIF (BUILD_WEBKIT)
 SET(QT_USE_QTXMLPATTERNS TRUE)
 SET(QT_USE_QTHELP        TRUE)
 
@@ -311,15 +317,15 @@ IF(BUILD_JACK)
      IF(MINGW)
            set (USE_JACK 1)
            IF("$ENV{PROCESSOR_ARCHITEW6432}" STREQUAL "")
-              IF($ENV{PROCESSOR_ARCHITECTURE} STREQUAL "x86")
+              IF("$ENV{PROCESSOR_ARCHITECTURE}" STREQUAL "x86")
                  # "pure" 32-bit environment
                  set (JACK_INCDIR "$ENV{PROGRAMFILES}/Jack/includes")
                  set (JACK_LIB "$ENV{PROGRAMFILES}/Jack/lib/libjack.a")
-              ELSE($ENV{PROCESSOR_ARCHITECTURE} STREQUAL "x86")
+              ELSE("$ENV{PROCESSOR_ARCHITECTURE}" STREQUAL "x86")
                  # "pure" 64-bit environment
                  set (JACK_INCDIR "$ENV{PROGRAMFILES(x86)}/Jack/includes")
                  set (JACK_LIB "$ENV{PROGRAMFILES(x86)}/Jack/lib/libjack.a")
-              ENDIF($ENV{PROCESSOR_ARCHITECTURE} STREQUAL "x86")
+              ENDIF("$ENV{PROCESSOR_ARCHITECTURE}" STREQUAL "x86")
            ELSE("$ENV{PROCESSOR_ARCHITEW6432}" STREQUAL "")
               IF("$ENV{PROCESSOR_ARCHITECTURE}" STREQUAL "x86")
                  # 32-bit program running with an underlying 64-bit environment

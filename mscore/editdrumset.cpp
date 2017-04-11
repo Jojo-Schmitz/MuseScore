@@ -86,6 +86,9 @@ EditDrumset::EditDrumset(const Drumset* ds, QWidget* parent)
       connect(shortcut, SIGNAL(currentIndexChanged(int)), SLOT(shortcutChanged()));
       connect(loadButton, SIGNAL(clicked()), SLOT(load()));
       connect(saveButton, SIGNAL(clicked()), SLOT(save()));
+      pitchList->setColumnWidth(0, 40);
+      pitchList->setColumnWidth(1, 60);
+      pitchList->setColumnWidth(2, 30);
 
       MuseScore::restoreGeometry(this);
       }
@@ -110,6 +113,7 @@ void EditDrumset::updateList()
             item->setText(Column::NAME, qApp->translate("drumset", nDrumset.name(i).toUtf8().constData()));
             item->setData(0, Qt::UserRole, i);
             }
+      pitchList->sortItems(3, Qt::SortOrder::DescendingOrder);
       }
 
 void EditDrumset::updateList2()
@@ -370,7 +374,7 @@ void EditDrumset::save()
       if (!f.open(QIODevice::WriteOnly)) {
             QString s = tr("Open File\n%1\nfailed: ")
                + QString(strerror(errno));
-            QMessageBox::critical(mscore, tr("MuseScore: Open File"), s.arg(f.fileName()));
+            QMessageBox::critical(mscore, tr("Open File"), s.arg(f.fileName()));
             return;
             }
       valueChanged();  //save last changes in name
@@ -381,7 +385,7 @@ void EditDrumset::save()
       xml.etag();
       if (f.error() != QFile::NoError) {
             QString s = tr("Write File failed: ") + f.errorString();
-            QMessageBox::critical(this, tr("MuseScore: Write Drumset"), s);
+            QMessageBox::critical(this, tr("Write Drumset"), s);
             }
       }
 

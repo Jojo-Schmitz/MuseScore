@@ -24,16 +24,15 @@
 #include <stdio.h>
 #include <limits.h>
 #include <map>
+#include <set>
 #include <errno.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <math.h>
+#include <functional>
 
 #include <QtGui>
 #include <QModelIndex>
-
-#include <QWebView>
-#include <QWebFrame>
 
 #include <QtXml>
 #include <QAbstractMessageHandler>

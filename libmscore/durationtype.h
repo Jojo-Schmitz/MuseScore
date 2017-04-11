@@ -35,13 +35,13 @@ class TDuration {
    private:
       DurationType _val;
       char _dots;
-      void shiftType(int v);
+      void shiftType(int nSteps, bool stepDotted = false);
       void truncateToFraction(const Fraction& l, int maxDots);
       bool setDotsToFitFraction(const Fraction& l, int maxDots);
 
    public:
       TDuration() : _val(DurationType::V_INVALID), _dots(0) {}
-      TDuration(const Fraction& l, bool truncate = false, int maxDots = 4, DurationType maxType = DurationType::V_LONG);
+      TDuration(const Fraction& l, bool truncate = false, int maxDots = MAX_DOTS, DurationType maxType = DurationType::V_LONG);
       TDuration(const QString&);
       TDuration(DurationType t) : _val(t), _dots(0) {}
 
@@ -69,14 +69,15 @@ class TDuration {
       NoteHead::Type headType() const;
       int hooks() const;
       bool hasStem() const;
-      TDuration shift(int val) const                { TDuration d(type()) ; d.shiftType(val); return d; } // dots are not retained
+      TDuration shift(int nSteps) const                              { TDuration d(type()); d.shiftType(nSteps); return d; } // dots are not retained
+      TDuration shiftRetainDots(int nSteps, bool stepDotted = false) { TDuration d(type()); d.setDots(_dots); d.shiftType(nSteps, stepDotted); return d; }
       int dots() const    { return _dots; }
       void setDots(int v);
       Fraction fraction() const;
       QString durationTypeUserName() const;
       };
 
-QList<TDuration> toDurationList(Fraction l, bool useDots, int maxDots = 4, bool printRestRemains = true);
+QList<TDuration> toDurationList(Fraction l, bool useDots, int maxDots = MAX_DOTS, bool printRestRemains = true);
 QList<TDuration> toRhythmicDurationList(const Fraction& l, bool isRest, int rtickStart, const TimeSigFrac& nominal, Measure* msr, int maxDots);
 
 bool forceRhythmicSplit(bool isRest, BeatType startBeat, BeatType endBeat, int beatsCrossed, BeatType strongestBeatCrossed, const TimeSigFrac& nominal);

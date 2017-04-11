@@ -85,6 +85,7 @@ class MasterPalette;
 class PluginCreator;
 class PluginManager;
 class MasterSynthesizer;
+class SynthesizerState;
 class Driver;
 class Seq;
 class ImportMidiPanel;
@@ -342,10 +343,10 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
 
       QComboBox* layerSwitch;
       QComboBox* playMode;
-      QNetworkAccessManager* networkManager { 0 };
-      QAction* lastCmd                      { 0 };
-      const Shortcut* lastShortcut          { 0 };
-      QHelpEngine* _helpEngine              { 0 };
+      QNetworkAccessManager* _networkManager { 0 };
+      QAction* lastCmd                       { 0 };
+      const Shortcut* lastShortcut           { 0 };
+      QHelpEngine* _helpEngine               { 0 };
       int globalX, globalY;       // current mouse position
 
       QAction* countInAction;
@@ -453,7 +454,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void showWorkspaceMenu();
       void switchLayer(const QString&);
       void switchPlayMode(int);
-      void networkFinished(QNetworkReply*);
+      void networkFinished();
       void switchLayoutMode(int);
       void showMidiImportPanel();
       void changeWorkspace(QAction*);
@@ -546,6 +547,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       Q_INVOKABLE void newFile();
       Q_INVOKABLE void loadFile(const QString& url);
       void loadFile(const QUrl&);
+      QNetworkAccessManager* networkManager();
       virtual Score* openScore(const QString& fn);
       bool hasToCheckForUpdate();
       static bool unstable();
@@ -604,7 +606,9 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void addImage(Score*, Element*);
 
       bool savePng(Score*, const QString& name, bool screenshot, bool transparent, double convDpi, int trimMargin, QImage::Format format);
+      bool saveAudio(Score*, QIODevice *device, std::function<bool(float)> updateProgress = nullptr);
       bool saveAudio(Score*, const QString& name);
+      bool canSaveMp3();
       bool saveMp3(Score*, const QString& name);
       bool saveSvg(Score*, const QString& name);
       bool savePng(Score*, const QString& name);
@@ -615,6 +619,8 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
 
       void addTempo();
       void addMetronome();
+
+      SynthesizerState synthesizerState();
 
       Q_INVOKABLE QString getLocaleISOCode() const;
       Navigator* navigator() const;

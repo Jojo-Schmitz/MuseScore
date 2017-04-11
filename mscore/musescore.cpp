@@ -91,6 +91,7 @@
 #include "libmscore/volta.h"
 #include "libmscore/lasso.h"
 #include "libmscore/excerpt.h"
+#include "libmscore/synthesizerstate.h"
 
 #include "driver.h"
 
@@ -2158,6 +2159,7 @@ static void loadScores(const QStringList& argv)
                               {
                               Score* score = mscore->readScore(preferences.startScore);
                               if (preferences.startScore.startsWith(":/") && score) {
+                                    score->setName(mscore->createDefaultName());
                                     score->setPageFormat(*MScore::defaultStyle()->pageFormat());
                                     score->doLayout();
                                     score->setCreated(true);
@@ -2165,6 +2167,7 @@ static void loadScores(const QStringList& argv)
                               if (score == 0) {
                                     score = mscore->readScore(":/data/My_First_Score.mscz");
                                     if (score) {
+                                          score->setName(mscore->createDefaultName());
                                           score->setPageFormat(*MScore::defaultStyle()->pageFormat());
                                           score->doLayout();
                                           score->setCreated(true);
@@ -2203,15 +2206,20 @@ static void loadScores(const QStringList& argv)
 //   doConvert
 //---------------------------------------------------------
 
-static bool doConvert(Score* cs, QString fn)
+static bool doConvert(Score* cs, QString fn, QString plugin = "")
       {
       bool rv = true;
-
       LayoutMode layoutMode = cs->layoutMode();
       if (!styleFile.isEmpty()) {
             QFile f(styleFile);
             if (f.open(QIODevice::ReadOnly))
                   cs->style()->load(&f);
+            }
+      if (!plugin.isEmpty()) {
+            mscore->setCurrentScore(cs);
+            if (mscore->loadPlugin(plugin))
+                  mscore->pluginTriggered(0);
+            mscore->unloadPlugins();
             }
       if (fn.endsWith(".mscx")) {
             QFileInfo fi(fn);
@@ -2238,7 +2246,7 @@ static bool doConvert(Score* cs, QString fn)
       else if (fn.endsWith(".pdf")) {
             if (!exportScoreParts) {
                   cs->switchToPageMode();
-                  rv = mscore->savePdf(fn);
+                  rv = mscore->savePdf(cs, fn);
                   }
             else {
                   if (cs->excerpts().size() == 0) {
@@ -2317,8 +2325,8 @@ static bool doConvert(Score* cs, QString fn)
             }
       else if (fn.endsWith(".mlog"))
             return cs->sanityCheck(fn);
-      else {
-            qDebug("dont know how to convert to %s", qPrintable(outFileName));
+      else if (plugin.isEmpty()) {
+            qDebug("don't know how to convert to %s", qPrintable(outFileName));
             return false;
             }
       if (layoutMode != cs->layoutMode())
@@ -2330,9 +2338,9 @@ static bool doConvert(Score* cs, QString fn)
 //   convert
 //---------------------------------------------------------
 
-static bool convert(const QString& inFile, const QString& outFile)
+static bool convert(const QString& inFile, const QString& outFile, const QString& plugin = "")
       {
-      if (inFile.isEmpty() || outFile.isEmpty()) {
+      if (inFile.isEmpty() || (outFile.isEmpty() && plugin.isEmpty())) {
             fprintf(stderr, "cannot convert <%s> to <%s>\n", qPrintable(inFile), qPrintable(outFile));
             return false;
             }
@@ -2340,7 +2348,7 @@ static bool convert(const QString& inFile, const QString& outFile)
       Score* score = mscore->readScore(inFile);
       if (!score)
             return false;
-      if (!doConvert(score, outFile)) {
+      if (!doConvert(score, outFile, plugin)) {
             delete score;
             return false;
             }
@@ -2374,6 +2382,7 @@ static bool doProcessJob(QString jsonFile)
       for (const auto i : a) {
             QString inFile;
             QString outFile;
+            QString plugin;
             if (!i.isObject()) {
                   fprintf(stderr, "array value is not an object\n");
                   return false;
@@ -2385,12 +2394,14 @@ static bool doProcessJob(QString jsonFile)
                         inFile = val;
                   else if (key == "out")
                         outFile = val;
+                  else if (key == "plugin")
+                        plugin = val;
                   else {
                         fprintf(stderr, "unknown key <%s>\n", qPrintable(key));
                         return false;
                         }
                   }
-            if (!convert(inFile, outFile))
+            if (!convert(inFile, outFile, plugin))
                   return false;
             }
       return true;
@@ -2625,7 +2636,7 @@ bool MuseScore::readLanguages(const QString& path)
                 error.sprintf(qPrintable(tr("Error reading language file %s at line %d column %d: %s\n")),
                    qPrintable(qf.fileName()), line, column, qPrintable(err));
                 QMessageBox::warning(0,
-                   QWidget::tr("MuseScore: Load Languages Failed:"),
+                   QWidget::tr("Load Languages Failed:"),
                    error,
                    QString::null, QWidget::tr("Quit"), QString::null, 0, 1);
                 return false;
@@ -3022,7 +3033,21 @@ void MuseScore::writeSettings()
 
 void MuseScore::readSettings()
       {
-      resize(QSize(1024, 768)); //ensure default size if no geometry in settings
+      int margin = 100;
+      int offset = margin / 2;
+      int w = 1024;
+      int h = 768;
+      QScreen* screen      = QGuiApplication::primaryScreen();
+      const QSize screenSize = screen->availableVirtualSize();
+      if (screenSize.width() - margin > w)
+            w = screenSize.width() - margin;
+      else
+            offset = 0;
+      if (screenSize.height() - margin > h)
+            h = screenSize.height() - margin;
+
+      resize(QSize(w, h)); //ensure default size if no geometry in settings
+      move(offset, 0);
       if (useFactorySettings) {
             QList<int> sizes;
             sizes << 500 << 100;
@@ -3945,8 +3970,9 @@ void MuseScore::switchPlayMode(int mode)
 //   networkFinished
 //---------------------------------------------------------
 
-void MuseScore::networkFinished(QNetworkReply* reply)
+void MuseScore::networkFinished()
       {
+      QNetworkReply* reply = qobject_cast<QNetworkReply*>(QObject::sender());
       if (reply->error() != QNetworkReply::NoError) {
             qDebug("Error while checking update [%s]", qPrintable(reply->errorString()));
             return;
@@ -3977,6 +4003,8 @@ void MuseScore::networkFinished(QNetworkReply* reply)
       f.write(data);
       f.close();
 
+      reply->deleteLater();
+
       Score* score = readScore(tmpName);
       if (!score) {
             qDebug("readScore failed");
@@ -3998,12 +4026,20 @@ void MuseScore::loadFile(const QString& s)
 
 void MuseScore::loadFile(const QUrl& url)
       {
-      if (!networkManager) {
-            networkManager = new QNetworkAccessManager(this);
-            connect(networkManager, SIGNAL(finished(QNetworkReply*)),
-               SLOT(networkFinished(QNetworkReply*)));
-            }
-      networkManager->get(QNetworkRequest(url));
+      QNetworkReply* nr = networkManager()->get(QNetworkRequest(url));
+      connect(nr, SIGNAL(finished()),
+               SLOT(networkFinished()));
+      }
+
+//---------------------------------------------------------
+//   networkManager
+//---------------------------------------------------------
+
+QNetworkAccessManager* MuseScore::networkManager()
+      {
+      if (!_networkManager)
+            _networkManager = new QNetworkAccessManager(this);
+      return _networkManager;
       }
 
 //---------------------------------------------------------
@@ -4235,7 +4271,7 @@ void MuseScore::cmd(QAction* a)
             }
       if (cs && (sc->state() & _sstate) == 0) {
             QMessageBox::warning(0,
-               QWidget::tr("MuseScore: Invalid Command"),
+               QWidget::tr("Invalid Command"),
                QString("Command %1 not valid in current state").arg(cmdn));
             return;
             }
@@ -4554,7 +4590,7 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
             if (!name.isEmpty()) {
                   if (!cs->saveStyle(name)) {
                         QMessageBox::critical(this,
-                           tr("MuseScore: Save Style"), MScore::lastError);
+                           tr("Save Style"), MScore::lastError);
                         }
                   }
             }
@@ -4564,7 +4600,7 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
                   cs->startCmd();
                   if (!cs->loadStyle(name)) {
                         QMessageBox::critical(this,
-                           tr("MuseScore: Load Style"), MScore::lastError);
+                           tr("Load Style"), MScore::lastError);
                         }
                   cs->endCmd();
                   }
@@ -4746,7 +4782,7 @@ void MuseScore::closeScore(Score* score)
 
 void MuseScore::noteTooShortForTupletDialog()
       {
-      QMessageBox::warning(this, tr("MuseScore: Warning"),
+      QMessageBox::warning(this, tr("Warning"),
         tr("Cannot create tuplet: Note value is too short")
         );
       }
@@ -4974,6 +5010,16 @@ QMenu* MuseScore::createPopupMenu()
                   m->removeAction(a);
             }
       return m;
+      }
+
+//---------------------------------------------------------
+//   synthesizerState
+//---------------------------------------------------------
+
+SynthesizerState MuseScore::synthesizerState()
+      {
+      SynthesizerState state;
+      return synti ? synti->state() : state;
       }
 
 }

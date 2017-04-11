@@ -2715,6 +2715,15 @@ void Score::padToggle(Pad n)
                   else
                         _is.setDots(2);
                   break;
+            case Pad::DOT3:
+                  if ((_is.duration().dots() == 3)
+                     || (_is.duration() == TDuration::DurationType::V_32ND)
+                     || (_is.duration() == TDuration::DurationType::V_64TH)
+                     || (_is.duration() == TDuration::DurationType::V_128TH))
+                        _is.setDots(0);
+                  else
+                        _is.setDots(3);
+                  break;
             }
       if (n >= Pad::NOTE00 && n <= Pad::NOTE128) {
             _is.setDots(0);
@@ -3065,7 +3074,7 @@ void Score::collectMatch(void* data, Element* e)
          && ((p->staffStart > e->staffIdx()) || (p->staffEnd <= e->staffIdx())))
             return;
       if (e->type() == Element::Type::CHORD || e->type() == Element::Type::REST
-         || e->type() == Element::Type::ARTICULATION | e->type() == Element::Type::ACCIDENTAL || e->type() == Element::Type::LYRICS
+         || e->type() == Element::Type::ARTICULATION || e->type() == Element::Type::ACCIDENTAL || e->type() == Element::Type::LYRICS
          || e->type() == Element::Type::BEAM || e->type() == Element::Type::HOOK || e->type() == Element::Type::STEM
          || e->type() == Element::Type::SLUR_SEGMENT || e->type() == Element::Type::NOTEDOT
          || e->type() == Element::Type::FINGERING || e->type() == Element::Type::TUPLET) {

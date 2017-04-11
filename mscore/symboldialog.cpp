@@ -63,6 +63,7 @@ void SymbolDialog::createSymbols()
                         sp->append(s, Sym::id2userName(SymId(i)));
                   }
             }
+      sp->update();
       }
 
 //---------------------------------------------------------
@@ -83,7 +84,7 @@ SymbolDialog::SymbolDialog(QWidget* parent)
             }
       fontList->setCurrentIndex(currentIndex);
 
-      setWindowTitle(tr("MuseScore: Symbols"));
+      setWindowTitle(tr("Symbols"));
       QLayout* l = new QVBoxLayout();
       frame->setLayout(l);
       createSymbolPalette();

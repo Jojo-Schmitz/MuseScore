@@ -117,6 +117,7 @@ enum class Pad : char {
       REST,
       DOT,
       DOTDOT,
+      DOT3
       };
 
 //---------------------------------------------------------
@@ -445,8 +446,7 @@ class Score : public QObject, public ScoreElement {
       void cmdMoveRest(Rest*, MScore::Direction);
       void cmdMoveLyrics(Lyrics*, MScore::Direction);
 
-      void cmdHalfDuration();
-      void cmdDoubleDuration();
+      void cmdIncDecDuration(int nSteps, bool stepDotted = false);
 
       void cmdAddBracket();
 
@@ -529,6 +529,10 @@ class Score : public QObject, public ScoreElement {
       void cmdAddOttava(Ottava::Type);
       void cmdAddStretch(qreal);
       void cmdResetNoteAndRestGroupings();
+      void cmdDoubleDuration()      { cmdIncDecDuration(-1, 0); }
+      void cmdHalfDuration()        { cmdIncDecDuration( 1, 0); }
+      void cmdIncDurationDotted()   { cmdIncDecDuration(-1, 1); }
+      void cmdDecDurationDotted()   { cmdIncDecDuration( 1, 1); }
 
       void addRemoveBreaks(int interval, bool lock);
 
@@ -695,6 +699,7 @@ class Score : public QObject, public ScoreElement {
 
       void print(QPainter* printer, int page);
       ChordRest* getSelectedChordRest() const;
+      QSet<ChordRest*> getSelectedChordRests() const;
       void getSelectedChordRest2(ChordRest** cr1, ChordRest** cr2) const;
 
       void select(Element* obj, SelectType = SelectType::SINGLE, int staff = 0);

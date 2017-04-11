@@ -22,14 +22,20 @@ REVISION  := `cat mscore/revision.h`
 CPUS      := $(shell getconf _NPROCESSORS_ONLN 2>/dev/null || getconf NPROCESSORS_ONLN 2>/dev/null || echo 1)
 
 PREFIX    = "/usr/local"
-VERSION   = "2.1b-${REVISION}"
-#VERSION = 2.1
+#VERSION   = "2.1b-${REVISION}"
+VERSION = 2.1
 
 # Override SUFFIX and LABEL when multiple versions are installed to avoid conflicts.
 SUFFIX=""# E.g.: SUFFIX="dev" --> "mscore" becomes "mscoredev"
 LABEL=""# E.g.: LABEL="Development Build" --> "MuseScore 2" becomes "MuseScore 2 Development Build"
 
-BUILD_LAME="ON"# Non-free, required for MP3 support. Override with "OFF" to disable.
+BUILD_LAME="ON" # Non-free, required for MP3 support. Override with "OFF" to disable.
+BUILD_PULSEAUDIO="ON" # Override with "OFF" to disable.
+BUILD_JACK="ON"       # Override with "OFF" to disable.
+BUILD_PORTAUDIO="ON"  # Override with "OFF" to disable.
+BUILD_WEBKIT="ON"     # Override with "OFF" to disable.
+
+
 UPDATE_CACHE="TRUE"# Override if building a DEB or RPM, or when installing to a non-standard location.
 NO_RPATH="FALSE"# Package maintainers may want to override this (e.g. Debian)
 
@@ -48,6 +54,10 @@ release:
   	  -DMSCORE_INSTALL_SUFFIX="${SUFFIX}"      \
   	  -DMUSESCORE_LABEL="${LABEL}"             \
   	  -DBUILD_LAME="${BUILD_LAME}"             \
+  	  -DBUILD_PULSEAUDIO="${BUILD_PULSEAUDIO}" \
+  	  -DBUILD_JACK="${BUILD_JACK}"             \
+   	  -DBUILD_PORTAUDIO="${BUILD_PORTAUDIO}"   \
+   	  -DBUILD_WEBKIT="${BUILD_WEBKIT}"         \
   	  -DCMAKE_SKIP_RPATH="${NO_RPATH}"     ..; \
       make lrelease;                             \
       make -j ${CPUS};                           \
@@ -69,6 +79,10 @@ debug:
   	  -DMSCORE_INSTALL_SUFFIX="${SUFFIX}"                 \
   	  -DMUSESCORE_LABEL="${LABEL}"                        \
   	  -DBUILD_LAME="${BUILD_LAME}"                        \
+  	  -DBUILD_PULSEAUDIO="${BUILD_PULSEAUDIO}"            \
+  	  -DBUILD_JACK="${BUILD_JACK}"                        \
+   	  -DBUILD_PORTAUDIO="${BUILD_PORTAUDIO}"              \
+   	  -DBUILD_WEBKIT="${BUILD_WEBKIT}"                    \
   	  -DCMAKE_SKIP_RPATH="${NO_RPATH}"     ..;            \
       make lrelease;                                        \
       make -j ${CPUS};                                      \

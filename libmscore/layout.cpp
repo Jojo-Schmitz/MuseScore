@@ -2060,7 +2060,7 @@ void Score::createMMRests()
 
                               bool found = false;
                               for (Element* ee : s->annotations()) {
-                                    if (ee->type() == e->type() && ee->track() == e->track()) {
+                                    if (e->linkList().contains(ee)) {
                                           found = true;
                                           break;
                                           }
@@ -2360,16 +2360,6 @@ bool Score::layoutSystem(qreal& minWidth, qreal systemWidth, bool isFirstSystem,
             // we should remove the width of courtesy elements for this measure from the accumulated total
             // since at this point we are assuming we may be able to fit another measure
             minWidth -= cautionaryW;
-            }
-
-      //
-      // remember line breaks in list of measures
-      //
-      int n = system->measures().size() - 1;
-      if (n >= 0) {
-            for (int i = 0; i < n; ++i)
-                  undoChangeProperty(system->measure(i), P_ID::BREAK_HINT, false);
-            undoChangeProperty(system->measures().last(), P_ID::BREAK_HINT, true);
             }
 
       if (firstMeasure && lastMeasure && firstMeasure != lastMeasure)
@@ -2869,6 +2859,21 @@ QList<System*> Score::layoutSystemRow(qreal rowWidth, bool isFirstSystem, bool u
                         }
                   }
             firstInRow = false;
+            }
+      //
+      // remember line breaks in list of measures
+      //
+      for (System* system : sl) {
+            int n = system->measures().size() - 1;
+            if (n >= 0) {
+                  for (int i = 0; i < n; ++i)
+                        undoChangeProperty(system->measure(i), P_ID::BREAK_HINT, false);
+                  // only set hint for last system in row
+                  if (system == sl.last())
+                        undoChangeProperty(system->measures().last(), P_ID::BREAK_HINT, true);
+                  else
+                        undoChangeProperty(system->measures().last(), P_ID::BREAK_HINT, false);
+                  }
             }
       //
       // dont stretch last system row, if accumulated minWidth is <= lastSystemFillLimit

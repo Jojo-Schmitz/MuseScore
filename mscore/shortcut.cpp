@@ -655,7 +655,8 @@ Shortcut Shortcut::_sc[] = {
          QT_TRANSLATE_NOOP("action","Toggle up bow"),
          0,
          Icons::Invalid_ICON,
-         Qt::WindowShortcut
+         Qt::WindowShortcut,
+         ShortcutFlags::A_CMD
          },
       {
          MsWidget::SCORE_TAB,
@@ -665,7 +666,8 @@ Shortcut Shortcut::_sc[] = {
          QT_TRANSLATE_NOOP("action","Toggle down bow"),
          0,
          Icons::Invalid_ICON,
-         Qt::WindowShortcut
+         Qt::WindowShortcut,
+         ShortcutFlags::A_CMD
          },
       {
          MsWidget::SCORE_TAB,
@@ -1441,6 +1443,17 @@ Shortcut Shortcut::_sc[] = {
          QT_TRANSLATE_NOOP("action","Note duration: Double augmentation dot"),
          QT_TRANSLATE_NOOP("action","Double augmentation dot"),
          Icons::dotdot_ICON,
+         Qt::WindowShortcut,
+         ShortcutFlags::A_CMD | ShortcutFlags::A_CHECKABLE
+         },
+      {
+         MsWidget::SCORE_TAB,
+         STATE_NORMAL | STATE_NOTE_ENTRY,
+         "pad-dot3",
+         QT_TRANSLATE_NOOP("action","Triple Augmentation Dot"),
+         QT_TRANSLATE_NOOP("action","Note duration: Triple augmentation dot"),
+         QT_TRANSLATE_NOOP("action","Triple augmentation dot"),
+         Icons::Invalid_ICON,
          Qt::WindowShortcut,
          ShortcutFlags::A_CMD | ShortcutFlags::A_CHECKABLE
          },
@@ -2507,6 +2520,28 @@ Shortcut Shortcut::_sc[] = {
          "half-duration",
          QT_TRANSLATE_NOOP("action","Half Duration"),
          QT_TRANSLATE_NOOP("action","Half duration"),
+         0,
+         Icons::Invalid_ICON,
+         Qt::WindowShortcut,
+         ShortcutFlags::A_CMD
+         },
+      {
+         MsWidget::SCORE_TAB,
+         STATE_NORMAL | STATE_NOTE_ENTRY_STAFF_PITCHED | STATE_NOTE_ENTRY_STAFF_DRUM /*| STATE_NOTE_ENTRY_TAB*/,
+         "inc-duration-dotted",
+         QT_TRANSLATE_NOOP("action","Increase Duration Dotted"),
+         QT_TRANSLATE_NOOP("action","Increase duration dotted"),
+         0,
+         Icons::Invalid_ICON,
+         Qt::WindowShortcut,
+         ShortcutFlags::A_CMD
+         },
+      {
+         MsWidget::SCORE_TAB,
+         STATE_NORMAL | STATE_NOTE_ENTRY_STAFF_PITCHED | STATE_NOTE_ENTRY_STAFF_DRUM /*| STATE_NOTE_ENTRY_TAB*/,
+         "dec-duration-dotted",
+         QT_TRANSLATE_NOOP("action","Decrease Duration Dotted"),
+         QT_TRANSLATE_NOOP("action","Decrease duration dotted"),
          0,
          Icons::Invalid_ICON,
          Qt::WindowShortcut,
