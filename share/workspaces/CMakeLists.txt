@@ -19,7 +19,7 @@
 
 function (build_workspace WS_NAME _TARGET)
       set(_OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${WS_NAME}.workspace")
-      set(_FILES workspace.xml META-INF/container.xml)
+      set(_FILES ${WS_NAME}.xml META-INF/container.xml)
       add_custom_command(OUTPUT ${_OUTPUT}
             COMMAND ${CMAKE_COMMAND} -E tar cf "${_OUTPUT}" --format=zip -- ${_FILES}
             DEPENDS
