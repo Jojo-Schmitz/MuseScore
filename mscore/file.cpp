@@ -315,7 +315,7 @@ void MuseScore::importScore(bool switchTab, bool singleFile)
       openExternalLink("https://musescore.com/import");
 #else
       QStringList filter;
-      filter << tr("Optical Music Recognition") + " (*.pdf *.png *.jpg)";
+      filter << tr("Optical Music Recognition") + " (*.pdf *.png *.gif *.jpg)";
       doLoadFiles(filter, switchTab, singleFile);
 #endif
       }
@@ -2465,6 +2465,7 @@ Score::FileError readScore(MasterScore* score, QString name, bool ignoreVersionE
                   { "msmr", &importMSMR               },
                   { "pdf",  &loadAndImportMSMR        },
                   { "png",  &loadAndImportMSMR        },
+                  { "gif",  &loadAndImportMSMR        },
                   { "jpg",  &loadAndImportMSMR        },
 #endif
                   };
@@ -2665,10 +2666,11 @@ void MuseScore::addImage(Score* score, Element* e)
          0,
          tr("Insert Image"),
          "",            // lastOpenPath,
-         tr("All Supported Files") + " (*.svg *.jpg *.jpeg *.png);;" +
+         tr("All Supported Files") + " (*.svg *.jpg *.jpeg *.png *.gif);;" +
          tr("Scalable Vector Graphics") + " (*.svg);;" +
          tr("JPEG") + " (*.jpg *.jpeg);;" +
-         tr("PNG Bitmap Graphic") + " (*.png)",
+         tr("PNG Bitmap Graphic") + " (*.png);;" +
+         tr("GIF Bitmap Graphic") + " (*.gif)",
          0,
          preferences.getBool(PREF_UI_APP_USENATIVEDIALOGS) ? QFileDialog::Options() : QFileDialog::DontUseNativeDialog
          );
@@ -2681,7 +2683,7 @@ void MuseScore::addImage(Score* score, Element* e)
 
       if (suffix == "svg")
             s->setImageType(ImageType::SVG);
-      else if (suffix == "jpg" || suffix == "jpeg" || suffix == "png")
+      else if (suffix == "jpg" || suffix == "jpeg" || suffix == "png" || suffix == "gif")
             s->setImageType(ImageType::RASTER);
       else
             return;
@@ -2897,7 +2899,7 @@ void WallpaperPreview::setImage(const QString& path)
 
 QString MuseScore::getWallpaper(const QString& caption)
       {
-      QString filter = tr("Images") + " (*.jpg *.jpeg *.png);;" + tr("All") + " (*)";
+      QString filter = tr("Images") + " (*.jpg *.jpeg *.png *.gif);;" + tr("All") + " (*)";
       QString d = mscoreGlobalShare + "/wallpaper";
 
       if (preferences.getBool(PREF_UI_APP_USENATIVEDIALOGS)) {

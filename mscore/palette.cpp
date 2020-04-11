@@ -1844,6 +1844,7 @@ void Palette::dragEnterEvent(QDragEnterEvent* event)
                      || suffix == "jpg"
                      || suffix == "jpeg"
                      || suffix == "png"
+                     || suffix == "gif"
                      ) {
                         event->acceptProposedAction();
                         }
