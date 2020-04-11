@@ -1803,6 +1803,7 @@ void MuseScore::exportFile()
       QStringList fl;
       fl.append(tr("PDF File") + " (*.pdf)");
       fl.append(tr("PNG Bitmap Graphic") + " (*.png)");
+      fl.append(tr("JPEG") + " (*.jpg)");
       fl.append(tr("Scalable Vector Graphics") + " (*.svg)");
 #ifdef HAS_AUDIOFILE
       fl.append(tr("Wave Audio") + " (*.wav)");
@@ -1885,6 +1886,7 @@ bool MuseScore::exportParts()
       QStringList fl;
       fl.append(tr("PDF File") + " (*.pdf)");
       fl.append(tr("PNG Bitmap Graphic") + " (*.png)");
+      fl.append(tr("JPEG") + " (*.jpg)");
       fl.append(tr("Scalable Vector Graphics") + " (*.svg)");
 #ifdef HAS_AUDIOFILE
       fl.append(tr("Wave Audio") + " (*.wav)");
@@ -2108,8 +2110,8 @@ bool MuseScore::saveAs(Score* cs_, bool saveCopy, const QString& path, const QSt
             cs_->switchToPageMode();
             rv = savePdf(cs_, fn);
             }
-      else if (ext == "png") {
-            // save as png file *.png
+      else if (ext == "png" || ext == "jpg") {
+            // save as png file *.png and as jpg file *.jpg
             cs_->switchToPageMode();
             rv = savePng(cs_, fn);
             }
@@ -2739,9 +2741,12 @@ bool MuseScore::savePng(Score* score, const QString& name)
       bool noToAll = false;
       for (int pageNumber = 0; pageNumber < pages; ++pageNumber) {
             QString fileName(name);
-            if (fileName.endsWith(".png"))
+            QString suffix;
+            if (fileName.endsWith(".png") || fileName.endsWith(".jpg")) {
+                  suffix = fileName.right(3);
                   fileName = fileName.left(fileName.size() - 4);
-            fileName += QString("-%1.png").arg(pageNumber+1, padding, 10, QLatin1Char('0'));
+                  }
+            fileName += QString("-%1.%2").arg(pageNumber+1, padding, 10, QLatin1Char('0')).arg(suffix);
             if (!converterMode) {
                   QFileInfo fip(fileName);
                   if(fip.exists() && !overwrite) {
@@ -2769,7 +2774,7 @@ bool MuseScore::savePng(Score* score, const QString& name)
             QFile f(fileName);
             if (!f.open(QIODevice::WriteOnly))
                   return false;
-            bool rv = savePng(score, &f, pageNumber);
+            bool rv = savePng(score, &f, pageNumber, fileName.endsWith(".jpg") ? true : !preferences.getBool(PREF_EXPORT_PNG_USETRANSPARENCY));
             if (!rv)
                   return false;
             }
@@ -2844,7 +2849,7 @@ bool MuseScore::savePng(Score* score, QIODevice* device, int pageNumber, bool dr
                   }
             printer = printer.convertToFormat(QImage::Format_Indexed8, colorTable);
             }
-      printer.save(device, "png");
+      printer.save(device);
       score->setPrinting(false);
       MScore::pixelRatio = pr;
       return rv;

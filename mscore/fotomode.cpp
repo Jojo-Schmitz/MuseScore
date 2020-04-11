@@ -491,6 +491,7 @@ bool ScoreView::saveFotoAs(bool printMode, const QRectF& r)
       {
       QStringList fl;
       fl.append(tr("PNG Bitmap Graphic") + " (*.png)");
+      fl.append(tr("JPEG") + " (*.jpg)");
       fl.append(tr("PDF File") + " (*.pdf)");
       fl.append(tr("Scalable Vector Graphics") + " (*.svg)");
 
@@ -513,6 +514,7 @@ bool ScoreView::saveFotoAs(bool printMode, const QRectF& r)
             if (idx != -1) {
                   static const char* extensions[] = {
                         "png",
+                        "jpg",
                         "pdf",
                         "svg"
                         };
@@ -529,7 +531,7 @@ bool ScoreView::saveFotoAs(bool printMode, const QRectF& r)
       if (fi.suffix().toLower() != ext)
             fn += "." + ext;
 
-      bool transparent = preferences.getBool(PREF_EXPORT_PNG_USETRANSPARENCY);
+      bool transparent = (ext == "jpg") ? false : preferences.getBool(PREF_EXPORT_PNG_USETRANSPARENCY);
       double convDpi   = preferences.getDouble(PREF_EXPORT_PNG_RESOLUTION);
       double mag       = convDpi / DPI;
 
@@ -570,9 +572,9 @@ bool ScoreView::saveFotoAs(bool printMode, const QRectF& r)
             paintRect(printMode, p, r, mag);
             MScore::pdfPrinting = false;
             }
-      else if (ext == "png") {
+      else if (ext == "png" || ext == "jpg") {
             QImage printer(getRectImage(r, convDpi, transparent, printMode));
-            printer.save(fn, "png");
+            printer.save(fn);
             }
       else
             qDebug("unknown extension <%s>", qPrintable(ext));

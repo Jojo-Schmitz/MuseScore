@@ -3688,7 +3688,7 @@ static bool doConvert(Score *cs, const QString& fn)
                   scores.append(e->partScore());
             return mscore->savePdf(scores, fn);
             }
-      else if (fn.endsWith(".png")) {
+      else if (fn.endsWith(".png") || fn.endsWith(".jpg")) {
             if (!exportScoreParts)
                   return mscore->savePng(cs, fn);
             if (cs->excerpts().size() == 0) {
