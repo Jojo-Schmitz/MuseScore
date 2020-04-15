@@ -2553,8 +2553,10 @@ void layoutDrumsetChord(Chord* c, const Drumset* drumset, const StaffType* st, q
 std::pair<qreal, qreal> extendedStemLenWithTwoNoteTremolo(Tremolo* tremolo, qreal stemLen1, qreal stemLen2)
       {
       const qreal spatium = tremolo->score()->spatium();
+#if 0
       const qreal sw = tremolo->score()->styleS(Sid::tremoloStrokeWidth).val();
       const qreal td = tremolo->score()->styleS(Sid::tremoloDistance).val();
+#endif
       Chord* c1 = tremolo->chord1();
       Chord* c2 = tremolo->chord2();
       Stem*  s1 = c1->stem();
