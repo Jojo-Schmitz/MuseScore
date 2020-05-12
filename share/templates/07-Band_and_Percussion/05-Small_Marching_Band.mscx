@@ -890,14 +890,14 @@
           <name>Ride Cymbal</name>
           <stem>1</stem>
           </Drum>
-        <Drum pitch="74">
+        <Drum pitch="46">
           <head>xcircle</head>
           <line>1</line>
           <voice>2</voice>
           <name>Open Hi-Hat</name>
           <stem>1</stem>
           </Drum>
-        <Drum pitch="76">
+        <Drum pitch="42">
           <head>cross</head>
           <line>1</line>
           <voice>2</voice>
