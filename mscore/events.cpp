@@ -18,6 +18,7 @@
 #include "zoombox.h"
 
 #include "libmscore/chordrest.h"
+#include "timeline.h"
 #include "libmscore/keysig.h"
 #include "libmscore/measure.h"
 #include "libmscore/repeatlist.h"
@@ -344,10 +345,22 @@ void ScoreView::mouseReleaseEvent(QMouseEvent* mouseEvent)
                         break;
 
                   if (modifySelection) {
+            // for multi-movement scores, deselect elements from other scores
+            if (_score != m_drawingScore) {
+                for (auto x : *static_cast<MasterScore*>(m_drawingScore)->movements()) {
+                    if (x != _score) {
+                        x->deselectAll();
+                    }
+                }
+            }
                         _score->select(elementToSelect);
                         modifySelection = false;
                         elementToSelect = nullptr;
                         _score->update();
+            if (_score != m_drawingScore) { // only run for multi-movement scores
+                m_drawingScore->update(); // seems to fix a bug where the individual scores wouldn;t be redrawn before doing something after changing from the album-mode score
+                m_drawingScore->doLayout();
+            }
                         mscore->endCmd();
                         }
                   break;
@@ -361,6 +374,7 @@ void ScoreView::mouseReleaseEvent(QMouseEvent* mouseEvent)
                   changeState(ViewState::FOTO);
                   break;
             }
+    update();
       }
 
 //---------------------------------------------------------
@@ -448,12 +462,21 @@ void ScoreView::mousePressEventNormal(QMouseEvent* ev)
                         }
                   }
             if (e) {
+            _score = e->score();
+            if (_score != m_drawingScore) {
+                for (auto x : *static_cast<MasterScore*>(m_drawingScore)->movements()) {
+                    if (x != _score) {
+                        x->deselectAll();
+                    }
+                }
+            }
+            _score->setUpdateAll();
                   if (e->isNote() || e->isHarmony()) {
                         e->score()->updateCapo();
+                seq->setScoreView(this); // initializes instruments (we can have different instruments in different movements)
+                mscore->timeline()->setScore(score());
                         mscore->play(e);
                         }
-                  _score = e->score();
-                  _score->setUpdateAll();
                   }
             }
       else {
@@ -478,7 +501,12 @@ void ScoreView::mousePressEventNormal(QMouseEvent* ev)
                   modifySelection = true;
             }
       _score->update();
+    if (_score != m_drawingScore) { // only run for multi-movement scores
+        m_drawingScore->update(); // seems to fix a bug where the individual scores wouldn;t be redrawn before doing something after changing from the album-mode score
+        m_drawingScore->doLayout();
+    }
       mscore->endCmd();
+    update();
       }
 
 //---------------------------------------------------------
@@ -518,7 +546,11 @@ void ScoreView::mousePressEvent(QMouseEvent* ev)
                               if (editData.grip[i].adjusted(-a, -a, a, a).contains(editData.startMove)) {
                                     editData.curGrip = Grip(i);
                                     updateGrips();
-                                    score()->update();
+                    _score->update();
+                    if (_score != m_drawingScore) { // only run for multi-movement scores
+                        m_drawingScore->update(); // seems to fix a bug where the individual scores wouldn;t be redrawn before doing something after changing from the album-mode score
+                        m_drawingScore->doLayout();
+                    }
                                     gripFound = true;
                                     break;
                                     }
@@ -608,7 +640,11 @@ void ScoreView::mousePressEvent(QMouseEvent* ev)
                         }
                   else {
                         editData.element->mousePress(editData);
-                        score()->update();
+                        _score->update();
+                        if (_score != m_drawingScore) { // only run for multi-movement scores
+                              m_drawingScore->update(); // seems to fix a bug where the individual scores wouldn;t be redrawn before doing something after changing from the album-mode score
+                              m_drawingScore->doLayout();
+                              }
                         if (editData.element->isTextBase() && mscore->textTools())
                               mscore->textTools()->updateTools(editData);
                         }
@@ -630,6 +666,7 @@ void ScoreView::mousePressEvent(QMouseEvent* ev)
                   qDebug("mousePressEvent in state %d", int(state));
                   break;
             }
+    update();
       }
 
 //---------------------------------------------------------
@@ -1133,6 +1170,10 @@ void ScoreView::changeState(ViewState s)
       if (s == state)
             return;
 
+    if (_score->masterScore()->textMovement()) {
+        _score = _score->masterScore()->movements()->at(_score->masterScore()->firstRealMovement())->score();
+    }
+
       qDebug("changeState %s  -> %s", stateName(state), stateName(s));
 
       auto& selection = _score->selection();
@@ -1238,9 +1279,16 @@ void ScoreView::changeState(ViewState s)
                   break;
             case ViewState::LASSO:
                   break;
-            case ViewState::PLAY:
+    case ViewState::PLAY: {
+        if (seq->pauseTimer() && seq->pauseTimer()->isActive()) {
+            seq->pauseTimer()->stop();
+            QAction* a = getAction("play");
+            a->setChecked(false);
+            return;
+        }
                   seq->start();
                   break;
+    }
             case ViewState::ENTRY_PLAY:
                   break;
             case ViewState::FOTO_LASSO:

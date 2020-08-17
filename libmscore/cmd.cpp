@@ -16,6 +16,7 @@
 */
 
 #include "accidental.h"
+#include "album.h"
 #include "articulation.h"
 #include "barline.h"
 #include "beam.h"
@@ -26,6 +27,7 @@
 #include "drumset.h"
 #include "durationtype.h"
 #include "dynamic.h"
+#include "excerpt.h"
 #include "hairpin.h"
 #include "harmony.h"
 #include "key.h"
@@ -250,6 +252,23 @@ void Score::endCmd(bool rollback)
             undoStack()->current()->unwind();
 
       update(false);
+
+      //
+      // Update the combined Album Score and its parts
+      //
+      if (this->isMasterScore() && Album::albumModeActive()) {
+            // update the main Album Score for things to be drawn properly
+            Album::activeAlbum->getCombinedScore()->update();
+            Album::activeAlbum->getCombinedScore()->doLayout();
+            MasterScore* ms = static_cast<MasterScore*>(this);
+            // update the current multi-movement so that editing works
+            if (ms->isMultiMovementScore()) {
+                  this->doLayout();
+            } else if (ms->movementOf()) {
+                  ms->movementOf()->update();
+                  ms->movementOf()->doLayout();
+                  }
+            }
 
       if (MScore::debugMode)
             qDebug("===endCmd() %d", undoStack()->current()->childCount());

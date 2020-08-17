@@ -10,6 +10,7 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
+#include "album.h"
 #include "layoutbreak.h"
 #include "measure.h"
 #include "measurebase.h"
@@ -20,6 +21,7 @@
 #include "staff.h"
 #include "stafftypechange.h"
 #include "system.h"
+#include "page.h"
 #include "tempo.h"
 #include "xml.h"
 
@@ -113,6 +115,29 @@ void MeasureBase::scanElements(void* data, void (*func)(void*, Element*), bool a
             }
       if (isBox())
             func(data, this);
+      }
+
+//---------------------------------------------------------
+//   setSystem
+//     Set Parent system AND
+//     (for Albums)
+//     Point the system of this page to the correct Album Page.
+//---------------------------------------------------------
+
+void MeasureBase::setSystem(System* s)
+      {
+      setParent((Element*)s);
+
+      if (albumParentPage && s) {
+            if (Album::activeAlbum && Album::activeAlbum->getCombinedScore()) {
+                  for (auto x : Album::activeAlbum->getCombinedScore()->pages()) {
+                      if (albumParentPage == x) {
+                          s->setAlbumParent((Element*)albumParentPage);
+                          }
+                      }
+                  }
+                  albumParentPage = nullptr;
+            }
       }
 
 //---------------------------------------------------------

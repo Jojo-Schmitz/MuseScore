@@ -34,6 +34,7 @@
 
 #include "inspector/inspector.h"
 
+#include "libmscore/album.h"
 #include "libmscore/articulation.h"
 #include "libmscore/barline.h"
 #include "libmscore/chord.h"
@@ -114,9 +115,10 @@ ScoreView::ScoreView(QWidget* parent)
       setAutoFillBackground(false);
 
       state       = ViewState::NORMAL;
-      _score      = 0;
-      _omrView    = 0;
-      dropTarget  = 0;
+    _score      = nullptr;
+    m_drawingScore = nullptr;
+    _omrView    = nullptr;
+    dropTarget  = nullptr;
 
       realtimeTimer = new QTimer(this);
       realtimeTimer->setTimerType(Qt::PreciseTimer);
@@ -133,19 +135,18 @@ ScoreView::ScoreView(QWidget* parent)
       const qreal physicalZoomLevel = defaultLogicalZoom.level * (mscore->physicalDotsPerInch() / DPI);
       _matrix = QTransform(physicalZoomLevel, 0.0, 0.0, physicalZoomLevel, 0.0, 0.0);
       imatrix = _matrix.inverted();
-
-      focusFrame  = 0;
+      focusFrame  = nullptr;
       _bgColor    = Qt::darkBlue;
       _fgColor    = Qt::white;
-      _fgPixmap    = 0;
-      _bgPixmap    = 0;
+      _fgPixmap    = nullptr;
+      _bgPixmap    = nullptr;
 
       editData.curGrip = Grip::NO_GRIP;
       editData.grips   = 0;
       editData.element = 0;
 
       lasso       = new Lasso(_score);
-      _foto       = 0;// new Lasso(_score);
+      _foto       = nullptr;  // new Lasso(_score);
 
       _cursor     = new PositionCursor(this);
       _cursor->setType(CursorType::POS);
@@ -159,7 +160,7 @@ ScoreView::ScoreView(QWidget* parent)
       _continuousPanel = new ContinuousPanel(this);
       _continuousPanel->setActive(true);
 
-      shadowNote  = 0;
+      shadowNote  = nullptr;
 
       _curLoopIn  = new PositionCursor(this);
       _curLoopIn->setType(CursorType::LOOP_IN);
@@ -202,6 +203,7 @@ ScoreView::ScoreView(QWidget* parent)
 
 void ScoreView::setScore(Score* s)
       {
+    m_drawingScore = s;
       if (_score) {
             if (_score->isMaster()) {
                   MasterScore* ms = static_cast<MasterScore*>(s);
@@ -217,6 +219,7 @@ void ScoreView::setScore(Score* s)
             }
 
       _score = s;
+
       if (_score) {
             if (_score->isMaster()) {
                   MasterScore* ms = static_cast<MasterScore*>(s);
@@ -254,8 +257,14 @@ void ScoreView::setScore(Score* s)
 
 ScoreView::~ScoreView()
       {
-      if (_score)
+      if (_score) {
+            if (Album::scoreInActiveAlbum(static_cast<MasterScore*>(_score)) && Album::activeAlbum->getCombinedScore()) {
+                  for (auto& x : *Album::activeAlbum->getCombinedScore()->movements()) {
+                        x->removeViewer(this);
+                        }
+                  }
             _score->removeViewer(this);
+            }
       delete lasso;
       delete _foto;
       delete _cursor;
@@ -555,6 +564,11 @@ void ScoreView::setForeground(const QColor& color)
       _fgColor = color;
       update();
       }
+
+void ScoreView::setActiveScore(Score* s)
+{
+    _score = s;
+}
 
 //---------------------------------------------------------
 //   dataChanged
@@ -1100,12 +1114,18 @@ void ScoreView::drawAnchorLines(QPainter& painter)
 //---------------------------------------------------------
 void ScoreView::paintEvent(QPaintEvent* ev)
       {
-      if (!_score)
+      if (!m_drawingScore)
             return;
       QPainter vp(this);
       vp.setRenderHint(QPainter::Antialiasing, preferences.getBool(PREF_UI_CANVAS_MISC_ANTIALIASEDDRAWING));
       vp.setRenderHint(QPainter::TextAntialiasing, true);
 
+    if (m_drawingScore->isMultiMovementScore() && _score != m_drawingScore) { // only run for multi-movement scores
+        m_drawingScore->doLayout();
+    }
+    if (!_score && m_drawingScore) {
+        _score = m_drawingScore;
+    }
       paint(ev->rect(), vp);
 
       vp.setTransform(_matrix);
@@ -1114,10 +1134,10 @@ void ScoreView::paintEvent(QPaintEvent* ev)
       _curLoopIn->paint(&vp);
       _curLoopOut->paint(&vp);
       _cursor->paint(&vp);
-      if (_score->layoutMode() == LayoutMode::LINE)
+      if (m_drawingScore->layoutMode() == LayoutMode::LINE)
             _controlCursor->paint(&vp);
 
-      if (_score->layoutMode() == LayoutMode::LINE)
+      if (m_drawingScore->layoutMode() == LayoutMode::LINE)
             _continuousPanel->paint(ev->rect(), vp);
 
       if (!lasso->bbox().isEmpty())
@@ -1157,7 +1177,7 @@ void ScoreView::paintPageBorder(QPainter& p, Page* page)
       p.setPen(QPen(QColor(0,0,0,102), 1));
       p.drawRect(r);
 
-      if (_score->showPageborders()) {
+    if (m_drawingScore->showPageborders()) {
             // show page margins
             p.setBrush(Qt::NoBrush);
             p.setPen(MScore::frameMarginColor);
@@ -1321,10 +1341,9 @@ void ScoreView::paint(const QRect& r, QPainter& p)
       // ------------
 
       QRegion r1(r);
-      if ((_score->layoutMode() == LayoutMode::LINE) || (_score->layoutMode() == LayoutMode::SYSTEM)) {
-            if (_score->pages().size() > 0) {
-
-                  Page* page = _score->pages().front();
+      if ((m_drawingScore->layoutMode() == LayoutMode::LINE) || (m_drawingScore->layoutMode() == LayoutMode::SYSTEM)) {
+          if (m_drawingScore->pages().size() > 0) {
+              Page* page = m_drawingScore->pages().front();
                   QList<Element*> ell = page->items(fr);
 
                   // AvsOmr -----
@@ -1340,7 +1359,7 @@ void ScoreView::paint(const QRect& r, QPainter& p)
                   }
             }
       else {
-            for (Page* page : qAsConst(_score->pages())) {
+            for (Page* page : qAsConst(m_drawingScore->pages())) {
                   QRectF pr(page->abbox().translated(page->pos()));
                   if (pr.right() < fr.left())
                         continue;
@@ -1562,7 +1581,7 @@ void ScoreView::paint(const QRect& r, QPainter& p)
             lassoToDraw->drawEditMode(&p, editData);
 
       p.setWorldMatrixEnabled(false);
-      if (_score->layoutMode() != LayoutMode::LINE && _score->layoutMode() != LayoutMode::SYSTEM && !r1.isEmpty()) {
+    if (m_drawingScore->layoutMode() != LayoutMode::LINE && m_drawingScore->layoutMode() != LayoutMode::SYSTEM && !r1.isEmpty()) {
             p.setClipRegion(r1);  // only background
             if (_bgPixmap == 0 || _bgPixmap->isNull())
                   p.fillRect(r, _bgColor);
@@ -1618,6 +1637,11 @@ void ScoreView::constraintCanvas (int* dxx, int* dyy)
 
       Page* firstPage = score()->pages().front();
       Page* lastPage  = score()->pages().back();
+
+    if (m_drawingScore->isMultiMovementScore()) {
+        firstPage = m_drawingScore->pages().front();
+        lastPage = m_drawingScore->pages().back();
+    }
 
       if (firstPage && lastPage) {
             QPointF offsetPt(xoffset(), yoffset());
@@ -4004,7 +4028,7 @@ void ScoreView::adjustCanvasPosition(const Element* el, bool playBack, int staff
             y = showRect.top() - border;
 
       // align to page borders if extends beyond
-      Page* page = sys->page();
+      Page* page = sys->albumPage();
       if (x < page->x() || r.width() >= page->width())
             x = page->x();
       else if (r.width() < page->width() && r.width() + x > page->width() + page->x())

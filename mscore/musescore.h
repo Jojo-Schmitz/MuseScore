@@ -80,6 +80,7 @@ class MediaDialog;
 class Workspace;
 class WorkspaceDialog;
 class AlbumManager;
+class Album;
 class WebPageDockWidget;
 class ChordList;
 class Capella;
@@ -308,8 +309,10 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
 #ifndef NDEBUG
       QMenu* menuDebug;
 #endif
-      AlbumManager* albumManager           { 0 };
       ExportDialog* exportDialog           { 0 };
+      AlbumManager* albumManager           { 0 };
+      static QString albumPathRestore;
+      static bool albumModeRestore;
 
       QWidget* _searchDialog               { 0 };
       QComboBox* searchCombo;
@@ -477,13 +480,14 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void editRaster();
       void showPianoKeyboard(bool);
       void showMediaDialog();
-      void showAlbumManager();
+      void showAlbumManager(bool);
       void showLayerManager();
       void updateUndoRedo();
       void changeScore(int);
       virtual void resizeEvent(QResizeEvent*) override;
       void showModeText(const QString& s, bool informScreenReader = true);
       void addRecentScore(const QString& scorePath);
+      void addRecentAlbum(const QString& albumPath);
 
       void setZoom(const ZoomIndex, const qreal logicalFreeZoomLevel = 0.0);
       void setZoomWithToggle(const ZoomIndex index);
@@ -527,7 +531,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void askForHelp();
       void leaveFeedback(QString medium);
       void openRecentMenu();
-      void selectScore(QAction*);
+    void selectFile(QAction*);
       void startPreferenceDialog();
       void preferencesChanged(bool fromWorkspace = false, bool changeUI = true);
       void seqStarted();
@@ -619,6 +623,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       ~MuseScore();
       bool checkDirty(MasterScore*);
       IPlayPanel* playPanelInterface() const;
+    AlbumManager* getAlbumManager() const { return albumManager; }
       PlayPanel* getPlayPanel() const { return playPanel; }
       Mixer* getMixer() const { return mixer; }
       QMenu* genCreateMenu(QWidget* parent = 0);
@@ -650,6 +655,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       QProgressBar* showProgressBar();
       void hideProgressBar();
       void addRecentScore(Score*);
+    void addRecentAlbum(Album*);
       QFileDialog* saveAsDialog();
       QFileDialog* saveCopyDialog();
       void showStyleDialog(Element* e = nullptr);
@@ -702,7 +708,14 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void loadFile(const QUrl&);
       QTemporaryFile* getTemporaryScoreFileCopy(const QFileInfo& info, const QString& baseNameTemplate);
       QNetworkAccessManager* networkManager();
-      virtual Score* openScore(const QString& fn, bool switchTab = true, const bool appendToExistingTabs = true, const QString& withFilename = "") override;
+      virtual MasterScore* openScore(const QString& fn, bool switchTab = true, const bool appendToExistingTabs = true, const QString& withFilename = "") override;
+      virtual MasterScore* openScoreForAlbum(const QString& fn);
+      void openAlbum(const QString& fn);
+      void importAlbum(const QString& fn);
+      bool saveAlbum();
+      bool saveAlbumAs();
+      bool saveAlbumAndScores();
+      bool exportAlbum();
       bool hasToCheckForUpdate();
       bool hasToCheckForExtensionsUpdate();
       static bool unstable();
