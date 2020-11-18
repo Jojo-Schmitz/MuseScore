@@ -4980,15 +4980,15 @@ void ScoreView::cmdRepeatSelection()
 
 bool ScoreView::searchPage(int n)
       {
-      bool result = true;
+      bool found = true;
       n -= score()->pageNumberOffset();
       if (n <= 0) {
             n = 1;
-            result = false;
+            found = false;
             }
       n--;
       if (n >= _score->npages()) {
-            result = false;
+            found = false;
             n = _score->npages() - 1;
             }
       const Page* page = _score->pages()[n];
@@ -4998,8 +4998,33 @@ bool ScoreView::searchPage(int n)
                   break;
                   }
             }
-      return result;
+      return found;
       }
+
+#if 0 // TODO
+//---------------------------------------------------------
+//   searchMeasureLogical
+//---------------------------------------------------------
+
+bool ScoreView::searchMeasureLogical(int n)
+      {
+      bool found = true;
+      Measure* measure;
+      for (measure = _score->nextMeasureMM()->prevMeasureMM(); measure; measure = measure->nextMeasureMM()) {
+            int nn = _score->styleB(StyleIdx::createMultiMeasureRests) && measure->isMMRest()
+               ? measure->mmRestCount() : 1;
+            if (n >= i && n < (i+nn))
+                  break;
+            i += nn;
+            }
+      if (!measure) {
+            measure = score()->lastMeasureMM();
+            found = false;
+            }
+      gotoMeasure(measure);
+      return found;
+      }
+#endif
 
 //---------------------------------------------------------
 //   searchMeasure
@@ -5009,7 +5034,7 @@ bool ScoreView::searchMeasure(int n)
       {
       if (n <= 0)
             return false;
-      bool result = true;
+      bool found = true;
       --n;
       int i = 0;
       Measure* measure;
@@ -5022,10 +5047,10 @@ bool ScoreView::searchMeasure(int n)
             }
       if (!measure) {
             measure = score()->lastMeasureMM();
-            result = false;
+            found = false;
             }
       gotoMeasure(measure);
-      return result;
+      return found;
       }
 
 //---------------------------------------------------------
@@ -5054,6 +5079,35 @@ bool ScoreView::searchRehearsalMark(const QString& s)
             }
       return found;
       }
+
+#if 0 // TODO
+//---------------------------------------------------------
+//   searchSection
+//---------------------------------------------------------
+
+bool ScoreView::searchSection(int n)
+      {
+      bool found = true;
+      Measure* measure;
+
+      for (Segment* seg = score()->firstSegment(); seg; seg = seg->next1(Segment::Type::ChordRest)) {
+            for (Element* e : seg->annotations()){
+                  if (e->  //->type() == Element::Type::b) {
+                        RehearsalMark* rm = static_cast<RehearsalMark*>(e);
+                        QString rms = rm->plainText().toLower();
+                        if (rms.startsWith(ss)) {
+                              gotoMeasure(seg->measure()->nextMeasureMM());
+                              found = true;
+                              break;
+                              }
+                        }
+                  }
+            if (found)
+                  break;
+
+      return found;
+      }
+#endif
 
 //---------------------------------------------------------
 //   gotoMeasure
