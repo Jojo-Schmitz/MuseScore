@@ -41,6 +41,7 @@
 
     <sym code="0x0394" name="triangle"/>
     <sym code="0x03bf" name="circle"/>
+    <sym code="0x00b0" name="sdim"/> <!-- ° or &deg; -->
     <sym code="0x00f8" name="oslash"/>
 
     <sym code="0x266d" name="b"/>
@@ -113,6 +114,8 @@
     <sym code="0x266d" name="sb"/>
     <sym code="0x266f" name="s#"/>
     <sym code="0x0394" name="striangle"/>
+    <sym code="0x03bf" name="circle"/>
+    <sym code="0x00b0" name="sdim"/>
     </font>
 
   <font>
@@ -145,6 +148,11 @@
   <token>
     <name>0</name>
     <render>oslash</render>
+    </token>
+
+  <token class="modifier">
+    <name>dim</name>
+    <render>sdim</render>
     </token>
 
   <token>

@@ -439,15 +439,15 @@ void ParsedChord::configure(const ChordList* cl)
       if (!cl)
             return;
       // TODO: allow this to be parameterized via chord list
-      major << "ma" << "maj" << "major" << "t" << "^";
+      major << "ma" << "maj" << "major" << "t" << "^" << "Δ";
       minor << "mi" << "min" << "minor" << "-" << "=";
-      diminished << "dim" << "o";
+      diminished << "dim" << "o" << "°";
       augmented << "aug" << "+";
-      lower << "b" << "-" << "dim";
-      raise << "#" << "+" << "aug";
+      lower << "b" << "-" << "dim" << "♭" << "°";
+      raise << "#" << "+" << "aug" << "♯";
       mod1 << "sus" << "alt";
       mod2 << "sus" << "add" << "no" << "omit" << "^";
-      symbols << "t" << "^" << "-" << "+" << "o" << "0";
+      symbols << "t" << "^" << "-" << "+" << "o" << "0" << "Δ" << "°";
       }
 
 //---------------------------------------------------------
