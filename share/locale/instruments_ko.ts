@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ko" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ko">
 <context>
     <name>InstrumentsXML</name>
     <message>
@@ -1591,9 +1593,8 @@
         <translation>하이햇</translation>
     </message>
     <message>
-        <location filename="../instruments/instrumentsxml.h" line="956"/>
         <source>Bells</source>
-        <translation>종</translation>
+        <translation type="vanished">종</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="958"/>
@@ -2014,7 +2015,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="57"/>
         <source>Marching Band</source>
-        <translation>행진 밴드</translation>
+        <translation>마칭 밴드</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="58"/>
@@ -2079,7 +2080,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="70"/>
         <source>Flugelhorns</source>
-        <translation type="unfinished"/>
+        <translation>플루겔혼</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="71"/>
@@ -2124,17 +2125,17 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="80"/>
         <source>Orff Percussion</source>
-        <translation type="unfinished"/>
+        <translation>오르프 악기</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="82"/>
         <source>Unpitched Metal Percussion</source>
-        <translation type="unfinished"/>
+        <translation>음정이 없는 금속 타악기</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="83"/>
         <source>Unpitched Wooden Percussion</source>
-        <translation type="unfinished"/>
+        <translation>음정이 없는 목재 타악기</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="84"/>
@@ -2144,7 +2145,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="85"/>
         <source>Batterie</source>
-        <translation type="unfinished"/>
+        <translation>오케스트라의 타악기 파트</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="86"/>
@@ -2603,7 +2604,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="226"/>
         <source>Ob. d&apos;a.</source>
-        <comment>Oboe d'amore</comment>
+        <comment>Oboe d&apos;amore</comment>
         <translation>Ob. d&apos;a.</translation>
     </message>
     <message>
@@ -3577,7 +3578,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1295"/>
         <location filename="../instruments/instrumentsxml.h" line="1299"/>
         <location filename="../instruments/instrumentsxml.h" line="1304"/>
-        <location filename="../instruments/instrumentsxml.h" line="1312"/>
+        <location filename="../instruments/instrumentsxml.h" line="1309"/>
         <source>mute</source>
         <translation>뮤트</translation>
     </message>
@@ -3654,7 +3655,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="531"/>
         <source>Horn in C (Bass Clef)</source>
-        <translation type="unfinished"/>
+        <translation>C 호른 (낮은음자리표)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="535"/>
@@ -4579,10 +4580,9 @@
         <translation>콘서트 베이스드럼</translation>
     </message>
     <message>
-        <location filename="../instruments/instrumentsxml.h" line="929"/>
         <source>Con. BD </source>
         <comment>Concert Bass Drum</comment>
-        <translation>Con. BD </translation>
+        <translation type="vanished">Con. BD </translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="930"/>
@@ -4688,10 +4688,9 @@
         <translation>탐</translation>
     </message>
     <message>
-        <location filename="../instruments/instrumentsxml.h" line="957"/>
         <source>Be.</source>
         <comment>Bells</comment>
-        <translation>Be.</translation>
+        <translation type="vanished">Be.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="959"/>
@@ -5631,7 +5630,7 @@
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1391"/>
-        <location filename="../instruments/instrumentsxml.h" line="1399"/>
+        <location filename="../instruments/instrumentsxml.h" line="1397"/>
         <location filename="../instruments/instrumentsxml.h" line="1403"/>
         <location filename="../instruments/instrumentsxml.h" line="1408"/>
         <location filename="../instruments/instrumentsxml.h" line="1412"/>
@@ -5642,7 +5641,7 @@
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1392"/>
-        <location filename="../instruments/instrumentsxml.h" line="1400"/>
+        <location filename="../instruments/instrumentsxml.h" line="1398"/>
         <location filename="../instruments/instrumentsxml.h" line="1404"/>
         <location filename="../instruments/instrumentsxml.h" line="1409"/>
         <location filename="../instruments/instrumentsxml.h" line="1413"/>
@@ -6011,7 +6010,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="91"/>
         <source>Plucked Strings</source>
-        <translation type="unfinished"/>
+        <translation>발현악기</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1198"/>
@@ -6230,6 +6229,23 @@
         <translation>B♭ 피페</translation>
     </message>
     <message>
+        <location filename="../instruments/instrumentsxml.h" line="929"/>
+        <source>Con. B.D.</source>
+        <comment>Concert Bass Drum</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../instruments/instrumentsxml.h" line="956"/>
+        <source>Ride Bell</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../instruments/instrumentsxml.h" line="957"/>
+        <source>Ri. Be.</source>
+        <comment>Ride Bell</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../instruments/instrumentsxml.h" line="1219"/>
         <source>Bj.</source>
         <comment>Banjo</comment>
@@ -6416,7 +6432,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1287"/>
         <location filename="../instruments/instrumentsxml.h" line="1300"/>
         <location filename="../instruments/instrumentsxml.h" line="1305"/>
-        <location filename="../instruments/instrumentsxml.h" line="1313"/>
+        <location filename="../instruments/instrumentsxml.h" line="1310"/>
         <source>jazz</source>
         <translation>재즈</translation>
     </message>
@@ -6456,17 +6472,17 @@
         <translation>El. Guit.</translation>
     </message>
     <message>
-        <location filename="../instruments/instrumentsxml.h" line="1309"/>
+        <location filename="../instruments/instrumentsxml.h" line="1311"/>
         <source>harmonics</source>
         <translation>화성</translation>
     </message>
     <message>
-        <location filename="../instruments/instrumentsxml.h" line="1310"/>
+        <location filename="../instruments/instrumentsxml.h" line="1312"/>
         <source>distortion</source>
         <translation>디스토션</translation>
     </message>
     <message>
-        <location filename="../instruments/instrumentsxml.h" line="1311"/>
+        <location filename="../instruments/instrumentsxml.h" line="1313"/>
         <source>overdriven</source>
         <translation>오버드라이브</translation>
     </message>
@@ -6505,50 +6521,50 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1324"/>
         <source>Mtn. Dulcimer</source>
-        <translation type="unfinished"/>
+        <translation>마운틴 덜시머</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1325"/>
         <source>Mtn. Dc.</source>
         <comment>Mtn. Dulcimer</comment>
-        <translation type="unfinished"/>
+        <translation>마운틴 덜시머</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1326"/>
         <source>Mtn. Dulcimer (Tablature)</source>
-        <translation type="unfinished"/>
+        <translation>마운틴 덜시머 (타브)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1327"/>
         <source>Mtn. Dulcimer - Baritone</source>
-        <translation type="unfinished"/>
+        <translation>마운틴 덜시머 - 바리톤</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1328"/>
         <source>Bar. M.D.</source>
         <comment>Mtn. Dulcimer - Baritone</comment>
-        <translation type="unfinished"/>
+        <translation>바리톤 마운틴 덜시머</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1329"/>
         <source>Mtn. Dulcimer - Baritone (Tablature)</source>
-        <translation type="unfinished"/>
+        <translation>마운틴 덜시머 - 바리톤 (타브)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1330"/>
         <source>Mtn. Dulcimer - Bass</source>
-        <translation type="unfinished"/>
+        <translation>마운틴 덜시머 - 베이스</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1331"/>
         <source>Bs. M.D.</source>
         <comment>Mtn. Dulcimer - Bass</comment>
-        <translation type="unfinished"/>
+        <translation>베이스 마운틴 덜시머</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1332"/>
         <source>Mtn. Dulcimer - Bass (Tablature)</source>
-        <translation type="unfinished"/>
+        <translation>마운틴 덜시머 - 베이스 (타브)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1333"/>
@@ -6699,7 +6715,7 @@
         <translation>피치카토 </translation>
     </message>
     <message>
-        <location filename="../instruments/instrumentsxml.h" line="1397"/>
+        <location filename="../instruments/instrumentsxml.h" line="1399"/>
         <location filename="../instruments/instrumentsxml.h" line="1445"/>
         <location filename="../instruments/instrumentsxml.h" line="1450"/>
         <location filename="../instruments/instrumentsxml.h" line="1455"/>
@@ -6724,7 +6740,7 @@
         <translation>아르코</translation>
     </message>
     <message>
-        <location filename="../instruments/instrumentsxml.h" line="1398"/>
+        <location filename="../instruments/instrumentsxml.h" line="1400"/>
         <location filename="../instruments/instrumentsxml.h" line="1447"/>
         <location filename="../instruments/instrumentsxml.h" line="1452"/>
         <location filename="../instruments/instrumentsxml.h" line="1457"/>
@@ -6889,7 +6905,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1550"/>
         <source>Marching Band</source>
-        <translation>행진 밴드</translation>
+        <translation>마칭 밴드</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1551"/>
@@ -6919,17 +6935,17 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1556"/>
         <source>Woodwind Ensemble</source>
-        <translation type="unfinished"/>
+        <translation>목관 앙상블</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1557"/>
         <source>Brass Ensemble</source>
-        <translation type="unfinished"/>
+        <translation>금관 앙상블</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1558"/>
         <source>String Ensemble</source>
-        <translation type="unfinished"/>
+        <translation>현악 앙상블</translation>
     </message>
 </context>
 <context>
@@ -6982,17 +6998,17 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="10"/>
         <source>SATB Closed Score</source>
-        <translation type="unfinished"/>
+        <translation>큰보표형 4부합창</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="11"/>
         <source>SATB Closed Score + Organ</source>
-        <translation type="unfinished"/>
+        <translation>큰보표형 4부합창 + 오르간</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="12"/>
         <source>SATB Closed Score + Piano</source>
-        <translation type="unfinished"/>
+        <translation>큰보표형 4부합창 + 피아노</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="13"/>
@@ -7012,17 +7028,17 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="16"/>
         <source>Liturgical Unmetrical</source>
-        <translation type="unfinished"/>
+        <translation>무박자 전례음악</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="17"/>
         <source>Liturgical Unmetrical + Organ</source>
-        <translation type="unfinished"/>
+        <translation>무박자 전례음악 + 오르간</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="18"/>
         <source>Chamber Music</source>
-        <translation type="unfinished"/>
+        <translation>실내악</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="19"/>
@@ -7112,12 +7128,12 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="36"/>
         <source>Bluegrass Band</source>
-        <translation type="unfinished"/>
+        <translation>블루그래스 밴드</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="37"/>
         <source>Band and Percussion</source>
-        <translation type="unfinished"/>
+        <translation>밴드 및 타악기</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="38"/>
@@ -7127,7 +7143,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="39"/>
         <source>Small Concert Band</source>
-        <translation type="unfinished"/>
+        <translation>소형 콘서트 밴드</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="40"/>
@@ -7137,12 +7153,12 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="41"/>
         <source>Marching Band</source>
-        <translation>행진 밴드</translation>
+        <translation>마칭 밴드</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="42"/>
         <source>Small Marching Band</source>
-        <translation type="unfinished"/>
+        <translation>소형 마칭 밴드</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="43"/>
@@ -7152,17 +7168,17 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="44"/>
         <source>Large Pit Percussion</source>
-        <translation type="unfinished"/>
+        <translation>큰 피트 타악기</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="45"/>
         <source>Small Pit Percussion</source>
-        <translation type="unfinished"/>
+        <translation>작은 피트 타악기</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="46"/>
         <source>European Concert Band</source>
-        <translation type="unfinished"/>
+        <translation>유럽식 콘서트 밴드</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="47"/>

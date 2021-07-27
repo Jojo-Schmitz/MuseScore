@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="el" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="el">
 <context>
     <name>TourXML</name>
     <message>
@@ -213,48 +215,48 @@
     If the value is controlled by a style setting, you can click the &quot;Set as style&quot; button to set the current value as the new default for the style.
     You can also set style defaults using Format &gt; Style….</source>
         <comment>inspector-tour</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The quickest way to scroll up and down is to use your mouse wheel or equivalent touch gesture (for example, two-finger swipe).
     To scroll horizontally, hold &quot;Shift&quot; while using the mouse wheel or touch gesture.</source>
         <comment>navigate-tour</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The navigation keys on your keyboard such as &quot;PgUp&quot;, &quot;PgDn&quot;, &quot;Home&quot;, and &quot;End&quot; function as in other applications
     to move between pages.
     Keyboards that lack these keys often provide equivalents such as &quot;Fn+Up/Down/Left/Right&quot;.</source>
         <comment>navigate-tour</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You can move the score short distances by clicking an empty area of the page and dragging.
     By the way, you can also select regions by holding &quot;Shift&quot; while dragging.</source>
         <comment>navigate-tour</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>To enter a note of the selected duration, type its letter name or click on the staff.
     Press &quot;Ctrl+Up/Down&quot; (macOS: &quot;Cmd+Up/Down&quot;) to change octave.</source>
         <comment>note-input</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>To add an accidental to a note, press the shortcut &quot;Up&quot; or &quot;Down&quot; to raise or lower its pitch,
     or click one of these icons.</source>
         <comment>note-input</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>To add a note to a chord, press &quot;Shift&quot; while typing its letter name, or click on the staff.</source>
         <comment>note-input</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>To create a triplet or other tuplet, select the duration representing the total length of the tuplet, then press &quot;Ctrl+number&quot; or use Add &gt; Tuplets.</source>
         <comment>note-input</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>To make a single selection, click the element you want to select.
@@ -263,7 +265,7 @@
     Tip: if you press the &quot;Alt&quot; key (&quot;Option&quot; on macOS) along with the cursor keys you can move through other elements too,
     and also move up and down from staff to staff.</source>
         <comment>select-tour</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>A list selection is a combination of single selections.
@@ -271,7 +273,7 @@
     You can also quickly select similar elements by right-clicking (macOS: &quot;Ctrl&quot;+clicking) one
     and then choosing one of the &quot;Select&quot; options from the resulting popup menu.</source>
         <comment>select-tour</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>A range selection includes everything from one point in time to another across one or more staves.
@@ -279,14 +281,14 @@
     To make a range selection, click the first note, rest, or measure you want to select, then &quot;Shift&quot;+click the last.
     You can also extend range selections by holding the &quot;Shift&quot; key while moving the cursor.</source>
         <comment>select-tour</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Another way to make selections is to hold &quot;Shift&quot; while dragging.
     If your selection includes notes, it will automatically be made as a range selection;
     otherwise it will be made as a list selection.</source>
         <comment>select-tour</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Most elements on the lines palette span a range from a start element to an end element.
@@ -297,7 +299,7 @@
 
     - Press &quot;Shift+Left&quot; to move that handle backward.</source>
         <comment>spanner-drop-apply</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Alternatively, first selecting a range of elements in the score and then double-clicking a line element in the palette will add that new element across the selected range.</source>
@@ -318,7 +320,7 @@
     You can also save to your musescore.com account if you go to File &gt; Save Online.
     The controls at the right of this toolbar control the display of your score.</source>
         <comment>welcome</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The main menu contains most other commands.
@@ -328,7 +330,7 @@
 Επιπλέον, πολλές εντολές μπορούν να προσπελαστούν μέσω των συντομεύσεων πληκτρολογίου ή με το δεξί κλικ (macOS: &quot;Ctrl&quot;+κλικ) μέσω της προβολής παρτιτούρας.</translation>
     </message>
     <message>
-        <source>That's the end of this tour!
+        <source>That&apos;s the end of this tour!
     As you use MuseScore, more tours will pop up to further explain functionality.
     To disable these, deselect &quot;Continue showing tours&quot; before closing this window.
     You can also enable/disable and reset tours in Help &gt; Tours.</source>

@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ja" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ja">
 <context>
     <name>InstrumentsXML</name>
     <message>
@@ -1591,9 +1593,8 @@
         <translation>ハイハット</translation>
     </message>
     <message>
-        <location filename="../instruments/instrumentsxml.h" line="956"/>
         <source>Bells</source>
-        <translation>ベル</translation>
+        <translation type="vanished">ベル</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="958"/>
@@ -2603,7 +2604,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="226"/>
         <source>Ob. d&apos;a.</source>
-        <comment>Oboe d'amore</comment>
+        <comment>Oboe d&apos;amore</comment>
         <translation>Ob. d&apos;a.</translation>
     </message>
     <message>
@@ -3577,7 +3578,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1295"/>
         <location filename="../instruments/instrumentsxml.h" line="1299"/>
         <location filename="../instruments/instrumentsxml.h" line="1304"/>
-        <location filename="../instruments/instrumentsxml.h" line="1312"/>
+        <location filename="../instruments/instrumentsxml.h" line="1309"/>
         <source>mute</source>
         <translation>ミュート</translation>
     </message>
@@ -4579,10 +4580,9 @@
         <translation>コンサートバスドラム</translation>
     </message>
     <message>
-        <location filename="../instruments/instrumentsxml.h" line="929"/>
         <source>Con. BD </source>
         <comment>Concert Bass Drum</comment>
-        <translation>Con. BD </translation>
+        <translation type="vanished">Con. BD </translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="930"/>
@@ -4688,10 +4688,9 @@
         <translation>Tam</translation>
     </message>
     <message>
-        <location filename="../instruments/instrumentsxml.h" line="957"/>
         <source>Be.</source>
         <comment>Bells</comment>
-        <translation>Be.</translation>
+        <translation type="vanished">Be.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="959"/>
@@ -4974,7 +4973,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1045"/>
         <source>Percussion - Body</source>
-        <translation>パ－カッション - ボディ</translation>
+        <translation>ボディ パ－カッション</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1047"/>
@@ -5409,7 +5408,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1173"/>
         <source>halo</source>
-        <translation>ハロー</translation>
+        <translation>ハロ</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1174"/>
@@ -5631,7 +5630,7 @@
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1391"/>
-        <location filename="../instruments/instrumentsxml.h" line="1399"/>
+        <location filename="../instruments/instrumentsxml.h" line="1397"/>
         <location filename="../instruments/instrumentsxml.h" line="1403"/>
         <location filename="../instruments/instrumentsxml.h" line="1408"/>
         <location filename="../instruments/instrumentsxml.h" line="1412"/>
@@ -5642,7 +5641,7 @@
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1392"/>
-        <location filename="../instruments/instrumentsxml.h" line="1400"/>
+        <location filename="../instruments/instrumentsxml.h" line="1398"/>
         <location filename="../instruments/instrumentsxml.h" line="1404"/>
         <location filename="../instruments/instrumentsxml.h" line="1409"/>
         <location filename="../instruments/instrumentsxml.h" line="1413"/>
@@ -5829,7 +5828,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1463"/>
         <source>Violins</source>
-        <translation>ヴァイオリン</translation>
+        <translation>ヴァイオリン (複数)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1464"/>
@@ -5846,7 +5845,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1473"/>
         <source>Violas</source>
-        <translation>ヴィオラ</translation>
+        <translation>ヴィオラ (複数)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1474"/>
@@ -5863,7 +5862,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1483"/>
         <source>Violoncellos</source>
-        <translation>チェロ</translation>
+        <translation>チェロ (複数)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1484"/>
@@ -5880,7 +5879,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1493"/>
         <source>Contrabasses</source>
-        <translation>コントラバス</translation>
+        <translation>コントラバス (複数)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1494"/>
@@ -5996,7 +5995,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1212"/>
         <source>synth-string-2</source>
-        <translation>ストリングスシンセ2</translation>
+        <translation>ストリングシンセ2</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1213"/>
@@ -6230,6 +6229,23 @@
         <translation>B♭ ファイフ</translation>
     </message>
     <message>
+        <location filename="../instruments/instrumentsxml.h" line="929"/>
+        <source>Con. B.D.</source>
+        <comment>Concert Bass Drum</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../instruments/instrumentsxml.h" line="956"/>
+        <source>Ride Bell</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../instruments/instrumentsxml.h" line="957"/>
+        <source>Ri. Be.</source>
+        <comment>Ride Bell</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../instruments/instrumentsxml.h" line="1219"/>
         <source>Bj.</source>
         <comment>Banjo</comment>
@@ -6416,7 +6432,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1287"/>
         <location filename="../instruments/instrumentsxml.h" line="1300"/>
         <location filename="../instruments/instrumentsxml.h" line="1305"/>
-        <location filename="../instruments/instrumentsxml.h" line="1313"/>
+        <location filename="../instruments/instrumentsxml.h" line="1310"/>
         <source>jazz</source>
         <translation>ジャズ</translation>
     </message>
@@ -6456,17 +6472,17 @@
         <translation>El. Guit.</translation>
     </message>
     <message>
-        <location filename="../instruments/instrumentsxml.h" line="1309"/>
+        <location filename="../instruments/instrumentsxml.h" line="1311"/>
         <source>harmonics</source>
         <translation>ハーモニクス</translation>
     </message>
     <message>
-        <location filename="../instruments/instrumentsxml.h" line="1310"/>
+        <location filename="../instruments/instrumentsxml.h" line="1312"/>
         <source>distortion</source>
         <translation>ディストーション</translation>
     </message>
     <message>
-        <location filename="../instruments/instrumentsxml.h" line="1311"/>
+        <location filename="../instruments/instrumentsxml.h" line="1313"/>
         <source>overdriven</source>
         <translation>オーバードライブ</translation>
     </message>
@@ -6699,7 +6715,7 @@
         <translation>ピチカート</translation>
     </message>
     <message>
-        <location filename="../instruments/instrumentsxml.h" line="1397"/>
+        <location filename="../instruments/instrumentsxml.h" line="1399"/>
         <location filename="../instruments/instrumentsxml.h" line="1445"/>
         <location filename="../instruments/instrumentsxml.h" line="1450"/>
         <location filename="../instruments/instrumentsxml.h" line="1455"/>
@@ -6724,7 +6740,7 @@
         <translation>アルコ</translation>
     </message>
     <message>
-        <location filename="../instruments/instrumentsxml.h" line="1398"/>
+        <location filename="../instruments/instrumentsxml.h" line="1400"/>
         <location filename="../instruments/instrumentsxml.h" line="1447"/>
         <location filename="../instruments/instrumentsxml.h" line="1452"/>
         <location filename="../instruments/instrumentsxml.h" line="1457"/>
@@ -7042,7 +7058,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="22"/>
         <source>Saxophone Quartet</source>
-        <translation>サキソフォーン四重奏</translation>
+        <translation>サクソフォーン四重奏</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="23"/>
