@@ -441,8 +441,8 @@ void MuseScore::pluginTriggered(QString pp)
 
       if(MuseScoreCore::mscoreCore->currentScore() == nullptr && p->requiresScore() == true) {
             QMessageBox::information(0,
-                  QMessageBox::tr("MuseScore"),
-                  QMessageBox::tr("No score open.\n"
+                  tr("MuseScore"),
+                  tr("No score open.\n"
                   "This plugin requires an open score to run.\n"),
                   QMessageBox::Ok, QMessageBox::NoButton);
             return;
