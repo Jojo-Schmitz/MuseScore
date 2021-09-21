@@ -4742,7 +4742,9 @@ void LayoutContext::collectPage()
       {
       const qreal slb = score->styleP(Sid::staffLowerBorder);
       bool breakPages = score->layoutMode() != LayoutMode::SYSTEM;
-      qreal ey        = page->height() - page->bm();
+      qreal footerExtension = qMax(0.0, page->footerHeight() - score->styleV(Sid::footerOffset).value<QPointF>().y()); // how much the footer extends above the margin
+      qreal headerExtension = qMax(0.0, page->headerHeight() - score->styleV(Sid::headerOffset).value<QPointF>().y()); // how much the header extends below the margin
+      qreal endY      = page->height() - page->bm() - footerExtension;
       qreal y         = 0.0;
 
       System* nextSystem = 0;
@@ -4756,7 +4758,7 @@ void LayoutContext::collectPage()
             y = page->system(0)->y() + page->system(0)->height();
             }
       else {
-             y = page->tm();
+             y = page->tm() + headerExtension;
             }
       for (int i = 1; i < pSystems; ++i) {
             System* cs = page->system(i);
@@ -4886,12 +4888,12 @@ void LayoutContext::collectPage()
                         qreal margin = qMax(curSystem->minBottom(), curSystem->spacerDistance(false));
                         dist += qMax(margin, slb);
                         }
-                  breakPage = (y + dist) >= ey && breakPages;
+                  breakPage = (y + dist) >= endY && breakPages;
                   }
             if (breakPage) {
                   qreal dist = qMax(prevSystem->minBottom(), prevSystem->spacerDistance(false));
                   dist = qMax(dist, slb);
-                  layoutPage(page, ey - (y + dist));
+                  layoutPage(page, endY - (y + dist));
                   // if we collected a system we cannot fit onto this page,
                   // we need to collect next page in order to correctly set system positions
                   if (collected)

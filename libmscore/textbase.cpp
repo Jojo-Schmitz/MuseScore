@@ -1798,6 +1798,8 @@ void TextBase::layout1()
             _layout.append(TextBlock());
       QRectF bb;
       qreal y = 0;
+
+      // adjust the bounding box for the text item
       for (int i = 0; i < rows(); ++i) {
             TextBlock* t = &_layout[i];
             t->layout(this);
@@ -1931,6 +1933,32 @@ qreal TextBase::lineSpacing() const
 qreal TextBase::lineHeight() const
       {
       return fontMetrics().height();
+      }
+
+//---------------------------------------------------------
+//   visibleHeight
+//---------------------------------------------------------
+
+qreal TextBase::visibleHeight()
+      {
+      QRectF bb;
+      qreal y = 0;
+
+      // adjust the bounding box for the text item
+      for (int i = 0; i < rows(); ++i) {
+            TextBlock* t = &_layout[i];
+            if (t->columns() == 0 && i != rows() - 1)
+                  continue;
+            t->layout(this);
+            const QRectF* r = &t->boundingRect();
+
+            if (r->height() == 0)
+                  r = &_layout[i - i].boundingRect();
+            y += t->lineSpacing();
+            t->setY(y);
+            bb |= r->translated(0.0, y);
+            }
+      return bb.height();
       }
 
 //---------------------------------------------------------
