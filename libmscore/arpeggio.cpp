@@ -151,12 +151,15 @@ void Arpeggio::layout()
             }
       if (staff())
             setMag(staff()->mag(tick()));
+      qreal overshoot = 0.0;
+      if (parent())
+            overshoot = spatium() / 4;
       switch (arpeggioType()) {
             case ArpeggioType::NORMAL: {
                   symbolLine(SymId::wiggleArpeggiatoUp, SymId::wiggleArpeggiatoUp);
                   // string is rotated -90 degrees
                   QRectF r(symBbox(symbols));
-                  setbbox(QRectF(0.0, -r.x() + y1, r.height(), r.width()));
+                  setbbox(QRectF(0.0, -r.x() + y1 - overshoot, r.height(), r.width() + overshoot * 2));
                   }
                   break;
 
@@ -164,7 +167,7 @@ void Arpeggio::layout()
                   symbolLine(SymId::wiggleArpeggiatoUpArrow, SymId::wiggleArpeggiatoUp);
                   // string is rotated -90 degrees
                   QRectF r(symBbox(symbols));
-                  setbbox(QRectF(0.0, -r.x() + y1, r.height(), r.width()));
+                  setbbox(QRectF(0.0, -r.x() + y1 - overshoot, r.height(), r.width() + overshoot * 2));
                   }
                   break;
 
@@ -172,7 +175,7 @@ void Arpeggio::layout()
                   symbolLine(SymId::wiggleArpeggiatoUpArrow, SymId::wiggleArpeggiatoUp);
                   // string is rotated +90 degrees (so that UpArrow turns into a DownArrow)
                   QRectF r(symBbox(symbols));
-                  setbbox(QRectF(0.0, r.x() + y1, r.height(), r.width()));
+                  setbbox(QRectF(0.0, r.x() + y1 - overshoot, r.height(), r.width() + overshoot * 2));
                   }
                   break;
 
@@ -180,10 +183,7 @@ void Arpeggio::layout()
                   qreal _spatium = spatium();
                   qreal x1 = _spatium * .5;
                   qreal w  = symBbox(SymId::arrowheadBlackUp).width();
-                  qreal terminalDistance = 0;
-                  if (parent())
-                        terminalDistance = _spatium / 4 - score()->styleP(Sid::ArpeggioLineWidth) / 2;
-                  setbbox(QRectF(x1 - w * .5, y1, w, y2 - y1 + terminalDistance));
+                  setbbox(QRectF(x1 - w * .5, y1 - overshoot, w, y2 - y1 + overshoot * 2));
                   }
                   break;
 
@@ -191,19 +191,17 @@ void Arpeggio::layout()
                   qreal _spatium = spatium();
                   qreal x1 = _spatium * .5;
                   qreal w  = symBbox(SymId::arrowheadBlackDown).width();
-                  qreal terminalDistance = 0;
-                  if (parent())
-                        terminalDistance = _spatium / 4 - score()->styleP(Sid::ArpeggioLineWidth) / 2;
-                  setbbox(QRectF(x1 - w * .5, y1 - terminalDistance, w, y2 - y1 + terminalDistance));
+                  setbbox(QRectF(x1 - w * .5, y1 - overshoot, w, y2 - y1 + overshoot * 2));
                   }
                   break;
 
             case ArpeggioType::BRACKET: {
                   qreal _spatium = spatium();
                   qreal w  = score()->styleS(Sid::ArpeggioHookLen).val() * _spatium;
-                  setbbox(QRectF(0.0, y1, w, y2 - y1));
-                  break;
+                  qreal lineWidth = score()->styleP(Sid::ArpeggioLineWidth);
+                  setbbox(QRectF(0.0, y1 - lineWidth / 2.0, w, y2 - y1 + lineWidth));
                   }
+                  break;
             }
       }
 
