@@ -39,6 +39,7 @@ target_link_libraries(
       testResources
       libmscore
       audio
+      mscoreapp
       qzip
       )
 

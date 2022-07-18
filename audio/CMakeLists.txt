@@ -54,7 +54,6 @@ add_library (${MODULE} STATIC
 target_link_libraries (${MODULE}
       ${QT_LIBRARIES}
       audiofile
-      mscoreapp
       )
 
 if (NOT MSVC)
