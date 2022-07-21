@@ -29912,6 +29912,7 @@ static block_t *full_filename(s7_scheme *sc, const char *filename)
   return(block);
 }
 
+/* FIX: need to add support for DLL */
 static s7_pointer load_shared_object(s7_scheme *sc, const char *fname, s7_pointer let)
 {
   /* if fname ends in .so|.dylib, try loading it as a C shared object: (load "/home/bil/cl/m_j0.so" (inlet 'init_func 'init_m_j0)) */
@@ -29950,9 +29951,9 @@ static s7_pointer load_shared_object(s7_scheme *sc, const char *fname, s7_pointe
 	      pwd_name = (char *)block_data(pname);
 	    }}
       if ((S7_DEBUGGING) && (!pname)) fprintf(stderr, "pname is null\n");
-      library = dlopen((pname) ? pwd_name : fname, RTLD_NOW);
+      library = NULL; //FIX: dlopen((pname) ? pwd_name : fname, RTLD_NOW);
       if (!library)
-	s7_warn(sc, 512, "load %s failed: %s\n", (pname) ? pwd_name : fname, dlerror());
+	s7_warn(sc, 512, "load %s failed: %s\n", (pname) ? pwd_name : fname, ""/*FIX: dlerror()*/);
       else
 	if (let) /* look for 'init_func in let */
 	  {
@@ -29969,7 +29970,7 @@ static s7_pointer load_shared_object(s7_scheme *sc, const char *fname, s7_pointe
 		  s7_apply_function(sc, sc->load_hook, set_plist_1(sc, s7_make_string(sc, (pname) ? (const char *)pwd_name : fname)));
 
 		init_name = symbol_name(init);
-		init_func = dlsym(library, init_name);
+		init_func = NULL; //FIX: dlsym(library, init_name);
 		if (init_func)
 		  {
 		    typedef void (*dl_func)(s7_scheme *sc);
@@ -29999,8 +30000,8 @@ static s7_pointer load_shared_object(s7_scheme *sc, const char *fname, s7_pointe
 		    return(p);
 		  }
 		s7_warn(sc, 512, "loaded %s, but can't find init_func %s, dlerror: %s, let: %s\n",
-			fname, init_name, dlerror(), display(let));
-		dlclose(library);
+			fname, init_name, ""/*FIX: dlerror() */, display(let));
+		//FIX: dlclose(library);
 	      }
 	    if (S7_DEBUGGING) fprintf(stderr, "init_func trouble in %s, %s\n", fname, display(init));
 	    if (pname) liberate(sc, pname);
