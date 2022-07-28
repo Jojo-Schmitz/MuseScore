@@ -12,16 +12,26 @@
 
 #include <stdio.h>
 #include "all.h"
+#include "mtest/testutils.h"
+
+int run_scheme_script(const char *filename);
 
 static QFile logFile;
 static int processed = 0;
 static int failed = 0;
 
+Ms::MTest* g_mtest;
+int g_test_check_pass_tot = 0;
+int g_test_check_fail_tot = 0;
+int g_test_check_pass = 0;
+int g_test_check_fail = 0;
+
 const char* tests[] = {
 //      "libmscore/compat/tst_compat",          // expected to not work
+      "libmscore/tst_element.scm",
+      "libmscore/tst_note.scm",
 #if 1
-      "libmscore/element/tst_element",
-      "libmscore/note/tst_note",
+#if 0
       "libmscore/readwriteundoreset/tst_readwriteundoreset",
       "libmscore/keysig/tst_keysig",
       "libmscore/barline/tst_barline",
@@ -60,6 +70,7 @@ const char* tests[] = {
       "testscript/tst_runscripts",
       "mscore/palette/tst_palette"
 #endif
+#endif
 #if 0
       "libmscore/spanners/tst_spanners",              // FAIL
 
@@ -84,10 +95,10 @@ const char* tests[] = {
       };
 
 //---------------------------------------------------------
-//   process
+//   process script or executable
 //---------------------------------------------------------
 
-static void process(const QString& cmd)
+static void run_process(const QString& cmd)
       {
       QStringList args;
       int rv = QProcess::execute(cmd, args);
@@ -99,6 +110,31 @@ static void process(const QString& cmd)
       processed++;
       }
 
+static void run_script (const char* testname)
+      {
+      g_test_check_pass = 0;
+      g_test_check_fail = 0;
+      run_scheme_script(testname);
+      if(g_test_check_fail > 0 || g_test_check_pass == 0) {
+            printf("========mtest script <%s> checks: passed=%i failed=%i\n", testname, g_test_check_pass, g_test_check_fail);
+            failed++;
+            }
+      processed++;
+      g_test_check_pass_tot += g_test_check_pass;
+      g_test_check_fail_tot += g_test_check_fail;
+      }
+
+static void run_script_or_process (const char *testname)
+      {
+      if (strstr(testname, ".scm")) {
+            printf("run scheme-script %s\n", testname);
+            run_script(testname);
+            }
+      else {
+            printf("run test-program %s\n", testname);
+            run_process(testname);
+            }
+      }
 //---------------------------------------------------------
 //   scanDir
 //---------------------------------------------------------
@@ -123,10 +159,20 @@ static void scanDir(QDir d)
 //   main
 //---------------------------------------------------------
 
+QCoreApplication* createApplication(int &argc, char *argv[])
+{
+      for (int i = 1; i < argc; ++i) {
+            if (!qstrcmp(argv[i], "-no-gui"))
+                  return new QCoreApplication(argc, argv);
+            }
+      return new QApplication(argc, argv);
+      }
+
 int main(int argc, char* argv[])
       {
-      Q_UNUSED(argc);
-      Q_UNUSED(argv);
+      QScopedPointer<QCoreApplication> app(createApplication(argc, argv));
+      g_mtest = new Ms::MTest();
+      g_mtest->initMTest();
 #if 0
       logFile.setFileName("mtest.log");
       if (!logFile.open(QIODevice::WriteOnly)) {
@@ -142,8 +188,9 @@ int main(int argc, char* argv[])
 #if 0
       scanDir(wd);
 #else
+      printf("run scripts or processes\n");
       for (const char* s : tests)
-            process(s);
+            run_script_or_process(s);
 #endif
 
       printf("\n");

@@ -123,16 +123,40 @@ if (MSVC)
             )
 endif (MSVC)
 
-target_link_libraries(testutils_mscoreapp mscoreapp)
 
 add_executable(
       mtest
+      ${ui_headers}
+      ${mocs}
       mtest.cpp
+      s7mtest.cpp
+      ${CMAKE_CURRENT_BINARY_DIR}/s7gen.h ${CMAKE_CURRENT_BINARY_DIR}/s7gen.cpp
       )
+
+if (MTEST_LINK_MSCOREAPP)
+      target_link_libraries(mtest     testutils_mscoreapp mscoreapp)
+else (MTEST_LINK_MSCOREAPP)
+      target_link_libraries(mtest     testutils)
+endif (MTEST_LINK_MSCOREAPP)
 
 target_link_libraries(
       mtest
+      s7
       ${QT_LIBRARIES}
+      ${QT_QTTEST_LIBRARY}
+      testResources
+      libmscore
+      audio
+      mscoreapp
+      qzip
+      )
+
+set_target_properties (
+      mtest
+      PROPERTIES
+      AUTOMOC true
+      COMPILE_FLAGS "-include all.h -D QT_GUI_LIB -D TESTROOT=\\\"${PROJECT_SOURCE_DIR}\\\" -g -Wall -Wextra"
+      LINK_FLAGS    "-g"
       )
 
 if (USE_SYSTEM_FREETYPE)
@@ -176,6 +200,20 @@ add_custom_target(mtest_build_and_install
       )
 endif (NOT MSVC)
 
+add_custom_command (OUTPUT s7gen.h s7gen.cpp
+                    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/gen.sh ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}
+                    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/)
+
+add_custom_target(mtest_files ALL
+
+    COMMAND ${PROJECT_BINARY_DIR}/s7/s7 -f ${CMAKE_CURRENT_SOURCE_DIR}/testgen.scm -- -l ${PROJECT_SOURCE_DIR}/s7 ${CMAKE_CURRENT_SOURCE_DIR}/libmscore/tst_element.scm -o ${CMAKE_CURRENT_BINARY_DIR}/libmscore/tst_element.scm
+
+    COMMAND ${PROJECT_BINARY_DIR}/s7/s7 -f ${CMAKE_CURRENT_SOURCE_DIR}/testgen.scm -- -l ${PROJECT_SOURCE_DIR}/s7 ${CMAKE_CURRENT_SOURCE_DIR}/libmscore/tst_note.scm -o ${CMAKE_CURRENT_BINARY_DIR}/libmscore/tst_note.scm
+
+    DEPENDS libmscore/tst_element.scm
+            libmscore/tst_note.scm
+)
+
 subdirs (
         libmscore/compat114
         libmscore/compat206
@@ -193,7 +231,6 @@ subdirs (
         libmscore/dynamic
         libmscore/durationtype
         libmscore/earlymusic
-        libmscore/element
         libmscore/exchangevoices
         libmscore/hairpin
         libmscore/implode_explode

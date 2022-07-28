@@ -26,7 +26,7 @@ namespace Ms {
 //---------------------------------------------------------
 
 class MTest {
-   protected:
+   public:
       Ms::MScore* mscore;
       QString root;     // root path of test source
       Ms::Score* score;
@@ -46,7 +46,6 @@ class MTest {
       Ms::Element* writeReadElement(Ms::Element* element);
       void initMTest();
 
-   public:
       static bool compareFilesFromPaths(const QString& f1, const QString& f2);
       static void extractRootFile(const QString& zipFile, const QString& destination);
 
