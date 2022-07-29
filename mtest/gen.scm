@@ -1,10 +1,28 @@
-(begin
 
 (define %export-to-scheme '())
 
 ; generate a .h and .c file, write to these files
 (define %h (open-output-file "s7gen.h" "w"))
 (define %c (open-output-file "s7gen.cpp" "w"))
+
+(define (emit-string-to-ctype)
+  (format %h "int string_to_ctype (const char *sname);~%")
+  (format %c "
+int string_to_ctype (const char *sname)
+{
+")
+  (map (lambda (lst)
+         (let ((typename (car lst))
+               (types (cdr lst)))
+           (map (lambda (lst)
+                  (match lst
+                    ((sname cname idx)
+                     (format %c "    if (!strcmp(sname, \"~s\")) {~%" sname)
+                     (format %c "        return (int)~a;~%" cname)
+                     (format %c "    }~%"))))
+                types)))
+       %c-types)
+  (format %c "    return -999999;    ~%}~%"))
 
 (define (emit-header-getset objname memname)
   (format %h "s7_pointer ms_~a_~a (s7_scheme *sc, s7_pointer args);~%" objname memname)
@@ -156,20 +174,20 @@ s7_pointer ms_~a~a_~a (s7_scheme *sc, s7_pointer args)
     (format %c "}~%")))
 
 (define (emit-c-type-string-maps2 typename)
-  (let* ((typelst (assq-ref %c-types typename))
-         (c-type (cadr (car typelst))))
-    (set! c-type (substring c-type 0 (string-position ":" c-type)))
+  (let* ((types (assq-ref %c-types typename))
+         (typeinfo (assq-ref %c-types-info typename))
+         (c-type (car typeinfo)))
+    ;(set! c-type (substring c-type 0 (string-position ":" c-type)))
     ; emit c-function that takes a object of a specific type and returns a string
     (format %h "const char* ~a_to_string (Ms::~a x);~%" typename c-type)
     (format %c "const char* ~a_to_string (Ms::~a x)~%" typename c-type)
     (format %c "{~%    switch (x) {~%")
-    (format #t "TYPELST: ~s~%" typelst)
     (for-each (lambda (lst)
       (match lst
         ((sname cname idx)
           (format %c "        case ~a:~%" cname)
           (format %c "        return \"~a\";~%" sname))))
-      typelst)
+      types)
     (format %c "    }~%}~%")
     ; emit c-function that takes an string and returns an object of a specific type
     (format %h "Ms::~a string_to_~a (const char *name);~%" c-type typename)
@@ -181,7 +199,7 @@ s7_pointer ms_~a~a_~a (s7_scheme *sc, s7_pointer args)
          (format %c "    if (!strcmp(name, \"~a\")) {~%" sname)
          (format %c "        return ~a;~%" cname)
          (format %c "    }~%"))))
-      typelst)
+      types)
     (format %c "    return (Ms::~a)0;~%" c-type)
     (format %c "}~%")))
 
@@ -189,5 +207,3 @@ s7_pointer ms_~a~a_~a (s7_scheme *sc, s7_pointer args)
   (format #t "closing output port~%")
   (close-output-port %h)
   (close-output-port %c))
-
-)

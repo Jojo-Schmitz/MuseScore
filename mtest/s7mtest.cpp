@@ -110,7 +110,7 @@ s7_pointer ms_note_usermirror (s7_scheme *sc, s7_pointer args)
 {
     goo_t *g = (goo_t *)s7_c_object_value(s7_car(args));
     Ms::Note* o = (Ms::Note*) g->cd;
-    return s7_make_symbol(sc, usermirror_to_string(o->userMirror()));
+    return s7_make_symbol(sc, DirectionH_to_string(o->userMirror()));
 }
 
 s7_pointer ms_set_note_usermirror (s7_scheme *sc, s7_pointer args)
@@ -119,7 +119,7 @@ s7_pointer ms_set_note_usermirror (s7_scheme *sc, s7_pointer args)
     Ms::Note* o = (Ms::Note*) g->cd;
     s7_pointer sym = s7_cadr(args);
     const char *symname = s7_symbol_name(sym);
-    o->setUserMirror(string_to_usermirror(symname));
+    o->setUserMirror(string_to_DirectionH(symname));
     return sym;
 }
 

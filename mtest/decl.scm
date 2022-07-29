@@ -1,4 +1,3 @@
-(begin
 
 ;
 ; initiate c and h file
@@ -40,18 +39,20 @@ extern Ms::MTest* g_mtest;
           %element-types)
 (format %h "  END~%};~%")
 
-(format %h "s7_pointer ms_note_usermirror (s7_scheme *sc, s7_pointer args);~%")
-(format %h "s7_pointer ms_set_note_usermirror (s7_scheme *sc, s7_pointer args);~%")
 
 ;
 ;
 ;
 (newline %h)
-(emit-c-type-string-maps "usermirror" %note-usermirror "Ms::MScore::DirectionH")
-(emit-c-type-string-maps "note_direction" %note-direction "Ms::Direction")
+(register-c-type %directionh)
+(register-c-type %direction)
+(register-c-type %note-value-type)
+(emit-c-type-string-maps2 'DirectionH)
+(emit-c-type-string-maps2 'Direction)
+(emit-c-type-string-maps2 'note_ValueType)
 (emit-c-type-string-maps-simple "note_headGroup" %note-head-group "Ms::NoteHead::Group")
 (emit-c-type-string-maps-simple "note_headType" %note-head-type "Ms::NoteHead::Type")
-(emit-c-type-string-maps-simple "note_valueType" %note-value-type "Ms::Note::ValueType")
+;(emit-c-type-string-maps-simple "note_valueType" %note-value-type "Ms::Note::ValueType")
 (emit-c-type-string-maps-simple "element_pid" %element-pids "Ms::Pid")
 
 ;
@@ -125,7 +126,7 @@ s7_pointer ms_note_set_property (s7_scheme *sc, s7_pointer args)
     } else if (s7_is_real(val)) {
         note->setProperty(string_to_element_pid(s7_symbol_name(sym)), QVariant::fromValue(s7_real(val)));
     } else if (s7_is_symbol(val)) {
-       note->setProperty(string_to_element_pid(s7_symbol_name(sym)), QVariant::fromValue(string_to_note_valueType(s7_symbol_name(val))));
+       note->setProperty(string_to_element_pid(s7_symbol_name(sym)), QVariant::fromValue(string_to_ctype(s7_symbol_name(val))));
     } else {
         note->setProperty(string_to_element_pid(s7_symbol_name(sym)), QVariant::fromValue(s7_integer(val)));
     }
@@ -145,10 +146,10 @@ s7_pointer ms_note_set_property (s7_scheme *sc, s7_pointer args)
 (def-goo-setters "Ms::Note" "note" "veloOffset" #f integer)
 (def-goo-setters-bool "Ms::Note" "note" "small" "isSmall" "setSmall")
 (def-goo-setters-bool "Ms::Note" "note" "ghost" "ghost" "setGhost")
-(def-goo-setters-sym "Ms::Note" "note" "userDotPosition" "setUserDotPosition" "note_direction")
+(def-goo-setters-sym "Ms::Note" "note" "userDotPosition" "setUserDotPosition" "Direction")
 (def-goo-setters-sym "Ms::Note" "note" "headGroup" "setHeadGroup" "note_headGroup")
 (def-goo-setters-sym "Ms::Note" "note" "headType" "setHeadType" "note_headType")
-(def-goo-setters-sym "Ms::Note" "note" "veloType" "setVeloType" "note_valueType") ; velotype uses Note::Valuetype
+(def-goo-setters-sym "Ms::Note" "note" "veloType" "setVeloType" "note_ValueType") ; velotype uses Note::Valuetype
 
 ; emit the init-function that scheme-exports all glue-functions (ms-objects set/get)
 ;
@@ -168,11 +169,14 @@ s7_pointer ms_note_set_property (s7_scheme *sc, s7_pointer args)
 (for-each (lambda (lst)
   (match lst
     ((scm-name c-name-get c-name-set desc)
+     (format %h "s7_pointer ~a (s7_scheme *sc, s7_pointer args);~%" c-name-get)
+     (format %h "s7_pointer ~a (s7_scheme *sc, s7_pointer args);~%" c-name-set)
      (format %c "s7_define_variable(sc, \"~a\", s7_dilambda(sc, \"~a\", ~a, 1, 0, ~a, 2, 0, \"~a\"));
     " scm-name scm-name c-name-get c-name-set desc))))
   '(("ms-note-usermirror" "ms_note_usermirror" "ms_set_note_usermirror" "note usermirror field")))
 (format %c "}~%")
 
+(emit-string-to-ctype)
+
 (gen-done)
 
-)

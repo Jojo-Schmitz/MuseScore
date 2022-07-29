@@ -1,8 +1,8 @@
 
+; FIX: goo-types should be the index of %c-types, ie superset of all accumulated c-types
 (define %goo-types '(
   CHORD
-  NOTE
-  ))
+  NOTE))
 
 (define %element-types '(
 VOLTA
@@ -370,37 +370,23 @@ TAB_DURATION_SYMBOL
   END
   ))
 
-(define %note-usermirror
-  '((DirectionH-AUTO  "MScore::DirectionH::AUTO")
-    (DirectionH-LEFT  "MScore::DirectionH::LEFT")
-    (DirectionH-RIGHT "MScore::DirectionH::RIGHT")))
+; note-directionh
+(define %directionh '(
+  (name   . DirectionH)
+  (c-type . "MScore::DirectionH")
+  (types  . (
+    AUTO
+    LEFT
+    RIGHT))))
 
-(define (get-note-direction-h name)
-  (let ((idx -1)
-        (f #f))
-    (do ((i 0 (+ i 1))
-         (pair %note-usermirror (cdr pair)))
-        ((or f (eq? '() pair)))
-      (when (eq? (caar pair) name)
-        (set! idx i)
-        (set! f #t)))
-    idx))
-
-(define %note-direction
-  '((Direction-AUTO "Direction::AUTO")
-    (Direction-UP   "Direction::UP")
-    (Direction-DOWN "Direction::DOWN")))
-
-(define (get-note-direction name)
-  (let ((idx -1)
-        (f #f))
-    (do ((i 0 (+ i 1))
-         (pair %note-direction (cdr pair)))
-        ((or f (eq? '() pair)))
-      (when (eq? (caar pair) name)
-        (set! idx i)
-        (set! f #t)))
-    idx))
+; note-direction
+(define %direction '(
+  (name   . Direction)
+  (c-type . "Direction")
+  (types  . (
+    AUTO
+    UP
+    DOWN))))
 
 (define %note-head-scheme '(
   HEAD_AUTO ; = -1,
@@ -526,9 +512,11 @@ TAB_DURATION_SYMBOL
     idx))
 
 (define %note-value-type '(
-  OFFSET_VAL
-  USER_VAL
-  ))
+  (name        . note_ValueType)
+  (c-type      . "Note::ValueType")
+  (types       . (
+    OFFSET_VAL
+    USER_VAL))))
 
 (define %hairpin-type '(
   (start-index . -1)
@@ -540,14 +528,3 @@ TAB_DURATION_SYMBOL
     DECRESC_HAIRPIN
     CRESC_LINE
     DECRESC_LINE))))
-
-(define (get-note-head-type name)
-  (let ((idx -2)
-        (f #f))
-    (do ((i -1 (+ i 1))
-         (pair %note-head-type (cdr pair)))
-        ((or f (eq? '() pair)))
-      (when (eq? (car pair) name)
-        (set! idx i)
-        (set! f #t)))
-    idx))

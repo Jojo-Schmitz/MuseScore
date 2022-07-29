@@ -1,11 +1,15 @@
 
 (define %c-types '())
+(define %c-types-info '())
 
 (define (register-c-type lst)
   (let* ((start-index (or (assq-ref lst 'start-index) 0))
          (name        (assq-ref lst 'name))
          (c-type      (assq-ref lst 'c-type))
          (types       (assq-ref lst 'types)))
+    ; store information about the type
+    (set! %c-types-info (cons (list name c-type start-index) %c-types-info))
+    ; store the types values (enumeration)
     (let ((typelst (or (assq-ref %c-types name) '()))
           (idx start-index))
       (do ((pair types (cdr pair)))
