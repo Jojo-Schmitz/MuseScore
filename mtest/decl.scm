@@ -14,6 +14,7 @@
 #include <QtTest/QtTest>
 #include \"libmscore/score.h\"
 #include \"libmscore/element.h\"
+#include \"libmscore/hairpin.h\"
 #include \"mtest/testutils.h\"
 #include \"s7gen.h\"
 
@@ -87,6 +88,29 @@ s7_pointer ms_make_element(s7_scheme *sc, s7_pointer args)
 }
 
 ")
+
+;
+; hairpin
+;
+
+(register-c-type %hairpin-type)
+(emit-c-type-string-maps2 'hairpin)
+
+(format %h "s7_pointer ms_make_hairpin (s7_scheme *sc, s7_pointer args);~%")
+(format %c "
+s7_pointer ms_make_hairpin (s7_scheme *sc, s7_pointer args)
+{
+    Hairpin* hp = new Hairpin(g_mtest->score);
+    uint64_t ty = static_cast<uint64_t>(GOO_TYPE::ELEMENT_HAIRPIN);
+    return c_make_goo(sc, ty, s7_nil(sc), hp);
+}
+")
+
+(def-goo-setters-sym "Ms::Hairpin" "hairpin" "hairpinType" "setHairpinType" "hairpin")
+
+;
+; note
+;
 
 (format %h "s7_pointer ms_note_set_property (s7_scheme *sc, s7_pointer args);~%")
 (format %c "

@@ -48,7 +48,7 @@
 (psyntax-load (format #f "~a/plib.scm" %libdir))
 
 ; mtest helpers
-(psyntax-load (format #f "~a/mtest.scm" %libdir-mtest))
+(psyntax-load (format #f "~a/mtestgen.scm" %libdir-mtest))
 
 ; musescore data structures definitions
 (load "ms.scm")

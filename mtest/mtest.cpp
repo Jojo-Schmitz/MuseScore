@@ -30,6 +30,7 @@ const char* tests[] = {
 //      "libmscore/compat/tst_compat",          // expected to not work
       "libmscore/tst_element.scm",
       "libmscore/tst_note.scm",
+      "libmscore/tst_hairpin.scm",
 #if 1
 #if 0
       "libmscore/readwriteundoreset/tst_readwriteundoreset",
@@ -43,7 +44,6 @@ const char* tests[] = {
       "libmscore/durationtype/tst_durationtype",
       "libmscore/breath/tst_breath",
       "libmscore/tuplet/tst_tuplet",
-      "libmscore/hairpin/tst_hairpin",
       "libmscore/chordsymbol/tst_chordsymbol",
       "libmscore/text/tst_text",
       "libmscore/tempotext/tst_tempotext",
@@ -112,9 +112,11 @@ static void run_process(const QString& cmd)
 
 static void run_script (const char* testname)
       {
+      printf("\n======== running script %s ========\n", testname);
       g_test_check_pass = 0;
       g_test_check_fail = 0;
       run_scheme_script(testname);
+      fprintf(stderr, "\n======== DONE running script %s ========\n", testname);
       if(g_test_check_fail > 0 || g_test_check_pass == 0) {
             printf("========mtest script <%s> checks: passed=%i failed=%i\n", testname, g_test_check_pass, g_test_check_fail);
             failed++;
@@ -195,7 +197,8 @@ int main(int argc, char* argv[])
 
       printf("\n");
       printf("================\n");
-      printf("  processed %d  -- failed %d\n", processed, failed);
+     printf("  Checks pass/fail %d/%d\n", g_test_check_pass_tot, g_test_check_fail_tot);
+     printf("  processed %d  -- failed %d\n", processed, failed);
       printf("================\n");
       return 0;
       }

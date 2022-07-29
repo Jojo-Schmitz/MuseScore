@@ -201,17 +201,30 @@ add_custom_target(mtest_build_and_install
 endif (NOT MSVC)
 
 add_custom_command (OUTPUT s7gen.h s7gen.cpp
-                    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/gen.sh ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}
-                    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/)
+                    COMMAND ${PROJECT_BINARY_DIR}/s7/s7 -f ${PROJECT_SOURCE_DIR}/s7/lib.scm ${CMAKE_CURRENT_SOURCE_DIR}/ms.scm ${CMAKE_CURRENT_SOURCE_DIR}/types.scm ${CMAKE_CURRENT_SOURCE_DIR}/gen.scm ${CMAKE_CURRENT_SOURCE_DIR}/decl.scm
+                    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/
+                    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/ms.scm
+                            ${CMAKE_CURRENT_SOURCE_DIR}/decl.scm
+                            ${CMAKE_CURRENT_SOURCE_DIR}/types.scm
+                            ${CMAKE_CURRENT_SOURCE_DIR}/mtest.scm
+                            ${PROJECT_SOURCE_DIR}/s7/lib.scm
+                    VERBATIM
+                    )
 
 add_custom_target(mtest_files ALL
-
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/ms.scm ${CMAKE_CURRENT_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/mtest.scm ${CMAKE_CURRENT_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/types.scm ${CMAKE_CURRENT_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/s7/lib.scm ${CMAKE_CURRENT_BINARY_DIR}
     COMMAND ${PROJECT_BINARY_DIR}/s7/s7 -f ${CMAKE_CURRENT_SOURCE_DIR}/testgen.scm -- -l ${PROJECT_SOURCE_DIR}/s7 ${CMAKE_CURRENT_SOURCE_DIR}/libmscore/tst_element.scm -o ${CMAKE_CURRENT_BINARY_DIR}/libmscore/tst_element.scm
 
     COMMAND ${PROJECT_BINARY_DIR}/s7/s7 -f ${CMAKE_CURRENT_SOURCE_DIR}/testgen.scm -- -l ${PROJECT_SOURCE_DIR}/s7 ${CMAKE_CURRENT_SOURCE_DIR}/libmscore/tst_note.scm -o ${CMAKE_CURRENT_BINARY_DIR}/libmscore/tst_note.scm
 
+    COMMAND ${PROJECT_BINARY_DIR}/s7/s7 -f ${CMAKE_CURRENT_SOURCE_DIR}/testgen.scm -- -l ${PROJECT_SOURCE_DIR}/s7 ${CMAKE_CURRENT_SOURCE_DIR}/libmscore/tst_hairpin.scm -o ${CMAKE_CURRENT_BINARY_DIR}/libmscore/tst_hairpin.scm
+
     DEPENDS libmscore/tst_element.scm
             libmscore/tst_note.scm
+            libmscore/tst_hairpin.scm
 )
 
 subdirs (

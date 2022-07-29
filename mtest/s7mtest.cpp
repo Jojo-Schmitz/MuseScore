@@ -131,6 +131,7 @@ void mtest_s7_define_functions(s7_scheme *sc) {
     s7_define_function(sc, "ms-test-check-fail", ms_test_check_fail, 0, 0, false, "(ms-test-check-fail)");
     s7_define_function(sc, "ms-test-writeReadElement", ms_mtest_writeReadElement, 1, 0, false, "(ms-mtest-writeReadElement Element)");
     s7_define_function(sc, "ms-make-element", ms_make_element, 1, 0, false, "(ms-make-element element-typename_sym)");
+    s7_define_function(sc, "ms-make-hairpin", ms_make_hairpin, 0, 0, false, "(ms-make-hairpin)");
     s7_define_function(sc, "ms-make-chord", ms_make_chord, 0, 0, false, "(ms-make-chord)");
     s7_define_function(sc, "ms-make-note", ms_make_note, 0, 0, false, "(ms-make-note)");
     s7_define_function(sc, "ms-element-type", ms_element_type, 1, 0, false, "(ms-element-type element)");

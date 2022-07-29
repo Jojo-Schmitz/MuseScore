@@ -1,4 +1,3 @@
-(begin
 
 (define %goo-types '(
   CHORD
@@ -531,5 +530,24 @@ TAB_DURATION_SYMBOL
   USER_VAL
   ))
 
-;
-)
+(define %hairpin-type '(
+  (start-index . -1)
+  (name        . hairpin)
+  (c-type      . "HairpinType")
+  (types       . (
+    INVALID
+    CRESC_HAIRPIN
+    DECRESC_HAIRPIN
+    CRESC_LINE
+    DECRESC_LINE))))
+
+(define (get-note-head-type name)
+  (let ((idx -2)
+        (f #f))
+    (do ((i -1 (+ i 1))
+         (pair %note-head-type (cdr pair)))
+        ((or f (eq? '() pair)))
+      (when (eq? (car pair) name)
+        (set! idx i)
+        (set! f #t)))
+    idx))
