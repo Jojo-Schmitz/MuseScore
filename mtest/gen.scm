@@ -62,92 +62,90 @@ s7_pointer ms_~a~a_~a (s7_scheme *sc, s7_pointer args)
     (format %c "}~%~%")))
 
 (define (emit-goo-setters objtype objname memname memnameset type)
-  `(let ()
-     (set! %export-to-scheme (cons (list ,objname ,memname)
+  (let ()
+     (set! %export-to-scheme (cons (list objname memname)
                                    %export-to-scheme))
-     (emit-header-getset ,objname ,memname)
-     (emit-func-epilog #f ,objname ,memname ,objtype)
+     (emit-header-getset objname memname)
+     (emit-func-epilog #f objname memname objtype)
      (format %c "
   return s7_make_~a(sc, o->~a());
 }
-" ',type ,memname)
-     (emit-func-epilog #t ,objname ,memname ,objtype)
+" type memname)
+     (emit-func-epilog #t objname memname objtype)
      (format %c "
     s7_pointer x = s7_cadr(args);
     o->~a(s7_~a(x));
     return x;
 }
-" ,memnameset ',type)))
+" memnameset type)))
 
-(define-macro (def-goo-setters objtype objname memname memnameset type)
-  ; if no setter-name is provided, generate it from getter (camelCase)
-  (let ((memnameset (or memnameset
-                        (format #f "set~a~a"
-                                (string-upcase (substring memname 0 1))
-                                (substring memname 1)))))
-    (case type
-      ((integer)
-       (emit-goo-setters objtype objname memname memnameset type))
-      ((real)
-       (emit-goo-setters objtype objname memname memnameset type))
-      (else
-       (error "UNKNOWN goo-get/set type: " type)))))
-#|
-(define-macro (def-goo-setters-real objtype objname memname memnameset)
-    `(let ()
-       (set! %export-to-scheme (cons (list ,objname ,memname)
+(define-syntax def-goo-setters
+  (lambda (x)
+    (define (make-setter name memname)
+      (or name
+          (format #f "set~a~a"
+                  (string-upcase (substring memname 0 1))
+                  (substring memname 1))))
+    (define (select-emitter objtype objname memname memnameset type)
+      (case type
+        ((integer real)
+         `(emit-goo-setters ,objtype ,objname ,memname ,memnameset ',type))
+        (else
+         (error "UNKNOWN goo-get/set type: " 'type))))
+    (syntax-case x ()
+      ((k objtype objname memname memnameset type)
+       (let ((n1 (syntax-object->datum (syntax objtype)))
+             (n2 (syntax-object->datum (syntax objname)))
+             (n3 (syntax-object->datum (syntax memname)))
+             (n4 (syntax-object->datum (syntax memnameset)))
+             (n5 (syntax-object->datum (syntax type))))
+         (with-syntax ((memnameset2 (datum->syntax-object (syntax k)
+                                       (make-setter n4 n3))))
+         (let ((nm (syntax-object->datum (syntax memnameset2))))
+         (with-syntax ((fun (datum->syntax-object (syntax k)
+                                       (select-emitter n1 n2 n3 nm n5))))
+           (syntax fun)))))))))
+
+(define-syntax def-goo-setters-bool
+  (syntax-rules ()
+    ((k objtype objname memname memnameget memnameset)
+     (begin
+       (set! %export-to-scheme (cons (list objname memname)
                                      %export-to-scheme))
-       (emit-header-getset ,objname ,memname)
-       (emit-func-epilog #f ,objname ,memname ,objtype)
+       (emit-header-getset objname memname)
+       (emit-func-epilog #f objname memname objtype)
        (format %c "
-  return s7_make_real(sc, o->~a());
-}
-" ,memname)
-       (emit-func-epilog #t ,objname ,memname ,objtype)
-       (format %c "
-    s7_pointer x = s7_cadr(args);
-    o->~a(s7_real(x));
-    return x;
-}
-" ,memnameset))))
-
-|#
-(define-macro (def-goo-setters-bool objtype objname memname memnameget memnameset)
-  `(let ()
-     (set! %export-to-scheme (cons (list ,objname ,memname)
-                                   %export-to-scheme))
-     (emit-header-getset ,objname ,memname)
-     (emit-func-epilog #f ,objname ,memname ,objtype)
-     (format %c "
     return s7_make_boolean(sc, o->~a());
 }
-" ,memnameget)
-     (emit-func-epilog #t ,objname ,memname ,objtype)
-     (format %c "
+" memnameget)
+       (emit-func-epilog #t objname memname objtype)
+       (format %c "
   s7_pointer x = s7_cadr(args);
   o->~a(s7_boolean(sc, x));
   return x;
 }
-" ,memnameset)))
+" memnameset)))))
 
 ; FIX: the transname should be a symbol that references into %c-types-info
-(define-macro (def-goo-setters-sym objtype objname memname memnameset transname)
-  `(let ()
-     (set! %export-to-scheme (cons (list ,objname ,memname)
-                                   %export-to-scheme))
-     (emit-header-getset ,objname ,memname)
-     (emit-func-epilog #f ,objname ,memname ,objtype)
-     (format %c "
+(define-syntax def-goo-setters-sym
+  (syntax-rules ()
+    ((k objtype objname memname memnameset transname)
+     (begin
+       (set! %export-to-scheme (cons (list objname memname)
+                                     %export-to-scheme))
+       (emit-header-getset objname memname)
+       (emit-func-epilog #f objname memname objtype)
+       (format %c "
     return s7_make_symbol(sc, ~a_to_string(o->~a()));
 }
-" ,transname ,memname)
-     (emit-func-epilog #t ,objname ,memname ,objtype)
-     (format %c "
+" transname memname)
+       (emit-func-epilog #t objname memname objtype)
+       (format %c "
   s7_pointer x = s7_cadr(args);
   o->~a(string_to_~a(s7_symbol_name(x)));
   return x;
 }
-" ,memnameset ,transname)))
+" memnameset transname)))))
 
 (define (emit-c-type-string-maps name typelst basetypename)
   (let ()

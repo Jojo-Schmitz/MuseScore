@@ -1,8 +1,11 @@
 
+(define %sourcedir #f)
 (define %libdir #f)
 (define %libdir-mtest #f)
 (define %output-file #f)
 (define %source-files '())
+
+(define %directive #f)
 
 (let ((sarg #f))
   (do ((pair %command-line (cdr pair)))
@@ -12,9 +15,14 @@
        ((string=? "-l" arg)
         (set! pair (cdr pair))
         (set! %libdir (car pair)))
+       ((string=? "-s" arg)
+        (set! pair (cdr pair))
+        (set! %sourcedir (car pair)))
        ((string=? "-o" arg)
         (set! pair (cdr pair))
         (set! %output-file (car pair)))
+       ((string=? "--mtest-gen" arg)
+        (set! %directive 'mtest-gen))
        ((string=? "--" arg)
         (set! sarg #t))
        (sarg
@@ -24,6 +32,7 @@
 
 (format #t "---- generate scheme test code ----~%")
 (format #t "-- libdir: ~s~%" %libdir)
+(format #t "-- sourcedir: ~s~%" %sourcedir)
 (format #t "-- source-files: ~s~%" %source-files)
 (format #t "-- output-file: ~s~%" %output-file)
 
@@ -35,7 +44,7 @@
 
 (define (psyntax-eval form)
   (let ((ex (sc-expand form)))
-    (eval ex)))
+    (eval ex (rootlet))))
 
 (define (psyntax-load file)
   (with-input-from-file file
@@ -47,11 +56,15 @@
 ; scheme extensions
 (psyntax-load (format #f "~a/plib.scm" %libdir))
 
-; mtest helpers
-(psyntax-load (format #f "~a/mtestgen.scm" %libdir-mtest))
+(when (not (eq? 'mtest-gen %directive))
+  ; mtest helpers
+  (psyntax-load (format #f "~a/mtestgen.scm" %libdir-mtest))
 
-; musescore data structures definitions
-(load "ms.scm")
+  ; musescore data structures definitions
+  (load "ms.scm")
+  )
+
+(define %emit-port #f)
 
 (define (emit-body form)
   (cond
@@ -71,16 +84,20 @@
     (write form %emit-port))))
 
 ; generate output file
-(define %emit-port #f)
-(set! %emit-port (open-output-file %output-file "w"))
+(when (not (eq? 'mtest-gen %directive))
+  (set! %emit-port (open-output-file %output-file "w")))
 
 (format #t "-- loading source files~%")
 
 (do ((pair %source-files (cdr pair)))
     ((eq? '() pair))
-  (let ((file (car pair)))
-    (psyntax-load file)))
+  (if (eq? 'mtest-gen %directive)
+    (let ((file (format #f "~a/~a" %sourcedir (car pair))))
+      (format #t "-- loading source file ~s~%" file)
+      (psyntax-load file))
+    (psyntax-load (car pair))))
 
-(close-output-port %emit-port)
+(when (not (eq? 'mtest-gen %directive))
+  (close-output-port %emit-port))
 
 (format #t "---- scheme generator done ----~%")
