@@ -402,114 +402,100 @@ TAB_DURATION_SYMBOL
   HEAD_SCHEMES))
 
 (define %note-head-group '(
-  HEAD_NORMAL ; = 0,
-  HEAD_CROSS
-  HEAD_PLUS
-  HEAD_XCIRCLE
-  HEAD_WITHX
-  HEAD_TRIANGLE_UP
-  HEAD_TRIANGLE_DOWN
-  HEAD_SLASHED1
-  HEAD_SLASHED2
-  HEAD_DIAMOND
-  HEAD_DIAMOND_OLD
-  HEAD_CIRCLED
-  HEAD_CIRCLED_LARGE
-  HEAD_LARGE_ARROW
-  HEAD_BREVIS_ALT
+  (start-index . 0)
+  (name        . NoteHead_Group)
+  (c-type      . "NoteHead::Group")
+  (types       . (
+    HEAD_NORMAL ; = 0,
+    HEAD_CROSS
+    HEAD_PLUS
+    HEAD_XCIRCLE
+    HEAD_WITHX
+    HEAD_TRIANGLE_UP
+    HEAD_TRIANGLE_DOWN
+    HEAD_SLASHED1
+    HEAD_SLASHED2
+    HEAD_DIAMOND
+    HEAD_DIAMOND_OLD
+    HEAD_CIRCLED
+    HEAD_CIRCLED_LARGE
+    HEAD_LARGE_ARROW
+    HEAD_BREVIS_ALT
 
-  HEAD_SLASH
-  HEAD_LARGE_DIAMOND
+    HEAD_SLASH
+    HEAD_LARGE_DIAMOND
 
-  HEAD_SOL
-  HEAD_LA
-  HEAD_FA
-  HEAD_MI
-  HEAD_DO
-  HEAD_RE
-  HEAD_TI
+    HEAD_SOL
+    HEAD_LA
+    HEAD_FA
+    HEAD_MI
+    HEAD_DO
+    HEAD_RE
+    HEAD_TI
 
-  HEAD_HEAVY_CROSS
-  HEAD_HEAVY_CROSS_HAT
+    HEAD_HEAVY_CROSS
+    HEAD_HEAVY_CROSS_HAT
 
-  ; not exposed from here
-  HEAD_DO_WALKER
-  HEAD_RE_WALKER
-  HEAD_TI_WALKER
-  HEAD_DO_FUNK
-  HEAD_RE_FUNK
-  HEAD_TI_FUNK
+    ; not exposed from here
+    HEAD_DO_WALKER
+    HEAD_RE_WALKER
+    HEAD_TI_WALKER
+    HEAD_DO_FUNK
+    HEAD_RE_FUNK
+    HEAD_TI_FUNK
 
-  HEAD_DO_NAME
-  HEAD_RE_NAME
-  HEAD_MI_NAME
-  HEAD_FA_NAME
-  HEAD_SOL_NAME
-  HEAD_LA_NAME
-  HEAD_TI_NAME
-  HEAD_SI_NAME
+    HEAD_DO_NAME
+    HEAD_RE_NAME
+    HEAD_MI_NAME
+    HEAD_FA_NAME
+    HEAD_SOL_NAME
+    HEAD_LA_NAME
+    HEAD_TI_NAME
+    HEAD_SI_NAME
 
-  HEAD_A_SHARP
-  HEAD_A
-  HEAD_A_FLAT
-  HEAD_B_SHARP
-  HEAD_B
-  HEAD_B_FLAT
-  HEAD_C_SHARP
-  HEAD_C
-  HEAD_C_FLAT
-  HEAD_D_SHARP
-  HEAD_D
-  HEAD_D_FLAT
-  HEAD_E_SHARP
-  HEAD_E
-  HEAD_E_FLAT
-  HEAD_F_SHARP
-  HEAD_F
-  HEAD_F_FLAT
-  HEAD_G_SHARP
-  HEAD_G
-  HEAD_G_FLAT
-  HEAD_H
-  HEAD_H_SHARP
+    HEAD_A_SHARP
+    HEAD_A
+    HEAD_A_FLAT
+    HEAD_B_SHARP
+    HEAD_B
+    HEAD_B_FLAT
+    HEAD_C_SHARP
+    HEAD_C
+    HEAD_C_FLAT
+    HEAD_D_SHARP
+    HEAD_D
+    HEAD_D_FLAT
+    HEAD_E_SHARP
+    HEAD_E
+    HEAD_E_FLAT
+    HEAD_F_SHARP
+    HEAD_F
+    HEAD_F_FLAT
+    HEAD_G_SHARP
+    HEAD_G
+    HEAD_G_FLAT
+    HEAD_H
+    HEAD_H_SHARP
 
-  HEAD_SWISS_RUDIMENTS_FLAM
-  HEAD_SWISS_RUDIMENTS_DOUBLE
+    HEAD_SWISS_RUDIMENTS_FLAM
+    HEAD_SWISS_RUDIMENTS_DOUBLE
 
-  HEAD_CUSTOM
-  HEAD_GROUPS
-  HEAD_INVALID ; = -1
-  ))
-
-(define (get-note-head-group name)
-  (let ((idx -1)
-        (f #f))
-    (do ((i 0 (+ i 1))
-         (pair %note-head-group (cdr pair)))
-        ((or f (eq? '() pair)))
-      (when (eq? (car pair) name)
-        (set! idx i)
-        (set! f #t)))
-    idx))
+    HEAD_CUSTOM
+    HEAD_GROUPS
+    HEAD_INVALID ; = -1
+    ))))
 
 (define %note-head-type '(
-  HEAD_AUTO    ; = -1
-  HEAD_WHOLE
-  HEAD_HALF
-  HEAD_QUARTER
-  HEAD_BREVIS
-  HEAD_TYPES))
-
-(define (get-note-head-type name)
-  (let ((idx -2)
-        (f #f))
-    (do ((i -1 (+ i 1))
-         (pair %note-head-type (cdr pair)))
-        ((or f (eq? '() pair)))
-      (when (eq? (car pair) name)
-        (set! idx i)
-        (set! f #t)))
-    idx))
+  (start-index . -1)
+  (name        . NoteHead_Type)
+  (c-type      . "NoteHead::Type")
+  (types       . (
+    HEAD_AUTO    ; = -1
+    HEAD_WHOLE
+    HEAD_HALF
+    HEAD_QUARTER
+    HEAD_BREVIS
+    HEAD_TYPES))))
 
 (define %note-value-type '(
   (name        . note_ValueType)

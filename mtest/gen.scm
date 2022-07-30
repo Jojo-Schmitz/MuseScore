@@ -1,5 +1,6 @@
 
 (define %export-to-scheme '())
+(define %export-to-scheme2 '())
 
 ; generate a .h and .c file, write to these files
 (define %h (open-output-file "s7gen.h" "w"))
@@ -36,6 +37,29 @@ s7_pointer ms_~a~a_~a (s7_scheme *sc, s7_pointer args)
     goo_t *g = (goo_t *)s7_c_object_value(s7_car(args));
     ~a* o = (~a*) g->cd;
 " (if setter "set_" "") objname memname objtype objtype))
+
+(define (c-ify-name sname)
+  (let ((str "")
+        (sname (symbol->string sname)))
+    (do ((i 0 (+ 1 i)))
+        ((>= i (string-length sname)))
+      (set! str (format #f "~a~a" str
+                        (let ((s (substring sname i (+ i 1))))
+                          (if (string=? s "-") "_" s)))))
+    str))
+
+(define (emit-cfun names arity body)
+  (let* ((sname (car names))
+         (cname (if (null? (cdr names)) #f (cadr names)))
+         (cname (or cname (c-ify-name sname))))
+    (set! %export-to-scheme2
+          (cons (list sname cname arity)
+                %export-to-scheme2))
+    (format %h "s7_pointer ~a (s7_scheme *sc, s7_pointer args);~%" cname)
+    (format %c "s7_pointer ~a (s7_scheme *sc, s7_pointer args) {" cname)
+    (newline %c)
+    (body)
+    (format %c "}~%~%")))
 
 (define (emit-goo-setters objtype objname memname memnameset type)
   `(let ()
@@ -106,6 +130,7 @@ s7_pointer ms_~a~a_~a (s7_scheme *sc, s7_pointer args)
 }
 " ,memnameset)))
 
+; FIX: the transname should be a symbol that references into %c-types-info
 (define-macro (def-goo-setters-sym objtype objname memname memnameset transname)
   `(let ()
      (set! %export-to-scheme (cons (list ,objname ,memname)
@@ -135,6 +160,7 @@ s7_pointer ms_~a~a_~a (s7_scheme *sc, s7_pointer args)
                    (format %c "        case ~a:~%" c-type)
                    (format %c "        return \"~s\";~%" symname))))
          typelst)
+    (format %c "    fprintf(stderr, \"WARNING: Unknown ctype-int %i\\n\", (int) c-type);~%")
     (format %c "    }~%}~%")
 
     (format %h "~a string_to_~a (const char *name);~%" basetypename name)
@@ -147,6 +173,7 @@ s7_pointer ms_~a~a_~a (s7_scheme *sc, s7_pointer args)
                    (format %c "        return ~a;~%" c-type)
                    (format %c "    }~%"))))
          typelst)
+    (format %c "    fprintf(stderr, \"WARNING: Unknown ctype-str %s\\n\", name);~%")
     (format %c "    return (~a)0;~%" basetypename)
     (format %c "}~%")))
 
@@ -202,6 +229,13 @@ s7_pointer ms_~a~a_~a (s7_scheme *sc, s7_pointer args)
       types)
     (format %c "    return (Ms::~a)0;~%" c-type)
     (format %c "}~%")))
+
+(define (emit-exports)
+  (for-each (lambda (lst)
+    (match lst
+      ((sname cname arity)
+       (format %c "s7_define_function(sc, \"~a\", ~a, ~a, 0, false, \"(~a)\");~%" sname cname arity sname))))
+    %export-to-scheme2))
 
 (define (gen-done) 
   (format #t "closing output port~%")

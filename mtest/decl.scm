@@ -12,10 +12,16 @@
 
 #include <QtTest/QtTest>
 #include \"libmscore/score.h\"
+#include \"libmscore/undo.h\"
+#include \"libmscore/measure.h\"
 #include \"libmscore/element.h\"
+#include \"libmscore/sym.h\"
 #include \"libmscore/hairpin.h\"
+#include \"libmscore/breath.h\"
 #include \"mtest/testutils.h\"
 #include \"s7gen.h\"
+
+const char* my_s7_get_car_as_string (s7_pointer lst);
 
 using namespace Ms;
 
@@ -47,26 +53,23 @@ extern Ms::MTest* g_mtest;
 (register-c-type %directionh)
 (register-c-type %direction)
 (register-c-type %note-value-type)
+(register-c-type %note-head-type)
+(register-c-type %note-head-group)
 (emit-c-type-string-maps2 'DirectionH)
 (emit-c-type-string-maps2 'Direction)
 (emit-c-type-string-maps2 'note_ValueType)
-(emit-c-type-string-maps-simple "note_headGroup" %note-head-group "Ms::NoteHead::Group")
-(emit-c-type-string-maps-simple "note_headType" %note-head-type "Ms::NoteHead::Type")
-;(emit-c-type-string-maps-simple "note_valueType" %note-value-type "Ms::Note::ValueType")
+(emit-c-type-string-maps2 'NoteHead_Type)
+(emit-c-type-string-maps2 'NoteHead_Group)
 (emit-c-type-string-maps-simple "element_pid" %element-pids "Ms::Pid")
 
 ;
 ; (ms-make-element <element-name>) => element-object
 ;
-(format %h "s7_pointer ms_make_element (s7_scheme *sc, s7_pointer args);~%")
-(format %c "
-s7_pointer ms_make_element(s7_scheme *sc, s7_pointer args)
-{
+(emit-cfun '(ms-make-element) 1 (lambda () (format %c "
     if (! s7_is_symbol(s7_car(args))) {
         return (s7_wrong_type_arg_error(sc, \"ms_make_element\", 1, s7_car(args), \"an symbol\"));
     }
     const char *symname = s7_symbol_name(s7_car(args));
-
     uint64_t ty;
     Element* e = NULL;
     if (!strcmp(symname, \"dummy\")) {
@@ -85,10 +88,53 @@ s7_pointer ms_make_element(s7_scheme *sc, s7_pointer args)
         fprintf(stderr, \"ERROR: UNRECOGNIZED ELEMENT TYPE: %s\\n\", symname);
         return s7_nil(sc);
     }
-    return c_make_goo(sc, ty, s7_nil(sc), e);
-}
+    return c_make_goo(sc, ty, s7_f(sc), e);
+")))
 
-")
+(emit-cfun '(ms-score-selection-elements) 1 (lambda () (format %c "
+    if (!s7_is_pair(args)) return s7_f(sc);
+    s7_pointer s = s7_car(args);
+    if (! c_is_goo(sc, s)) return s7_f(sc);
+    goo_t *g = (goo_t *)s7_c_object_value(s);
+    MasterScore* score = (MasterScore *) g->cd;
+    const void *elms = &(score->selection().elements());
+    uint64_t ty = 0;
+    return c_make_goo(sc, ty, s7_f(sc), (void*) elms);
+")))
+
+(emit-cfun '(ms-elements-getnext) 1 (lambda () (format %c "
+    if (!s7_is_pair(args)) return s7_f(sc);
+    s7_pointer s = s7_car(args);
+    if (! c_is_goo(sc, s)) return s7_f(sc);
+    goo_t *g = (goo_t *)s7_c_object_value(s);
+    QList<Element*> *elms = (QList<Ms::Element*>*) g->cd;
+    int cnt = 0;
+    if (g->data && s7_is_integer(g->data)) {
+      cnt = s7_integer(g->data);
+      cnt++;
+    }
+    if (cnt >= elms->size()) { // no more elements
+        return s7_f(sc);
+    }
+    g->data = s7_make_integer(sc, cnt);
+    Element* elm = elms->at(cnt);
+    uint64_t ty = 0;
+    return c_make_goo(sc, ty, s7_f(sc), (void*) elm);
+")))
+;
+; breath
+;
+(emit-cfun '(ms-make-breath) 1 (lambda () (format %c "
+    if (!s7_is_pair(args)) return s7_f(sc);
+    s7_pointer s = s7_car(args);
+    if (! c_is_goo(sc, s)) return s7_f(sc);
+    goo_t *g = (goo_t *)s7_c_object_value(s);
+    MasterScore* score = (MasterScore *) g->cd;
+    if (! score) return s7_f(sc);
+    Breath* b = new Breath(score);
+    uint64_t ty = 0;
+    return c_make_goo(sc, ty, s7_f(sc), b);
+")))
 
 ;
 ; hairpin
@@ -97,15 +143,11 @@ s7_pointer ms_make_element(s7_scheme *sc, s7_pointer args)
 (register-c-type %hairpin-type)
 (emit-c-type-string-maps2 'hairpin)
 
-(format %h "s7_pointer ms_make_hairpin (s7_scheme *sc, s7_pointer args);~%")
-(format %c "
-s7_pointer ms_make_hairpin (s7_scheme *sc, s7_pointer args)
-{
+(emit-cfun '(ms-make-hairpin) 0 (lambda () (format %c "
     Hairpin* hp = new Hairpin(g_mtest->score);
     uint64_t ty = static_cast<uint64_t>(GOO_TYPE::ELEMENT_HAIRPIN);
-    return c_make_goo(sc, ty, s7_nil(sc), hp);
-}
-")
+    return c_make_goo(sc, ty, s7_f(sc), hp);
+")))
 
 (def-goo-setters-sym "Ms::Hairpin" "hairpin" "hairpinType" "setHairpinType" "hairpin")
 
@@ -113,10 +155,7 @@ s7_pointer ms_make_hairpin (s7_scheme *sc, s7_pointer args)
 ; note
 ;
 
-(format %h "s7_pointer ms_note_set_property (s7_scheme *sc, s7_pointer args);~%")
-(format %c "
-s7_pointer ms_note_set_property (s7_scheme *sc, s7_pointer args)
-{
+(emit-cfun '(ms-note-set-property) 3 (lambda () (format %c "
     goo_t *g = (goo_t *)s7_c_object_value(s7_car(args));
     Ms::Note* note = (Ms::Note*) g->cd;
     s7_pointer sym = s7_car(s7_cdr(args));
@@ -130,8 +169,7 @@ s7_pointer ms_note_set_property (s7_scheme *sc, s7_pointer args)
     } else {
         note->setProperty(string_to_element_pid(s7_symbol_name(sym)), QVariant::fromValue(s7_integer(val)));
     }
-}
-")
+")))
 
 ;
 ; emit code for ms-objects set/get, and register them to be exported to scheme
@@ -147,14 +185,54 @@ s7_pointer ms_note_set_property (s7_scheme *sc, s7_pointer args)
 (def-goo-setters-bool "Ms::Note" "note" "small" "isSmall" "setSmall")
 (def-goo-setters-bool "Ms::Note" "note" "ghost" "ghost" "setGhost")
 (def-goo-setters-sym "Ms::Note" "note" "userDotPosition" "setUserDotPosition" "Direction")
-(def-goo-setters-sym "Ms::Note" "note" "headGroup" "setHeadGroup" "note_headGroup")
-(def-goo-setters-sym "Ms::Note" "note" "headType" "setHeadType" "note_headType")
+(def-goo-setters-sym "Ms::Note" "note" "headGroup" "setHeadGroup" "NoteHead_Group")
+(def-goo-setters-sym "Ms::Note" "note" "headType" "setHeadType" "NoteHead_Type")
 (def-goo-setters-sym "Ms::Note" "note" "veloType" "setVeloType" "note_ValueType") ; velotype uses Note::Valuetype
+
+;
+; score
+;
+(define-syntax def-score-method
+  (lambda (x)
+    (define (make-funname methname)
+      (format #f "ms_score_~a" methname))
+    (syntax-case x ()
+      ((k methname)
+       (let ((n1 (syntax-object->datum (syntax methname))))
+         (with-syntax ((cname (datum->syntax-object (syntax k)
+                                                    (make-funname n1))))
+           (syntax
+            (format %c "
+s7_pointer ~a (s7_scheme *sc, s7_pointer args)
+{
+    if (!s7_is_pair(args)) return s7_f(sc);
+    s7_pointer s = s7_car(args);
+    if (! c_is_goo(sc, s)) return s7_f(sc);
+    goo_t *g = (goo_t *)s7_c_object_value(s);
+    MasterScore* score = (MasterScore*) g->cd;
+    score->~a();
+    return s7_t(sc);
+}
+" 'cname 'methname))))))))
+
+(def-score-method doLayout)
+(def-score-method startCmd)
+(def-score-method endCmd)
+(def-score-method cmdSelectAll)
 
 ; emit the init-function that scheme-exports all glue-functions (ms-objects set/get)
 ;
 (format %c "void init_gen_s7 (s7_scheme *sc) {~%")
-(format %c "    s7_define_function(sc, \"ms-note-set-property\", ms_note_set_property, 3, 0, false, \"(ms-note-set-property PropertyID value)\");~%")
+(for-each (lambda (lst)
+  (match lst
+    ((sname cname arity desc)
+     (format %c "    s7_define_function(sc, \"~a\", ~a, ~a, 0, false, \"~a\");~%" sname cname arity desc))))
+  '(("ms-score-doLayout" "ms_score_doLayout" 1 "(ms-score-doLayout score)")
+    ("ms-score-startCmd" "ms_score_startCmd" 1 "(ms-score-startCmd score)")
+    ("ms-score-endCmd" "ms_score_endCmd" 1 "(ms-score-endCmd score)")
+    ("ms-score-cmdSelectAll" "ms_score_cmdSelectAll" 1 "(ms-score-cmdSelectAll score)")
+    ("ms-score-cmdSelectAll" "ms_score_cmdSelectAll" 1 "(ms-score-cmdSelectAll score)")
+    ))
 
 (for-each (lambda (lst)
   (match lst
@@ -165,7 +243,10 @@ s7_pointer ms_note_set_property (s7_scheme *sc, s7_pointer args)
       (format #f "ms_~a_~a" objname memname)
       (format #f "ms_set_~a_~a" objname memname)
       (format #f "~a ~a field" objname memname)))))
-          %export-to-scheme)
+  %export-to-scheme)
+
+(emit-exports)
+
 (for-each (lambda (lst)
   (match lst
     ((scm-name c-name-get c-name-set desc)
