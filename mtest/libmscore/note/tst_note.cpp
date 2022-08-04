@@ -350,9 +350,10 @@ void TestNote::grace()
       tr->setTrack(gc->track());
       score->undoAddElement(tr);
       score->endCmd();
-//      Ms::Chord* c = static_cast<Ms::Chord*>(writeReadElement(gc));
-//      QVERIFY(c->tremolo() != 0);
-//      delete c;
+      Ms::Chord* c = static_cast<Ms::Chord*>(writeReadElement(gc));
+      QVERIFY(c->tremolo() != 0);
+      QVERIFY(c->tremolo()->tremoloType() == TremoloType::R16);
+      delete c;
 
       // articulation
       score->startCmd();
