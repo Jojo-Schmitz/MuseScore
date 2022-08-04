@@ -31,6 +31,7 @@ const char* tests[] = {
       "libmscore/tst_element.scm",
       "libmscore/tst_note.scm",
       "libmscore/tst_hairpin.scm",
+      "libmscore/tst_breath.scm",
 #if 1
 #if 0
       "libmscore/readwriteundoreset/tst_readwriteundoreset",
@@ -42,7 +43,6 @@ const char* tests[] = {
       "libmscore/rhythmicGrouping/tst_rhythmicGrouping",
       "libmscore/dynamic/tst_dynamic",
       "libmscore/durationtype/tst_durationtype",
-      "libmscore/breath/tst_breath",
       "libmscore/tuplet/tst_tuplet",
       "libmscore/chordsymbol/tst_chordsymbol",
       "libmscore/text/tst_text",
