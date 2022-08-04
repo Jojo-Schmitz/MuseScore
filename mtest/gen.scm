@@ -1,5 +1,6 @@
 
-(define %export-to-scheme '())
+(define %export-to-scheme-getset '()) ; get/setters
+(define %export-to-scheme-get '())    ; getters only
 (define %export-to-scheme2 '())
 
 ; generate a .h and .c file, write to these files
@@ -30,13 +31,78 @@ int string_to_ctype (const char *sname)
   (format %h "s7_pointer ms_set_~a_~a (s7_scheme *sc, s7_pointer args);~%" objname memname))
 
 ; write the beginning of a c-function. FIX: (with-c-fun (args) body) would be better
-(define (emit-func-epilog setter objname memname objtype)
+(define (emit-func-prolog setter objname memname objtype)
   (format %c "
 s7_pointer ms_~a~a_~a (s7_scheme *sc, s7_pointer args)
 {
     goo_t *g = (goo_t *)s7_c_object_value(s7_car(args));
     ~a* o = (~a*) g->cd;
 " (if setter "set_" "") objname memname objtype objtype))
+
+(define (maybe-emit-args-check e)
+  (unless (assis? 'argsPairKnow e)
+    (format %c "    if (!s7_is_pair(args)) return s7_f(sc);~%")
+    (set! e (assoc-set e 'argsPairKnow #t)))
+  e)
+
+(define (emit-pop-arg-sym args e)
+  (let ((cargname (car args)))
+    (format %c "~%    // emit-pop-arg-sym ~a~%" cargname)
+    (set! e (maybe-emit-args-check e))
+    (format %c "
+    ~as = s7_car(args);
+    if (!s7_is_symbol(s)) return s7_f(sc);
+    const char* ~a = s7_symbol_name(s);
+" (if (assis? 's e) "" "s7_pointer ") cargname)
+    (set! e (assoc-set e 's #t))
+    e))
+
+(define (emit-pop-arg-int args e)
+  (let ((cargname (car args)))
+    (format %c "~%    // emit-pop-arg-int ~a~%" cargname)
+    (set! e (maybe-emit-args-check e))
+    (format %c "
+    ~as = s7_car(args);
+    if (!s7_is_integer(s)) return s7_f(sc);
+    int ~a = s7_integer(s);
+" (if (assis? 's e) "" "s7_pointer ") cargname)
+    (set! e (assoc-set e 's #t))
+    e))
+
+(define (emit-pop-arg-goo args e)
+  (let ((type (if (pair? args) (car args) #f))
+        (name (if (and (pair? args) (pair? (cdr args))) (cadr args) #f))
+        (cvar (if (and (pair? args) (pair? (cdr args)) (pair? (cddr args))) (caddr args) "g"))
+        (cvarg (and (pair? args) (pair? (cdr args)) (pair? (cddr args)))))
+    (format %c "~%    // emit-pop-arg-goo ~a (~a) => ~a~%" name type cvar)
+    (set! e (maybe-emit-args-check e))
+    (format %c "
+    ~as = s7_car(args);
+    if (! c_is_goo(sc, s)) return s7_f(sc);
+    ~a~a = (goo_t *)s7_c_object_value(s);
+" (if (assis? 's e) "" "s7_pointer ") (if (and (not cvarg) (assis? 'g e)) "" "goo_t* ") cvar)
+    (set! e (assoc-set e 's #t))
+    (unless cvarg
+      (set! e (assoc-set e 'g #t)))
+    (if (and type name)
+      (format %c "    ~a ~a = (~a) ~a->cd;~%"
+              type name type cvar)))
+  e)
+
+(define (emit-next-arg args e)
+  (format %c "
+    // emit-next-arg
+    args = s7_cdr(args);
+")
+  (assoc-set e 'argsPairKnow #f)) ; resets checked-if-end-of-list flag
+
+(define (emit-return-goo args e)
+  (let ((varname (car args))
+        (typename (cadr args)))
+    (format %c "
+    uint64_t ty = ~a;
+    return c_make_goo(sc, ty, s7_f(sc), (void*) ~a);~%" typename varname)
+  e))
 
 (define (c-ify-name sname)
   (let ((str "")
@@ -48,6 +114,25 @@ s7_pointer ms_~a~a_~a (s7_scheme *sc, s7_pointer args)
                           (if (string=? s "-") "_" s)))))
     str))
 
+(define (emit-inst-eval-form form e)
+  (cond
+   ((pair? form)
+    (let ((fun-name (car form)))
+      ((symbol->value fun-name) (cdr form) e)
+      ))
+   (else (form e))))
+
+(define (emit-inst-eval forms e)
+  (when (pair? forms)
+    (let ((form (car forms)))
+      (emit-inst-eval (cdr forms)
+                      (emit-inst-eval-form form e)))))
+
+(define (emit-cfun-eval sname cname arity body)
+  (emit-inst-eval (append (list '(emit-prolog)) body)
+                  `((sname . ,sname) (cname . ,cname) (arity . ,arity)
+                    (s . #f) (g . #f))))
+
 (define (emit-cfun names arity body)
   (let* ((sname (car names))
          (cname (if (null? (cdr names)) #f (cadr names)))
@@ -56,28 +141,52 @@ s7_pointer ms_~a~a_~a (s7_scheme *sc, s7_pointer args)
           (cons (list sname cname arity)
                 %export-to-scheme2))
     (format %h "s7_pointer ~a (s7_scheme *sc, s7_pointer args);~%" cname)
-    (format %c "s7_pointer ~a (s7_scheme *sc, s7_pointer args) {" cname)
-    (newline %c)
-    (body)
+    (format %c "s7_pointer ~a (s7_scheme *sc, s7_pointer args)~%{~%" cname)
+    (if (pair? body)
+        (emit-cfun-eval sname cname arity body)
+        (body))
     (format %c "}~%~%")))
+
+(define (emit-prolog args e)
+  (unless (assis? 'c-prolog e)
+    (let ((arity (assoc 'arity e)))
+      (if arity (set! arity (cdr arity)))
+      ;(if (and arity (> arity 0)) ; args are used, emit check that ensures they are provided
+      ;  (format %c "    if (!s7_is_pair(args)) return s7_f(sc);~%"))
+      (set! e (cons (cons 'c-prolog #t) e))))
+  e)
 
 (define (emit-goo-setters objtype objname memname memnameset type)
   (let ()
-     (set! %export-to-scheme (cons (list objname memname)
-                                   %export-to-scheme))
+     (set! %export-to-scheme-getset (cons (list objname memname memnameset)
+                                          %export-to-scheme-getset))
      (emit-header-getset objname memname)
-     (emit-func-epilog #f objname memname objtype)
+     (emit-func-prolog #f objname memname objtype)
      (format %c "
   return s7_make_~a(sc, o->~a());
 }
 " type memname)
-     (emit-func-epilog #t objname memname objtype)
+     (emit-func-prolog #t objname memname objtype)
      (format %c "
     s7_pointer x = s7_cadr(args);
     o->~a(s7_~a(x));
     return x;
 }
 " memnameset type)))
+
+(define (def-goo-setters-goo objtype objname getname setname operandtype)
+  (let ((sname-getname (string->symbol (format #f "ms-~a-~a" objname getname)))
+        (sname-setname (string->symbol (format #f "ms-~a-~a" objname setname))))
+    (emit-cfun (list sname-getname) 1 (list
+      `(emit-pop-arg-goo ,objtype "o")
+      (lambda (e) (format %c "    ~a y = o->~a();~%" operandtype getname))
+      `(emit-return-goo "y" 0)))
+    (emit-cfun (list sname-setname) 2 (list
+      `(emit-pop-arg-goo ,objtype "o" "go")
+      '(emit-next-arg)
+      `(emit-pop-arg-goo ,operandtype "x" "gx")
+      (lambda (e) (format %c "    o->~a(x);
+    return s7_t(sc);" setname))))))
 
 (define-syntax def-goo-setters
   (lambda (x)
@@ -110,15 +219,15 @@ s7_pointer ms_~a~a_~a (s7_scheme *sc, s7_pointer args)
   (syntax-rules ()
     ((k objtype objname memname memnameget memnameset)
      (begin
-       (set! %export-to-scheme (cons (list objname memname)
-                                     %export-to-scheme))
+       (set! %export-to-scheme-getset (cons (list objname memname memnameset)
+                                            %export-to-scheme-getset))
        (emit-header-getset objname memname)
-       (emit-func-epilog #f objname memname objtype)
+       (emit-func-prolog #f objname memname objtype)
        (format %c "
     return s7_make_boolean(sc, o->~a());
 }
 " memnameget)
-       (emit-func-epilog #t objname memname objtype)
+       (emit-func-prolog #t objname memname objtype)
        (format %c "
   s7_pointer x = s7_cadr(args);
   o->~a(s7_boolean(sc, x));
@@ -131,21 +240,22 @@ s7_pointer ms_~a~a_~a (s7_scheme *sc, s7_pointer args)
   (syntax-rules ()
     ((k objtype objname memname memnameset transname)
      (begin
-       (set! %export-to-scheme (cons (list objname memname)
-                                     %export-to-scheme))
+       (set! %export-to-scheme-getset (cons (list objname memname memnameset)
+                                            %export-to-scheme-getset))
        (emit-header-getset objname memname)
-       (emit-func-epilog #f objname memname objtype)
+       (emit-func-prolog #f objname memname objtype)
        (format %c "
     return s7_make_symbol(sc, ~a_to_string(o->~a()));
 }
 " transname memname)
-       (emit-func-epilog #t objname memname objtype)
-       (format %c "
+       (when memnameset
+         (emit-func-prolog #t objname memname objtype)
+         (format %c "
   s7_pointer x = s7_cadr(args);
   o->~a(string_to_~a(s7_symbol_name(x)));
   return x;
 }
-" memnameset transname)))))
+" memnameset transname))))))
 
 (define (emit-c-type-string-maps name typelst basetypename)
   (let ()
@@ -213,6 +323,8 @@ s7_pointer ms_~a~a_~a (s7_scheme *sc, s7_pointer args)
           (format %c "        case ~a:~%" cname)
           (format %c "        return \"~a\";~%" sname))))
       types)
+    (format %c "        default:~%")
+    (format %c "        return \"\";~%")
     (format %c "    }~%}~%")
     ; emit c-function that takes an string and returns an object of a specific type
     (format %h "Ms::~a string_to_~a (const char *name);~%" c-type typename)
