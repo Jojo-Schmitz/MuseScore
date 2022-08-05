@@ -201,13 +201,14 @@ add_custom_target(mtest_build_and_install
 endif (NOT MSVC)
 
 add_custom_command (OUTPUT s7gen.h s7gen.cpp
-                    COMMAND ${PROJECT_BINARY_DIR}/s7/s7 -f ${CMAKE_CURRENT_SOURCE_DIR}/testgen.scm -- --mtest-gen -l ${PROJECT_SOURCE_DIR}/s7 -s ${CMAKE_CURRENT_SOURCE_DIR} ../s7/lib.scm ms.scm types.scm gen.scm decl.scm -o ${CMAKE_CURRENT_BINARY_DIR}/s7gen
+                    COMMAND ${PROJECT_BINARY_DIR}/s7/s7 -f ${CMAKE_CURRENT_SOURCE_DIR}/testgen.scm -- --mtest-gen -l ${PROJECT_SOURCE_DIR}/s7 -s ${CMAKE_CURRENT_SOURCE_DIR} ../s7/lib.scm gen.scm types.scm ms.scm ms-objects.scm decl.scm -o ${CMAKE_CURRENT_BINARY_DIR}/s7gen
                     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/
-                    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/ms.scm
-                            ${CMAKE_CURRENT_SOURCE_DIR}/decl.scm
+                    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/testgen.scm
+                            ${CMAKE_CURRENT_SOURCE_DIR}/gen.scm
                             ${CMAKE_CURRENT_SOURCE_DIR}/types.scm
-                            ${CMAKE_CURRENT_SOURCE_DIR}/mtest.scm
-                            ${CMAKE_CURRENT_SOURCE_DIR}/testgen.scm
+                            ${CMAKE_CURRENT_SOURCE_DIR}/ms.scm
+                            ${CMAKE_CURRENT_SOURCE_DIR}/ms-objects.scm
+                            ${CMAKE_CURRENT_SOURCE_DIR}/decl.scm
                             ${PROJECT_SOURCE_DIR}/s7/lib.scm
                     VERBATIM
                     )

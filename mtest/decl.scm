@@ -16,6 +16,7 @@
 #include \"libmscore/measure.h\"
 #include \"libmscore/element.h\"
 #include \"libmscore/tremolo.h\"
+#include \"libmscore/articulation.h\"
 #include \"libmscore/sym.h\"
 #include \"libmscore/hairpin.h\"
 #include \"libmscore/breath.h\"
@@ -117,7 +118,6 @@ extern Ms::MTest* g_mtest;
     (format %c "    return s7_make_integer(sc, static_cast<uint64_t>(e->type()));~%"))))
 
 (def-goo-setters-goo "Ms::Element*" "element" "parent" "setParent" "Element*")
-(def-goo-setters "Ms::Element" "element" "track" "setTrack" integer)
 
 (emit-cfun '(ms-score-selection-elements) 1 (list
   '(emit-pop-arg-goo "MasterScore*" "score")
@@ -220,6 +220,17 @@ extern Ms::MTest* g_mtest;
 
 (def-goo-setters-sym "Ms::Tremolo" "tremolo" "tremoloType" "setTremoloType" "TremoloType")
 
+; articulation
+
+(emit-cfun '(ms-make-articulation) 2 (list
+  '(emit-pop-arg-goo "MasterScore*" "score")
+  '(emit-next-arg)
+  '(emit-pop-arg-sym "sym")
+  (lambda (e) (format %c "
+    Ms::SymId syid = string_to_SymId(sym);
+    Articulation* ar = new Articulation(syid, score);~%"))
+  '(emit-return-goo "ar" "static_cast<uint64_t>(0)")))
+
 ;
 ; note
 ;
@@ -260,13 +271,6 @@ extern Ms::MTest* g_mtest;
 
 (def-goo-setters-sym "Ms::Breath" "breath" "symId" "setSymId" "SymId")
 
-(def-goo-setters "Ms::Note" "note" "tpc1"       #f integer)
-(def-goo-setters "Ms::Note" "note" "tpc2"       #f integer)
-(def-goo-setters "Ms::Note" "note" "fret"       #f integer)
-(def-goo-setters "Ms::Note" "note" "pitch"      #f integer)
-(def-goo-setters "Ms::Note" "note" "string"     #f integer)
-(def-goo-setters "Ms::Note" "note" "tuning"     #f real)
-(def-goo-setters "Ms::Note" "note" "veloOffset" #f integer)
 (def-goo-setters-bool "Ms::Note" "note" "small" "isSmall" "setSmall")
 (def-goo-setters-bool "Ms::Note" "note" "ghost" "ghost" "setGhost")
 (def-goo-setters-sym "Ms::Note" "note" "userDotPosition" "setUserDotPosition" "Direction")
@@ -275,14 +279,8 @@ extern Ms::MTest* g_mtest;
 (def-goo-setters-sym "Ms::Note" "note" "veloType" "setVeloType" "note_ValueType") ; velotype uses Note::Valuetype
 (def-goo-setters-sym "Ms::Note" "note" "noteType" #f "NoteType")
 
-(emit-cfun '(ms-note-set-tpc-from-pitch) 1 (list
-  '(emit-pop-arg-goo "Ms::Note*" "note")
-  (lambda (e) (format %c "
-    note->setTpcFromPitch();
-    return s7_t(sc);~%"))))
-
-
 ; emit c-functions for simple object-methods
+(emit-registered-objects)
 (map (lambda (lst)
        (match lst
        ((sname cvartype cvarname meth crestype cresvarname gootype)
@@ -291,77 +289,8 @@ extern Ms::MTest* g_mtest;
          (lambda (e)
            (format %c "    ~a ~a = ~a;" crestype cresvarname meth))
          `(emit-return-goo ,cresvarname ,(format #f "static_cast<uint64_t>(~a)" gootype)))))))
-  '((ms-chord-upNote "Chord*" "chord" "chord->upNote()" "Ms::Note*" "note" "GOO_TYPE::ELEMENT_NOTE")
-    (ms-chord-graceNotes "Chord*" "chord" "&(chord->graceNotes())" "QVector<Chord*>*" "gcs" "0 /* GOO_TYPE::CHORDLIST */")
-    (ms-chords-first "QVector<Chord*>*" "chords" "chords->first()" "Ms::Chord*" "chord" "GOO_TYPE::CHORD")
-    (ms-chord-notes "Chord*" "chord" "&(chord->notes())" "std::vector<Note*>*" "notes" "0 /* GOO_TYPE::NOTELIST */")
-    (ms-chord-tremolo "Chord*" "chord" "chord->tremolo()" "Tremolo*" "tremolo" "0 /* GOO_TYPE::TREMOLO */")
+  '((ms-chords-first "QVector<Chord*>*" "chords" "chords->first()" "Ms::Chord*" "chord" "GOO_TYPE::CHORD")
     (ms-notes-front "std::vector<Note*>*" "notes" "notes->front()" "Note*" "note" "GOO_TYPE::NOTE")))
-
-(emit-cfun '(ms-chord-add-note) 2 (list
-  '(emit-pop-arg-goo "Ms::Chord*" "chord" "chord_g")
-  '(emit-next-arg)
-  '(emit-pop-arg-goo "Ms::Note*" "note" "note_g")
-  (lambda (e) (format %c "
-    chord->add(note);
-    return s7_t(sc);~%"))))
-
-;
-; score
-;
-(define-syntax def-score-method
-  (lambda (x)
-    (define (make-sname methname)
-      (string->symbol (format #f "ms-score-~a" methname)))
-    (syntax-case x ()
-      ((k methname)
-       (let ((n1 (syntax-object->datum (syntax methname))))
-         (with-syntax ((sname (datum->syntax-object (syntax k)
-                                                    (make-sname n1))))
-           (syntax
-            (emit-cfun '(sname) 1
-             (lambda ()
-              (emit-pop-arg-goo '("MasterScore*" "score") '())
-              (format %c "
-    score->~a();
-    return s7_t(sc);
-" 'methname))))))))))
-
-(def-score-method doLayout)
-(def-score-method startCmd)
-(def-score-method endCmd)
-(def-score-method cmdSelectAll)
-(def-score-method cmdAddTie)
-
-(emit-cfun '(ms-score-firstMeasure) 1 (list
-  '(emit-pop-arg-goo "MasterScore*" "score")
-  (lambda (e)
-  (format %c "
-    Ms::Measure* mea = score->firstMeasure();
-    uint64_t ty = static_cast<uint64_t>(GOO_TYPE::ELEMENT_MEASURE);
-    return c_make_goo(sc, ty, s7_f(sc), mea);~%"))))
-
-
-(emit-cfun '(ms-measure-findChord) 3 (list
-  '(emit-pop-arg-goo "Measure*" "mea")
-  '(emit-next-arg)
-  '(emit-pop-arg-goo "Fraction*" "f")
-  '(emit-next-arg)
-  '(emit-pop-arg-int "track")
-  (lambda (e)
-    (format %c "
-    Ms::Chord* chord = mea->findChord(*f, track);
-    uint64_t ty = static_cast<uint64_t>(GOO_TYPE::ELEMENT_CHORD);
-    return c_make_goo(sc, ty, s7_f(sc), chord);~%"))))
-
-(emit-cfun '(ms-score-undoAddElement) 2 (list
-  '(emit-pop-arg-goo "MasterScore*" "score")
-  '(emit-next-arg)
-  '(emit-pop-arg-goo "Element*" "elm")
-  (lambda (e)
-   (format %c "
-    score->undoAddElement(elm);
-    return s7_t(sc);~%"))))
 
 (emit-cfun '(ms-score-undoStack-undo) 2 (list
   '(emit-pop-arg-goo "MasterScore*" "score")
@@ -377,31 +306,6 @@ extern Ms::MTest* g_mtest;
       score->undoStack()->undo(0);
     }
     return s7_t(sc);~%"))))
-
-(emit-cfun '(ms-score-setGraceNote) 5 (list
-  '(emit-pop-arg-goo "MasterScore*" "score")
-  '(emit-next-arg)
-  '(emit-pop-arg-goo "Chord*" "chord")
-  '(emit-next-arg)
-  '(emit-pop-arg-int "pitch")
-  '(emit-next-arg)
-  '(emit-pop-arg-sym "notetype")
-  '(emit-next-arg)
-  '(emit-pop-arg-int "division")
-  (lambda (e)
-   (format %c "
-    score->setGraceNote(chord, pitch, string_to_NoteType(notetype), division);
-    return s7_t(sc);~%"))))
-
-(emit-cfun '(ms-score-select) 2 (list
-  '(emit-pop-arg-goo "MasterScore*" "score")
-  '(emit-next-arg)
-  '(emit-pop-arg-goo "Element*" "elm")
-  ; FIX: support optional args: void select(Element* obj, SelectType = SelectType::SINGLE, int staff = 0);
-  (lambda (e)
-   (format %c "
-    score->select(elm);~%"))))
-
 
 (emit-cfun '(ms-make-fraction) 2 (list
   '(emit-pop-arg-int "numerator")
@@ -445,6 +349,7 @@ extern Ms::MTest* g_mtest;
   %export-to-scheme-getset)
 
 (emit-exports)
+(emit-exports-getset)
 
 (for-each (lambda (lst)
   (match lst
@@ -455,8 +360,7 @@ extern Ms::MTest* g_mtest;
     " scm-name scm-name c-name-get c-name-set desc))))
   '(("ms-note-usermirror" "ms_note_usermirror" "ms_set_note_usermirror" "note usermirror field")
     ("ms-tremolo-tremoloType" "ms_tremolo_tremoloType" "ms_set_tremolo_tremoloType" "tremolo type file")
-    ("ms-element-parent" "ms_element_parent" "ms_element_setParent" "element parent field")
-    ("ms-element-track" "ms_element_track" "ms_set_element_track" "element track field")))
+    ("ms-element-parent" "ms_element_parent" "ms_element_setParent" "element parent field")))
 (format %c "}~%")
 
 (emit-string-to-ctype)
