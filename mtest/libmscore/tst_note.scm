@@ -19,10 +19,8 @@
   (ms-chord-add-note chord note)    ; chord->add(note);
   ; pitch
   (set! (ms-note-pitch note) 33)         ; note->setPitch(33);
-  (format #t "---- note pitch: ~s~%" (ms-note-pitch note))
-  (ms-note-set-tpc-from-pitch note)
+  (ms-note-setTpcFromPitch note)
   (check-write-read-elm note ms-note-pitch 33)
-  (format #t "---- done~%")
 
   ; tpc
   (set! (ms-note-tpc1 note) 22) ; note->setTpc1(22);
@@ -46,9 +44,7 @@
 
   (for-each (lambda (dir)
     (set! (ms-note-userDotPosition note) dir)
-    (check-write-read-elm note ms-note-userDotPosition dir)
-    (format #t "---- done checking ~a~%" dir)
-    )
+    (check-write-read-elm note ms-note-userDotPosition dir))
     '(Direction-UP Direction-DOWN Direction-AUTO))
 
   ; headGroup
@@ -82,7 +78,6 @@
 
   ; fret
   (set! (ms-note-fret note) 9)
-  (format #t "-- note-fret: ~s~%" (ms-note-fret note))
   (check-write-read-elm note ms-note-fret 9)
 
   ; string
@@ -220,28 +215,28 @@
         (let* ((chord (ms-mtest-writeReadElement gc))
                (tr (ms-chord-tremolo chord))
                (trType (ms-tremolo-tremoloType tr)))
-          (format #t "read-write grace-chord, tremolo-type: ~s~%" trType)
-          (ms-test-check (eq? 'TremoloType-R16 trType))
-          )
+          ; NOTE: tst_note.cpp has this test disabled
+          (ms-test-check (eq? 'TremoloType-R16 trType))))
+
+      ; // articulation
+;      score->startCmd();
+      (ms-score-startCmd score)
+      (let ((ar (ms-make-articulation 'SymId-articAccentAbove score)))
+        ; Articulation* ar = new Articulation(SymId::articAccentAbove, score);
+        (set! (ms-element-parent ar) gc) ; ar->setParent(gc);
+        (set! (ms-element-track ar) (ms-element-track gc)) ; ar->setTrack(gc->track());
+        (ms-score-undoAddElement score ar) ; score->undoAddElement(ar);
+        (ms-score-endCmd score)
+        ;(let* ((chord (ms-mtest-writeReadElement gc))
+        ;       (ars (ms-chord-articulations chord))) ; <--- not implemented
+        ;  (ms-test-check (> (length ars) 0)))
         )
+
+
       ))
   ))
 #|
 
-//      Ms::Chord* c = static_cast<Ms::Chord*>(writeReadElement(gc));
-//      QVERIFY(c->tremolo() != 0);
-//      delete c;
-
-      // articulation
-      score->startCmd();
-      Articulation* ar = new Articulation(SymId::articAccentAbove, score);
-      ar->setParent(gc);
-      ar->setTrack(gc->track());
-      score->undoAddElement(ar);
-      score->endCmd();
-//      c = static_cast<Ms::Chord*>(writeReadElement(gc));
-//      QVERIFY(c->articulations().size() == 1);
-//      delete c;
 
       QVERIFY(saveCompareScore(score, "grace-test.mscx", DIR + "grace-ref.mscx"));
       }
