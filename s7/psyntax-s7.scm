@@ -48,11 +48,6 @@
     (and (not (null? list1))
          (or (proc (car list1)) (ormap proc (cdr list1))))))
 
-(define (error who format-string why what)
-  (format #t "ERROR: from: ~s~%" who)
-  (format #t "  ~s~%" (format #f format-string why what))
-  (error 'hi))
-
 ;;; (putprop symbol key value)
 ;;; (getprop symbol key)
 ;;; (remprop symbol key)
