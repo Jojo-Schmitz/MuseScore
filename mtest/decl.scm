@@ -16,6 +16,7 @@
 #include \"libmscore/measure.h\"
 #include \"libmscore/element.h\"
 #include \"libmscore/tremolo.h\"
+#include \"libmscore/accidental.h\"
 #include \"libmscore/articulation.h\"
 #include \"libmscore/sym.h\"
 #include \"libmscore/hairpin.h\"
@@ -68,6 +69,16 @@ extern Ms::MTest* g_mtest;
 
 (register-c-type %note-type)
 (emit-c-type-string-maps2 'NoteType)
+
+
+(emit-cfun '(ms-make-tduration) 1 (list
+  '(emit-pop-arg-sym "dur")
+  (lambda (e) (format %c "
+    return c_make_goo(sc,
+                      static_cast<uint64_t>(GOO_TYPE::CHORD),
+                      s7_nil(sc),
+                      (void*) new TDuration(string_to_DurationType(dur)));
+"))))
 
 (emit-cfun '(ms-make-chord) 0 (lambda () (format %c "
     return c_make_goo(sc,
@@ -279,18 +290,6 @@ extern Ms::MTest* g_mtest;
 (def-goo-setters-sym "Ms::Note" "note" "veloType" "setVeloType" "note_ValueType") ; velotype uses Note::Valuetype
 (def-goo-setters-sym "Ms::Note" "note" "noteType" #f "NoteType")
 
-; emit c-functions for simple object-methods
-(emit-registered-objects)
-(map (lambda (lst)
-       (match lst
-       ((sname cvartype cvarname meth crestype cresvarname gootype)
-       (emit-cfun `(,sname) 1 (list
-         `(emit-pop-arg-goo ,cvartype ,cvarname)
-         (lambda (e)
-           (format %c "    ~a ~a = ~a;" crestype cresvarname meth))
-         `(emit-return-goo ,cresvarname ,(format #f "static_cast<uint64_t>(~a)" gootype)))))))
-  '((ms-chords-first "QVector<Chord*>*" "chords" "chords->first()" "Ms::Chord*" "chord" "GOO_TYPE::CHORD")
-    (ms-notes-front "std::vector<Note*>*" "notes" "notes->front()" "Note*" "note" "GOO_TYPE::NOTE")))
 
 (emit-cfun '(ms-score-undoStack-undo) 2 (list
   '(emit-pop-arg-goo "MasterScore*" "score")
@@ -307,6 +306,20 @@ extern Ms::MTest* g_mtest;
     }
     return s7_t(sc);~%"))))
 
+; register type enumerations
+(for-each (lambda (lst)
+            (let ((global-list (car lst))
+                  (scheme-type-name (cadr lst)))
+              (register-c-type global-list)
+              (emit-c-type-string-maps2 scheme-type-name)))
+  `((,%segment-type  SegmentType)
+    (,%duration-type DurationType)
+    (,%select-type   SelectType)
+    (,%accidental-type AccidentalType)
+    (,%updown-mode UpDownMode)
+    (,%key-type Key)
+    (,%tpc-enum Tpc)))
+
 (emit-cfun '(ms-make-fraction) 2 (list
   '(emit-pop-arg-int "numerator")
   '(emit-next-arg)
@@ -320,16 +333,51 @@ extern Ms::MTest* g_mtest;
 (emit-cfun '(ms-division) 0 (lambda ()
   (format %c "    return s7_make_integer(sc, MScore::division);~%")))
 
+(emit-cfun '(ms-tpc2degree) 2 (list
+  '(emit-pop-arg-sym "tpc")
+  '(emit-next-arg)
+  '(emit-pop-arg-sym "key")
+  (lambda (e)
+    (format %c "
+    return s7_make_integer(sc, tpc2degree(string_to_Tpc(tpc), string_to_Key(key)));~%"))))
+
+; emit all declaratively stated c++object functions
+(emit-registered-objects)
+; emit c-functions for simple object-methods
+(map (lambda (lst)
+       (match lst
+       ((sname cvartype cvarname meth crestype cresvarname gootype)
+       (emit-cfun `(,sname) 1 (list
+         `(emit-pop-arg-goo ,cvartype ,cvarname)
+         (lambda (e)
+           (format %c "    ~a ~a = ~a;" crestype cresvarname meth))
+         `(emit-return-goo ,cresvarname ,(format #f "static_cast<uint64_t>(~a)" gootype)))))))
+  '((ms-chords-first "QVector<Chord*>*" "chords" "chords->first()" "Ms::Chord*" "chord" "GOO_TYPE::CHORD")
+    (ms-notes-front "std::vector<Note*>*" "notes" "notes->front()" "Note*" "note" "GOO_TYPE::NOTE")))
+
+; emit simple iterators
+
+(emit-cfun '(ms-notes-size) 1 (list
+  '(emit-pop-arg-goo "std::vector<Note*>*" "notes")
+  '(emit-stat "return s7_make_integer(sc, notes->size())")))
+
+(emit-cfun '(ms-notes-ref) 2 (list
+  '(emit-pop-arg-goo "std::vector<Note*>*" "notes")
+  '(emit-next-arg)
+  '(emit-pop-arg-int "i")
+  (lambda (e)
+   (format %c "
+    if (i >= notes->size()) { // no more elements
+        return s7_f(sc);
+    }
+    Note* note = notes->at(i);~%"))
+  '(emit-return-goo "note" "GOO_TYPE::ELEMENT_NOTE")))
+
+(emit-string-to-ctype)
+
 ; emit the init-function that scheme-exports all glue-functions (ms-objects set/get)
 ;
 (format %c "void init_gen_s7 (s7_scheme *sc) {~%")
-(for-each (lambda (lst)
-  (match lst
-    ((sname cname arity desc)
-     (format %c "    s7_define_function(sc, \"~a\", ~a, ~a, 0, false, \"~a\");~%" sname cname arity desc))))
-  '(
-    ;("ms-score-endCmd" "ms_score_endCmd" 1 "(ms-score-endCmd score)")
-    ))
 
 (for-each (lambda (lst)
   (match lst
@@ -363,7 +411,5 @@ extern Ms::MTest* g_mtest;
     ("ms-element-parent" "ms_element_parent" "ms_element_setParent" "element parent field")))
 (format %c "}~%")
 
-(emit-string-to-ctype)
 
 (gen-done)
-

@@ -540,6 +540,282 @@ TAB_DURATION_SYMBOL
       C8  C16  C32  C64            ; two note tremolo (change)
       ))))
 
+;; SegmentType
+;; Type values determine the order of segments for a given tick
+(define %segment-type '(
+  (name        . SegmentType)
+  (c-type      . "SegmentType")
+  (types       . (
+    (Invalid              #x0)
+    (BeginBarLine         #x1)
+    (HeaderClef           #x2)
+    (KeySig               #x4)
+    (Ambitus              #x8)
+    (TimeSig              #x10)
+    (StartRepeatBarLine   #x20)
+    (Clef                 #x40)
+    (BarLine              #x80)
+    (Breath               #x100)
+    (ChordRest            #x200)
+    (EndBarLine           #x400)
+    (KeySigAnnounce       #x800)
+    (TimeSigAnnounce      #x1000)
+    (All                  -1) ; Includes all barline types
+    (BarLineType #x4a1) ; BeginBarLine | StartRepeatBarLine | BarLine | EndBarLine
+    ))))
+
+(define %duration-type '(
+  (name   . DurationType)
+  (c-type . "TDuration::DurationType")
+  (c-type-cons . "TDuration")
+  (c-impltype signed-char)
+  (types . (
+    V_LONG V_BREVE V_WHOLE V_HALF  V_QUARTER V_EIGHTH V_16TH
+    V_32ND V_64TH  V_128TH V_256TH V_512TH   V_1024TH
+    V_ZERO V_MEASURE V_INVALID))))
+
+(define %select-type '(
+  (name   . SelectType)
+  (c-type . "SelectType")
+  (c-impltype char)
+  (types . (
+    SINGLE RANGE ADD))))
+
+(define %updown-mode '(
+  (name   . UpDownMode)
+  (c-type . "UpDownMode")
+  (c-impltype char)
+  (types . (
+    CHROMATIC OCTAVE DIATONIC))))
+
+;;;---------------------------------------------------------
+;;;  AccidentalType
+;;;  NOTE: keep this in sync with with accList array in accidentals.cpp
+;;;---------------------------------------------------------
+
+(define %accidental-type '(
+  (name   . AccidentalType)
+  (c-type . "AccidentalType")
+  (types . (
+    NONE
+    FLAT
+    NATURAL
+    SHARP
+    SHARP2
+    FLAT2
+    SHARP3
+    FLAT3
+    NATURAL_FLAT
+    NATURAL_SHARP
+    SHARP_SHARP
+
+    ; Gould arrow quartertone
+    FLAT_ARROW_UP
+    FLAT_ARROW_DOWN
+    NATURAL_ARROW_UP
+    NATURAL_ARROW_DOWN
+    SHARP_ARROW_UP
+    SHARP_ARROW_DOWN
+    SHARP2_ARROW_UP
+    SHARP2_ARROW_DOWN
+    FLAT2_ARROW_UP
+    FLAT2_ARROW_DOWN
+    ARROW_DOWN
+    ARROW_UP
+
+    ; Stein-Zimmermann
+    MIRRORED_FLAT
+    MIRRORED_FLAT2
+    SHARP_SLASH
+    SHARP_SLASH4
+
+    ; Arel-Ezgi-Uzdilek (AEU)
+    FLAT_SLASH2
+    FLAT_SLASH
+    SHARP_SLASH3
+    SHARP_SLASH2
+
+    ; Extended Helmholtz-Ellis accidentals (just intonation)
+    DOUBLE_FLAT_ONE_ARROW_DOWN
+    FLAT_ONE_ARROW_DOWN
+    NATURAL_ONE_ARROW_DOWN
+    SHARP_ONE_ARROW_DOWN
+    DOUBLE_SHARP_ONE_ARROW_DOWN
+    DOUBLE_FLAT_ONE_ARROW_UP
+
+    FLAT_ONE_ARROW_UP
+    NATURAL_ONE_ARROW_UP
+    SHARP_ONE_ARROW_UP
+    DOUBLE_SHARP_ONE_ARROW_UP
+    DOUBLE_FLAT_TWO_ARROWS_DOWN
+    FLAT_TWO_ARROWS_DOWN
+
+    NATURAL_TWO_ARROWS_DOWN
+    SHARP_TWO_ARROWS_DOWN
+    DOUBLE_SHARP_TWO_ARROWS_DOWN
+    DOUBLE_FLAT_TWO_ARROWS_UP
+    FLAT_TWO_ARROWS_UP
+    NATURAL_TWO_ARROWS_UP
+
+    SHARP_TWO_ARROWS_UP
+    DOUBLE_SHARP_TWO_ARROWS_UP
+    DOUBLE_FLAT_THREE_ARROWS_DOWN
+    FLAT_THREE_ARROWS_DOWN
+    NATURAL_THREE_ARROWS_DOWN
+    SHARP_THREE_ARROWS_DOWN
+
+    DOUBLE_SHARP_THREE_ARROWS_DOWN
+    DOUBLE_FLAT_THREE_ARROWS_UP
+    FLAT_THREE_ARROWS_UP
+    NATURAL_THREE_ARROWS_UP
+    SHARP_THREE_ARROWS_UP
+    DOUBLE_SHARP_THREE_ARROWS_UP
+
+    LOWER_ONE_SEPTIMAL_COMMA
+    RAISE_ONE_SEPTIMAL_COMMA
+    LOWER_TWO_SEPTIMAL_COMMAS
+    RAISE_TWO_SEPTIMAL_COMMAS
+    LOWER_ONE_UNDECIMAL_QUARTERTONE
+    RAISE_ONE_UNDECIMAL_QUARTERTONE
+
+    LOWER_ONE_TRIDECIMAL_QUARTERTONE
+    RAISE_ONE_TRIDECIMAL_QUARTERTONE
+
+    DOUBLE_FLAT_EQUAL_TEMPERED
+    FLAT_EQUAL_TEMPERED
+    NATURAL_EQUAL_TEMPERED
+    SHARP_EQUAL_TEMPERED
+    DOUBLE_SHARP_EQUAL_TEMPERED
+    QUARTER_FLAT_EQUAL_TEMPERED
+    QUARTER_SHARP_EQUAL_TEMPERED
+
+    FLAT_17
+    SHARP_17
+    FLAT_19
+    SHARP_19
+    FLAT_23
+    SHARP_23
+    FLAT_31
+    SHARP_31
+    FLAT_53
+    SHARP_53
+    ; EQUALS_ALMOST
+    ; EQUALS
+    ; TILDE
+
+    ; Persian
+    SORI
+    KORON
+
+    ; Wyschnegradsky
+    TEN_TWELFTH_FLAT
+    TEN_TWELFTH_SHARP
+    ELEVEN_TWELFTH_FLAT
+    ELEVEN_TWELFTH_SHARP
+    ONE_TWELFTH_FLAT
+    ONE_TWELFTH_SHARP
+    TWO_TWELFTH_FLAT
+    TWO_TWELFTH_SHARP
+    THREE_TWELFTH_FLAT
+    THREE_TWELFTH_SHARP
+    FOUR_TWELFTH_FLAT
+    FOUR_TWELFTH_SHARP
+    FIVE_TWELFTH_FLAT
+    FIVE_TWELFTH_SHARP
+    SIX_TWELFTH_FLAT
+    SIX_TWELFTH_SHARP
+    SEVEN_TWELFTH_FLAT
+    SEVEN_TWELFTH_SHARP
+    EIGHT_TWELFTH_FLAT
+    EIGHT_TWELFTH_SHARP
+    NINE_TWELFTH_FLAT
+    NINE_TWELFTH_SHARP
+
+    ; (Spartan) Sagittal
+    SAGITTAL_5V7KD
+    SAGITTAL_5V7KU
+    SAGITTAL_5CD
+    SAGITTAL_5CU
+    SAGITTAL_7CD
+    SAGITTAL_7CU
+    SAGITTAL_25SDD
+    SAGITTAL_25SDU
+    SAGITTAL_35MDD
+    SAGITTAL_35MDU
+    SAGITTAL_11MDD
+    SAGITTAL_11MDU
+    SAGITTAL_11LDD
+    SAGITTAL_11LDU
+    SAGITTAL_35LDD
+    SAGITTAL_35LDU
+    SAGITTAL_FLAT25SU
+    SAGITTAL_SHARP25SD
+    SAGITTAL_FLAT7CU
+    SAGITTAL_SHARP7CD
+    SAGITTAL_FLAT5CU
+    SAGITTAL_SHARP5CD
+    SAGITTAL_FLAT5V7KU
+    SAGITTAL_SHARP5V7KD
+    SAGITTAL_FLAT
+    SAGITTAL_SHARP
+
+    ; Turkish folk music
+    ONE_COMMA_FLAT
+    ONE_COMMA_SHARP
+    TWO_COMMA_FLAT
+    TWO_COMMA_SHARP
+    THREE_COMMA_FLAT
+    THREE_COMMA_SHARP
+    FOUR_COMMA_FLAT
+    ; FOUR_COMMA_SHARP
+    FIVE_COMMA_SHARP
+
+    END))))
+
+(define %key-type '(
+  (name   . Key)
+  (c-type . "Key")
+  (start-index . -7)
+  (types . (
+      C_B
+      G_B
+      D_B
+      A_B
+      E_B
+      B_B
+      F
+      C  ; 0
+      G
+      D
+      A
+      E
+      B
+      F_S
+      C_S
+     ;(MIN -7)     ; Key::C_B
+     ;(MAX  7)     ; Key::C_S
+     ;(INVALID -8) ; Key::MIN - 1
+     ;(NUM_OF 15)  ; Key::MAX - Key::MIN + 1
+      (DELTA_ENHARMONIC 12)
+      ))))
+
+(define %tpc-enum '(
+  (name   . Tpc)
+  (c-type . "Tpc")
+  (c-impltype signed-char)
+  (start-index . -9)
+  (types . (
+      TPC_INVALID
+      TPC_F_BBB  TPC_C_BBB  TPC_G_BBB  TPC_D_BBB  TPC_A_BBB  TPC_E_BBB  TPC_B_BBB
+      TPC_F_BB   TPC_C_BB   TPC_G_BB   TPC_D_BB   TPC_A_BB   TPC_E_BB   TPC_B_BB
+      TPC_F_B    TPC_C_B    TPC_G_B    TPC_D_B    TPC_A_B    TPC_E_B    TPC_B_B
+      TPC_F      TPC_C      TPC_G      TPC_D      TPC_A      TPC_E      TPC_B
+      TPC_F_S    TPC_C_S    TPC_G_S    TPC_D_S    TPC_A_S    TPC_E_S    TPC_B_S
+      TPC_F_SS   TPC_C_SS   TPC_G_SS   TPC_D_SS   TPC_A_SS   TPC_E_SS   TPC_B_SS
+      TPC_F_SSS  TPC_C_SSS  TPC_G_SSS  TPC_D_SSS  TPC_A_SSS  TPC_E_SSS  TPC_B_SSS
+      ; TPC_MIN = TPC_F_BBB,
+      ; TPC_MAX = TPC_B_SSS
+      ))))
 
 (define %symid '(
   (start-index . 0)
