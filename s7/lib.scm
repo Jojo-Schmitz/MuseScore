@@ -29,8 +29,11 @@
       (cdr (assoc key lst))
       #f))
 
-(define (remove-if func lst)
-  (map (lambda (x) (if (func x) (values) x)) lst))
+(define (remove-if proc lst)
+  (map (lambda (x) (if (proc x) (values) x)) lst))
+
+(define (filter proc lst)
+  (map (lambda (x) (if (proc x) x (values))) lst))
 
 (define (assis? key lst)
   (let ((pair (assoc key lst)))
@@ -46,3 +49,8 @@
       lst)
      (else
       (cons (cons key val) lst)))))
+
+(define (list-nth lst index)
+  (if (> (length lst) index)
+      (list-ref lst index)
+      #f))
