@@ -33,7 +33,6 @@ const char* tests[] = {
       "libmscore/tst_hairpin.scm",
       "libmscore/tst_breath.scm",
 #if 1
-#if 0
       "libmscore/readwriteundoreset/tst_readwriteundoreset",
       "libmscore/keysig/tst_keysig",
       "libmscore/barline/tst_barline",
@@ -69,7 +68,6 @@ const char* tests[] = {
       "libmscore/parts/tst_parts",
       "testscript/tst_runscripts",
       "mscore/palette/tst_palette"
-#endif
 #endif
 #if 0
       "libmscore/spanners/tst_spanners",              // FAIL

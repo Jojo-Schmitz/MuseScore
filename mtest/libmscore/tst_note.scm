@@ -177,10 +177,7 @@
     (check-write-read-elm note ms-note-veloType val))
     '(note_ValueType-USER_VAL
       note_ValueType-OFFSET_VAL))
-
   ; FIX: delete chord, s7 will take care of this
-
-  (format #t "-- done all checking of note~%")
   ))
 
 (emit '
@@ -219,9 +216,8 @@
           (ms-test-check (eq? 'TremoloType-R16 trType))))
 
       ; // articulation
-;      score->startCmd();
       (ms-score-startCmd score)
-      (let ((ar (ms-make-articulation 'SymId-articAccentAbove score)))
+      (let ((ar (ms-make-articulation score 'SymId-articAccentAbove)))
         ; Articulation* ar = new Articulation(SymId::articAccentAbove, score);
         (set! (ms-element-parent ar) gc) ; ar->setParent(gc);
         (set! (ms-element-track ar) (ms-element-track gc)) ; ar->setTrack(gc->track());
@@ -230,207 +226,194 @@
         ;(let* ((chord (ms-mtest-writeReadElement gc))
         ;       (ars (ms-chord-articulations chord))) ; <--- not implemented
         ;  (ms-test-check (> (length ars) 0)))
-        )
+        )))
+  (ms-test-check
+   (ms-mtest-saveCompareScore score "grace-test.mscx", "libmscore/note/grace-ref.mscx"))))
+
+; tpc
+; test of note tpc values
+(emit '
+(let ((score (ms-mtest-readScore "libmscore/note/tpc.mscx")))
+  (let ((is (ms-score-inputState score)))
+    (set! (ms-inputstate-track is) 0)
+    (set! (ms-inputstate-segment is)
+          (ms-score-tick2segment score (ms-make-fraction 0 1) #f 'SegmentType-ChordRest))
+
+    ; score->inputState().setDuration(TDuration::DurationType::V_QUARTER);
+    (set! (ms-inputstate-duration is) 'DurationType-V_QUARTER)
+    ; score->inputState().setNoteEntryMode(true);
+    (set! (ms-inputstate-noteEntryMode is) #t)
+
+    (let ((octave (* 5 7)))
+      (ms-score-cmdAddPitch score (+ octave 1) #f #f)
+      (ms-score-cmdAddPitch score (+ octave 2) #f #f)
+      (ms-score-cmdAddPitch score (+ octave 3) #f #f)
+      (ms-score-cmdAddPitch score (+ octave 4) #f #f)
+      (ms-score-cmdAddPitch score (+ octave 5) #f #f)
+      (ms-score-cmdAddPitch score (+ octave 6) #f #f)
+      (ms-score-cmdAddPitch score (+ octave 7) #f #f)
+      (ms-score-cmdAddPitch score (+ octave 8) #f #f)
+      (ms-score-cmdConcertPitchChanged score #t #t))
+    (ms-test-check
+     (ms-mtest-saveCompareScore score  "tpc-test.mscx", "libmscore/note/tpc-ref.mscx")))))
+
+; tpcTranspose
+; test of note tpc values & transposition
+(emit '
+(let ((score (ms-mtest-readScore "libmscore/note/tpc-transpose.mscx")))
+  (ms-score-startCmd score)
+  (let* ((m (ms-score-firstMeasure score))) ; Measure* m = score->firstMeasure();
+      ; score->select(m, SelectType::SINGLE, 0);
+      (ms-score-select score m 'SelectType-SINGLE 0)
+      (ms-score-changeAccidental score 'AccidentalType-FLAT)
+      (ms-score-endCmd score)
+
+      (ms-score-startCmd score)
+      (set! m (ms-measure-nextMeasure m)) ; m = m->nextMeasure();
+      (ms-score-select score m 'SelectType-SINGLE  0)
+
+      (ms-score-upDown score #f 'UpDownMode-CHROMATIC)
+      (ms-score-endCmd score)
+
+      (ms-score-startCmd score)
+      (ms-score-cmdConcertPitchChanged score #t #t)
+      (ms-score-endCmd score))
+  (ms-test-check
+   (ms-mtest-saveCompareScore score  "tpc-transpose-test.mscx", "libmscore/note/tpc-transpose-ref.mscx"))))
+
+; tpcTranspose2
+; more tests of note tpc values & transposition
+(emit '
+(let ((score (ms-mtest-readScore "libmscore/note/tpc-transpose2.mscx")))
+  (let ((is (ms-score-inputState score)))
+    (set! (ms-inputstate-track is) 0) ; score->inputState().setTrack(0)
+    (set! (ms-inputstate-segment is)
+          (ms-score-tick2segment score (ms-make-fraction 0 1) #f 'SegmentType-ChordRest))
+    (set! (ms-inputstate-duration is) 'DurationType-V_QUARTER)
+    (set! (ms-inputstate-noteEntryMode is) #t)
+    (let ((octave (* 5 7)))
+      (ms-score-cmdAddPitch score (+ octave 3) #f #f))
+    (ms-score-startCmd score)
+    (ms-score-cmdConcertPitchChanged score #t #t)
+    (ms-score-endCmd score))
+  (ms-test-check
+   (ms-mtest-saveCompareScore score  "tpc-transpose2-test.mscx", "libmscore/note/tpc-transpose2-ref.mscx"))))
 
 
-      ))
-  ))
-#|
+;; noteLimits
+(emit '
+(let ((score (ms-mtest-readScore "libmscore/note/empty.mscx")))
+  (let ((is (ms-score-inputState score)))
+    (set! (ms-inputstate-track is) 0) ; score->inputState().setTrack(0)
+    (set! (ms-inputstate-segment is)
+          (ms-score-tick2segment score (ms-make-fraction 0 1) #f 'SegmentType-ChordRest))
+    (set! (ms-inputstate-duration is) 'DurationType-V_QUARTER)
+    (set! (ms-inputstate-noteEntryMode is) #t)
 
+    ; over 127 shouldn't crash
+    (ms-score-cmdAddPitch score 140 #f #f)
+    ; below 0 shouldn't crash
+    (ms-score-cmdAddPitch score -40 #f #f)
 
-      QVERIFY(saveCompareScore(score, "grace-test.mscx", DIR + "grace-ref.mscx"));
-      }
+    ; stack chords
+    (ms-score-cmdAddPitch score 42 #f #f)
+    (do ((i 1 (+ i 1)))
+        ((= i 20))
+      (ms-score-cmdAddPitch score (+ 42 (* i 7)) #t #f))
 
-//---------------------------------------------------------
-///   tpc
-///   test of note tpc values
-//---------------------------------------------------------
+    ; interval below
+    (ms-score-cmdAddPitch score 42 #f #f) ; duplicate this?
+    (do ((i 0 (+ i 1))) ((= i 20))
+      ; std::vector<Note*> nl = score->selection().noteList();
+      (let* ((sl (ms-score-selection score))
+             (nl (ms-selection-noteList sl)))
+        (ms-score-cmdAddInterval score -8 nl)))
 
-void TestNote::tpc()
-      {
-      MasterScore* score = readScore(DIR + "tpc.mscx");
+      ; interval above
+      (ms-score-cmdAddPitch score 42 #f #f) ; duplicate this?
+      (do ((i 0 (+ i 1))) ((= i 20))
+        (let* ((sl (ms-score-selection score))
+               (nl (ms-selection-noteList sl)))
+          (ms-score-cmdAddInterval score 8 nl)))
+  (ms-test-check
+   (ms-mtest-saveCompareScore score  "notelimits-test.mscx", "libmscore/note/notelimits-ref.mscx")))))
 
-      score->inputState().setTrack(0);
-      score->inputState().setSegment(score->tick2segment(Fraction(0,1), false, SegmentType::ChordRest));
-      score->inputState().setDuration(TDuration::DurationType::V_QUARTER);
-      score->inputState().setNoteEntryMode(true);
-      int octave = 5 * 7;
-      score->cmdAddPitch(octave + 1, false, false);
-      score->cmdAddPitch(octave + 2, false, false);
-      score->cmdAddPitch(octave + 3, false, false);
-      score->cmdAddPitch(octave + 4, false, false);
-      score->cmdAddPitch(octave + 5, false, false);
-      score->cmdAddPitch(octave + 6, false, false);
-      score->cmdAddPitch(octave + 7, false, false);
-      score->cmdAddPitch(octave + 8, false, false);
+(emit '
+(let ((score (ms-mtest-readScore "libmscore/note/altered-unison.mscx"))
+      (check-acc (lambda (note acc-type)
+                   (let ((acc (ms-note-accidental note)))
+                     (ms-test-check acc)
+                     (ms-test-check (eq? acc-type
+                                         (ms-accidental-accidentalType acc)))))))
+  (let ((chord (ms-measure-findChord (ms-score-firstMeasure score)
+                                     (ms-make-fraction 0 1)
+                                     0)))
+    (let ((note (ms-chord-downNote chord)))
+      (ms-test-check note)
+      (if note (check-acc note 'AccidentalType-FLAT)))
+    (let ((note (ms-chord-upNote chord)))
+      (ms-test-check note)
+      (if note (check-acc note 'AccidentalType-NATURAL))))
+  (let ((chord (ms-measure-findChord (ms-score-firstMeasure score)
+                                     (ms-make-fraction 1 4)
+                                     0)))
+     (let ((note (ms-chord-downNote chord)))
+      (ms-test-check note)
+      (if note (check-acc note 'AccidentalType-NATURAL)))
+    (let ((note (ms-chord-upNote chord)))
+      (ms-test-check note)
+      (if note (check-acc note 'AccidentalType-SHARP))))))
 
-      score->cmdConcertPitchChanged(true, true);
+(emit '
+ (begin
+   (ms-test-check (= (ms-tpc2degree 'Tpc-TPC_C   'Key-C) 0))
+   ; (ms-test-check (= (ms-tpc2degree 'Tpc-TPC_E_S 'Key-C)  3))
+   (ms-test-check (= (ms-tpc2degree 'Tpc-TPC_B    'Key-C)   6))
+   (ms-test-check (= (ms-tpc2degree 'Tpc-TPC_F_S  'Key-C_S) 3))
+   (ms-test-check (= (ms-tpc2degree 'Tpc-TPC_B    'Key-C_S) 6))
+   (ms-test-check (= (ms-tpc2degree 'Tpc-TPC_B_B  'Key-C_S) 6))
+   ; (ms-test-check (= (ms-tpc2degree 'Tpc-TPC_B_S  'Key-C_S) 7))
+    ))
 
-      QVERIFY(saveCompareScore(score, "tpc-test.mscx", DIR + "tpc-ref.mscx"));
-      }
+;;; LongNoteAfterShort_183746
+;;; Put a small 128th rest
+;;; Then put a long Breve note
+;;; This breve will get spread out across multiple measures
+;;; Verifies that the resulting notes are tied over at least 3 times (to span 3 measures) and have total duration the same as a breve,
+;;; regardless of how the breve was divided up.
 
-//---------------------------------------------------------
-///   tpcTranspose
-///   test of note tpc values & transposition
-//---------------------------------------------------------
+(emit '
+(let ((score (ms-mtest-readScore "libmscore/note/empty.mscx")))
+  (ms-score-doLayout score)
+  (let ((is (ms-score-inputState score)))
+    (set! (ms-inputstate-track is) 0)
+    (set! (ms-inputstate-segment is)
+          (ms-score-tick2segment score (ms-make-fraction 0 1) #f 'SegmentType-ChordRest))
+    (set! (ms-inputstate-duration is) 'DurationType-V_128TH)
+    (set! (ms-inputstate-noteEntryMode is) #t)
+    (ms-score-cmdEnterRest score 'DurationType-V_128TH)
+    (set! (ms-inputstate-duration is) 'DurationType-V_BREVE)
+    (ms-score-cmdAddPitch score 47 #f #f) ; score->cmdAddPitch(47, 0, 0);
 
-void TestNote::tpcTranspose()
-      {
-      MasterScore* score = readScore(DIR + "tpc-transpose.mscx");
+    (let* ((dur (ms-make-tduration 'DurationType-V_128TH))
+           (seg (ms-score-tick2segment-1 score (ms-tduration-ticks dur))))
+      (ms-test-check (and seg (eq? (ms-segment-segmentType seg) 'SegmentType-ChordRest)))
+      (and (ms-segment-tick seg) (ms-make-fraction 1 128))
+      (format #t "segment tick: ~s~%" (ms-fraction-toString (ms-segment-tick seg)))
+      (ms-test-check (ms-fraction-equal (ms-segment-tick seg) (ms-make-fraction 1 128)))
 
-      score->startCmd();
-      Measure* m = score->firstMeasure();
-      score->select(m, SelectType::SINGLE, 0);
-      score->changeAccidental(AccidentalType::FLAT);
-      score->endCmd();
+      (let ((elm (ms-segment-firstElement seg 0)))
+        (ms-test-check (and elm (ms-element-isNote elm)))
 
-      score->startCmd();
-      m = m->nextMeasure();
-      score->select(m, SelectType::SINGLE, 0);
-      score->upDown(false, UpDownMode::CHROMATIC);
-      score->endCmd();
+        (let ((nl (ms-note-tiedNotes elm)))
+          (format #t "number of tied notes: ~s~%" (ms-notes-size nl))
+          (ms-test-check (>= (ms-notes-size nl) 3))
 
-      score->startCmd();
-      score->cmdConcertPitchChanged(true, true);
-      score->endCmd();
-
-      QVERIFY(saveCompareScore(score, "tpc-transpose-test.mscx", DIR + "tpc-transpose-ref.mscx"));
-
-      }
-
-//---------------------------------------------------------
-///   tpcTranspose2
-///   more tests of note tpc values & transposition
-//---------------------------------------------------------
-
-void TestNote::tpcTranspose2()
-      {
-      MasterScore* score = readScore(DIR + "tpc-transpose2.mscx");
-
-      score->inputState().setTrack(0);
-      score->inputState().setSegment(score->tick2segment(Fraction(0,1), false, SegmentType::ChordRest));
-      score->inputState().setDuration(TDuration::DurationType::V_QUARTER);
-      score->inputState().setNoteEntryMode(true);
-      int octave = 5 * 7;
-      score->cmdAddPitch(octave + 3, false, false);
-
-      score->startCmd();
-      score->cmdConcertPitchChanged(true, true);
-      score->endCmd();
-
-      printf("================\n");
-
-      QVERIFY(saveCompareScore(score, "tpc-transpose2-test.mscx", DIR + "tpc-transpose2-ref.mscx"));
-      }
-
-//---------------------------------------------------------
-///   noteLimits
-//---------------------------------------------------------
-
-void TestNote::noteLimits()
-      {
-      MasterScore* score = readScore(DIR + "empty.mscx");
-
-      score->inputState().setTrack(0);
-      score->inputState().setSegment(score->tick2segment(Fraction(0,1), false, SegmentType::ChordRest));
-      score->inputState().setDuration(TDuration::DurationType::V_QUARTER);
-      score->inputState().setNoteEntryMode(true);
-
-      // over 127 shouldn't crash
-      score->cmdAddPitch(140, false, false);
-      // below 0 shouldn't crash
-      score->cmdAddPitch(-40, false, false);
-
-      // stack chords
-      score->cmdAddPitch(42, false, false);
-      for (int i = 1; i < 20; i++)
-            score->cmdAddPitch(42 + i * 7, true, false);
-
-      // interval below
-      score->cmdAddPitch(42, false, false);
-      for (int i = 0; i < 20; i++) {
-            std::vector<Note*> nl = score->selection().noteList();
-            score->cmdAddInterval(-8, nl);
-            }
-
-      // interval above
-      score->cmdAddPitch(42, false, false);
-      for (int i = 0; i < 20; i++) {
-            std::vector<Note*> nl = score->selection().noteList();
-            score->cmdAddInterval(8, nl);
-            }
-      QVERIFY(saveCompareScore(score, "notelimits-test.mscx", DIR + "notelimits-ref.mscx"));
-      }
-
-void TestNote::alteredUnison()
-      {
-      MasterScore* score = readScore(DIR + "altered-unison.mscx");
-      Measure* m = score->firstMeasure();
-#ifdef __MINGW32__ // apparently defined for 64bit too. Needed to avoid a conflict with windows.h and its declaration of `Chord`
-      Ms::Chord* c = m->findChord(Fraction(0, 1), 0);
-#else
-      Chord* c = m->findChord(Fraction(0, 1), 0);
-#endif
-      QVERIFY(c->downNote()->accidental() && c->downNote()->accidental()->accidentalType() == Ms::AccidentalType::FLAT);
-      QVERIFY(c->upNote()->accidental() && c->upNote()->accidental()->accidentalType() == Ms::AccidentalType::NATURAL);
-      c = m->findChord(Fraction(1, 4), 0);
-      QVERIFY(c->downNote()->accidental() && c->downNote()->accidental()->accidentalType() == Ms::AccidentalType::NATURAL);
-      QVERIFY(c->upNote()->accidental() && c->upNote()->accidental()->accidentalType() == Ms::AccidentalType::SHARP);
-      }
-
-void TestNote::tpcDegrees()
-      {
-      QCOMPARE(tpc2degree(Tpc::TPC_C,   Key::C),   0);
-      //QCOMPARE(tpc2degree(Tpc::TPC_E_S, Key::C),   3);
-      QCOMPARE(tpc2degree(Tpc::TPC_B,   Key::C),   6);
-      QCOMPARE(tpc2degree(Tpc::TPC_F_S, Key::C_S), 3);
-      QCOMPARE(tpc2degree(Tpc::TPC_B,   Key::C_S), 6);
-      QCOMPARE(tpc2degree(Tpc::TPC_B_B, Key::C_S), 6);
-      //QCOMPARE(tpc2degree(Tpc::TPC_B_S, Key::C_S), 7);
-      }
-
-//---------------------------------------------------------
-///   LongNoteAfterShort_183746
-///    Put a small 128th rest
-///    Then put a long Breve note
-///    This breve will get spread out across multiple measures
-///    Verifies that the resulting notes are tied over at least 3 times (to span 3 measures) and have total duration the same as a breve,
-///    regardless of how the breve was divided up.
-//---------------------------------------------------------
-
-void TestNote::LongNoteAfterShort_183746() {
-
-      Score* score = readScore(DIR + "empty.mscx");
-      score->doLayout();
-
-      score->inputState().setTrack(0);
-      score->inputState().setSegment(score->tick2segment(Fraction(0,1), false, SegmentType::ChordRest));
-      score->inputState().setDuration(TDuration::DurationType::V_128TH);
-      score->inputState().setNoteEntryMode(true);
-
-      score->cmdEnterRest(TDuration::DurationType::V_128TH);
-
-      score->inputState().setDuration(TDuration::DurationType::V_BREVE);
-      score->cmdAddPitch(47, 0, 0);
-
-      Segment* s = score->tick2segment(TDuration(TDuration::DurationType::V_128TH).ticks());
-      QVERIFY(s && s->segmentType() == SegmentType::ChordRest);
-      QVERIFY(s->tick() == Fraction(1,128));
-
-      Element* e = s->firstElement(0);
-      QVERIFY(e && e->isNote());
-
-      std::vector<Note*> nl = toNote(e)->tiedNotes();
-      QVERIFY(nl.size() >= 3); // the breve must be divided across at least 3 measures
-      Fraction totalTicks = Fraction(0,1);
-      for (Note* n : nl) {
-            totalTicks += n->chord()->durationTypeTicks();
-            }
-      Fraction breveTicks = TDuration(TDuration::DurationType::V_BREVE).ticks();
-      QVERIFY(totalTicks == breveTicks); // total duration same as a breve
-      }
-
-|#
-
-
-
+          (let ((totalTicks (ms-make-fraction 0 1)))
+            (do ((i 0 (+ i 1)))
+                ((>= i (ms-notes-size nl)))
+              (let* ((note (ms-notes-ref nl i))
+                     (chord (ms-note-chord note)))
+                (ms-fraction-add totalTicks (ms-chord-durationTypeTicks chord))))
+            (let ((breveTicks (ms-tduration-ticks (ms-make-tduration 'DurationType-V_BREVE))))
+              (ms-test-check (ms-fraction-equal totalTicks breveTicks))))))))))
