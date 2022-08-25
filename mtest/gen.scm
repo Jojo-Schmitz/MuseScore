@@ -10,24 +10,15 @@
 
 (define %objects '())
 
-
 (define-syntax define-object
   (syntax-rules ()
-    ((_ . args)
-     (register-object 'args))))
+      ((k objname . args)
+       (register-object 'objname 'args))))
 
-(define (register-object args)
-  (let ((obj-name (car args))
-        (c-type #f)
-        (make-args #f)
-        (methods #f))
-    (set! args (cdr args))
-    (for-each (lambda (arg)
-           (cond
-            ((eq? 'c-type (car arg)) (set! c-type (cadr arg)))
-            ((eq? 'make-args (car arg)) (set! make-args (cadr arg)))
-            ((eq? 'methods   (car arg)) (set! methods (cdr arg)))))
-         args)
+(define (register-object obj-name args);  c-type make-args methods)
+  (let ((c-type  (cadr (assq 'c-type args)))
+        (methods  (cdr (assq 'methods args)))
+        (make-args (assq-ref args 'make-args)))
     (for-each (lambda (meth)
                 (format #t "    method: ~s~%" meth)
                 )
@@ -38,6 +29,11 @@
                      `((c-type . ,c-type)
                        (make-args . ,make-args)
                        (methods . ,methods))))))
+
+(define-syntax emit-stat-fmt
+  (syntax-rules ()
+    ((_ . args)
+     `(emit-stat ,(format #f . args)))))
 
 (define (emit-registered-object pair)
   (let* ((name (car pair))
@@ -106,7 +102,7 @@
                             (stype (typeinfo-meta-get (cadr arg) 'c-type-cons)))
                         (list
                          `(emit-pop-arg-sym ,(format #f "t~a" n))
-                         `(emit-stat ,(format #f "Ms::~a x~a = string_to_~a(t~a)" stype n conv n) e))))
+                         (emit-stat-fmt "Ms::~a x~a = string_to_~a(t~a)" stype n conv n))))
                      (else (error "unknown arg-type" type))))))
                required-args))
          (else
@@ -122,13 +118,13 @@
                       (let ((stype (cadr arg)))
                         (list
                          `(emit-pop-arg-sym ,(format #f "t~a" n))
-                         `(emit-stat ,(format #f "Ms::~a x~a = string_to_~a(t~a)" stype n stype n) e))))
+                         (emit-stat-fmt "Ms::~a x~a = string_to_~a(t~a)" stype n stype n))))
                      (else `(emit-pop-arg-goo ,(car arg) ,(format #f "x~a" n))))))
                 required-args)
            (if (> (length optional-args) 0)
-               `(emit-stat "bool moreArgs = true")
+               (emit-stat-fmt "bool moreArgs = true")
                `(emit-noop))
-           `(emit-stat ,(format #f "int numArgs = ~a" (length required-args)))
+           (emit-stat-fmt "int numArgs = ~a" (length required-args))
            ; emit optional arguments
            (map (lambda (arg)
                   (set! n (+ n 1))
@@ -140,7 +136,7 @@
                       (let ((stype (cadr arg)))
                         (list
                          `(emit-pop-arg-sym ,(format #f "t~a" n) #t)
-                         `(emit-stat ,(format #f "Ms::~a x~a = string_to_~a(t~a)" stype n stype n) e))))
+                         (emit-stat-fmt "Ms::~a x~a = string_to_~a(t~a)" stype n stype n))))
                      (else `(emit-pop-arg-goo ,(car arg) ,(format #f "x~a" n) #f #t)))))
                 optional-args))))))
     (define (emit-code-funcall info cname cargs required-args optional-args rets)
@@ -166,26 +162,26 @@
                                  (format #f "o->~a(~a)" cname cargsstr))))))
             (cond
              ((not methtype) ; dont care about return value
-              `(emit-stat ,(format #f "~a" methexpr)))
-             ((eq? 'stack (list-nth rets 1)) ; stack-allocated return
+              (emit-stat-fmt "~a" methexpr))
+             ((memq 'stack rets) ; stack-allocated return
               (list
-               `(emit-stat ,(format #f "~a tsa = ~a /* stack-alloc */" cmethtype methexpr))
+               (emit-stat-fmt "~a tsa = ~a /* stack-alloc */" cmethtype methexpr)
                ; would be nicer to just do malloc(sizeof(...)), but we might need to run constructors
                ; and also c++ knows how to move an compound object
-               `(emit-stat ,(format #f "~a* r = new ~a(tsa)" cmethtype cmethtype))))
+               (emit-stat-fmt "~a* r = new ~a(tsa)" cmethtype cmethtype)))
              (else
-              `(emit-stat ,(format #f "~a r = ~a" cmethtype methexpr)))))
+              (emit-stat-fmt "~a r = ~a" cmethtype methexpr))))
           (list ; emit required and optional args
            (let ((lst '()))
              (do ((i (length required-args) (+ i 1)))
                  ((> i (+ (length required-args) (length optional-args))))
                (set! lst (cons (list
-                                `(emit-stat ,(format #f "if (numArgs == ~a) {" i))
-                                `(emit-stat ,(format #f "~ao->~a(~a)"
+                                (emit-stat-fmt "if (numArgs == ~a) {" i)
+                                (emit-stat-fmt "~ao->~a(~a)"
                                                      (if rets (format #f "~a r = " (car rets)) "")
                                                      cname
-                                                     (make-callargs-max cargs i)))
-                                `(emit-stat ,(format #f "}")))
+                                                     (make-callargs-max cargs i))
+                                (emit-stat-fmt "}"))
                                lst)))
              lst))))
     (define (emit-code-return rets)
@@ -201,14 +197,14 @@
               ((QString)
                '(emit-stat "return s7_make_string(sc, strdup(qPrintable(r)))"))
               ((sym)
-               (list `(emit-stat ,(format #f "const char* t = ~a_to_string(r)" methtype))
+               (list (emit-stat-fmt "const char* t = ~a_to_string(r)" methtype)
                      '(emit-stat "return s7_make_symbol(sc, t)")))
               ((int)  '(emit-stat "return s7_make_integer(sc, r)"))
               ((real) '(emit-stat "return s7_make_real(sc, r)"))
               ((bool) '(emit-stat "return s7_make_boolean(sc, r)"))
               (else
                `(emit-return-goo "r" ,(format #f "static_cast<uint64_t>(~a)" gootype))))
-            `(emit-stat "return s7_t(sc)"))))
+            '(emit-stat "return s7_t(sc)"))))
     (define (emit-method-nil methname methargs)
       (let ((sname (string->symbol (format #f "ms-~a-~a" name methname)))
             (gootype 0)
@@ -220,13 +216,15 @@
           (lambda (e) (format %c "
     ~a;
     return s7_t(sc);~%" methexpr))))))
+    (define (get-method-sname-get methpair)
+      (let ((methname (if (pair? methpair) (car methpair) methpair)))
+        (string->symbol (format #f "ms-~a-~a" name methname))))
     (define (emit-method-get methpair methargs)
       (let* ((cargs (car methargs)) ; arguments to c-function
              (rets (if (pair? (cdr methargs)) (cadr methargs) #f)) ; return-type of c-function
              (info (if (pair? (cdr methargs)) (cddr methargs) #f))
-             (methname (if (pair? methpair) (car methpair) methpair))
              (cname (if (pair? methpair) (cadr methpair) methpair))
-             (sname (string->symbol (format #f "ms-~a-~a" name methname))))
+             (sname (get-method-sname-get methpair)))
        (format #t "emit-method-get ~s~%" methpair)
        (emit-cfun (if cname `(,sname) `(,sname)) (+ 1 (length cargs)) (list
          `(emit-pop-arg-goo ,(format #f "~a*" c-type) "o")
@@ -236,9 +234,8 @@
     (define (emit-method-set methpair methargs)
       (let* ((cargs (car methargs)) ; arguments to c-function
              (info (if (pair? (cdr methargs)) (cddr methargs) '()))
-             (methname (if (pair? methpair) (car methpair) methpair))
              (cname (if (pair? methpair) (cadr methpair) methpair))
-             (sname (string->symbol (format #f "ms-~a-~a" name methname))))
+             (sname (get-method-sname-get methpair)))
        (emit-cfun (if cname `(,sname) `(,sname)) (+ 1 (length cargs)) (list
          `(emit-pop-arg-goo ,(format #f "~a*" c-type) "o")
          (emit-code-get-args cargs '())
@@ -257,7 +254,7 @@
                              (format #f "set~a~a"
                                      (string-upcase (substring s 0 1))
                                      (substring s 1))))
-             (sname-get (string->symbol (format #f "ms-~a-~a" name methname)))
+             (sname-get (get-method-sname-get methname))
              (sname-set (string->symbol (format #f "ms-~a-~a" name methname-set)))
              (cname-get (string->symbol (format #f "ms_~a_~a" name methname)))
              (cname-set (string->symbol (format #f "ms_~a_~a" name methname-set))))
@@ -283,23 +280,17 @@
           '(emit-stat "return s")))))
     (define (emit-method-apply methpair methargs)
       (let* ((cargs (car methargs))
-             (rets (if (pair? (cdr methargs)) (cadr methargs) #f)) ; return-type of c-function
-             (info (if (pair? (cdr methargs)) (cddr methargs) '()))
-             (methname (if (pair? methpair) (car methpair) methpair))
+             (info (cdr methargs))
              (cname (if (pair? methpair) (cadr methpair) methpair))
-             (sname (string->symbol (format #f "ms-~a-~a" name methname)))
-             (gootype 0)
-             (methexpr #f)
-             (methtype (if rets (car rets) #f))
-             (argsstr (make-callargs cargs))
+             (sname (get-method-sname-get methpair))
              (required-args (make-required-args cargs))
              (optional-args (make-optional-args cargs)))
         (emit-cfun `(,sname) `((req-args . ,(+ 1 (length required-args)))
                                (opt-args . ,(length optional-args)))
           (list `(emit-pop-arg-goo ,(format #f "~a*" c-type) "o")
                 (emit-code-get-args required-args optional-args)
-                (emit-code-funcall info cname cargs required-args optional-args rets)
-                (emit-code-return rets)))))
+                (emit-code-funcall info cname cargs required-args optional-args #f)
+                (emit-code-return #f)))))
     (for-each (lambda (meth)
                 (match1 meth
                  ((typeof methname . methargs)

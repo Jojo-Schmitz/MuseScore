@@ -1,6 +1,7 @@
 (define-object element
   (c-type "Ms::Element")
   (methods
+    ;(get type () (sym ElementType))
     (get/set track (int))
     (get isNote () (bool))
     ))
