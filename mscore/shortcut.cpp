@@ -2091,12 +2091,7 @@ Shortcut Shortcut::_sc[] = {
          },
       {
          MsWidget::MAIN_WINDOW,
-#ifdef Q_OS_MAC
-         //Avoid conflict with M in text
-         STATE_NORMAL | STATE_NOTE_ENTRY | STATE_PLAY,
-#else
          STATE_NORMAL | STATE_NOTE_ENTRY | STATE_EDIT | STATE_PLAY,
-#endif
          "toggle-mixer",
          QT_TRANSLATE_NOOP("action","Mixer"),
          QT_TRANSLATE_NOOP("action","Toggle 'Mixer'"),
