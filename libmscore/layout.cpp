@@ -2345,6 +2345,8 @@ void Score::createMMRest(Measure* m, Measure* lm, const Fraction& len)
                               }
                         else {
                               nts->setSig(ts->sig(), ts->timeSigType());
+                              nts->setNumeratorString(ts->numeratorString());
+                              nts->setDenominatorString(ts->denominatorString());
                               nts->layout();
                               }
                         }
