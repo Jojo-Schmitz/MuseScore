@@ -732,18 +732,35 @@ void BarLine::draw(QPainter* painter) const
                   }
                   break;
             }
-      Segment* s = segment();
-      if (s && s->isEndBarLineType() && !score()->printing()) {
-            Measure* m = s->measure();
-            if (m->isIrregular() && score()->markIrregularMeasures() && !m->isMMRest()) {
+
+      // draw irregular measure mark
+
+      if (score()->printing() || !score()->showUnprintable() || !score()->markIrregularMeasures())
+            return;
+
+      const Segment* s = segment();
+      if (s && (s->isEndBarLineType() || s->isStartRepeatBarLineType())) {
+            const Measure* measure = s->measure();
+            if (s->isStartRepeatBarLineType()) {
+                  const Measure* prevMeasure = measure ? measure->prevMeasure() : nullptr;
+                  if (!prevMeasure)
+                        return;
+                  if (const BarLine* prevEndBl = prevMeasure->endBarLine()) {
+                        if (prevEndBl->segment() && prevEndBl->segment()->enabled())
+                              return;
+                        }
+                  measure = prevMeasure;
+                  }
+
+            if (measure && measure->isIrregular() && !measure->isMMRest()) {
                   painter->setPen(MScore::layoutBreakColor);
                   QFont f("Edwin");
                   f.setPointSizeF(12 * spatium() * MScore::pixelRatio / SPATIUM20);
                   f.setBold(true);
-                  QString str = m->ticks() > m->timesig() ? "+" : "-";
-                  QRectF r = QFontMetricsF(f, MScore::paintDevice()).boundingRect(str);
+                  QChar ch = measure->ticks() > measure->timesig() ? '+' : '-';
+                  QRectF r = QFontMetricsF(f).boundingRect(ch);
                   painter->setFont(f);
-                  painter->drawText(-r.width(), 0.0, str);
+                  painter->drawText(-r.width(), -spatium(), ch);
                   }
             }
       }
