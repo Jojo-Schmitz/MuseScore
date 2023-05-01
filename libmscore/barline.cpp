@@ -10,24 +10,24 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "barline.h"
-#include "score.h"
-#include "sym.h"
-#include "staff.h"
-#include "part.h"
-#include "system.h"
-#include "measure.h"
-#include "segment.h"
 #include "articulation.h"
-#include "stafftype.h"
-#include "xml.h"
-#include "marker.h"
-#include "stafflines.h"
-#include "spanner.h"
-#include "undo.h"
+#include "barline.h"
 #include "fermata.h"
-#include "symbol.h"
 #include "image.h"
+#include "marker.h"
+#include "measure.h"
+#include "part.h"
+#include "score.h"
+#include "segment.h"
+#include "spanner.h"
+#include "staff.h"
+#include "stafflines.h"
+#include "stafftype.h"
+#include "sym.h"
+#include "symbol.h"
+#include "system.h"
+#include "undo.h"
+#include "xml.h"
 
 namespace Ms {
 
@@ -739,9 +739,13 @@ void BarLine::draw(QPainter* painter) const
                   break;
             }
       Segment* s = segment();
-      if (s && s->isEndBarLineType() && !score()->printing()) {
-            Measure* m = s->measure();
-            if (m->isIrregular() && score()->markIrregularMeasures() && !m->isMMRest()) {
+      if (s && !score()->printing() && score()->showUnprintable() && score()->markIrregularMeasures()) {
+            Measure* m;
+            if (s->isEndBarLineType())
+                  m = s->measure();
+            else
+                  m = s->measure()->prevMeasure();
+            if (m && m->isIrregular() && !m->isMMRest()) {
                   painter->setPen(MScore::layoutBreakColor);
                   QFont f("Edwin");
                   f.setPointSizeF(12 * spatium() * MScore::pixelRatio / SPATIUM20);
