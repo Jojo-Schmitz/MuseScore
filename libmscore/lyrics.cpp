@@ -400,11 +400,7 @@ void Lyrics::layout2(int nAbove)
 void Lyrics::paste(EditData& ed)
       {
       MuseScoreView* scoreview = ed.view;
-#if defined(Q_OS_MAC) || defined(Q_OS_WIN)
       QClipboard::Mode mode = QClipboard::Clipboard;
-#else
-      QClipboard::Mode mode = QClipboard::Selection;
-#endif
       QString txt = QApplication::clipboard()->text(mode);
       QString regex = QString("[^\\S") + QChar(0xa0) + QChar(0x202F) + "]+";
       QStringList sl = txt.split(QRegExp(regex), QString::SkipEmptyParts);
