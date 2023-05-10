@@ -242,6 +242,9 @@ void System::layoutSystem(qreal xo1, const bool isFirstSystem, bool firstSystemI
             if (firstVisibleSysStaffOfPart(p) < 0)
                   continue;
             for (int staffIdx = firstSysStaffOfPart(p); staffIdx <= lastSysStaffOfPart(p); ++staffIdx) {
+                  const SysStaff* staff = this->staff(staffIdx);
+                  if (!staff || (isFirstSystem && !staff->show()))
+                        continue;
                   for (InstrumentName* t : qAsConst(_staves[staffIdx]->instrumentNames)) {
                         t->layout();
                         qreal w = t->width() + point(instrumentNameOffset);
