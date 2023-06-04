@@ -7159,6 +7159,21 @@ static void addTie(const Notation& notation, Score* score, Note* note, const int
             else
                   logger->logError(QString("unknown tied orientation: %1").arg(orientation), xmlreader);
 
+            if (preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTLAYOUT)) {
+                  const QString& placement = notation.attribute("placement");
+
+                  if (placement == "above")
+                        currTie->setSlurDirection(Direction::UP);
+                  else if (placement == "below")
+                        currTie->setSlurDirection(Direction::DOWN);
+                  else if (placement == "auto")
+                        ;                    // ignore
+                  else if (placement == "")
+                        ;                    // ignore
+                  else
+                        logger->logError(QString("unknown tied placement: %1").arg(placement), xmlreader);
+                  }
+
             if (lineType == "dotted")
                   currTie->setLineType(1);
             else if (lineType == "dashed")

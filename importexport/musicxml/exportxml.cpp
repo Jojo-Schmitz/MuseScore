@@ -3676,6 +3676,8 @@ void ExportMusicXml::chord(Chord* chord, int staff, const std::vector<Lyrics*>* 
             if (tieFor) {
                   notations.tag(_xml);
                   QString rest = slurTieLineStyle(tieFor);
+                  if (tieFor->slurDirection() != Direction::AUTO || preferences.getBool(PREF_EXPORT_MUSICXML_EXPORTLAYOUT)) {
+                        rest += QString(" placement=\"%1\"").arg(tieFor->up() ? "above" : "below");
                   _xml.tagE(QString("tied type=\"start\"%1").arg(rest));
                   }
             if (hasLaissezVibrer(chord)) {
