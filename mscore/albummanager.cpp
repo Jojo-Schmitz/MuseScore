@@ -725,13 +725,17 @@ void AlbumManager::setAlbum(std::unique_ptr<Album> a)
     connect(mscore->getTab1(), &ScoreTab::tabMovedSignal, this, &AlbumManager::tabMoved);
 }
 
-//---------------------------------------------------------
-//   album
-//---------------------------------------------------------
+//
+// Albums
+//
 
-Album& AlbumManager::album() const
-{
-    return *m_album.get();
+Album& AlbumManager::album() const {
+      if (m_album) {
+            return std::ref(*m_album);
+            }
+      else {
+            throw std::runtime_error("INTERNAL-ERROR: no precheck with isAlbum()");
+            }
       }
 
 //---------------------------------------------------------
@@ -823,28 +827,30 @@ AlbumManagerItem::AlbumManagerItem(AlbumItem& item, QTableWidgetItem* listItem, 
 
 void AlbumManagerItem::setEnabled(bool b)
 {
-    albumItem.setEnabled(b);
-    if (mscore->getAlbumManager()->album().getCombinedScore()) {
-        mscore->currentScoreView()->update(); // repaint
-    }
-    if (b) {
-        if (listItem) {
-            listItem->setTextColor(Qt::black);
-            listItem->setCheckState(Qt::CheckState::Checked); // used for initialization
-        }
-        if (listDurationItem) {
-            listDurationItem->setTextColor(Qt::black);
-        }
-    } else {
-        if (listItem) {
-            listItem->setTextColor(Qt::gray);
-            listItem->setCheckState(Qt::CheckState::Unchecked); // used for initialization
-        }
-        if (listDurationItem) {
-            listDurationItem->setTextColor(Qt::gray);
-        }
-    }
-}
+      albumItem.setEnabled(b);
+      if (mscore->getAlbumManager()->isAlbum() &&
+          mscore->getAlbumManager()->album().getCombinedScore()) {
+            mscore->currentScoreView()->update(); // repaint
+            }
+      if (b) {
+            if (listItem) {
+                  listItem->setTextColor(Qt::black);
+                  listItem->setCheckState(Qt::CheckState::Checked); // used for initialization
+                  }
+            if (listDurationItem) {
+                  listDurationItem->setTextColor(Qt::black);
+                  }
+            }
+      else {
+            if (listItem) {
+                  listItem->setTextColor(Qt::gray);
+                  listItem->setCheckState(Qt::CheckState::Unchecked); // used for initialization
+                  }
+            if (listDurationItem) {
+                  listDurationItem->setTextColor(Qt::gray);
+                  }
+            }
+      }
 
 //---------------------------------------------------------
 //   updateDurationLabel

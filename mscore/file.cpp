@@ -354,14 +354,16 @@ void MuseScore::doLoadFiles(const QStringList& filter, bool switchTab, bool sing
 //---------------------------------------------------------
 
 void MuseScore::openAlbum(const QString& fn)
-{
-    showAlbumManager(true);
-    auto newAlbum = std::unique_ptr<Album>(new Album());
-    newAlbum->loadFromFile(fn);
-    albumManager->setAlbum(std::move(newAlbum));
-    addRecentAlbum(&albumManager->album());
-    writeSessionFile(false);
-}
+      {
+      showAlbumManager(true);
+      auto newAlbum = std::unique_ptr<Album>(new Album());
+      newAlbum->loadFromFile(fn);
+      albumManager->setAlbum(std::move(newAlbum));
+      Album& album = albumManager->album();
+
+      addRecentAlbum(&album);
+      writeSessionFile(false);
+      }
 
 //---------------------------------------------------------
 //   importAlbum
@@ -404,14 +406,19 @@ void MuseScore::importAlbum(const QString& fn)
 //---------------------------------------------------------
 
 bool MuseScore::saveAlbum()
-{
-    Album& a = albumManager->album();
-    if (a.fileInfo().exists()) {
-        return a.saveToFile();
-    } else {
-        return saveAlbumAs();
-    }
-}
+      {
+      if (! albumManager->isAlbum()) {
+            return false;
+            }
+      Album& a = albumManager->album();
+
+      if (a.fileInfo().exists()) {
+            return a.saveToFile();
+            }
+      else {
+            return saveAlbumAs();
+           }
+      }
 
 //---------------------------------------------------------
 //   saveAlbumAs
@@ -447,12 +454,17 @@ bool MuseScore::saveAlbumAs()
         return false;
     }
 
-    albumManager->album().saveToFile(fileBaseName);
-    mscore->lastSaveDirectory = albumManager->album().fileInfo().absolutePath();
-    addRecentAlbum(&albumManager->album());
-    writeSessionFile(false);
-    return true;
-}
+      if (! albumManager->isAlbum()) {
+            return false;
+            }
+      Album& a = albumManager->album();
+
+      a.saveToFile(fileBaseName);
+      mscore->lastSaveDirectory = a.fileInfo().absolutePath();
+      addRecentAlbum(&a);
+      writeSessionFile(false);
+      return true;
+      }
 
 //---------------------------------------------------------
 //   saveAlbumAndScores
@@ -511,14 +523,19 @@ bool MuseScore::exportAlbum()
         return false;
     }
 
-    QFileInfo fi(fileBaseName);
-    QFile fp(fi.filePath());
-    albumManager->album().exportAlbum(&fp, fi);
-    mscore->lastSaveDirectory = albumManager->album().fileInfo().absolutePath();
-    addRecentAlbum(&albumManager->album());
-    writeSessionFile(false);
-    return true;
-}
+      QFileInfo fi(fileBaseName);
+      QFile fp(fi.filePath());
+
+      if (! albumManager->isAlbum()) {
+            return false;
+            }
+      Album& a = albumManager->album();
+      a.exportAlbum(&fp, fi);
+      mscore->lastSaveDirectory = a.fileInfo().absolutePath();
+      addRecentAlbum(&a);
+      writeSessionFile(false);
+      return true;
+      }
 
 void MuseScore::askAboutApplyingEdwinIfNeed(const QString& fileSuffix)
 {
