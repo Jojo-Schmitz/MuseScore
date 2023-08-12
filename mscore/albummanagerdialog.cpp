@@ -66,33 +66,37 @@ void AlbumManagerDialog::start()
 void AlbumManagerDialog::apply()
 {
     AlbumManager* albumManager = static_cast<AlbumManager*>(parent());
+    if (! albumManager->isAlbum()) {
+        return;
+    }
+    Album& a = albumManager->album();
 
-    albumManager->album().setDefaultPause(playbackDelayBox->value());
+    a.setDefaultPause(playbackDelayBox->value());
 
-    if (albumManager->album().drawFrontCover() != checkCreateFrontCover->isChecked()) {
-        albumManager->album().setDrawFrontCover(checkCreateFrontCover->isChecked());
-        albumManager->album().updateFrontCover();
+    if (a.drawFrontCover() != checkCreateFrontCover->isChecked()) {
+        a.setDrawFrontCover(checkCreateFrontCover->isChecked());
+        a.updateFrontCover();
     }
 
-    if (albumManager->album().generateContents() != checkContentsGeneration->isChecked()) {
-        albumManager->album().setGenerateContents(checkContentsGeneration->isChecked());
-        if (checkContentsGeneration->isChecked() && albumManager->album().getCombinedScore()) {
-            albumManager->album().getCombinedScore()->setfirstRealMovement(2);
-        } else if (albumManager->album().getCombinedScore()) {
-            albumManager->album().getCombinedScore()->setfirstRealMovement(1);
+    if (a.generateContents() != checkContentsGeneration->isChecked()) {
+        a.setGenerateContents(checkContentsGeneration->isChecked());
+        if (checkContentsGeneration->isChecked() && a.getCombinedScore()) {
+            a.getCombinedScore()->setfirstRealMovement(2);
+        } else if (a.getCombinedScore()) {
+            a.getCombinedScore()->setfirstRealMovement(1);
         }
-        albumManager->album().updateContents();
+        a.updateContents();
     }
 
-    albumManager->album().setAddPageBreaksEnabled(checkAddPageBreak->isChecked());
+    a.setAddPageBreaksEnabled(checkAddPageBreak->isChecked());
     if (checkAddPageBreak->isChecked()) {
-        albumManager->album().addAlbumPageBreaks();
+        a.addAlbumPageBreaks();
     } else {
-        albumManager->album().removeAlbumPageBreaks();
+        a.removeAlbumPageBreaks();
     }
 
-    albumManager->album().setTitleAtTheBottom(checkTitleLayout->isChecked());
-    albumManager->album().setIncludeAbsolutePaths(checkAbsolutePathsEnabled->isChecked());
+    a.setTitleAtTheBottom(checkTitleLayout->isChecked());
+    a.setIncludeAbsolutePaths(checkAbsolutePathsEnabled->isChecked());
 }
 
 //---------------------------------------------------------
@@ -102,12 +106,17 @@ void AlbumManagerDialog::apply()
 void AlbumManagerDialog::update()
 {
     AlbumManager* albumManager = static_cast<AlbumManager*>(parent());
-    playbackDelayBox->setValue(albumManager->album().defaultPause());
-    checkCreateFrontCover->setChecked(albumManager->album().drawFrontCover());
-    checkContentsGeneration->setChecked(albumManager->album().generateContents());
-    checkAddPageBreak->setChecked(albumManager->album().addPageBreaksEnabled());
-    checkTitleLayout->setChecked(albumManager->album().titleAtTheBottom());
-    checkAbsolutePathsEnabled->setChecked(albumManager->album().includeAbsolutePaths());
+    if (! albumManager->isAlbum()) {
+        return;
+    }
+    Album& a = albumManager->album();
+
+    playbackDelayBox->setValue(a.defaultPause());
+    checkCreateFrontCover->setChecked(a.drawFrontCover());
+    checkContentsGeneration->setChecked(a.generateContents());
+    checkAddPageBreak->setChecked(a.addPageBreaksEnabled());
+    checkTitleLayout->setChecked(a.titleAtTheBottom());
+    checkAbsolutePathsEnabled->setChecked(a.includeAbsolutePaths());
 }
 
 //---------------------------------------------------------
@@ -136,7 +145,13 @@ void AlbumManagerDialog::buttonBoxClicked(QAbstractButton* button)
 
 void AlbumManagerDialog::setAlbumLayoutMode(int i)
 {
-    static_cast<AlbumManager*>(parent())->album().setAlbumLayoutMode(static_cast<LayoutMode>(albumViewModeCombo->itemData(i).toInt()));
+    AlbumManager* albumManager = static_cast<AlbumManager*>(parent());
+    if (! albumManager->isAlbum()) {
+        return;
+    }
+    Album& a = albumManager->album();
+
+    a.setAlbumLayoutMode(static_cast<LayoutMode>(albumViewModeCombo->itemData(i).toInt()));
 }
 
 //---------------------------------------------------------
@@ -148,7 +163,13 @@ void AlbumManagerDialog::applyPauseClicked(bool b)
     Q_UNUSED(b);
 
     AlbumManager* albumManager = static_cast<AlbumManager*>(parent());
-    albumManager->album().setDefaultPause(playbackDelayBox->value());
-    albumManager->album().applyDefaultPauseToSectionBreaks();
+    if (! albumManager->isAlbum()) {
+        return;
+    }
+    Album& a = albumManager->album();
+
+    a.setDefaultPause(playbackDelayBox->value());
+    a.applyDefaultPauseToSectionBreaks();
 }
+
 }

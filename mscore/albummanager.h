@@ -13,6 +13,8 @@
 #ifndef __ALBUMMANAGER_H__
 #define __ALBUMMANAGER_H__
 
+#include <optional>
+
 #include "ui_albummanager.h"
 #include "abstractdialog.h"
 #include "libmscore/album.h"
@@ -57,9 +59,10 @@ public:
     AlbumManager(QWidget* parent = 0);
     ~AlbumManager();
 
-    Album& album() const;
-    void setAlbum(std::unique_ptr<Album> album);
-    void changeMode(bool checked = false);
+      Album& album() const;
+      void setAlbum(std::unique_ptr<Album> album);
+      bool isAlbum() { return m_album != nullptr; }
+      void changeMode(bool checked = false);
 
    protected:
     virtual void retranslate();
@@ -106,8 +109,8 @@ private:
     void closeActiveAlbum();
 
     AlbumManagerDialog* m_settingsDialog { nullptr };
-    std::unique_ptr<Album> m_album { nullptr };
-    std::vector<std::unique_ptr<AlbumManagerItem> > m_items {};
+    std::unique_ptr<Album> m_album;
+    std::vector<std::unique_ptr<AlbumManagerItem> > m_items;
     int m_tempScoreTabIndex { -1 };
 
     int m_dragEnterIndex    { -1 };
