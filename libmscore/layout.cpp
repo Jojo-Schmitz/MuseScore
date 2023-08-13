@@ -4941,7 +4941,8 @@ void LayoutContext::collectPage()
       // ---- before patch ---
 
       int movementsSize = mainScore->isMasterScore() ? static_cast<MasterScore*>(mainScore)->movements()->size() : -1;
-      if (currentScore->isMasterScore() && curSystem == currentScore->systems().first()) {
+      if (currentScore->isMasterScore() && currentScore->systems().size() > 0 &&
+          curSystem == currentScore->systems().first()) {
             static_cast<MasterScore*>(currentScore)->setPageIndexInAlbum(mainScore->pages().size());
             }
 
