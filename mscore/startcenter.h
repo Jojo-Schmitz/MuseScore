@@ -29,7 +29,7 @@ class Startcenter : public AbstractDialog, public Ui::Startcenter {
     private slots:
       void loadScore(QString);
       void newScore();
-    void openFileClicked();
+      void openFileClicked();
 
     protected:
       virtual void retranslate() override { retranslateUi(this); }

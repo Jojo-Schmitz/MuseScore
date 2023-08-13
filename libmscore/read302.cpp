@@ -384,10 +384,10 @@ void MasterScore::addMovement(MasterScore* score)
 //---------------------------------------------------------
 
 void MasterScore::insertMovement(MasterScore* score, int atIndex)
-    {
-    _movements->insert(_movements->begin() + atIndex, score);
-    score->setMovementOf(this);
-    }
+      {
+      _movements->insert(_movements->begin() + atIndex, score);
+      score->setMovementOf(this);
+      }
 
 //---------------------------------------------------------
 //   removeMovement
@@ -395,18 +395,18 @@ void MasterScore::insertMovement(MasterScore* score, int atIndex)
 
 void MasterScore::removeMovement(MasterScore* score)
 {
-    auto x = std::find(_movements->begin(), _movements->end(), score);
-    if (x != movements()->end()) {
-        _movements->erase(x);
-        score->setMovementOf(nullptr);
-    }
-}
+      auto x = std::find(_movements->begin(), _movements->end(), score);
+      if (x != movements()->end()) {
+            _movements->erase(x);
+            score->setMovementOf(nullptr);
+            }
+      }
 
 void MasterScore::removeMovement(int index)
 {
-    _movements->at(index)->setMovementOf(nullptr);
-    _movements->erase(_movements->begin() + index);
-}
+      _movements->at(index)->setMovementOf(nullptr);
+      _movements->erase(_movements->begin() + index);
+      }
 
 //---------------------------------------------------------
 //   read301

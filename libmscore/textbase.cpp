@@ -2382,7 +2382,8 @@ void TextBase::setXmlText(const QString& s)
 
       if (_tid == Tid::COMPOSER) {
             emit score()->composerChanged();
-      } else if (_tid == Tid::POET) {
+            }
+      else if (_tid == Tid::POET) {
             emit score()->lyricistChanged();
             }
       }

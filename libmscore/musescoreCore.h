@@ -26,8 +26,8 @@ enum class SaveReplacePolicy : char;
 class MuseScoreCore
       {
    protected:
-    Score* cs  { nullptr };         // current score (for multi-movement scores not neccesarily the main score)
-    Score* mainScore { nullptr };   // the same as MuseScoreView::m_drawingScore
+      Score* cs  { nullptr };         // current score (for multi-movement scores not neccesarily the main score)
+      Score* mainScore { nullptr };   // the same as MuseScoreView::m_drawingScore
       QList<MasterScore*> scoreList;
 
    public:

@@ -175,8 +175,8 @@ void System::removeLastMeasure()
 
 Page* System::albumPage() const
 {
-    return (albumParent() && Album::activeAlbum->albumModeActive()) ? (Page*)albumParent() : (Page*)parent();
-}
+      return (albumParent() && Album::activeAlbum->albumModeActive()) ? (Page*)albumParent() : (Page*)parent();
+      }
 
 //---------------------------------------------------------
 //   canvasPos
@@ -186,18 +186,18 @@ Page* System::albumPage() const
 
 QPointF System::canvasPos() const
 {
-    QPointF p(pos());
-    if (parent() == nullptr) {
-        return p;
-    }
+      QPointF p(pos());
+      if (parent() == nullptr) {
+            return p;
+            }
 
-    if (albumParent() && Album::activeAlbum->albumModeActive()) {
-        p += albumParent()->canvasPos();
-        return p;
-    }
+      if (albumParent() && Album::activeAlbum->albumModeActive()) {
+            p += albumParent()->canvasPos();
+            return p;
+            }
 
-    return Element::canvasPos();
-}
+      return Element::canvasPos();
+      }
 
 //---------------------------------------------------------
 //   canvasX
@@ -205,17 +205,18 @@ QPointF System::canvasPos() const
 
 qreal System::canvasX() const
 {
-    qreal xp = x();
-    for (Element* e = parent(); e;) {
-        xp += e->x();
-        if (e->parent() && e->parent()->isPage() && e->albumParent() && Album::activeAlbum->albumModeActive()) {
-            e = e->albumParent();
-        } else {
-            e = e->parent();
-        }
-    }
-    return xp;
-}
+      qreal xp = x();
+      for (Element* e = parent(); e;) {
+            xp += e->x();
+            if (e->parent() && e->parent()->isPage() && e->albumParent() && Album::activeAlbum->albumModeActive()) {
+                  e = e->albumParent();
+                  }
+            else {
+                  e = e->parent();
+                 }
+            }
+      return xp;
+      }
 
 //---------------------------------------------------------
 //   vbox

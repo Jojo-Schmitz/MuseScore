@@ -395,7 +395,7 @@ void Score::addMeasure(MeasureBase* m, MeasureBase* pos)
       {
       m->setNext(pos);
       _measures.add(m);
-    emit durationChanged();
+      emit durationChanged();
       }
 
 //---------------------------------------------------------
@@ -1314,7 +1314,7 @@ Measure* Score::getCreateMeasure(const Fraction& tick)
                   lastTick += Fraction::fromTicks(ts.ticks());
                   }
             }
-    emit durationChanged();
+      emit durationChanged();
       return tick2measure(tick);
       }
 
@@ -1457,7 +1457,7 @@ void Score::addElement(Element* element)
                   break;
             }
       element->triggerLayout();
-    emit durationChanged();
+      emit durationChanged();
       }
 
 //---------------------------------------------------------
@@ -1625,7 +1625,7 @@ void Score::removeElement(Element* element)
             default:
                   break;
             }
-    emit durationChanged();
+      emit durationChanged();
       }
 
 //---------------------------------------------------------
@@ -1855,15 +1855,14 @@ const RepeatList& MasterScore::repeatList2() const
 
 Movements MasterScore::activeMovements() const
 {
-    Movements movements {};
-    for (auto m : *_movements) {
-        if (m->enabled()) {
-            movements.push_back(m);
-        }
-    }
-
-    return movements;
-}
+      Movements movements {};
+      for (auto m : *_movements) {
+            if (m->enabled()) {
+                  movements.push_back(m);
+                  }
+            }
+      return movements;
+      }
 
 //---------------------------------------------------------
 //   inputPos
@@ -2017,11 +2016,12 @@ void MasterScore::addExcerpt(Excerpt* ex, bool isAlbumExcerpt)
                   }
             ex->setTracks(tracks);
             }
-    if (isAlbumExcerpt) {
-        albumExcerpts().append(ex);
-    } else {
-      excerpts().append(ex);
-    }
+      if (isAlbumExcerpt) {
+            albumExcerpts().append(ex);
+            }
+      else {
+            excerpts().append(ex);
+           }
       setExcerptsChanged(true);
       }
 
@@ -5028,20 +5028,20 @@ QString Score::nextRehearsalMarkText(RehearsalMark* previous, RehearsalMark* cur
 
 QString Score::composer() const
 {
-    for (auto x : _measures.first()->el()) {
-        if (x && x->isText()) {
-            Text* t = toText(x);
-            if (t->tid() == Tid::COMPOSER) {
-                QString s = t->plainText();
-                while (s.at(s.size() - 1) == '\n') { // change to s.back() after Qt 5.10
-                    s.chop(1);
-                }
-                return s;
+      for (auto x : _measures.first()->el()) {
+            if (x && x->isText()) {
+                  Text* t = toText(x);
+                  if (t->tid() == Tid::COMPOSER) {
+                        QString s = t->plainText();
+                        while (s.at(s.size() - 1) == '\n') { // change to s.back() after Qt 5.10
+                              s.chop(1);
+                              }
+                        return s;
+                        }
+                  }
             }
-        }
-    }
-    return QString();
-}
+      return QString();
+      }
 
 //---------------------------------------------------------
 //   lyricist
@@ -5050,20 +5050,20 @@ QString Score::composer() const
 
 QString Score::lyricist() const
 {
-    for (auto x : _measures.first()->el()) {
-        if (x && x->isText()) {
-            Text* t = toText(x);
-            if (t->tid() == Tid::POET) {
-                QString s = t->plainText();
-                while (s.at(s.size() - 1) == '\n') { // change to s.back() after Qt 5.10
-                    s.chop(1);
-                }
-                return s;
+      for (auto x : _measures.first()->el()) {
+            if (x && x->isText()) {
+                  Text* t = toText(x);
+                  if (t->tid() == Tid::POET) {
+                        QString s = t->plainText();
+                        while (s.at(s.size() - 1) == '\n') { // change to s.back() after Qt 5.10
+                              s.chop(1);
+                        }
+                        return s;
+                        }
+                  }
             }
-        }
-    }
-    return QString();
-}
+      return QString();
+      }
 
 //---------------------------------------------------------
 //   changeVoice
@@ -5348,44 +5348,42 @@ MasterScore::MasterScore()
       _repeatList  = new RepeatList(this);
       _repeatList2 = new RepeatList(this);
       _revisions   = new Revisions;
-    _movements = new Movements;
-    _movements->push_back(this);
+      _movements = new Movements;
+      _movements->push_back(this);
       setMasterScore(this);
 
       _pos[int(POS::CURRENT)] = Fraction(0,1);
       _pos[int(POS::LEFT)]    = Fraction(0,1);
       _pos[int(POS::RIGHT)]   = Fraction(0,1);
 
-    setMetaTags();
+      setMetaTags();
 }
 
-MasterScore::MasterScore(const MStyle& s)
-    : MasterScore{}
-{
-    setStyle(s);
-}
+MasterScore::MasterScore(const MStyle& s) : MasterScore{}
+      {
+      setStyle(s);
+      }
 
 // used to create Excerpts for multi-movement partScores
-MasterScore::MasterScore(MasterScore* ms, bool b)
-    : Score(ms, b)
+MasterScore::MasterScore(MasterScore* ms, bool b) : Score(ms, b)
 {
-    _tempomap    = new TempoMap;
-    _sigmap      = new TimeSigMap();
-    _repeatList  = new RepeatList(this);
-    _repeatList2 = new RepeatList(this);
-    _revisions   = new Revisions;
-    _movements = new Movements;
-    _movements->push_back(this);
-    m_textMovement = ms->textMovement();
-    m_isPart = true;
-    m_enabled = ms->m_enabled;
+      _tempomap    = new TempoMap;
+      _sigmap      = new TimeSigMap();
+      _repeatList  = new RepeatList(this);
+      _repeatList2 = new RepeatList(this);
+      _revisions   = new Revisions;
+      _movements = new Movements;
+      _movements->push_back(this);
+      m_textMovement = ms->textMovement();
+      m_isPart = true;
+      m_enabled = ms->m_enabled;
 
-    _pos[int(POS::CURRENT)] = Fraction(0,1);
-    _pos[int(POS::LEFT)]    = Fraction(0,1);
-    _pos[int(POS::RIGHT)]   = Fraction(0,1);
+      _pos[int(POS::CURRENT)] = Fraction(0,1);
+      _pos[int(POS::LEFT)]    = Fraction(0,1);
+      _pos[int(POS::RIGHT)]   = Fraction(0,1);
 
-    setMetaTags();
-}
+      setMetaTags();
+      }
 
 void MasterScore::setMetaTags()
 {
@@ -5501,21 +5499,21 @@ QString Score::title() const
 
 QString Score::realTitle() const
 {
-    MeasureBase* measure = _measures.first();
-    Element* first = measure->el().at(0);
-    if (!first->isText()) {
-        return QString();
-    }
-    Text* firstText = toText(first);
-    if (firstText->tid() == Tid::TITLE) {
-        QString s = firstText->plainText();
-        while (s.at(s.size() - 1) == '\n') { // change to s.back() after Qt 5.10
-            s.chop(1);
-        }
-        return s;
-    }
-    return QString();
-}
+      MeasureBase* measure = _measures.first();
+      Element* first = measure->el().at(0);
+      if (!first->isText()) {
+            return QString();
+            }
+      Text* firstText = toText(first);
+      if (firstText->tid() == Tid::TITLE) {
+            QString s = firstText->plainText();
+            while (s.at(s.size() - 1) == '\n') { // change to s.back() after Qt 5.10
+                  s.chop(1);
+            }
+            return s;
+            }
+      return QString();
+      }
 
 //---------------------------------------------------------
 //   addRefresh
@@ -5712,8 +5710,7 @@ void MasterScore::rebuildAndUpdateExpressive(Synthesizer* synth)
 //   Movements
 //---------------------------------------------------------
 
-Movements::Movements()
-   : std::vector<MasterScore*>()
+Movements::Movements() : std::vector<MasterScore*>()
       {
       _undo = new UndoStack();
       }
@@ -5729,14 +5726,14 @@ Movements::~Movements()
 //---------------------------------------------------------
 
 int Movements::indexOf(MasterScore* m)
-{
-    for (int i = 0; i < size(); i++) {
-        if (m == this->at(i)) {
-            return i;
-        }
-    }
-    return -1;
-}
+      {
+      for (int i = 0; i < size(); i++) {
+            if (m == this->at(i)) {
+                  return i;
+                  }
+            }
+      return -1;
+      }
 
 //---------------------------------------------------------
 //   ScoreLoad::_loading

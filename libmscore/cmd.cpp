@@ -264,7 +264,8 @@ void Score::endCmd(bool rollback)
             // update the current multi-movement so that editing works
             if (ms->isMultiMovementScore()) {
                   this->doLayout();
-            } else if (ms->movementOf()) {
+                  }
+            else if (ms->movementOf()) {
                   ms->movementOf()->update();
                   ms->movementOf()->doLayout();
                   }

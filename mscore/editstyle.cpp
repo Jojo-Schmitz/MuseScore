@@ -1164,17 +1164,18 @@ void EditStyle::applyToAllParts()
       {
       for (Excerpt*& e : cs->masterScore()->excerpts()) {
             if (needResetStyle) {
-                resetStyle(e->partScore());
-            } else {
-                e->partScore()->undo(new ChangeStyle(e->partScore(), cs->style()));
+                  resetStyle(e->partScore());
+                  }
+            else {
+                  e->partScore()->undo(new ChangeStyle(e->partScore(), cs->style()));
             }
 
             e->partScore()->update();
-      }
-    for (Excerpt* e : cs->masterScore()->albumExcerpts()) {
-        e->partScore()->undo(new ChangeStyle(e->partScore(), cs->style()));
-        e->partScore()->update();
-    }
+            }
+      for (Excerpt* e : cs->masterScore()->albumExcerpts()) {
+            e->partScore()->undo(new ChangeStyle(e->partScore(), cs->style()));
+            e->partScore()->update();
+            }
       }
 
 //---------------------------------------------------------

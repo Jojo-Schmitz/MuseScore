@@ -150,8 +150,8 @@ Seq::Seq()
       {
       running         = false;
       playlistChanged = false;
-    cs              = nullptr;
-    cv              = nullptr;
+      cs              = nullptr;
+      cv              = nullptr;
       tackRemain        = 0;
       tickRemain        = 0;
       maxMidiOutPort  = 0;
@@ -209,9 +209,9 @@ Seq::~Seq()
 
 void Seq::setScoreView(ScoreView* v)
       {
-    if (cs) {
-        disconnect(this, &Seq::stopped, this, &Seq::playNextMovement);
-    }
+      if (cs) {
+            disconnect(this, &Seq::stopped, this, &Seq::playNextMovement);
+            }
       if (oggInit) {
             ov_clear(&vf);
             oggInit = false;
@@ -224,28 +224,28 @@ void Seq::setScoreView(ScoreView* v)
       if (cs)
             disconnect(cs, SIGNAL(playlistChanged()), this, SLOT(setPlaylistChanged()));
       cs = cv ? cv->score()->masterScore() : 0;
-    m_topMovement = cs;
-    if (cv && (cv->drawingScore()->isMultiMovementScore())) {
-        m_topMovement = cv->drawingScore()->masterScore();
-    }
-    m_nextMovementIndex = m_topMovement ? m_topMovement->firstRealMovement() : 0;
-    midi = MidiRenderer(cs);
-    midi.setMinChunkSize(10);
+      m_topMovement = cs;
+      if (cv && (cv->drawingScore()->isMultiMovementScore())) {
+            m_topMovement = cv->drawingScore()->masterScore();
+            }
+      m_nextMovementIndex = m_topMovement ? m_topMovement->firstRealMovement() : 0;
+      midi = MidiRenderer(cs);
+      midi.setMinChunkSize(10);
 
-    if (!heartBeatTimer->isActive()) {
-        heartBeatTimer->start(20);        // msec
-    }
-    playlistChanged = true;
-    _synti->reset();
-    if (cs) {
-        initInstruments();
-        connect(cs, SIGNAL(playlistChanged()), this, SLOT(setPlaylistChanged()));
-    }
+      if (!heartBeatTimer->isActive()) {
+            heartBeatTimer->start(20);        // msec
+            }
+      playlistChanged = true;
+      _synti->reset();
+      if (cs) {
+            initInstruments();
+            connect(cs, SIGNAL(playlistChanged()), this, SLOT(setPlaylistChanged()));
+            }
 
-    if (m_topMovement && m_topMovement->isMultiMovementScore()) {
-        connect(this, &Seq::stopped, this, &Seq::playNextMovement, Qt::ConnectionType::UniqueConnection);
-    }
-}
+      if (m_topMovement && m_topMovement->isMultiMovementScore()) {
+            connect(this, &Seq::stopped, this, &Seq::playNextMovement, Qt::ConnectionType::UniqueConnection);
+            }
+      }
 
 //---------------------------------------------------------
 //   setScoreToFirstMovement
@@ -253,11 +253,11 @@ void Seq::setScoreView(ScoreView* v)
 //---------------------------------------------------------
 
 void Seq::setScoreToFirstMovement()
-{
-    if (m_topMovement->isMultiMovementScore()) {
-        cs = m_topMovement->movements()->at(0);
-    }
-}
+      {
+      if (m_topMovement->isMultiMovementScore()) {
+            cs = m_topMovement->movements()->at(0);
+            }
+      }
 
 //---------------------------------------------------------
 //   setNextMovement
@@ -265,45 +265,46 @@ void Seq::setScoreToFirstMovement()
 //---------------------------------------------------------
 
 void Seq::setNextMovement()
-{
-    m_ended = false;
-    if (m_nextMovementIndex < int(m_topMovement->movements()->size()) && m_nextMovementIndex >= m_topMovement->firstRealMovement()) {
-        cs = m_topMovement->movements()->at(m_nextMovementIndex);
-        m_nextMovementIndex++;
-    } else {
-        if (m_nextMovementIndex == int(m_topMovement->movements()->size())) {
-            m_ended = true;
-        }
-        cs = m_topMovement->movements()->at(m_topMovement->firstRealMovement());
-        m_nextMovementIndex = m_topMovement->firstRealMovement() + 1;
-    }
-    mscore->currentScoreView()->setActiveScore(mscore->currentScoreView()->drawingScore()->movements()->at(m_nextMovementIndex - 1)); // for cursor during playback
+      {
+      m_ended = false;
+      if (m_nextMovementIndex < int(m_topMovement->movements()->size()) && m_nextMovementIndex >= m_topMovement->firstRealMovement()) {
+            cs = m_topMovement->movements()->at(m_nextMovementIndex);
+            m_nextMovementIndex++;
+      } else {
+          if (m_nextMovementIndex == int(m_topMovement->movements()->size())) {
+                m_ended = true;
+                }
+          cs = m_topMovement->movements()->at(m_topMovement->firstRealMovement());
+          m_nextMovementIndex = m_topMovement->firstRealMovement() + 1;
+          }
+      mscore->currentScoreView()->setActiveScore(mscore->currentScoreView()->drawingScore()->movements()->at(m_nextMovementIndex - 1)); // for cursor during playback
 
-    midi = MidiRenderer(cs);
-    midi.setMinChunkSize(10);
+      midi = MidiRenderer(cs);
+      midi.setMinChunkSize(10);
 
-    if (!heartBeatTimer->isActive()) {
-        heartBeatTimer->start(20);        // msec
-    }
-    playlistChanged = true;
-    _synti->reset();
-    if (cs) {
-        initInstruments();
-        connect(cs, SIGNAL(playlistChanged()), this, SLOT(setPlaylistChanged()));
-    }
-}
+      if (!heartBeatTimer->isActive()) {
+            heartBeatTimer->start(20);        // msec
+            }
+      playlistChanged = true;
+      _synti->reset();
+      if (cs) {
+            initInstruments();
+            connect(cs, SIGNAL(playlistChanged()), this, SLOT(setPlaylistChanged()));
+            }
+      }
 
 void Seq::setNextMovement(int i)
 {
-    if (i < int(m_topMovement->movements()->size()) && i >= m_topMovement->firstRealMovement()) {
-        cs = m_topMovement->movements()->at(i);
-        m_nextMovementIndex = i + 1;
-    } else {
-        cs = m_topMovement->movements()->at(m_topMovement->firstRealMovement());
-        m_nextMovementIndex = m_topMovement->firstRealMovement() + 1;
-    }
+      if (i < int(m_topMovement->movements()->size()) && i >= m_topMovement->firstRealMovement()) {
+            cs = m_topMovement->movements()->at(i);
+            m_nextMovementIndex = i + 1;
+            }
+      else {
+            cs = m_topMovement->movements()->at(m_topMovement->firstRealMovement());
+            m_nextMovementIndex = m_topMovement->firstRealMovement() + 1;
+            }
 
-    mscore->currentScoreView()->setActiveScore(mscore->currentScoreView()->drawingScore()->movements()->at(m_nextMovementIndex - 1)); // for cursor during playback
+      mscore->currentScoreView()->setActiveScore(mscore->currentScoreView()->drawingScore()->movements()->at(m_nextMovementIndex - 1)); // for cursor during playback
 
       midi = MidiRenderer(cs);
       midi.setMinChunkSize(10);
@@ -555,7 +556,7 @@ void MuseScore::seqStopped()
 
 void Seq::unmarkNotes()
       {
-    for (const Note* n : markedNotes) {
+      for (const Note* n : markedNotes) {
             n->setMark(false);
             cs->addRefresh(n->canvasBoundingRect());
             }
@@ -578,15 +579,15 @@ void Seq::guiStop()
       if (!cs)
             return;
 
-    if (endUTick > getCurTick() + 100) {
-        disconnect(this, &Seq::stopped, this, &Seq::playNextMovement);
-    }
+      if (endUTick > getCurTick() + 100) {
+            disconnect(this, &Seq::stopped, this, &Seq::playNextMovement);
+            }
 
       int tck = cs->repeatList().utick2tick(cs->utime2utick(qreal(playFrame) / qreal(MScore::sampleRate)));
       cs->setPlayPos(Fraction::fromTicks(tck));
       cs->update();
       emit stopped();
-    connect(this, &Seq::stopped, this, &Seq::playNextMovement, Qt::ConnectionType::UniqueConnection);
+      connect(this, &Seq::stopped, this, &Seq::playNextMovement, Qt::ConnectionType::UniqueConnection);
       }
 
 //---------------------------------------------------------
@@ -1157,7 +1158,7 @@ void Seq::initInstruments(bool realTime)
                         }
                   }
             }
-    mscore->getMixer()->setScore(cs);
+      mscore->getMixer()->setScore(cs);
       }
 
 //---------------------------------------------------------
@@ -1917,27 +1918,27 @@ void Seq::handleTimeSigTempoChanged()
       }
 
 void Seq::playNextMovement()
-{
-    if (!m_pauseTimer) {
-        m_pauseTimer = new QTimer();
-        m_pauseTimer->setSingleShot(true);
-    }
+      {
+      if (!m_pauseTimer) {
+            m_pauseTimer = new QTimer();
+            m_pauseTimer->setSingleShot(true);
+            }
 
-    m_pause = cs->lastMeasure()->pause() * 1000;
-    m_pauseTimer->setInterval(m_pause);
-    if (m_topMovement->isMultiMovementScore()) {
-        setNextMovement();
-    }
+      m_pause = cs->lastMeasure()->pause() * 1000;
+      m_pauseTimer->setInterval(m_pause);
+      if (m_topMovement->isMultiMovementScore()) {
+            setNextMovement();
+            }
 
-    if (m_topMovement->isMultiMovementScore()) {
-        if (!m_ended) {
-            QAction* a = getAction("play");
-            a->setChecked(true);
-            connect(m_pauseTimer, &QTimer::timeout, this, &Seq::autoStart, Qt::ConnectionType::UniqueConnection);
-            m_pauseTimer->start();
-        }
-    }
-}
+      if (m_topMovement->isMultiMovementScore()) {
+            if (!m_ended) {
+                  QAction* a = getAction("play");
+                  a->setChecked(true);
+                  connect(m_pauseTimer, &QTimer::timeout, this, &Seq::autoStart, Qt::ConnectionType::UniqueConnection);
+                  m_pauseTimer->start();
+                  }
+            }
+      }
 
 //---------------------------------------------------------
 //  setInitialMillisecondTimestampWithLatency

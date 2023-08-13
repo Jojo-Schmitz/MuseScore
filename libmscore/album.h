@@ -109,7 +109,10 @@ class Album : public QObject
     Q_OBJECT
 
 public:
-    static Album* activeAlbum;
+    static Album* activeAlbum; // FIX: document why it needs to be static,
+    // if static because gui, move to some gui-handler object
+    // libmscore is designed to offload work from a gui, and therefor has
+    // these cursor like variables
     static bool scoreInActiveAlbum(MasterScore* score);
 
     Album();

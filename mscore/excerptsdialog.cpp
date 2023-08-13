@@ -371,21 +371,21 @@ void MuseScore::startExcerptsDialog()
             return;
       MasterScore* ms = cs->masterScore();
       if (cv->drawingScore()->movements()->size() > 1) {
-          Q_ASSERT(cv->drawingScore() == Album::activeAlbum->getCombinedScore());
-          if (!Album::activeAlbum->checkPartCompatibility()) {
-              QMessageBox msgBox;
-              msgBox.setWindowTitle(QObject::tr("Incompatible parts"));
-              msgBox.setText(QString("The scores in your album have incompatible parts/instrumentation."));
-              msgBox.setDetailedText(QString("To be able to access the `Parts` feature, all your scores in your album"
-                                             " need to have the same instrumentation."));
-              msgBox.setTextFormat(Qt::RichText);
-              msgBox.setIcon(QMessageBox::Critical);
-              msgBox.setStandardButtons(QMessageBox::Close);
-              msgBox.exec();
-              return;
-              }
-          ms = static_cast<MasterScore*>(cv->drawingScore());
-          }
+            Q_ASSERT(cv->drawingScore() == Album::activeAlbum->getCombinedScore());
+            if (!Album::activeAlbum->checkPartCompatibility()) {
+                  QMessageBox msgBox;
+                  msgBox.setWindowTitle(QObject::tr("Incompatible parts"));
+                  msgBox.setText(QString("The scores in your album have incompatible parts/instrumentation."));
+                  msgBox.setDetailedText(QString("To be able to access the `Parts` feature, all your scores in your album"
+                                                 " need to have the same instrumentation."));
+                  msgBox.setTextFormat(Qt::RichText);
+                  msgBox.setIcon(QMessageBox::Critical);
+                  msgBox.setStandardButtons(QMessageBox::Close);
+                  msgBox.exec();
+                  return;
+                  }
+            ms = static_cast<MasterScore*>(cv->drawingScore());
+            }
 
       ExcerptsDialog ed(ms, 0);
       MuseScore::restoreGeometry(&ed);
@@ -721,51 +721,52 @@ void ExcerptsDialog::createNewExcerpt(ExcerptItem* ei)
             return;
             }
 
-    if (score->isMultiMovementScore()) { // for album-mode
-        MasterScore* nscore = new MasterScore(e->oscore());
-        e->setPartScore(nscore);
-        nscore->setName(e->oscore()->title() + "_part_" + e->oscore()->excerpts().size());
-        qDebug() << " + Add part : " << e->title();
-        score->undo(new AddExcerpt(e));
-        Excerpt::createExcerpt(e);
+      if (score->isMultiMovementScore()) { // for album-mode
+            MasterScore* nscore = new MasterScore(e->oscore());
+            e->setPartScore(nscore);
+            nscore->setName(e->oscore()->title() + "_part_" + e->oscore()->excerpts().size());
+            qDebug() << " + Add part : " << e->title();
+            score->undo(new AddExcerpt(e));
+            Excerpt::createExcerpt(e);
 
-        // a new excerpt is created in AddExcerpt, make sure the parts are filed
-        for (Excerpt* ee : e->oscore()->excerpts()) {
-            if (ee->partScore() == nscore && ee != e) {
-                ee->parts().clear();
-                ee->parts().append(e->parts());
-            }
-        }
-
-        for (auto m : *score->movements()) {
-            if (m == score) {
-                continue;
-            }
-            Excerpt* ee = Album::createMovementExcerpt(Album::prepareMovementExcerpt(e, m));
-            nscore->addMovement(static_cast<MasterScore*>(ee->partScore()));
-        }
-        nscore->setLayoutAll();
-        nscore->undoChangeStyleVal(MSQE_Sid::Sid::spatium, 25.016); // hack: normally it's 25 but it draws crazy stuff with that
-                                                                    // if you disable this the shadowNote does not work properly
-                                                                    // but this movement is painted correctly
-        nscore->update();
-    } else {
-      Score* nscore = new Score(e->oscore());
-      e->setPartScore(nscore);
-
-      qDebug() << " + Add part : " << e->title();
-      score->undo(new AddExcerpt(e));
-      e->setTracks(ei->tracks());
-      Excerpt::createExcerpt(e);
-
-      // a new excerpt is created in AddExcerpt, make sure the parts are filed
-      for (Excerpt* ee : e->oscore()->excerpts()) {
-            if (ee->partScore() == nscore && ee != e) {
-                  ee->parts().clear();
-                  ee->parts().append(e->parts());
+            // a new excerpt is created in AddExcerpt, make sure the parts are filed
+            for (Excerpt* ee : e->oscore()->excerpts()) {
+                  if (ee->partScore() == nscore && ee != e) {
+                        ee->parts().clear();
+                        ee->parts().append(e->parts());
+                        }
                   }
+
+            for (auto m : *score->movements()) {
+                  if (m == score) {
+                        continue;
+                        }
+                  Excerpt* ee = Album::createMovementExcerpt(Album::prepareMovementExcerpt(e, m));
+                  nscore->addMovement(static_cast<MasterScore*>(ee->partScore()));
+                  }
+            nscore->setLayoutAll();
+            nscore->undoChangeStyleVal(MSQE_Sid::Sid::spatium, 25.016); // hack: normally it's 25 but it draws crazy stuff with that
+                                                                        // if you disable this the shadowNote does not work properly
+                                                                        // but this movement is painted correctly
+            nscore->update();
             }
-    }
+      else {
+            Score* nscore = new Score(e->oscore());
+            e->setPartScore(nscore);
+
+            qDebug() << " + Add part : " << e->title();
+            score->undo(new AddExcerpt(e));
+            e->setTracks(ei->tracks());
+            Excerpt::createExcerpt(e);
+
+            // a new excerpt is created in AddExcerpt, make sure the parts are filed
+            for (Excerpt* ee : e->oscore()->excerpts()) {
+                  if (ee->partScore() == nscore && ee != e) {
+                        ee->parts().clear();
+                        ee->parts().append(e->parts());
+                        }
+                  }
+          }
 
       partList->setEnabled(false);
       title->setEnabled(false);

@@ -58,7 +58,7 @@ class Excerpt : public QObject {
       void setPartScore(Score* s);
 
       void read(XmlReader&);
-    void writeForAlbum(XmlWriter& writer);
+      void writeForAlbum(XmlWriter& writer);
 
       bool operator!=(const Excerpt&) const;
       bool operator==(const Excerpt&) const;

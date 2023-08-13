@@ -518,7 +518,7 @@ void MuseScore::showMixer(bool visible)
             }
       reDisplayDockWidget(mixer, visible);
       toggleMixerAction->setChecked(visible);
-    mixer->setScore(currentScoreView() ? currentScoreView()->score() : cs);
+      mixer->setScore(currentScoreView() ? currentScoreView()->score() : cs);
       }
 
 }

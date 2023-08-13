@@ -115,10 +115,10 @@ ScoreView::ScoreView(QWidget* parent)
       setAutoFillBackground(false);
 
       state       = ViewState::NORMAL;
-    _score      = nullptr;
-    m_drawingScore = nullptr;
-    _omrView    = nullptr;
-    dropTarget  = nullptr;
+      _score      = nullptr;
+      m_drawingScore = nullptr;
+      _omrView    = nullptr;
+      dropTarget  = nullptr;
 
       realtimeTimer = new QTimer(this);
       realtimeTimer->setTimerType(Qt::PreciseTimer);
@@ -203,7 +203,7 @@ ScoreView::ScoreView(QWidget* parent)
 
 void ScoreView::setScore(Score* s)
       {
-    m_drawingScore = s;
+      m_drawingScore = s;
       if (_score) {
             if (_score->isMaster()) {
                   MasterScore* ms = static_cast<MasterScore*>(s);
@@ -566,9 +566,9 @@ void ScoreView::setForeground(const QColor& color)
       }
 
 void ScoreView::setActiveScore(Score* s)
-{
-    _score = s;
-}
+      {
+      _score = s;
+      }
 
 //---------------------------------------------------------
 //   dataChanged
@@ -1120,12 +1120,12 @@ void ScoreView::paintEvent(QPaintEvent* ev)
       vp.setRenderHint(QPainter::Antialiasing, preferences.getBool(PREF_UI_CANVAS_MISC_ANTIALIASEDDRAWING));
       vp.setRenderHint(QPainter::TextAntialiasing, true);
 
-    if (m_drawingScore->isMultiMovementScore() && _score != m_drawingScore) { // only run for multi-movement scores
-        m_drawingScore->doLayout();
-    }
-    if (!_score && m_drawingScore) {
-        _score = m_drawingScore;
-    }
+      if (m_drawingScore->isMultiMovementScore() && _score != m_drawingScore) { // only run for multi-movement scores
+            m_drawingScore->doLayout();
+            }
+      if (!_score && m_drawingScore) {
+            _score = m_drawingScore;
+            }
       paint(ev->rect(), vp);
 
       vp.setTransform(_matrix);
@@ -1177,7 +1177,7 @@ void ScoreView::paintPageBorder(QPainter& p, Page* page)
       p.setPen(QPen(QColor(0,0,0,102), 1));
       p.drawRect(r);
 
-    if (m_drawingScore->showPageborders()) {
+      if (m_drawingScore->showPageborders()) {
             // show page margins
             p.setBrush(Qt::NoBrush);
             p.setPen(MScore::frameMarginColor);
@@ -1342,8 +1342,8 @@ void ScoreView::paint(const QRect& r, QPainter& p)
 
       QRegion r1(r);
       if ((m_drawingScore->layoutMode() == LayoutMode::LINE) || (m_drawingScore->layoutMode() == LayoutMode::SYSTEM)) {
-          if (m_drawingScore->pages().size() > 0) {
-              Page* page = m_drawingScore->pages().front();
+            if (m_drawingScore->pages().size() > 0) {
+                  Page* page = m_drawingScore->pages().front();
                   QList<Element*> ell = page->items(fr);
 
                   // AvsOmr -----
@@ -1581,7 +1581,7 @@ void ScoreView::paint(const QRect& r, QPainter& p)
             lassoToDraw->drawEditMode(&p, editData);
 
       p.setWorldMatrixEnabled(false);
-    if (m_drawingScore->layoutMode() != LayoutMode::LINE && m_drawingScore->layoutMode() != LayoutMode::SYSTEM && !r1.isEmpty()) {
+      if (m_drawingScore->layoutMode() != LayoutMode::LINE && m_drawingScore->layoutMode() != LayoutMode::SYSTEM && !r1.isEmpty()) {
             p.setClipRegion(r1);  // only background
             if (_bgPixmap == 0 || _bgPixmap->isNull())
                   p.fillRect(r, _bgColor);
@@ -1638,10 +1638,10 @@ void ScoreView::constraintCanvas (int* dxx, int* dyy)
       Page* firstPage = score()->pages().front();
       Page* lastPage  = score()->pages().back();
 
-    if (m_drawingScore->isMultiMovementScore()) {
-        firstPage = m_drawingScore->pages().front();
-        lastPage = m_drawingScore->pages().back();
-    }
+      if (m_drawingScore->isMultiMovementScore()) {
+            firstPage = m_drawingScore->pages().front();
+            lastPage = m_drawingScore->pages().back();
+            }
 
       if (firstPage && lastPage) {
             QPointF offsetPt(xoffset(), yoffset());

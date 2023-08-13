@@ -370,36 +370,36 @@ void MuseScore::openAlbum(const QString& fn)
 //---------------------------------------------------------
 
 void MuseScore::importAlbum(const QString& fn)
-{
-    QString fileBaseName = albumManager->albumTitleEdit->text();
-    QString name = createDefaultFileName(fileBaseName);
-    QString albumType = tr("AlbumFile") + " (*.mscaz)";
+      {
+      QString fileBaseName = albumManager->albumTitleEdit->text();
+      QString name = createDefaultFileName(fileBaseName);
+      QString albumType = tr("AlbumFile") + " (*.mscaz)";
 
-    QSettings set;
-    if (mscore->lastSaveDirectory.isEmpty()) {
-        mscore->lastSaveDirectory
-            = set.value("lastSaveDirectory", preferences.getString(PREF_APP_PATHS_MYSCORES)).toString();
-    }
-    QString saveDirectory = mscore->lastSaveDirectory;
+      QSettings set;
+      if (mscore->lastSaveDirectory.isEmpty()) {
+            mscore->lastSaveDirectory
+              = set.value("lastSaveDirectory", preferences.getString(PREF_APP_PATHS_MYSCORES)).toString();
+            }
+      QString saveDirectory = mscore->lastSaveDirectory;
 
-    if (saveDirectory.isEmpty()) {
-        saveDirectory = preferences.getString(PREF_APP_PATHS_MYSCORES);
-    }
+      if (saveDirectory.isEmpty()) {
+            saveDirectory = preferences.getString(PREF_APP_PATHS_MYSCORES);
+            }
 
-    QString fname = QString("%1/%2").arg(saveDirectory).arg(name);
-    QString filter;
-    filter = albumType;
+      QString fname = QString("%1/%2").arg(saveDirectory).arg(name);
+      QString filter;
+      filter = albumType;
 
-    fileBaseName = mscore->getSaveScoreName(tr("Import Album"), fname, filter, true);
-    if (fileBaseName.isEmpty()) {
-        return;
-    }
+      fileBaseName = mscore->getSaveScoreName(tr("Import Album"), fname, filter, true);
+      if (fileBaseName.isEmpty()) {
+            return;
+            }
 
-    Album::importAlbum(fn, QDir(fileBaseName));
-    QString path = fn;
-    path.chop(1);
-    openAlbum(fileBaseName + QDir::separator() + path.split(QDir::separator()).last());
-}
+      Album::importAlbum(fn, QDir(fileBaseName));
+      QString path = fn;
+      path.chop(1);
+      openAlbum(fileBaseName + QDir::separator() + path.split(QDir::separator()).last());
+      }
 
 //---------------------------------------------------------
 //   saveAlbum
@@ -426,33 +426,33 @@ bool MuseScore::saveAlbum()
 
 bool MuseScore::saveAlbumAs()
 {
-    QString fileBaseName = albumManager->albumTitleEdit->text();
-    QString fileName = albumManager->albumTitleEdit->text();
-    QString name = createDefaultFileName(fileBaseName);
-    QString albumType = tr("AlbumFile") + " (*.msca)";
+      QString fileBaseName = albumManager->albumTitleEdit->text();
+      QString fileName = albumManager->albumTitleEdit->text();
+      QString name = createDefaultFileName(fileBaseName);
+      QString albumType = tr("AlbumFile") + " (*.msca)";
 
-    QSettings set;
-    if (mscore->lastSaveDirectory.isEmpty()) {
-       mscore->lastSaveDirectory
-            = set.value("lastSaveDirectory", preferences.getString(PREF_APP_PATHS_MYSCORES)).toString();
-    }
-    QString saveDirectory = mscore->lastSaveDirectory;
+      QSettings set;
+      if (mscore->lastSaveDirectory.isEmpty()) {
+            mscore->lastSaveDirectory
+              = set.value("lastSaveDirectory", preferences.getString(PREF_APP_PATHS_MYSCORES)).toString();
+            }
+      QString saveDirectory = mscore->lastSaveDirectory;
 
-    if (saveDirectory.isEmpty()) {
-        saveDirectory = preferences.getString(PREF_APP_PATHS_MYSCORES);
-    }
+      if (saveDirectory.isEmpty()) {
+            saveDirectory = preferences.getString(PREF_APP_PATHS_MYSCORES);
+            }
 
-    QString fname = QString("%1/%2").arg(saveDirectory).arg(name);
-    QString filter;
-    filter = albumType;
-    if (QFileInfo(fname).suffix().isEmpty()) {
-        fname += ".msca";
-    }
+      QString fname = QString("%1/%2").arg(saveDirectory).arg(name);
+      QString filter;
+      filter = albumType;
+      if (QFileInfo(fname).suffix().isEmpty()) {
+            fname += ".msca";
+            }
 
-    fileBaseName = mscore->getSaveScoreName(tr("Save Album"), fname, filter);
-    if (fileBaseName.isEmpty()) {
-        return false;
-    }
+      fileBaseName = mscore->getSaveScoreName(tr("Save Album"), fname, filter);
+      if (fileBaseName.isEmpty()) {
+            return false;
+            }
 
       if (! albumManager->isAlbum()) {
             return false;
@@ -472,22 +472,22 @@ bool MuseScore::saveAlbumAs()
 
 bool MuseScore::saveAlbumAndScores()
 {
-    for (auto& item : Album::activeAlbum->albumItems()) {
-        bool pb = item->removeAlbumPageBreak();
-        bool sb = item->removeAlbumSectionBreak();
-        bool success = saveFile(item->score());
-        if (pb) {
-            item->addAlbumPageBreak();
-        }
-        if (sb) {
-            item->addAlbumSectionBreak();
-        }
-        if (!success) {
-            return false;
-        }
-    }
-    return saveAlbum();
-}
+      for (auto& item : Album::activeAlbum->albumItems()) {
+          bool pb = item->removeAlbumPageBreak();
+          bool sb = item->removeAlbumSectionBreak();
+          bool success = saveFile(item->score());
+          if (pb) {
+                item->addAlbumPageBreak();
+                }
+          if (sb) {
+                item->addAlbumSectionBreak();
+                }
+          if (!success) {
+                return false;
+                }
+      }
+      return saveAlbum();
+      }
 
 //---------------------------------------------------------
 //   exportAlbum
@@ -495,33 +495,33 @@ bool MuseScore::saveAlbumAndScores()
 
 bool MuseScore::exportAlbum()
 {
-    QString fileBaseName = albumManager->albumTitleEdit->text();
-    QString fileName = albumManager->albumTitleEdit->text();
-    QString name = createDefaultFileName(fileBaseName);
-    QString albumType = tr("AlbumFile") + " (*.mscaz)";
+      QString fileBaseName = albumManager->albumTitleEdit->text();
+      QString fileName = albumManager->albumTitleEdit->text();
+      QString name = createDefaultFileName(fileBaseName);
+      QString albumType = tr("AlbumFile") + " (*.mscaz)";
 
-    QSettings set;
-    if (mscore->lastSaveDirectory.isEmpty()) {
-        mscore->lastSaveDirectory
-            = set.value("lastSaveDirectory", preferences.getString(PREF_APP_PATHS_MYSCORES)).toString();
-    }
-    QString saveDirectory = mscore->lastSaveDirectory;
+      QSettings set;
+      if (mscore->lastSaveDirectory.isEmpty()) {
+            mscore->lastSaveDirectory
+              = set.value("lastSaveDirectory", preferences.getString(PREF_APP_PATHS_MYSCORES)).toString();
+            }
+      QString saveDirectory = mscore->lastSaveDirectory;
 
-    if (saveDirectory.isEmpty()) {
-        saveDirectory = preferences.getString(PREF_APP_PATHS_MYSCORES);
-    }
+      if (saveDirectory.isEmpty()) {
+            saveDirectory = preferences.getString(PREF_APP_PATHS_MYSCORES);
+      }
 
-    QString fname = QString("%1/%2").arg(saveDirectory).arg(name);
-    QString filter;
-    filter = albumType;
-    if (QFileInfo(fname).suffix().isEmpty()) {
-        fname += ".mscaz";
-    }
+      QString fname = QString("%1/%2").arg(saveDirectory).arg(name);
+      QString filter;
+      filter = albumType;
+      if (QFileInfo(fname).suffix().isEmpty()) {
+            fname += ".mscaz";
+      }
 
-    fileBaseName = mscore->getSaveScoreName(tr("Export Album"), fname, filter);
-    if (fileBaseName.isEmpty()) {
-        return false;
-    }
+      fileBaseName = mscore->getSaveScoreName(tr("Export Album"), fname, filter);
+      if (fileBaseName.isEmpty()) {
+            return false;
+            }
 
       QFileInfo fi(fileBaseName);
       QFile fp(fi.filePath());
@@ -538,46 +538,46 @@ bool MuseScore::exportAlbum()
       }
 
 void MuseScore::askAboutApplyingEdwinIfNeed(const QString& fileSuffix)
-{
-    if (MScore::noGui) {
-        return;
-    }
+      {
+      if (MScore::noGui) {
+            return;
+              }
 
-    static const QSet<QString> suitedSuffixes {
-        "xml",
-        "musicxml",
-        "mxl"
-    };
+      static const QSet<QString> suitedSuffixes {
+            "xml",
+            "musicxml",
+            "mxl"
+            };
+  
+      if (!suitedSuffixes.contains(fileSuffix)) {
+            return;
+            }
 
-    if (!suitedSuffixes.contains(fileSuffix)) {
-        return;
-    }
+      if (preferences.getBool(PREF_MIGRATION_DO_NOT_ASK_ME_AGAIN_XML)) {
+            return;
+            }
 
-    if (preferences.getBool(PREF_MIGRATION_DO_NOT_ASK_ME_AGAIN_XML)) {
-        return;
-    }
+      QMessageBox dialog;
+      dialog.setWindowTitle(QObject::tr("MuseScore"));
+      dialog.setText(QObject::tr("Would you like to apply our default typeface (%1) to this score?").arg("Edwin"));
+      QPushButton* noButton = dialog.addButton(QObject::tr("No"), QMessageBox::NoRole); // No
+      QPushButton* yesButton = dialog.addButton(QObject::tr("Yes"), QMessageBox::YesRole);
+      dialog.setDefaultButton(noButton);
 
-    QMessageBox dialog;
-    dialog.setWindowTitle(QObject::tr("MuseScore"));
-    dialog.setText(QObject::tr("Would you like to apply our default typeface (%1) to this score?").arg("Edwin"));
-    QPushButton* noButton = dialog.addButton(QObject::tr("No"), QMessageBox::NoRole); // No
-    QPushButton* yesButton = dialog.addButton(QObject::tr("Yes"), QMessageBox::YesRole);
-    dialog.setDefaultButton(noButton);
+      QCheckBox askAgainCheckbox(QObject::tr("Remember my choice and don't ask again"));
+      dialog.setCheckBox(&askAgainCheckbox);
 
-    QCheckBox askAgainCheckbox(QObject::tr("Remember my choice and don't ask again"));
-    dialog.setCheckBox(&askAgainCheckbox);
+      QObject::connect(&askAgainCheckbox, &QCheckBox::stateChanged, [](int state) {
+            if (static_cast<Qt::CheckState>(state) == Qt::CheckState::Checked) {
+                  preferences.setPreference(PREF_MIGRATION_DO_NOT_ASK_ME_AGAIN_XML, true);
+                  }
+            });
 
-    QObject::connect(&askAgainCheckbox, &QCheckBox::stateChanged, [](int state) {
-        if (static_cast<Qt::CheckState>(state) == Qt::CheckState::Checked) {
-            preferences.setPreference(PREF_MIGRATION_DO_NOT_ASK_ME_AGAIN_XML, true);
-        }
-    });
+      dialog.exec();
 
-    dialog.exec();
-
-    bool needApplyEdwin = dialog.clickedButton() == yesButton;
-    preferences.setPreference(PREF_MIGRATION_APPLY_EDWIN_FOR_XML_FILES, needApplyEdwin);
-}
+      bool needApplyEdwin = dialog.clickedButton() == yesButton;
+      preferences.setPreference(PREF_MIGRATION_APPLY_EDWIN_FOR_XML_FILES, needApplyEdwin);
+      }
 
 //---------------------------------------------------------
 //   openScore
@@ -589,7 +589,7 @@ MasterScore* MuseScore::openScore(const QString& fn, bool switchTab, const bool 
       // make sure we load a file only once
       //
 
-    // search the score list (open tabs)
+      // search the score list (open tabs)
       QFileInfo fi(fn);
       QString path = fi.canonicalFilePath();
       for (Score* s : qAsConst(scoreList)) {
@@ -602,22 +602,22 @@ MasterScore* MuseScore::openScore(const QString& fn, bool switchTab, const bool 
 
       askAboutApplyingEdwinIfNeed(fi.suffix().toLower());
 
-    // search the active album (loaded scores but not neccesarily in a tab)
-    if (Album::activeAlbum) {
-        for (auto& x : Album::activeAlbum->albumItems()) {
-            if (x->score()->fileInfo()->canonicalFilePath() == path) {
-                const int tabIdx = appendScore(x->score());
-                if (switchTab) {
-                    setCurrentScoreView(tabIdx);
-                }
-                writeSessionFile(false);
-                x->score()->setRequiredByMuseScore(true);
-                return x->score();
+      // search the active album (loaded scores but not neccesarily in a tab)
+      if (Album::activeAlbum) {
+            for (auto& x : Album::activeAlbum->albumItems()) {
+                  if (x->score()->fileInfo()->canonicalFilePath() == path) {
+                        const int tabIdx = appendScore(x->score());
+                        if (switchTab) {
+                              setCurrentScoreView(tabIdx);
+                              }
+                        writeSessionFile(false);
+                        x->score()->setRequiredByMuseScore(true);
+                        return x->score();
+                        }
+                  }
             }
-        }
-    }
 
-    // load the score and create a new tab for it
+      // load the score and create a new tab for it
       MasterScore* score = readScore(fn);
       if (score) {
             if (!name.isEmpty())
@@ -661,37 +661,37 @@ MasterScore* MuseScore::openScore(const QString& fn, bool switchTab, const bool 
 //---------------------------------------------------------
 
 MasterScore* MuseScore::openScoreForAlbum(const QString& fn)
-{
-    //
-    // make sure we load a file only once
-    //
+      {
+      //
+      // make sure we load a file only once
+      //
 
-    // search the score list (open tabs)
-    QFileInfo fi(fn);
-    QString path = fi.canonicalFilePath();
-    for (Score* s : scoreList) {
-        if (s->masterScore()->fileInfo()->canonicalFilePath() == path) {
-            s->masterScore()->setRequiredByMuseScore(true); // adding to the Album an opened score
-            return s->masterScore();
-        }
-    }
-
-    // search the active album (loaded scores but not neccesarily in a tab)
-    if (Album::activeAlbum) {
-        for (auto& x : Album::activeAlbum->albumItems()) {
-            if (x->score()->fileInfo()->canonicalFilePath() == path) {
-                return x->score();
+      // search the score list (open tabs)
+      QFileInfo fi(fn);
+      QString path = fi.canonicalFilePath();
+      for (Score* s : scoreList) {
+            if (s->masterScore()->fileInfo()->canonicalFilePath() == path) {
+                  s->masterScore()->setRequiredByMuseScore(true); // adding to the Album an opened score
+                  return s->masterScore();
+                  }
             }
-        }
-    }
 
-    // load the score
-    MasterScore* score = readScore(fn);
-    if (score) {
-        score->updateCapo();
-    }
-    return score;
-}
+      // search the active album (loaded scores but not neccesarily in a tab)
+      if (Album::activeAlbum) {
+            for (auto& x : Album::activeAlbum->albumItems()) {
+                  if (x->score()->fileInfo()->canonicalFilePath() == path) {
+                        return x->score();
+                        }
+                  }
+            }
+
+      // load the score
+      MasterScore* score = readScore(fn);
+      if (score) {
+            score->updateCapo();
+            }
+      return score;
+      }
 
 //---------------------------------------------------------
 //   readScore
@@ -760,10 +760,10 @@ MasterScore* MuseScore::readScore(const QString& name)
 
 bool MuseScore::saveFile()
       {
-    if (cv->drawingScore()->masterScore() == nullptr) {
-        return false;
-    }
-    return saveFile(cv->drawingScore()->masterScore());
+      if (cv->drawingScore()->masterScore() == nullptr) {
+            return false;
+            }
+      return saveFile(cv->drawingScore()->masterScore());
       }
 
 //---------------------------------------------------------
@@ -775,12 +775,13 @@ bool MuseScore::saveFile()
 
 bool MuseScore::saveFile(MasterScore* score)
       {
-    if (score == nullptr) {
-        return false;
-    } else if (score->movements()->size() > 1 && Album::scoreInActiveAlbum(score)
+      if (score == nullptr) {
+            return false;
+            }
+      else if (score->movements()->size() > 1 && Album::scoreInActiveAlbum(score)
                && Album::activeAlbum->albumModeActive()) {
-        saveAlbumAndScores();
-    }
+            saveAlbumAndScores();
+            }
 
       if (score->created()) {
             QString fileBaseName = score->masterScore()->fileInfo()->completeBaseName();
@@ -2872,9 +2873,9 @@ Score::FileError readScore(MasterScore* score, QString name, bool ignoreVersionE
 bool MuseScore::saveAs(Score* cs_, bool saveCopy)
       {
       if (cs_->isMultiMovementScore() && Album::activeAlbum && cs_ == Album::activeAlbum->getCombinedScore()) {
-          saveAlbumAs();
-          return saveAlbumAndScores();
-          }
+            saveAlbumAs();
+            return saveAlbumAndScores();
+            }
 
       QStringList fl;
       fl.append(tr("MuseScore 3 File") + " (*.mscz)");
