@@ -199,8 +199,8 @@ class Element : public ScoreElement {
 
       Element* parent() const                 { return _parent;     }
       void setParent(Element* e)              { _parent = e;        }
-    Element* albumParent() const { return _albumParent; }
-    void setAlbumParent(Element* e) { _albumParent = e; }
+      Element* albumParent() const { return _albumParent; }
+      void setAlbumParent(Element* e) { _albumParent = e; }
 
       Element* findAncestor(ElementType t);
       const Element* findAncestor(ElementType t) const;
@@ -258,7 +258,7 @@ class Element : public ScoreElement {
       virtual QPointF pagePos() const;          ///< position in page coordinates
       virtual QPointF canvasPos() const;        ///< position in canvas coordinates
       qreal pageX() const;
-    virtual qreal canvasX() const;
+      virtual qreal canvasX() const;
 
       QPointF mapFromCanvas(const QPointF& p) const { return p - canvasPos(); }
       QPointF mapToCanvas(const QPointF& p) const { return p + canvasPos(); }

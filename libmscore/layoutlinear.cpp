@@ -186,7 +186,7 @@ void Score::resetSystems(bool layoutAll, LayoutContext& lc)
 
 void Score::layoutLinear(bool layoutAll, LayoutContext& lc)
       {
-    lc.currentScore = this;
+      lc.currentScore = this;
       resetSystems(layoutAll, lc);
 
       collectLinearSystem(lc);
@@ -201,9 +201,9 @@ void Score::layoutLinear(bool layoutAll, LayoutContext& lc)
 
 void LayoutContext::layoutLinear()
       {
-    System* system = currentScore->systems().front();
+      System* system = currentScore->systems().front();
 
-    currentScore->layoutSystemElements(system, *this);
+      currentScore->layoutSystemElements(system, *this);
 
       system->layout2();   // compute staff distances
 
@@ -212,7 +212,7 @@ void LayoutContext::layoutLinear()
                   continue;
             Measure* m = toMeasure(mb);
 
-        for (int track = 0; track < currentScore->ntracks(); ++track) {
+            for (int track = 0; track < currentScore->ntracks(); ++track) {
                   for (Segment* segment = m->first(); segment; segment = segment->next()) {
                         Element* e = segment->element(track);
                         if (!e)
@@ -264,12 +264,12 @@ void LayoutContext::layoutLinear()
             m->layout2();
             }
       page->setPos(0, 0);
-    system->setPos(page->lm(), page->tm() + currentScore->styleP(Sid::staffUpperBorder));
+      system->setPos(page->lm(), page->tm() + currentScore->styleP(Sid::staffUpperBorder));
       page->setWidth(system->width() + system->pos().x());
       // Set buffer space after the last system to avoid problems with mouse input.
       // Mouse input divides space between systems equally (see Score::searchSystem),
       // hence the choice of the value.
-    const qreal buffer = 0.5 * currentScore->styleS(Sid::maxSystemDistance).val() * currentScore->spatium();
+      const qreal buffer = 0.5 * currentScore->styleS(Sid::maxSystemDistance).val() * currentScore->spatium();
       page->setHeight(system->height() + system->pos().y() + buffer);
       page->rebuildBspTree();
       }

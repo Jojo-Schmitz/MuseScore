@@ -232,7 +232,7 @@ void ScoreTab::tabMoved(int from, int to)
                   }
             scoreListChanged = false;
             }
-    emit tabMovedSignal(from, to);
+      emit tabMovedSignal(from, to);
       }
 
 //---------------------------------------------------------
@@ -310,7 +310,7 @@ void ScoreTab::setCurrent(int n)
       stack->setCurrentWidget(vs);
       clearTab2();
       if (v) {
-        MasterScore* score = v->drawingScore()->masterScore(); //v->drawingScore()->isMaster() ? static_cast<MasterScore*>(v->drawingScore()) : v->drawingScore()->masterScore();
+            MasterScore* score = v->drawingScore()->masterScore(); //v->drawingScore()->isMaster() ? static_cast<MasterScore*>(v->drawingScore()) : v->drawingScore()->masterScore();
             QList<Excerpt*>& excerpts = score->excerpts();
             if (!excerpts.isEmpty()) {
                   TabScoreView* tsv = tabScoreView(n);
@@ -364,7 +364,7 @@ void ScoreTab::updateExcerpts()
             QSplitter* vs = static_cast<QSplitter*>(stack->widget(i));
             ScoreView* sview = static_cast<ScoreView*>(vs->widget(0));
 
-        if (sview->drawingScore() != score && sview->drawingScore()->masterScore() == score) {
+            if (sview->drawingScore() != score && sview->drawingScore()->masterScore() == score) {
                   stack->takeAt(i);
                   sview->deleteLater();
                   }
@@ -382,7 +382,6 @@ void ScoreTab::updateExcerpts()
       else {
             tab2->setVisible(false);
             }
-
       setExcerpt(0);
       }
 
@@ -431,15 +430,15 @@ void ScoreTab::setExcerpt(int n)
       else
             v = static_cast<ScoreView*>(vs->widget(0));
       stack->setCurrentWidget(vs);
-    score->doLayout();
+      score->doLayout();
 
-    v->update();
+      v->update();
 
-    if (n == 0) {
-        v->drawingScore()->doLayout(); // update the complete score with the changes in the parts (could also be called only when n == 0)
-        v->drawingScore()->update();
-    }
-    emit currentPartScoreViewChanged(v);
+      if (n == 0) {
+            v->drawingScore()->doLayout(); // update the complete score with the changes in the parts (could also be called only when n == 0)
+            v->drawingScore()->update();
+            }
+      emit currentPartScoreViewChanged(v);
       }
 
 //---------------------------------------------------------
@@ -533,13 +532,13 @@ void ScoreTab::removeTab(int idx, bool noCurrentChangedSignal)
       for (int i = 0; i < stack->count(); ++i) {
             QSplitter* vs = static_cast<QSplitter*>(stack->widget(i));
             ScoreView* v = static_cast<ScoreView*>(vs->widget(0));
-        if (v->drawingScore() == score) {
+            if (v->drawingScore() == score) {
                   stack->takeAt(i);
                   delete v;
                   break;
                   }
             }
-    for (Excerpt* excerpt : score->excerpts()) {
+      for (Excerpt* excerpt : score->excerpts()) {
             Score* sc = excerpt->partScore();
             for (int i = 0; i < stack->count(); ++i) {
                   QSplitter* vs = static_cast<QSplitter*>(stack->widget(i));

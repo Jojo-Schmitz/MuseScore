@@ -139,9 +139,9 @@ int MasterScore::getNextFreeDrumMidiMapping()
 
 void MasterScore::rebuildExcerptsMidiMapping()
       {
-    auto allExcerpts = excerpts();
-    allExcerpts.append(albumExcerpts());
-    for (Excerpt* ex : allExcerpts) {
+      auto allExcerpts = excerpts();
+      allExcerpts.append(albumExcerpts());
+      for (Excerpt* ex : allExcerpts) {
             for (Part* p : ex->partScore()->parts()) {
                   const Part* masterPart = p->masterPart();
                   if (!masterPart->score()->isMaster()) {

@@ -84,10 +84,10 @@ class VerticalGapDataList : public QList<VerticalGapData*> {
 //---------------------------------------------------------
 
 struct LayoutContext {
-    Score* mainScore         { nullptr };   // the score that holds the pages.
-    Score* currentScore      { nullptr };   // the score whose measures/systems are being laid out.
+      Score* mainScore         { nullptr };   // the score that holds the pages.
+      Score* currentScore      { nullptr };   // the score whose measures/systems are being laid out.
                                             // these 2 are the same, unless we have a multi-movement score.
-    int movementIndex        { -1 };        // points to the movement being laid out.
+      int movementIndex        { -1 };        // points to the movement being laid out.
       bool startWithLongNames  { true };
       bool firstSystem         { true };
       bool firstSystemIndent   { true };
