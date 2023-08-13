@@ -35,6 +35,11 @@
       <bendFontSize>10</bendFontSize>
       <headerFontSize>10</headerFontSize>
       <footerFontSize>10</footerFontSize>
+      <albumFrontTitleFontSize>10</albumFrontTitleFontSize>
+      <albumFrontComposerFontSize>10</albumFrontComposerFontSize>
+      <albumFrontLyricistFontSize>10</albumFrontLyricistFontSize>
+      <albumContentsTitleFontSize>10</albumContentsTitleFontSize>
+      <albumContentsTextFontSize>10</albumContentsTextFontSize>
       <Spatium>1.74978</Spatium>
       </Style>
     <showInvisible>1</showInvisible>
