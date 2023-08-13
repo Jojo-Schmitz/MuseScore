@@ -5443,6 +5443,17 @@ void Score::doLayoutRange(const Fraction& st, const Fraction& et)
 
             qDeleteAll(pages());
             pages().clear();
+            // clear pages and systems in all movements
+            if (Album::activeAlbum && lc.mainScore->isMasterScore() && Album::activeAlbum->getCombinedScore()) {
+                  MasterScore* ms = static_cast<MasterScore*>(lc.mainScore);
+                  for (MasterScore* mss : *(ms->movements())) {
+                        qDeleteAll(mss->pages());
+                        qDeleteAll(mss->systems());
+                        mss->pages().clear();
+                        mss->systems().clear();
+                        }
+                  }
+            Q_ASSERT(lc.mainScore == lc.currentScore);
 
             lc.nextMeasure = _showVBox ? first() : firstMeasure();
             }
