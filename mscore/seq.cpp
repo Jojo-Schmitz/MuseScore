@@ -254,7 +254,7 @@ void Seq::setScoreView(ScoreView* v)
 
 void Seq::setScoreToFirstMovement()
       {
-      if (m_topMovement->isMultiMovementScore()) {
+      if (m_topMovement && m_topMovement->isMultiMovementScore()) {
             cs = m_topMovement->movements()->at(0);
             }
       }
