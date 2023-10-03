@@ -685,10 +685,10 @@ QString KeySig::accessibleInfo() const
       else if (isCustom())
             return QObject::tr("%1: Custom").arg(Element::accessibleInfo());
 
-      if (key() == Key::C)
-            return QString("%1: %2").arg(Element::accessibleInfo(), qApp->translate("MuseScore", keyNames[14]));
       int keyInt = static_cast<int>(key());
-      if (keyInt < 0)
+      if (keyInt == 0)
+            return QString("%1: %2").arg(Element::accessibleInfo(), qApp->translate("MuseScore", keyNames[14]));
+      else if (keyInt < 0)
             keySigType = qApp->translate("MuseScore", keyNames[(7 + keyInt) * 2 + 1]);
       else
             keySigType = qApp->translate("MuseScore", keyNames[(keyInt - 1) * 2]);
