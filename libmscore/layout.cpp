@@ -1389,10 +1389,6 @@ void Score::hideEmptyStaves(System* system, bool isFirstSystem)
       int staffIdx = 0;
       bool systemIsEmpty = true;
 
-      Fraction stick = system->measures().front()->tick();
-      Fraction etick = system->measures().back()->endTick();
-      auto spanners = score()->spannerMap().findOverlapping(stick.ticks(), etick.ticks() - 1);
-
       for (Staff* staff : qAsConst(_staves)) {
             SysStaff* ss  = system->staff(staffIdx);
 
@@ -1404,13 +1400,6 @@ void Score::hideEmptyStaves(System* system, bool isFirstSystem)
                     && !(isFirstSystem && styleB(Sid::dontHideStavesInFirstSystem))
                     && hideMode != Staff::HideMode::NEVER)) {
                   bool hideStaff = true;
-                  for (auto spanner : spanners) {
-                        if (spanner.value->staff() == staff
-                         && !spanner.value->systemFlag()) {
-                              hideStaff = false;
-                              break;
-                              }
-                        }
                   for (MeasureBase* m : system->measures()) {
                         if (!m->isMeasure())
                               continue;
