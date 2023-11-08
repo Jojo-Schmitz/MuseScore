@@ -91,17 +91,17 @@ void NoteList::addNote(const int startTick, const int endTick, const int staff)
             _staffNoteLists[staff] << StartStop(startTick, endTick);
       }
 
-void NoteList::dump(const QString& voice) const
+void NoteList::dump(const int& voice) const
       {
       // dump contents
       for (int i = 0; i < MAX_VOICE_DESC_STAVES; ++i) {
-            printf("voice %s staff %d:", qPrintable(voice), i);
+            printf("voice %d staff %d:", voice, i);
             for (int j = 0; j < _staffNoteLists.at(i).size(); ++j)
                   printf(" %d-%d", _staffNoteLists.at(i).at(j).first, _staffNoteLists.at(i).at(j).second);
             printf("\n");
             }
       // show overlap
-      printf("overlap voice %s:", qPrintable(voice));
+      printf("overlap voice %d:", voice);
       for (int i = 0; i < MAX_VOICE_DESC_STAVES - 1; ++i)
             for (int j = i + 1; j < MAX_VOICE_DESC_STAVES; ++j)
                   stavesOverlap(i, j);
@@ -153,7 +153,7 @@ VoiceOverlapDetector::VoiceOverlapDetector()
       qDebug("VoiceOverlapDetector::VoiceOverlapDetector(staves %d)", MAX_VOICE_DESC_STAVES);
       }
 
-void VoiceOverlapDetector::addNote(const int startTick, const int endTick, const QString& voice, const int staff)
+void VoiceOverlapDetector::addNote(const int startTick, const int endTick, const int& voice, const int staff)
       {
       // if necessary, create the note list for voice
       if (!_noteLists.contains(voice))
@@ -164,7 +164,7 @@ void VoiceOverlapDetector::addNote(const int startTick, const int endTick, const
 void VoiceOverlapDetector::dump() const
       {
       // qDebug("VoiceOverlapDetector::dump()");
-      QMapIterator<QString, NoteList> i(_noteLists);
+      QMapIterator<int, NoteList> i(_noteLists);
       while (i.hasNext()) {
             i.next();
             i.value().dump(i.key());
@@ -177,7 +177,7 @@ void VoiceOverlapDetector::newMeasure()
       _noteLists.clear();
       }
 
-bool VoiceOverlapDetector::stavesOverlap(const QString& voice) const
+bool VoiceOverlapDetector::stavesOverlap(const int& voice) const
       {
       if (_noteLists.contains(voice))
             return _noteLists.value(voice).anyStaffOverlaps();
@@ -188,15 +188,15 @@ bool VoiceOverlapDetector::stavesOverlap(const QString& voice) const
 QString MusicXMLInstrument::toString() const
       {
       return QString("chan %1 prog %2 vol %3 pan %4 unpitched %5 name '%6' sound '%7' head %8 line %9 stemDir %10")
-             .arg(midiChannel)
-             .arg(midiProgram)
-             .arg(midiVolume)
-             .arg(midiPan)
-             .arg(unpitched)
-             .arg(name, sound)
-             .arg(int(notehead))
-             .arg(line)
-             .arg(int(stemDirection));
+                  .arg(midiChannel)
+                  .arg(midiProgram)
+                  .arg(midiVolume)
+                  .arg(midiPan)
+                  .arg(unpitched)
+                  .arg(name, sound)
+                  .arg(int(notehead))
+                  .arg(line)
+                  .arg(int(stemDirection));
       }
 
 void ValidatorMessageHandler::handleMessage(QtMsgType type, const QString& description,
@@ -230,10 +230,10 @@ void ValidatorMessageHandler::handleMessage(QtMsgType type, const QString& descr
             }
 
       QString errorStr = QString(tr("%1 error: line %2 column %3 %4"))
-            .arg(strType)
-            .arg(sourceLocation.line())
-            .arg(sourceLocation.column())
-            .arg(descText);
+                  .arg(strType)
+                  .arg(sourceLocation.line())
+                  .arg(sourceLocation.column())
+                  .arg(descText);
 
       // append error, separated by newline if necessary
       if (errors != "")
@@ -319,9 +319,9 @@ QString checkAtEndElement(const QXmlStreamReader& e, const QString& expName)
             return "";
 
       QString res = QObject::tr("expected token type and name 'EndElement %1', actual '%2 %3'")
-                    .arg(expName)
-                    .arg(e.tokenString())
-                    .arg(e.name().toString());
+                  .arg(expName)
+                  .arg(e.tokenString())
+                  .arg(e.name().toString());
       return res;
       }
 

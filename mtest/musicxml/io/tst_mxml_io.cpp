@@ -63,6 +63,7 @@ private slots:
       void arpGliss2() { mxmlIoTest("testArpGliss2"); }
       void arpGliss3() { mxmlIoTest("testArpGliss3"); }
       void articulationsCombined() { mxmlImportTestRef("testArticulationsCombined"); }
+      void backupRoundingError() { mxmlImportTestRef("testBackupRoundingError"); }
       void barlineFermatas() { mxmlMscxExportTestRef("testBarlineFermatas"); }
       void barStyles() { mxmlIoTest("testBarStyles"); }
       void barStyles2() { mxmlIoTest("testBarStyles2"); }
@@ -155,6 +156,7 @@ private slots:
       void inferredCredits2() { mxmlImportTestRef("testInferredCredits2"); }
       void inferredDynamics() { mxmlImportTestRef("testInferredDynamics"); }
       // void inferredFingerings() { mxmlImportTestRef("testInferredFingerings"); }
+      void inferredinferredSubtitle() { mxmlImportTestRef("testInferredSubtitle"); }
       void inferredTempoText() { mxmlImportTestRef("testInferredTempoText"); }
       void inferredTransposition() { mxmlImportTestRef("testInferredTransposition"); }
       void instrumentChangeMIDIportExport() { mxmlMscxExportTestRef("testInstrumentChangeMIDIportExport"); }

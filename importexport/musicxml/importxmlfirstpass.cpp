@@ -55,18 +55,18 @@ Fraction MusicXmlPart::measureDuration(int i) const
 QString MusicXmlPart::toString() const
       {
       auto res = QString("part id '%1' name '%2' print %3 abbr '%4' print %5 maxStaff %6\n")
-            .arg(id, name).arg(_printName).arg(abbr).arg(_printAbbr, _maxStaff);
+                  .arg(id, name).arg(_printName).arg(abbr).arg(_printAbbr, _maxStaff);
 
       for (VoiceList::const_iterator i = voicelist.constBegin(); i != voicelist.constEnd(); ++i) {
             res += QString("voice %1 map staff data %2\n")
-                  .arg(i.key() + 1, i.value().toString());
+                        .arg(QString(i.key() + 1), i.value().toString());
             }
 
       for (int i = 0; i < measureNumbers.size(); ++i) {
             if (i > 0)
                   res += "\n";
             res += QString("measure %1 duration %2 (%3)")
-                  .arg(measureNumbers.at(i), measureDurations.at(i).print()).arg(measureDurations.at(i).ticks());
+                        .arg(measureNumbers.at(i), measureDurations.at(i).print()).arg(measureDurations.at(i).ticks());
             }
 
       return res;
@@ -105,9 +105,9 @@ void MusicXmlPart::calcOctaveShifts()
 bool MusicXmlPart::isVocalStaff() const
       {
       return (std::find(vocalInstrumentNames.begin(), vocalInstrumentNames.end(), name) != vocalInstrumentNames.end()
-              || _hasLyrics);
+                  || _hasLyrics);
       }
-      
+
 //---------------------------------------------------------
 //   interval
 //---------------------------------------------------------

@@ -114,7 +114,7 @@ QString mxmlNoteDuration::checkTiming(const QString& type, const bool rest, cons
       if (_specDura.isValid() && _calcDura.isValid()) {
             if (_specDura != _calcDura) {
                   errorStr = QString("calculated duration (%1) not equal to specified duration (%2)")
-                        .arg(_calcDura.print(), _specDura.print());
+                              .arg(_calcDura.print(), _specDura.print());
                   //qDebug("rest %d type '%s' timemod %s", rest, qPrintable(type), qPrintable(_timeMod.print()));
 
                   if (rest && type == "whole" && _specDura.isValid()) {
@@ -128,13 +128,9 @@ QString mxmlNoteDuration::checkTiming(const QString& type, const bool rest, cons
                         _dura = _specDura;
                         }
                   else {
-                        // note:
-                        // rounding error detection may conflict with changed duration detection (Overture).
-                        // exporters that intentionally change note duration typically produce a large difference,
-                        // most likely in practice this will not be an issue
-                        const int maxDiff = 2;       // maximum difference considered a rounding error
-                        if (qAbs(_calcDura.ticks() - _specDura.ticks()) <= maxDiff) {
+                        if (qAbs(_calcDura.ticks() - _specDura.ticks()) <= _pass1->maxDiff()) {
                               errorStr += " -> assuming rounding error";
+                              _pass1->insertAdjustedDuration(_dura, _calcDura);
                               _dura = _calcDura;
                               _specDura = _calcDura; // prevent changing off time
                               }
@@ -174,6 +170,7 @@ QString mxmlNoteDuration::checkTiming(const QString& type, const bool rest, cons
             _dura = Fraction(4, 4);
             }
 
+      _pass1->insertSeenDenominator(_dura.reduced().denominator());
       return errorStr;
       }
 
@@ -191,17 +188,7 @@ void mxmlNoteDuration::duration(QXmlStreamReader& e)
 
       _specDura.set(0, 0);        // invalid unless set correctly
       int intDura = e.readElementText().toInt();
-      if (intDura > 0) {
-            if (_divs > 0) {
-                  _specDura.set(intDura, 4 * _divs);
-                  _specDura.reduce();       // prevent overflow in later Fraction operations
-                  }
-            else
-                  _logger->logError("illegal or uninitialized divisions", &e);
-            }
-      else
-            _logger->logError("illegal duration", &e);
-      //qDebug("specified duration %s valid %d", qPrintable(_specDura.print()), _specDura.isValid());
+      _specDura = _pass1->calcTicks(intDura, &e); // Duration reading (and rounding) code consolidated to pass1
       }
 
 //---------------------------------------------------------

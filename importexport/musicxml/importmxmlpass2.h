@@ -146,7 +146,7 @@ private:
 class Notation {
 public:
       Notation(const QString& name, const QString& parent = "",
-                  const SymId& symId = SymId::noSym) { _name = name; _parent = parent; _symId = symId; }
+               const SymId& symId = SymId::noSym) { _name = name; _parent = parent; _symId = symId; }
       void addAttribute(const QString& name, const QString& value);
       void addAttribute(const QStringRef name, const QStringRef value);
       QString attribute(const QString& name) const;
@@ -161,7 +161,7 @@ public:
       void setText(const QString& text) { _text = text; }
       QString text() const { return _text; }
       static Notation notationWithAttributes(const QString& name, const QXmlStreamAttributes attributes,
-                                const QString& parent = "", const SymId& symId = SymId::noSym);
+                                             const QString& parent = "", const SymId& symId = SymId::noSym);
       static Notation mergeNotations(const Notation& n1, const Notation& n2, const SymId& symId = SymId::noSym);
 private:
       QString _name;
@@ -185,6 +185,7 @@ class MxmlLogger;
 class MusicXMLDelayedDirectionElement;
 class MusicXMLInferredFingering;
 
+using DelayedDirectionsList = QList<MusicXMLDelayedDirectionElement*>;
 using InferredFingeringsList = QList<MusicXMLInferredFingering*>;
 using SlurStack = std::array<SlurDesc, MAX_NUMBER_LEVEL>;
 using TrillStack = std::array<Trill*, MAX_NUMBER_LEVEL>;
@@ -193,15 +194,6 @@ using OttavasStack = std::array<MusicXmlExtendedSpannerDesc, MAX_NUMBER_LEVEL>;
 using HairpinsStack = std::array<MusicXmlExtendedSpannerDesc, MAX_NUMBER_LEVEL>;
 using SpannerStack = std::array<MusicXmlExtendedSpannerDesc, MAX_NUMBER_LEVEL>;
 using SpannerSet = std::set<Spanner*>;
-
-//---------------------------------------------------------
-//   DelayedDirectionsList
-//---------------------------------------------------------
-
-class DelayedDirectionsList : public QList<MusicXMLDelayedDirectionElement*> {
-public:
-      void combineTempoText();
-};
 
 //---------------------------------------------------------
 //   MusicXMLParserNotations
@@ -294,7 +286,7 @@ private:
       void transpose(const QString& partId, const Fraction& tick);
       Note* note(const QString& partId, Measure* measure, const Fraction sTime, const Fraction prevTime,
                  Fraction& missingPrev, Fraction& dura, Fraction& missingCurr, QString& currentVoice, GraceChordList& gcl, int& gac,
-                 Beams& beams, FiguredBassList& fbl, int& alt, MxmlTupletStates& tupletStates, Tuplets& tuplets);
+                 Beams& currBeams, FiguredBassList& fbl, int& alt, MxmlTupletStates& tupletStates, Tuplets& tuplets);
       void notePrintSpacingNo(Fraction& dura);
       FiguredBassItem* figure(const int idx, const bool paren);
       FiguredBass* figuredBass();
@@ -367,15 +359,15 @@ private:
 class MusicXMLParserDirection {
 public:
       MusicXMLParserDirection(QXmlStreamReader& e, Score* score, MusicXMLParserPass1& pass1, MusicXMLParserPass2& pass2, MxmlLogger* logger);
-      void direction(const QString& partId, Measure* measure, const Fraction& tick, const int divisions,
-                  MusicXmlSpannerMap& spanners, DelayedDirectionsList& delayedDirections, InferredFingeringsList& inferredFingerings);
+      void direction(const QString& partId, Measure* measure, const Fraction& tick,
+                     MusicXmlSpannerMap& spanners, DelayedDirectionsList& delayedDirections, InferredFingeringsList& inferredFingerings);
       qreal totalY() const { return _defaultY + _relativeY; }
       QString placement() const;
 
 private:
       QXmlStreamReader& _e;
       Score* const _score;                      // the score
-            MusicXMLParserPass1& _pass1;        // the pass1 results
+      MusicXMLParserPass1& _pass1;              // the pass1 results
       MusicXMLParserPass2& _pass2;              // the pass2 results
       MxmlLogger* _logger;                      ///< Error logger
 
@@ -416,6 +408,7 @@ private:
       void handleRepeats(Measure* measure, const int track, const Fraction tick);
       void handleNmiCmi(Measure* measure, const int track, const Fraction tick, DelayedDirectionsList& delayedDirections);
       QString matchRepeat() const;
+      void skipLogCurrElem();
       bool isLikelyFingering() const;
       bool isLikelyCredit(const Fraction& tick) const;
       bool isLyricBracket() const;
@@ -428,7 +421,6 @@ private:
       bool isLikelyTempoText();
       bool attemptTempoTextCoercion(const Fraction& tick);
       double convertTextToNotes();
-      void skipLogCurrElem();
       };
 
 //---------------------------------------------------------
@@ -442,9 +434,9 @@ private:
 class MusicXMLDelayedDirectionElement {
 public:
       MusicXMLDelayedDirectionElement(qreal totalY, Element* element, int track,
-                                    QString placement, Measure* measure, Fraction tick, bool isBold) :
-                                     _totalY(totalY),  _element(element), _track(track), _placement(placement),
-                                      _measure(measure), _tick(tick), _isBold(isBold) {}
+                                      QString placement, Measure* measure, Fraction tick, bool isBold) :
+            _totalY(totalY),  _element(element), _track(track), _placement(placement),
+            _measure(measure), _tick(tick), _isBold(isBold) {}
       
       qreal totalY() const { return _totalY; }
       Element* element() { return _element; }
@@ -474,7 +466,7 @@ private:
 class MusicXMLInferredFingering {
 public:
       MusicXMLInferredFingering(qreal totalY, Element* element, QString text, int track,
-                                    QString placement, Measure* measure, Fraction tick);
+                                QString placement, Measure* measure, Fraction tick);
       qreal totalY() const { return _totalY; }
       Fraction tick() const { return _tick; }
       int track() const { return _track; }
