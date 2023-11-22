@@ -295,7 +295,7 @@ int FiguredBassItem::parseParenthesis(QString& str, int parenthIdx)
             code = Parenthesis::ROUNDCLOSED;
             break;
       case '[':
-            code =Parenthesis::SQUAREDOPEN;
+            code = Parenthesis::SQUAREDOPEN;
             break;
       case ']':
             code = Parenthesis::SQUAREDCLOSED;
@@ -1415,11 +1415,11 @@ qreal FiguredBass::additionalContLineX(qreal pagePosY) const
             // if item has cont.line but nothing before it
             // and item Y coord near enough to pagePosY
             if(fbi->contLine() != FiguredBassItem::ContLine::NONE
-                  && fbi->digit() == FBIDigitNone
-                     && fbi->prefix() == FiguredBassItem::Modifier::NONE
-                        && fbi->suffix() == FiguredBassItem::Modifier::NONE
-                           && fbi->parenth4() == FiguredBassItem::Parenthesis::NONE
-                              && qAbs(pgPos.y() + fbi->ipos().y() - pagePosY) < 0.05)
+               && fbi->digit() == FBIDigitNone
+               && fbi->prefix() == FiguredBassItem::Modifier::NONE
+               && fbi->suffix() == FiguredBassItem::Modifier::NONE
+               && fbi->parenth4() == FiguredBassItem::Parenthesis::NONE
+               && qAbs(pgPos.y() + fbi->ipos().y() - pagePosY) < 0.05)
                   return pgPos.x() + fbi->ipos().x();
 
       return 0.0;                               // no suitable line
@@ -1768,7 +1768,7 @@ FiguredBass* Score::addFiguredBass()
             }
 
       FiguredBass * fb;
-      bool bNew;
+      bool bNew = true;
       if (el->isNote()) {
             ChordRest * cr = toNote(el)->chord();
             fb = FiguredBass::addFiguredBassToSegment(cr->segment(), cr->staffIdx() * VOICES, Fraction(0,1), &bNew);
