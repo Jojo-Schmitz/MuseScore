@@ -74,11 +74,11 @@ static int tryload_libjack()
     #ifdef __APPLE__
         libjack_handle = dlopen("libjack.0.dylib", RTLD_LAZY);
         if (!libjack_handle) {
-            qDebug("dlopen error : %s ", dlerror());
+            std::cerr << "dlopen error : " << dlerror() << std::endl;
         }
         libjack_handle = dlopen("/usr/local/lib/libjack.0.dylib", RTLD_LAZY);
         if (!libjack_handle) {
-            qDebug("dlopen error : %s ", dlerror());
+            std::cerr << "dlopen error : " << dlerror() << std::endl;
         }
     #elif defined(WIN32)
         // Force char implementation of library instead of possibly wchar_t implementation to be called.
@@ -102,7 +102,7 @@ void *load_jack_function(const char *fn_name)
 {
     void *fn = 0;
     if (!libjack_handle) {
-        qDebug("libjack not found, so do not try to load  %s ffs  !", fn_name);
+        std:cerr << "libjack not found, so do not try to load : " << fn_name << std::endl;
         return 0;
     }
 #ifdef WIN32
@@ -114,9 +114,9 @@ void *load_jack_function(const char *fn_name)
 #ifdef WIN32
         char* lpMsgBuf;
         FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,NULL,GetLastError(),MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),(LPTSTR) &lpMsgBuf,0,NULL );
-        qDebug("could not GetProcAddress( %s ), %s ", fn_name, lpMsgBuf) ;
+        std::cerr << "could not GetProcAddress( " << fn_name << " ), " << lpMsgBuf << std::endl;
 #else
-        qDebug ("could not dlsym( %s ), %s ", fn_name, dlerror()) ;
+        std::cerr << "could not dlsym( " << fn_name << " ), " << dlerror() << std::endl;
 #endif
     }
     return fn;
