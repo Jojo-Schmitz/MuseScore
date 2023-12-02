@@ -2308,7 +2308,7 @@ void MuseScore::updateMenus()
       updateMenu(menuDebug,       "menu-debug",        "Debug");
 #endif
       connect(openRecent,     SIGNAL(aboutToShow()),       SLOT(openRecentMenu()));
-    connect(openRecent,     SIGNAL(triggered(QAction*)), SLOT(selectFile(QAction*)));
+      connect(openRecent,     SIGNAL(triggered(QAction*)), SLOT(selectFile(QAction*)));
       connect(menuWorkspaces, SIGNAL(aboutToShow()),       SLOT(showWorkspaceMenu()));
       setMenuTitles();
 #ifdef SCRIPT_INTERFACE
@@ -6348,16 +6348,16 @@ void MuseScore::endCmd(bool undoRedo)
 #ifdef SCRIPT_INTERFACE
       getPluginEngine()->endEndCmd(this);
 #endif
-    // takes care of updating the scoreview after undoing in album-mode
-    if (undoRedo) {
-        cv->score()->doLayout();
-        cv->score()->update();
-        if (cv->score() != mainScore) {
-            mainScore->doLayout();
-            mainScore->update();
-        }
-        cv->update();
-    }
+      // takes care of updating the scoreview after undoing in album-mode
+      if (undoRedo) {
+            cv->score()->doLayout();
+            cv->score()->update();
+            if (cv->score() != mainScore) {
+                  mainScore->doLayout();
+                  mainScore->update();
+                  }
+            cv->update();
+            }
       }
 
 //---------------------------------------------------------
