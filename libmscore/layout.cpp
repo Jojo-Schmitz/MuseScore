@@ -3263,7 +3263,7 @@ void Score::getNextMeasure(LayoutContext& lc)
                   }
             }
       else if (seg)
-            score()->undoRemoveElement(seg);
+            score()->removeElement(seg);
 
       for (Segment& s : measure->segments()) {
             // TODO? maybe we do need to process it here to make it possible to enable later
@@ -5163,7 +5163,7 @@ void Score::doLayoutRange(const Fraction& st, const Fraction& et)
       // rest which replaces the measure range
 
       if (!m->system() && m->isMeasure() && toMeasure(m)->hasMMRest()) {
-            qDebug("  don’t start with mmrest");
+            qDebug("  don't start with mmrest");
             m = toMeasure(m)->mmRest();
             }
 
