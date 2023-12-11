@@ -3228,16 +3228,16 @@ void MStyle::load(XmlReader& e, bool isMu4)
             //else if (isMu4 && tag == "propertyDistanceHead") { // 0.4 -> 1, articulation/ornaments distance, let's pass
             //else if (isMu4 && tag == "propertyDistanceStem") { // 0.4 -> 1.8, articulation/ornaments distance, let's pass
             //else if (isMu4 && tag == "propertyDistance") // { 0.4 -> 1, articulation/ornaments distance, let's pass
-            else if (isMu4 && tag == "hairpinLinePosAbove") { // y: -1.5 -> -3
+            else if (isMu4 && tag == "hairpinLinePosAbove") { // y: -3 (Mu4.0-4.1), -1.5 (Mu4.2+) -> -3
                   QPointF hairpinLinePosAbove = e.readPoint();
-                  if (qFuzzyCompare(hairpinLinePosAbove.y(), -1.5)) // 4.x default
+                  if (qFuzzyCompare(hairpinLinePosAbove.y(), -1.5)) // 4.2+ default
                         set(Sid::hairpinLinePosAbove, styleTypes[int(Sid::hairpinLinePosAbove)].defaultValue()); // 3.x default
                   else
                         set(Sid::hairpinLinePosAbove, QPointF(hairpinLinePosAbove));
                   }
-            else if (isMu4 && tag == "hairpinLinePosBelow") { // y: 2.5 -> 4
+            else if (isMu4 && tag == "hairpinLinePosBelow") { // y: 4 (Mu4.0-4.1), 2.5 (Mu4.2+) -> 4
                   QPointF hairpinLinePosBelow = e.readPoint();
-                  if (qFuzzyCompare(hairpinLinePosBelow.y(), 2.5)) // 4.x default
+                  if (qFuzzyCompare(hairpinLinePosBelow.y(), 2.5)) // 4.2+ default
                         set(Sid::hairpinLinePosBelow, styleTypes[int(Sid::hairpinLinePosBelow)].defaultValue()); // 3.x default
                   else
                         set(Sid::hairpinLinePosBelow, QPointF(hairpinLinePosBelow));
@@ -3270,6 +3270,20 @@ void MStyle::load(XmlReader& e, bool isMu4)
                         set(Sid::mmRestNumberPos, styleTypes[int(Sid::mmRestNumberPos)].defaultValue()); // 3.x default
                   else
                         set(Sid::mmRestNumberPos, Spatium(mmRestNumberPos));
+                  }
+            else if (isMu4 && tag == "ArpeggioNoteDistance") { // 0.4 (Mu4.2+) -> 0.5
+                  qreal ArpeggioNoteDistance = e.readDouble();
+                  if (qFuzzyCompare(ArpeggioNoteDistance, 0.4)) // 4.2+ default
+                        set(Sid::ArpeggioNoteDistance, styleTypes[int(Sid::ArpeggioNoteDistance)].defaultValue()); // 3.x default
+                  else
+                        set(Sid::ArpeggioNoteDistance, Spatium(ArpeggioNoteDistance));
+                  }
+            else if (isMu4 && tag == "ArpeggioAccidentalDistance") { // 0.3 (Mu4.2+) -> 0.5
+                  qreal ArpeggioAccidentalDistance = e.readDouble();
+                  if (qFuzzyCompare(ArpeggioAccidentalDistance, 0.3)) // 4.2+ default
+                        set(Sid::ArpeggioAccidentalDistance, styleTypes[int(Sid::ArpeggioAccidentalDistance)].defaultValue()); // 3.x default
+                  else
+                        set(Sid::ArpeggioAccidentalDistance, Spatium(ArpeggioAccidentalDistance));
                   }
             else if (isMu4 && tag == "slurEndWidth") // 0.05 -> 0.07, depends on font's `engravingDefaults`! Let's skip.
                   e.skipCurrentElement();
@@ -3353,7 +3367,7 @@ void MStyle::load(XmlReader& e, bool isMu4)
                   else
                         set(Sid::articulationMinDistance, Spatium(articulationMinDistance));
                   }
-            else if (isMu4 && tag == "defaultsVersion") // 400 -> 302, let's ignore
+            else if (isMu4 && tag == "defaultsVersion") // 400/420 -> 302, let's ignore
                   e.skipCurrentElement();
             //else if (isMu4 && tag == "Spatium") { // 1.74978 -> 1.75, rounding issue, has been read further up already
 // end 4.x compat
