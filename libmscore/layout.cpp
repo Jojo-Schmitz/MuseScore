@@ -3415,18 +3415,14 @@ static qreal findLyricsMaxY(Segment& s, int staffIdx)
                               qreal yOff = l->offset().y();
                               QPointF offset = l->pos() + cr->pos() + s.pos() + s.measure()->pos();
                               QRectF r = l->bbox().translated(offset);
-                              r.translate(0.0, -yOff);
+                              r.translate(0.0, -yOff - l->minDistance().val() * l->spatium());
                               sk.add(r.x(), r.top(), r.width());
                               }
                         }
                   SysStaff* ss = s.measure()->system()->staff(staffIdx);
-                  for (Lyrics* l : cr->lyrics()) {
-                        if (l->autoplace() && l->placeBelow()) {
-                              qreal y = ss->skyline().south().minDistance(sk);
-                              if (y > -lyricsMinTopDistance)
-                                    yMax = qMax(yMax, y + lyricsMinTopDistance);
-                              }
-                        }
+                  qreal y = ss->skyline().south().minDistance(sk);
+                  if (y > -lyricsMinTopDistance)
+                        yMax = qMax(yMax, y + lyricsMinTopDistance);
                   }
             }
       return yMax;
@@ -3451,18 +3447,14 @@ static qreal findLyricsMinY(Segment& s, int staffIdx)
                         if (l->autoplace() && l->placeAbove()) {
                               qreal yOff = l->offset().y();
                               QRectF r = l->bbox().translated(l->pos() + cr->pos() + s.pos() + s.measure()->pos());
-                              r.translate(0.0, -yOff);
+                              r.translate(0.0, -yOff + l->minDistance().val() * l->spatium());
                               sk.add(r.x(), r.bottom(), r.width());
                               }
                         }
                   SysStaff* ss = s.measure()->system()->staff(staffIdx);
-                  for (Lyrics* l : cr->lyrics()) {
-                        if (l->autoplace() && l->placeAbove()) {
-                              qreal y = sk.minDistance(ss->skyline().north());
-                              if (y > -lyricsMinTopDistance)
-                                    yMin = qMin(yMin, -y - lyricsMinTopDistance);
-                              }
-                        }
+                  qreal y = sk.minDistance(ss->skyline().north());
+                  if (y > -lyricsMinTopDistance)
+                        yMin = qMin(yMin, -y - lyricsMinTopDistance);
                   }
             }
       return yMin;

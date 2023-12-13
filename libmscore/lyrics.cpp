@@ -95,6 +95,7 @@ void Lyrics::write(XmlWriter& xml) const
             }
       xml.tag("ticks", _ticks.ticks(), 0); // pre-3.1 compatibility: write integer ticks under <ticks> tag
       writeProperty(xml, Pid::LYRIC_TICKS);
+      writeProperty(xml, Pid::MIN_DISTANCE);
 
       TextBase::writeProperties(xml);
       xml.etag();
