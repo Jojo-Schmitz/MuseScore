@@ -147,22 +147,10 @@ qreal Arpeggio::calcTop() const
                   }
             case ArpeggioType::NORMAL:
             case ArpeggioType::UP:
-            case ArpeggioType::DOWN: {
-                  // if the top is in the staff on a space, move it up
-                  // if the bottom note is on a line, the distance is 0.25 spaces
-                  // if the bottom note is on a space, the distance is 0.5 spaces
-                  int topNoteLine = chord()->upNote()->line();
-                  int lines = staff()->lines(tick());
-                  int bottomLine = (lines - 1) * 2;
-                  if (topNoteLine <= 0 || topNoteLine % 2 == 0 || topNoteLine >= bottomLine)
-                        return top;
-                  int downNoteLine = chord()->downNote()->line();
-                  if (downNoteLine % 2 == 1 && downNoteLine < bottomLine)
-                        return top - 0.4 * spatium();
-                  return top - 0.25 * spatium();
-                  }
+            case ArpeggioType::DOWN:
+                  return top - spatium() / 6;
             default:
-                  return top - spatium() / 4;
+                  return top - spatium() / 2;
             }
       }
 
@@ -184,7 +172,7 @@ qreal Arpeggio::calcBottom() const
             case ArpeggioType::NORMAL:
             case ArpeggioType::UP:
             case ArpeggioType::DOWN:
-                  return bottom;
+                  return bottom - top + spatium() / 6;
             default:
                   return bottom + spatium() / 2;
             }
@@ -204,9 +192,9 @@ void Arpeggio::layout()
                   for (Staff* s : staff()->staffList()) {
                         if (s->score() == score()  && s->isTabStaff(tick())) {
                               _hidden = true;
-                               setbbox(QRect());
-                               return;
-                               }
+                              setbbox(QRect());
+                              return;
+                              }
                         }
                   }
             }
@@ -217,7 +205,9 @@ void Arpeggio::layout()
                   symbolLine(SymId::wiggleArpeggiatoUp, SymId::wiggleArpeggiatoUp);
                   // string is rotated -90 degrees
                   QRectF r(symBbox(symbols));
-                  setbbox(QRectF(0.0, -r.x() + top, r.height(), r.width()));
+                  qreal diff = r.width() - (bottom - top);
+                  top -= diff / 2;
+                  setbbox(QRectF(0.0, top, r.height(), r.width()));
                   }
                   break;
 
@@ -225,7 +215,9 @@ void Arpeggio::layout()
                   symbolLine(SymId::wiggleArpeggiatoUpArrow, SymId::wiggleArpeggiatoUp);
                   // string is rotated -90 degrees
                   QRectF r(symBbox(symbols));
-                  setbbox(QRectF(0.0, -r.x() + top, r.height(), r.width()));
+                  qreal diff = r.width() - (bottom - top);
+                  top -= diff / 2;
+                  setbbox(QRectF(0.0, top, r.height(), r.width()));
                   }
                   break;
 
@@ -233,7 +225,9 @@ void Arpeggio::layout()
                   symbolLine(SymId::wiggleArpeggiatoUpArrow, SymId::wiggleArpeggiatoUp);
                   // string is rotated +90 degrees (so that UpArrow turns into a DownArrow)
                   QRectF r(symBbox(symbols));
-                  setbbox(QRectF(0.0, r.x() + top, r.height(), r.width()));
+                  qreal diff = r.width() - (bottom - top);
+                  top -= diff / 2;
+                  setbbox(QRectF(0.0, top, r.height(), r.width()));
                   }
                   break;
 
