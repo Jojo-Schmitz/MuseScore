@@ -3556,7 +3556,7 @@ void Chord::layoutArticulations()
                               y = line * _spStaff + 2 * _spatium;
                         y *= .5;
                         }
-                  if (prevArticulation && (prevArticulation->up() == a->up()))
+                  if (prevArticulation && prevArticulation->visible() && (prevArticulation->up() == a->up()))
                         y += _spatium;
                   y -= a->height() * .5;        // center symbol
                   }
@@ -3585,7 +3585,7 @@ void Chord::layoutArticulations()
                               y = line * _spStaff - 2 * _spatium;
                         y *= .5;
                         }
-                  if (prevArticulation && (prevArticulation->up() == a->up()))
+                  if (prevArticulation && prevArticulation->visible() && (prevArticulation->up() == a->up()))
                         y -= _spatium;
                   y += a->height() * .5;        // center symbol
                   }
