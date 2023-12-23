@@ -358,6 +358,10 @@ void Selection::clear()
 
 void Selection::remove(Element* el)
       {
+      if (el->isSpannerSegment()) {
+            Spanner* sp = toSpannerSegment(el)->spanner();
+            el = toElement(sp);
+            }
       const bool removed = _el.removeOne(el);
       el->setSelected(false);
       if (removed)
@@ -373,6 +377,10 @@ void Selection::add(Element* el)
       IF_ASSERT_FAILED(!isLocked()) {
             LOGE() << "selection locked, reason: " << lockReason();
             return;
+            }
+      if (el->isSpannerSegment()) {
+            Spanner* sp = toSpannerSegment(el)->spanner();
+            el = toElement(sp);
             }
       _el.append(el);
       update();
