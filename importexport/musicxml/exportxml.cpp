@@ -4163,11 +4163,11 @@ static void directionETag(XmlWriter& xml, int staff, int offs = 0)
 //   partGroupStart
 //---------------------------------------------------------
 
-static void partGroupStart(XmlWriter& xml, int number, BracketType bracket)
+static void partGroupStart(XmlWriter& xml, int number, const BracketItem* const bracket, const bool barlineSpan)
       {
       xml.stag(QString("part-group type=\"start\" number=\"%1\"").arg(number));
       QString br = "";
-      switch (bracket) {
+      switch (bracket->bracketType()) {
             case BracketType::NO_BRACKET:
                   br = "none";
                   break;
@@ -4184,10 +4184,15 @@ static void partGroupStart(XmlWriter& xml, int number, BracketType bracket)
                   br = "square";
                   break;
             default:
-                  qDebug("bracket subtype %d not understood", int(bracket));
+                  qDebug("bracket subtype %d not understood", int(bracket->bracketType()));
             }
-      if (br != "")
-            xml.tag("group-symbol", br);
+      if (br != "") {
+            QString tag = "group-symbol";
+            tag += color2xml(toBracket(bracket));
+            xml.tag(tag, br);
+            }
+      if (barlineSpan)
+            xml.tag("group-barline", "yes");
       xml.etag();
       }
 
@@ -6454,7 +6459,8 @@ static void partList(XmlWriter& xml, Score* score, MxmlInstrumentMap& instrMap)
                                                       // add others
                                                       int number = findPartGroupNumber(partGroupEnd);
                                                       if (number < MAX_PART_GROUPS) {
-                                                            partGroupStart(xml, number + 1, st->bracketType(j));
+                                                            const BracketItem* bi = st->brackets().at(j);
+                                                            partGroupStart(xml, number + 1, bi, st->barLineSpan());
                                                             partGroupEnd[number] = static_cast<int>(staffCount + st->bracketSpan(j));
                                                             }
                                                       }
@@ -6472,7 +6478,9 @@ static void partList(XmlWriter& xml, Score* score, MxmlInstrumentMap& instrMap)
             if (!bracketFound && part->nstaves() > 1) {
                   int number = findPartGroupNumber(partGroupEnd);
                   if (number < MAX_PART_GROUPS) {
-                        partGroupStart(xml, number + 1, BracketType::NO_BRACKET);
+                        const BracketItem* bi = new BracketItem(score);
+                        partGroupStart(xml, number + 1, bi, false);
+                        delete bi;
                         partGroupEnd[number] = idx + part->nstaves();
                         }
                   }
