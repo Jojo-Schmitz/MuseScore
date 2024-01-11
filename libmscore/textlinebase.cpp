@@ -400,6 +400,9 @@ void TextLineBaseSegment::layout()
                         break;
                   }
             _endText->setPos(bbox().right(), 0);
+            //center end text for pedals (rosette star), prevents collision of rosette and "Ped" on following note
+            if (isPedalSegment() && !tl->lineVisible())
+                  _endText->mutldata()->moveX(-_endText->width() / 2);
             bbox() |= _endText->bbox().translated(_endText->pos());
             }
 
