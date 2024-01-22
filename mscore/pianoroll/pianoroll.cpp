@@ -113,10 +113,10 @@ PianorollEditor::PianorollEditor(QWidget* parent)
 
       struct ToolIconData
       {
-          QString _icon;
-          PianoRollEditTool _tool;
-          QString _tooltip;
-          bool _selected;
+            QString _icon;
+            PianoRollEditTool _tool;
+            QString _tooltip;
+            bool _selected;
       };
       ToolIconData _iconDataTool[] = {
             { QStringLiteral(":/data/icons/preEdit-select.svg"), PianoRollEditTool::SELECT, tr("Select Notes"), true },
@@ -196,9 +196,9 @@ PianorollEditor::PianorollEditor(QWidget* parent)
 
       struct DotIconData
       {
-          QString _icon;
-          int _len;
-          bool _selected;
+            QString _icon;
+            int _len;
+            bool _selected;
       };
       DotIconData _iconDotData[] = {
             { QStringLiteral(":/data/icons/note-dot.svg"), 1, false },
@@ -233,10 +233,10 @@ PianorollEditor::PianorollEditor(QWidget* parent)
 
       struct VoiceIconData
       {
-          QString _icon;
-          int _voice;
-          QString _tooltip;
-          bool _selected;
+            QString _icon;
+            int _voice;
+            QString _tooltip;
+            bool _selected;
       };
       VoiceIconData _iconDataVoice[] = {
             { QStringLiteral(":/data/icons/voice-1.svg"), 0, tr("Voice 1"), true },
@@ -349,7 +349,7 @@ PianorollEditor::PianorollEditor(QWidget* parent)
 
       hsb = new QScrollBar(Qt::Horizontal);
       connect(pianoView->horizontalScrollBar(), SIGNAL(rangeChanged(int,int)),
-         SLOT(rangeChanged(int,int)));
+            SLOT(rangeChanged(int,int)));
 
       QWidget* noteAreaWidget = new QWidget;
 
