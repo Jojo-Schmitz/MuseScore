@@ -102,7 +102,50 @@ PianorollEditor::PianorollEditor(QWidget* parent)
       tbMain->addWidget(partLabel);
 
       // --------------------------------------------------
-      // empty area for spacing
+      // toolbars
+
+
+      //----
+
+      QToolBar* tbTool = addToolBar("Action Buttons");
+      QButtonGroup* bngrpActionBns = new QButtonGroup();
+
+
+      struct ToolIconData
+      {
+          QString _icon;
+          PianoRollEditTool _tool;
+          QString _tooltip;
+          bool _selected;
+      };
+      ToolIconData _iconDataTool[] = {
+            { QStringLiteral(":/data/icons/preEdit-select.svg"), PianoRollEditTool::SELECT, tr("Select Notes"), true },
+            { QStringLiteral(":/data/icons/preEdit-insertNote.svg"), PianoRollEditTool::ADD, tr("Insert Note"), false },
+            //{ QStringLiteral(":/data/icons/preEdit-appendChord.svg"), PianoRollEditTool::APPEND_NOTE, tr("Append Note to Chord"), false },
+            { QStringLiteral(":/data/icons/preEdit-cutNote.svg"), PianoRollEditTool::CUT, tr("Cut Chord"), false },
+            { QStringLiteral(":/data/icons/preEdit-eraseNote.svg"), PianoRollEditTool::ERASE, tr("Erase Note"), false },
+            { QStringLiteral(":/data/icons/preEdit-changeLength.svg"), PianoRollEditTool::EVENT_ADJUST, tr("Change Chord Length"), false },
+            { QStringLiteral(":/data/icons/preEdit-tie.svg"), PianoRollEditTool::TIE, tr("Toggle Tie"), false },
+            { "", PianoRollEditTool::LAST, "", false },
+      };
+
+      for (ToolIconData* p = _iconDataTool; p->_tool != PianoRollEditTool::LAST; ++p) {
+          QToolButton* bn = new QToolButton();
+          QIcon icon;
+          icon.addFile(p->_icon, QSize(), QIcon::Normal, QIcon::Off);
+          bn->setIcon(icon);
+          bn->setCheckable(true);
+          bn->setToolTip(p->_tooltip);
+          PianoRollEditTool tool = p->_tool;
+          connect(bn, &QToolButton::clicked, this, [=]() {this->setEditNoteTool(tool); });
+
+          if (p->_selected)
+              bn->setChecked(true);
+          bngrpActionBns->addButton(bn);
+          tbTool->addWidget(bn);
+      }
+
+      //----
 
       struct LenIconData
       {
@@ -110,6 +153,7 @@ PianorollEditor::PianorollEditor(QWidget* parent)
           int _measureFrac;  //Note length is 2^n of a measure
           bool _selected;
       };
+
       LenIconData _iconData[] = {
             { QStringLiteral(":/data/icons/note-longa.svg"), 2, false },
             { QStringLiteral(":/data/icons/note-breve.svg"), 1, false },
@@ -180,50 +224,12 @@ PianorollEditor::PianorollEditor(QWidget* parent)
             tbDots->addWidget(bn);
             }
 
-      //----
-
-      QToolBar* tbTool = addToolBar("Toolbar Edit Tool");
-      bngrpNoteLen = new QButtonGroup();
-
-      struct ToolIconData
-      {
-          QString _icon;
-          PianoRollEditTool _tool;
-          QString _tooltip;
-          bool _selected;
-      };
-      ToolIconData _iconDataTool[] = {
-            { QStringLiteral(":/data/icons/preEdit-select.svg"), PianoRollEditTool::SELECT, tr("Select Notes"), true },
-            { QStringLiteral(":/data/icons/preEdit-insertNote.svg"), PianoRollEditTool::INSERT_NOTE, tr("Insert Note"), false },
-            { QStringLiteral(":/data/icons/preEdit-appendChord.svg"), PianoRollEditTool::APPEND_NOTE, tr("Append Note to Chord"), false },
-            { QStringLiteral(":/data/icons/preEdit-cutNote.svg"), PianoRollEditTool::CUT_CHORD, tr("Cut Chord"), false },
-            { QStringLiteral(":/data/icons/preEdit-eraseNote.svg"), PianoRollEditTool::ERASE, tr("Erase Note"), false },
-            { QStringLiteral(":/data/icons/preEdit-changeLength.svg"), PianoRollEditTool::CHANGE_LENGTH, tr("Change Chord Length"), false },
-            { QStringLiteral(":/data/icons/preEdit-tie.svg"), PianoRollEditTool::TIE, tr("Toggle Tie"), false },
-            { "", PianoRollEditTool::LAST, "", false },
-            };
-
-      for (ToolIconData* p = _iconDataTool; p->_tool != PianoRollEditTool::LAST; ++p) {
-            QToolButton* bn = new QToolButton();
-            QIcon icon;
-            icon.addFile(p->_icon, QSize(), QIcon::Normal, QIcon::Off);
-            bn->setIcon(icon);
-            bn->setCheckable(true);
-            bn->setToolTip(p->_tooltip);
-            PianoRollEditTool tool = p->_tool;
-            connect(bn, &QToolButton::clicked, this, [=](){this->setEditNoteTool(tool);});
-
-            if (p->_selected)
-                  bn->setChecked(true);
-            bngrpNoteLen->addButton(bn);
-            tbTool->addWidget(bn);
-            }
-
 
       //----
 
       QToolBar* tbVoices = addToolBar("Toolbar Voices");
-      bngrpNoteLen = new QButtonGroup();
+      QButtonGroup* bngrpVoices = new QButtonGroup();
+      //bngrpNoteLen = new QButtonGroup();
 
       struct VoiceIconData
       {
@@ -252,7 +258,7 @@ PianorollEditor::PianorollEditor(QWidget* parent)
 
             if (p->_selected)
                   bn->setChecked(true);
-            bngrpNoteLen->addButton(bn);
+            bngrpVoices->addButton(bn);
             tbVoices->addWidget(bn);
             }
 
@@ -476,9 +482,9 @@ PianorollEditor::~PianorollEditor()
 //   setEditNoteLength
 //---------------------------------------------------------
 
-void PianorollEditor:: setEditNoteLength(int len)
+void PianorollEditor::setEditNoteLength(int len)
       {
-            pianoView->setEditNoteLength(len);
+            pianoView->setEditNoteLength(Fraction::fromTicks(pow(2, len + 2) * MScore::division));
       }
 
 //---------------------------------------------------------
