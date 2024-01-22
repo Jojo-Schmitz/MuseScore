@@ -130,28 +130,28 @@ PianorollEditor::PianorollEditor(QWidget* parent)
       };
 
       for (ToolIconData* p = _iconDataTool; p->_tool != PianoRollEditTool::LAST; ++p) {
-          QToolButton* bn = new QToolButton();
-          QIcon icon;
-          icon.addFile(p->_icon, QSize(), QIcon::Normal, QIcon::Off);
-          bn->setIcon(icon);
-          bn->setCheckable(true);
-          bn->setToolTip(p->_tooltip);
-          PianoRollEditTool tool = p->_tool;
-          connect(bn, &QToolButton::clicked, this, [=]() {this->setEditNoteTool(tool); });
+            QToolButton* bn = new QToolButton();
+            QIcon icon;
+            icon.addFile(p->_icon, QSize(), QIcon::Normal, QIcon::Off);
+            bn->setIcon(icon);
+            bn->setCheckable(true);
+            bn->setToolTip(p->_tooltip);
+            PianoRollEditTool tool = p->_tool;
+            connect(bn, &QToolButton::clicked, this, [=]() {this->setEditNoteTool(tool); });
 
-          if (p->_selected)
-              bn->setChecked(true);
-          bngrpActionBns->addButton(bn);
-          tbTool->addWidget(bn);
-      }
+            if (p->_selected)
+                  bn->setChecked(true);
+            bngrpActionBns->addButton(bn);
+            tbTool->addWidget(bn);
+            }
 
       //----
 
       struct LenIconData
       {
-          QString _icon;
-          int _measureFrac;  //Note length is 2^n of a measure
-          bool _selected;
+            QString _icon;
+            int _measureFrac;  //Note length is 2^n of a measure
+            bool _selected;
       };
 
       LenIconData _iconData[] = {
