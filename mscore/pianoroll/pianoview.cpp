@@ -33,8 +33,6 @@
 #include "libmscore/undo.h"
 #include "libmscore/utils.h"
 
-#pragma optimize("", off)
-
 namespace Ms {
 
 extern MuseScore* mscore;
