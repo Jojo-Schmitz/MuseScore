@@ -120,10 +120,10 @@ QRect PianoItem::boundingRectPixels(NoteEvent* evt)
       int noteHeight = _pianoView->noteHeight();
 
       rect.setRect(_pianoView->tickToPixelX(rect.x()),
-              (127 - rect.y()) * noteHeight,
-              rect.width() * tix2pix,
-              rect.height() * noteHeight
-              );
+            (127 - rect.y()) * noteHeight,
+            rect.width() * tix2pix,
+            rect.height() * noteHeight
+            );
 
       return rect;
       }
@@ -293,7 +293,7 @@ void PianoItem::paint(QPainter* painter)
 //---------------------------------------------------------
 
 PianoView::PianoView()
-   : QGraphicsView()
+    : QGraphicsView()
       {
       setFrameStyle(QFrame::NoFrame);
       setLineWidth(0);
@@ -486,7 +486,7 @@ void PianoView::drawBackground(QPainter* p, const QRectF& r)
 
       p->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform | QPainter::TextAntialiasing);
       for (PianoItem* block : _noteList) {
-          drawNoteBlock(p, block);
+            drawNoteBlock(p, block);
       }
 
       if (_dragStyle == DragStyle::NOTE_POSITION || _dragStyle == DragStyle::NOTE_LENGTH_END
@@ -854,7 +854,7 @@ void PianoView::mouseReleaseEvent(QMouseEvent* event)
 
 
       NoteSelectType selType = bnShift ? (bnCtrl ? NoteSelectType::SUBTRACT : NoteSelectType::XOR)
-              : (bnCtrl ? NoteSelectType::ADD : NoteSelectType::REPLACE);
+            : (bnCtrl ? NoteSelectType::ADD : NoteSelectType::REPLACE);
 
       if (_dragStarted) {
             if (_dragStyle == DragStyle::SELECTION_RECT) {
@@ -893,9 +893,9 @@ void PianoView::mouseReleaseEvent(QMouseEvent* event)
                         }
 
                   Fraction startTickFrac = roundToStartBeat(startTick);
-                   Fraction endTickFrac = roundToStartBeat(endTick, false);
+                  Fraction endTickFrac = roundToStartBeat(endTick, false);
 
-                   if (endTickFrac != startTickFrac) {
+                  if (endTickFrac != startTickFrac) {
                         double pitch = pixelYToPitch(_mouseDownPos.y());
 
                         Score* curScore = _staff->score();
@@ -1562,7 +1562,7 @@ void PianoView::handleSelectionClick()
       bool bnShift = modifiers & Qt::ShiftModifier;
       bool bnCtrl = modifiers & Qt::ControlModifier;
       NoteSelectType selType = bnShift ? (bnCtrl ? NoteSelectType::SUBTRACT : NoteSelectType::XOR)
-              : (bnCtrl ? NoteSelectType::ADD : NoteSelectType::REPLACE);
+            : (bnCtrl ? NoteSelectType::ADD : NoteSelectType::REPLACE);
 
       Score* score = _staff->score();
 
@@ -1872,7 +1872,7 @@ void PianoView::ensureVisible(int tick)
 void PianoView::updateBoundingSize()
       {
       Measure* lm = _staff->score()->lastMeasure();
-      _ticks       = (lm->tick() + lm->ticks()).ticks();
+      _ticks = (lm->tick() + lm->ticks()).ticks();
       scene()->setSceneRect(0.0, 0.0,
               double((_ticks + MAP_OFFSET * 2) * _xZoom),
               _noteHeight * 128);
@@ -1889,7 +1889,7 @@ void PianoView::setStaff(Staff* s, Pos* l)
       if (_staff == s)
             return;
 
-      _staff    = s;
+      _staff = s;
       setEnabled(_staff != nullptr);
       if (!_staff) {
             scene()->blockSignals(true);  // block changeSelection()
@@ -1950,9 +1950,9 @@ void PianoView::setStaff(Staff* s, Pos* l)
 
 void PianoView::addChord(Chord* chrd, int voice)
       {
-      for (Chord* c : chrd->graceNotes())
+      for (Chord* c: chrd->graceNotes())
             addChord(c, voice);
-      for (Note* note : chrd->notes()) {
+      for (Note* note: chrd->notes()) {
             if (note->tieBack())
                   continue;
             _noteList.append(new PianoItem(note, this));
@@ -2251,7 +2251,7 @@ void PianoView::copyNotes()
       {
       QString copiedNotes = serializeSelectedNotes();
       if (copiedNotes.isEmpty())
-          return;
+            return;
 
       QMimeData* mimeData = new QMimeData;
       mimeData->setData(PIANO_NOTE_MIME_TYPE, copiedNotes.toUtf8());
@@ -2398,7 +2398,7 @@ QVector<Note*> PianoView::pasteNotes(const QString& copiedNotes, Fraction pasteS
                         Fraction tickLen = Fraction(tn, td);
                         tickLen += lengthOffset;
                         if (tickLen.numerator() <= 0) {
-                            continue;
+                              continue;
                         }
 
                         int pitch = xml.attributes().value("pitch").toString().toInt();
@@ -2461,17 +2461,17 @@ void PianoView::drawDraggedNotes(QPainter* painter)
           double startTick = pixelXToTick(_mouseDownPos.x());
           double endTick = pixelXToTick(_lastMousePos.x());
           if (startTick > endTick) {
-              std::swap(startTick, endTick);
+                std::swap(startTick, endTick);
           }
 
           Fraction startTickFrac = roundToStartBeat(startTick);
           Fraction endTickFrac = roundToStartBeat(endTick, false);
 
           if (endTickFrac != startTickFrac) {
-              double pitch = pixelYToPitch(_mouseDownPos.y());
-              int track = (int)_staff->idx() * VOICES + _editNoteVoice;
+                double pitch = pixelYToPitch(_mouseDownPos.y());
+                int track = (int)_staff->idx() * VOICES + _editNoteVoice;
 
-              drawDraggedNote(painter, startTickFrac, endTickFrac - startTickFrac, pitch, track, _colorNoteDrag);
+                drawDraggedNote(painter, startTickFrac, endTickFrac - startTickFrac, pitch, track, _colorNoteDrag);
           }
           return;
       }

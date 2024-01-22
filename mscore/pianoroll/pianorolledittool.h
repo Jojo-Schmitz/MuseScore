@@ -17,15 +17,15 @@ namespace Ms {
 
 enum PianoRollEditTool
 {
-    SELECT,
-    ADD,
-    CUT,
-    ERASE,
-    EVENT_ADJUST,
-    TIE, //deprecated
-    APPEND_NOTE, //deprecated
+      SELECT,
+      ADD,
+      CUT,
+      ERASE,
+      EVENT_ADJUST,
+      TIE, //deprecated
+      APPEND_NOTE, //deprecated
 
-    LAST  //Marker for end of list - not a tool
+      LAST  //Marker for end of list - not a tool
 };
 
 } // namespace Ms

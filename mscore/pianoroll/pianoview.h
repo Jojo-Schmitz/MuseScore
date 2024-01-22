@@ -37,17 +37,17 @@ enum class NoteSelectType {
       };
 
 enum class DragStyle {
-    NONE = 0,
-    CANCELLED,
-    SELECTION_RECT,
-    NOTE_POSITION,
-    NOTE_LENGTH_START,
-    NOTE_LENGTH_END,
-    DRAW_NOTE,
-    EVENT_ONTIME,
-    EVENT_MOVE,
-    EVENT_LENGTH,
-    MOVE_VIEWPORT
+      NONE = 0,
+      CANCELLED,
+      SELECTION_RECT,
+      NOTE_POSITION,
+      NOTE_LENGTH_START,
+      NOTE_LENGTH_END,
+      DRAW_NOTE,
+      EVENT_ONTIME,
+      EVENT_MOVE,
+      EVENT_LENGTH,
+      MOVE_VIEWPORT
       };
 
 struct BarPattern {
