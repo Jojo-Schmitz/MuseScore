@@ -487,7 +487,7 @@ void PianoView::drawBackground(QPainter* p, const QRectF& r)
       p->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform | QPainter::TextAntialiasing);
       for (PianoItem* block : _noteList) {
             drawNoteBlock(p, block);
-      }
+            }
 
       if (_dragStyle == DragStyle::NOTE_POSITION || _dragStyle == DragStyle::NOTE_LENGTH_END
             || _dragStyle == DragStyle::NOTE_LENGTH_START || _dragStyle == DragStyle::DRAW_NOTE
@@ -731,7 +731,6 @@ void PianoView::wheelEvent(QWheelEvent* event)
       }
 
 
-
 //---------------------------------------------------------
 //   showPopupMenu
 //---------------------------------------------------------
@@ -959,7 +958,7 @@ void PianoView::mouseReleaseEvent(QMouseEvent* event)
 //---------------------------------------------------------
 
 void PianoView::finishNoteEventAdjustDrag()
-{
+      {
       Score* curScore = _staff->score();
       Fraction dx = Fraction::fromTicks(pixelXToTick(_lastMousePos.x()) - pixelXToTick(_mouseDownPos.x()));
 
@@ -1017,7 +1016,7 @@ void PianoView::finishNoteEventAdjustDrag()
             }
 
       update();
-}
+      }
 
 
 //---------------------------------------------------------
@@ -1025,7 +1024,7 @@ void PianoView::finishNoteEventAdjustDrag()
 //---------------------------------------------------------
 
 void PianoView::updateCursor()
-{
+      {
       if (_editNoteTool == PianoRollEditTool::SELECT
             || _editNoteTool == PianoRollEditTool::ADD
             || _editNoteTool == PianoRollEditTool::EVENT_ADJUST) {
@@ -1048,14 +1047,14 @@ void PianoView::updateCursor()
             }
 
       setCursor(Qt::ArrowCursor);
-}
+      }
 
 //---------------------------------------------------------
 //   mouseMoveEvent
 //---------------------------------------------------------
 
 void PianoView::mouseMoveEvent(QMouseEvent* event)
-{
+      {
       if (_dragStyle == DragStyle::CANCELLED)
             return;
 
@@ -1096,16 +1095,16 @@ void PianoView::mouseMoveEvent(QMouseEvent* event)
                                     }
                               else if (_mouseDownPos.x() >= bounds.x() + bounds.width() - _dragNoteLengthMargin) {
                                     _dragStyle = DragStyle::NOTE_LENGTH_END;
-                              }
+                                    }
                               else {
                                     _dragStyle = DragStyle::NOTE_POSITION;
-                              }
+                                    }
 
                               _dragStartPitch = mouseDownPitch;
                               _dragStartTick = pi->note()->tick();
                               _dragEndTick = _dragStartTick + pi->note()->chord()->ticks();
                               _dragNoteCache = serializeSelectedNotes();
-                        }
+                              }
                         else if (pi && _editNoteTool == PianoRollEditTool::EVENT_ADJUST) {
                               if (!pi->note()->selected()) {
                                     selectNotes(tick, tick, mouseDownPitch, mouseDownPitch, NoteSelectType::REPLACE);
@@ -1950,9 +1949,9 @@ void PianoView::setStaff(Staff* s, Pos* l)
 
 void PianoView::addChord(Chord* chrd, int voice)
       {
-      for (Chord* c: chrd->graceNotes())
+      for (Chord* c : chrd->graceNotes())
             addChord(c, voice);
-      for (Note* note: chrd->notes()) {
+      for (Note* note : chrd->notes()) {
             if (note->tieBack())
                   continue;
             _noteList.append(new PianoItem(note, this));
@@ -2331,25 +2330,25 @@ void PianoView::finishNoteGroupDrag(QMouseEvent* event) {
             Fraction noteStartDraggedAlignedTick = Fraction(noteStartDraggedTick.numerator() * divisions / noteStartDraggedTick.denominator(), divisions);
             pasteTickOffset = noteStartDraggedAlignedTick - _dragStartTick;
             pitchOffset = dragToPitch - startPitch;
-      }
+            }
       else if (_dragStyle == DragStyle::NOTE_LENGTH_END) {
             Fraction noteEndDraggedTick = _dragEndTick + dragOffsetTicks;
             Fraction noteEndDraggedAlignedTick = Fraction(noteEndDraggedTick.numerator() * divisions / noteEndDraggedTick.denominator(), divisions);
             pasteLengthOffset = noteEndDraggedAlignedTick - _dragEndTick;
-      }
+            }
       else if (_dragStyle == DragStyle::NOTE_LENGTH_START) {
             Fraction noteStartDraggedTick = _dragStartTick + dragOffsetTicks;
             Fraction noteStartDraggedAlignedTick = Fraction(noteStartDraggedTick.numerator() * divisions / noteStartDraggedTick.denominator(), divisions);
             pasteTickOffset = noteStartDraggedAlignedTick - _dragStartTick;
             pasteLengthOffset = _dragStartTick - noteStartDraggedAlignedTick;
-      }
+            }
 
       //Do command
       score->startCmd();
 
       if (!(event->modifiers() & Qt::ShiftModifier)) {
             score->cmdDeleteSelection();
-      }
+            }
       QVector<Note*> notes = pasteNotes(_dragNoteCache, pasteTickOffset, pasteLengthOffset, pitchOffset, true);
 
       //Select just pasted notes
@@ -2358,7 +2357,7 @@ void PianoView::finishNoteGroupDrag(QMouseEvent* event) {
       for (Note* note : notes) {
             selection.add(note);
             note->setSelected(true);
-      }
+            }
 
       score->endCmd();
 
@@ -2399,7 +2398,7 @@ QVector<Note*> PianoView::pasteNotes(const QString& copiedNotes, Fraction pasteS
                         tickLen += lengthOffset;
                         if (tickLen.numerator() <= 0) {
                               continue;
-                        }
+                              }
 
                         int pitch = xml.attributes().value("pitch").toString().toInt();
                         int voice = xml.attributes().value("voice").toString().toInt();
@@ -2458,23 +2457,23 @@ void PianoView::drawDraggedNotes(QPainter* painter)
       Score* score = _staff->score();
 
       if (_dragStyle == DragStyle::DRAW_NOTE) {
-          double startTick = pixelXToTick(_mouseDownPos.x());
-          double endTick = pixelXToTick(_lastMousePos.x());
-          if (startTick > endTick) {
-                std::swap(startTick, endTick);
-          }
+            double startTick = pixelXToTick(_mouseDownPos.x());
+            double endTick = pixelXToTick(_lastMousePos.x());
+            if (startTick > endTick) {
+                  std::swap(startTick, endTick);
+            }
 
-          Fraction startTickFrac = roundToStartBeat(startTick);
-          Fraction endTickFrac = roundToStartBeat(endTick, false);
+            Fraction startTickFrac = roundToStartBeat(startTick);
+            Fraction endTickFrac = roundToStartBeat(endTick, false);
 
-          if (endTickFrac != startTickFrac) {
-                double pitch = pixelYToPitch(_mouseDownPos.y());
-                int track = (int)_staff->idx() * VOICES + _editNoteVoice;
+            if (endTickFrac != startTickFrac) {
+                  double pitch = pixelYToPitch(_mouseDownPos.y());
+                  int track = (int)_staff->idx() * VOICES + _editNoteVoice;
 
-                drawDraggedNote(painter, startTickFrac, endTickFrac - startTickFrac, pitch, track, _colorNoteDrag);
-          }
-          return;
-      }
+                  drawDraggedNote(painter, startTickFrac, endTickFrac - startTickFrac, pitch, track, _colorNoteDrag);
+                  }
+            return;
+            }
 
       if (_dragStyle == DragStyle::EVENT_LENGTH || _dragStyle == DragStyle::EVENT_MOVE
             || _dragStyle == DragStyle::EVENT_ONTIME) {
@@ -2593,8 +2592,8 @@ void PianoView::drawDraggedNotes(QPainter* painter)
                         Fraction tickLen = Fraction(tn, td);
                         tickLen += pasteLengthOffset;
                         if (tickLen.numerator() <= 0) {
-                            continue;
-                        }
+                              continue;
+                              }
 
                         int pitch = xml.attributes().value("pitch").toString().toInt();
                         int voice = xml.attributes().value("voice").toString().toInt();

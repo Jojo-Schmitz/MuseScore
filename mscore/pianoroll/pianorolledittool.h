@@ -26,7 +26,7 @@ enum PianoRollEditTool
       APPEND_NOTE, //deprecated
 
       LAST  //Marker for end of list - not a tool
-};
+      };
 
 } // namespace Ms
 
