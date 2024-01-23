@@ -525,7 +525,7 @@ void PianoView::drawBackground(QPainter* p, const QRectF& r)
 //---------------------------------------------------------
 
 void PianoView::drawNoteBlock(QPainter* p, PianoItem* block)
-{
+      {
       Note* note = block->note();
       if (note->tieBack()) {
             return;
