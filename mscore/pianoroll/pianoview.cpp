@@ -2266,19 +2266,7 @@ void PianoView::pasteNotesAtCursor()
             return;
 
       Score* score = _staff->score();
-      Pos barPos(score->tempomap(), score->sigmap(), pixelXToTick(_popupMenuPos.x()), TType::TICKS);
-
-      int beatsInBar = barPos.timesig().timesig().numerator();
-      int pickTick = barPos.tick();
-      Fraction pickFrac = Fraction::fromTicks(pickTick);
-
-      //Number of smaller pieces the beat is divided into
-      int subbeats = _tuplet * (1 << _subdiv);
-      int divisions = beatsInBar * subbeats;
-
-      //Round down to nearest division
-      int numDiv = (int)floor((pickFrac.numerator() * divisions / (double)pickFrac.denominator()));
-      Fraction pasteStartTick(numDiv, divisions);
+      Fraction pasteStartTick = roundToNearestBeat(pixelXToTick(_popupMenuPos.x()));
 
       if (ms->hasFormat(PIANO_NOTE_MIME_TYPE)) {
             //Decode our XML format and recreate the notes
