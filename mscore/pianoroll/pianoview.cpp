@@ -1261,14 +1261,15 @@ QVector<Note*> PianoView::addNote(Fraction startTick, Fraction duration, int pit
                               addedNotes.append(getSegmentNotes(newSeg, track));
                         }
 
+                  startTick += curDur;
+                  duration -= curDur;
+
                   Segment* seg = curChordRest->nextSegmentAfterCR(SegmentType::ChordRest);
                   if (!seg)
                         break;
                   curChordRest = seg->cr(track);
                   curStartTick = curChordRest->tick();
                   curDur = curChordRest->ticks();
-                  startTick += curChordRest->ticks();
-                  duration -= curChordRest->ticks();
                   }
 
             if (duration > Fraction(0, 1)) {
