@@ -552,9 +552,8 @@ void PianoView::drawNoteBlock(QPainter* p, PianoItem* block)
                   }
             }
 
-      if (note->selected()) {
+      if (note->selected())
             noteColor = _colorNoteSel;
-            }
 
       //if (block->staffIdx != m_activeStaff) {
       //    noteColor = noteColor.lighter(150);
@@ -582,6 +581,19 @@ void PianoView::drawNoteBlock(QPainter* p, PianoItem* block)
 
                   p->setPen(QPen(noteColor.darker(180)));
                   p->drawText(textRect, Qt::AlignLeft | Qt::AlignTop, name);
+                  }
+            }
+
+      if (_editNoteTool != PianoRollEditTool::EVENT_ADJUST) {
+            p->setPen(QPen(_colorTie));
+            for (Tie* note_tie = note->tieFor(); note_tie != nullptr; note_tie = note_tie->endNote()->tieFor()) {
+                  Fraction tieTime = note_tie->endNote()->tick();
+                  float xpos = tickToPixelX(tieTime.ticks());
+                  int pitch = note_tie->endNote()->pitch();
+                  int y0 = pitchToPixelY(pitch + 1);
+                  int y1 = pitchToPixelY(pitch);
+
+                  p->drawLine(xpos, y0, xpos, y1);
                   }
             }
       }
