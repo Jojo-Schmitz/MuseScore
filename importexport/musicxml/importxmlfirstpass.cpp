@@ -59,9 +59,9 @@ QString MusicXmlPart::toString() const
       QString res = QString("part id '%1' name '%2' print %3 abbr '%4' print %5 maxStaff %6\n")
                   .arg(id, name).arg(_printName).arg(abbr).arg(_printAbbr, _maxStaff);
 
-      for (VoiceList::const_iterator i = voicelist.constBegin(); i != voicelist.constEnd(); ++i) {
+      for (VoiceList::const_iterator i = voicelist.cbegin(); i != voicelist.cend(); ++i) {
             res += QString("voice %1 map staff data %2\n")
-                  .arg(QString(i.key() + 1), i.value().toString());
+                  .arg(QString(i->first + 1), i->second.toString());
             }
 
       for (size_t i = 0; i < measureNumbers.size(); ++i) {
@@ -223,10 +223,9 @@ int MusicXmlPart::staffNumberToIndex(const int staffNumber) const
       {
       if (_staffNumberToIndex.size() == 0)
             return staffNumber - 1;
-      else if (_staffNumberToIndex.contains(staffNumber))
-            return  _staffNumberToIndex[staffNumber];
-      else
-            return -1;
+      else if (mu::contains(_staffNumberToIndex, staffNumber))
+            return _staffNumberToIndex.at(staffNumber);
+      return -1;
       }
 
 //---------------------------------------------------------
