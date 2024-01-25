@@ -10,6 +10,8 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
+#include "global/containers.h"
+
 #include "importxmlfirstpass.h"
 
 namespace Ms {

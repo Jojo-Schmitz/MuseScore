@@ -23,12 +23,12 @@
 #include "libmscore/staff.h"
 #include "libmscore/style.h"
 
+#include "mscore/preferences.h"
+
 #include "importmxml.h"
 #include "importmxmllogger.h"
 #include "importmxmlpass1.h"
 #include "importmxmlpass2.h"
-
-#include "mscore/preferences.h"
 
 namespace Ms {
 
