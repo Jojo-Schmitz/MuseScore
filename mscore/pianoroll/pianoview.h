@@ -23,6 +23,7 @@ class Staff;
 class Chord;
 class ChordRest;
 class Segment;
+class Measure;
 class Note;
 class NoteEvent;
 class PianoView;
@@ -168,7 +169,7 @@ private:
       void cutChord(const QPointF& pos);
       void toggleTie(const QPointF& pos);
       void toggleTie(Note*);
-      void compactMeasures();
+      void compactMeasures(QList<Measure*> measures);
       void deleteSeletedNotes();
       void dragSelectionNoteGroup();
       void finishNoteGroupDrag(QMouseEvent* event);
