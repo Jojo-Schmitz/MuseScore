@@ -2008,8 +2008,7 @@ void PianoView::updateNotes()
                         addChord(toChord(e), voice);
                   }
             }
-      for (int i = 0; i < 3; ++i)
-            moveLocator(i);
+
       scene()->blockSignals(false);
 
       scene()->update(sceneRect());
