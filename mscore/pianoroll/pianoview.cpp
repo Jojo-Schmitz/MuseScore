@@ -1255,8 +1255,9 @@ QVector<Note*> PianoView::addNote(Fraction startTick, Fraction duration, int pit
             ChordRest* curChordRest = nullptr;
 
             //Cut first chord if new note starts inside of it
-            if (startTick > curCr->tick())
+            if (startTick > curCr->tick()) {
                   cutChordRest(curCr, track, startTick, cr0, curChordRest);  //Cut at the start of existing chord rest
+                  }
             else
                   curChordRest = curCr;  //We are inserting at start of chordrest
 
@@ -1761,14 +1762,17 @@ bool PianoView::cutChordRest(ChordRest* targetCr, int track, Fraction cutTick, C
             Chord* ch1 = toChord(nextCR);
 
             for (Note* n: ch1->notes()) {
-                  NoteVal nx = n->noteVal();
+                  NoteVal notePitch = n->noteVal();
                   if (!ch0) {
                         ChordRest* cr = score->findCR(startTick, track);
-                        score->setNoteRest(cr->segment(), track, nx, cr->ticks());
+                        score->setNoteRest(cr->segment(), track, notePitch, cr->ticks());
                         ch0 = toChord(score->findCR(startTick, track));
+                        Note* note = ch0->notes()[0];
+                        toggleTie(note);
                         }
                   else {
-                        score->addNote(ch0, nx);
+                        Note* note = score->addNote(ch0, notePitch);
+                        toggleTie(note);
                         }
                   }
             cr0 = ch0;
