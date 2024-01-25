@@ -32,6 +32,8 @@
 #include "libmscore/undo.h"
 #include "libmscore/utils.h"
 
+#pragma optimize("", off)
+
 namespace Ms {
 
 extern MuseScore* mscore;
@@ -302,7 +304,6 @@ PianoView::PianoView()
       setResizeAnchor(QGraphicsView::AnchorUnderMouse);
       setMouseTracking(true);
       _timeType   = TType::TICKS;
-      _playEventsView = true;
       _staff      = nullptr;
       _chord      = nullptr;
       _locator    = nullptr;

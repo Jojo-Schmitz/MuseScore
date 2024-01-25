@@ -106,7 +106,6 @@ private:
       int _subdiv;  //Beat subdivisions
       int _barPattern;
 
-      bool _playEventsView;
       bool _mouseDown;
       bool _dragStarted;
       QString _dragNoteCache;
@@ -253,7 +252,7 @@ private:
       
       void zoomView(int step, bool horizontal, int centerX, int centerY);
 
-      bool playEventsView() { return _playEventsView; }
+      bool playEventsView() { return _editNoteTool == PianoRollEditTool::EVENT_ADJUST; }
       };
 
 
