@@ -2497,6 +2497,31 @@ void Score::cmdDeleteSelection()
             // so we need a local copy:
             QList<Element*> el = selection().elements();
 
+            QList<Note*> notesToDelete;
+
+            for (Element* e : el) {
+                  if (!e->isNote())
+                        continue;
+
+                  Note* noteStart = toNote(e);
+                  while (noteStart->tieBack()) {
+                        noteStart = noteStart->tieBack()->startNote();
+                        }
+                  
+                  notesToDelete.append(noteStart);
+                  for (Note* note = noteStart; note->tieFor() != nullptr; note = note->tieFor()->endNote()) {
+                        int j = 9;
+
+                        notesToDelete.append(note->tieFor()->endNote());
+                        }                  
+                  }
+
+            for (Note* note: notesToDelete)
+                  deleteItem(note);
+            /////////////////////////////////
+
+
+            /*
             // keep track of linked elements that are deleted implicitly
             // so we don't try to delete them twice if they are also in selection
             QList<ScoreElement*> deletedElements;
@@ -2566,19 +2591,20 @@ void Score::cmdDeleteSelection()
                   for (ScoreElement* se : qAsConst(links))
                         deletedElements.append(se);
                   }
-
+*/
             }
 
-      deselectAll();
-      // make new selection if appropriate
-      if (noteEntryMode())
-            cr = _is.cr();
-      if (cr) {
-            if (cr->isChord())
-                  select(toChord(cr)->upNote(), SelectType::SINGLE);
-            else
-                  select(cr, SelectType::SINGLE);
-            }
+      //deselectAll();
+      //// make new selection if appropriate
+      //if (noteEntryMode())
+      //      cr = _is.cr();
+
+      //if (cr) {
+      //      if (cr->isChord())
+      //            select(toChord(cr)->upNote(), SelectType::SINGLE);
+      //      else
+      //            select(cr, SelectType::SINGLE);
+      //      }
       }
 
 //---------------------------------------------------------
