@@ -168,6 +168,8 @@ private:
       void cutChord(const QPointF& pos);
       void toggleTie(const QPointF& pos);
       void toggleTie(Note*);
+      void compactMeasures();
+      void deleteSeletedNotes();
       void dragSelectionNoteGroup();
       void finishNoteGroupDrag(QMouseEvent* event);
       void finishNoteEventAdjustDrag();

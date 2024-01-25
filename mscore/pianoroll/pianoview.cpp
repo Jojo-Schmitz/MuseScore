@@ -2258,7 +2258,8 @@ void PianoView::cutNotes()
       Score* score = _staff->score();
       score->startCmd();
 
-      score->cmdDeleteSelection();
+      //score->cmdDeleteSelection();
+      deleteSeletedNotes();
 
       score->endCmd();
       }
@@ -2276,6 +2277,57 @@ void PianoView::copyNotes()
       QMimeData* mimeData = new QMimeData;
       mimeData->setData(PIANO_NOTE_MIME_TYPE, copiedNotes.toUtf8());
       QApplication::clipboard()->setMimeData(mimeData);
+      }
+
+
+//---------------------------------------------------------
+//   compactMeasures
+//---------------------------------------------------------
+
+void PianoView::compactMeasures()
+{
+}
+
+//---------------------------------------------------------
+//   pasteNotesAtCursor
+//---------------------------------------------------------
+
+void PianoView::deleteSeletedNotes()
+      {
+      ChordRest* cr = 0;            // select something after deleting notes
+
+      Score* score = _staff->score();
+
+      // deleteItem modifies selection().elements() list,
+      // so we need a local copy:
+      QList<Element*> el = score->selection().elements();
+
+      QList<Note*> notesToDelete;
+
+      for (Element* e : el) {
+            if (!e->isNote())
+                  continue;
+
+            Note* noteStart = toNote(e);
+            while (noteStart->tieBack()) {
+                  noteStart = noteStart->tieBack()->startNote();
+            }
+
+            notesToDelete.append(noteStart);
+            for (Note* note = noteStart; note->tieFor() != nullptr; note = note->tieFor()->endNote()) {
+                  int j = 9;
+
+                  notesToDelete.append(note->tieFor()->endNote());
+                  }
+            }
+            
+
+      for (Note* note : notesToDelete)
+            score->deleteItem(note);
+
+
+      compactMeasures();
+
       }
 
 //---------------------------------------------------------
@@ -2356,7 +2408,8 @@ void PianoView::finishNoteGroupDrag(QMouseEvent* event) {
       score->startCmd();
 
       if (!(event->modifiers() & Qt::ShiftModifier)) {
-            score->cmdDeleteSelection();
+            //score->cmdDeleteSelection();
+            deleteSeletedNotes();
             }
       QVector<Note*> notes = pasteNotes(_dragNoteCache, pasteTickOffset, pasteLengthOffset, pitchOffset, true);
 
