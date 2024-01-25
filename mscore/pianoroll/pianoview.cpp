@@ -1253,7 +1253,8 @@ QVector<Note*> PianoView::addNote(Fraction startTick, Fraction duration, int pit
             while (startTick + duration >= curStartTick + curDur) {
                   if (curChordRest->isChord()) {
                         Chord* ch = toChord(curChordRest);
-                        addedNotes.append(score->addNote(ch, added_note_pitch));
+                        if (!std::any_of(ch->notes().begin(), ch->notes().end(), [pitch](Note* n) { return n->pitch() == pitch; }))
+                              addedNotes.append(score->addNote(ch, added_note_pitch));
                         }
                   else {
                         Segment* newSeg = score->setNoteRest(curChordRest->segment(), track, added_note_pitch, curDur);
@@ -1279,7 +1280,8 @@ QVector<Note*> PianoView::addNote(Fraction startTick, Fraction duration, int pit
                   cutChordRest(curChordRest, track, startTick + duration, crMid, crEnd);
                   if (crMid->isChord()) {
                         Chord* ch = toChord(crMid);
-                        addedNotes.append(score->addNote(ch, added_note_pitch));
+                        if (!std::any_of(ch->notes().begin(), ch->notes().end(), [pitch](Note* n) { return n->pitch() == pitch; }))
+                              addedNotes.append(score->addNote(ch, added_note_pitch));
                         }
                   else {
                         Segment* newSeg = score->setNoteRest(crMid->segment(), track, added_note_pitch, duration);
@@ -1291,9 +1293,7 @@ QVector<Note*> PianoView::addNote(Fraction startTick, Fraction duration, int pit
 
       for (auto it = addedNotes.begin(); it != std::prev(addedNotes.end()); it++)
             toggleTie(*it);
-      //for (Note* note: addedNotes) {
-      //      toggleTie(note);
-      //      }
+
       return addedNotes;
       }
 
