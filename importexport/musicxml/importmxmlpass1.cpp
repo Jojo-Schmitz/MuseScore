@@ -25,10 +25,11 @@
 #include "libmscore/page.h"
 #include "libmscore/part.h"
 #include "libmscore/staff.h"
-#include "libmscore/style.h"
 #include "libmscore/sym.h"
 #include "libmscore/symbol.h"
 #include "libmscore/timesig.h"
+#include "libmscore/style.h"
+#include "libmscore/bracketItem.h"
 #include "libmscore/utils.h"
 
 #include "importmxmllogger.h"
