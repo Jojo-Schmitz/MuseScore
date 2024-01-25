@@ -2312,6 +2312,30 @@ void PianoView::compactMeasures(QList<Measure*> measures)
                               Segment* newSeg = score->setNoteRest(cr->segment(), track, NoteVal(-1), crTicks + crNextTicks);
                               cr = newSeg->cr(track);
                               }
+                        else if (cr->isChord() && crNext->isChord()) {
+                              Chord* chord = toChord(cr);
+
+                              bool allAreTied = true;
+                              QList<NoteVal> pitchList;
+
+                              for (Note* n : chord->notes()) {
+                                    if (!n->tieFor()) {
+                                          allAreTied = false;
+                                          break;
+                                          }
+                                    pitchList.append(n->noteVal());
+                                    }
+
+                              if (allAreTied) {
+                                    Segment* newSeg = score->setNoteRest(cr->segment(), track, NoteVal(pitchList.at(0)), crTicks + crNextTicks);
+                                    cr = newSeg->cr(track);
+
+                                    for (int i = 1; i < pitchList.size(); ++i)
+                                          score->addNote(toChord(cr), pitchList.at(i));
+                                    }
+                              else
+                                    cr = crNext;
+                              }
                         else
                               cr = crNext;
                         }
