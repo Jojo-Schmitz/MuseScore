@@ -19,7 +19,7 @@
 
 namespace Ms {
 
-typedef QMap<int, VoiceDesc> VoiceList;
+typedef std::map<int, VoiceDesc> VoiceList;
 //using Intervals = std::map<Fraction, Interval>;
 
 class MusicXmlIntervalList : public std::map<Fraction, Interval> {
@@ -80,9 +80,9 @@ public:
       bool getPrintAbbr() const { return _printAbbr; }
       bool hasTab() const { return _hasTab; }
       void hasTab(const bool b) { _hasTab = b; }
-      QMap<int, int> staffNumberToIndex() const { return _staffNumberToIndex; }
+      std::map<int, int> staffNumberToIndex() const { return _staffNumberToIndex; }
       int staffNumberToIndex(const int staffNumber) const;
-      void insertStaffNumberToIndex(const int staffNumber, const int staffIndex) { _staffNumberToIndex.insert(staffNumber, staffIndex); }
+      void insertStaffNumberToIndex(const int staffNumber, const int staffIndex) { _staffNumberToIndex.insert({ staffNumber, staffIndex }); }
       LyricNumberHandler& lyricNumberHandler() { return _lyricNumberHandler; }
       const LyricNumberHandler& lyricNumberHandler() const { return _lyricNumberHandler; }
       void setMaxStaff(const int staff);
@@ -102,7 +102,7 @@ private:
       LyricNumberHandler _lyricNumberHandler;
       int _maxStaff = -1;                      // maximum staff value found (0 based), -1 = none
       bool _hasLyrics = false;
-      QMap<int, int> _staffNumberToIndex;       // Mapping from staff number to index in staff list.
+      std::map<int, int> _staffNumberToIndex;   // Mapping from staff number to index in staff list.
                                                 // Only for when staves are discarded in MusicXMLParserPass1::attributes.
       };
 
