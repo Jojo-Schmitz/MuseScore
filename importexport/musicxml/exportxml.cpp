@@ -1014,7 +1014,7 @@ static void findTrills(const Measure* const measure, int strack, int etrack, Tri
 // helpers for ::calcDivisions
 //---------------------------------------------------------
 
-typedef QList<int> IntVector;
+typedef std::vector<int> IntVector;
 static IntVector integers;
 static IntVector primes;
 
@@ -1023,7 +1023,7 @@ static IntVector primes;
 static bool canDivideBy(int d)
       {
       bool res = true;
-      for (int i = 0; i < integers.count(); i++) {
+      for (size_t i = 0; i < integers.size(); i++) {
             if ((integers[i] <= 1) || ((integers[i] % d) != 0)) {
                   res = false;
                   }
@@ -1035,15 +1035,15 @@ static bool canDivideBy(int d)
 
 static void divideBy(int d)
       {
-      for (int i = 0; i < integers.count(); i++) {
+      for (size_t i = 0; i < integers.size(); i++) {
             integers[i] /= d;
             }
       }
 
 static void addInteger(int len)
       {
-      if (len > 0 && !integers.contains(len)) {
-            integers.append(len);
+      if (len > 0 && !mu::contains(integers, len)) {
+            integers.push_back(len);
             }
       }
 
@@ -1099,10 +1099,10 @@ void ExportMusicXml::calcDivisions()
       // init
       integers.clear();
       primes.clear();
-      integers.append(MScore::division);
-      primes.append(2);
-      primes.append(3);
-      primes.append(5);
+      integers.push_back(MScore::division);
+      primes.push_back(2);
+      primes.push_back(3);
+      primes.push_back(5);
 
       const QList<Part*>& il = _score->parts();
 
@@ -1165,7 +1165,7 @@ void ExportMusicXml::calcDivisions()
             }
 
       // do it: divide by all primes as often as possible
-      for (int u = 0; u < primes.count(); u++)
+      for (size_t u = 0; u < primes.size(); u++)
             while (canDivideBy(primes[u]))
                   divideBy(primes[u]);
 
@@ -2750,7 +2750,7 @@ static void tremoloSingleStartStop(Chord* chord, Notations& notations, Ornaments
 //   fermatas
 //---------------------------------------------------------
 
-static void fermatas(const QVector<Element*>& cra, XmlWriter& xml, Notations& notations)
+static void fermatas(const std::vector<Element*>& cra, XmlWriter& xml, Notations& notations)
       {
       for (const Element* e : cra) {
             if (!e->isFermata() || !ExportMusicXml::canWrite(e))
@@ -3129,7 +3129,7 @@ void ExportMusicXml::chordAttributes(Chord* chord, Notations& notations, Technic
                                      TrillHash& trillStart, TrillHash& trillStop)
       {
       if (!chord->isGrace()) {
-            QVector<Element*> fl;
+            std::vector<Element*> fl;
             for (Element* e : chord->segment()->annotations()) {
                   if (e->track() == chord->track() && e->isFermata())
                         fl.push_back(e);
@@ -4111,7 +4111,7 @@ void ExportMusicXml::rest(Rest* rest, int staff, const std::vector<Lyrics*>* ll)
             writeBeam(_xml, rest, rest->beam());
 
       Notations notations;
-      QVector<Element*> fl;
+      std::vector<Element*> fl;
       for (Element* e : rest->segment()->annotations()) {
             if (e->isFermata() && e->track() == rest->track())
                   fl.push_back(e);

@@ -144,7 +144,7 @@ public:
       void transpose(const QString& partId, const Fraction& tick);
       void divisions();
       void direction(const QString& partId, const Fraction cTime);
-      void directionType(const Fraction cTime, QList<MxmlOctaveShiftDesc>& starts, QList<MxmlOctaveShiftDesc>& stops);
+      void directionType(const Fraction cTime, std::vector<MxmlOctaveShiftDesc>& starts, std::vector<MxmlOctaveShiftDesc>& stops);
       void handleOctaveShift(const Fraction cTime, const QString& type, short size, MxmlOctaveShiftDesc& desc);
       void notations(MxmlStartStop& tupletStartStop);
       void note(const QString& partId, const Fraction cTime, Fraction& missingPrev, Fraction& dura, Fraction& missingCurr, VoiceOverlapDetector& vod, MxmlTupletStates& tupletStates);
@@ -159,7 +159,7 @@ public:
       void pitch(int& step, float& alter, int& oct);
       void rest();
       void skipLogCurrElem();
-      bool determineMeasureLength(QVector<Fraction>& ml) const;
+      bool determineMeasureLength(std::vector<Fraction>& ml) const;
       VoiceList getVoiceList(const QString id) const;
       bool determineStaffMoveVoice(const QString& id, const int mxStaff, const int& mxVoice,
                                    int& msMove, int& msTrack, int& msVoice) const;
@@ -172,7 +172,7 @@ public:
       void setDrumsetDefault(const QString& id, const QString& instrId, const NoteHead::Group hg, const int line, const Direction sd);
       MusicXmlInstrList getInstrList(const QString id) const;
       MusicXmlIntervalList getIntervals(const QString id) const;
-      Fraction getMeasureStart(const int i) const;
+      Fraction getMeasureStart(const size_t i) const;
       int octaveShift(const QString& id, const int staff, const Fraction f) const;
       const CreditWordsList& credits() const { return _credits; }
       bool hasBeamingInfo() const { return _hasBeamingInfo; }
@@ -184,7 +184,7 @@ public:
       void insertSeenDenominator(int val) { _seenDenominators.emplace(val); }
       void createDefaultHeader(Score* const score);
       void createMeasuresAndVboxes(Score* const score,
-                              const QVector<Fraction>& ml, const QVector<Fraction>& ms,
+                              const std::vector<Fraction>& ml, const std::vector<Fraction>& ms,
                               const std::set<int>& systemStartMeasureNrs,
                               const std::set<int>& pageStartMeasureNrs,
                               const CreditWordsList& crWords,
@@ -206,8 +206,8 @@ private:
       QMap<QString, MusicXmlPart> _parts;       ///< Parts data, mapped on part id
       std::set<int> _systemStartMeasureNrs;     ///< Measure numbers of measures starting a page
       std::set<int> _pageStartMeasureNrs;       ///< Measure numbers of measures starting a page
-      QVector<Fraction> _measureLength;         ///< Length of each measure
-      QVector<Fraction> _measureStart;          ///< Start time of each measure
+      std::vector<Fraction> _measureLength;         ///< Length of each measure
+      std::vector<Fraction> _measureStart;          ///< Start time of each measure
       CreditWordsList _credits;                 ///< All credits collected
       PartMap _partMap;                         ///< TODO merge into MusicXmlPart ??
       QMap<QString, MusicXMLInstruments> _instruments; ///< instruments for each part, mapped on part id

@@ -75,7 +75,7 @@ struct CreditWords {
             }
       };
 
-typedef  QList<CreditWords*> CreditWordsList;
+typedef  std::vector<CreditWords*> CreditWordsList;
 typedef  CreditWordsList::iterator iCreditWords;
 typedef  CreditWordsList::const_iterator ciCreditWords;
 
@@ -97,7 +97,7 @@ public:
       Measure* meas() const { return _meas; }
       };
 
-typedef QList<JumpMarkerDesc> JumpMarkerDescList;
+typedef std::vector<JumpMarkerDesc> JumpMarkerDescList;
 
 //---------------------------------------------------------
 //   SlurDesc

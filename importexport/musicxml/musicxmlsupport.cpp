@@ -80,14 +80,15 @@ const static QMap<QString, AccidentalType> smuflAccidentalTypes {
 
 NoteList::NoteList()
       {
-      for (int i = 0; i < MAX_VOICE_DESC_STAVES; ++i)
-            _staffNoteLists << StartStopList();
+      _staffNoteLists.reserve(MAX_VOICE_DESC_STAVES);
+      for (size_t i = 0; i < MAX_VOICE_DESC_STAVES; ++i)
+            _staffNoteLists.push_back(StartStopList());
       }
 
-void NoteList::addNote(const int startTick, const int endTick, const int staff)
+void NoteList::addNote(const int startTick, const int endTick, const size_t staff)
       {
-      if (staff >= 0 && staff < _staffNoteLists.size())
-            _staffNoteLists[staff] << StartStop(startTick, endTick);
+      if (staff < _staffNoteLists.size())
+            _staffNoteLists[staff].push_back(StartStop(startTick, endTick));
       }
 
 void NoteList::dump(const int& voice) const
@@ -95,7 +96,7 @@ void NoteList::dump(const int& voice) const
       // dump contents
       for (int i = 0; i < MAX_VOICE_DESC_STAVES; ++i) {
             printf("voice %d staff %d:", voice, i);
-            for (int j = 0; j < _staffNoteLists.at(i).size(); ++j)
+            for (size_t j = 0; j < _staffNoteLists.at(i).size(); ++j)
                   printf(" %d-%d", _staffNoteLists.at(i).at(j).first, _staffNoteLists.at(i).at(j).second);
             printf("\n");
             }
@@ -125,8 +126,8 @@ static bool notesOverlap(const StartStop& n1, const StartStop& n2)
 
 bool NoteList::stavesOverlap(const int staff1, const int staff2) const
       {
-      for (int i = 0; i < _staffNoteLists.at(staff1).size(); ++i)
-            for (int j = 0; j < _staffNoteLists.at(staff2).size(); ++j)
+      for (size_t i = 0; i < _staffNoteLists.at(staff1).size(); ++i)
+            for (size_t j = 0; j < _staffNoteLists.at(staff2).size(); ++j)
                   if (notesOverlap(_staffNoteLists.at(staff1).at(i), _staffNoteLists.at(staff2).at(j))) {
                         //printf(" %d-%d", staff1, staff2);
                         return true;
