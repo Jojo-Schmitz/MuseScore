@@ -1157,7 +1157,7 @@ void MusicXMLParserPass1::scorePartwise()
       // set of (typically multi-staff) parts containing one or more explicit brackets
       // spanning only that part: these won't get an implicit brace later
       // e.g. a two-staff piano part with an explicit brace
-      QSet<Part const* const> partSet;
+      std::set<const Part*> partSet;
 
       // handle the explicit brackets
       const QList<Part*>& il = _score->parts();
@@ -1189,14 +1189,14 @@ void MusicXMLParserPass1::scorePartwise()
                   staff->setBracketSpan(pg->column, stavesSpan);
                   // add part to set (skip implicit bracket later)
                   if (pg->span == 1)
-                      partSet << il.at(pg->start);
+                      partSet.insert(il.at(pg->start));
                   }
             }
 
       // handle the implicit brackets:
       // multi-staff parts w/o explicit brackets get a brace
-      foreach (Part const* const p, il) {
-            if (p->nstaves() > 1 && !partSet.contains(p)) {
+      for (const Part* p : il) {
+            if (p->nstaves() > 1 && !mu::contains(partSet, p)) {
                   const int column = p->staff(0)->bracketLevels() + 1;
                   p->staff(0)->setBracketType(column, BracketType::BRACE);
                   p->staff(0)->setBracketSpan(column, p->nstaves());

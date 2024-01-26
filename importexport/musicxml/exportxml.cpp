@@ -363,8 +363,8 @@ class ExportMusicXml {
       void findAndExportClef(const Measure* const m, const int staves, const int strack, const int etrack);
       void exportDefaultClef(const Part* const part, const Measure* const m);
       void writeElement(Element* el, const Measure* m, int sstaff, bool useDrumset);
-      void writeMeasureTracks(const Measure* const m, const int partIndex, const int strack, const int staves, const bool useDrumset, FigBassMap& fbMap, QSet<const Spanner*>& spannersStopped);
-      void writeMeasure(const Measure* const m, const int idx, const int staffCount, MeasureNumberStateHandler& mnsh, FigBassMap& fbMap, const MeasurePrintContext& mpc, QSet<const Spanner*>& spannersStopped);
+      void writeMeasureTracks(const Measure* const m, const int partIndex, const int strack, const int staves, const bool useDrumset, FigBassMap& fbMap, std::set<const Spanner*>& spannersStopped);
+      void writeMeasure(const Measure* const m, const int idx, const int staffCount, MeasureNumberStateHandler& mnsh, FigBassMap& fbMap, const MeasurePrintContext& mpc, std::set<const Spanner*>& spannersStopped);
       void repeatAtMeasureStart(Attributes& attr, const Measure* const m, int strack, int etrack, int track);
       void repeatAtMeasureStop(const Measure* const m, int strack, int etrack, int track);
       void writeParts();
@@ -5241,15 +5241,24 @@ void ExportMusicXml::textLine(TextLineBase const* const tl, int staff, const Fra
 // supported by MusicXML need to be filtered out. Everything not recognized
 // as MusicXML dynamics is written as other-dynamics.
 
+template<typename T>
+inline std::set<QString>& operator<<(std::set<QString>& s, const T& v)
+      {
+      s.insert(v);
+      return s;
+      }
+
 void ExportMusicXml::dynamic(Dynamic const* const dyn, int staff)
       {
-      QSet<QString> set; // the valid MusicXML dynamics
-      set << "f" << "ff" << "fff" << "ffff" << "fffff" << "ffffff"
-          << "fp" << "fz"
-          << "mf" << "mp"
-          << "p" << "pp" << "ppp" << "pppp" << "ppppp" << "pppppp"
-          << "rf" << "rfz"
-          << "sf" << "sffz" << "sfp" << "sfpp" << "sfz";
+      static std::set<QString> set;   // the valid MusicXML dynamics
+      if (set.empty()) {
+            set << "f" << "ff" << "fff" << "ffff" << "fffff" << "ffffff"
+                << "fp" << "fz"
+                << "mf" << "mp"
+                << "p" << "pp" << "ppp" << "pppp" << "ppppp" << "pppppp"
+                << "rf" << "rfz"
+                << "sf" << "sffz" << "sfp" << "sfpp" << "sfz";
+            }
 
       directionTag(_xml, _attr, dyn);
 
@@ -5261,7 +5270,7 @@ void ExportMusicXml::dynamic(Dynamic const* const dyn, int staff)
       _xml.stag(tagName);
       const QString dynTypeName = dyn->dynamicTypeName();
 
-      if (set.contains(dynTypeName)) {
+      if (mu::contains(set, dynTypeName)) {
             _xml.tagE(dynTypeName);
             }
       else if (!dynTypeName.isEmpty()) {
@@ -5299,7 +5308,7 @@ void ExportMusicXml::dynamic(Dynamic const* const dyn, int staff)
                         // found a non-dynamics character
                         if (inDynamicsSym) {
                               if (!text.isEmpty()) {
-                                    if (set.contains(text))
+                                    if (mu::contains(set, text))
                                           _xml.tagE(text);
                                     else
                                           _xml.tag("other-dynamics", text);
@@ -5311,7 +5320,7 @@ void ExportMusicXml::dynamic(Dynamic const* const dyn, int staff)
                         }
                   }
             if (!text.isEmpty()) {
-                  if (inDynamicsSym && set.contains(text))
+                  if (inDynamicsSym && mu::contains(set, text))
                         _xml.tagE(text);
                   else
                         _xml.tag("other-dynamics", text);
@@ -6083,15 +6092,15 @@ static void spannerStart(ExportMusicXml* exp, int strack, int etrack, int track,
 // note that more than one voice may contains notes ending at tick2,
 // remember which spanners have already been stopped (the "stopped" set)
 
-static void spannerStop(ExportMusicXml* exp, int strack, int etrack, const Fraction& tick2, int sstaff, QSet<const Spanner*>& stopped)
+static void spannerStop(ExportMusicXml* exp, int strack, int etrack, const Fraction& tick2, int sstaff, std::set<const Spanner*>& stopped)
       {
       for (auto it : exp->score()->spanner()) {
-            Spanner* e = it.second;
+            const Spanner* e = it.second;
 
             if (e->tick2() != tick2 || e->track() < strack || e->track() >= etrack)
                   continue;
 
-            if (!stopped.contains(e)) {
+            if (!mu::contains(stopped, e)) {
                   stopped.insert(e);
                   switch (e->type()) {
                         case ElementType::HAIRPIN:
@@ -6104,7 +6113,7 @@ static void spannerStop(ExportMusicXml* exp, int strack, int etrack, const Fract
                               exp->pedal(toPedal(e), sstaff, Fraction(-1,1));
                               break;
                         case ElementType::TEXTLINE:
-                              exp->textLine(toTextLineBase(e), sstaff, Fraction(-1,1));
+                              exp->textLine(static_cast<const TextLineBase*>(e), sstaff, Fraction(-1,1));
                               break;
                         case ElementType::LET_RING:
                               exp->textLine(toLetRing(e), sstaff, Fraction(-1,1));
@@ -6683,7 +6692,7 @@ void ExportMusicXml::findAndExportClef(const Measure* const m, const int staves,
  Find the set of pitches actually used in a part.
  */
 
-typedef QSet<int> pitchSet;       // the set of pitches used
+typedef std::set<int> pitchSet;       // the set of pitches used
 
 static void addChordPitchesToSet(const Chord* c, pitchSet& set)
       {
@@ -6825,7 +6834,7 @@ static void partList(XmlWriter& xml, Score* score, MxmlInstrumentMap& instrMap)
                         DrumInstrument di = drumset->drum(i);
                         if (di.notehead != NoteHead::Group::HEAD_INVALID)
                               scoreInstrument(xml, idx + 1, i + 1, di.name);
-                        else if (pitches.contains(i))
+                        else if (mu::contains(pitches, i))
                               scoreInstrument(xml, idx + 1, i + 1, QString("Instrument %1").arg(i + 1));
                         }
                   int midiPort = part->midiPort() + 1;
@@ -6834,7 +6843,7 @@ static void partList(XmlWriter& xml, Score* score, MxmlInstrumentMap& instrMap)
 
                   for (int i = 0; i < 128; ++i) {
                         DrumInstrument di = drumset->drum(i);
-                        if (di.notehead != NoteHead::Group::HEAD_INVALID || pitches.contains(i))
+                        if (di.notehead != NoteHead::Group::HEAD_INVALID || mu::contains(pitches, i))
                               midiInstrument(xml, idx + 1, i + 1, part->instrument(), score, i + 1);
                         }
                   }
@@ -7254,7 +7263,7 @@ void ExportMusicXml::writeMeasureTracks(const Measure* const m,
                                         const int strack, const int staves, // TODO remove ??
                                         const bool useDrumset,
                                         FigBassMap& fbMap,
-                                        QSet<const Spanner*>& spannersStopped)
+                                        std::set<const Spanner*>& spannersStopped)
       {
       bool tboxesAboveWritten = false;
       const auto tboxesAbove = findTextFramesToWriteAsWordsAbove(m);
@@ -7355,7 +7364,7 @@ void ExportMusicXml::writeMeasure(const Measure* const m,
                                   MeasureNumberStateHandler& mnsh,
                                   FigBassMap& fbMap,
                                   const MeasurePrintContext& mpc,
-                                  QSet<const Spanner*>& spannersStopped)
+                                  std::set<const Spanner*>& spannersStopped)
       {
       const Part* part = _score->parts().at(partIndex);
       const int staves = part->nstaves();
@@ -7477,7 +7486,7 @@ void ExportMusicXml::writeParts()
 
             // set of spanners already stopped in this part
             // required to prevent multiple spanner stops for the same spanner
-            QSet<const Spanner*> spannersStopped;
+            std::set<const Spanner*> spannersStopped;
 
             const auto& pages = _score->pages();
             MeasurePrintContext mpc;
