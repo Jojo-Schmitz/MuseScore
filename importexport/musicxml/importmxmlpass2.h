@@ -111,7 +111,7 @@ public:
       void setExtend(const int no, const int track, const Fraction& tick, const Lyrics* prevAddedLyrics);
 
 private:
-      QSet<Lyrics*> _lyrics;
+      std::set<Lyrics*> _lyrics;
       };
 
 struct GraceNoteLyrics {
@@ -131,7 +131,7 @@ class MusicXMLParserLyric {
 public:
       MusicXMLParserLyric(const LyricNumberHandler lyricNumberHandler,
                           QXmlStreamReader& e, Score* score, MxmlLogger* logger);
-      QSet<Lyrics*> extendedLyrics() const { return _extendedLyrics; }
+      std::set<Lyrics*> extendedLyrics() const { return _extendedLyrics; }
       std::map<int, Lyrics*> numberedLyrics() const { return _numberedLyrics; }
       void parse();
 private:
@@ -142,7 +142,7 @@ private:
       Score* const _score = nullptr;      // the score
       MxmlLogger* _logger = nullptr;      ///< Error logger
       std::map<int, Lyrics*> _numberedLyrics; // lyrics with valid number
-      QSet<Lyrics*> _extendedLyrics;      // lyrics with the extend flag set
+      std::set<Lyrics*> _extendedLyrics;      // lyrics with the extend flag set
       };
 
 //---------------------------------------------------------
