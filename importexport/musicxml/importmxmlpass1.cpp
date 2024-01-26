@@ -17,6 +17,8 @@
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //=============================================================================
 
+#include "global/containers.h"
+
 #include "libmscore/box.h"
 #include "libmscore/bracketItem.h"
 #include "libmscore/chordrest.h"

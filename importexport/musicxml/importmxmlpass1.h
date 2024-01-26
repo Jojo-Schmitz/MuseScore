@@ -20,6 +20,8 @@
 #ifndef __IMPORTMXMLPASS1_H__
 #define __IMPORTMXMLPASS1_H__
 
+#include "global/containers.h"
+
 #include "libmscore/score.h"
 #include "importxmlfirstpass.h"
 #include "musicxml.h" // for the creditwords and MusicXmlPartGroupList definitions
