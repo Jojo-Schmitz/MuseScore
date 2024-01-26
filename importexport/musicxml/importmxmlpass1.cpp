@@ -210,7 +210,7 @@ void MusicXMLParserPass1::addError(const QString& error)
  Initialize members as required for reading the MusicXML part element.
  TODO: factor out part reading into a separate class
  TODO: preferably use automatically initialized variables
- Note that Qt automatically initializes new elements in QVector (tuplets).
+ Note that Qt automatically initializes new elements in std::vector (tuplets).
  */
 
 void MusicXMLParserPass1::initPartState(const QString& /* partId */)
@@ -228,19 +228,19 @@ void MusicXMLParserPass1::initPartState(const QString& /* partId */)
  Return false on error.
  */
 
-bool MusicXMLParserPass1::determineMeasureLength(QVector<Fraction>& ml) const
+bool MusicXMLParserPass1::determineMeasureLength(std::vector<Fraction>& ml) const
       {
       ml.clear();
 
       // determine number of measures: max number of measures in any part
-      int nMeasures = 0;
-      foreach (const MusicXmlPart &part, _parts) {
+      size_t nMeasures = 0;
+      for (const MusicXmlPart &part : _parts) {
             if (part.nMeasures() > nMeasures)
                   nMeasures = part.nMeasures();
             }
 
       // determine max length of a specific measure in all parts
-      for (int i = 0; i < nMeasures; ++i) {
+      for (size_t i = 0; i < nMeasures; ++i) {
             Fraction maxMeasDur;
             foreach (const MusicXmlPart &part, _parts) {
                   if (i < part.nMeasures()) {
@@ -250,7 +250,7 @@ bool MusicXMLParserPass1::determineMeasureLength(QVector<Fraction>& ml) const
                         }
                   }
             //qDebug("determineMeasureLength() measure %d %s (%d)", i, qPrintable(maxMeasDur.print()), maxMeasDur.ticks());
-            ml.append(maxMeasDur);
+            ml.push_back(maxMeasDur);
             }
       return true;
       }
@@ -438,9 +438,9 @@ int MusicXMLParserPass1::trackForPart(const QString& id) const
  Return the measure start time for measure \a i.
  */
 
-Fraction MusicXMLParserPass1::getMeasureStart(const int i) const
+Fraction MusicXMLParserPass1::getMeasureStart(const size_t i) const
       {
-      if (0 <= i && i < _measureStart.size())
+      if (i < _measureStart.size())
             return _measureStart.at(i);
       else
             return Fraction(0, 0);       // invalid
@@ -869,7 +869,7 @@ void MusicXMLParserPass1::createDefaultHeader(Score* const score)
  */
 
 void MusicXMLParserPass1::createMeasuresAndVboxes(Score* const score,
-                                    const QVector<Fraction>& ml, const QVector<Fraction>& ms,
+                                    const std::vector<Fraction>& ml, const std::vector<Fraction>& ms,
                                     const std::set<int>& systemStartMeasureNrs,
                                     const std::set<int>& pageStartMeasureNrs,
                                     const CreditWordsList& crWords,
@@ -879,12 +879,12 @@ void MusicXMLParserPass1::createMeasuresAndVboxes(Score* const score,
             createDefaultHeader(score);
 
       int pageNr = 0;
-      for (int i = 0; i < ml.size(); ++i) {
+      for (size_t i = 0; i < ml.size(); ++i) {
 
             VBox* vbox = nullptr;
 
             // add a header vbox if the this measure is the first in the score or the first on a new page
-            if (pageStartMeasureNrs.count(i) || i == 0) {
+            if (pageStartMeasureNrs.count(static_cast<int>(i)) || i == 0) {
                   ++pageNr;
                   if (pageNr == 1) {
                         vbox = addCreditWords(score, crWords, pageSize, true, _exporterString.contains("sibelius"));
@@ -897,19 +897,19 @@ void MusicXMLParserPass1::createMeasuresAndVboxes(Score* const score,
             Measure* measure  = new Measure(score);
             measure->setTick(ms.at(i));
             measure->setTicks(ml.at(i));
-            measure->setNo(i);
+            measure->setNo(static_cast<int>(i));
             score->measures()->add(measure);
 
             // add break to previous measure or vbox
             MeasureBase* mb = vbox;
             if (!mb) mb = measure;
-            if (pageStartMeasureNrs.count(i))
+            if (pageStartMeasureNrs.count(static_cast<int>(i)))
                   addBreakToPreviousMeasureBase(score, mb, LayoutBreak::Type::PAGE);
-            else if (systemStartMeasureNrs.count(i))
+            else if (systemStartMeasureNrs.count(static_cast<int>(i)))
                   addBreakToPreviousMeasureBase(score, mb, LayoutBreak::Type::LINE);
 
             // add a footer vbox if the next measure is on a new page or end of score has been reached
-            if ((pageStartMeasureNrs.count(i + 1) || i == (ml.size() - 1)) && pageNr == 1)
+            if ((pageStartMeasureNrs.count(static_cast<int>(i) + 1) || i == (ml.size() - 1)) && pageNr == 1)
                   addCreditWords(score, crWords, pageSize, false, _exporterString.contains("sibelius"));
             }
       }
@@ -924,7 +924,7 @@ void MusicXMLParserPass1::createMeasuresAndVboxes(Score* const score,
  or start tick measure equals start tick previous measure plus length previous measure
  */
 
-static void determineMeasureStart(const QVector<Fraction>& ml, QVector<Fraction>& ms)
+static void determineMeasureStart(const std::vector<Fraction>& ml, std::vector<Fraction>& ms)
       {
       ms.resize(ml.size());
       if (!(ms.size() > 0))
@@ -933,7 +933,7 @@ static void determineMeasureStart(const QVector<Fraction>& ml, QVector<Fraction>
       // first measure starts at t = 0
       ms[0] = Fraction(0, 1);
       // all others start at start time previous measure plus length previous measure
-      for (int i = 1; i < ml.size(); i++)
+      for (size_t i = 1; i < ml.size(); i++)
             ms[i] = ms.at(i - 1) + ml.at(i - 1);
       //for (int i = 0; i < ms.size(); i++)
       //      qDebug("measurestart ms[%d] %s", i + 1, qPrintable(ms.at(i).print()));
@@ -984,7 +984,7 @@ static void dumpCredits(const CreditWordsList& credits)
  Required by TimeSigMap::tickValues(), called (indirectly) by Segment::add().
  */
 
-static void fixupSigmap(MxmlLogger* logger, Score* score, const QVector<Fraction>& measureLength)
+static void fixupSigmap(MxmlLogger* logger, Score* score, const std::vector<Fraction>& measureLength)
       {
       auto it = score->sigmap()->find(0);
 
@@ -994,7 +994,7 @@ static void fixupSigmap(MxmlLogger* logger, Score* score, const QVector<Fraction
             // use length of first measure instead time signature.
             // if there is no first measure, we probably don't care,
             // but set a default anyway.
-            Fraction tsig = measureLength.isEmpty() ? Fraction(4, 4) : measureLength.at(0);
+            Fraction tsig = measureLength.empty() ? Fraction(4, 4) : measureLength.at(0);
             score->sigmap()->add(0, tsig);
             }
       }
@@ -1195,7 +1195,7 @@ void MusicXMLParserPass1::scorePartwise()
 
       // handle the implicit brackets:
       // multi-staff parts w/o explicit brackets get a brace
-      for (Part const* const p : il) {
+      foreach (Part const* const p, il) {
             if (p->nstaves() > 1 && !partSet.contains(p)) {
                   const int column = p->staff(0)->bracketLevels() + 1;
                   p->staff(0)->setBracketType(column, BracketType::BRACE);
@@ -1503,7 +1503,7 @@ void MusicXMLParserPass1::credit(CreditWordsList& credits)
             // use credit-type only if exactly one was found
             QString crtype = (crtypes.size() == 1) ? crtypes.at(0) : QString();
             CreditWords* cw = new CreditWords(page, crtype, defaultx, defaulty, fontSize, justify, halign, valign, crwords);
-            credits.append(cw);
+            credits.push_back(cw);
             }
 
       }
@@ -2915,8 +2915,8 @@ void MusicXMLParserPass1::direction(const QString& partId, const Fraction cTime)
       // note: file order is direction-type first, then staff
       // this means staff is still unknown when direction-type is handled
 
-      QList<MxmlOctaveShiftDesc> starts;
-      QList<MxmlOctaveShiftDesc> stops;
+      std::vector<MxmlOctaveShiftDesc> starts;
+      std::vector<MxmlOctaveShiftDesc> stops;
       int staff = 0;
 
       while (_e.readNextStartElement()) {
@@ -2938,7 +2938,7 @@ void MusicXMLParserPass1::direction(const QString& partId, const Fraction cTime)
             }
 
       // handle the stops first
-      foreach (auto desc, stops) {
+      for (const MxmlOctaveShiftDesc& desc : stops) {
             if (_octaveShifts.contains(desc.num)) {
                   MxmlOctaveShiftDesc prevDesc = _octaveShifts.value(desc.num);
                   if (prevDesc.tp == MxmlOctaveShiftDesc::Type::UP
@@ -2956,7 +2956,7 @@ void MusicXMLParserPass1::direction(const QString& partId, const Fraction cTime)
             }
 
       // then handle the starts
-      foreach (auto desc, starts) {
+      for (const MxmlOctaveShiftDesc& desc : starts) {
             if (_octaveShifts.contains(desc.num)) {
                   MxmlOctaveShiftDesc prevDesc = _octaveShifts.value(desc.num);
                   if (prevDesc.tp == MxmlOctaveShiftDesc::Type::STOP) {
@@ -2982,8 +2982,8 @@ void MusicXMLParserPass1::direction(const QString& partId, const Fraction cTime)
  */
 
 void MusicXMLParserPass1::directionType(const Fraction cTime,
-                                        QList<MxmlOctaveShiftDesc>& starts,
-                                        QList<MxmlOctaveShiftDesc>& stops)
+                                        std::vector<MxmlOctaveShiftDesc>& starts,
+                                        std::vector<MxmlOctaveShiftDesc>& stops)
       {
       while (_e.readNextStartElement()) {
             if (_e.name() == "octave-shift") {
@@ -3006,9 +3006,9 @@ void MusicXMLParserPass1::directionType(const Fraction cTime,
                         osDesc.num = n;
                         if (osDesc.tp == MxmlOctaveShiftDesc::Type::UP
                             || osDesc.tp == MxmlOctaveShiftDesc::Type::DOWN)
-                              starts.append(osDesc);
+                              starts.push_back(osDesc);
                         else if (osDesc.tp == MxmlOctaveShiftDesc::Type::STOP)
-                              stops.append(osDesc);
+                              stops.push_back(osDesc);
                         }
                   else {
                         _logger->logError(QString("invalid octave-shift number %1").arg(number), &_e);

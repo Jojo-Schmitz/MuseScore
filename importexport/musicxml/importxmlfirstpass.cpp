@@ -37,8 +37,8 @@ MusicXmlPart::MusicXmlPart(QString id, QString name)
 
 void MusicXmlPart::addMeasureNumberAndDuration(QString measureNumber, Fraction measureDuration)
       {
-      measureNumbers.append(measureNumber);
-      measureDurations.append(measureDuration);
+      measureNumbers.push_back(measureNumber);
+      measureDurations.push_back(measureDuration);
       }
 
 void MusicXmlPart::setMaxStaff(const int staff)
@@ -47,9 +47,9 @@ void MusicXmlPart::setMaxStaff(const int staff)
             _maxStaff = staff;
       }
 
-Fraction MusicXmlPart::measureDuration(int i) const
+Fraction MusicXmlPart::measureDuration(size_t i) const
       {
-      if (i >= 0 && i < measureDurations.size())
+      if (i < measureDurations.size())
             return measureDurations.at(i);
       return Fraction(0, 0); // return invalid fraction
       }
@@ -64,7 +64,7 @@ QString MusicXmlPart::toString() const
                   .arg(QString(i.key() + 1), i.value().toString());
             }
 
-      for (int i = 0; i < measureNumbers.size(); ++i) {
+      for (size_t i = 0; i < measureNumbers.size(); ++i) {
             if (i > 0)
                   res += "\n";
             res += QString("measure %1 duration %2 (%3)")

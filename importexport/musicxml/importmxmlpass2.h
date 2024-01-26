@@ -34,10 +34,8 @@ namespace Ms {
 //   support enums / structs / classes
 //---------------------------------------------------------
 
-using GraceChordList = QList<Chord*>;
-using FiguredBassList = QVector<FiguredBass*>;
-//      typedef QList<Chord*> GraceChordList;
-//      typedef QVector<FiguredBass*> FiguredBassList;
+using GraceChordList = std::vector<Chord*>;
+using FiguredBassList = std::vector<FiguredBass*>;
 using Tuplets = std::map<QString, Tuplet*>;
 using Beams = QMap<QString, Beam*>;
 
@@ -193,7 +191,7 @@ class MxmlLogger;
 class MusicXMLDelayedDirectionElement;
 class MusicXMLInferredFingering;
 
-using InferredFingeringsList = QList<MusicXMLInferredFingering*>;
+using InferredFingeringsList = std::vector<MusicXMLInferredFingering*>;
 using SlurStack = std::array<SlurDesc, MAX_NUMBER_LEVEL>;
 using TrillStack = std::array<Trill*, MAX_NUMBER_LEVEL>;
 using BracketsStack = std::array<MusicXmlExtendedSpannerDesc, MAX_NUMBER_LEVEL>;
@@ -207,7 +205,7 @@ using SpannerSet = std::set<Spanner*>;
 //   DelayedDirectionsList
 //---------------------------------------------------------
 
-class DelayedDirectionsList : public QList<MusicXMLDelayedDirectionElement*> {
+class DelayedDirectionsList : public std::vector<MusicXMLDelayedDirectionElement*> {
 public:
       void combineTempoText();
 };
@@ -314,7 +312,7 @@ private:
       void divisions();
       void transpose(const QString& partId, const Fraction& tick);
       Note* note(const QString& partId, Measure* measure, const Fraction sTime, const Fraction prevTime, Fraction& missingPrev,
-                 Fraction& dura, Fraction& missingCurr, QString& currentVoice, GraceChordList& gcl, int& gac, Beams& currBeams,
+                 Fraction& dura, Fraction& missingCurr, QString& currentVoice, GraceChordList& gcl, size_t& gac, Beams& currBeams,
                  FiguredBassList& fbl, int& alt, MxmlTupletStates& tupletStates, Tuplets& tuplets);
       void notePrintSpacingNo(Fraction& dura);
       FiguredBassItem* figure(const int idx, const bool paren);
@@ -428,15 +426,15 @@ private:
       double _tpoSound;                 // tempo according to sound
       bool _systemDirection = false;
       bool _visible = true;
-      QList<Element*> _elems;
+      std::vector<Element*> _elems;
       Fraction _offset;
 
-      void directionType(QList<MusicXmlSpannerDesc>& starts, QList<MusicXmlSpannerDesc>& stops);
-      void bracket(const QString& type, const int number, QList<MusicXmlSpannerDesc>& starts, QList<MusicXmlSpannerDesc>& stops);
-      void octaveShift(const QString& type, const int number, QList<MusicXmlSpannerDesc>& starts, QList<MusicXmlSpannerDesc>& stops);
-      void pedal(const QString& type, const int number, QList<MusicXmlSpannerDesc>& starts, QList<MusicXmlSpannerDesc>& stops);
-      void dashes(const QString& type, const int number, QList<MusicXmlSpannerDesc>& starts, QList<MusicXmlSpannerDesc>& stops);
-      void wedge(const QString& type, const int number, QList<MusicXmlSpannerDesc>& starts, QList<MusicXmlSpannerDesc>& stops);
+      void directionType(std::vector<MusicXmlSpannerDesc>& starts, std::vector<MusicXmlSpannerDesc>& stops);
+      void bracket(const QString& type, const int number, std::vector<MusicXmlSpannerDesc>& starts, std::vector<MusicXmlSpannerDesc>& stops);
+      void octaveShift(const QString& type, const int number, std::vector<MusicXmlSpannerDesc>& starts, std::vector<MusicXmlSpannerDesc>& stops);
+      void pedal(const QString& type, const int number, std::vector<MusicXmlSpannerDesc>& starts, std::vector<MusicXmlSpannerDesc>& stops);
+      void dashes(const QString& type, const int number, std::vector<MusicXmlSpannerDesc>& starts, std::vector<MusicXmlSpannerDesc>& stops);
+      void wedge(const QString& type, const int number, std::vector<MusicXmlSpannerDesc>& starts, std::vector<MusicXmlSpannerDesc>& stops);
       QString metronome(double& r);
       void sound();
       void dynamics();

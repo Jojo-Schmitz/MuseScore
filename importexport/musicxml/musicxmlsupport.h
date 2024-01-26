@@ -38,7 +38,7 @@ namespace Ms {
 */
 
 typedef QPair<int, int> StartStop;
-typedef QList<StartStop> StartStopList;
+typedef std::vector<StartStop> StartStopList;
 
 //---------------------------------------------------------
 //   NoteList
@@ -51,12 +51,12 @@ typedef QList<StartStop> StartStopList;
 class NoteList {
 public:
       NoteList();
-      void addNote(const int startTick, const int endTick, const int staff);
+      void addNote(const int startTick, const int endTick, const size_t staff);
       void dump(const int& voice) const;
       bool stavesOverlap(const int staff1, const int staff2) const;
       bool anyStaffOverlaps() const;
 private:
-      QList<StartStopList> _staffNoteLists; ///< The note start/stop times in all staves
+      std::vector<StartStopList> _staffNoteLists; ///< The note start/stop times in all staves
       };
 
 struct HarmonyDesc

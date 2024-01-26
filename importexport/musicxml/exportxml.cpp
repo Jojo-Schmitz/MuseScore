@@ -2835,7 +2835,7 @@ static void tremoloSingleStartStop(Chord* chord, Notations& notations, Ornaments
 //   fermatas
 //---------------------------------------------------------
 
-static void fermatas(const QVector<Element*>& cra, XmlWriter& xml, Notations& notations)
+static void fermatas(const std::vector<Element*>& cra, XmlWriter& xml, Notations& notations)
       {
       for (const Element* e : cra) {
             if (!e->isFermata() || !ExportMusicXml::canWrite(e))
@@ -3218,7 +3218,7 @@ void ExportMusicXml::chordAttributes(Chord* chord, Notations& notations, Technic
                                      TrillHash& trillStart, TrillHash& trillStop)
       {
       if (!chord->isGrace()) {
-            QVector<Element*> fl;
+            std::vector<Element*> fl;
             for (Element* e : chord->segment()->annotations()) {
                   if (e->track() == chord->track() && e->isFermata())
                         fl.push_back(e);
@@ -4196,7 +4196,7 @@ void ExportMusicXml::rest(Rest* rest, int staff, const std::vector<Lyrics*>* ll)
             writeBeam(_xml, rest, rest->beam());
 
       Notations notations;
-      QVector<Element*> fl;
+      std::vector<Element*> fl;
       for (Element* e : rest->segment()->annotations()) {
             if (e->isFermata() && e->track() == rest->track())
                   fl.push_back(e);
