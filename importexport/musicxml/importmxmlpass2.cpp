@@ -1443,7 +1443,7 @@ static void handleSpannerStart(SLine* new_sp, int track, QString placement, cons
       //qDebug("handleSpannerStart(sp %p, track %d, tick %s (%d))", new_sp, track, qPrintable(tick.print()), tick.ticks());
       new_sp->setTrack(track);
       setSLinePlacement(new_sp, placement);
-      spanners[new_sp] = QPair<int, int>(tick.ticks(), -1);
+      spanners[new_sp] = std::pair<int, int>(tick.ticks(), -1);
       }
 
 //---------------------------------------------------------
@@ -4131,13 +4131,13 @@ double MusicXMLParserDirection::convertTextToNotes()
       static const QRegularExpression notesRegex("(?<note>[yxeqhwW]\\.{0,2})((?:\\s|\u00A0)*=)");
       QString notesSubstring = notesRegex.match(_wordsText).captured("note");
 
-      std::vector<QPair<QString, QString>> noteSyms{{"q", QString("<sym>metNoteQuarterUp</sym>")},   // note4_Sym
-                                                    {"e", QString("<sym>metNote8thUp</sym>")},       // note8_Sym
-                                                    {"h", QString("<sym>metNoteHalfUp</sym>")},      // note2_Sym
-                                                    {"y", QString("<sym>metNote32ndUp</sym>")},      // note32_Sym
-                                                    {"x", QString("<sym>metNote16thUp</sym>")},      // note16_Sym
-                                                    {"w", QString("<sym>metNoteWhole</sym>")},
-                                                    {"W", QString("<sym>metNoteDoubleWhole</sym>")}};
+      std::vector<std::pair<QString, QString>> noteSyms{{"q", QString("<sym>metNoteQuarterUp</sym>")},   // note4_Sym
+                                                        {"e", QString("<sym>metNote8thUp</sym>")},       // note8_Sym
+                                                        {"h", QString("<sym>metNoteHalfUp</sym>")},      // note2_Sym
+                                                        {"y", QString("<sym>metNote32ndUp</sym>")},      // note32_Sym
+                                                        {"x", QString("<sym>metNote16thUp</sym>")},      // note16_Sym
+                                                        {"w", QString("<sym>metNoteWhole</sym>")},
+                                                        {"W", QString("<sym>metNoteDoubleWhole</sym>")}};
       for (auto noteSym : noteSyms) {
             if (notesSubstring.contains(noteSym.first)) {
                   notesSubstring.replace(noteSym.first, noteSym.second);
@@ -7715,7 +7715,7 @@ static void addGlissandoSlide(const Notation& notation, Note* note,
                         gliss->setLineColor(glissandoColor);
                   gliss->setText(glissandoText);
                   gliss->setGlissandoType(glissandoTag == 0 ? GlissandoType::STRAIGHT : GlissandoType::WAVY);
-                  spanners[gliss] = QPair<int, int>(tick.ticks(), -1);
+                  spanners[gliss] = std::pair<int, int>(tick.ticks(), -1);
                   // qDebug("glissando/slide=%p inserted at first tick %d", gliss, tick);
                   }
             }
@@ -7871,11 +7871,11 @@ static void addWavyLine(ChordRest* cr, const Fraction& tick,
                         trill = new Trill(cr->score());
                         trill->setTrack(trk);
                         if (wavyLineType == "start") {
-                              spanners[trill] = QPair<int, int>(tick.ticks(), -1);
+                              spanners[trill] = std::pair<int, int>(tick.ticks(), -1);
                               // qDebug("trill=%p inserted at first tick %d", trill, tick);
                               }
                         if (wavyLineType == "startstop") {
-                              spanners[trill] = QPair<int, int>(tick.ticks(), tick.ticks() + ticks.ticks());
+                              spanners[trill] = std::pair<int, int>(tick.ticks(), tick.ticks() + ticks.ticks());
                               trill = nullptr;
                               // qDebug("trill=%p inserted at first tick %d second tick %d", trill, tick, tick);
                               }

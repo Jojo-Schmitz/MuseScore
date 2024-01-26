@@ -37,7 +37,7 @@ namespace Ms {
  List of note start/stop times in a voice in a single staff.
 */
 
-typedef QPair<int, int> StartStop;
+typedef std::pair<int, int> StartStop;
 typedef std::vector<StartStop> StartStopList;
 
 //---------------------------------------------------------
