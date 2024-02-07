@@ -314,7 +314,7 @@ struct MeasurePrintContext final
 //   ExportMusicXml
 //---------------------------------------------------------
 
-typedef QHash<const ChordRest* const, const Trill*> TrillHash;
+typedef std::unordered_map<const ChordRest*, const Trill*> TrillHash;
 typedef std::map<const Instrument*, int> MxmlInstrumentMap;
 
 class ExportMusicXml {
@@ -355,10 +355,8 @@ class ExportMusicXml {
       void calcDivMoveToTick(const Fraction& t, const Fraction& stretch = {1, 1});
       void calcDivisions();
       void keysigTimesig(const Measure* m, const Part* p);
-      void chordAttributes(Chord* chord, Notations& notations, Technical& technical,
-                           TrillHash& trillStart, TrillHash& trillStop);
-      void wavyLineStartStop(const ChordRest* const cr, Notations& notations, Ornaments& ornaments,
-                             TrillHash& trillStart, TrillHash& trillStop);
+      void chordAttributes(Chord* chord, Notations& notations, Technical& technical, TrillHash& trillStart, TrillHash& trillStop);
+      void wavyLineStartStop(const ChordRest* cr, Notations& notations, Ornaments& ornaments, TrillHash& trillStart, TrillHash& trillStop);
       void print(const Measure* const m, const int partNr, const int firstStaffOfPart, const int nrStavesInPart, const MeasurePrintContext& mpc);
       void findAndExportClef(const Measure* const m, const int staves, const int strack, const int etrack);
       void exportDefaultClef(const Part* const part, const Measure* const m);
@@ -1039,8 +1037,8 @@ static void findTrills(const Measure* const measure, int strack, int etrack, Tri
                   Element* elem2 = tr->endElement();
 
                   if (elem1 && elem1->isChordRest() && elem2 && elem2->isChordRest()) {
-                        trillStart.insert(toChordRest(elem1), tr);
-                        trillStop.insert(toChordRest(elem2), tr);
+                        trillStart.insert({ toChordRest(elem1), tr });
+                        trillStop.insert({ toChordRest(elem2), tr });
                         }
                   }
             }
@@ -2715,11 +2713,11 @@ static void wavyLineStop(const Trill* tr, const int number, Notations& notations
 //   wavyLineStartStop
 //---------------------------------------------------------
 
-void ExportMusicXml::wavyLineStartStop(const ChordRest* const cr, Notations& notations, Ornaments& ornaments,
+void ExportMusicXml::wavyLineStartStop(const ChordRest* cr, Notations& notations, Ornaments& ornaments,
                                        TrillHash& trillStart, TrillHash& trillStop)
       {
-      if (trillStart.contains(cr) && trillStop.contains(cr)) {
-            const Trill* tr = trillStart.value(cr);
+      if (mu::contains(trillStart, cr) && mu::contains(trillStop, cr)) {
+            const Trill* tr = trillStart.at(cr);
             int n = findTrill(0);
             if (n >= 0) {
                   wavyLineStart(tr, n, notations, ornaments, _xml);
@@ -2730,8 +2728,8 @@ void ExportMusicXml::wavyLineStartStop(const ChordRest* const cr, Notations& not
                          cr, cr->staffIdx(), cr->tick().ticks());
             }
       else {
-            if (trillStop.contains(cr)) {
-                  const Trill* tr = trillStop.value(cr);
+            if (mu::contains(trillStop, cr)) {
+                  const Trill* tr = trillStop.at(cr);
                   int n = findTrill(tr);
                   if (n >= 0)
                         // trill stop after trill start
@@ -2748,10 +2746,10 @@ void ExportMusicXml::wavyLineStartStop(const ChordRest* const cr, Notations& not
                   if (n >= 0) {
                         wavyLineStop(tr, n, notations, ornaments, _xml);
                         }
-                  trillStop.remove(cr);
+                  mu::remove(trillStop, cr);
                   }
-            if (trillStart.contains(cr)) {
-                  const Trill* tr = trillStart.value(cr);
+            if (mu::contains(trillStart, cr)) {
+                  const Trill* tr = trillStart.at(cr);
                   int n = findTrill(tr);
                   if (n >= 0)
                         qDebug("wavyLineStartStop error");
@@ -2764,7 +2762,7 @@ void ExportMusicXml::wavyLineStartStop(const ChordRest* const cr, Notations& not
                         else
                               qDebug("too many overlapping trills (cr %p staff %d tick %d)",
                                      cr, cr->staffIdx(), cr->tick().ticks());
-                        trillStart.remove(cr);
+                        mu::remove(trillStart, cr);
                         }
                   }
             }
