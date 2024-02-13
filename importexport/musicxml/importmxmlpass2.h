@@ -234,6 +234,7 @@ private:
       void technical();
       void tied();
       void tuplet();
+      void otherNotation();
       QXmlStreamReader& _e;
       Score* const _score;                      // the score
       MxmlLogger* _logger;                      // the error logger
@@ -391,6 +392,7 @@ private:
       QString _sndSegno;
       QString _sndToCoda;
       QString _placement;
+      bool visible = true;
       bool _hasDefaultY;
       qreal _defaultY;
       bool _hasRelativeY;
@@ -411,6 +413,7 @@ private:
       QString metronome(double& r);
       void sound();
       void dynamics();
+      void otherDirection();
       void handleRepeats(Measure* measure, const int track, const Fraction tick);
       QString matchRepeat() const;
       void handleNmiCmi(Measure* measure, const int track, const Fraction tick, DelayedDirectionsList& delayedDirections);
