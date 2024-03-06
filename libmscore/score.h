@@ -552,7 +552,7 @@ class Score : public QObject, public ScoreElement {
       void resetTempoRange(const Fraction& tick1, const Fraction& tick2);
 
       void deleteSpannersFromRange(const Fraction& t1, const Fraction& t2, int trackStart, int trackEnd, const SelectionFilter& filter);
-      void deleteAnnotationsFromRange(Segment* segStart, Segment* segEnd, int trackStart, int trackEnd, const SelectionFilter& filter);
+      void deleteAnnotationsFromRange(Segment* segStart, Segment* segEnd, int trackStart, int trackEnd, const SelectionFilter& filter, bool deleteInstrumentChanges);
       std::vector<ChordRest*> deleteRange(Segment* segStart, Segment* segEnd, int trackStart, int trackEnd,
                                           const SelectionFilter& filter);
 

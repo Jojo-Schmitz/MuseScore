@@ -2321,7 +2321,7 @@ void Score::deleteSpannersFromRange(const Fraction& t1, const Fraction& t2, int 
 ///   given selection filter.
 //---------------------------------------------------------
 
-void Score::deleteAnnotationsFromRange(Segment* s1, Segment* s2, int track1, int track2, const SelectionFilter& filter)
+void Score::deleteAnnotationsFromRange(Segment* s1, Segment* s2, int track1, int track2, const SelectionFilter& filter, bool deleteInstrumentChanges)
       {
       if (!s1)
             return;
@@ -2337,8 +2337,11 @@ void Score::deleteAnnotationsFromRange(Segment* s1, Segment* s2, int track1, int
                         // skip if not included in selection (eg, filter)
                         if (!filter.canSelect(annotation))
                               continue;
-                        if (!annotation->systemFlag() && annotation->track() == track)
+                        if (!annotation->systemFlag() && annotation->track() == track) {
+                              if (annotation->isInstrumentChange() && !deleteInstrumentChanges)
+                                    continue;
                               deleteItem(annotation);
+                              }
                         }
                   }
             }
@@ -2389,7 +2392,7 @@ std::vector<ChordRest*> Score::deleteRange(Segment* s1, Segment* s2, int track1,
                               continue;
                               }
                         // delete annotations just from this segment and track
-                        deleteAnnotationsFromRange(s, s->next1(), track, track + 1, filter);
+                        deleteAnnotationsFromRange(s, s->next1(), track, track + 1, filter, true);
 
                         Element* e = s->element(track);
                         if (!e)

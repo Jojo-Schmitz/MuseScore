@@ -1098,7 +1098,7 @@ Fraction Score::makeGap(Segment* segment, int track, const Fraction& _sd, Tuplet
             typedef SelectionFilterType Sel;
             // chord symbols can exist without chord/rest so they should not be removed
             constexpr Sel filter = static_cast<Sel>(int(Sel::ALL) & ~int(Sel::CHORD_SYMBOL));
-            deleteAnnotationsFromRange(s1, s2, track, track + 1, filter);
+            deleteAnnotationsFromRange(s1, s2, track, track + 1, filter, false);
             deleteSpannersFromRange(t1, t2, track, track + 1, filter);
             }
 
@@ -1138,7 +1138,7 @@ bool Score::makeGap1(const Fraction& baseTick, int staffIdx, const Fraction& len
                   typedef SelectionFilterType Sel;
                   // chord symbols can exist without chord/rest so they should not be removed
                   constexpr Sel filter = static_cast<Sel>(int(Sel::ALL) & ~int(Sel::CHORD_SYMBOL));
-                  deleteAnnotationsFromRange(tick2rightSegment(tick), tick2rightSegment(endTick), track, track + 1, filter);
+                  deleteAnnotationsFromRange(tick2rightSegment(tick), tick2rightSegment(endTick), track, track + 1, filter, false);
                   deleteSpannersFromRange(tick, endTick, track, track + 1, filter);
                   }
 
