@@ -17,7 +17,6 @@
 // start includes required for fixupScore()
 #include "libmscore/measure.h"
 #include "libmscore/staff.h"
-#include "libmscore/keysig.h"
 // end includes required for fixupScore()
 
 namespace Ms {
@@ -242,6 +241,7 @@ private slots:
       void sound2() { mxmlIoTestRef("testSound2"); }
       // void specialCharacters() { mxmlIoTest("testSpecialCharacters"); } // TODO
       void staffEmptiness() { mxmlImportTestRef("testStaffEmptiness"); }
+      void staffSize() { mxmlIoTest("testStaffSize"); }
       void staffTwoKeySigs() { mxmlIoTest("testStaffTwoKeySigs"); }
       void stringData()      { mxmlIoTest("testStringData"); }
       void stringVoiceName() { mxmlIoTestRef("testStringVoiceName"); }
