@@ -14,6 +14,8 @@
 #include "segment.h"
 #include "score.h"
 
+#include "log.h"
+
 namespace Ms {
 
 //---------------------------------------------------------
@@ -122,19 +124,26 @@ void SegmentList::insert(Segment* e, Segment* el)
 
 void SegmentList::remove(Segment* e)
       {
+      // TODO: These types are problematic in certain circumstances. findBeforeRemove is a workaround for
+      // crashes #21049, #21098, and #21501 in release builds. It does not address the root cause.
+      bool findBeforeRemove = e->isHeaderClefType() || e->isKeySigType();
 #ifndef NDEBUG
-      check();
-      bool found = false;
-      for (Segment* s = _first; s; s = s->next()) {
-            if (e == s) {
-                  found = true;
-                  break;
+      findBeforeRemove = true;
+#endif
+      if (findBeforeRemove) {
+            check();
+            bool found = false;
+            for (Segment* s = _first; s; s = s->next()) {
+                  if (e == s) {
+                        found = true;
+                        break;
+                        }
+                  }
+            IF_ASSERT_FAILED(found) {
+                  LOGE() << QString("segment %1 not in list").arg(e->subTypeName());
+                  return;
                   }
             }
-      if (!found) {
-            qFatal("segment %p %s not in list", e, e->subTypeName());
-            }
-#endif
       --_size;
       if (e == _first) {
             _first = _first->next();
