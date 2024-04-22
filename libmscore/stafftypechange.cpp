@@ -203,11 +203,25 @@ bool StaffTypeChange::setProperty(Pid propertyId, const QVariant& v)
             case Pid::STEP_OFFSET:
                   m_staffType->setStepOffset(v.toInt());
                   break;
-            case Pid::STAFF_LINES:
-                  m_staffType->setLines(v.toInt());
+            case Pid::STAFF_LINES: {
+                  int linesOld = m_staffType->lines();
+                  int linesNew = v.toInt();
+
+                  // if change to one line staff, center by setting y offset 2 Spatium * lineDistance
+                  if (linesNew == 1 && linesOld != 1)
+                        m_staffType->setYoffset(Spatium(2 * m_staffType->lineDistance()));
+                  else if (linesOld == 1 && linesNew != 1)
+                        m_staffType->setYoffset(Spatium(0));
+                  m_staffType->setLines(linesNew);
+                  }
                   break;
-            case Pid::LINE_DISTANCE:
+            case Pid::LINE_DISTANCE: {
+                  Spatium yOffset = m_staffType->yoffset() - 2 * m_staffType->lineDistance();
                   m_staffType->setLineDistance(v.value<Spatium>());
+                  if (m_staffType->lines() == 1) {
+                        m_staffType->setYoffset(yOffset + Spatium(2 * m_staffType->lineDistance()));
+                        }
+                  }
                   break;
             case Pid::STAFF_SHOW_BARLINES:
                   m_staffType->setShowBarlines(v.toBool());
