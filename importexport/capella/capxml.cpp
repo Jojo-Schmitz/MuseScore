@@ -734,9 +734,15 @@ void Capella::readCapxVoice(XmlReader& e, CapStaff* cs, int idx)
                   while (e.readNextStartElement()) {
                         const QStringRef& tag(e.name());
                         if (tag == "clefSign") {
+                              static CapClef* prevClef = nullptr;
                               CapClef* clef = new CapClef(this);
                               clef->readCapx(e);
-                              v->objects.append(clef);
+                              if (!prevClef || prevClef->clef() != clef->clef()) {
+                                    prevClef = clef;
+                                    v->objects.append(clef);
+                                    }
+                              else
+                                    delete clef;
                               }
                         else if (tag == "keySign") {
                               CapKey* key = new CapKey(this);
