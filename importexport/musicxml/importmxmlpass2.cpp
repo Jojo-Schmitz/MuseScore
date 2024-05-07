@@ -3311,10 +3311,9 @@ void MusicXMLParserDirection::direction(const QString& partId,
       else if (isLikelySticking() && isPercussionStaff) {
             Sticking* sticking = new Sticking(_score);
             sticking->setXmlText(_wordsText);
-            if (!qFuzzyIsNull(_relativeX) || !qFuzzyIsNull(_relativeY)) {
+            if (!qFuzzyIsNull(_relativeX)) {
                   QPointF offset = sticking->offset();
-                  offset.setX(!qFuzzyIsNull(_relativeX) ? _relativeX : sticking->offset().x());
-                  offset.setY(!qFuzzyIsNull(_relativeY) ? _relativeY : sticking->offset().y());
+                  offset.setX(_relativeX);
                   sticking->setOffset(offset);
                   sticking->setPropertyFlags(Pid::OFFSET, PropertyFlags::UNSTYLED);
                   }
