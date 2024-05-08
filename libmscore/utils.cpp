@@ -10,25 +10,25 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "config.h"
-#include "score.h"
-#include "page.h"
-#include "segment.h"
 #include "clef.h"
-#include "keysig.h"
-#include "utils.h"
-#include "system.h"
-#include "measure.h"
-#include "pitchspelling.h"
-#include "chordrest.h"
-#include "part.h"
-#include "staff.h"
-#include "note.h"
 #include "chord.h"
+#include "chordrest.h"
+#include "config.h"
 #include "key.h"
+#include "keysig.h"
+#include "measure.h"
+#include "note.h"
+#include "page.h"
+#include "part.h"
+#include "pitchspelling.h"
+#include "score.h"
+#include "segment.h"
 #include "sig.h"
-#include "tuplet.h"
+#include "staff.h"
 #include "sym.h"
+#include "system.h"
+#include "tuplet.h"
+#include "utils.h"
 
 namespace Ms {
 
@@ -494,6 +494,92 @@ QString pitch2string(int v)
       o = QString::asprintf("%d", octave);
       int i = v % 12;
       return qApp->translate("utils", octave < 0 ? valu[i] : vall[i]) + o;
+      }
+
+static const char* valSharp[] = {
+      "c",
+      "c♯",
+      "d",
+      "d♯",
+      "e",
+      "f",
+      "f♯",
+      "g",
+      "g♯",
+      "a",
+      "a♯",
+      "b"
+};
+static const char* valFlat[] = {
+      "c",
+      "d♭",
+      "d",
+      "e♭",
+      "e",
+      "f",
+      "g♭",
+      "g",
+      "a♭",
+      "a",
+      "b♭",
+      "b"
+};
+
+/*!
+ * Returns the pitch number of the given string.
+ *
+ * @param s
+ *  The string representation of the note.
+ *
+ * @return
+ *  The pitch number of the note.
+ */
+int string2pitch(const QString& s)
+      {
+      if (s == QString("----"))
+            return -1;
+
+      QString value = s;
+
+      bool negative = s.contains('-');
+      int octave = QString(s[s.size() - 1]).toInt() * (negative ? -1 : 1);
+      if (octave < -1 || octave > 9)
+            return -1;
+
+      value = value.mid(0, value.size() - (negative ? 2 : 1));
+      value = value.toLower();
+
+      int pitchIndex = -1;
+      for (int i = 0; i < PITCH_DELTA_OCTAVE; ++i) {
+            if (value == valFlat[i] || value == valSharp[i]) {
+                  pitchIndex = i;
+                  break;
+                  }
+            }
+
+      if (pitchIndex == -1)
+            return -1;
+
+      return (octave + 1) * PITCH_DELTA_OCTAVE + pitchIndex;
+      }
+
+QString convertPitchStringFlatsAndSharpsToUnicode(const QString& str)
+      {
+      if (str.isEmpty())
+            return QString();
+
+      QString value = QString(str[0]);
+      for (int i = 1; i < str.size(); ++i) {
+            QChar symbol = str.at(i).toLower();
+            if (symbol == u'b')
+                  value.append(u'♭');
+            else if (symbol == u'#')
+                  value.append(u'♯');
+            else
+                  value.append(symbol);
+            }
+
+      return value;
       }
 
 /*!
