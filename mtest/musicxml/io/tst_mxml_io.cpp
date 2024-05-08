@@ -164,6 +164,8 @@ private slots:
       void helloReadCompr() { mxmlReadTestCompr("testHello"); }
       void helloReadWriteCompr() { mxmlReadWriteTestCompr("testHello"); }
       void implicitMeasure1() { mxmlIoTest("testImplicitMeasure1"); }
+      void importDrums() { mxmlImportTestRef("testImportDrums"); }
+      void importDrums2() { mxmlImportTestRef("testImportDrums2"); }
       void incompleteTuplet() { mxmlIoTestRef("testIncompleteTuplet"); }
       void incorrectStaffNumber1() { mxmlIoTestRef("testIncorrectStaffNumber1"); }
       void incorrectStaffNumber2() { mxmlIoTestRef("testIncorrectStaffNumber2"); }
@@ -181,6 +183,7 @@ private slots:
       void inferredTransposition() { mxmlImportTestRef("testInferredRights"); }
       void instrumentChangeMIDIportExport() { mxmlMscxExportTestRef("testInstrumentChangeMIDIportExport"); }
       void instrumentSound() { mxmlIoTestRef("testInstrumentSound"); }
+      void instrImport() { mxmlImportTestRef("testinstrImport"); }
       void invalidLayout() { mxmlMscxExportTestRef("testInvalidLayout"); }
       void invalidTimesig() { mxmlIoTestRef("testInvalidTimesig"); }
       void invisibleDirection() { mxmlIoTest("testInvisibleDirection"); }
