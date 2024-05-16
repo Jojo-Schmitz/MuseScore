@@ -18,22 +18,21 @@
 //=============================================================================
 
 #include "musescore.h"
-#include "timeline.h"
+#include "pathlistdialog.h"
 #include "preferences.h"
 #include "prefsdialog.h"
-#include "seq.h"
-#include "shortcutcapturedialog.h"
+#include "resourceManager.h"
 #include "scoreview.h"
+#include "seq.h"
 #include "shortcut.h"
+#include "shortcutcapturedialog.h"
+#include "timeline.h"
 #include "workspace.h"
 
 #include "audio/drivers/pa.h"
 #ifdef USE_PORTMIDI
 #include "audio/drivers/pm.h"
 #endif
-
-#include "pathlistdialog.h"
-#include "resourceManager.h"
 
 #ifdef AVSOMR
 #include "avsomr/avsomrlocal.h"
@@ -245,8 +244,11 @@ PreferenceDialog::PreferenceDialog(QWidget* parent)
       recordButtons->addButton(recordUndo,   RMIDI_UNDO);
       recordButtons->addButton(recordEditMode, RMIDI_NOTE_EDIT_MODE);
       recordButtons->addButton(recordRealtimeAdvance, RMIDI_REALTIME_ADVANCE);
-
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
       connect(recordButtons,              QOverload<int>::of(&QButtonGroup::buttonClicked), this, &PreferenceDialog::recordButtonClicked);
+#else
+      connect(recordButtons,              QOverload<int>::of(&QButtonGroup::idClicked), this, &PreferenceDialog::recordButtonClicked);
+#endif
       connect(midiRemoteControlClear,     &QToolButton::clicked, this, &PreferenceDialog::midiRemoteControlClearClicked);
       connect(portaudioDriver,            &QGroupBox::toggled, this, &PreferenceDialog::exclusiveAudioDriver);
       connect(pulseaudioDriver,           &QGroupBox::toggled, this, &PreferenceDialog::exclusiveAudioDriver);
@@ -1802,7 +1804,7 @@ void PreferenceDialog::printShortcutsClicked()
       QPainter p;
       p.begin(&printer);
       qreal y = 0.0;
-      qreal lh = QFontMetricsF(p.font()).lineSpacing();
+      qreal lh = QFontMetricsF(p.font()).height();
 
       // get max width for description
       QMapIterator<QString, Shortcut*> isc(localShortcuts);
@@ -1828,7 +1830,7 @@ void PreferenceDialog::printShortcutsClicked()
                         p.setFont(font);
                         p.drawText(lm, y, tr("MuseScore Shortcuts"));
                         p.restore();
-                        y += QFontMetricsF(font).lineSpacing();
+                        y += QFontMetricsF(font).height();
                         y += 5 * dpmm;
                         }
                   }

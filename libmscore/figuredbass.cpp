@@ -10,16 +10,15 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "figuredbass.h"
-#include "score.h"
-#include "note.h"
-#include "measure.h"
-#include "system.h"
-#include "segment.h"
 #include "chord.h"
+#include "figuredbass.h"
+#include "measure.h"
+#include "note.h"
 #include "rest.h"
 #include "score.h"
+#include "segment.h"
 #include "sym.h"
+#include "system.h"
 #include "xml.h"
 
 // trying to do without it
@@ -548,7 +547,7 @@ void FiguredBassItem::layout()
       else                                // if no text (but possibly a line)
             x = 0;                        // start at note left margin
       // vertical position
-      h = fm.lineSpacing();
+      h = fm.height();
       h *= score()->styleD(Sid::figuredBassLineHeight);
       if (score()->styleI(Sid::figuredBassAlignment) == 0)          // top alignment: stack down from first item
             y = h * ord;
@@ -1312,7 +1311,11 @@ void FiguredBass::endEdit(EditData& ed)
             return;
 
       // split text into lines and create an item for each line
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
       QStringList list = txt.split('\n', QString::SkipEmptyParts);
+#else
+      QStringList list = txt.split('\n', Qt::SkipEmptyParts);
+#endif
       qDeleteAll(items);
       items.clear();
       QString normalizedText = QString();
@@ -1776,11 +1779,11 @@ FiguredBass* Score::addFiguredBass()
       FiguredBass * fb;
       bool bNew = true;
       if (el->isNote()) {
-            ChordRest * cr = toNote(el)->chord();
+            Chord * cr = toNote(el)->chord();
             fb = FiguredBass::addFiguredBassToSegment(cr->segment(), cr->staffIdx() * VOICES, Fraction(0,1), &bNew);
             }
       else if (el->isRest()) {
-            ChordRest* cr = toRest(el);
+            Rest* cr = toRest(el);
             fb = FiguredBass::addFiguredBassToSegment(cr->segment(), cr->staffIdx() * VOICES, Fraction(0, 1), &bNew);
             }
       else if (el->isFiguredBass()) {

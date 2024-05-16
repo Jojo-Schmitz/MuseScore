@@ -984,7 +984,7 @@ void TextBlock::layout(TextBase* t)
 
             QRectF temp(0.0, -fm.ascent(), 1.0, fm.descent());
             _bbox |= temp;
-            _lineSpacing = qMax(_lineSpacing, fm.lineSpacing());
+            _lineSpacing = qMax(_lineSpacing, fm.height());
             }
       else {
             const auto fiLast = --_fragments.end();
@@ -1012,7 +1012,7 @@ void TextBlock::layout(TextBase* t)
                         }
 
                   _bbox   |= fm.tightBoundingRect(f.text).translated(f.pos);
-                  _lineSpacing = qMax(_lineSpacing, fm.lineSpacing());
+                  _lineSpacing = qMax(_lineSpacing, fm.height());
                   }
             }
 
@@ -1937,7 +1937,7 @@ void TextBase::layoutFrame()
 
 qreal TextBase::lineSpacing() const
       {
-      return fontMetrics().lineSpacing() * MScore::pixelRatio;
+      return fontMetrics().height() * MScore::pixelRatio;
       }
 
 //---------------------------------------------------------
