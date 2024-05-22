@@ -59,6 +59,7 @@
 #include "libmscore/slur.h"
 #include "libmscore/staff.h"
 #include "libmscore/stafftext.h"
+#include "libmscore/stem.h"
 #include "libmscore/sym.h"
 #include "libmscore/system.h"
 #include "libmscore/tempo.h"
@@ -5954,6 +5955,7 @@ Note* MusicXMLParserPass2::note(const QString& partId,
       NoteHead::Scheme headScheme = NoteHead::Scheme::HEAD_AUTO;
       const QColor noteColor { _e.attributes().value("color").toString() };
       QColor noteheadColor = QColor::Invalid;
+      QColor stemColor = QColor::Invalid;
       bool noteheadParentheses = false;
       QString noteheadFilled;
       int velocity = round(_e.attributes().value("dynamics").toDouble() * 0.9);
@@ -6029,8 +6031,10 @@ Note* MusicXMLParserPass2::note(const QString& partId,
                         staff = -1;
                         }
                   }
-            else if (_e.name() == "stem")
+            else if (_e.name() == "stem") {
+                  stemColor.setNamedColor(_e.attributes().value("color").toString());
                   stem(stemDir, noStem);
+                  }
             else if (_e.name() == "tie") {
                   tieType = _e.attributes().value("type").toString();
                   _e.skipCurrentElement();
@@ -6206,14 +6210,24 @@ Note* MusicXMLParserPass2::note(const QString& partId,
                   note->setHeadScheme(headScheme);
             if (noteColor.isValid()/* && preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTLAYOUT)*/)
                   note->setColor(noteColor);
+            Stem* stem = c->stem();
+            if (!stem) {
+                  stem = new Stem(_score);
+                  if (stemColor.isValid())
+                        stem->setColor(stemColor);
+                  else if (noteColor.isValid())
+                        stem->setColor(noteColor);
+                  c->add(stem);
+                  }
             setNoteHead(note, noteheadColor, noteheadParentheses, noteheadFilled);
             note->setVisible(hasHead && printObject); // TODO also set the stem to invisible
+            stem->setVisible(printObject);
 
             if (!grace) {
                   handleSmallness(cue || isSmall, note, c);
                   note->setPlay(!cue);          // cue notes don't play
                   note->setHeadGroup(headGroup);
-                  if (noteColor != QColor::Invalid)
+                  if (noteColor.isValid())
                         note->setColor(noteColor);
                   setNoteHead(note, noteheadColor, noteheadParentheses, noteheadFilled);
                   note->setVisible(hasHead && printObject); // TODO also set the stem to invisible
@@ -6270,6 +6284,7 @@ Note* MusicXMLParserPass2::note(const QString& partId,
                   }
 
             if (acc) {
+                  acc->setVisible(printObject);
                   note->add(acc);
                   // save alter value for user accidental
                   if (acc->accidentalType() != AccidentalType::NONE)
