@@ -26,6 +26,24 @@ static const std::vector<QString> vocalInstrumentNames({"Voice",
                                                         "Women",
                                                         "Men"});
 
+static const std::vector<QString> percussionInstrumentNames({"Percussion",
+                                                             "Timpani",
+                                                             "Glockenspiel",
+                                                             "Xylophone",
+                                                             "Vibraphone",
+                                                             "Marimba",
+                                                             "Bell",
+                                                             "Drum"
+                                                             "Cymbal",
+                                                             "Triangle",
+                                                             "Claves",
+                                                             "Wood Blocks",
+                                                             "Tambourine",
+                                                             "Finger Snap",
+                                                             "Hand Clap",
+                                                             "Slap",
+                                                             "Stamp"});
+
 MusicXmlPart::MusicXmlPart(QString id, QString name)
       : id(id), name(name)
       {
@@ -70,6 +88,15 @@ QString MusicXmlPart::toString() const
             }
 
       return res;
+      }
+
+bool MusicXmlPart::isPercussionStaff() const
+      {
+      for (const QString& pname : percussionInstrumentNames) {
+            if (name.contains(pname))
+                  return true;
+            }
+      return false;
       }
 
 Interval MusicXmlPart::interval(const Fraction f) const
