@@ -142,25 +142,37 @@ static bool vUp(Chord* chord)
 void Score::layoutChords1(Segment* segment, int staffIdx)
       {
       const Staff* staff = Score::staff(staffIdx);
+      const Fraction tick = segment->tick();
+      const bool isTab = staff ? staff->isTabStaff(tick) : false;
       const int startTrack = staffIdx * VOICES;
       const int endTrack   = startTrack + VOICES;
-      const Fraction tick = segment->tick();
 
-      if (staff->isTabStaff(tick)) {
+      if (isTab) {
             layoutSegmentElements(segment, startTrack, endTrack);
             return;
             }
 
-      bool crossBeamFound = false;
+      // we need to check all the notes in all the staves of the part so that we don't get weird collisions
+      // between accidentals etc with moved notes
+      const Part* part = staff->part();
+      const int partStartTrack = part ? part->startTrack() : startTrack;
+      const int partEndTrack = part ? part->endTrack() : endTrack;
+
+      if (isTab && (!staff->staffType(tick) || !staff->staffType(tick)->stemThrough())) {
+            layoutSegmentElements(segment, startTrack, endTrack);
+            return;
+            }
+
+      std::vector<Chord*> chords;
       std::vector<Note*> upStemNotes;
       std::vector<Note*> downStemNotes;
       int upVoices       = 0;
       int downVoices     = 0;
-      qreal nominalWidth = noteHeadWidth() * staff->mag(tick);
-      qreal maxUpWidth   = 0.0;
-      qreal maxDownWidth = 0.0;
-      qreal maxUpMag     = 0.0;
-      qreal maxDownMag   = 0.0;
+      double nominalWidth = noteHeadWidth() * staff->mag(tick);
+      double maxUpWidth   = 0.0;
+      double maxDownWidth = 0.0;
+      double maxUpMag     = 0.0;
+      double maxDownMag   = 0.0;
 
       // dots and hooks can affect layout of notes as well as vice versa
       int upDots         = 0;
@@ -172,12 +184,11 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
       bool upGrace       = false;
       bool downGrace     = false;
 
-      for (int track = startTrack; track < endTrack; ++track) {
+      for (int track = partStartTrack; track < partEndTrack; ++track) {
             Element* e = segment->element(track);
-            if (e && e->isChord()) {
+            if (e && e->isChord() && toChord(e)->vStaffIdx() == staffIdx) {
                   Chord* chord = toChord(e);
-                  if (chord->beam() && chord->beam()->cross())
-                        crossBeamFound = true;
+                  chords.push_back(chord);
                   bool hasGraceBefore = false;
                   for (Chord* c : qAsConst(chord->graceNotes())) {
                         if (c->isGraceBefore())
@@ -188,9 +199,10 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                   if (chord->up()) {
                         ++upVoices;
                         upStemNotes.insert(upStemNotes.end(), chord->notes().begin(), chord->notes().end());
-                        upDots   = qMax(upDots, chord->dots());
-                        maxUpMag = qMax(maxUpMag, chord->mag());
-                        if (!upHooks)
+                        upDots   = std::max(upDots, chord->dots());
+                        maxUpMag = std::max(maxUpMag, chord->mag());
+
+                        if (!upHooks && !chord->beam())
                               upHooks = chord->hook();
                         if (hasGraceBefore)
                               upGrace = true;
@@ -198,9 +210,10 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                   else {
                         ++downVoices;
                         downStemNotes.insert(downStemNotes.end(), chord->notes().begin(), chord->notes().end());
-                        downDots = qMax(downDots, chord->dots());
-                        maxDownMag = qMax(maxDownMag, chord->mag());
-                        if (!downHooks)
+                        downDots = std::max(downDots, chord->dots());
+                        maxDownMag = std::max(maxDownMag, chord->mag());
+
+                        if (!downHooks && !chord->beam())
                               downHooks = chord->hook();
                         if (hasGraceBefore)
                               downGrace = true;
@@ -208,7 +221,7 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                   }
             }
 
-      if (upVoices + downVoices) {
+      if (upVoices + downVoices && !isTab) {
             // TODO: use track as secondary sort criteria?
             // otherwise there might be issues with unisons between voices
             // in some corner cases
@@ -222,8 +235,8 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                      [](Note* n1, const Note* n2) ->bool {return n1->line() > n2->line(); } );
                   }
             if (upVoices) {
-                  qreal hw = layoutChords2(upStemNotes, true);
-                  maxUpWidth = qMax(maxUpWidth, hw);
+                  double hw = layoutChords2(upStemNotes, true);
+                  maxUpWidth = std::max(maxUpWidth, hw);
                   }
 
             // layout downstem noteheads
@@ -232,22 +245,22 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                      [](Note* n1, const Note* n2) ->bool {return n1->line() > n2->line(); } );
                   }
             if (downVoices) {
-                  qreal hw = layoutChords2(downStemNotes, false);
-                  maxDownWidth = qMax(maxDownWidth, hw);
+                  double hw = layoutChords2(downStemNotes, false);
+                  maxDownWidth = std::max(maxDownWidth, hw);
                   }
 
-            qreal sp                 = staff->spatium(tick);
-            qreal upOffset           = 0.0;      // offset to apply to upstem chords
-            qreal downOffset         = 0.0;      // offset to apply to downstem chords
-            qreal dotAdjust          = 0.0;      // additional chord offset to account for dots
-            qreal dotAdjustThreshold = 0.0;      // if it exceeds this amount
+            double sp                 = staff->spatium(tick);
+            double upOffset           = 0.0;    // offset to apply to upstem chords
+            double downOffset         = 0.0;    // offset to apply to downstem chords
+            double dotAdjust          = 0.0;    // additional chord offset to account for dots
+            double dotAdjustThreshold = 0.0;    // if it exceeds this amount
 
             // centering adjustments for whole note, breve, and small chords
-            qreal centerUp          = 0.0;      // offset to apply in order to center upstem chords
-            qreal oversizeUp        = 0.0;      // adjustment to oversized upstem chord needed if laid out to the right
-            qreal centerDown        = 0.0;      // offset to apply in order to center downstem chords
-            qreal centerAdjustUp    = 0.0;      // adjustment to upstem chord needed after centering donwstem chord
-            qreal centerAdjustDown  = 0.0;      // adjustment to downstem chord needed after centering upstem chord
+            double centerUp          = 0.0;     // offset to apply in order to center upstem chords
+            double oversizeUp        = 0.0;     // adjustment to oversized upstem chord needed if laid out to the right
+            double centerDown        = 0.0;     // offset to apply in order to center downstem chords
+            double centerAdjustUp    = 0.0;     // adjustment to upstem chord needed after centering donwstem chord
+            double centerAdjustDown  = 0.0;     // adjustment to downstem chord needed after centering upstem chord
 
             // only center chords if they differ from nominal by at least this amount
             // this avoids unnecessary centering on differences due only to floating point roundoff
@@ -255,12 +268,12 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
             // for notes only "slightly" larger than nominal, like half notes
             // but this will result in them not being aligned with each other between voices
             // unless you change to left alignment as described in the comments below
-            qreal centerThreshold   = 0.01 * sp;
+            double centerThreshold = 0.01 * sp;
 
             // amount by which actual width exceeds nominal, adjusted for staff mag() only
-            qreal headDiff = maxUpWidth - nominalWidth;
+            double headDiff = maxUpWidth - nominalWidth;
             // amount by which actual width exceeds nominal, adjusted for staff & chord/note mag()
-            qreal headDiff2 = maxUpWidth - nominalWidth * (maxUpMag / staff->mag(tick));
+            double headDiff2 = maxUpWidth - nominalWidth * (maxUpMag / staff->mag(tick));
             if (headDiff > centerThreshold) {
                   // larger than nominal
                   centerUp = headDiff * -0.5;
@@ -308,26 +321,28 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
             if (upVoices && downVoices) {
                   Note* bottomUpNote = upStemNotes.front();
                   Note* topDownNote  = downStemNotes.back();
-                  int separation;
-                  // TODO: handle conflicts for cross-staff notes and notes on cross-staff beams
-                  // for now we simply treat these as though there is no conflict
-                  if (bottomUpNote->chord()->staffMove() == topDownNote->chord()->staffMove() && !crossBeamFound)
-                        separation = topDownNote->line() - bottomUpNote->line();
-                  else
-                        separation = 2;   // no conflict
-                  QVector<Note*> overlapNotes;
+                  int separation = topDownNote->line() - bottomUpNote->line();
+
+                  std::vector<Note*> overlapNotes;
                   overlapNotes.reserve(8);
 
                   if (separation == 1) {
                         // second
-                        downOffset = maxUpWidth;
-                        // align stems if present, leave extra room if not
-                        if (topDownNote->chord()->stem() && bottomUpNote->chord()->stem())
-                              downOffset -= topDownNote->chord()->stem()->lineWidth();
-                        else
-                              downOffset += 0.1 * sp;
+                        if (upDots && !downDots)
+                              upOffset = maxDownWidth + 0.1 * sp;
+                        else {
+                              downOffset = maxUpWidth;
+                              // align stems if present
+                              if (topDownNote->chord()->stem() && bottomUpNote->chord()->stem())
+                                    downOffset -= topDownNote->chord()->stem()->lineWidth();
+                              else if (topDownNote->chord()->durationType().headType() != NoteHead::Type::HEAD_BREVIS
+                                 && bottomUpNote->chord()->durationType().headType() != NoteHead::Type::HEAD_BREVIS) {
+                                    // stemless notes should be aligned as is they were stemmed
+                                    // (except in case of brevis, cause the notehead has the side bars)
+                                    downOffset -= styleP(Sid::stemWidth) * topDownNote->chord()->mag();
+                                    }
+                              }
                         }
-
                   else if (separation < 1) {
 
                         // overlap (possibly unison)
@@ -335,13 +350,13 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                         // build list of overlapping notes
                         for (size_t i = 0, n = upStemNotes.size(); i < n; ++i) {
                               if (upStemNotes[i]->line() >= topDownNote->line() - 1)
-                                    overlapNotes.append(upStemNotes[i]);
+                                    overlapNotes.push_back(upStemNotes[i]);
                               else
                                     break;
                               }
                         for (size_t i = downStemNotes.size(); i > 0; --i) { // loop most probably needs to be in this reverse order
-                              if (downStemNotes[i-1]->line() <= bottomUpNote->line() + 1)
-                                    overlapNotes.append(downStemNotes[i-1]);
+                              if (downStemNotes[i - 1]->line() <= bottomUpNote->line() + 1)
+                                    overlapNotes.push_back(downStemNotes[i - 1]);
                               else
                                     break;
                               }
@@ -356,7 +371,7 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                         bool conflictSecondDownHigher = false;    // second found
                         int lastLine = 1000;
                         Note* p = overlapNotes[0];
-                        for (int i = 0, count = overlapNotes.size(); i < count; ++i) {
+                        for (size_t i = 0, count = overlapNotes.size(); i < count; ++i) {
                               Note* n = overlapNotes[i];
                               NoteHead::Type nHeadType;
                               NoteHead::Type pHeadType;
@@ -382,7 +397,7 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                                           // the most important rules for sharing noteheads on unisons between voices are
                                           // that notes must be one same line with same tpc
                                           // noteheads must be unmirrored and of same group
-                                          // and chords must be same size if notehead is anything other than HEAD_QUARTER
+                                          // and chords must be same size (or else sharing code won't work)
                                           if (n->headGroup() != p->headGroup() || n->tpc() != p->tpc() || n->mirror() || p->mirror()
                                               || (nchord->isSmall() != pchord->isSmall()
                                                   && (nHeadType != NoteHead::Type::HEAD_QUARTER || pHeadType != NoteHead::Type::HEAD_QUARTER))) {
@@ -428,12 +443,12 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                         if (matchPending)
                               shareHeads = false;
 
-                        //bool conflict = conflictUnison || conflictSecondDownHigher || conflictSecondUpHigher;
+                        bool conflict = conflictUnison || conflictSecondDownHigher || conflictSecondUpHigher;
                         bool ledgerOverlapAbove = false;
                         bool ledgerOverlapBelow = false;
 
                         double ledgerGap = 0.15 * sp;
-                        double ledgerLen = score()->styleS(Sid::ledgerLineLength).val() * sp;
+                        double ledgerLen = styleS(Sid::ledgerLineLength).val() * sp;
                         int firstLedgerBelow = staff->lines(bottomUpNote->tick()) * 2;
                         int topDownStemLen = 0;
                         if (!conflictUnison && topDownNote->chord()->stem()) {
@@ -456,8 +471,8 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
 
                         // calculate offsets
                         if (shareHeads) {
-                              for (int i = overlapNotes.size() - 1; i >= 1; i -= 2) {
-                                    Note* previousNote = overlapNotes[i-1];
+                              for (int i = static_cast<int>(overlapNotes.size()) - 1; i >= 1; i -= 2) {
+                                    Note* previousNote = overlapNotes[i - 1];
                                     Note* n = overlapNotes[i];
                                     if (!(previousNote->chord()->isNudged() || n->chord()->isNudged())) {
                                           const bool prevChordSmall = previousNote->chord()->isSmall();
@@ -469,7 +484,7 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                                                       previousNote->setDotsHidden(true);
                                                 else if (nChordSmall)
                                                       n->setDotsHidden(true);
-                                                else if (onLine) {
+                                                if (onLine) {
                                                       // hide dots for lower voice
                                                       if (previousNote->voice() & 1)
                                                             previousNote->setDotsHidden(true);
@@ -492,19 +507,21 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                                                       centerUp *= 2;
                                                 else
                                                       centerDown = 0;
-                                          }
+                                                }
                                           // formerly we hid noteheads in an effort to fix playback
                                           // but this doesn't work for cases where noteheads cannot be shared
                                           // so better to solve the problem elsewhere
                                           }
                                     }
                               }
+                        else if (conflict && (upDots && !downDots))
+                              upOffset = maxDownWidth + 0.1 * sp;
                         else if (conflictUnison && separation == 0 && (!downGrace || upGrace))
-                              downOffset = maxUpWidth + 0.3 * sp;
+                              downOffset = maxUpWidth + 0.15 * sp;
                         else if (conflictUnison)
-                              upOffset = maxDownWidth + 0.3 * sp;
+                              upOffset = maxDownWidth + 0.15 * sp;
                         else if (conflictSecondUpHigher)
-                              upOffset = maxDownWidth + 0.2 * sp;
+                              upOffset = maxDownWidth + 0.15 * sp;
                         else if ((downHooks && !upHooks) && !(upDots && !downDots)) {
                               // Shift by ledger line length if ledger line conflict or just 0.3sp if no ledger lines
                               double adjSpace = (ledgerOverlapAbove || ledgerOverlapBelow) ? ledgerGap + ledgerLen : 0.3 * sp;
@@ -532,7 +549,7 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                         else {
                               // no direct conflict, so parts can overlap (downstem on left)
                               // just be sure that stems clear opposing noteheads and ledger lines
-                              qreal clearLeft = 0.0, clearRight = 0.0;
+                              double clearLeft = 0.0, clearRight = 0.0;
                               if (topDownNote->chord()->stem()) {
                                     if (ledgerOverlapBelow)
                                           // Create space between stem and ledger line below staff
@@ -549,13 +566,13 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                                     }
                               else
                                     downDots = 0; // no need to adjust for dots in this case
-                              upOffset = qMax(clearLeft, clearRight);
+                              upOffset = std::max(clearLeft, clearRight);
                               // Check if there's enough space to tuck under a flag
                               Note* topUpNote = upStemNotes.back();
                               // Move notes out of the way of straight flags
-                              //int pad = score()->styleB(Sid::useStraightNoteFlags) ? 2 : 1;
-                              //bool overlapsFlag = topDownNote->line() + topDownStemLen + pad > topUpNote->line();
-                              bool overlapsFlag = topDownNote->line() + topDownStemLen + 1 > topUpNote->line();
+                              // TODO: No straight flags in 3.7
+                              int pad = /* score()->styleB(Sid::useStraightNoteFlags) ? 2 : */ 1;
+                              bool overlapsFlag = topDownNote->line() + topDownStemLen + pad > topUpNote->line();
                               if (downHooks && (ledgerOverlapBelow || overlapsFlag)) {
                                     // we will need more space to avoid collision with hook
                                     // but we won't need as much dot adjustment
@@ -564,9 +581,7 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                                           double hookWidth = hook ? hook->width() : 0.0;
                                           upOffset = hookWidth + ledgerLen + ledgerGap;
                                           }
-                                    // we will need more space to avoid collision with hook
-                                    // but we won't need as much dot adjustment
-                                    upOffset = qMax(upOffset, maxDownWidth + 0.1 * sp);
+                                    upOffset = std::max(upOffset, maxDownWidth + 0.1 * sp);
                                     dotAdjustThreshold = maxUpWidth - 0.3 * sp;
                                     }
                               // if downstem chord is small, don't center
@@ -577,7 +592,6 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                                     dotAdjustThreshold = (upOffset - maxDownWidth) + maxUpWidth - 0.3 * sp;
                                     }
                               }
-
                         }
 
                   // adjust for dots
@@ -585,7 +599,7 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                         // only one sets of dots
                         // place between chords
                         int dots;
-                        qreal mag;
+                        double mag;
                         if (upDots) {
                               dots = upDots;
                               mag = maxUpMag;
@@ -594,7 +608,7 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                               dots = downDots;
                               mag = maxDownMag;
                               }
-                        qreal dotWidth = segment->symWidth(SymId::augmentationDot);
+                        double dotWidth = segment->symWidth(SymId::augmentationDot);
                         // first dot
                         dotAdjust = styleP(Sid::dotNoteDistance) + dotWidth;
                         // additional dots
@@ -602,17 +616,16 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                               dotAdjust += styleP(Sid::dotDotDistance) * (dots - 1);
                         dotAdjust *= mag;
                         // only by amount over threshold
-                        dotAdjust = qMax(dotAdjust - dotAdjustThreshold, 0.0);
+                        dotAdjust = std::max(dotAdjust - dotAdjustThreshold, 0.0);
                         }
                   if (separation == 1)
                         dotAdjust += 0.1 * sp;
-
                   }
 
             // apply chord offsets
-            for (int track = startTrack; track < endTrack; ++track) {
+            for (int track = partStartTrack; track < partEndTrack; ++track) {
                   Element* e = segment->element(track);
-                  if (e && e->isChord()) {
+                  if (e && e->isChord() && toChord(e)->vStaffIdx() == staffIdx) {
                         Chord* chord = toChord(e);
                         if (chord->up()) {
                               if (!qFuzzyIsNull(upOffset)) {
@@ -647,7 +660,7 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
             layoutChords3(notes, staff, segment);
             }
 
-      layoutSegmentElements(segment, startTrack, endTrack);
+      layoutSegmentElements(segment, partStartTrack, partEndTrack);
       }
 
 //---------------------------------------------------------
