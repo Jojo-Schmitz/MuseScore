@@ -60,6 +60,7 @@
 #include "libmscore/staff.h"
 #include "libmscore/stafftext.h"
 #include "libmscore/stem.h"
+#include "libmscore/sticking.h"
 #include "libmscore/sym.h"
 #include "libmscore/system.h"
 #include "libmscore/tempo.h"
@@ -3270,6 +3271,7 @@ void MusicXMLParserDirection::direction(const QString& partId,
       _placement = _e.attributes().value("placement").toString();
       int track = _pass1.trackForPart(partId);
       bool isVocalStaff = _pass1.isVocalStaff(partId);
+      bool isPercussionStaff = _pass1.isPercussionStaff(partId);
       bool isExpressionText = false;
       bool delayOttava = _pass1.exporterSoftware() == MusicXMLExporterSoftware::SIBELIUS;
       _systemDirection = _e.attributes().value("system").toString() == "only-top";
@@ -3357,6 +3359,27 @@ void MusicXMLParserDirection::direction(const QString& partId,
 
             addElemOffset(tt, track, placement(), measure, tick + _offset);
             }
+      else if (isLikelySticking() && isPercussionStaff) {
+            Sticking* sticking = new Sticking(_score);
+            sticking->setXmlText(_wordsText);
+            if (!qFuzzyIsNull(_relativeX) || !qFuzzyIsNull(_relativeY)) {
+                  QPointF offset = sticking->offset();
+                  offset.setX(!qFuzzyIsNull(_relativeX) ? _relativeX : sticking->offset().x());
+                  offset.setY(!qFuzzyIsNull(_relativeY) ? _relativeY : sticking->offset().y());
+                  sticking->setOffset(offset);
+                  sticking->setPropertyFlags(Pid::OFFSET, PropertyFlags::UNSTYLED);
+                  }
+
+            if (hasTotalY()) {
+                  // Add element to score later, after collecting all the others and sorting by default-y
+                  // This allows default-y to be at least respected by the order of elements
+                  MusicXMLDelayedDirectionElement* delayedDirection = new MusicXMLDelayedDirectionElement(
+                      totalY(), sticking, track, placement(), measure, tick + _offset, _isBold);
+                  delayedDirections.push_back(delayedDirection);
+                  }
+            else
+                  addElemOffset(sticking, track, placement(), measure, tick + _offset);
+          }
       else if (!_wordsText.isEmpty() || !_rehearsalText.isEmpty() || !_metroText.isEmpty()) {
             TextBase* t = 0;
             if (_tpoSound > 0.1 || attemptTempoTextCoercion(tick)) {
@@ -3620,10 +3643,20 @@ void MusicXMLParserDirection::directionType(QList<MusicXmlSpannerDesc>& starts,
       {
       while (_e.readNextStartElement()) {
             // Prevent multi-word directions from overwriting y-values.
+            bool hasDefaultXCandidate = false;
+            bool hasRelativeXCandidate = false;
             bool hasDefaultYCandidate = false;
             bool hasRelativeYCandidate = false;
+            qreal defaultXCandidate = _e.attributes().value("default-x").toDouble(&hasDefaultXCandidate) * -0.1;
             qreal defaultYCandidate = _e.attributes().value("default-y").toDouble(&hasDefaultYCandidate) * -0.1;
+            qreal relativeXCandidate =_e.attributes().value("relative-x").toDouble(&hasRelativeXCandidate) * -0.1;
             qreal relativeYCandidate =_e.attributes().value("relative-y").toDouble(&hasRelativeYCandidate) * -0.1;
+            if (hasDefaultXCandidate && !_hasDefaultX)
+                  _defaultY = defaultXCandidate;
+            if (hasRelativeXCandidate && !_hasRelativeX)
+                  _relativeX = relativeXCandidate;
+            _hasDefaultX |= hasDefaultXCandidate;
+            _hasRelativeX |= hasRelativeXCandidate;
             if (hasDefaultYCandidate && !_hasDefaultY)
                   _defaultY = defaultYCandidate;
             if (hasRelativeYCandidate && !_hasRelativeY)
@@ -3902,9 +3935,11 @@ void MusicXMLParserDirection::textToDynamic(QString& text) const
       {
       if (!preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTINFERTEXTTYPE))
             return;
-      QString simplifiedText = text.simplified();
+      QString simplifiedText = MScoreTextToMXML::toPlainText(text).simplified();
+      // We don't want to count a single 'm', 'r', 's' or 'z' as a whole dynamic
+      static const QRegularExpression singleCharDynamic("^[mrsz]$");
       for (auto dyn : dynList) {
-            if (dyn.tag == simplifiedText) {
+            if (!simplifiedText.contains(singleCharDynamic) && dyn.tag == simplifiedText) {
                   text = text.replace(simplifiedText, dyn.text);
                   }
             }
@@ -4393,7 +4428,7 @@ void MusicXMLParserDirection::handleNmiCmi(Measure* measure, const int track, co
 
 void MusicXMLParserDirection::handleChordSym(const int track, const Fraction tick, HarmonyMap& harmonyMap)
       {
-      if (!preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTINFERTEXTTYPE))
+      if (!preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTINFERTEXTTYPE) || placement() == "below")
             return;
 
       static const QRegularExpression re("^([abcdefg])(([#b♯♭])\3?)?(maj|min|m)?[769]?((add[#b♯♭]?(9|11|))|(sus[24]?))?(\\(.*\\))?$");
@@ -4426,6 +4461,19 @@ void MusicXMLParserDirection::handleChordSym(const int track, const Fraction tic
       if (insert)
             harmonyMap.insert(std::pair<int, HarmonyDesc>(ticks, newHarmonyDesc));
       _wordsText.clear();
+      }
+
+bool MusicXMLParserDirection::isLikelySticking()
+      {
+      if (!preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTINFERTEXTTYPE))
+            return false;
+
+      QString plainWords = MScoreTextToMXML::toPlainText(_wordsText.simplified());
+      static const QRegularExpression sticking("^[lrbLRB]$");
+      return plainWords.contains(sticking)
+                  && _rehearsalText.isEmpty()
+                  && _metroText.isEmpty()
+                  && _tpoSound < 0.1;
       }
 
 //---------------------------------------------------------

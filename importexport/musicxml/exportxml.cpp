@@ -5851,7 +5851,7 @@ static bool commonAnnotations(ExportMusicXml* exp, const Element* e, int sstaff)
             exp->symbol(toSymbol(e), sstaff);
       else if (e->isTempoText())
             exp->tempoText(toTempoText(e), sstaff);
-      else if (e->isStaffText()|| e->isText() || (e->isInstrumentChange() && e->visible()))
+      else if (e->isStaffText()|| e->isText() || (e->isInstrumentChange() && e->visible()) || e->isSticking())
             exp->words(toTextBase(e), sstaff);
       else if (e->isDynamic())
             exp->dynamic(toDynamic(e), sstaff);

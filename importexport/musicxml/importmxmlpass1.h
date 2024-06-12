@@ -184,6 +184,7 @@ public:
       const CreditWordsList& credits() const { return _credits; }
       bool hasBeamingInfo() const { return _hasBeamingInfo; }
       bool isVocalStaff(const QString& id) const { return _parts[id].isVocalStaff(); }
+      bool isPercussionStaff(const QString& id) const { return _parts[id].isPercussionStaff(); }
       static VBox* createAndAddVBoxForCreditWords(Score* const score);
       int maxDiff() const { return _maxDiff; }
       void insertAdjustedDuration(Fraction key, Fraction value) { _adjustedDurations.insert(key, value); }

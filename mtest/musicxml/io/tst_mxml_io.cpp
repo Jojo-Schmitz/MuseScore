@@ -282,6 +282,7 @@ private slots:
       void staffEmptiness() { mxmlImportTestRef("testStaffEmptiness"); }
       void staffSize() { mxmlIoTest("testStaffSize"); }
       void staffTwoKeySigs() { mxmlIoTest("testStaffTwoKeySigs"); }
+      void sticking()        { mxmlImportTestRef("testSticking"); }
       void stringData()      { mxmlIoTest("testStringData"); }
       void stringVoiceName() { mxmlIoTestRef("testStringVoiceName"); }
       void swing() { mxmlMscxExportTestRef("testSwing"); }
