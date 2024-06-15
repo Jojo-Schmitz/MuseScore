@@ -3850,7 +3850,9 @@ void MusicXMLParserDirection::textToDynamic(QString& text) const
       QString simplifiedText = MScoreTextToMXML::toPlainText(text).simplified();
       // Correct finale's incorrect dynamic export
       if (_pass1.exporterString().contains("finale")) {
-            static const std::map<QString, QString> finaleDynamicSubs = { { "π", "pp" }, { "P", "mp" }, { "F", "mf" }, { "ƒ", "ff" } };
+            static const std::map<QString, QString> finaleDynamicSubs
+                        = { { "π", "pp" }, { "P", "mp" },  { "F", "mf" },  { "ƒ", "ff" }, { "Ï", "fff" },
+                            { "S", "sf" }, { "ß", "sfz" }, { "Z", "fz" },  { "Í", "fp" } };
             for (const auto& sub : finaleDynamicSubs) {
                   if (simplifiedText == sub.first) {
                         simplifiedText = sub.second;
