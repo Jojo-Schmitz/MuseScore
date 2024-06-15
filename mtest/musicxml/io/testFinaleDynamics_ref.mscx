@@ -151,6 +151,7 @@
           <Dynamic>
             <subtype>pp</subtype>
             <velocity>33</velocity>
+            <direction>down</direction>
             </Dynamic>
           <Chord>
             <durationType>quarter</durationType>
@@ -160,6 +161,11 @@
               <tpc>19</tpc>
               </Note>
             </Chord>
+          <Dynamic>
+            <subtype>fff</subtype>
+            <velocity>33</velocity>
+            <direction>down</direction>
+            </Dynamic>
           <Chord>
             <durationType>quarter</durationType>
             <StemDirection>down</StemDirection>
@@ -171,6 +177,7 @@
           <Dynamic>
             <subtype>p</subtype>
             <velocity>49</velocity>
+            <direction>down</direction>
             </Dynamic>
           <Chord>
             <durationType>quarter</durationType>
@@ -180,6 +187,11 @@
               <tpc>19</tpc>
               </Note>
             </Chord>
+          <Dynamic>
+            <subtype>sf</subtype>
+            <velocity>33</velocity>
+            <direction>down</direction>
+            </Dynamic>
           <Chord>
             <durationType>quarter</durationType>
             <StemDirection>down</StemDirection>
@@ -195,6 +207,7 @@
           <Dynamic>
             <subtype>mp</subtype>
             <velocity>64</velocity>
+            <direction>down</direction>
             </Dynamic>
           <Chord>
             <durationType>quarter</durationType>
@@ -204,6 +217,11 @@
               <tpc>19</tpc>
               </Note>
             </Chord>
+          <Dynamic>
+            <subtype>sfz</subtype>
+            <velocity>33</velocity>
+            <direction>down</direction>
+            </Dynamic>
           <Chord>
             <durationType>quarter</durationType>
             <StemDirection>down</StemDirection>
@@ -215,6 +233,7 @@
           <Dynamic>
             <subtype>mf</subtype>
             <velocity>80</velocity>
+            <direction>down</direction>
             </Dynamic>
           <Chord>
             <durationType>quarter</durationType>
@@ -224,6 +243,11 @@
               <tpc>19</tpc>
               </Note>
             </Chord>
+          <Dynamic>
+            <subtype>fz</subtype>
+            <velocity>33</velocity>
+            <direction>down</direction>
+            </Dynamic>
           <Chord>
             <durationType>quarter</durationType>
             <StemDirection>down</StemDirection>
@@ -239,6 +263,7 @@
           <Dynamic>
             <subtype>f</subtype>
             <velocity>96</velocity>
+            <direction>down</direction>
             </Dynamic>
           <Chord>
             <durationType>quarter</durationType>
@@ -248,6 +273,11 @@
               <tpc>19</tpc>
               </Note>
             </Chord>
+          <Dynamic>
+            <subtype>fp</subtype>
+            <velocity>33</velocity>
+            <direction>down</direction>
+            </Dynamic>
           <Chord>
             <durationType>quarter</durationType>
             <StemDirection>down</StemDirection>
@@ -259,6 +289,7 @@
           <Dynamic>
             <subtype>ff</subtype>
             <velocity>112</velocity>
+            <direction>down</direction>
             </Dynamic>
           <Chord>
             <durationType>quarter</durationType>
