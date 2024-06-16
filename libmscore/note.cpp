@@ -2071,6 +2071,60 @@ void Note::layout()
                   if (chord()->measure() != tieBack()->startNote()->chord()->measure() || el().size() > 0)
                         paren = true;
                   }
+
+            auto tick = chord()->segment()->tick();
+            auto stringData = staff()->part()->instrument(tick)->stringData();
+            auto scoreElement = links() ? links()->mainElement() : nullptr;
+            Note* staffNote = nullptr;
+            int maxStrings = stringData->strings();
+            int updatedString = _string;
+            int updatedFret = _fret;
+            if (scoreElement && scoreElement->isNote()) {
+                  staffNote = toNote(scoreElement);
+                  if (staffNote) {
+                        // Handle String Text:
+                        for (auto& e : staffNote->el()) {
+                              if (e->isFingering()) {
+                                    if (auto fingering = toFingering(e)) {
+                                          if (fingering->tid() == Tid::STRING_NUMBER) {
+                                                int whichString = fingering->plainText().toInt();
+                                                if (whichString <= maxStrings && whichString >= 0) {
+                                                      updatedString = whichString;  // E.g: 1-6
+                                                      updatedString -= 1;           // E.g: 0-5 (internal representation)
+                                                      updatedFret = stringData->fret(pitch(), updatedString, staff(), chord()->tick());
+                                                      }
+                                                }
+                                          }
+                                    }
+                              }
+                        _string = updatedString;
+                        _fret   = updatedFret;
+                        }
+                  }
+
+            // Handle Capo Text:
+            // (Can be on either clef or tab staff)
+            Staff* clefStaff = staffNote ? staffNote->staff() : nullptr;
+            Staff* tabStaff  = this->staff();
+            Staff* staff = clefStaff ? clefStaff : tabStaff;
+            int capoPosition = staff->capo(tick);
+            if (capoPosition > 0) {
+                  while (updatedFret < capoPosition) {
+                        updatedString += 1;
+                        updatedFret = stringData->fret(pitch(), updatedString, tabStaff, tick);
+                        if (updatedFret < 0 || updatedString > maxStrings) {
+                              updatedFret = -1;
+                              updatedString = _string;
+                              break;
+                              }
+                        else if (updatedFret < capoPosition) {
+                              continue;
+                              }                        
+                        }
+                  _string = updatedString;
+                  _fret   = updatedFret;
+                  }
+
             // not complete but we need systems to be layouted to add parenthesis
             if (fixed())
                   _fretString = "/";
