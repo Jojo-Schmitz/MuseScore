@@ -418,14 +418,15 @@ private:
       QString _sndSegno;
       QString _sndToCoda;
       QString _placement;
-      bool _hasDefaultY;
-      qreal _defaultY;
-      bool _hasRelativeY;
-      qreal _relativeY;
+      bool _hasDefaultY = false;
+      qreal _defaultY = 0.0;
+      bool _hasRelativeY = false;
+      qreal _relativeX = 0.0;
+      qreal _relativeY = 0.0;
       bool hasTotalY() const { return _hasRelativeY || _hasDefaultY; }
       bool _isBold;
-      double _tpoMetro;                 // tempo according to metronome
-      double _tpoSound;                 // tempo according to sound
+      double _tpoMetro = 0.0;                 // tempo according to metronome
+      double _tpoSound = 0.0;                 // tempo according to sound
       bool _systemDirection = false;
       bool _visible = true;
       QList<Element*> _elems;
@@ -446,6 +447,7 @@ private:
       void handleNmiCmi(Measure* measure, const int track, const Fraction tick, DelayedDirectionsList& delayedDirections);
       void handleChordSym(const int track, const Fraction tick, HarmonyMap& harmonyMap);
       bool isLikelyFingering() const;
+      bool isLikelySticking();
       bool isLikelyCredit(const Fraction& tick) const;
       void textToCrescLine(QString& text);
       void addInferredCrescLine(const int track, const Fraction& tick, const bool isVocalStaff);
