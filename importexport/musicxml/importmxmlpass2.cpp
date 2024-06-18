@@ -1523,6 +1523,22 @@ static void handleSpannerStop(SLine* cur_sp, int track2, const Fraction& tick, M
       spanners[cur_sp].second = tick.ticks();
       }
 
+static SystemText* createDingbat(const QString& number, Score* score)
+      {
+      SystemText* t = new SystemText(score);
+      t->setPlainText(number);
+      t->setFrameType(FrameType::CIRCLE);
+      t->setPropertyFlags(Pid::FRAME_TYPE, PropertyFlags::UNSTYLED);
+      t->setFrameColor(Qt::black);
+      t->setPropertyFlags(Pid::FRAME_FG_COLOR, PropertyFlags::UNSTYLED);
+      t->setBgColor(Qt::black);
+      t->setPropertyFlags(Pid::FRAME_BG_COLOR, PropertyFlags::UNSTYLED);
+      t->setColor(Qt::white);
+      t->setPropertyFlags(Pid::COLOR, PropertyFlags::UNSTYLED);
+
+      return t;
+      }
+
 //---------------------------------------------------------
 //   The MusicXML parser, pass 2
 //---------------------------------------------------------
@@ -3718,11 +3734,8 @@ void MusicXMLParserDirection::directionType(QList<MusicXmlSpannerDesc>& starts,
                   _wordsText += "<sym>segno</sym>";
                   _e.skipCurrentElement();
                   }
-            else if (_e.name() == "symbol") {
-                  const QString smufl = _e.readElementText();
-                  if (!smufl.isEmpty())
-                        _wordsText += "<sym>" + smufl + "</sym>";
-                  }
+            else if (_e.name() == "symbol")
+                  symbol();
             else if (_e.name() == "other-direction")
                   otherDirection();
             else
@@ -3824,6 +3837,23 @@ void MusicXMLParserDirection::otherDirection()
                   _elems.push_back(smuflSym);
                   }
             }
+      }
+
+void MusicXMLParserDirection::symbol()
+      {
+      const QString smufl = _e.readElementText();
+
+      if (_pass1.hasDingbats() && _pass1.exporterSoftware() == MusicXMLExporterSoftware::FINALE && preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTINFERTEXTTYPE)) {
+            // Convert zapf dingbat '2'
+            if (smufl == "restWhole" && placement() == "above") {
+                  SystemText* dingbat = createDingbat("2", _score);
+                  _elems.push_back(dingbat);
+                  return;
+                  }
+            }
+
+      if (!smufl.isEmpty())
+            _wordsText += "<sym>" + smufl + "</sym>";
       }
 
 //---------------------------------------------------------
@@ -7586,7 +7616,27 @@ void MusicXMLParserNotations::dynamics()
             if (_e.name() == "other-dynamics")
                   _dynamicsList.push_back(_e.readElementText());
             else {
-                  _dynamicsList.push_back(_e.name().toString());
+                  const QString name = _e.name().toString();
+
+                  // Convert zapf dingbat '3' and '4'
+                  if (_pass1.hasDingbats() && _pass1.exporterSoftware() == MusicXMLExporterSoftware::FINALE
+                      && preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTINFERTEXTTYPE)
+                      && _dynamicsPlacement == "above") {
+                        QString no;
+                        if (name == "ppp")
+                              no = "3";
+                          else if (name == "pp")
+                              no = "4";
+
+                        if (!no.isEmpty()) {
+                              Notation notation = Notation::notationWithAttributes("dingbat" + no, _e.attributes(), "articulations");
+                              _notations.push_back(notation);
+                              _e.skipCurrentElement();
+                              continue;
+                              }
+                        }
+
+                  _dynamicsList.push_back(name);
                   _e.skipCurrentElement();  // skip but don't log
                   }
             }
@@ -7664,6 +7714,15 @@ void MusicXMLParserNotations::articulations()
                   _e.skipCurrentElement();  // skip but don't log
                   }
             else if (_e.name() == "other-articulation") {
+                  if (_pass1.exporterSoftware() == MusicXMLExporterSoftware::FINALE && preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTINFERTEXTTYPE)) {
+                        // Convert zapf dingbat '1'
+                        if (_e.readElementText() == "\u00CA") {
+                              _pass1.setHasDingbats();
+                              Notation notation = Notation::notationWithAttributes("dingbat1", _e.attributes(), "articulations");
+                              _notations.push_back(notation);
+                              }
+                        }
+
                   const QString smufl = _e.attributes().value("smufl").toString();
 
                   if (!smufl.isEmpty()) {
@@ -8469,6 +8528,16 @@ void MusicXMLParserNotations::addNotation(const Notation& notation, ChordRest* c
       else if (notation.parent() == "articulations") {
             if (note && notation.name() == "chord-line")
                   addChordLine(notation, note, _logger, &_e);
+            else if (note && notation.name().contains("dingbat")) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+                  const QString no = QString(notation.name().back());
+#else
+                  const QString no = notation.name().at(notation.name().size() - 1);
+#endif
+                  SystemText* dingbat = createDingbat(no, cr->score());
+                  dingbat->setTrack(cr->track());
+                  cr->segment()->add(dingbat);
+                  }
             }
       else {
             // qDebug("addNotation: notation has been skipped: %s %s", qPrintable(notation.name()), qPrintable(notation.parent()));
