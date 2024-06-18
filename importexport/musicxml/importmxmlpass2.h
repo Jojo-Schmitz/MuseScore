@@ -441,6 +441,7 @@ private:
       void sound();
       void dynamics();
       void otherDirection();
+      void symbol();
       void handleRepeats(Measure* measure, const int track, const Fraction tick);
       QString matchRepeat() const;
       void handleNmiCmi(Measure* measure, const int track, const Fraction tick, DelayedDirectionsList& delayedDirections);
