@@ -3879,12 +3879,20 @@ void MusicXMLParserDirection::textToDynamic(QString& text) const
                         }
                   }
             }
-      for (auto dyn : dynList) {
-            if (dyn.tag == simplifiedText) {
-                  text = text.replace(simplifiedText, dyn.text);
-                  break;
+#if 0
+      // We don't want to count a single 'm', 'r', 's' or 'z' as a whole dynamic
+      static const QRegularExpression singleCharDynamic("^[mrsz]$");
+      // try to find a dynamic - xml representation or
+      // if found add to dynamics list and set text to blank string
+      if (!simplifiedText.contains(singleCharDynamic) && TConv::dynamicValid(simplifiedText.toStdString())) {
+            Dynamic::Type dt = TConv::fromXml(simplifiedText.toStdString(), Dynamic::Type::OTHER);
+            if (dt != Dynamic::Type::OTHER) {
+                  _dynaVelocity = QString::number(round(Dynamic::dynamicVelocity(dt) / 0.9));
+                  _dynamicsList.push_back(Dynamic::dynamicTypeName(dt));
+                  text.clear();
                   }
             }
+#endif
       }
 
 //---------------------------------------------------------
