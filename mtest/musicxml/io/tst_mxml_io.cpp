@@ -167,6 +167,7 @@ private slots:
       void inferredCrescLines() { mxmlImportTestRef("testInferredCrescLines"); }
       void inferredCrescLines2() { mxmlImportTestRef("testInferredCrescLines2"); }
       void inferredDynamics() { mxmlImportTestRef("testInferredDynamics"); }
+      void inferredDynamicRange() { mxmlImportTestRef("testInferredDynamicRange"); }
       void inferredDynamicsExpressiont() { mxmlImportTestRef("testInferredDynamicsExpression"); }
       void inferredFingerings() { mxmlImportTestRef("testInferredFingerings"); }
       void inferredRights() { mxmlImportTestRef("testInferredFingerings"); }
