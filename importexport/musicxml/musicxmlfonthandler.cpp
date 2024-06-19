@@ -96,6 +96,7 @@ MScoreTextToMXML::MScoreTextToMXML(const QString& tag, const QString& attr, cons
 
 QString MScoreTextToMXML::toPlainText(const QString& text)
       {
+#if 1
       QString res;
       bool inElem = false;
       foreach(QChar ch, text) {
@@ -108,6 +109,11 @@ QString MScoreTextToMXML::toPlainText(const QString& text)
                         res += ch;
                   }
             }
+#else
+      QString res = text;
+      static const QRegularExpression re("(<.*?>)");
+      res = res.remove(re);
+#endif
       //qDebug("MScoreTextToMXML::toPlainText('%s') res '%s'", qPrintable(text), qPrintable(res));
       return res;
       }
