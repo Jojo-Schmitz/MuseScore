@@ -456,6 +456,7 @@ private:
       void handleChordSym(const int track, const Fraction tick, HarmonyMap& harmonyMap);
       bool isLikelyFingering(const QString& fingeringStr) const;
       bool isLikelyCredit(const Fraction& tick) const;
+      bool isLikelyDynamicRange() const;
       void textToCrescLine(QString& text);
       void addInferredCrescLine(const int track, const Fraction& tick, const bool isVocalStaff);
       bool isLyricBracket() const;
