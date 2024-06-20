@@ -1395,6 +1395,12 @@ Element* Segment::firstElementOfSegment(Segment* s, int activeStaff)
       {
       for (auto i: s->elist()) {
             if (i && i->staffIdx() == activeStaff) {
+                  if (i->isDurationElement()) {
+                        DurationElement* de = toDurationElement(i);
+                        Tuplet* tuplet = de->tuplet();
+                        if (tuplet && de == tuplet->elements().front())
+                              return tuplet;
+                        }
                   if (i->type() == ElementType::CHORD)
                         return toChord(i)->notes().back();
                   else

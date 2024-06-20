@@ -1151,13 +1151,16 @@ Element* ChordRest::prevElement()
 
 Element* ChordRest::lastElementBeforeSegment()
       {
+      Tuplet* tuplet = this->tuplet();
+      if (tuplet && this == tuplet->elements().back())
+            return tuplet;
       if (!_lyrics.empty())
             return _lyrics.back();
 //      else if (!_articulations.empty()) {           // TODO:fermata
 //            return _articulations.back();
 //            }
       else
-            return 0;
+            return nullptr;
       }
 
 //---------------------------------------------------------
