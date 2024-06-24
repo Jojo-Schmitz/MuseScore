@@ -18,6 +18,7 @@
 //=============================================================================
 
 #include "debugger.h"
+//#include "globals.h"
 #include "icons.h"
 #include "musescore.h"
 
@@ -26,8 +27,8 @@
 #include "libmscore/articulation.h"
 #include "libmscore/barline.h"
 #include "libmscore/beam.h"
-#include "libmscore/bracket.h"
 #include "libmscore/box.h"
+#include "libmscore/bracket.h"
 #include "libmscore/chord.h"
 #include "libmscore/chordlist.h"
 #include "libmscore/clef.h"
@@ -51,11 +52,11 @@
 #include "libmscore/rest.h"
 #include "libmscore/score.h"
 #include "libmscore/segment.h"
-#include "libmscore/slur.h"
 #include "libmscore/sig.h"
-#include "libmscore/spacer.h"
+#include "libmscore/slur.h"
 #include "libmscore/stem.h"
 #include "libmscore/stemslash.h"
+#include "libmscore/spacer.h"
 #include "libmscore/system.h"
 #include "libmscore/systemdivider.h"
 #include "libmscore/text.h"
@@ -808,6 +809,7 @@ void MeasureView::setElement(Element* e)
       mb.repeatCount->setValue(m->repeatCount());
       mb.breakMultiMeasureRest->setChecked(m->breakMultiMeasureRest());
       mb.mmRestCount->setValue(m->mmRestCount());
+      mb.oldWidth->setValue(m->oldWidth());
       mb.timesig->setText(m->timesig().print());
       mb.len->setText(m->ticks().print());
       mb.tick->setValue(m->tick().ticks());

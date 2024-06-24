@@ -14,7 +14,6 @@
 #include "measure.h"
 #include "measurebase.h"
 #include "note.h"
-#include "staff.h"
 #include "score.h"
 #include "segment.h"
 #include "staff.h"
@@ -304,16 +303,14 @@ void MeasureBase::layout()
                   qreal _spatium = spatium();
                   qreal x;
                   qreal y;
-                  if (toLayoutBreak(element)->isNoBreak()) {
-                        x = width() - element->width() * .5;
-                        y = -(_spatium + element->height());
-                        }
+                  if (toLayoutBreak(element)->isNoBreak())
+                        x = width() + score()->styleP(Sid::barWidth) - element->width() * .5;
                   else {
-                        x = -_spatium - element->width() + width()
-                            - breakCount * (element->width() + _spatium * .8);
-                        y = -2 * _spatium - element->height();
+                        x = width() + score()->styleP(Sid::barWidth) - element->width()
+                            - breakCount * (element->width() + _spatium * .5);
                         breakCount++;
                         }
+                  y = -2.5 * _spatium - element->height();
                   element->setPos(x, y);
                   }
             else if (element->isMarker() || element->isJump())
