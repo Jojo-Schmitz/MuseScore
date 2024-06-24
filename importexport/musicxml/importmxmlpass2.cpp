@@ -3328,7 +3328,7 @@ void MusicXMLParserDirection::direction(const QString& partId,
                         QString rawWordsText = _wordsText;
                         static const QRegularExpression re("(<.*?>)");
                         rawWordsText.remove(re);
-                        QString sep = !_metroText.isEmpty() && !_wordsText.isEmpty()
+                        QString sep = !_metroText.isEmpty() && !rawWordsText.isEmpty()
 #if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
                                     && rawWordsText.back()
 #else
