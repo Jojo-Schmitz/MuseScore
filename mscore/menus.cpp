@@ -758,12 +758,10 @@ PalettePanel* MuseScore::newBreaksPalettePanel()
       cell = sp->append(lb, QT_TRANSLATE_NOOP("Palette", "Section break"));
       cell->mag = 1.2;
 
-#if 0
       lb = new LayoutBreak(gscore);
       lb->setLayoutBreakType(LayoutBreak::Type::NOBREAK);
-      cell = sp->append(lb, QT_TRANSLATE_NOOP("Palette", "Don't break"));
+      cell = sp->append(lb, QT_TRANSLATE_NOOP("Palette", "Group measures"));
       cell->mag = 1.2;
-#endif
 
       Spacer* spacer = new Spacer(gscore);
       spacer->setSpacerType(SpacerType::DOWN);
@@ -1969,7 +1967,7 @@ void MuseScore::addTempo()
       Measure* m = tt->findMeasure();
       if (m && m->hasMMRest() && tt->links()) {
             Measure* mmRest = m->mmRest();
-            for (ScoreElement* se : *tt->links()) {
+            for (ScoreElement*& se : *tt->links()) {
                   TempoText* tt1 = toTempoText(se);
                   if (tt != tt1 && tt1->findMeasure() == mmRest) {
                         tt = tt1;
@@ -2000,7 +1998,7 @@ QMap<QString, QStringList>* smuflRanges()
                   qDebug("Json parse error in <%s>(offset: %d): %s", qPrintable(fi.fileName()),
                      error.offset, qPrintable(error.errorString()));
 
-            for (auto s : o.keys()) {
+            for (auto& s : o.keys()) {
                   QJsonObject range = o.value(s).toObject();
                   QString desc      = range.value("description").toString();
                   QJsonArray glyphs = range.value("glyphs").toArray();
