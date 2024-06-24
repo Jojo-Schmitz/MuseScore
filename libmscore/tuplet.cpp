@@ -1376,5 +1376,26 @@ void Tuplet::addMissingElements()
       if (!missingElementsDuration.isZero())
             qDebug("Tuplet::addMissingElements(): still missing duration of %d/%d", missingElementsDuration.numerator(), missingElementsDuration.denominator());
       }
+
+Element* Tuplet::nextElement()
+{
+    ChordRest* firstElement = toChordRest(elements().front());
+    if (firstElement->type() == ElementType::CHORD)
+          return toChord(firstElement)->notes().front();
+    else
+        return toRest(firstElement);
+    return firstElement;
+}
+
+Element* Tuplet::prevElement()
+{
+    ChordRest* lastElement = toChordRest(elements().back());
+    if (lastElement) {
+        if (lastElement->isChord())
+            return toChord(lastElement)->notes().back();
+        return toRest(lastElement);
+    }
+    return lastElement;
+}
 }  // namespace Ms
 
