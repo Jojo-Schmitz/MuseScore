@@ -10,25 +10,25 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "property.h"
 #include "accidental.h"
+#include "barline.h"
 #include "bracket.h"
+#include "changeMap.h"
 #include "clef.h"
 #include "dynamic.h"
+#include "fret.h"
+#include "groups.h"
+#include "layoutbreak.h"
 #include "mscore.h"
+#include "note.h"
 #include "ottava.h"
+#include "property.h"
+#include "style.h"
+#include "sym.h"
 #include "tremolo.h"
 #include "trill.h"
 #include "vibrato.h"
-#include "layoutbreak.h"
-#include "groups.h"
 #include "xml.h"
-#include "note.h"
-#include "barline.h"
-#include "style.h"
-#include "sym.h"
-#include "changeMap.h"
-#include "fret.h"
 
 namespace Ms {
 
@@ -206,6 +206,8 @@ static constexpr PropertyMetaData propertyList[] = {
       { Pid::OFFSET2,                   P_TYPE::POINT_SP,       false, "userOff2",               DUMMY_QT_TRANSLATE_NOOP("propertyName", "offset2")                                       },
       { Pid::BREAK_MMR,                 P_TYPE::BOOL,           false, "breakMultiMeasureRest",  DUMMY_QT_TRANSLATE_NOOP("propertyName", "breaking multimeasure rest") },
       { Pid::MMREST_NUMBER_POS,         P_TYPE::SPATIUM,        false, "mmRestNumberPos",        DUMMY_QT_TRANSLATE_NOOP("propertyName", "vertical position of multimeasure rest number") },
+      //{ Pid::MMREST_NUMBER_VISIBLE,     P_TYPE::BOOL,           false, "mmRestNumberVisible",    DUMMY_QT_TRANSLATE_NOOP("propertyName", "visibility of multimeasure rest number") },
+      { Pid::MEASURE_REPEAT_NUMBER_POS, P_TYPE::SPATIUM,        false, "measureRepeatNumberPos", DUMMY_QT_TRANSLATE_NOOP("propertyName", "vertical position of measure repeat number") },
       { Pid::REPEAT_COUNT,              P_TYPE::INT,            true,  "endRepeat",              DUMMY_QT_TRANSLATE_NOOP("propertyName", "end repeat")                                    },
 
       { Pid::USER_STRETCH,              P_TYPE::REAL,           false, "stretch",                DUMMY_QT_TRANSLATE_NOOP("propertyName", "stretch")                                       },

@@ -18,17 +18,17 @@
  Definition of undo-releated classes and structs.
 */
 
-#include "cleflist.h"
 #include "chord.h"
+#include "cleflist.h"
 #include "drumset.h"
 #include "dynamic.h"
 #include "fret.h"
 #include "input.h"
 #include "instrument.h"
-#include "key.h"
 #include "mscore.h"
 #include "note.h"
 #include "noteevent.h"
+#include "key.h"
 #include "pitchvalue.h"
 #include "select.h"
 #include "staff.h"
@@ -1192,6 +1192,24 @@ class ChangeMMRest : public UndoCommand {
    public:
       ChangeMMRest(Measure* _m, Measure* _mmr) : m(_m), mmrest(_mmr) {}
       UNDO_NAME("ChangeMMRest")
+      };
+
+//---------------------------------------------------------
+//   ChangeMeasureRepeatCount
+//---------------------------------------------------------
+
+class ChangeMeasureRepeatCount : public UndoCommand
+      {
+      Measure* m;
+      int count;
+      int staffIdx;
+
+      void flip(EditData*) override;
+
+public:
+      ChangeMeasureRepeatCount(Measure* _m, int _count, int _staffIdx)
+            : m(_m), count(_count), staffIdx(_staffIdx) {}
+      UNDO_NAME("ChangeMeasureRepeatCount")
       };
 
 //---------------------------------------------------------

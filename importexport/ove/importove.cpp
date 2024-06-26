@@ -19,52 +19,51 @@
 
 #include "ove.h"
 
-#include "mscore/preferences.h"
-
-#include "libmscore/sig.h"
-#include "libmscore/tempo.h"
+#include "libmscore/accidental.h"
 #include "libmscore/arpeggio.h"
 #include "libmscore/articulation.h"
 #include "libmscore/barline.h"
 #include "libmscore/box.h"
 #include "libmscore/bracket.h"
+#include "libmscore/bracketItem.h"
 #include "libmscore/breath.h"
 #include "libmscore/chord.h"
+#include "libmscore/chordlist.h"
 #include "libmscore/clef.h"
 #include "libmscore/drumset.h"
 #include "libmscore/dynamic.h"
+#include "libmscore/glissando.h"
 #include "libmscore/hairpin.h"
 #include "libmscore/harmony.h"
-#include "libmscore/glissando.h"
+#include "libmscore/jump.h"
 #include "libmscore/keysig.h"
 #include "libmscore/layoutbreak.h"
 #include "libmscore/lyrics.h"
+#include "libmscore/marker.h"
 #include "libmscore/measure.h"
+#include "libmscore/measurerepeat.h"
 #include "libmscore/note.h"
-#include "libmscore/accidental.h"
 #include "libmscore/ottava.h"
 #include "libmscore/part.h"
 #include "libmscore/pedal.h"
 #include "libmscore/pitchspelling.h"
-#include "libmscore/repeat.h"
+#include "libmscore/rehearsalmark.h"
 #include "libmscore/rest.h"
 #include "libmscore/score.h"
 #include "libmscore/segment.h"
+#include "libmscore/sig.h"
 #include "libmscore/slur.h"
-#include "libmscore/tie.h"
 #include "libmscore/staff.h"
+#include "libmscore/sym.h"
 #include "libmscore/tempotext.h"
 #include "libmscore/text.h"
+#include "libmscore/tie.h"
 #include "libmscore/timesig.h"
 #include "libmscore/tuplet.h"
 #include "libmscore/tremolo.h"
 #include "libmscore/volta.h"
-#include "libmscore/chordlist.h"
-#include "libmscore/rehearsalmark.h"
-#include "libmscore/marker.h"
-#include "libmscore/jump.h"
-#include "libmscore/sym.h"
-#include "libmscore/bracketItem.h"
+
+#include "mscore/preferences.h"
 
 using namespace Ms;
 
@@ -1356,7 +1355,6 @@ void OveToMScore::convertMeasureMisc(Measure* measure, int part, int staff, int 
 
 // beam in grace
 int getGraceLevel(const QList<OVE::NoteContainer*>& containers, int tick, int unit){
-      int graceCount = 0;
       int level = 0; // normal chord rest
 
       for(int i=0; i<containers.size(); ++i){
@@ -1365,11 +1363,8 @@ int getGraceLevel(const QList<OVE::NoteContainer*>& containers, int tick, int un
                   break;
 
             if(container->getIsGrace() && container->getTick() == tick){
-                  ++graceCount;
-
-                  if(unit <= container->start()->getOffset()){
+                  if(unit <= container->start()->getOffset())
                         ++level;
-                        }
                   }
             }
 

@@ -61,7 +61,7 @@ enum class ElementType : char {
       REST,
       SYMBOL,
       BREATH,
-      REPEAT_MEASURE,
+      MEASURE_REPEAT,
       TIE,
       ARTICULATION,
       FERMATA,
