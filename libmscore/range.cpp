@@ -10,22 +10,22 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "range.h"
-#include "measure.h"
-#include "segment.h"
-#include "rest.h"
-#include "chord.h"
-#include "score.h"
-#include "slur.h"
-#include "tie.h"
-#include "note.h"
-#include "tuplet.h"
 #include "barline.h"
-#include "utils.h"
-#include "staff.h"
+#include "chord.h"
 #include "excerpt.h"
-#include "repeat.h"
+#include "measure.h"
+#include "measurerepeat.h"
+#include "note.h"
+#include "range.h"
+#include "rest.h"
+#include "score.h"
+#include "segment.h"
+#include "slur.h"
+#include "staff.h"
+#include "tie.h"
 #include "tremolo.h"
+#include "tuplet.h"
+#include "utils.h"
 
 namespace Ms {
 
@@ -281,10 +281,10 @@ void TrackList::read(const Segment* fs, const Segment* es)
                         }
                   continue;
                   }
-            if (e->isRepeatMeasure()) {
+            if (e->isMeasureRepeat()) {
                   // TODO: copy previous measure contents?
-                  RepeatMeasure* rm = toRepeatMeasure(e);
-                  Rest r(*rm);
+                  MeasureRepeat* mr = toMeasureRepeat(e);
+                  Rest r(*mr);
                   append(&r);
                   tick += r.ticks();
                   }
@@ -499,7 +499,7 @@ bool TrackList::write(Score* score, const Fraction& tick) const
                         }
                   bool firstpart = true;
                   while (duration > Fraction(0,1)) {
-                        if ((e->isRest() || e->isRepeatMeasure()) && (duration >= remains || e == back()) && (remains == m->ticks())) {
+                        if ((e->isRest() || e->isMeasureRepeat()) && (duration >= remains || e == back()) && (remains == m->ticks())) {
                               //
                               // handle full measure rest
                               //
