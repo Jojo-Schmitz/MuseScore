@@ -34,13 +34,13 @@
 #include "marker.h"
 #include "measure.h"
 #include "measurenumber.h"
+#include "measurerepeat.h"
 #include "ottava.h"
 #include "page.h"
 #include "part.h"
 #include "pedal.h"
 #include "read206.h"
 #include "rehearsalmark.h"
-#include "repeat.h"
 #include "rest.h"
 #include "revisions.h"
 #include "score.h"
@@ -2840,11 +2840,13 @@ static void readMeasure(Measure* m, int staffIdx, XmlReader& e)
                         }
                   }
             else if (tag == "RepeatMeasure") {
-                  RepeatMeasure* rm = new RepeatMeasure(score);
-                  rm->setTrack(e.track());
-                  readRest(rm, e);
+                  MeasureRepeat* mr = new MeasureRepeat(score);
+                  mr->setTrack(e.track());
+                  readRest(mr, e);
+                  mr->setNumMeasures(1);
+                  m->setMeasureRepeatCount(1, staffIdx);
                   segment = m->getSegment(SegmentType::ChordRest, e.tick());
-                  segment->add(rm);
+                  segment->add(mr);
                   lastTick = e.tick();
                   e.incTick(m->ticks());
                   }

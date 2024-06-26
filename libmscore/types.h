@@ -61,7 +61,7 @@ enum class ElementType {
       TIMESIG,
       REST,
       BREATH,
-      REPEAT_MEASURE,
+      MEASURE_REPEAT,
       TIE,
       ARTICULATION,
       FERMATA,

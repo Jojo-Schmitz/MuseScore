@@ -10,52 +10,36 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "config.h"
-#include "musescoreCore.h"
-#include "style.h"
-#include "mscore.h"
-#include "sequencer.h"
-#include "element.h"
-#include "dynamic.h"
 #include "accidental.h"
-#include "figuredbass.h"
-#include "stafftype.h"
-#include "note.h"
-#include "spanner.h"
-#include "volta.h"
-#include "ottava.h"
-#include "trill.h"
-#include "repeat.h"
-#include "jump.h"
-#include "marker.h"
-#include "layoutbreak.h"
-#include "hairpin.h"
-#include "glissando.h"
-#include "page.h"
-#include "slur.h"
-#include "lyrics.h"
-#include "accidental.h"
-#include "notedot.h"
-#include "tie.h"
-#include "staff.h"
 #include "beam.h"
-#include "timesig.h"
-#include "part.h"
-#include "measure.h"
-#include "score.h"
-#include "keysig.h"
-#include "harmony.h"
-#include "stafftext.h"
-#include "mscoreview.h"
 #include "chord.h"
-#include "hook.h"
-#include "stem.h"
-#include "stemslash.h"
+#include "config.h"
+#include "dynamic.h"
+#include "element.h"
+#include "figuredbass.h"
 #include "fraction.h"
-#include "excerpt.h"
+#include "glissando.h"
+#include "hairpin.h"
+#include "jump.h"
+#include "layoutbreak.h"
+#include "lyrics.h"
+#include "marker.h"
+#include "measure.h"
+#include "mscore.h"
+#include "mscoreview.h"
+#include "musescoreCore.h"
+#include "note.h"
+#include "notedot.h"
+#include "ottava.h"
+#include "score.h"
+#include "sequencer.h"
+#include "spanner.h"
 #include "spatium.h"
-#include "barline.h"
-#include "skyline.h"
+#include "staff.h"
+#include "stafftype.h"
+#include "style.h"
+#include "trill.h"
+#include "volta.h"
 
 namespace Ms {
 
@@ -141,9 +125,18 @@ std::vector<MScoreError> MScore::errorList {
 
       { CANNOT_INSERT_TUPLET,            "t1", QT_TRANSLATE_NOOP("error", "Cannot insert chord/rest in tuplet")                                    },
       { CANNOT_SPLIT_TUPLET,             "t2", QT_TRANSLATE_NOOP("error", "Cannot split tuplet")                                                   },
+
       { CANNOT_SPLIT_MEASURE_FIRST_BEAT, "m1", QT_TRANSLATE_NOOP("error", "Cannot split measure here:\n" "First beat of measure")                  },
       { CANNOT_SPLIT_MEASURE_TUPLET,     "m2", QT_TRANSLATE_NOOP("error", "Cannot split measure here:\n" "Cannot split tuplet")                    },
       { CANNOT_SPLIT_MEASURE_TOO_SHORT,  "m3", QT_TRANSLATE_NOOP("error", "Cannot split measure here:\n" "Measure would be too short")             },
+      { INSUFFICIENT_MEASURES,           "m3", QT_TRANSLATE_NOOP("error",
+                                                                 "Measure repeat cannot be added here:\nInsufficient or unequal measures") },
+      { CANNOT_SPLIT_MEASURE_REPEAT,     "m4", QT_TRANSLATE_NOOP("error", "Cannot split measure repeat") },
+
+      { CANNOT_REMOVE_TIME_TUPLET,       "d1", QT_TRANSLATE_NOOP("error",
+                                                                 "Cannot remove time from tuplet:\nPlease select the complete tuplet and retry") },
+      { CANNOT_REMOVE_TIME_MEASURE_REPEAT, "d2", QT_TRANSLATE_NOOP("error",
+                                                                   "Cannot remove time from measure repeat:\nPlease select the complete measure repeat and retry") },
 
       { NO_DEST,                         "p1", QT_TRANSLATE_NOOP("error", "No destination to paste")                                               },
       { DEST_TUPLET,                     "p2", QT_TRANSLATE_NOOP("error", "Cannot paste into tuplet")                                              },

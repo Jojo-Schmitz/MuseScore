@@ -11,8 +11,8 @@
 //=============================================================================
 
 #include "box.h"
+#include "measurerepeat.h"
 #include "mscore.h"
-#include "repeat.h"
 #include "score.h"
 #include "system.h"
 #include "text.h"
