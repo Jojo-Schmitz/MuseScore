@@ -34,13 +34,13 @@
 #include "marker.h"
 #include "measure.h"
 #include "measurenumber.h"
+#include "measurerepeat.h"
 #include "ottava.h"
 #include "page.h"
 #include "part.h"
 #include "pedal.h"
 #include "read206.h"
 #include "rehearsalmark.h"
-#include "repeat.h"
 #include "rest.h"
 #include "revisions.h"
 #include "score.h"
@@ -1757,7 +1757,7 @@ bool readChordRestProperties206(XmlReader& e, ChordRest* ch)
                   ch->add(el);
             }
       else if (tag == "leadingSpace" || tag == "trailingSpace") {
-            qDebug("ChordRest: %s obsolete", tag.toLocal8Bit().data());
+            qDebug("ChordRest: %s obsolete", tag.toLocal8Bit().constData());
             e.skipCurrentElement();
             }
       else if (tag == "Beam") {
@@ -1818,12 +1818,12 @@ bool readChordRestProperties206(XmlReader& e, ChordRest* ch)
                         if (spanner->type() == ElementType::SLUR)
                               spanner->setStartElement(ch);
                         if (e.pasteMode()) {
-                              for (ScoreElement* el : spanner->linkList()) {
+                              for (ScoreElement*& el : spanner->linkList()) {
                                     if (el == spanner)
                                           continue;
                                     Spanner* ls = static_cast<Spanner*>(el);
                                     ls->setTick(spanner->tick());
-                                    for (ScoreElement* ee : ch->linkList()) {
+                                    for (ScoreElement*& ee : ch->linkList()) {
                                           ChordRest* cr = toChordRest(ee);
                                           if (cr->score() == ee->score() && cr->staffIdx() == ls->staffIdx()) {
                                                 ls->setTrack(cr->track());
@@ -1844,12 +1844,12 @@ bool readChordRestProperties206(XmlReader& e, ChordRest* ch)
                         if (start)
                               spanner->setTrack(start->track());
                         if (e.pasteMode()) {
-                              for (ScoreElement* el : spanner->linkList()) {
+                              for (ScoreElement*& el : spanner->linkList()) {
                                     if (el == spanner)
                                           continue;
                                     Spanner* ls = static_cast<Spanner*>(el);
                                     ls->setTick2(spanner->tick2());
-                                    for (ScoreElement* ee : ch->linkList()) {
+                                    for (ScoreElement*& ee : ch->linkList()) {
                                           ChordRest* cr = toChordRest(ee);
                                           if (cr->score() == ee->score() && cr->staffIdx() == ls->staffIdx()) {
                                                 ls->setTrack2(cr->track());
@@ -2020,7 +2020,7 @@ bool readChordProperties206(XmlReader& e, Chord* ch)
 static void convertDoubleArticulations(Chord* chord, XmlReader& e)
       {
       std::vector<Articulation*> pairableArticulations;
-      for (Articulation* a : chord->articulations()) {
+      for (Articulation*& a : chord->articulations()) {
             if (a->isStaccato() || a->isTenuto()
                || a->isAccent() || a->isMarcato()) {
                   pairableArticulations.push_back(a);
@@ -2835,11 +2835,13 @@ static void readMeasure(Measure* m, int staffIdx, XmlReader& e)
                         }
                   }
             else if (tag == "RepeatMeasure") {
-                  RepeatMeasure* rm = new RepeatMeasure(score);
-                  rm->setTrack(e.track());
-                  readRest(rm, e);
+                  MeasureRepeat* mr = new MeasureRepeat(score);
+                  mr->setTrack(e.track());
+                  readRest(mr, e);
+                  mr->setNumMeasures(1);
+                  m->setMeasureRepeatCount(1, staffIdx);
                   segment = m->getSegment(SegmentType::ChordRest, e.tick());
-                  segment->add(rm);
+                  segment->add(mr);
                   lastTick = e.tick();
                   e.incTick(m->ticks());
                   }
@@ -3403,7 +3405,7 @@ static void readStyle(MStyle* style, XmlReader& e)
                   style->chordList()->clear();
                   style->chordList()->read(e);
                   style->setCustomChordList(true);
-                  for (ChordFont f : style->chordList()->fonts) {
+                  for (ChordFont& f : style->chordList()->fonts) {
                         if (f.family == "MuseJazz") {
                               f.family = "MuseJazz Text";
                               }
@@ -3704,7 +3706,7 @@ static bool readScore(Score* score, XmlReader& e)
 #endif
       score->fixTicks();
 
-      for (Part* p : score->parts()) {
+      for (Part*& p : score->parts()) {
             p->updateHarmonyChannels(false);
             }
 
@@ -3815,10 +3817,10 @@ Score::FileError MasterScore::read206(XmlReader& e)
       setEnableVerticalSpread(false);
 
       int id = 1;
-      for (LinkedElements* le : e.linkIds())
+      for (LinkedElements*& le : e.linkIds())
             le->setLid(this, id++);
 
-      for (Staff* s : staves())
+      for (Staff*& s : staves())
             s->updateOttava();
 
       // fix segment span
@@ -3858,7 +3860,7 @@ Score::FileError MasterScore::read206(XmlReader& e)
       // fix positions
       //    offset = saved offset - layout position
       doLayout();
-      for (auto i : e.fixOffsets()) {
+      for (auto& i : e.fixOffsets()) {
             i.first->setOffset(i.second - i.first->pos());
             }
 

@@ -29,16 +29,16 @@
 #include "marker.h"
 #include "measure.h"
 #include "measurenumber.h"
+#include "measurerepeat.h"
 #include "ottava.h"
 #include "part.h"
 #include "pedal.h"
 #include "read206.h"
-#include "repeat.h"
 #include "rest.h"
 #include "score.h"
 #include "segment.h"
-#include "slur.h"
 #include "sig.h"
+#include "slur.h"
 #include "spacer.h"
 #include "staff.h"
 #include "stafftext.h"
@@ -1449,7 +1449,7 @@ static void readMeasure(Measure* m, int staffIdx, XmlReader& e)
       QList<Chord*> graceNotes;
 
       //sort tuplet elements. needed for nested tuplets #22537
-      for (Tuplet* t : e.tuplets())
+      for (Tuplet*& t : e.tuplets())
             t->sortElements();
       e.tuplets().clear();
       e.setTrack(staffIdx * VOICES);
@@ -1711,13 +1711,15 @@ static void readMeasure(Measure* m, int staffIdx, XmlReader& e)
                         }
                   }
             else if (tag == "RepeatMeasure") {
-                  RepeatMeasure* rm = new RepeatMeasure(m->score());
-                  rm->setTrack(e.track());
-                  readRest(m, rm, e);
+                  MeasureRepeat* mr = new MeasureRepeat(m->score());
+                  //mr->setTrack(e.track());
+                  readRest(m, mr, e);
+                  mr->setNumMeasures(1);
+                  m->setMeasureRepeatCount(1, staffIdx);
                   segment = m->getSegment(SegmentType::ChordRest, e.tick());
-                  segment->add(rm);
-                  if (rm->actualTicks().isZero()) // might happen with 1.3 scores
-                        rm->setTicks(m->ticks());
+                  segment->add(mr);
+                  if (mr->actualTicks().isZero()) // might happen with 1.3 scores
+                        mr->setTicks(m->ticks());
                   lastTick = e.tick();
                   e.incTick(m->ticks());
                   }
@@ -2080,11 +2082,11 @@ static void readMeasure(Measure* m, int staffIdx, XmlReader& e)
             }
       // For nested tuplets created with MuseScore 1.3 tuplet dialog (i.e. "Other..." dialog),
       // the parent tuplet was not set. Try to infere if the tuplet was actually a nested tuplet
-      for (Tuplet* tuplet : e.tuplets()) {
+      for (Tuplet*& tuplet : e.tuplets()) {
             Fraction tupletTick = tuplet->tick();
             Fraction tupletDuration = tuplet->actualTicks() - Fraction::fromTicks(1);
             std::vector<DurationElement*> tElements = tuplet->elements();
-            for (Tuplet* tuplet2 : e.tuplets()) {
+            for (Tuplet*& tuplet2 : e.tuplets()) {
                   if ((tuplet2->tuplet()) || (tuplet2->voice() != tuplet->voice())) // already a nested tuplet or in a different voice
                         continue;
                   // int possibleDuration = tuplet2->duration().ticks() * tuplet->ratio().denominator() / tuplet->ratio().numerator() - 1;
@@ -2529,7 +2531,7 @@ static void readPart(Part* part, XmlReader& e)
             part->setPartName(part->instrument()->trackName());
 
       if (part->instrument()->useDrumset()) {
-            for (Staff* staff : *part->staves()) {
+            for (Staff*& staff : *part->staves()) {
                   int lines = staff->lines(Fraction(0,1));
                   int bf    = staff->barLineFrom();
                   int bt    = staff->barLineTo();
@@ -2677,7 +2679,7 @@ static void readStyle(MStyle* style, XmlReader& e)
             else if (tag == "ChordList") {
                   style->chordList()->clear();
                   style->chordList()->read(e);
-                  for (ChordFont f : style->chordList()->fonts) {
+                  for (ChordFont& f : style->chordList()->fonts) {
                         if (f.family == "MuseJazz") {
                               f.family = "MuseJazz Text";
                               }
@@ -2989,7 +2991,7 @@ Score::FileError MasterScore::read114(XmlReader& e)
 
       setEnableVerticalSpread(false);
 
-      for (Staff* s : staves()) {
+      for (Staff*& s : staves()) {
             int idx   = s->idx();
             int track = idx * VOICES;
 
@@ -3154,7 +3156,7 @@ Score::FileError MasterScore::read114(XmlReader& e)
       //
       //    sanity check for barLineSpan and update ottavas
       //
-      for (Staff* staff : staves()) {
+      for (Staff*& staff : staves()) {
             int barLineSpan = staff->barLineSpan();
             int idx = staff->idx();
             int n = nstaves();
@@ -3230,7 +3232,7 @@ Score::FileError MasterScore::read114(XmlReader& e)
 
       fixTicks();
 
-      for (Part* p : parts()) {
+      for (Part*& p : parts()) {
             p->updateHarmonyChannels(false);
             }
 
