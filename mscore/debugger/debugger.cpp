@@ -18,7 +18,6 @@
 //=============================================================================
 
 #include "debugger.h"
-//#include "globals.h"
 #include "icons.h"
 #include "musescore.h"
 
@@ -45,6 +44,7 @@
 #include "libmscore/lyrics.h"
 #include "libmscore/measure.h"
 #include "libmscore/measurenumber.h"
+#include "libmscore/measurerepeat.h"
 #include "libmscore/note.h"
 #include "libmscore/notedot.h"
 #include "libmscore/page.h"
@@ -150,7 +150,7 @@ Debugger::Debugger(QWidget* parent)
       cs           = 0;
 
       connect(list, SIGNAL(itemClicked(QTreeWidgetItem*,int)), SLOT(itemClicked(QTreeWidgetItem*,int)));
-      connect(list, SIGNAL(itemActivated(QTreeWidgetItem*,int)), SLOT(itemClicked(QTreeWidgetItem*, int)));
+      connect(list, SIGNAL(itemActivated(QTreeWidgetItem*,int)), SLOT(itemClicked(QTreeWidgetItem*,int)));
       connect(list, SIGNAL(itemExpanded(QTreeWidgetItem*)), SLOT(itemExpanded(QTreeWidgetItem*)));
       connect(list, SIGNAL(itemCollapsed(QTreeWidgetItem*)), SLOT(itemExpanded(QTreeWidgetItem*)));
 
@@ -312,7 +312,7 @@ static void addChord(ElementItem* sei, Chord* chord)
 //      if (chord->glissando())
 //            new ElementItem(sei, chord->glissando());
 
-      for (Articulation* a : chord->articulations())
+      for (Articulation*& a : chord->articulations())
             new ElementItem(sei, a);
       for (LedgerLine* h = chord->ledgerLines(); h; h = h->next())
             new ElementItem(sei, h);
@@ -329,7 +329,7 @@ static void addChord(ElementItem* sei, Chord* chord)
                   else
                         new ElementItem(ni, f);
                   }
-            for (NoteDot* dot : note->dots())
+            for (NoteDot*& dot : note->dots())
                   new ElementItem(ni, dot);
 
             if (note->tieFor()) {
@@ -352,7 +352,7 @@ static void addChord(ElementItem* sei, Chord* chord)
                         new ElementItem(ei, sp);
                   }
             }
-      for (Chord* c : chord->graceNotes()) {
+      for (Chord*& c : chord->graceNotes()) {
             ElementItem* ssei = new ElementItem(sei, c);
             addChord(ssei, c);
             }
@@ -471,7 +471,7 @@ void Debugger::updateList(Score* s)
       foreach (Page* pg, cs->pages()) {
             ElementItem* pi = new ElementItem(list, pg);
 
-            for (System* system : pg->systems()) {
+            for (System*& system : pg->systems()) {
                   ElementItem* si = new ElementItem(pi, system);
                   for (Bracket* b : system->brackets())
                         new ElementItem(si, b);
@@ -479,9 +479,9 @@ void Debugger::updateList(Score* s)
                         new ElementItem(si, system->systemDividerLeft());
                   if (system->systemDividerRight())
                         new ElementItem(si, system->systemDividerRight());
-                  for (SpannerSegment* ss : system->spannerSegments())
+                  for (SpannerSegment*& ss : system->spannerSegments())
                         new ElementItem(si, ss);
-                  for (SysStaff* ss : *system->staves()) {
+                  for (SysStaff*& ss : *system->staves()) {
                         for (InstrumentName*& in : ss->instrumentNames)
                               new ElementItem(si, in);
                         }
@@ -627,6 +627,7 @@ void Debugger::updateElement(Element* el)
                   case ElementType::CHORD:                   ew = new ChordDebug;          break;
                   case ElementType::NOTE:                    ew = new ShowNoteWidget;      break;
                   case ElementType::REST:                    ew = new RestView;            break;
+                  case ElementType::MEASURE_REPEAT:          ew = new MeasureRepeatView;   break;
                   case ElementType::CLEF:                    ew = new ClefView;            break;
                   case ElementType::TIMESIG:                 ew = new TimeSigView;         break;
                   case ElementType::KEYSIG:                  ew = new KeySigView;          break;
@@ -642,9 +643,9 @@ void Debugger::updateElement(Element* el)
                   case ElementType::PEDAL:
                   case ElementType::LET_RING:
                   case ElementType::VIBRATO:
-                  case ElementType::TEXTLINE:           ew = new TextLineView;        break;
+                  case ElementType::TEXTLINE:                ew = new TextLineView;        break;
                   case ElementType::PEDAL_SEGMENT:
-                  case ElementType::TEXTLINE_SEGMENT:    ew = new TextLineSegmentView; break;
+                  case ElementType::TEXTLINE_SEGMENT:        ew = new TextLineSegmentView; break;
                   case ElementType::LYRICS:                  ew = new LyricsView;          break;
                   case ElementType::BEAM:                    ew = new BeamView;            break;
                   case ElementType::TREMOLO:                 ew = new TremoloView;         break;
@@ -805,6 +806,7 @@ void MeasureView::setElement(Element* e)
       mb.lineBreak->setChecked(m->lineBreak());
       mb.pageBreak->setChecked(m->pageBreak());
       mb.sectionBreak->setChecked(m->sectionBreak());
+      mb.noBreak->setChecked(m->noBreak());
       mb.irregular->setChecked(m->irregular());
       mb.repeatCount->setValue(m->repeatCount());
       mb.breakMultiMeasureRest->setChecked(m->breakMultiMeasureRest());
@@ -1019,7 +1021,7 @@ void ChordDebug::setElement(Element* e)
             cb.helplineList->addItem(item);
             }
       cb.graceChords1->clear();
-      for (Element* c : chord->graceNotes()) {
+      for (Element* c : qAsConst(chord->graceNotes())) {
             QString s;
             s.setNum(qptrdiff(c), 16);
             QListWidgetItem* item = new QListWidgetItem(s);
@@ -1178,7 +1180,7 @@ void ShowNoteWidget::setElement(Element* e)
             nb.fingering->addItem(item);
             }
       nb.noteEvents->clear();
-      for (const NoteEvent& elm : note->playEvents()) {
+      for (NoteEvent& elm : note->playEvents()) {
             QString s = QString("%1 %2 %3").arg(elm.pitch()).arg(elm.ontime()).arg(elm.len());
             QListWidgetItem* item = new QListWidgetItem(s);
             nb.noteEvents->addItem(item);
@@ -1246,6 +1248,62 @@ void ShowNoteWidget::tieBackClicked()
 void ShowNoteWidget::accidentalClicked()
       {
       emit elementChanged(((Note*)element())->accidental());
+      }
+
+//---------------------------------------------------------
+//   MeasureRepeatView
+//---------------------------------------------------------
+
+MeasureRepeatView::MeasureRepeatView()
+      : ShowElementBase()
+      {
+      crb.setupUi(addWidget());
+      mrb.setupUi(addWidget());
+
+      connect(mrb.firstOfGroup, SIGNAL(clicked()), SLOT(firstOfGroupClicked()));
+      }
+
+//---------------------------------------------------------
+//   setElement
+//---------------------------------------------------------
+
+void MeasureRepeatView::setElement(Element* e)
+      {
+      MeasureRepeat* mr = toMeasureRepeat(e);
+      ShowElementBase::setElement(e);
+
+      crb.tick->setText(mr->tick().print());
+      crb.ticks->setText(mr->actualTicks().print());
+      crb.duration->setText(mr->ticks().print());
+      crb.beamButton->setEnabled(false);
+      crb.beamMode->setEnabled(false);
+      crb.tupletButton->setEnabled(false);
+      crb.upFlag->setEnabled(false);
+      crb.attributes->clear();
+      crb.dots->setEnabled(false);
+      crb.durationType->setText(mr->durationType().name());
+      crb.move->setValue(mr->staffMove());
+
+      crb.lyrics->clear();
+      for (Lyrics* lyrics : mr->lyrics()) {
+            QString s;
+            s.setNum(qptrdiff(lyrics), 16);
+            QListWidgetItem* item = new QListWidgetItem(s);
+            item->setData(Qt::UserRole, QVariant::fromValue<void*>((void*)lyrics));
+            crb.lyrics->addItem(item);
+            }
+
+      mrb.subtype->setValue(mr->numMeasures());
+      }
+
+//---------------------------------------------------------
+//   firstOfGroupClicked
+//---------------------------------------------------------
+
+void MeasureRepeatView::firstOfGroupClicked()
+      {
+      MeasureRepeat* mr = toMeasureRepeat(element());
+      emit elementChanged(mr->firstMeasureOfGroup());
       }
 
 //---------------------------------------------------------
@@ -1594,7 +1652,7 @@ void SpannerView::startClicked()
       }
 
 //---------------------------------------------------------
-//   startClicked
+//   endClicked
 //---------------------------------------------------------
 
 void SpannerView::endClicked()
@@ -2791,7 +2849,7 @@ void SystemView::setElement(Element* e)
       System* vs = (System*)e;
       ShowElementBase::setElement(e);
       mb.spanner->clear();
-      for (const Element* elm : vs->spannerSegments()) {
+      for (const Element* elm : qAsConst(vs->spannerSegments())) {
             QTreeWidgetItem* item = new QTreeWidgetItem;
             item->setText(0, elm->name());
             void* p = (void*) elm;

@@ -35,13 +35,13 @@
 #include "marker.h"
 #include "measure.h"
 #include "measurenumber.h"
+#include "measurerepeat.h"
 #include "mmrestrange.h"
 #include "mscore.h"
 #include "notedot.h"
 #include "note.h"
 #include "page.h"
 #include "part.h"
-#include "repeat.h"
 #include "score.h"
 #include "segment.h"
 #include "slur.h"
@@ -1709,6 +1709,32 @@ void Score::fixupLaissezVibrer()
       }
 
 //---------------------------------------------------------
+//   relayoutForStyles
+///   some styles can't properly apply if score hasn't been laid out yet,
+///   so temporarily disable them and then reenable after layout
+///   (called during score load)
+//---------------------------------------------------------
+
+void Score::relayoutForStyles()
+      {
+      std::vector<Sid> stylesToTemporarilyDisable;
+
+      for (Sid sid : { Sid::createMultiMeasureRests, Sid::mrNumberSeries }) {
+            // only necessary if boolean style is true
+            if (styleB(sid))
+                  stylesToTemporarilyDisable.push_back(sid);
+            }
+
+      if (!stylesToTemporarilyDisable.empty()) {
+            for (Sid sid : stylesToTemporarilyDisable)
+                  style().set(sid, false); // temporarily disable
+            doLayout();
+            for (Sid sid : stylesToTemporarilyDisable)
+                  style().set(sid, true); // and immediately reenable
+            }
+      }
+
+//---------------------------------------------------------
 //   checkDivider
 //---------------------------------------------------------
 
@@ -2654,6 +2680,13 @@ static bool breakMultiMeasureRest(Measure* m)
                               return true;
                         }
                   }
+            }
+
+      // break for MeasureRepeat group
+      for (int staffIdx = 0; staffIdx < m->score()->nstaves(); ++staffIdx) {
+            if (m->isMeasureRepeatGroup(staffIdx)
+                || (m->prevMeasure() && m->prevMeasure()->isMeasureRepeatGroup(staffIdx)))
+                return true;
             }
 
       for (Segment* s = m->first(); s; s = s->next()) {
@@ -4074,7 +4107,7 @@ System* Score::collectSystem(LayoutContext& lc)
                         // but if too many are grouped, stop before we get 0 measures left on system
                         // TODO: intelligently break group into smaller groups instead
                         lc.tick -= lc.curMeasure->ticks();
-                        --lc.measureNo;
+                        lc.measureNo = lc.prevMeasure->no();
 
                         lc.curMeasure->setSystem(oldSystem);
                         lc.prevMeasure->setSystem(oldSystem);

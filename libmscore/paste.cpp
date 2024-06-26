@@ -22,8 +22,8 @@
 #include "image.h"
 #include "lyrics.h"
 #include "measure.h"
+#include "measurerepeat.h"
 #include "part.h"
-#include "repeat.h"
 #include "rest.h"
 #include "score.h"
 #include "sig.h"
@@ -32,6 +32,7 @@
 #include "timesig.h"
 #include "tremolo.h"
 #include "tuplet.h"
+#include "undo.h"
 #include "utils.h"
 #include "xml.h"
 
@@ -223,7 +224,7 @@ bool Score::pasteStaff(XmlReader& e, Segment* dst, int dstStaff, Fraction scale)
                                     oldTuplet->sortElements();
                               e.readNext();
                               }
-                        else if (tag == "Chord" || tag == "Rest" || tag == "RepeatMeasure") {
+                        else if (tag == "Chord" || tag == "Rest" || tag == "MeasureRepeat") {
                               ChordRest* cr = toChordRest(Element::name2Element(tag, this));
                               cr->setTrack(e.track());
                               cr->read(e);
@@ -233,6 +234,10 @@ bool Score::pasteStaff(XmlReader& e, Segment* dst, int dstStaff, Fraction scale)
                               if (staff(dstStaffIdx)->isLocalTimeSignature(tick)) {
                                     MScore::setError(DEST_LOCAL_TIME_SIGNATURE);
                                     return false;
+                                    }
+                              if (tick2measure(tick)->isMeasureRepeatGroup(dstStaffIdx)) {
+                                    MeasureRepeat* mr = tick2measure(tick)->measureRepeatElement(dstStaffIdx);
+                                    score()->deleteItem(mr);    // resets any measures related to mr
                                     }
                               if (startingBeam) {
                                     startingBeam->add(cr); // also calls cr->setBeam(startingBeam)
@@ -608,10 +613,23 @@ void Score::pasteChordRest(ChordRest* cr, const Fraction& t, const Interval& src
       Fraction measureEnd = measure->endTick();
       bool isGrace = cr->isChord() && toChord(cr)->noteType() != NoteType::NORMAL;
 
+      // adjust measures for measure repeat
+      if (cr->isMeasureRepeat()) {
+            MeasureRepeat* mr = toMeasureRepeat(cr);
+            Measure* m = (mr->numMeasures() == 4 ? measure->prevMeasure() : measure);
+            for (int i = 1; i <= mr->numMeasures(); ++i) {
+                  undo(new ChangeMeasureRepeatCount(m, i, mr->staffIdx()));
+                  if (i < mr->numMeasures()) {
+                        m->undoSetNoBreak(true);
+                        }
+                  m = m->nextMeasure();
+                  }
+            }
+
       // find out if the chordrest was only partially contained in the copied range
       bool partialCopy = false;
-      if (cr->isRepeatMeasure())
-            partialCopy = toRepeatMeasure(cr)->actualTicks() != measure->ticks();
+      if (cr->isMeasureRepeat())
+            partialCopy = toMeasureRepeat(cr)->actualTicks() != measure->ticks();
       else if (!isGrace && !cr->tuplet())
             partialCopy = cr->durationTypeTicks() != (cr->actualTicksAt(tick) * twoNoteTremoloFactor);
 
@@ -685,9 +703,9 @@ void Score::pasteChordRest(ChordRest* cr, const Fraction& t, const Interval& src
                         firstpart = false;
                         }
                   }
-            else if (cr->isRepeatMeasure()) {
-                  RepeatMeasure* rm = toRepeatMeasure(cr);
-                  std::vector<TDuration> list = toDurationList(rm->actualTicks(), true);
+            else if (cr->isMeasureRepeat()) {
+                  MeasureRepeat* mr = toMeasureRepeat(cr);
+                  std::vector<TDuration> list = toDurationList(mr->actualTicks(), true);
                   for (auto dur : list) {
                         Rest* r = new Rest(this, dur);
                         r->setTrack(cr->track());

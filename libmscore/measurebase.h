@@ -78,8 +78,8 @@ class MeasureBase : public Element {
       ~MeasureBase();
       MeasureBase(const MeasureBase&);
 
-      virtual MeasureBase* clone() const = 0;
-      virtual ElementType type() const = 0;
+      virtual MeasureBase* clone() const override = 0;
+      virtual ElementType type() const override = 0;
 
       virtual void setScore(Score* s) override;
 
@@ -99,9 +99,9 @@ class MeasureBase : public Element {
       virtual void write(XmlWriter&) const override = 0;
       virtual void write(XmlWriter&, int, bool, bool) const = 0;
 
-      virtual void layout();
+      virtual void layout() override;
 
-      virtual void scanElements(void* data, void (*func)(void*, Element*), bool all=true);
+      virtual void scanElements(void* data, void (*func)(void*, Element*), bool all=true) override;
       ElementList& el()                      { return _el; }
       const ElementList& el() const          { return _el; }
       System* system() const                 { return (System*)parent(); }

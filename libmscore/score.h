@@ -21,10 +21,12 @@
 #include "input.h"
 #include "instrument.h"
 #include "layoutbreak.h"
+#include "measurerepeat.h"
 #include "mscoreview.h"
 #include "property.h"
 #include "select.h"
 #include "spannermap.h"
+#include "synthesizerstate.h"
 #include "sym.h"
 #include "synthesizerstate.h"
 
@@ -500,8 +502,8 @@ class Score : public QObject, public ScoreElement {
       Note* getSelectedNote();
       ChordRest* upStaff(ChordRest* cr);
       ChordRest* downStaff(ChordRest* cr);
-      ChordRest* nextTrack(ChordRest* cr);
-      ChordRest* prevTrack(ChordRest* cr);
+      ChordRest* nextTrack(ChordRest* cr, bool skipMeasureRepeatRests = true);
+      ChordRest* prevTrack(ChordRest* cr, bool skipMeasureRepeatRests = true);
 
       void padToggle(Pad p, const EditData& ed);
       void addTempo();
@@ -636,6 +638,8 @@ class Score : public QObject, public ScoreElement {
       void cmdIncDurationDotted()   { cmdIncDecDuration(-1, true); }
       void cmdDecDurationDotted()   { cmdIncDecDuration( 1, true); }
       void cmdToggleLayoutBreak(LayoutBreak::Type);
+      void cmdAddMeasureRepeat(Measure*, int numMeasures, int staffIdx);
+      bool makeMeasureRepeatGroup(Measure*, int numMeasures, int staffIdx);
 
       void addRemoveBreaks(int interval, bool lock);
 
@@ -690,6 +694,7 @@ class Score : public QObject, public ScoreElement {
       inline virtual UndoStack* undoStack() const;
       void undo(UndoCommand*, EditData* = 0) const;
       void undoRemoveMeasures(Measure*, Measure*, bool preserveTies = false);
+      void undoChangeMeasureRepeatCount(Measure* m, int count, int staffIdx);
       void undoAddBracket(Staff* staff, int level, BracketType type, int span);
       void undoRemoveBracket(Bracket*);
       void undoInsertTime(const Fraction& tick, const Fraction& len);
@@ -713,6 +718,7 @@ class Score : public QObject, public ScoreElement {
       Rest* addRest(const Fraction& tick, int track, TDuration, Tuplet*);
       Rest* addRest(Segment* seg, int track, TDuration d, Tuplet*);
       Chord* addChord(const Fraction& tick, TDuration d, Chord* oc, bool genTie, Tuplet* tuplet);
+      MeasureRepeat* addMeasureRepeat(const Fraction& tick, int track, int numMeasures);
 
       ChordRest* addClone(ChordRest* cr, const Fraction& tick, const TDuration& d);
       Rest* setRest(const Fraction& tick, int track, const Fraction&, bool useDots, Tuplet* tuplet, bool useFullMeasureRest = true);
@@ -998,8 +1004,9 @@ class Score : public QObject, public ScoreElement {
       bool getPosition(Position* pos, const QPointF&, int voice) const;
 
       void cmdDeleteTuplet(Tuplet*, bool replaceWithRest);
-
-//      void moveBracket(int staffIdx, int srcCol, int dstCol);
+#if 0
+      void moveBracket(int staffIdx, int srcCol, int dstCol);
+#endif
       Measure* getCreateMeasure(const Fraction& tick);
 
       void adjustBracketsDel(int sidx, int eidx);
@@ -1044,7 +1051,8 @@ class Score : public QObject, public ScoreElement {
       Segment* lastSegment() const;
       Segment* lastSegmentMM() const;
 
-      void connectTies(bool silent=false);
+      void connectTies(bool silent = false);
+      void relayoutForStyles();
       void connectArpeggios();
       void fixupLaissezVibrer();
 
@@ -1100,6 +1108,7 @@ class Score : public QObject, public ScoreElement {
       void cmdSplitMeasure(ChordRest*);
       void splitMeasure(Segment*);
       void cmdJoinMeasure(Measure*, Measure*);
+
       int pageNumberOffset() const          { return _pageNumberOffset; }
       void setPageNumberOffset(int v)       { _pageNumberOffset = v; }
 
