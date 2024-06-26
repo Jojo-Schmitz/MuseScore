@@ -17,16 +17,16 @@
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //=============================================================================
 
+#include "icons.h"
 #include "measureproperties.h"
-#include "libmscore/measure.h"
-#include "libmscore/sig.h"
-#include "libmscore/score.h"
-#include "libmscore/repeat.h"
-#include "libmscore/undo.h"
-#include "libmscore/range.h"
 #include "musescore.h"
 #include "timeline.h"
-#include "icons.h"
+
+#include "libmscore/measure.h"
+#include "libmscore/measurerepeat.h"
+#include "libmscore/score.h"
+#include "libmscore/undo.h"
+#include "libmscore/range.h"
 
 namespace Ms {
 

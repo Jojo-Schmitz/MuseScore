@@ -10,27 +10,25 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "libmscore/score.h"
-#include "scoreview.h"
-#include "libmscore/style.h"
 #include "editstyle.h"
-#include "libmscore/articulation.h"
-#include "libmscore/sym.h"
 #include "icons.h"
 #include "musescore.h"
-#include "libmscore/undo.h"
-#include "icons.h"
-#include "libmscore/harmony.h"
-#include "libmscore/chordlist.h"
-#include "libmscore/figuredbass.h"
-#include "libmscore/clef.h"
-#include "libmscore/excerpt.h"
-#include "libmscore/tuplet.h"
-#include "libmscore/layout.h"
+#include "preferences.h"
+#include "scoreview.h"
+
 #include "inspector/alignSelect.h"
 #include "inspector/offsetSelect.h"
 #include "inspector/fontStyleSelect.h"
-#include "preferences.h"
+
+#include "libmscore/clef.h"
+#include "libmscore/excerpt.h"
+#include "libmscore/figuredbass.h"
+#include "libmscore/layout.h"
+#include "libmscore/score.h"
+#include "libmscore/style.h"
+#include "libmscore/sym.h"
+#include "libmscore/tuplet.h"
+#include "libmscore/undo.h"
 
 namespace Ms {
 
@@ -145,6 +143,12 @@ EditStyle::EditStyle(Score* s, QWidget* parent)
       { Sid::frameSystemDistance,     false, frameSystemDistance,     resetFrameSystemDistance },
       { Sid::minMeasureWidth,         false, minMeasureWidth_2,       resetMinMeasureWidth },
       { Sid::measureSpacing,          false, measureSpacing,          resetMeasureSpacing },
+      { Sid::measureRepeatNumberPos,  false, measureRepeatNumberPos,  resetMeasureRepeatNumberPos },
+      { Sid::mrNumberSeries,          false, mrNumberSeries,          0 },
+      { Sid::mrNumberEveryXMeasures,  false, mrNumberEveryXMeasures,  resetMRNumberEveryXMeasures },
+      { Sid::mrNumberSeriesWithParentheses, false, mrNumberSeriesWithParentheses, resetMRNumberSeriesWithParentheses },
+      { Sid::oneMeasureRepeatShow1,   false, oneMeasureRepeatShow1,   resetOneMeasureRepeatShow1 },
+      { Sid::fourMeasureRepeatShowExtenders, false, fourMeasureRepeatShowExtenders, resetFourMeasureRepeatShowExtenders },
 
       { Sid::barWidth,                false, barWidth,                resetBarWidth },
       { Sid::endBarWidth,             false, endBarWidth,             resetEndBarWidth },
@@ -944,6 +948,9 @@ EditStylePage EditStyle::pageForElement(Element* e)
             case ElementType::KEYSIG:
                   return &EditStyle::PageAccidentals;
             case ElementType::MEASURE:
+                  return &EditStyle::PageMeasure;
+            case ElementType::MEASURE_REPEAT:
+                  return &EditStyle::PageMeasureRepeats;
             case ElementType::REST:
                   return &EditStyle::PageMeasure;
             case ElementType::BAR_LINE:

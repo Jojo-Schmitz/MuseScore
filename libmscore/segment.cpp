@@ -23,9 +23,9 @@
 #include "keysig.h"
 #include "mscore.h"
 #include "measure.h"
+#include "measurerepeat.h"
 #include "note.h"
 #include "part.h"
-#include "repeat.h"
 #include "score.h"
 #include "segment.h"
 #include "sig.h"
@@ -511,7 +511,7 @@ void Segment::add(Element* el)
             el->setOffset(el->propertyDefault(Pid::OFFSET).toPointF());
 
       switch (el->type()) {
-            case ElementType::REPEAT_MEASURE:
+            case ElementType::MEASURE_REPEAT:
                   _elist[track] = el;
                   setEmpty(false);
                   break;
@@ -668,7 +668,7 @@ void Segment::remove(Element* el)
                   }
                   break;
 
-            case ElementType::REPEAT_MEASURE:
+            case ElementType::MEASURE_REPEAT:
                   _elist[track] = 0;
                   break;
 
@@ -754,7 +754,7 @@ SegmentType Segment::segmentType(ElementType type)
       switch (type) {
             case ElementType::CHORD:
             case ElementType::REST:
-            case ElementType::REPEAT_MEASURE:
+            case ElementType::MEASURE_REPEAT:
             case ElementType::JUMP:
             case ElementType::MARKER:
                   return SegmentType::ChordRest;
@@ -1812,7 +1812,7 @@ Element* Segment::prevElement(int activeStaff)
                    if (el->staffIdx() != activeStaff)
                          return nullptr;
                    if (el->type() == ElementType::CHORD || el->type() == ElementType::REST
-                            || el->type() == ElementType::REPEAT_MEASURE) {
+                            || el->type() == ElementType::MEASURE_REPEAT) {
                          ChordRest* cr = this->cr(el->track());
                          if (cr) {
                                Element* elCr = cr->lastElementBeforeSegment();
@@ -1857,7 +1857,7 @@ Element* Segment::prevElement(int activeStaff)
                  Element* prev = seg->prevElementOfSegment(seg, el, activeStaff);
                   if (prev) {
                         if (prev->type() == ElementType::CHORD || prev->type() == ElementType::REST
-                               || prev->type() == ElementType::REPEAT_MEASURE) {
+                               || prev->type() == ElementType::MEASURE_REPEAT) {
                               ChordRest* cr = seg->cr(prev->track());
                               if (cr) {
                                     Element* elCr = cr->lastElementBeforeSegment();
@@ -1919,7 +1919,7 @@ Element* Segment::prevElement(int activeStaff)
                                return next;
                          }
                    if (prev->type() == ElementType::CHORD || prev->type() == ElementType::REST
-                            || prev->type() == ElementType::REPEAT_MEASURE || prev->type() == ElementType::NOTE) {
+                            || prev->type() == ElementType::MEASURE_REPEAT || prev->type() == ElementType::NOTE) {
                          ChordRest* cr = prevSeg->cr(prev->track());
                          if (cr) {
                                Element* elCr = cr->lastElementBeforeSegment();
@@ -2115,7 +2115,7 @@ void Segment::createShape(int staffIdx)
                   // TODO: we could choose to ignore invisible/no-autoplace notes & rests
                   // but these might be relied upon by some
                   setVisible(true);
-                  if (e->addToSkyline() || e->isChord())
+                  if ((e->addToSkyline() || e->isChord()) && !e->isMeasureRepeat())
                         s.add(e->shape().translated(e->pos()));
                   }
             }

@@ -10,15 +10,13 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
+#include "bracketItem.h"
+#include "measure.h"
+#include "musescoreCore.h"
 #include "scoreElement.h"
 #include "score.h"
 #include "undo.h"
 #include "xml.h"
-#include "bracket.h"
-#include "bracketItem.h"
-#include "measure.h"
-#include "spanner.h"
-#include "musescoreCore.h"
 
 namespace Ms {
 
@@ -56,7 +54,7 @@ static const ElementName elementNames[] = {
       { ElementType::TIMESIG,              "TimeSig",              QT_TRANSLATE_NOOP("elementName", "Time Signature") },
       { ElementType::REST,                 "Rest",                 QT_TRANSLATE_NOOP("elementName", "Rest") },
       { ElementType::BREATH,               "Breath",               QT_TRANSLATE_NOOP("elementName", "Breath") },
-      { ElementType::REPEAT_MEASURE,       "RepeatMeasure",        QT_TRANSLATE_NOOP("elementName", "Repeat Measure") },
+      { ElementType::MEASURE_REPEAT,       "MeasureRepeat",        QT_TRANSLATE_NOOP("elementName", "Measure Repeat") },
       { ElementType::TIE,                  "Tie",                  QT_TRANSLATE_NOOP("elementName", "Tie") },
       { ElementType::ARTICULATION,         "Articulation",         QT_TRANSLATE_NOOP("elementName", "Articulation") },
       { ElementType::FERMATA,              "Fermata",              QT_TRANSLATE_NOOP("elementName", "Fermata") },

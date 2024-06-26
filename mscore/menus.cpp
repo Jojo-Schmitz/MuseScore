@@ -59,7 +59,7 @@
 #include "libmscore/ottava.h"
 #include "libmscore/palmmute.h"
 #include "libmscore/pedal.h"
-#include "libmscore/repeat.h"
+#include "libmscore/measurerepeat.h"
 #include "libmscore/rehearsalmark.h"
 #include "libmscore/score.h"
 #include "libmscore/segment.h"
@@ -686,8 +686,15 @@ PalettePanel* MuseScore::newRepeatsPalettePanel()
       sp->setGrid(75, 28);
       sp->setDrawGrid(true);
 
-      RepeatMeasure* rm = new RepeatMeasure(gscore);
-      sp->append(rm, qApp->translate("symUserNames", Sym::symUserNames[int(SymId::repeat1Bar)]));
+      MeasureRepeat* mr1 = new MeasureRepeat(gscore);
+      mr1->setNumMeasures(1);
+      sp->append(mr1, qApp->translate("symUserNames", Sym::symUserNames[int(SymId::repeat1Bar)]));
+      MeasureRepeat* mr2 = new MeasureRepeat(gscore);
+      mr2->setNumMeasures(2);
+      sp->append(mr2, qApp->translate("symUserNames", Sym::symUserNames[int(SymId::repeat2Bars)]));
+      MeasureRepeat* mr4 = new MeasureRepeat(gscore);
+      mr4->setNumMeasures(4);
+      sp->append(mr4, qApp->translate("symUserNames", Sym::symUserNames[int(SymId::repeat4Bars)]));
 
       for (int i = 0; i < markerTypeTableSize(); i++) {
             if (markerTypeTable[i].type == Marker::Type::CODETTA) // not in SMuFL

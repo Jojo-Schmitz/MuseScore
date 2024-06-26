@@ -45,6 +45,7 @@
 #include "libmscore/lyrics.h"
 #include "libmscore/measure.h"
 #include "libmscore/measurenumber.h"
+#include "libmscore/measurerepeat.h"
 #include "libmscore/note.h"
 #include "libmscore/notedot.h"
 #include "libmscore/page.h"
@@ -627,6 +628,7 @@ void Debugger::updateElement(Element* el)
                   case ElementType::CHORD:                   ew = new ChordDebug;          break;
                   case ElementType::NOTE:                    ew = new ShowNoteWidget;      break;
                   case ElementType::REST:                    ew = new RestView;            break;
+                  case ElementType::MEASURE_REPEAT:          ew = new MeasureRepeatView;   break;
                   case ElementType::CLEF:                    ew = new ClefView;            break;
                   case ElementType::TIMESIG:                 ew = new TimeSigView;         break;
                   case ElementType::KEYSIG:                  ew = new KeySigView;          break;
@@ -642,9 +644,9 @@ void Debugger::updateElement(Element* el)
                   case ElementType::PEDAL:
                   case ElementType::LET_RING:
                   case ElementType::VIBRATO:
-                  case ElementType::TEXTLINE:           ew = new TextLineView;        break;
+                  case ElementType::TEXTLINE:                ew = new TextLineView;        break;
                   case ElementType::PEDAL_SEGMENT:
-                  case ElementType::TEXTLINE_SEGMENT:    ew = new TextLineSegmentView; break;
+                  case ElementType::TEXTLINE_SEGMENT:        ew = new TextLineSegmentView; break;
                   case ElementType::LYRICS:                  ew = new LyricsView;          break;
                   case ElementType::BEAM:                    ew = new BeamView;            break;
                   case ElementType::TREMOLO:                 ew = new TremoloView;         break;
@@ -805,6 +807,7 @@ void MeasureView::setElement(Element* e)
       mb.lineBreak->setChecked(m->lineBreak());
       mb.pageBreak->setChecked(m->pageBreak());
       mb.sectionBreak->setChecked(m->sectionBreak());
+      mb.noBreak->setChecked(m->noBreak());
       mb.irregular->setChecked(m->irregular());
       mb.repeatCount->setValue(m->repeatCount());
       mb.breakMultiMeasureRest->setChecked(m->breakMultiMeasureRest());
@@ -1249,6 +1252,62 @@ void ShowNoteWidget::accidentalClicked()
       }
 
 //---------------------------------------------------------
+//   MeasureRepeatView
+//---------------------------------------------------------
+
+MeasureRepeatView::MeasureRepeatView()
+      : ShowElementBase()
+      {
+      crb.setupUi(addWidget());
+      mrb.setupUi(addWidget());
+
+      connect(mrb.firstOfGroup, SIGNAL(clicked()), SLOT(firstOfGroupClicked()));
+      }
+
+//---------------------------------------------------------
+//   setElement
+//---------------------------------------------------------
+
+void MeasureRepeatView::setElement(Element* e)
+      {
+      MeasureRepeat* mr = toMeasureRepeat(e);
+      ShowElementBase::setElement(e);
+
+      crb.tick->setText(mr->tick().print());
+      crb.ticks->setText(mr->actualTicks().print());
+      crb.duration->setText(mr->ticks().print());
+      crb.beamButton->setEnabled(false);
+      crb.beamMode->setEnabled(false);
+      crb.tupletButton->setEnabled(false);
+      crb.upFlag->setEnabled(false);
+      crb.attributes->clear();
+      crb.dots->setEnabled(false);
+      crb.durationType->setText(mr->durationType().name());
+      crb.move->setValue(mr->staffMove());
+
+      crb.lyrics->clear();
+      for (Lyrics* lyrics : mr->lyrics()) {
+            QString s;
+            s.setNum(qptrdiff(lyrics), 16);
+            QListWidgetItem* item = new QListWidgetItem(s);
+            item->setData(Qt::UserRole, QVariant::fromValue<void*>((void*)lyrics));
+            crb.lyrics->addItem(item);
+            }
+
+      mrb.subtype->setValue(mr->numMeasures());
+      }
+
+//---------------------------------------------------------
+//   firstOfGroupClicked
+//---------------------------------------------------------
+
+void MeasureRepeatView::firstOfGroupClicked()
+      {
+      MeasureRepeat* mr = toMeasureRepeat(element());
+      emit elementChanged(mr->firstMeasureOfGroup());
+      }
+
+//---------------------------------------------------------
 //   RestView
 //---------------------------------------------------------
 
@@ -1594,7 +1653,7 @@ void SpannerView::startClicked()
       }
 
 //---------------------------------------------------------
-//   startClicked
+//   endClicked
 //---------------------------------------------------------
 
 void SpannerView::endClicked()

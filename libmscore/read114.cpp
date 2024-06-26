@@ -10,54 +10,53 @@
 //  the file LICENSE.GPL
 //=============================================================================
 
-#include "score.h"
-#include "slur.h"
-#include "staff.h"
-#include "excerpt.h"
-#include "chord.h"
-#include "rest.h"
-#include "keysig.h"
-#include "volta.h"
-#include "measure.h"
+#include "accidental.h"
+#include "barline.h"
 #include "beam.h"
-#include "segment.h"
-#include "ottava.h"
-#include "stafftype.h"
-#include "text.h"
-#include "measurenumber.h"
-#include "part.h"
-#include "sig.h"
+#include "breath.h"
 #include "box.h"
-#include "dynamic.h"
+#include "chord.h"
+#include "clef.h"
 #include "drumset.h"
+#include "dynamic.h"
+#include "excerpt.h"
+#include "fingering.h"
+#include "harmony.h"
+#include "image.h"
+#include "jump.h"
+#include "keysig.h"
+#include "lyrics.h"
+#include "marker.h"
+#include "measure.h"
+#include "measurenumber.h"
+#include "measurerepeat.h"
+#include "ottava.h"
+#include "part.h"
+#include "pedal.h"
+#include "read206.h"
+#include "rest.h"
+#include "score.h"
+#include "segment.h"
+#include "sig.h"
+#include "slur.h"
+#include "spacer.h"
+#include "staff.h"
+#include "stafftext.h"
+#include "stafftype.h"
+#include "stringdata.h"
 #include "style.h"
 #include "sym.h"
-#include "xml.h"
-#include "stringdata.h"
 #include "tempo.h"
-#include "tempotext.h"
-#include "clef.h"
-#include "barline.h"
-#include "timesig.h"
-#include "tuplet.h"
-#include "spacer.h"
-#include "stafftext.h"
-#include "repeat.h"
-#include "breath.h"
-#include "tremolo.h"
-#include "utils.h"
-#include "accidental.h"
-#include "fingering.h"
-#include "marker.h"
-#include "read206.h"
-#include "bracketItem.h"
-#include "harmony.h"
-#include "lyrics.h"
-#include "image.h"
+#include "text.h"
 #include "textframe.h"
-#include "jump.h"
 #include "textline.h"
-#include "pedal.h"
+#include "tempotext.h"
+#include "timesig.h"
+#include "tremolo.h"
+#include "tuplet.h"
+#include "utils.h"
+#include "volta.h"
+#include "xml.h"
 
 namespace Ms {
 
@@ -1120,7 +1119,11 @@ static void readVolta114(XmlReader& e, Volta* volta)
             const QStringRef& tag(e.name());
             if (tag == "endings") {
                   QString s = e.readElementText();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+                  QStringList sl = s.split(",", Qt::SkipEmptyParts);
+#else
                   QStringList sl = s.split(",", QString::SkipEmptyParts);
+#endif
                   volta->endings().clear();
                   for (const QString& l : qAsConst(sl)) {
                         int i = l.simplified().toInt();
@@ -1708,13 +1711,15 @@ static void readMeasure(Measure* m, int staffIdx, XmlReader& e)
                         }
                   }
             else if (tag == "RepeatMeasure") {
-                  RepeatMeasure* rm = new RepeatMeasure(m->score());
-                  rm->setTrack(e.track());
-                  readRest(m, rm, e);
+                  MeasureRepeat* mr = new MeasureRepeat(m->score());
+                  //mr->setTrack(e.track());
+                  readRest(m, mr, e);
+                  mr->setNumMeasures(1);
+                  m->setMeasureRepeatCount(1, staffIdx);
                   segment = m->getSegment(SegmentType::ChordRest, e.tick());
-                  segment->add(rm);
-                  if (rm->actualTicks().isZero()) // might happen with 1.3 scores
-                        rm->setTicks(m->ticks());
+                  segment->add(mr);
+                  if (mr->actualTicks().isZero()) // might happen with 1.3 scores
+                        mr->setTicks(m->ticks());
                   lastTick = e.tick();
                   e.incTick(m->ticks());
                   }

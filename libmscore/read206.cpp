@@ -10,61 +10,61 @@
 //  the file LICENSE.GPL
 //=============================================================================
 
-#include "xml.h"
-#include "score.h"
-#include "staff.h"
-#include "revisions.h"
-#include "part.h"
-#include "page.h"
-#include "style.h"
-#include "sym.h"
-#include "arpeggio.h"
-#include "audio.h"
-#include "sig.h"
-#include "barline.h"
-#include "measure.h"
 #include "ambitus.h"
-#include "bend.h"
-#include "chordline.h"
-#include "hook.h"
-#include "tuplet.h"
-#include "systemdivider.h"
-#include "spacer.h"
-#include "keysig.h"
-#include "stafftext.h"
-#include "dynamic.h"
-#include "drumset.h"
-#include "timesig.h"
-#include "slur.h"
-#include "tie.h"
-#include "chord.h"
-#include "rest.h"
-#include "breath.h"
-#include "repeat.h"
-#include "utils.h"
-#include "read206.h"
-#include "excerpt.h"
+#include "arpeggio.h"
 #include "articulation.h"
-#include "volta.h"
-#include "pedal.h"
-#include "hairpin.h"
-#include "glissando.h"
-#include "ottava.h"
-#include "trill.h"
-#include "rehearsalmark.h"
+#include "audio.h"
+#include "barline.h"
+#include "bend.h"
+#include "breath.h"
 #include "box.h"
-#include "textframe.h"
-#include "textline.h"
-#include "fingering.h"
+#include "chord.h"
+#include "chordline.h"
+#include "drumset.h"
+#include "dynamic.h"
+#include "excerpt.h"
 #include "fermata.h"
+#include "fingering.h"
+#include "glissando.h"
+#include "hairpin.h"
+#include "hook.h"
 #include "image.h"
+#include "keysig.h"
+#include "lyrics.h"
+#include "marker.h"
+#include "measure.h"
+#include "measurenumber.h"
+#include "measurerepeat.h"
+#include "ottava.h"
+#include "page.h"
+#include "part.h"
+#include "pedal.h"
+#include "read206.h"
+#include "rehearsalmark.h"
+#include "rest.h"
+#include "revisions.h"
+#include "score.h"
+#include "sig.h"
+#include "slur.h"
+#include "spacer.h"
+#include "staff.h"
+#include "stafftext.h"
 #include "stem.h"
 #include "stemslash.h"
-#include "undo.h"
-#include "lyrics.h"
+#include "style.h"
+#include "sym.h"
+#include "systemdivider.h"
 #include "tempotext.h"
-#include "measurenumber.h"
-#include "marker.h"
+#include "textframe.h"
+#include "textline.h"
+#include "tie.h"
+#include "timesig.h"
+#include "trill.h"
+#include "tuplet.h"
+#include "undo.h"
+#include "utils.h"
+#include "volta.h"
+#include "xml.h"
 
 #ifdef OMR
 #include "omr/omr.h"
@@ -2195,7 +2195,11 @@ static void readVolta206(XmlReader& e, Volta* volta)
             const QStringRef& tag(e.name());
             if (tag == "endings") {
                   QString s = e.readElementText();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+                  QStringList sl = s.split(",", Qt::SkipEmptyParts);
+#else
                   QStringList sl = s.split(",", QString::SkipEmptyParts);
+#endif
                   volta->endings().clear();
                   for (const QString& l : qAsConst(sl)) {
                         int i = l.simplified().toInt();
@@ -2831,11 +2835,13 @@ static void readMeasure(Measure* m, int staffIdx, XmlReader& e)
                         }
                   }
             else if (tag == "RepeatMeasure") {
-                  RepeatMeasure* rm = new RepeatMeasure(score);
-                  rm->setTrack(e.track());
-                  readRest(rm, e);
+                  MeasureRepeat* mr = new MeasureRepeat(score);
+                  mr->setTrack(e.track());
+                  readRest(mr, e);
+                  mr->setNumMeasures(1);
+                  m->setMeasureRepeatCount(1, staffIdx);
                   segment = m->getSegment(SegmentType::ChordRest, e.tick());
-                  segment->add(rm);
+                  segment->add(mr);
                   lastTick = e.tick();
                   e.incTick(m->ticks());
                   }
