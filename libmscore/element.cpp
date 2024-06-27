@@ -52,6 +52,7 @@
 #include "marker.h"
 #include "measure.h"
 #include "measurenumber.h"
+#include "measurerepeat.h"
 #include "mmrestrange.h"
 #include "mscore.h"
 #include "notedot.h"
@@ -63,7 +64,6 @@
 #include "palmmute.h"
 #include "pedal.h"
 #include "rehearsalmark.h"
-#include "repeat.h"
 #include "rest.h"
 #include "score.h"
 #include "segment.h"
@@ -1096,7 +1096,7 @@ Element* Element::create(ElementType type, Score* score)
             case ElementType::LAYOUT_BREAK:      return new LayoutBreak(score);
             case ElementType::MARKER:            return new Marker(score);
             case ElementType::JUMP:              return new Jump(score);
-            case ElementType::REPEAT_MEASURE:    return new RepeatMeasure(score);
+            case ElementType::MEASURE_REPEAT:    return new MeasureRepeat(score);
             case ElementType::ICON:              return new Icon(score);
             case ElementType::NOTE:              return new Note(score);
             case ElementType::SYMBOL:            return new Symbol(score);

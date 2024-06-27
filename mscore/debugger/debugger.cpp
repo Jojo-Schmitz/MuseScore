@@ -18,57 +18,56 @@
 //=============================================================================
 
 #include "debugger.h"
-#include "musescore.h"
+//#include "globals.h"
 #include "icons.h"
-#include "globals.h"
-#include "libmscore/element.h"
-#include "libmscore/page.h"
-#include "libmscore/segment.h"
-#include "libmscore/score.h"
-#include "libmscore/rest.h"
-#include "libmscore/note.h"
-#include "libmscore/chord.h"
-#include "libmscore/measure.h"
-#include "libmscore/text.h"
-#include "libmscore/hairpin.h"
-#include "libmscore/beam.h"
-#include "libmscore/tuplet.h"
-#include "libmscore/clef.h"
-#include "libmscore/barline.h"
-#include "libmscore/hook.h"
-#include "libmscore/dynamic.h"
-#include "libmscore/slur.h"
-#include "libmscore/tie.h"
-#include "libmscore/lyrics.h"
-#include "libmscore/volta.h"
-#include "libmscore/line.h"
-#include "libmscore/textline.h"
-#include "libmscore/system.h"
-#include "libmscore/arpeggio.h"
-#include "libmscore/tremolo.h"
-#include "libmscore/articulation.h"
-#include "libmscore/ottava.h"
-#include "libmscore/bend.h"
-#include "libmscore/stem.h"
-#include "libmscore/iname.h"
+#include "musescore.h"
+
 #include "libmscore/accidental.h"
-#include "libmscore/keysig.h"
-#include "libmscore/sig.h"
-#include "libmscore/notedot.h"
-#include "libmscore/spacer.h"
+#include "libmscore/arpeggio.h"
+#include "libmscore/articulation.h"
+#include "libmscore/barline.h"
+#include "libmscore/beam.h"
 #include "libmscore/box.h"
-#include "libmscore/fret.h"
-#include "libmscore/harmony.h"
-#include "libmscore/stemslash.h"
-#include "libmscore/ledgerline.h"
-#include "libmscore/pitchspelling.h"
-#include "libmscore/chordlist.h"
 #include "libmscore/bracket.h"
-#include "libmscore/bracketItem.h"
-#include "libmscore/trill.h"
-#include "libmscore/timesig.h"
-#include "libmscore/systemdivider.h"
+#include "libmscore/chord.h"
+#include "libmscore/chordlist.h"
+#include "libmscore/clef.h"
+#include "libmscore/dynamic.h"
+#include "libmscore/element.h"
+#include "libmscore/fret.h"
+#include "libmscore/hairpin.h"
+#include "libmscore/harmony.h"
+#include "libmscore/hook.h"
+#include "libmscore/iname.h"
+#include "libmscore/keysig.h"
+#include "libmscore/ledgerline.h"
+#include "libmscore/line.h"
+#include "libmscore/lyrics.h"
+#include "libmscore/measure.h"
 #include "libmscore/measurenumber.h"
+#include "libmscore/measurerepeat.h"
+#include "libmscore/note.h"
+#include "libmscore/notedot.h"
+#include "libmscore/page.h"
+#include "libmscore/pitchspelling.h"
+#include "libmscore/rest.h"
+#include "libmscore/score.h"
+#include "libmscore/segment.h"
+#include "libmscore/sig.h"
+#include "libmscore/slur.h"
+#include "libmscore/stem.h"
+#include "libmscore/stemslash.h"
+#include "libmscore/spacer.h"
+#include "libmscore/system.h"
+#include "libmscore/systemdivider.h"
+#include "libmscore/text.h"
+#include "libmscore/textline.h"
+#include "libmscore/tie.h"
+#include "libmscore/timesig.h"
+#include "libmscore/tremolo.h"
+#include "libmscore/trill.h"
+#include "libmscore/tuplet.h"
+#include "libmscore/volta.h"
 
 namespace Ms {
 
@@ -629,6 +628,7 @@ void Debugger::updateElement(Element* el)
                   case ElementType::CHORD:                   ew = new ChordDebug;          break;
                   case ElementType::NOTE:                    ew = new ShowNoteWidget;      break;
                   case ElementType::REST:                    ew = new RestView;            break;
+                  case ElementType::MEASURE_REPEAT:          ew = new MeasureRepeatView;   break;
                   case ElementType::CLEF:                    ew = new ClefView;            break;
                   case ElementType::TIMESIG:                 ew = new TimeSigView;         break;
                   case ElementType::KEYSIG:                  ew = new KeySigView;          break;
@@ -644,9 +644,9 @@ void Debugger::updateElement(Element* el)
                   case ElementType::PEDAL:
                   case ElementType::LET_RING:
                   case ElementType::VIBRATO:
-                  case ElementType::TEXTLINE:           ew = new TextLineView;        break;
+                  case ElementType::TEXTLINE:                ew = new TextLineView;        break;
                   case ElementType::PEDAL_SEGMENT:
-                  case ElementType::TEXTLINE_SEGMENT:    ew = new TextLineSegmentView; break;
+                  case ElementType::TEXTLINE_SEGMENT:        ew = new TextLineSegmentView; break;
                   case ElementType::LYRICS:                  ew = new LyricsView;          break;
                   case ElementType::BEAM:                    ew = new BeamView;            break;
                   case ElementType::TREMOLO:                 ew = new TremoloView;         break;
@@ -807,10 +807,12 @@ void MeasureView::setElement(Element* e)
       mb.lineBreak->setChecked(m->lineBreak());
       mb.pageBreak->setChecked(m->pageBreak());
       mb.sectionBreak->setChecked(m->sectionBreak());
+      mb.noBreak->setChecked(m->noBreak());
       mb.irregular->setChecked(m->irregular());
       mb.repeatCount->setValue(m->repeatCount());
       mb.breakMultiMeasureRest->setChecked(m->breakMultiMeasureRest());
       mb.mmRestCount->setValue(m->mmRestCount());
+      mb.oldWidth->setValue(m->oldWidth());
       mb.timesig->setText(m->timesig().print());
       mb.len->setText(m->ticks().print());
       mb.tick->setValue(m->tick().ticks());
@@ -1250,6 +1252,62 @@ void ShowNoteWidget::accidentalClicked()
       }
 
 //---------------------------------------------------------
+//   MeasureRepeatView
+//---------------------------------------------------------
+
+MeasureRepeatView::MeasureRepeatView()
+      : ShowElementBase()
+      {
+      crb.setupUi(addWidget());
+      mrb.setupUi(addWidget());
+
+      connect(mrb.firstOfGroup, SIGNAL(clicked()), SLOT(firstOfGroupClicked()));
+      }
+
+//---------------------------------------------------------
+//   setElement
+//---------------------------------------------------------
+
+void MeasureRepeatView::setElement(Element* e)
+      {
+      MeasureRepeat* mr = toMeasureRepeat(e);
+      ShowElementBase::setElement(e);
+
+      crb.tick->setText(mr->tick().print());
+      crb.ticks->setText(mr->actualTicks().print());
+      crb.duration->setText(mr->ticks().print());
+      crb.beamButton->setEnabled(false);
+      crb.beamMode->setEnabled(false);
+      crb.tupletButton->setEnabled(false);
+      crb.upFlag->setEnabled(false);
+      crb.attributes->clear();
+      crb.dots->setEnabled(false);
+      crb.durationType->setText(mr->durationType().name());
+      crb.move->setValue(mr->staffMove());
+
+      crb.lyrics->clear();
+      for (Lyrics* lyrics : mr->lyrics()) {
+            QString s;
+            s.setNum(qptrdiff(lyrics), 16);
+            QListWidgetItem* item = new QListWidgetItem(s);
+            item->setData(Qt::UserRole, QVariant::fromValue<void*>((void*)lyrics));
+            crb.lyrics->addItem(item);
+            }
+
+      mrb.subtype->setValue(mr->numMeasures());
+      }
+
+//---------------------------------------------------------
+//   firstOfGroupClicked
+//---------------------------------------------------------
+
+void MeasureRepeatView::firstOfGroupClicked()
+      {
+      MeasureRepeat* mr = toMeasureRepeat(element());
+      emit elementChanged(mr->firstMeasureOfGroup());
+      }
+
+//---------------------------------------------------------
 //   RestView
 //---------------------------------------------------------
 
@@ -1595,7 +1653,7 @@ void SpannerView::startClicked()
       }
 
 //---------------------------------------------------------
-//   startClicked
+//   endClicked
 //---------------------------------------------------------
 
 void SpannerView::endClicked()
@@ -1789,7 +1847,11 @@ QSize DoubleLabel::sizeHint() const
       QFontMetrics fm = fontMetrics();
       int h           = fm.height() + 4;
       int n           = 3 + 3;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+      int w = fm.horizontalAdvance(QString("-0.")) + fm.horizontalAdvance('0') * n + 6;
+#else
       int w = fm.width(QString("-0.")) + fm.width('0') * n + 6;
+#endif
       return QSize(w, h);
       }
 

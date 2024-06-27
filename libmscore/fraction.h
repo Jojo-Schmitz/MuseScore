@@ -15,7 +15,6 @@
 #ifndef __FRACTION_H__
 #define __FRACTION_H__
 
-#include "config.h"
 #include "mscore.h"
 
 namespace Ms {

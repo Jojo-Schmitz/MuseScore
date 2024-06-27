@@ -67,6 +67,7 @@ class MeasureBase : public Element {
       Fraction _tick         { Fraction(0, 1) };
       int _no                { 0 };       ///< Measure number, counting from zero
       int _noOffset          { 0 };       ///< Offset to measure number
+      qreal _oldWidth        { 0 };       ///< Used to restore layout during recalculations in Score::collectSystem()
 
    protected:
       Fraction _len  { Fraction(0, 1) };  ///< actual length of measure
@@ -77,8 +78,8 @@ class MeasureBase : public Element {
       ~MeasureBase();
       MeasureBase(const MeasureBase&);
 
-      virtual MeasureBase* clone() const = 0;
-      virtual ElementType type() const = 0;
+      virtual MeasureBase* clone() const override = 0;
+      virtual ElementType type() const override = 0;
 
       virtual void setScore(Score* s) override;
 
@@ -98,9 +99,9 @@ class MeasureBase : public Element {
       virtual void write(XmlWriter&) const override = 0;
       virtual void write(XmlWriter&, int, bool, bool) const = 0;
 
-      virtual void layout();
+      virtual void layout() override;
 
-      virtual void scanElements(void* data, void (*func)(void*, Element*), bool all=true);
+      virtual void scanElements(void* data, void (*func)(void*, Element*), bool all=true) override;
       ElementList& el()                      { return _el; }
       const ElementList& el() const          { return _el; }
       System* system() const                 { return (System*)parent(); }
@@ -177,6 +178,9 @@ class MeasureBase : public Element {
 
       int index() const;
       int measureIndex() const;
+
+      void setOldWidth(qreal n)        { _oldWidth = n;                           }
+      qreal oldWidth() const           { return _oldWidth;                        }
       };
 
 

@@ -15,64 +15,65 @@
  Implementation of class Score (partial).
 */
 
-#include "score.h"
-#include "fermata.h"
-#include "imageStore.h"
-#include "key.h"
-#include "sig.h"
-#include "clef.h"
-#include "tempo.h"
-#include "measure.h"
-#include "page.h"
-#include "undo.h"
-#include "system.h"
-#include "select.h"
-#include "segment.h"
-#include "xml.h"
-#include "text.h"
-#include "note.h"
+#include "articulation.h"
+#include "audio.h"
+#include "barline.h"
+#include "beam.h"
+#include "bracket.h"
+#include "breath.h"
+#include "box.h"
 #include "chord.h"
+#include "clef.h"
+#include "excerpt.h"
+#include "fermata.h"
+#include "harmony.h"
+#include "image.h"
+#include "imageStore.h"
+#include "instrchange.h"
+#include "instrtemplate.h"
+#include "key.h"
+#include "keysig.h"
+#include "layoutbreak.h"
+#include "line.h"
+#include "lyrics.h"
+#include "measurerepeat.h"
+#include "measure.h"
+#include "mscore.h"
+#include "note.h"
+#include "ottava.h"
+#include "page.h"
+#include "part.h"
+#include "pitchspelling.h"
+#include "rehearsalmark.h"
+#include "repeatlist.h"
 #include "rest.h"
+#include "revisions.h"
+#include "score.h"
+#include "scoreOrder.h"
+#include "segment.h"
+#include "select.h"
+#include "sig.h"
 #include "slur.h"
 #include "staff.h"
-#include "part.h"
-#include "style.h"
-#include "tuplet.h"
-#include "lyrics.h"
-#include "pitchspelling.h"
-#include "line.h"
-#include "volta.h"
-#include "repeat.h"
-#include "ottava.h"
-#include "barline.h"
-#include "box.h"
-#include "utils.h"
-#include "excerpt.h"
-#include "repeatlist.h"
-#include "keysig.h"
-#include "beam.h"
 #include "stafftype.h"
+#include "style.h"
+#include "sym.h"
+#include "synthesizerstate.h"
+#include "system.h"
+#include "tempo.h"
 #include "tempotext.h"
-#include "articulation.h"
-#include "revisions.h"
+#include "text.h"
 #include "tie.h"
 #include "tiemap.h"
-#include "layoutbreak.h"
-#include "harmony.h"
-#include "mscore.h"
-#include "scoreOrder.h"
+#include "tuplet.h"
+#include "undo.h"
+#include "utils.h"
+#include "volta.h"
+#include "xml.h"
+
 #ifdef OMR
 #include "omr/omr.h"
 #endif
-#include "bracket.h"
-#include "audio.h"
-#include "instrtemplate.h"
-#include "sym.h"
-#include "rehearsalmark.h"
-#include "breath.h"
-#include "instrchange.h"
-#include "synthesizerstate.h"
-#include "image.h"
 
 namespace Ms {
 
@@ -1673,7 +1674,7 @@ MeasureBase* Score::measure(int idx) const
 
 //---------------------------------------------------------
 //   crMeasure
-//    Returns a measure containing chords an rests
+//    Returns a measure containing chords and/or rests
 //    by its index skipping other MeasureBase descendants
 //---------------------------------------------------------
 
@@ -1971,7 +1972,7 @@ void MasterScore::addExcerpt(Excerpt* ex)
                   break;
                   }
             }
-      if (ex->tracks().isEmpty()) {      // SHOULDN'T HAPPEN, protected in the UI, but it happens during read-in!!!
+      if (ex->tracks().isEmpty()) { // SHOULDN'T HAPPEN, protected in the UI, but it happens during read-in!!!
             QMultiMap<int, int> tracks;
             for (Staff* s : score->staves()) {
                   const LinkedElements* ls = s->links();
@@ -2998,7 +2999,7 @@ void Score::padToggle(Pad p, const EditData& ed)
                   ChordRest* cr = InputState::chordRest(e);
                   if (!cr)
                         continue;
-                  if (cr->isRepeatMeasure() || (cr->isRest() && toRest(cr)->measure() && toRest(cr)->measure()->isMMRest())) {
+                  if (cr->isMeasureRepeat() || (cr->isRest() && toRest(cr)->measure() && toRest(cr)->measure()->isMMRest())) {
                         canAdjustLength = false;
                         break;
                         }
