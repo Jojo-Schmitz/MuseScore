@@ -10,14 +10,13 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "instrtemplate.h"
 #include "bracket.h"
 #include "drumset.h"
-#include "stafftype.h"
-#include "style.h"
-#include "sym.h"
-#include "stringdata.h"
+#include "instrtemplate.h"
 #include "scoreOrder.h"
+#include "stafftype.h"
+#include "stringdata.h"
+#include "style.h"
 #include "utils.h"
 #include "xml.h"
 
@@ -734,6 +733,84 @@ InstrumentTemplate* searchTemplate(const QString& name)
                   }
             }
       return 0;
+      }
+
+const InstrumentTemplate* combinedTemplateSearch(const QString& mxmlId, const QString& name, const int transposition, int bank,
+                                                 int program)
+      {
+      if (mxmlId.isEmpty() && name.isEmpty() && transposition == -1 && bank == 0 && program == -1) {
+            // No instrument information provided
+            return nullptr;
+            }
+
+      QString id = mxmlId;
+      if (mxmlId.isEmpty()) {
+            if (name.contains("drum", Qt::CaseInsensitive))
+                  id = "drum.group.set";
+            else if (name.contains("piano", Qt::CaseInsensitive))
+                  id = "keyboard.piano";
+            }
+
+      // This is to workaround old generic instrument templates
+      if ((mxmlId == "wind.reed.clarinet" || mxmlId == "brass.trumpet") && transposition == 10)
+            id.append(".bflat");
+
+      // Perform a weighted search over musicxml ID, instrument name, transposition, and midi program
+      static const int MXML_ID_WEIGHT = 4;
+      static const int TRACK_NAME_WEIGHT = 32;
+      static const int LONG_NAME_WEIGHT = 16;
+      static const int SHORT_NAME_WEIGHT = 8;
+      static const int MIDI_WEIGHT = 2;
+      static const int TRANSPOSITION_WEIGHT = 1;
+
+      // Exclude text weights from a perfect score as we only have one string to match, and it won't match all three track, long and short names
+      int perfectMatchStrength = 0 + (id.isEmpty() ? 0 : MXML_ID_WEIGHT)
+                  + (program == -1 ? 0 : MIDI_WEIGHT)
+                  + TRANSPOSITION_WEIGHT;
+
+      const InstrumentTemplate* bestMatch = nullptr;
+      int bestMatchStrength = 0;
+      for (const InstrumentGroup* g : instrumentGroups) {
+            for (const InstrumentTemplate* it : g->instrumentTemplates) {
+                  //if (it->trait.name == "[hide]")
+                  //      continue;
+                  int matchStrength = 0;
+                  int nameWeight = 0;
+
+                  // MusicXML ID
+                  if (!it->musicXMLid.isEmpty() && it->musicXMLid == id)
+                        matchStrength += MXML_ID_WEIGHT;
+
+                  // Instrument names
+                  if (!name.isEmpty()) {
+                        nameWeight = 0 + (TRACK_NAME_WEIGHT * (it->trackName == name ? 1 : 0))
+                                    + (LONG_NAME_WEIGHT * (it->longNames.contains(StaffName(name)) ? 1 : 0))
+                                    + (SHORT_NAME_WEIGHT * (it->shortNames.contains(StaffName(name)) ? 1 : 0));
+                        matchStrength += nameWeight;
+                        }
+
+                  // Midi program
+                  for (const Channel& channel : it->channel) {
+                        if (channel.bank() == bank && channel.program() == program) {
+                              matchStrength += MIDI_WEIGHT;
+                              break;
+                              }
+                        }
+
+                  // We aren't concerned about the octave of transpositions
+                  if (transposition == (it->transpose.chromatic + 12) % 12)
+                        matchStrength += TRANSPOSITION_WEIGHT;
+
+                  if (matchStrength > bestMatchStrength) {
+                        bestMatch = it;
+                        bestMatchStrength = matchStrength;
+                        if (bestMatchStrength - nameWeight == perfectMatchStrength && nameWeight > 0)
+                              return bestMatch; // stop looking for matches
+                        }
+                  }
+            }
+
+      return bestMatch;
       }
 
 //---------------------------------------------------------
