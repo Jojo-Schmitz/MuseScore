@@ -65,6 +65,7 @@
 #include "libmscore/lyrics.h"
 #include "libmscore/marker.h"
 #include "libmscore/measure.h"
+#include "libmscore/measurerepeat.h"
 #include "libmscore/mscore.h"
 #include "libmscore/navigate.h"
 #include "libmscore/note.h"
@@ -331,6 +332,8 @@ class ExportMusicXml {
       int div;
       double millimeters;
       int tenths;
+      bool _tboxesAboveWritten;
+      bool _tboxesBelowWritten;
       TrillHash _trillStart;
       TrillHash _trillStop;
       MxmlInstrumentMap instrMap;
@@ -361,7 +364,10 @@ class ExportMusicXml {
       void findAndExportClef(const Measure* const m, const int staves, const int strack, const int etrack);
       void exportDefaultClef(const Part* const part, const Measure* const m);
       void writeElement(Element* el, const Measure* m, int sstaff, bool useDrumset);
-      void writeMeasureTracks(const Measure* const m, const int partIndex, const int strack, const int staves, const bool useDrumset, FigBassMap& fbMap, QSet<const Spanner*>& spannersStopped);
+      void writeMeasureTracks(const Measure* const m, const int partIndex, const int strack, const int partRelStaffNo, const bool useDrumset,
+                              const bool isLastStaffOfPart, FigBassMap& fbMap, QSet<const Spanner*>& spannersStopped);
+      void writeMeasureStaves(const Measure* m, const int partIndex, const int strack, const int staves, const bool useDrumset,
+                              FigBassMap& fbMap, QSet<const Spanner*>& spannersStopped);
       void writeMeasure(const Measure* const m, const int idx, const int staffCount, MeasureNumberStateHandler& mnsh, FigBassMap& fbMap, const MeasurePrintContext& mpc, QSet<const Spanner*>& spannersStopped);
       void repeatAtMeasureStart(Attributes& attr, const Measure* const m, int strack, int etrack, int track);
       void repeatAtMeasureStop(const Measure* const m, int strack, int etrack, int track);
@@ -5815,14 +5821,54 @@ static bool elementRighter(const Element* e1, const Element* e2)
 #endif
 
 //---------------------------------------------------------
+//  measureRepeat -- write measure-repeat
+//---------------------------------------------------------
+
+static void measureRepeat(XmlWriter& xml, Attributes& attr, const Measure* const m, const int partIndex)
+      {
+      Part* part = m->score()->parts().at(partIndex);
+      const int scoreRelStaff = m->score()->staffIdx(part);
+      for (int i = 0; i < part->nstaves(); ++i) {
+            int staffIdx = scoreRelStaff + i;
+            if (m->isMeasureRepeatGroup(staffIdx)
+                && (!m->prevMeasure() || !m->prevMeasure()->isMeasureRepeatGroup(staffIdx)
+                    || (m->measureRepeatNumMeasures(staffIdx) != m->prevMeasure()->measureRepeatNumMeasures(staffIdx)))) {
+                  attr.doAttr(xml, true);
+                  xml.stag(QString("measure-style number=\"%1\"").arg(i + 1));
+                  int numMeasures = m->measureRepeatNumMeasures(staffIdx);
+                  if (numMeasures > 1) {
+                        // slashes == numMeasures for everything MuseScore currently supports
+                        xml.tag(QString("measure-repeat slashes=\"%1\" type=\"start\"").arg(numMeasures), numMeasures);
+                        }
+                  else {
+                        // no need to include slashes
+                        xml.tag("measure-repeat type=\"start\"", numMeasures);
+                        }
+                  xml.etag();
+                  }
+            else if (
+                     // no longer in measure repeats
+                     m->prevMeasure() && ((m->prevMeasure()->isMeasureRepeatGroup(staffIdx) && !m->isMeasureRepeatGroup(staffIdx))
+                                          // or still in measure repeats, but now of different duration
+                                          || (m->prevMeasure()->measureRepeatElement(staffIdx) && m->measureRepeatElement(staffIdx)
+                                              && (m->measureRepeatNumMeasures(staffIdx) != m->prevMeasure()->measureRepeatNumMeasures(staffIdx))))) {
+                  attr.doAttr(xml, true);
+                  xml.stag(QString("measure-style number=\"%1\"").arg(i + 1));
+                  xml.tag("measure-repeat type=\"stop\"", "");
+                  xml.etag();
+                  }
+            }
+      }
+
+//---------------------------------------------------------
 //  measureStyle -- write measure-style
 //---------------------------------------------------------
 
-// this is done at the first measure of a multi-meaure rest
+// this is done at the first measure of a multimeaure rest
 // note: for a normal measure, mmRest1 is the measure itself,
 // for a multi-meaure rest, it is the replacing measure
 
-static void measureStyle(XmlWriter& xml, Attributes& attr, const Measure* const m)
+static void measureStyle(XmlWriter& xml, Attributes& attr, const Measure* const m, const int partIndex)
       {
       const Measure* mmR1 = m->coveringMMRestOrThis();
       if (m != mmR1 && m == mmR1->mmRestFirst()) {
@@ -5830,6 +5876,10 @@ static void measureStyle(XmlWriter& xml, Attributes& attr, const Measure* const 
             xml.stag("measure-style");
             xml.tag("multiple-rest", mmR1->mmRestCount());
             xml.etag();
+            }
+      else {
+            // measure repeat can only possibly be present if mmrest was not
+            measureRepeat(xml, attr, m, partIndex);
             }
       }
 
@@ -6414,7 +6464,7 @@ typedef QMap<int, const Instrument*> MxmlReverseInstrumentMap;
 static void initReverseInstrMap(MxmlReverseInstrumentMap& rim, const MxmlInstrumentMap& im)
       {
       rim.clear();
-      for (const Instrument* i : im.keys()) {
+      for (const Instrument*& i : im.keys()) {
             int instNr = im.value(i);
             rim.insert(instNr, i);
             }
@@ -6738,11 +6788,11 @@ static void findPitchesUsed(const Part* part, pitchSet& set)
                               // add grace and non-grace note pitches to the result set
                               const Chord* c = static_cast<const Chord*>(el);
                               if (c) {
-                                    for (const Chord* g : c->graceNotesBefore()) {
+                                    for (Chord*& g : c->graceNotesBefore()) {
                                           addChordPitchesToSet(g, set);
                                           }
                                     addChordPitchesToSet(c, set);
-                                    for (const Chord* g : c->graceNotesAfter()) {
+                                    for (Chord*& g : c->graceNotesAfter()) {
                                           addChordPitchesToSet(g, set);
                                           }
                                     }
@@ -6943,11 +6993,11 @@ void ExportMusicXml::writeElement(Element* el, const Measure* m, int sstaff, boo
             // ise grace after
             if (c) {
                   const auto ll = &c->lyrics();
-                  for (Chord* g : c->graceNotesBefore()) {
+                  for (Chord*& g : c->graceNotesBefore()) {
                         chord(g, sstaff, ll, useDrumset);
                         }
                   chord(c, sstaff, ll, useDrumset);
-                  for (Chord* g : c->graceNotesAfter()) {
+                  for (Chord*& g : c->graceNotesAfter()) {
                         chord(g, sstaff, ll, useDrumset);
                         }
                   }
@@ -7312,29 +7362,20 @@ static std::vector<TBox*> findTextFramesToWriteAsWordsBelow(const Measure* const
 
 void ExportMusicXml::writeMeasureTracks(const Measure* const m,
                                         const int partIndex,
-                                        const int strack, const int staves, // TODO remove ??
+                                        const int strack,
+                                        const int partRelStaffNo,
                                         const bool useDrumset,
+                                        const bool isLastStaffOfPart,
                                         FigBassMap& fbMap,
                                         QSet<const Spanner*>& spannersStopped)
       {
-      bool tboxesAboveWritten = false;
       const auto tboxesAbove = findTextFramesToWriteAsWordsAbove(m);
-
-      bool tboxesBelowWritten = false;
       const auto tboxesBelow = findTextFramesToWriteAsWordsBelow(m);
 
-      const int etrack = strack + VOICES * staves;
-
-      for (int st = strack; st < etrack; ++st) {
-            // sstaff - xml staff number, counting from 1 for this
-            // instrument
-            // special number 0 -> don’t show staff number in
-            // xml output (because there is only one staff)
-
-            int sstaff = (staves > 1) ? st - strack + VOICES : 0;
-            sstaff /= VOICES;
+      int etrack = strack + VOICES;
+      for (int track = strack; track < etrack; ++track) {
             for (Segment* seg = m->first(); seg; seg = seg->next()) {
-                  Element* const el = seg->element(st);
+                  Element* const el = seg->element(track);
                   if (!el) {
                         continue;
                         }
@@ -7343,60 +7384,112 @@ void ExportMusicXml::writeMeasureTracks(const Measure* const m,
                         continue;
 
                   // generate backup or forward to the start time of the element
-                  moveToTickIfNeed(seg->tick(), stretch(_score, st, m->tick()));
+                  moveToTickIfNeed(seg->tick(), stretch(_score, track, m->tick()));
 
                   // handle annotations and spanners (directions attached to this note or rest)
                   if (el->isChordRest()) {
                         _attr.doAttr(_xml, false);
                         const bool isFirstPart = (partIndex == 0);
                         const bool isLastPart = (partIndex == (_score->parts().size() - 1));
-                        if (!tboxesAboveWritten && isFirstPart) {
+                        if (!_tboxesAboveWritten && isFirstPart) {
                               for (TBox* const tbox : tboxesAbove) {
                                     // note: use coveringMMRestOrThis() to get at a possible multi-measure rest,
                                     // as the covered measure would be positioned at 0,0.
                                     tboxTextAsWords(tbox->text(), 0, tbox->text()->canvasPos() - m->coveringMMRestOrThis()->canvasPos());
                                     }
-                              tboxesAboveWritten = true;
+                              _tboxesAboveWritten = true;
                               }
-                        if (!tboxesBelowWritten && isLastPart && (etrack - VOICES) <= st) {
+                        if (!_tboxesBelowWritten && isLastPart && isLastStaffOfPart) {
                               for (TBox* const tbox : tboxesBelow) {
-                                    const int lastStaffNr = st / VOICES;
+                                    const int lastStaffNr = track2staff(track);
                                     const System* sys = m->coveringMMRestOrThis()->system();
                                     QPointF textPos = tbox->text()->canvasPos() - m->coveringMMRestOrThis()->canvasPos();
                                     if (lastStaffNr < sys->staves()->size()) {
                                           // convert to position relative to last staff of system
                                           textPos.setY(textPos.y() - (sys->staffCanvasYpage(lastStaffNr) - sys->staffCanvasYpage(0)));
                                           }
-                                    tboxTextAsWords(tbox->text(), sstaff, textPos);
+                                    tboxTextAsWords(tbox->text(), partRelStaffNo, textPos);
                                     }
-                              tboxesBelowWritten = true;
+                              _tboxesBelowWritten = true;
                               }
-                        harmonies(this, st, seg);
-                        annotations(this, strack, etrack, st, sstaff, seg);
-                        figuredBass(_xml, strack, etrack, st, static_cast<const ChordRest*>(el), fbMap, div);
-                        spannerStart(this, strack, etrack, st, sstaff, seg);
+                        harmonies(this, track, seg);
+                        annotations(this, strack, etrack, track, partRelStaffNo, seg);
+                        figuredBass(_xml, strack, etrack, track, static_cast<const ChordRest*>(el), fbMap, div);
+                        spannerStart(this, strack, etrack, track, partRelStaffNo, seg);
                         }
 
                   // write element el if necessary
-                  writeElement(el, m, sstaff, useDrumset);
+                  writeElement(el, m, partRelStaffNo, useDrumset);
 
                   // handle annotations and spanners (directions attached to this note or rest)
                   if (el->isChordRest()) {
-                        const int spannerStaff = st / VOICES;
-                        const int starttrack = spannerStaff * VOICES;
-                        const int endtrack = (spannerStaff + 1) * VOICES;
-                        spannerStop(this, starttrack, endtrack, _tick, sstaff, spannersStopped);
+                        const int spannerStaff = track2staff(track);
+                        const int starttrack = staff2track(spannerStaff);
+                        const int endtrack = staff2track(spannerStaff + 1);
+                        spannerStop(this, starttrack, endtrack, _tick, partRelStaffNo, spannersStopped);
                         }
 
                   } // for (Segment* seg = ...
             _attr.stop(_xml);
-            const bool isLastVoiceOfStaff = st % VOICES == VOICES - 1;
-            const bool isLastVoiceOfLastStaff = st == etrack - 1;
+            const bool isLastVoiceOfStaff = track % VOICES == VOICES - 1;
+            const bool isLastVoiceOfLastStaff = track == etrack - 1;
             if (isLastVoiceOfStaff && !isLastVoiceOfLastStaff) {
                   // move tick to start of measure, generates backup to next staff, needs this staff's stretch
-                  moveToTick(m->tick(), stretch(_score, st, m->tick()));
+                  moveToTick(m->tick(), stretch(_score, track, m->tick()));
                   }
             } // for (int st = ...
+      }
+
+//---------------------------------------------------------
+//  writeMeasureStaves
+//---------------------------------------------------------
+
+/**
+ Write each staff of a measure for a given part.
+ */
+
+void ExportMusicXml::writeMeasureStaves(const Measure* m,
+                                        const int partIndex,
+                                        const int startStaff,
+                                        const int nstaves,
+                                        const bool useDrumset,
+                                        FigBassMap& fbMap,
+                                        QSet<const Spanner*>& spannersStopped)
+      {
+      const int endStaff = startStaff + nstaves;
+      const Measure* const origM = m;
+      _tboxesAboveWritten = false;
+      _tboxesBelowWritten = false;
+
+      for (int staffIdx = startStaff; staffIdx < endStaff; ++staffIdx) {
+            Q_ASSERT(m == origM); // some staves may need to make m point somewhere else, so just in case, ensure start in same place
+            moveToTick(m->tick());
+
+            int partRelStaffNo = (nstaves > 1 ? staffIdx - startStaff + 1 : 0); // xml staff number, counting from 1 for this instrument
+            // special number 0 -> don’t show staff number in xml output
+            // (because there is only one staff)
+
+            // in presence of a MeasureRepeat, adjust m to point to the actual content being repeated
+            if (m->isMeasureRepeatGroup(staffIdx)) {
+                  MeasureRepeat* mr;
+                  while (m->isMeasureRepeatGroup(staffIdx) && m->prevMeasure()) { // keep going back until out of measure repeat groups
+                        mr = m->measureRepeatElement(staffIdx);
+                        for (int i = 0; i < mr->numMeasures() && m->prevMeasure(); ++i)
+                              m = m->prevMeasure();
+                        }
+                  }
+            // in case m was changed, also rewind _tick so as not to generate unnecessary backup/forward tags
+            auto tickDelta = _tick - m->tick();
+            _tick -= tickDelta;
+
+            bool isLastStaffOfPart = (endStaff - 1 <= staffIdx); // for writing tboxes below
+
+            writeMeasureTracks(m, partIndex, staff2track(staffIdx), partRelStaffNo, useDrumset, isLastStaffOfPart, fbMap, spannersStopped);
+
+            // restore m and _tick before advancing to next staff in part
+            m = origM;
+            _tick += tickDelta;
+            }
       }
 
 //---------------------------------------------------------
@@ -7470,15 +7563,15 @@ void ExportMusicXml::writeMeasure(const Measure* const m,
             }
 
       // output attribute at start of measure: measure-style
-      measureStyle(_xml, _attr, m);
+      measureStyle(_xml, _attr, m, partIndex);
 
       // MuseScore limitation: repeats are always in the first part
       // and are implicitly placed at either measure start or stop
       if (partIndex == 0)
             repeatAtMeasureStart(_attr, m, strack, etrack, strack);
 
-      // write data in the tracks
-      writeMeasureTracks(m, partIndex, strack, staves, part->instrument()->useDrumset(), fbMap, spannersStopped);
+      // write data in the staves
+      writeMeasureStaves(m, partIndex, track2staff(strack), staves, part->instrument()->useDrumset(), fbMap, spannersStopped);
 
       // write the annotations that could not be attached to notes
       annotationsWithoutNote(this, strack, staves, m);
@@ -7554,22 +7647,18 @@ void ExportMusicXml::writeParts()
                                     continue;
                               const Measure* m = toMeasure(mb);
 
-                              // write the measure or, in case of a multi measure rest,
-                              // the measure range it replaces
                               if (m->isMMRest()) {
-                                    const Measure* m1 = m->mmRestFirst();
-                                    const Measure* m2 = m->mmRestLast();
-                                    for (;; ) {
+                                    // in case of a multimeasure rest (which is a single measure in MuseScore), write the measure range it replaces
+                                    const auto m2 = m->mmRestLast()->nextMeasure();
+                                    for (auto m1 = m->mmRestFirst(); m1 != m2; m1 = m1->nextMeasure()) {
                                           if (m1->isMeasure()) {
                                                 writeMeasure(m1, partIndex, staffCount, mnsh, fbMap, mpc, spannersStopped);
                                                 mpc.measureWritten(m1);
                                                 }
-                                          if (m1 == m2)
-                                                break;
-                                          m1 = m1->nextMeasure();
                                           }
                                     }
                               else {
+                                    // write the measure (or, if measure repeat, the "underlying" measure that it indicates for the musician to play)
                                     writeMeasure(m, partIndex, staffCount, mnsh, fbMap, mpc, spannersStopped);
                                     mpc.measureWritten(m);
                                     }
