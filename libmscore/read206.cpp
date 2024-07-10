@@ -2195,7 +2195,11 @@ static void readVolta206(XmlReader& e, Volta* volta)
             const QStringRef& tag(e.name());
             if (tag == "endings") {
                   QString s = e.readElementText();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+                  QStringList sl = s.split(",", Qt::SkipEmptyParts);
+#else
                   QStringList sl = s.split(",", QString::SkipEmptyParts);
+#endif
                   volta->endings().clear();
                   for (const QString& l : qAsConst(sl)) {
                         int i = l.simplified().toInt();
@@ -3539,15 +3543,15 @@ static bool readScore(Score* score, XmlReader& e)
             else if (tag == "Style") {
                   qreal sp = score->style().value(Sid::spatium).toDouble();
                   readStyle(&score->style(), e);
-                  if (score->style().value(Sid::MusicalTextFont).toString() == "MuseJazz")
-                        score->style().set(Sid::MusicalTextFont, "MuseJazz Text");
+                  if (score->style().value(Sid::musicalTextFont).toString() == "MuseJazz")
+                        score->style().set(Sid::musicalTextFont, "MuseJazz Text");
                   // if (_layoutMode == LayoutMode::FLOAT || _layoutMode == LayoutMode::SYSTEM) {
                   if (score->layoutMode() == LayoutMode::FLOAT) {
                         // style should not change spatium in
                         // float mode
                         score->style().set(Sid::spatium, sp);
                         }
-                  score->setScoreFont(ScoreFont::fontFactory(score->style().value(Sid::MusicalSymbolFont).toString()));
+                  score->setScoreFont(ScoreFont::fontFactory(score->style().value(Sid::musicalSymbolFont).toString()));
                   }
             else if (tag == "copyright" || tag == "rights") {
                   Text* text = new Text(score);
