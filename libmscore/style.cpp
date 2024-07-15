@@ -205,6 +205,12 @@ static const StyleType styleTypes[] {
       { Sid::multiMeasureRestMargin,  "multiMeasureRestMargin",  Spatium(1.2)  },
       { Sid::noteBarDistance,         "noteBarDistance",         Spatium(1.5)  },
       { Sid::measureSpacing,          "measureSpacing",          QVariant(1.2) },
+      { Sid::measureRepeatNumberPos,  "measureRepeatNumberPos",  Spatium(-1.5) },
+      { Sid::mrNumberSeries,          "mrNumberSeries",          QVariant(false) },
+      { Sid::mrNumberEveryXMeasures,  "mrNumberEveryXMeasures",  4 },
+      { Sid::mrNumberSeriesWithParentheses, "mrNumberSeriesWithParentheses", QVariant(true) },
+      { Sid::oneMeasureRepeatShow1,   "oneMeasureRepeatShow1",   QVariant(false) },
+      { Sid::fourMeasureRepeatShowExtenders, "fourMeasureRepeatShowExtenders", QVariant(false) },
       { Sid::staffLineWidth,          "staffLineWidth",          Spatium(0.11) },
       { Sid::ledgerLineWidth,         "ledgerLineWidth",         Spatium(0.16) },     // 0.1875
       { Sid::ledgerLineLength,        "ledgerLineLength",        Spatium(0.35) },     // notehead width + this value

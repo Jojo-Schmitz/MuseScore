@@ -18,10 +18,7 @@
  Definition of undo-releated classes and structs.
 */
 
-#include "spatium.h"
 #include "mscore.h"
-#include "sig.h"
-#include "tempo.h"
 #include "input.h"
 #include "style.h"
 #include "key.h"
@@ -38,7 +35,6 @@
 #include "note.h"
 #include "chord.h"
 #include "drumset.h"
-#include "rest.h"
 #include "fret.h"
 
 #include "audio/midi/midipatch.h"
@@ -558,7 +554,7 @@ class AddElement : public UndoCommand {
    public:
       AddElement(Element*);
       Element* getElement() const { return element; }
-      virtual void cleanup(bool);
+      virtual void cleanup(bool) override;
       virtual const char* name() const override;
 
       bool isFiltered(UndoCommand::Filter f, const Element* target) const override;
@@ -575,7 +571,7 @@ class RemoveElement : public UndoCommand {
       RemoveElement(Element*);
       virtual void undo(EditData*) override;
       virtual void redo(EditData*) override;
-      virtual void cleanup(bool);
+      virtual void cleanup(bool) override;
       virtual const char* name() const override;
 
       bool isFiltered(UndoCommand::Filter f, const Element* target) const override;
@@ -1196,6 +1192,24 @@ class ChangeMMRest : public UndoCommand {
    public:
       ChangeMMRest(Measure* _m, Measure* _mmr) : m(_m), mmrest(_mmr) {}
       UNDO_NAME("ChangeMMRest")
+      };
+
+//---------------------------------------------------------
+//   ChangeMeasureRepeatCount
+//---------------------------------------------------------
+
+class ChangeMeasureRepeatCount : public UndoCommand
+      {
+      Measure* m;
+      int count;
+      int staffIdx;
+
+      void flip(EditData*) override;
+
+public:
+      ChangeMeasureRepeatCount(Measure* _m, int _count, int _staffIdx)
+            : m(_m), count(_count), staffIdx(_staffIdx) {}
+      UNDO_NAME("ChangeMeasureRepeatCount")
       };
 
 //---------------------------------------------------------

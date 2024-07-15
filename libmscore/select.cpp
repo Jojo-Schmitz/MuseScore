@@ -17,8 +17,9 @@
 
 #include "global/log.h"
 
-#include "mscore.h"
+#include "accidental.h"
 #include "arpeggio.h"
+#include "articulation.h"
 #include "barline.h"
 #include "beam.h"
 #include "chord.h"
@@ -31,33 +32,29 @@
 #include "fret.h"
 #include "hook.h"
 #include "input.h"
-#include "limits.h"
 #include "lyrics.h"
 #include "measure.h"
+#include "mscore.h"
 #include "note.h"
 #include "notedot.h"
 #include "page.h"
+#include "part.h"
 #include "rest.h"
 #include "score.h"
 #include "segment.h"
 #include "select.h"
 #include "sig.h"
-#include "slur.h"
+#include "staff.h"
+#include "stafftext.h"
 #include "stem.h"
 #include "stemslash.h"
+#include "sticking.h"
 #include "tie.h"
 #include "system.h"
-#include "text.h"
 #include "tremolo.h"
 #include "tuplet.h"
 #include "utils.h"
 #include "xml.h"
-#include "staff.h"
-#include "part.h"
-#include "accidental.h"
-#include "articulation.h"
-#include "stafftext.h"
-#include "sticking.h"
 
 namespace Ms {
 
@@ -260,7 +257,7 @@ ChordRest* Selection::lastChordRest(int track) const
             if (el) {
                   if (el->isNote())
                         return toChordRest(el->parent());
-                  else if (el->isChord() || el->isRest() || el->isRepeatMeasure())
+                  else if (el->isChord() || el->isRest() || el->isMeasureRepeat())
                         return toChordRest(el);
                   }
             return nullptr;
@@ -926,7 +923,7 @@ Enabling copying of more element types requires enabling pasting in Score::paste
                   case ElementType::REST:
                   case ElementType::BREATH:
                   case ElementType::GLISSANDO:
-                  case ElementType::REPEAT_MEASURE:
+                  case ElementType::MEASURE_REPEAT:
                   case ElementType::IMAGE:
                   case ElementType::TIE:
                   case ElementType::CHORDLINE:
@@ -1219,7 +1216,8 @@ static bool checkEnd(Element* e, const Fraction& endTick)
 //---------------------------------------------------------
 //   canCopy
 //    return false if range selection intersects a tuplet
-//    or a tremolo, or a local time signature
+//    or a tremolo, or a local time signature, or only part
+//    of a measure repeat group
 //---------------------------------------------------------
 
 bool Selection::canCopy() const
@@ -1262,6 +1260,10 @@ bool Selection::canCopy() const
                         return false;
                   }
 
+            // check if selection starts or ends partway through measure repeat group
+            if (firstChordRest()->measure()->isMeasureRepeatGroupWithPrevM(staffIdx)
+                || lastChordRest()->measure()->isMeasureRepeatGroupWithNextM(staffIdx))
+                  return false;
             }
       return true;
       }

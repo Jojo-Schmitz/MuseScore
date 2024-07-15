@@ -21,6 +21,7 @@
 #include "segment.h"
 #include "style.h"
 #include "system.h"
+#include "tempo.h"
 #include "utils.h"
 #include "undo.h"
 #include "xml.h"
