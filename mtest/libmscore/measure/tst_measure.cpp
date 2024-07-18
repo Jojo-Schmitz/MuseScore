@@ -11,22 +11,16 @@
 //=============================================================================
 
 #include <QtTest/QtTest>
-#include "libmscore/score.h"
+
+#include "libmscore/element.h"
 #include "libmscore/excerpt.h"
-#include "libmscore/part.h"
-#include "libmscore/undo.h"
 #include "libmscore/measure.h"
 #include "libmscore/measurenumber.h"
 #include "libmscore/mmrestrange.h"
-#include "libmscore/chord.h"
-#include "libmscore/note.h"
-#include "libmscore/breath.h"
-#include "libmscore/segment.h"
-#include "libmscore/fingering.h"
-#include "libmscore/image.h"
-#include "libmscore/element.h"
+#include "libmscore/score.h"
 #include "libmscore/system.h"
-#include "libmscore/durationtype.h"
+#include "libmscore/undo.h"
+
 #include "mtest/testutils.h"
 
 #define DIR QString("libmscore/measure/")
@@ -64,6 +58,7 @@ class TestMeasure : public QObject, public MTest
 
       void gap();
       void checkMeasure();
+      void changeMeasureLen();
       };
 
 //---------------------------------------------------------
@@ -620,8 +615,26 @@ void TestMeasure::measureNumbers()
 
       }
 
+void TestMeasure::changeMeasureLen()
+      {
+      MasterScore* score = readScore(DIR + "changeMeasureLen.mscx");
+      QVERIFY(score);
+
+      Measure* m = score->firstMeasure()->nextMeasure();
+
+      score->startCmd();
+
+      m->adjustToLen(Fraction(2, 4));
+
+      m->adjustToLen(Fraction(6, 4));
+
+      score->setLayoutAll();
+      score->endCmd();
+      QVERIFY(saveCompareScore(score, "changeMeasureLen.mscx", DIR + "changeMeasureLen-ref.mscx"));
+      }
 
 QTEST_MAIN(TestMeasure)
 
+#if __has_include("tst_measure.moc")
 #include "tst_measure.moc"
-
+#endif
