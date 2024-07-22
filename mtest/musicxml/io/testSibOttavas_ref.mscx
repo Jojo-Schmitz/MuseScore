@@ -162,6 +162,9 @@
           <subtype>page</subtype>
           </LayoutBreak>
         </VBox>
+      <HBox>
+        <width>5</width>
+        </HBox>
       <Measure>
         <voice>
           <Clef>
