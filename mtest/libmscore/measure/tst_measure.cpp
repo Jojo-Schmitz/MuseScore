@@ -11,22 +11,17 @@
 //=============================================================================
 
 #include <QtTest/QtTest>
-#include "libmscore/score.h"
+
+#include "libmscore/element.h"
 #include "libmscore/excerpt.h"
-#include "libmscore/part.h"
-#include "libmscore/undo.h"
 #include "libmscore/measure.h"
 #include "libmscore/measurenumber.h"
 #include "libmscore/mmrestrange.h"
-#include "libmscore/chord.h"
-#include "libmscore/note.h"
-#include "libmscore/breath.h"
-#include "libmscore/segment.h"
-#include "libmscore/fingering.h"
-#include "libmscore/image.h"
-#include "libmscore/element.h"
+#include "libmscore/part.h"
+#include "libmscore/score.h"
 #include "libmscore/system.h"
-#include "libmscore/durationtype.h"
+#include "libmscore/undo.h"
+
 #include "mtest/testutils.h"
 
 #define DIR QString("libmscore/measure/")
@@ -40,6 +35,9 @@ using namespace Ms;
 class TestMeasure : public QObject, public MTest
       {
       Q_OBJECT
+
+   public:
+      void createParts(MasterScore* masterScore);
 
    private slots:
       void initTestCase();
@@ -64,7 +62,44 @@ class TestMeasure : public QObject, public MTest
 
       void gap();
       void checkMeasure();
+      void changeMeasureLen();
+      void measureSplit();
       };
+
+void TestMeasure::createParts(MasterScore* masterScore)
+{
+    //
+    // create first part
+    //
+    QList<Part*> parts;
+    parts.push_back(masterScore->parts().at(0));
+    //Score* nscore = masterScore->createScore();
+
+    Excerpt* ex = new Excerpt(masterScore);
+    //ex->setExcerptScore(nscore);
+    ex->setParts(parts);
+    //ex->setName(parts.front()->partName());
+    Excerpt::createExcerpt(ex);
+    masterScore->excerpts().push_back(ex);
+    //QVERIFY(nscore);
+
+    //
+    // create second part
+    //
+    parts.clear();
+    parts.push_back(masterScore->parts().at(1));
+    //nscore = masterScore->createScore();
+
+    ex = new Excerpt(masterScore);
+    //(ex->setExcerptScore(nscore);
+    ex->setParts(parts);
+    //ex->setName(parts.front()->partName());
+    Excerpt::createExcerpt(ex);
+    masterScore->excerpts().push_back(ex);
+    //QVERIFY(nscore);
+
+    masterScore->setExcerptsChanged(true);
+}
 
 //---------------------------------------------------------
 //   initTestCase
@@ -620,8 +655,48 @@ void TestMeasure::measureNumbers()
 
       }
 
+void TestMeasure::changeMeasureLen()
+      {
+      MasterScore* score = readScore(DIR + "changeMeasureLen.mscx");
+      QVERIFY(score);
+
+      Measure* m = score->firstMeasure()->nextMeasure();
+
+      score->startCmd();
+
+      m->adjustToLen(Fraction(2, 4));
+
+      m->adjustToLen(Fraction(6, 4));
+
+      score->setLayoutAll();
+      score->endCmd();
+      QVERIFY(saveCompareScore(score, "changeMeasureLen.mscx", DIR + "changeMeasureLen-ref.mscx"));
+      }
+
+
+void TestMeasure::measureSplit()
+      {
+      MasterScore* score = readScore(DIR + "measureSplit.mscx");
+      QVERIFY(score);
+
+      createParts(score);
+      score->startCmd();
+
+      Measure* m = score->firstMeasure()->nextMeasure();
+      QVERIFY(m);
+      ChordRest* cr = m->first(SegmentType::ChordRest)->next()->nextChordRest(0);
+      QVERIFY(cr);
+
+      score->cmdSplitMeasure(cr);
+
+      score->setLayoutAll();
+      score->endCmd();
+
+      QVERIFY(saveCompareScore(score, "measureSplit.mscx", DIR + "measureSplit-ref.mscx"));
+      }
 
 QTEST_MAIN(TestMeasure)
 
+#if __has_include("tst_measure.moc")
 #include "tst_measure.moc"
-
+#endif

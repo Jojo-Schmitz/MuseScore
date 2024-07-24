@@ -615,9 +615,9 @@ void Score::localInsertChord(const Position& pos)
       // The approach is similar to that in Measure::adjustToLen() but does
       // insert time to the middle of the measure rather than to the end.
       undoInsertTime(tick, len);
-      undo(new InsertTime(this, tick, len));
 
       for (Score* score : scoreList()) {
+            undo(new InsertTime(score, tick, len));
             Measure* m = score->tick2measure(tick);
             undo(new ChangeMeasureLen(m, targetMeasureLen));
             Segment* scoreSeg = m->tick2segment(tick);
