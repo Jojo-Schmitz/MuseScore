@@ -18,15 +18,14 @@
  Definition of Score class.
 */
 
-#include "config.h"
 #include "input.h"
 #include "instrument.h"
-#include "select.h"
-#include "synthesizerstate.h"
-#include "mscoreview.h"
-#include "spannermap.h"
 #include "layoutbreak.h"
+#include "mscoreview.h"
 #include "property.h"
+#include "select.h"
+#include "spannermap.h"
+#include "synthesizerstate.h"
 #include "sym.h"
 
 namespace Ms {
@@ -853,6 +852,7 @@ class Score : public QObject, public ScoreElement {
       Segment* tick2leftSegmentMM(const Fraction& tick) { return tick2leftSegment(tick, /* useMMRest */ true); }
       void fixTicks();
       void rebuildTempoAndTimeSigMaps(Measure* m);
+      void fixAnacrusisTempo(const std::vector<Measure*>& measures) const;
       Element* nextElement();
       Element* prevElement();
       ChordRest* cmdNextPrevSystem(ChordRest*, bool);
@@ -937,7 +937,7 @@ class Score : public QObject, public ScoreElement {
       void setInputTrack(int t)                { inputState().setTrack(t);    }
 
       void spatiumChanged(qreal oldValue, qreal newValue);
-      void styleChanged();
+      void styleChanged() override;
 
       void cmdPaste(const QMimeData* ms, MuseScoreView* view, Fraction scale = Fraction(1, 1));
       bool pasteStaff(XmlReader&, Segment* dst, int staffIdx, Fraction scale = Fraction(1, 1));
