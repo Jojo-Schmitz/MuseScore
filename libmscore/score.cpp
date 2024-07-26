@@ -15,64 +15,65 @@
  Implementation of class Score (partial).
 */
 
-#include "score.h"
-#include "fermata.h"
-#include "imageStore.h"
-#include "key.h"
-#include "sig.h"
-#include "clef.h"
-#include "tempo.h"
-#include "measure.h"
-#include "page.h"
-#include "undo.h"
-#include "system.h"
-#include "select.h"
-#include "segment.h"
-#include "xml.h"
-#include "text.h"
-#include "note.h"
+#include "articulation.h"
+#include "audio.h"
+#include "barline.h"
+#include "beam.h"
+#include "box.h"
+#include "bracket.h"
+#include "breath.h"
 #include "chord.h"
+#include "clef.h"
+#include "excerpt.h"
+#include "fermata.h"
+#include "harmony.h"
+#include "image.h"
+#include "imageStore.h"
+#include "instrchange.h"
+#include "instrtemplate.h"
+#include "key.h"
+#include "keysig.h"
+#include "layoutbreak.h"
+#include "line.h"
+#include "lyrics.h"
+#include "measure.h"
+#include "mscore.h"
+#include "note.h"
+#include "ottava.h"
+#include "page.h"
+#include "part.h"
+#include "pitchspelling.h"
+#include "rehearsalmark.h"
+#include "repeat.h"
+#include "repeatlist.h"
 #include "rest.h"
+#include "revisions.h"
+#include "score.h"
+#include "scoreOrder.h"
+#include "segment.h"
+#include "select.h"
+#include "sig.h"
 #include "slur.h"
 #include "staff.h"
-#include "part.h"
-#include "style.h"
-#include "tuplet.h"
-#include "lyrics.h"
-#include "pitchspelling.h"
-#include "line.h"
-#include "volta.h"
-#include "repeat.h"
-#include "ottava.h"
-#include "barline.h"
-#include "box.h"
-#include "utils.h"
-#include "excerpt.h"
-#include "repeatlist.h"
-#include "keysig.h"
-#include "beam.h"
 #include "stafftype.h"
+#include "style.h"
+#include "sym.h"
+#include "synthesizerstate.h"
+#include "system.h"
+#include "tempo.h"
 #include "tempotext.h"
-#include "articulation.h"
-#include "revisions.h"
+#include "text.h"
 #include "tie.h"
 #include "tiemap.h"
-#include "layoutbreak.h"
-#include "harmony.h"
-#include "mscore.h"
-#include "scoreOrder.h"
+#include "tuplet.h"
+#include "undo.h"
+#include "utils.h"
+#include "volta.h"
+#include "xml.h"
+
 #ifdef OMR
 #include "omr/omr.h"
 #endif
-#include "bracket.h"
-#include "audio.h"
-#include "instrtemplate.h"
-#include "sym.h"
-#include "rehearsalmark.h"
-#include "breath.h"
-#include "instrchange.h"
-#include "synthesizerstate.h"
-#include "image.h"
 
 namespace Ms {
 
@@ -438,6 +439,7 @@ void Score::fixTicks()
             sigmap()->clear();
             sigmap()->add(0, SigEvent(fm->ticks(),  fm->timesig(), 0));
             }
+      std::vector<Measure*> anacrusisMeasures;
 
       for (MeasureBase* mb = first(); mb; mb = mb->next()) {
             if (mb->type() != ElementType::MEASURE) {
@@ -452,6 +454,14 @@ void Score::fixTicks()
             if (m->mmRest())
                   m->mmRest()->moveTicks(diff);
 
+            // TODO: Better to use Measure::isAnacrusis() here
+            // but since it requires irregular() return true it's not working as expected
+            // if user didn't checked "Exclude from measure count" in measure properties,
+            // but reduces the real measure length.
+            // So we use the following workaround:
+            if (m->ticks() < m->timesig())
+                  anacrusisMeasures.push_back(m);
+
             rebuildTempoAndTimeSigMaps(m);
 
             tick += measureTicks;
@@ -459,6 +469,8 @@ void Score::fixTicks()
       // Now done in getNextMeasure(), do we keep?
       if (tempomap()->empty())
             tempomap()->setTempo(0, _defaultTempo);
+      if (!anacrusisMeasures.empty())
+            fixAnacrusisTempo(anacrusisMeasures);
       }
 
 //---------------------------------------------------------
@@ -557,6 +569,32 @@ void Score::rebuildTempoAndTimeSigMaps(Measure* measure)
 
             if (pm && (!mTicks.identical(pm->ticks()) || !m->timesig().identical(pm->timesig())))
                   sigmap()->add(m->tick().ticks(), SigEvent(mTicks, m->timesig(), m->no()));
+            }
+      }
+
+void Score::fixAnacrusisTempo(const std::vector<Measure*>& measures) const
+      {
+      auto getTempoTextIfExist = [](const Measure* m) -> TempoText* {
+            for (const Segment& s : m->segments()) {
+                  if (s.isChordRestType()) {
+                        for (Element* e : s.annotations()) {
+                              if (e->isTempoText())
+                                    return toTempoText(e);
+                              }
+                        }
+                  }
+            return nullptr;
+            };
+
+      for (Measure* measure : measures) {
+            if (getTempoTextIfExist(measure))
+                  continue;
+            Measure* nextMeasure = measure->nextMeasure();
+            if (nextMeasure) {
+                  TempoText* tt = getTempoTextIfExist(nextMeasure);
+                  if (tt)
+                        tempomap()->setTempo(measure->tick().ticks(), tt->tempo());
+                  }
             }
       }
 
