@@ -16,6 +16,7 @@
 */
 
 #include "accidental.h"
+#include "album.h"
 #include "ambitus.h"
 #include "arpeggio.h"
 #include "articulation.h"
@@ -187,6 +188,7 @@ Element::Element(const Element& e)
    : ScoreElement(e)
       {
       _parent     = e._parent;
+      _albumParent = e._albumParent;
       _bbox       = e._bbox;
       _mag        = e._mag;
       _pos        = e._pos;
