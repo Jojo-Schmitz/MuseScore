@@ -1,4 +1,4 @@
-name: CI_Run_tx2s3
+name: 'Translate: tx pull translations to S3'
 
 on:
   pull_request:
