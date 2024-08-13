@@ -274,7 +274,9 @@ else (APPLE)
       set(CMAKE_C_FLAGS_DEBUG            "/MT /W4 /Zi /Ob0 /Od /RTC1")
       set(CMAKE_C_FLAGS_RELEASE          "/MT /W4 /O2 /Ob2 /DNDEBUG")
       set(CMAKE_C_FLAGS_RELWITHDEBINFO   "/MT /W4 /Zi /O2 /Ob1 /DNDEBUG")
-      #set(CMAKE_EXE_LINKER_FLAGS         "/DYNAMICBASE:NO") # Disable ASLR
+      if (BUILD_JACK)
+          set(CMAKE_EXE_LINKER_FLAGS     "/DYNAMICBASE:NO") # Disable ASLR
+      endif (BUILD_JACK)
    else (MSVC)
       set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11 -D_UNICODE -DUNICODE")
       if (MINGW)
