@@ -3362,10 +3362,9 @@ void MusicXMLParserDirection::direction(const QString& partId,
       else if (isLikelySticking() && isPercussionStaff) {
             Sticking* sticking = new Sticking(_score);
             sticking->setXmlText(_wordsText);
-            if (!qFuzzyIsNull(_relativeX) || !qFuzzyIsNull(_relativeY)) {
+            if (!qFuzzyIsNull(_relativeX)) {
                   QPointF offset = sticking->offset();
-                  offset.setX(!qFuzzyIsNull(_relativeX) ? _relativeX : sticking->offset().x());
-                  offset.setY(!qFuzzyIsNull(_relativeY) ? _relativeY : sticking->offset().y());
+                  offset.setX(_relativeX);
                   sticking->setOffset(offset);
                   sticking->setPropertyFlags(Pid::OFFSET, PropertyFlags::UNSTYLED);
                   }
@@ -3645,24 +3644,14 @@ void MusicXMLParserDirection::directionType(QList<MusicXmlSpannerDesc>& starts,
             // Prevent multi-word directions from overwriting y-values.
             bool hasDefaultXCandidate = false;
             bool hasRelativeXCandidate = false;
-            bool hasDefaultYCandidate = false;
-            bool hasRelativeYCandidate = false;
             qreal defaultXCandidate = _e.attributes().value("default-x").toDouble(&hasDefaultXCandidate) * -0.1;
-            qreal defaultYCandidate = _e.attributes().value("default-y").toDouble(&hasDefaultYCandidate) * -0.1;
             qreal relativeXCandidate =_e.attributes().value("relative-x").toDouble(&hasRelativeXCandidate) * -0.1;
-            qreal relativeYCandidate =_e.attributes().value("relative-y").toDouble(&hasRelativeYCandidate) * -0.1;
             if (hasDefaultXCandidate && !_hasDefaultX)
                   _defaultY = defaultXCandidate;
             if (hasRelativeXCandidate && !_hasRelativeX)
                   _relativeX = relativeXCandidate;
             _hasDefaultX |= hasDefaultXCandidate;
             _hasRelativeX |= hasRelativeXCandidate;
-            if (hasDefaultYCandidate && !_hasDefaultY)
-                  _defaultY = defaultYCandidate;
-            if (hasRelativeYCandidate && !_hasRelativeY)
-                  _relativeY = relativeYCandidate;
-            _hasDefaultY |= hasDefaultYCandidate;
-            _hasRelativeY |= hasRelativeYCandidate;
             _isBold &= _e.attributes().value("font-weight").toString() == "bold";
             _visible = _e.attributes().value("print-object").toString() != "no";
             QString number = _e.attributes().value("number").toString();
