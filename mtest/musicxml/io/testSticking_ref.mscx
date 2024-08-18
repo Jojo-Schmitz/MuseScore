@@ -423,7 +423,6 @@
       <Measure>
         <voice>
           <Sticking>
-            <offset x="-2" y="2"/>
             <text>L</text>
             </Sticking>
           <Sticking>
@@ -506,7 +505,6 @@
               </Note>
             </Chord>
           <Sticking>
-            <offset x="-2" y="2"/>
             <text>L</text>
             </Sticking>
           <Sticking>
@@ -562,19 +560,15 @@
       <Measure>
         <voice>
           <Sticking>
-            <offset x="-5" y="2"/>
             <text>l</text>
             </Sticking>
           <Sticking>
-            <offset x="-4" y="2"/>
             <text>r</text>
             </Sticking>
           <Sticking>
-            <offset x="-2.5" y="2"/>
             <text>l</text>
             </Sticking>
           <Sticking>
-            <offset x="-1" y="2"/>
             <text>r</text>
             </Sticking>
           <Sticking>
