@@ -131,8 +131,7 @@ void MusicXmlPart::calcOctaveShifts()
 
 bool MusicXmlPart::isVocalStaff() const
       {
-      return (std::find(vocalInstrumentNames.begin(), vocalInstrumentNames.end(), name) != vocalInstrumentNames.end()
-              || _hasLyrics);
+      return std::find(vocalInstrumentNames.begin(), vocalInstrumentNames.end(), name) != vocalInstrumentNames.end();
       }
       
 //---------------------------------------------------------
