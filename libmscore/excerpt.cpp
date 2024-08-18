@@ -284,7 +284,7 @@ void Excerpt::createExcerpt(Excerpt* excerpt)
             }
 
       // update style values if spatium different for part
-      if (oscore->spatium() != score->spatium()) {
+      if (!qFuzzyCompare(oscore->spatium(), score->spatium())) {
             //score->spatiumChanged(oscore->spatium(), score->spatium());
             score->styleChanged();
             }

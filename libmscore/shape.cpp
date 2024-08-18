@@ -25,7 +25,7 @@ void Shape::addHorizontalSpacing(HorizontalSpacingType type, qreal leftEdge, qre
       {
       constexpr qreal eps = 100 * std::numeric_limits<qreal>::epsilon();
       const qreal y = eps * int(type);
-      if (leftEdge == rightEdge) // HACK zero-width shapes collide with everything currently.
+      if (qFuzzyCompare(leftEdge, rightEdge)) // HACK zero-width shapes collide with everything currently.
             rightEdge += eps;
       add(QRectF(leftEdge, y, rightEdge - leftEdge, 0));
       }
@@ -88,7 +88,7 @@ qreal Shape::minHorizontalDistance(const Shape& a) const
                   qreal ay1 = r1.top();
                   qreal ay2 = r1.bottom();
                   if (Ms::intersects(ay1, ay2, by1, by2)
-                     || (qFuzzyIsNull(r1.height()) && qFuzzyIsNull(r2.height()) && (ay1 == by1))
+                     || (qFuzzyIsNull(r1.height()) && qFuzzyIsNull(r2.height()) && (qFuzzyCompare(ay1, by1)))
                      || (qFuzzyIsNull(r1.width()) || qFuzzyIsNull(r2.width())))
                         dist = qMax(dist, r1.right() - r2.left());
                   }

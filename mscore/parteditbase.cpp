@@ -17,18 +17,22 @@
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //=============================================================================
 
-#include "musescore.h"
-#include "parteditbase.h"
-#include "libmscore/score.h"
-#include "libmscore/part.h"
-#include "mixer/mixer.h"
-#include "seq.h"
-#include "libmscore/undo.h"
-#include "synthcontrol.h"
-#include "audio/midi/msynthesizer.h"
-#include "preferences.h"
 #include <qmessagebox.h>
 #include <accessibletoolbutton.h>
+
+#include "musescore.h"
+#include "parteditbase.h"
+#include "preferences.h"
+#include "seq.h"
+#include "synthcontrol.h"
+
+#include "audio/midi/msynthesizer.h"
+
+#include "libmscore/score.h"
+#include "libmscore/part.h"
+#include "libmscore/undo.h"
+
+#include "mixer/mixer.h"
 
 namespace Ms {
 
@@ -374,19 +378,19 @@ void PartEdit::sync(bool syncControls)
                 && this->channelSpinBox->value() == pe->channelSpinBox->value()
                 && this->portSpinBox->value() == pe->portSpinBox->value()) {
 
-                  if (volume->value() != pe->volume->value()) {
+                  if (!qFuzzyCompare(volume->value(), pe->volume->value())) {
                         _setValue(pe->volume, this->volume->value());
                         emit pe->volChanged(this->volume->value(), false);
                         }
-                  if (pan->value() != pe->pan->value()) {
+                  if (!qFuzzyCompare(pan->value(), pe->pan->value())) {
                         _setValue(pe->pan, this->pan->value());
                         emit pe->panChanged(this->pan->value(), false);
                         }
-                  if (reverb->value() != pe->reverb->value()) {
+                  if (!qFuzzyCompare(reverb->value(), pe->reverb->value())) {
                         _setValue(pe->reverb, this->reverb->value());
                         emit pe->reverbChanged(this->reverb->value(), false);
                         }
-                  if (chorus->value() != pe->chorus->value()) {
+                  if (!qFuzzyCompare(chorus->value(), pe->chorus->value())) {
                         _setValue(pe->chorus, this->chorus->value());
                        emit pe->chorusChanged(this->chorus->value(), false);
                         }
@@ -457,13 +461,13 @@ void PartEdit::midiChannelChanged(int)
                   QString detailedText;
                   if (patch->currentIndex() != pe->patch->currentIndex())
                         detailedText += QString(tr("Sound: '%1' vs. '%2'\n")).arg(patch->itemText(patch->currentIndex()), pe->patch->itemText(pe->patch->currentIndex()));
-                  if (this->volume->value() != pe->volume->value())
+                  if (!qFuzzyCompare(this->volume->value(), pe->volume->value()))
                         detailedText += QString(tr("Volume: %1 vs. %2\n")).arg(QString::number(volume->value()),  QString::number(pe->volume->value()));
-                  if (this->pan->value() != pe->pan->value())
+                  if (!qFuzzyCompare(this->pan->value(), pe->pan->value()))
                         detailedText += QString(tr("Pan: %1 vs. %2\n")).arg(QString::number(pan->value()),  QString::number(pe->pan->value()));
-                  if (this->reverb->value() != pe->reverb->value())
+                  if (!qFuzzyCompare(this->reverb->value(), pe->reverb->value()))
                         detailedText += QString(tr("Reverb: %1 vs. %2\n")).arg(QString::number(reverb->value()),  QString::number(pe->reverb->value()));
-                  if (this->chorus->value() != pe->chorus->value())
+                  if (!qFuzzyCompare(this->chorus->value(), pe->chorus->value()))
                         detailedText += QString(tr("Chorus: %1 vs. %2\n")).arg(QString::number(chorus->value()),  QString::number(pe->chorus->value()));
                   if (this->solo->isChecked() != pe->solo->isChecked())
                         detailedText += QString(tr("Solo: %1 vs. %2\n")).arg(solo->isChecked()?"Yes":"No", pe->solo->isChecked()?"Yes":"No");

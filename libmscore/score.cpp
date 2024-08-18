@@ -463,7 +463,7 @@ void Score::rebuildTempoAndTimeSigMaps(Measure* measure)
 
             // Implement section break rest
             for (MeasureBase* mb = measure->prev(); mb && mb->endTick() == startTick; mb = mb->prev()) {
-                  if (mb->pause())
+                  if (!qFuzzyIsNull(mb->pause()))
                         setPause(startTick, mb->pause());
                   }
 
@@ -923,7 +923,7 @@ QList<System*> Score::searchSystem(const QPointF& pos, const System* preferredSy
             int ii = i + 1;
             for (; ii < n; ++ii) {
                   ns = sl->at(ii);
-                  if (ns->y() != s->y())
+                  if (!qFuzzyCompare(ns->y(), s->y()))
                         break;
                   }
             if ((ii == n) || (ns == 0))
@@ -942,7 +942,7 @@ QList<System*> Score::searchSystem(const QPointF& pos, const System* preferredSy
             if (y < y2) {
                   systems.append(s);
                   for (int iii = i+1; ii < n; ++iii) {
-                        if (sl->at(iii)->y() != s->y())
+                        if (!qFuzzyCompare(sl->at(iii)->y(), s->y()))
                               break;
                         systems.append(sl->at(iii));
                         }

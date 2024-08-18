@@ -17,8 +17,9 @@
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //=============================================================================
 
-#include "preferenceslistwidget.h"
 #include <cfloat>
+
+#include "preferenceslistwidget.h"
 
 namespace Ms {
 
@@ -467,11 +468,11 @@ QWidget* DoublePreferenceItem::editor() const
 bool DoublePreferenceItem::isModified() const
       {
       if (_editorDoubleSpinBox)
-            return _initialValue != _editorDoubleSpinBox->value();
+            return !qFuzzyCompare(_initialValue, _editorDoubleSpinBox->value());
       else if (_editorComboBox)
             return _initialEditorIndex != _editorComboBox->currentIndex();
       else if (_editorSpinBox)
-            return _initialValue != _editorSpinBox->value();
+            return !qFuzzyCompare(_initialValue, _editorSpinBox->value());
       else
             Q_ASSERT(false);
       return false;

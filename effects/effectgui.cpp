@@ -32,7 +32,7 @@ EffectGui::EffectGui(Effect* e, QWidget* parent)
 
 void EffectGui::valueChanged(const QString& msg, qreal val)
       {
-      if (_effect->value(msg) != val) {
+      if (!qFuzzyCompare(_effect->value(msg), val)) {
             _effect->setValue(msg, val);
             emit valueChanged();
             }
@@ -40,7 +40,7 @@ void EffectGui::valueChanged(const QString& msg, qreal val)
 
 void EffectGui::valueChanged(qreal val, int idx)
       {
-      if (_effect->nvalue(idx) != val) {
+      if (!qFuzzyCompare(_effect->nvalue(idx), val)) {
             _effect->setNValue(idx, val);
             emit valueChanged();
             }

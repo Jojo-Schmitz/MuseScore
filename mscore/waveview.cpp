@@ -10,8 +10,9 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "waveview.h"
 #include "piano.h"
+#include "waveview.h"
+
 #include "libmscore/audio.h"
 #include "libmscore/score.h"
 
@@ -195,7 +196,7 @@ void WaveView::setXpos(int val)
 
 void WaveView::setMag(double x, double)
       {
-      if (_xmag != x) {
+      if (!qFuzzyCompare(_xmag, x)) {
             _xmag = x;
             update();
             }

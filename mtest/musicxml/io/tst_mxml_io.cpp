@@ -11,9 +11,10 @@
 //=============================================================================
 
 #include <QtTest/QtTest>
+
 #include "mtest/testutils.h"
-#include "libmscore/score.h"
 #include "mscore/preferences.h"
+#include "libmscore/score.h"
 // start includes required for fixupScore()
 #include "libmscore/measure.h"
 #include "libmscore/staff.h"

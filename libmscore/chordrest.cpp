@@ -1299,7 +1299,7 @@ Shape ChordRest::shape() const
                   FretDiagram* fd = toFretDiagram(e);
                   qreal margin = styleP(Sid::fretMinDistance) * 0.5;
                   bool firstBeat = tick() == measure()->tick();
-                  if (fd->pos().x() == 0)
+                  if (qFuzzyIsNull(fd->pos().x()))
                         fd->layoutHorizontal();
                   else if (fd->bbox().isEmpty())
                         fd->calculateBoundingRect();

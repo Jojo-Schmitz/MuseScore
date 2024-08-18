@@ -95,7 +95,7 @@ StaffType::StaffType(StaffGroup sg, const QString& xml, const QString& name, int
       setDurationFontName(durFontName);
       setDurationFontSize(durFontSize);
       setDurationFontUserY(durFontUserY);
-      setGenDurations(genDur);
+      setGenDurations(!qFuzzyIsNull(genDur));
       setFretFontName(fretFontName);
       setFretFontSize(fretFontSize);
       setFretFontUserY(fretFontUserY);
@@ -139,12 +139,12 @@ bool StaffType::operator==(const StaffType& st) const
             return false;
             }
       if (_group == StaffGroup::TAB) {                      // TAB-specific
-            bool v = st._durationFontIdx  == _durationFontIdx
-               && st._durationFontSize  == _durationFontSize
-               && st._durationFontUserY == _durationFontUserY
+            bool v = st._durationFontIdx == _durationFontIdx
+               && qFuzzyCompare(st._durationFontSize, _durationFontSize)
+               && qFuzzyCompare(st._durationFontUserY, _durationFontUserY)
                && st._fretFontIdx       == _fretFontIdx
-               && st._fretFontSize      == _fretFontSize
-               && st._fretFontUserY     == _fretFontUserY
+               && qFuzzyCompare(st._fretFontSize, _fretFontSize)
+               && qFuzzyCompare(st._fretFontUserY, _fretFontUserY)
                ;
             return v;
             }
@@ -400,7 +400,7 @@ void StaffType::setOnLines(bool val)
 
 void StaffType::setDurationMetrics() const
       {
-      if (_durationMetricsValid && _refDPI == DPI)           // metrics are still valid
+      if (_durationMetricsValid && qFuzzyCompare(_refDPI, DPI))           // metrics are still valid
             return;
 
 // QFontMetrics[F]() returns results unreliably rounded to integral pixels;
@@ -429,7 +429,7 @@ void StaffType::setDurationMetrics() const
 
 void StaffType::setFretMetrics() const
       {
-      if (_fretMetricsValid && _refDPI == DPI)
+      if (_fretMetricsValid && qFuzzyCompare(_refDPI, DPI))
             return;
 
       QFontMetricsF fm(fretFont(), MScore::paintDevice());

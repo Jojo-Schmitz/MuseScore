@@ -17,13 +17,13 @@
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //=============================================================================
 
-#include "styledslider.h"
-
+#include <QDebug>
+#include <QMouseEvent>
 #include <QStyle>
 #include <QStylePainter>
 #include <QStyleOptionSlider>
-#include <QMouseEvent>
-#include <QDebug>
+
+#include "styledslider.h"
 
 namespace Awl {
 
@@ -214,7 +214,7 @@ void StyledSlider::paintEvent(QPaintEvent *ev)
 
 void StyledSlider::setValue(double v)
       {
-      if (v == _value)
+      if (qFuzzyCompare(v, _value))
             return;
 
       _value = v;
@@ -228,7 +228,7 @@ void StyledSlider::setValue(double v)
 
 void StyledSlider::setMinValue(double v)
       {
-      if (v == _minValue)
+      if (qFuzzyCompare(v, _minValue))
             return;
       _minValue = v;
       update();
@@ -241,7 +241,7 @@ void StyledSlider::setMinValue(double v)
 
 void StyledSlider::setMaxValue(double v)
       {
-      if (v == _maxValue)
+      if (qFuzzyCompare(v, _maxValue))
             return;
       _maxValue = v;
       update();

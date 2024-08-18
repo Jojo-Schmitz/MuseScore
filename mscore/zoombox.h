@@ -60,7 +60,7 @@ struct ZoomState {
       ZoomIndex index;
       qreal level;
 
-      friend bool operator!=(const ZoomState& l, const ZoomState& r) { return (l.index != r.index) || (l.level != r.level); }
+      friend bool operator!=(const ZoomState& l, const ZoomState& r) { return (l.index != r.index) || (!qFuzzyCompare(l.level, r.level)); }
       };
 
 //---------------------------------------------------------

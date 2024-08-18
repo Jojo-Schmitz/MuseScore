@@ -591,7 +591,7 @@ qreal Arpeggio::insetDistance(QVector<Accidental*>& accidentals, qreal mag_) con
       for (auto accidental : accidentals) {
             if (furthestAccidental) {
                   bool currentIsFurtherX = accidental->x() < furthestAccidental->x();
-                  bool currentIsSameX = accidental->x() == furthestAccidental->x();
+                  bool currentIsSameX = qFuzzyCompare(accidental->x(), furthestAccidental->x());
                   auto accidentalBbox = symBbox(accidental->symbol());
                   qreal currentTop = accidental->note()->pos().y() + accidentalBbox.top() * mag_;
                   qreal currentBottom = accidental->note()->pos().y() + accidentalBbox.bottom() * mag_;

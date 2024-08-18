@@ -284,7 +284,7 @@ bool SkylineLine::valid() const
 
 bool SkylineLine::valid(const SkylineSegment& s) const
       {
-      return north ? (s.y != std::numeric_limits<qreal>::max()) : (s.y != -std::numeric_limits<qreal>::max());
+      return north ? (!qFuzzyCompare(s.y, std::numeric_limits<qreal>::max())) : !qFuzzyCompare(s.y, -std::numeric_limits<qreal>::max());
       }
 
 //---------------------------------------------------------

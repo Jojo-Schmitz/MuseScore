@@ -1976,14 +1976,14 @@ void Beam::layout2(std::vector<ChordRest*>crl, SpannerSegmentType, int frag)
             // qreal fuzz = _spatium * .1;
             qreal fuzz = _spatium * .4;   // something is wrong
 
-            qreal by = y2 < y1 ? -1000000 : 1000000;
+            qreal by = y2 < y1 ?  -std::numeric_limits<qreal>::max() :  std::numeric_limits<qreal>::max();
             for (const QLineF* l : qAsConst(beamSegments)) {
                   if ((x2+fuzz) >= l->x1() && (x2-fuzz) <= l->x2()) {
                         qreal y = (x2 - l->x1()) * slope + l->y1();
                         by = y2 < y1 ? qMax(by, y) : qMin(by, y);
                         }
                   }
-            if (by == -1000000 || by == 1000000) {
+            if (qFuzzyCompare(qAbs(by), std::numeric_limits<qreal>::max())) {
                   if (beamSegments.empty())
                         qDebug("no BeamSegments");
                   else {
@@ -2322,9 +2322,9 @@ Element* Beam::drop(EditData& data)
             }
       else
             return 0;
-      if (g1 != growLeft())
+      if (!qFuzzyCompare(g1, growLeft()))
             undoChangeProperty(Pid::GROW_LEFT, g1);
-      if (g2 != growRight())
+      if (!qFuzzyCompare(g2, growRight()))
             undoChangeProperty(Pid::GROW_RIGHT, g2);
       return 0;
       }

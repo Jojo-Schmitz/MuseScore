@@ -17,15 +17,15 @@
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //=============================================================================
 
-#include "palettetree.h"
-
 #include "globals.h"
 #include "musescore.h"
 #include "palette.h"
-#include "preferences.h"
+#include "palettetree.h"
 #include "shortcut.h"
 
 #include "libmscore/articulation.h"
+#include "libmscore/bracket.h"
+#include "libmscore/element.h"
 #include "libmscore/fret.h"
 #include "libmscore/icon.h"
 #include "libmscore/image.h"
@@ -33,8 +33,6 @@
 #include "libmscore/mscore.h"
 #include "libmscore/score.h"
 #include "libmscore/textbase.h"
-#include "libmscore/element.h"
-#include "libmscore/bracket.h"
 
 #include "thirdparty/qzip/qzipreader_p.h"
 #include "thirdparty/qzip/qzipwriter_p.h"
@@ -226,9 +224,9 @@ void PaletteCell::write(XmlWriter& xml) const
 
       if (drawStaff)
             xml.tag("staff", drawStaff);
-      if (xoffset)
+      if (!qFuzzyIsNull(xoffset))
             xml.tag("xoffset", xoffset);
-      if (yoffset)
+      if (!qFuzzyIsNull(yoffset))
             xml.tag("yoffset", yoffset);
       if (!tag.isEmpty())
             xml.tag("tag", tag);
@@ -769,9 +767,9 @@ int PalettePanel::findPaletteCell(const PaletteCell& cell, bool matchName) const
                   continue;
             if (localCell.tag != cell.tag
                   || localCell.drawStaff != cell.drawStaff
-                  || localCell.xoffset != cell.xoffset
-                  || localCell.yoffset != cell.yoffset
-                  || localCell.mag != cell.mag
+                  || !qFuzzyCompare(localCell.xoffset, cell.xoffset)
+                  || !qFuzzyCompare(localCell.yoffset, cell.yoffset)
+                  || !qFuzzyCompare(localCell.mag, cell.mag)
                   || localCell.readOnly != cell.readOnly
                   || localCell.visible != cell.visible
                   || localCell.custom != cell.custom

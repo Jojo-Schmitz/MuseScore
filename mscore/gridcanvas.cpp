@@ -109,7 +109,7 @@ void GridCanvas::paintEvent(QPaintEvent* ev)
       for (const PitchValue& v : qAsConst(m_points)) {
             QPointF currentPoint = getPosition(v);
             // draw line only if there is a point before the current one
-            if (lastPoint.x()) {
+            if (!qFuzzyIsNull(lastPoint.x())) {
                   painter.drawLine(lastPoint, currentPoint);
                   }
             lastPoint = currentPoint;
@@ -172,8 +172,8 @@ void GridCanvas::mousePressEvent(QMouseEvent* ev)
                   found = true;
                   break;
                   }
-            if (round(qreal(m_points[i].time) / 60 * (m_columns - 1)) == column) {
-                  if (round(qreal(m_points[i].pitch) / (100 * (m_rows / m_primaryRowsInterval)) * (m_rows - 1)) == row
+            if (qFuzzyCompare(round(qreal(m_points[i].time) / 60 * (m_columns - 1)), column)) {
+                  if (qFuzzyCompare(round(qreal(m_points[i].pitch) / (100 * (m_rows / m_primaryRowsInterval)) * (m_rows - 1)), row)
                      && i > 0 && i < (numberOfPoints - 1)) {
                         m_points.removeAt(i);
                         }

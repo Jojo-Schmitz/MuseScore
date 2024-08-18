@@ -19,6 +19,7 @@
 
 #include "pianotools.h"
 #include "preferences.h"
+
 #include "libmscore/chord.h"
 
 namespace Ms {
@@ -122,7 +123,7 @@ void HPiano::setScale(qreal s)
             s = 16.0;
       else if (s < .5)
             s = .5;
-      if (s != scaleVal) {
+      if (!qFuzzyCompare(s, scaleVal)) {
             scaleVal = s;
             int margin = 16;
             QDockWidget* par = static_cast<QDockWidget*>(parent());
@@ -542,7 +543,7 @@ bool HPiano::gestureEvent(QGestureEvent *event)
                   // On Windows, totalScaleFactor() contains the net magnification.
                   // On OS X, totalScaleFactor() is 1, and scaleFactor() contains the net magnification.
                   qreal value = pinch->totalScaleFactor();
-                  if (value == 1) {
+                  if (qFuzzyCompare(value, 1)) {
                         value = pinch->scaleFactor();
                         }
                   // Qt 5.4 doesn't report pinch->centerPoint() correctly

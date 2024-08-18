@@ -18,12 +18,10 @@
  * 02111-1307, USA
  */
 
-#include "log.h"
-
 #include "conv.h"
 #include "fluid.h"
-#include "sfont.h"
 #include "gen.h"
+#include "sfont.h"
 #include "voice.h"
 
 namespace FluidS {
@@ -539,7 +537,7 @@ bool Voice::generateDataForDSPChain(unsigned framesBufCount)
                   }
 
             /* if phase_incr is not advancing, set it to the minimum fraction value (prevent stuckage) */
-            if (phase_incr == 0)
+            if (qFuzzyIsNull(phase_incr))
                   phase_incr = 1;
             
             /*************** resonant filter ******************/

@@ -40,6 +40,7 @@
 ****************************************************************************/
 
 #include "svggenerator.h"
+
 #include "libmscore/element.h"
 #include "libmscore/image.h"
 #include "libmscore/imageStore.h"
@@ -526,7 +527,7 @@ public:
             break;
         }
         // Set stroke-width attribute, unless it's zero or 1 (default is 1)
-        if (spen.widthF() > 0 && spen.widthF() != 1) {
+        if (spen.widthF() > 0 && !qFuzzyCompare(spen.widthF(), 1)) {
             // Formatting for vertical alignment of elements
             qts.setRealNumberPrecision(2); // with DPI=72 only 2 decimals necessary
             qts.setRealNumberNotation(QTextStream::FixedNotation);
@@ -1176,8 +1177,8 @@ void SvgPaintEngine::updateState(const QPaintEngineState &s)
     const qreal m11 = qRound(t.m11() * 1000) / 1000.0;
     const qreal m22 = qRound(t.m22() * 1000) / 1000.0;
 
-    if (m11 == 1 && m22 == 1   // No scaling
-      && t.m12() == t.m21()) { // No rotation, etc.
+    if (qFuzzyCompare(m11, 1) && qFuzzyCompare(m22, 1)   // No scaling
+      && qFuzzyCompare(t.m12(), t.m21())) { // No rotation, etc.
           // No transformation except translation
           _dx = t.m31();
           _dy = t.m32();

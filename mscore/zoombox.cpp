@@ -17,13 +17,10 @@
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //=============================================================================
 
-#include "preferences.h"
-#include "zoombox.h"
-#include "scoreview.h"
-#include "libmscore/page.h"
 #include "musescore.h"
-#include "libmscore/score.h"
-#include "libmscore/mscore.h"
+#include "preferences.h"
+#include "scoreview.h"
+#include "zoombox.h"
 
 namespace Ms {
 
@@ -145,8 +142,8 @@ void ZoomBox::setLogicalZoom(const ZoomIndex index, const qreal logicalLevel)
             }
 
       // Check if either the logical zoom level has changed or the user has switched to a different score.
-      if ((logicalLevel != _previousLogicalLevel) || (mscore && (mscore->currentScoreView() != _previousScoreView))) {
-            if ((logicalLevel != _previousLogicalLevel)) {
+      if (!qFuzzyCompare(logicalLevel, _previousLogicalLevel) || (mscore && (mscore->currentScoreView() != _previousScoreView))) {
+            if (!qFuzzyCompare(logicalLevel, _previousLogicalLevel)) {
                   // Convert the value to an integer percentage using half-to-even rounding (a.k.a. banker's rounding).
                   const auto logicalLevelPercentage = static_cast<int>((100.0 * logicalLevel) - std::remainder(100.0 * logicalLevel, 1.0));
 

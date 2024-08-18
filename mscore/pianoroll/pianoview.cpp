@@ -11,24 +11,25 @@
 //=============================================================================
 
 
+#include "musescore.h"
 #include "pianoview.h"
 #include "pianoruler.h"
 #include "pianokeyboard.h"
-#include "shortcut.h"
-#include "musescore.h"
-#include "scoreview.h"
 #include "preferences.h"
-#include "libmscore/part.h"
-#include "libmscore/staff.h"
-#include "libmscore/measure.h"
+#include "shortcut.h"
+#include "scoreview.h"
+
 #include "libmscore/chord.h"
-#include "libmscore/rest.h"
-#include "libmscore/score.h"
+#include "libmscore/measure.h"
 #include "libmscore/note.h"
+#include "libmscore/noteevent.h"
+#include "libmscore/part.h"
+#include "libmscore/rest.h"
+#include "libmscore/staff.h"
+#include "libmscore/score.h"
+#include "libmscore/segment.h"
 #include "libmscore/tie.h"
 #include "libmscore/tuplet.h"
-#include "libmscore/segment.h"
-#include "libmscore/noteevent.h"
 #include "libmscore/undo.h"
 #include "libmscore/utils.h"
 
@@ -2108,7 +2109,7 @@ void PianoView::setNotesToVoice(int voice) {
 
 void PianoView::setXZoom(int value)
       {
-      if (_xZoom != value) {
+      if (!qFuzzyCompare(_xZoom, value)) {
             _xZoom = value;
             scene()->update();
             emit xZoomChanged(_xZoom);
