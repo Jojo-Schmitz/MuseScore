@@ -349,17 +349,15 @@
               <tpc>17</tpc>
               </Note>
             </Chord>
+          <Sticking>
+            <text>L</text>
+            </Sticking>
           <Chord>
             <durationType>quarter</durationType>
             <Lyrics>
               <syllabic>end</syllabic>
               <offset x="0" y="-1.71429"/>
               <text>et</text>
-              </Lyrics>
-            <Lyrics>
-              <no>1</no>
-              <offset x="0" y="-1.71429"/>
-              <text>L</text>
               </Lyrics>
             <StemDirection>down</StemDirection>
             <Note>

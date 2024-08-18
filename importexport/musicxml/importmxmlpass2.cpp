@@ -60,6 +60,7 @@
 #include "libmscore/staff.h"
 #include "libmscore/stafftext.h"
 #include "libmscore/stem.h"
+#include "libmscore/sticking.h"
 #include "libmscore/sym.h"
 #include "libmscore/system.h"
 #include "libmscore/tempo.h"
@@ -856,7 +857,7 @@ static void addLyrics(MxmlLogger* logger, const QXmlStreamReader* const xmlreade
                       const QSet<Lyrics*>& extLyrics,
                       MusicXmlLyricsExtend& extendedLyrics)
       {
-      for (const auto lyricNo : numbrdLyrics.keys()) {
+      for (const int lyricNo : numbrdLyrics.keys()) {
             Lyrics* const lyric = numbrdLyrics.value(lyricNo);
             addLyric(logger, xmlreader, cr, lyric, lyricNo, extendedLyrics);
             if (extLyrics.contains(lyric))
@@ -867,13 +868,22 @@ static void addLyrics(MxmlLogger* logger, const QXmlStreamReader* const xmlreade
 static void addGraceNoteLyrics(const QMap<int, Lyrics*>& numberedLyrics, QSet<Lyrics*> extendedLyrics,
                                std::vector<GraceNoteLyrics>& gnLyrics)
       {
-      for (const auto lyricNo : numberedLyrics.keys()) {
+      for (const int lyricNo : numberedLyrics.keys()) {
             Lyrics* const lyric = numberedLyrics[lyricNo];
             if (lyric) {
                   bool extend = extendedLyrics.contains(lyric);
                   const GraceNoteLyrics gnl = GraceNoteLyrics(lyric, extend, lyricNo);
                   gnLyrics.push_back(gnl);
                   }
+            }
+      }
+
+static void addInferredStickings(ChordRest* cr, const std::vector<Sticking*>& numberedStickings)
+      {
+      for (Sticking* sticking : numberedStickings) {
+            sticking->setParent(cr->segment());
+            sticking->setTrack(cr->track());
+            cr->score()->addElement(sticking);
             }
       }
 
@@ -922,6 +932,18 @@ static void addElemOffset(Element* el, int track, const QString& placement, Meas
 
       el->setTrack(el->isTempoText() ? 0 : track);    // TempoText must be in track 0
       Segment* s = measure->getSegment(SegmentType::ChordRest, tick);
+
+      if (el->isSticking()) {
+            if (el->propertyFlags(Pid::OFFSET) == PropertyFlags::UNSTYLED) {
+                  const Element* item = s->element(el->track());
+                  const Chord* chord = item && item->isChord() ? toChord(item) : nullptr;
+                  const bool hasGraceNotes = chord && !chord->graceNotes().empty();
+
+                  if (!hasGraceNotes)
+                        el->resetProperty(Pid::OFFSET);
+                  }
+            }
+
       s->add(el);
       }
 
@@ -1872,7 +1894,7 @@ static bool cleanUpLayoutBreaks(Score* score, MxmlLogger* logger)
       bool copyrightVBoxAutoSizeEnabledInitial = true;
       Spatium copyrightVBoxBoxHeightInitial = Spatium(10);
 
-      for (auto system : score->systems()) {
+      for (auto& system : score->systems()) {
             if (!system->lastMeasure())
                   continue;
             else if (system->lastMeasure()->lineBreak() && !hasExplicitLineBreaks)
@@ -1956,7 +1978,7 @@ static bool cleanUpLayoutBreaks(Score* score, MxmlLogger* logger)
           || hasPageOverflow != initialHasPageOverflow)
             return true;
       else {
-            for (auto initialStyle : initialStyles)
+            for (auto& initialStyle : initialStyles)
                   score->style().set(initialStyle.first, initialStyle.second);
             if (copyrightVBox) {
                   copyrightVBox->setAutoSizeEnabled(copyrightVBoxAutoSizeEnabledInitial);
@@ -3326,6 +3348,26 @@ void MusicXMLParserDirection::direction(const QString& partId,
 
             addElemOffset(tt, track, placement(), measure, tick + _offset);
             }
+      else if (isLikelySticking()) {
+            Sticking* sticking = new Sticking(_score);
+            sticking->setXmlText(_wordsText);
+            if (!qFuzzyIsNull(_relativeX)) {
+                  QPointF offset = sticking->offset();
+                  offset.setX(_relativeX);
+                  sticking->setOffset(offset);
+                  sticking->setPropertyFlags(Pid::OFFSET, PropertyFlags::UNSTYLED);
+                  }
+
+            if (hasTotalY()) {
+                  // Add element to score later, after collecting all the others and sorting by default-y
+                  // This allows default-y to be at least respected by the order of elements
+                  MusicXMLDelayedDirectionElement* delayedDirection = new MusicXMLDelayedDirectionElement(
+                      totalY(), sticking, track, placement(), measure, tick + _offset, _isBold);
+                  delayedDirections.push_back(delayedDirection);
+                  }
+            else
+                  addElemOffset(sticking, track, placement(), measure, tick + _offset);
+            }
       else if (!_wordsText.isEmpty() || !_rehearsalText.isEmpty() || !_metroText.isEmpty()) {
             TextBase* t = 0;
             if (_tpoSound > 0.1 || attemptTempoTextCoercion(tick)) {
@@ -3507,7 +3549,7 @@ void MusicXMLParserDirection::direction(const QString& partId,
             }
 
       // handle the spanner stops first
-      for (MusicXmlSpannerDesc  desc : stops) {
+      for (MusicXmlSpannerDesc& desc : stops) {
             MusicXmlExtendedSpannerDesc& spdesc = _pass2.getSpanner({ desc._tp, desc._nr });
             if (spdesc._isStopped) {
                   _logger->logError("spanner already stopped", &_e);
@@ -3538,7 +3580,7 @@ void MusicXMLParserDirection::direction(const QString& partId,
 
       // then handle the spanner starts
       // TBD handle offset ?
-      for (MusicXmlSpannerDesc  desc : starts) {
+      for (MusicXmlSpannerDesc& desc : starts) {
             MusicXmlExtendedSpannerDesc& spdesc = _pass2.getSpanner({ desc._tp, desc._nr });
             if (spdesc._isStarted) {
                   _logger->logError("spanner already started", &_e);
@@ -3584,16 +3626,16 @@ void MusicXMLParserDirection::directionType(QList<MusicXmlSpannerDesc>& starts,
       {
       while (_e.readNextStartElement()) {
             // Prevent multi-word directions from overwriting y-values.
-            bool hasDefaultYCandidate = false;
-            bool hasRelativeYCandidate = false;
-            qreal defaultYCandidate = _e.attributes().value("default-y").toDouble(&hasDefaultYCandidate) * -0.1;
-            qreal relativeYCandidate =_e.attributes().value("relative-y").toDouble(&hasRelativeYCandidate) * -0.1;
-            if (hasDefaultYCandidate && !_hasDefaultY)
-                  _defaultY = defaultYCandidate;
-            if (hasRelativeYCandidate && !_hasRelativeY)
-                  _relativeY = relativeYCandidate;
-            _hasDefaultY |= hasDefaultYCandidate;
-            _hasRelativeY |= hasRelativeYCandidate;
+            bool hasDefaultXCandidate = false;
+            bool hasRelativeXCandidate = false;
+            qreal defaultXCandidate = _e.attributes().value("default-x").toDouble(&hasDefaultXCandidate) * -0.1;
+            qreal relativeXCandidate =_e.attributes().value("relative-x").toDouble(&hasRelativeXCandidate) * -0.1;
+            if (hasDefaultXCandidate && !_hasDefaultX)
+                  _defaultY = defaultXCandidate;
+            if (hasRelativeXCandidate && !_hasRelativeX)
+                  _relativeX = relativeXCandidate;
+            _hasDefaultX |= hasDefaultXCandidate;
+            _hasRelativeX |= hasRelativeXCandidate;
             _isBold &= _e.attributes().value("font-weight").toString() == "bold";
             _visible = _e.attributes().value("print-object").toString() != "no";
             QString number = _e.attributes().value("number").toString();
@@ -3762,16 +3804,16 @@ void MusicXMLParserDirection::otherDirection()
 QString MusicXMLParserDirection::matchRepeat() const
       {
       QString plainWords = MScoreTextToMXML::toPlainText(_wordsText.toLower().simplified());
-      QRegularExpression daCapo("^(d\\.? ?|da )(c\\.?|capo)$");
-      QRegularExpression daCapoAlFine("^(d\\.? ?|da )(c\\.? ?|capo )al fine$");
-      QRegularExpression daCapoAlCoda("^(d\\.? ?|da )(c\\.? ?|capo )al coda$");
-      QRegularExpression dalSegno("^(d\\.? ?|d[ae]l )(s\\.?|segno)$");
-      QRegularExpression dalSegnoAlFine("^(d\\.? ?|d[ae]l )(s\\.?|segno\\.?) al fine$");
-      QRegularExpression dalSegnoAlCoda("^(d\\.? ?|d[ae]l )(s\\.?|segno\\.?) al coda$");
-      QRegularExpression fine("^fine$");
-      QRegularExpression segno("^segno( segno)?$");
-      QRegularExpression toCoda("^to coda( coda)?$");
-      QRegularExpression coda("^coda( coda)?$");
+      static QRegularExpression daCapo("^(d\\.? ?|da )(c\\.?|capo)$");
+      static QRegularExpression daCapoAlFine("^(d\\.? ?|da )(c\\.? ?|capo )al fine$");
+      static QRegularExpression daCapoAlCoda("^(d\\.? ?|da )(c\\.? ?|capo )al coda$");
+      static QRegularExpression dalSegno("^(d\\.? ?|d[ae]l )(s\\.?|segno)$");
+      static QRegularExpression dalSegnoAlFine("^(d\\.? ?|d[ae]l )(s\\.?|segno\\.?) al fine$");
+      static QRegularExpression dalSegnoAlCoda("^(d\\.? ?|d[ae]l )(s\\.?|segno\\.?) al coda$");
+      static QRegularExpression fine("^fine$");
+      static QRegularExpression segno("^segno( segno)?$");
+      static QRegularExpression toCoda("^to coda( coda)?$");
+      static QRegularExpression coda("^coda( coda)?$");
       if (plainWords.contains(daCapo))          return "daCapo";
       if (plainWords.contains(daCapoAlFine))    return "daCapoAlFine";
       if (plainWords.contains(daCapoAlCoda))    return "daCapoAlCoda";
@@ -3866,9 +3908,11 @@ void MusicXMLParserDirection::textToDynamic(QString& text) const
       {
       if (!preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTINFERTEXTTYPE))
             return;
-      QString simplifiedText = text.simplified();
+      QString simplifiedText = MScoreTextToMXML::toPlainText(text).simplified();
+      // We don't want to count a single 'm', 'r', 's' or 'z' as a whole dynamic
+      static const QRegularExpression singleCharDynamic("^[mrsz]$");
       for (auto dyn : dynList) {
-            if (dyn.tag == simplifiedText) {
+            if (!simplifiedText.contains(singleCharDynamic) && dyn.tag == simplifiedText) {
                   text = text.replace(simplifiedText, dyn.text);
                   }
             }
@@ -4190,7 +4234,7 @@ double MusicXMLParserDirection::convertTextToNotes()
                                               {"x", QString("<sym>metNote16thUp</sym>")},      // note16_Sym
                                               {"w", QString("<sym>metNoteWhole</sym>")},
                                               {"W", QString("<sym>metNoteDoubleWhole</sym>")}};
-      for (auto noteSym : noteSyms) {
+      for (auto& noteSym : noteSyms) {
             if (notesSubstring.contains(noteSym.first)) {
                   notesSubstring.replace(noteSym.first, noteSym.second);
                   break;
@@ -4225,7 +4269,7 @@ bool MusicXMLParserDirection::attemptTempoTextCoercion(const Fraction& tick)
             }
       else if (placement() == "above" && _isBold) {
             if (tick == Fraction(0, 1)) return true;
-            for (auto tempoWord : tempoWords)
+            for (auto& tempoWord : tempoWords)
                   if (_wordsText.contains(tempoWord, Qt::CaseInsensitive))
                         return true;
             }
@@ -4355,7 +4399,7 @@ void MusicXMLParserDirection::handleNmiCmi(Measure* measure, const int track, co
 
 void MusicXMLParserDirection::handleChordSym(const int track, const Fraction tick, HarmonyMap& harmonyMap)
       {
-      if (!preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTINFERTEXTTYPE))
+      if (!preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTINFERTEXTTYPE) || placement() == "below")
             return;
 
       static const QRegularExpression re("^([abcdefg])(([#b♯♭])\3?)?(maj|min|m)?[769]?((add[#b♯♭]?(9|11|))|(sus[24]?))?(\\(.*\\))?$");
@@ -4386,6 +4430,19 @@ void MusicXMLParserDirection::handleChordSym(const int track, const Fraction tic
       if (insert)
             harmonyMap.insert(std::pair<int, HarmonyDesc>(ticks, newHarmonyDesc));
       _wordsText.clear();
+      }
+
+bool MusicXMLParserDirection::isLikelySticking()
+      {
+      if (!preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTINFERTEXTTYPE))
+            return false;
+
+      QString plainWords = MScoreTextToMXML::toPlainText(_wordsText.simplified());
+      static const QRegularExpression sticking("^[lrbLRB]+$");
+      return plainWords.contains(sticking)
+                  && _rehearsalText.isEmpty()
+                  && _metroText.isEmpty()
+                  && _tpoSound < 0.1;
       }
 
 //---------------------------------------------------------
@@ -5086,7 +5143,7 @@ void MusicXMLParserPass2::doEnding(const QString& partId, Measure* measure, cons
 #endif
                   QList<int> iEndingNumbers;
                   bool unsupported = false;
-                  for (const QString &s : sl) {
+                  for (const QString &s : qAsConst(sl)) {
                         int iEndingNumber = s.toInt();
                         if (iEndingNumber <= 0) {
                               unsupported = true;
@@ -6099,7 +6156,8 @@ Note* MusicXMLParserPass2::note(const QString& partId,
       QMap<int, QString> beamTypes;
       QString instrumentId;
       QString tieType;
-      MusicXMLParserLyric lyric { _pass1.getMusicXmlPart(partId).lyricNumberHandler(), _e, _score, _logger };
+      MusicXMLParserLyric lyric { _pass1.getMusicXmlPart(partId).lyricNumberHandler(), _e, _score, _logger,
+                                  _pass1.isVocalStaff(partId) };
       MusicXMLParserNotations notations { _e, _score, _logger, _pass1 };
 
       mxmlNoteDuration mnd { _divs, _logger, &_pass1 };
@@ -6505,6 +6563,9 @@ Note* MusicXMLParserPass2::note(const QString& partId,
                   }
             _graceNoteLyrics.clear();
             }
+
+      if (cr)
+            addInferredStickings(cr, lyric.inferredStickings());
 
       // add lyrics found by lyric
       if (cr && !grace) {
@@ -7141,8 +7202,8 @@ void MusicXMLParserPass2::backup(Fraction& dura)
 //---------------------------------------------------------
 
 MusicXMLParserLyric::MusicXMLParserLyric(const LyricNumberHandler lyricNumberHandler,
-                                         QXmlStreamReader& e, Score* score, MxmlLogger* logger)
-      : _lyricNumberHandler(lyricNumberHandler), _e(e), _score(score), _logger(logger)
+                                         QXmlStreamReader& e, Score* score, MxmlLogger* logger, bool isVoiceStaff)
+      : _lyricNumberHandler(lyricNumberHandler), _e(e), _score(score), _logger(logger), _isVoiceStaff(isVoiceStaff)
       {
       // nothing
       }
@@ -7179,9 +7240,6 @@ void MusicXMLParserLyric::readElision(QString& formattedText)
 
 void MusicXMLParserLyric::parse()
       {
-      std::unique_ptr<Lyrics> lyric { new Lyrics(_score) };
-      // TODO in addlyrics: l->setTrack(trk);
-
       bool hasExtend = false;
       const QString lyricNumber = _e.attributes().value("number").toString();
       const QColor lyricColor { _e.attributes().value("color").toString() };
@@ -7189,6 +7247,8 @@ void MusicXMLParserLyric::parse()
       const QString placement = _e.attributes().value("placement").toString();
       qreal relX = _e.attributes().value("relative-x").toDouble() / 10 * DPMM;
       qreal relY = _e.attributes().value("relative-y").toDouble() / 10 * DPMM;
+      Lyrics::Syllabic syllabic = Lyrics::Syllabic::SINGLE;
+
       QString extendType;
       QString formattedText;
 
@@ -7203,13 +7263,13 @@ void MusicXMLParserLyric::parse()
             else if (_e.name() == "syllabic") {
                   QString syll = _e.readElementText();
                   if (syll == "single")
-                        lyric->setSyllabic(Lyrics::Syllabic::SINGLE);
+                        syllabic = Lyrics::Syllabic::SINGLE;
                   else if (syll == "begin")
-                        lyric->setSyllabic(Lyrics::Syllabic::BEGIN);
+                        syllabic = Lyrics::Syllabic::BEGIN;
                   else if (syll == "end")
-                        lyric->setSyllabic(Lyrics::Syllabic::END);
+                        syllabic = Lyrics::Syllabic::END;
                   else if (syll == "middle")
-                        lyric->setSyllabic(Lyrics::Syllabic::MIDDLE);
+                        syllabic = Lyrics::Syllabic::MIDDLE;
                   else
                         qDebug("unknown syllabic %s", qPrintable(syll));              // TODO
                   }
@@ -7238,34 +7298,70 @@ void MusicXMLParserLyric::parse()
             return;
             }
 
+      TextBase* item;
+      if (isLikelySticking(formattedText, syllabic, hasExtend)) {
+          item = new Lyrics(_score);
+      } else {
+          item = new Sticking(_score);
+      }
+
       //qDebug("formatted lyric '%s'", qPrintable(formattedText));
-      lyric->setXmlText(formattedText);
+      item->setXmlText(formattedText);
       if (lyricColor.isValid()/* && preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTLAYOUT)*/) {
-            lyric->setProperty(Pid::COLOR, lyricColor);
-            lyric->setPropertyFlags(Pid::COLOR, PropertyFlags::UNSTYLED);
+            item->setProperty(Pid::COLOR, lyricColor);
+            item->setPropertyFlags(Pid::COLOR, PropertyFlags::UNSTYLED);
             }
-      lyric->setVisible(printLyric);
+      item->setVisible(printLyric);
       if (!placement.isEmpty()) {
-            lyric->setPlacement(placement == "above" ? Placement::ABOVE : Placement::BELOW);
-            lyric->setPropertyFlags(Pid::PLACEMENT, PropertyFlags::UNSTYLED);
+            item->setPlacement(placement == "above" ? Placement::ABOVE : Placement::BELOW);
+            item->setPropertyFlags(Pid::PLACEMENT, PropertyFlags::UNSTYLED);
             }
 
-      if (relX != 0 || relY != 0) {
-            QPointF offset = lyric->offset();
-            offset.setX(relX != 0 ? relX : lyric->offset().x());
-            offset.setY(relY != 0 ? relY : lyric->offset().y());
-            lyric->setOffset(offset);
-            lyric->setPropertyFlags(Pid::OFFSET, PropertyFlags::UNSTYLED);
+      if (!qFuzzyIsNull(relX)/* || !qFuzzyIsNull(relY)*/) {
+            QPointF offset = item->offset();
+            offset.setX(/*!qFuzzyIsNull(relX) ? */relX/* : item->offset().x()*/);
+            //offset.setY(!qFuzzyIsNull(relY) ? relY : item->offset().y());
+            item->setOffset(offset);
+            item->setPropertyFlags(Pid::OFFSET, PropertyFlags::UNSTYLED);
             }
 
-      Lyrics* const l = lyric.release();
-      _numberedLyrics[lyricNo] = l;
+      if (item->isLyrics()) {
+            // Add lyric
+            Lyrics* l = toLyrics(item);
+            l->setSyllabic(syllabic);
+            _numberedLyrics[lyricNo] = l;
 
-      if (hasExtend
-         && (extendType.isEmpty() || extendType == "start")
-         && (l->syllabic() == Lyrics::Syllabic::SINGLE || l->syllabic() == Lyrics::Syllabic::END)
-         )
-            _extendedLyrics.insert(l);
+            if (hasExtend
+                && (extendType.isEmpty() || extendType == "start")
+                && (l->syllabic() == Lyrics::Syllabic::SINGLE || l->syllabic() == Lyrics::Syllabic::END)) {
+                  _extendedLyrics.insert(l);
+                  }
+            }
+      else if (item->isSticking()) {
+            // Add sticking
+            Sticking* s = toSticking(item);
+            _inferredStickings.push_back(s);
+            }
+      }
+
+#if 0
+QString MusicXMLParserLyric::placement() const
+      {
+      if (_placement.isEmpty() && hasTotalY())
+            return totalY() < 0 ? "above" : "below";
+      else
+            return _placement;
+      }
+#endif
+
+bool MusicXMLParserLyric::isLikelySticking(const QString& text, const Lyrics::Syllabic syllabic, const bool hasExtend)
+      {
+      if (!preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTINFERTEXTTYPE))
+            return false;
+
+      QString plainWords = MScoreTextToMXML::toPlainText(text.simplified());
+      static const QRegularExpression sticking("^[lrbLRB]+$");
+      return plainWords.contains(sticking) && syllabic == Lyrics::Syllabic::SINGLE && !hasExtend && !_isVoiceStaff;
       }
 
 //---------------------------------------------------------
@@ -7353,7 +7449,7 @@ static void addSlur(const Notation& notation, SlurStack& slurs, ChordRest* cr, c
                         else if (orientation.isEmpty() || placement.isEmpty())
                               ; // ignore
                         else
-                              logger->logError(QString("unknown slur orientation/placement: %1/%2").arg(orientation).arg(placement), xmlreader);
+                              logger->logError(QString("unknown slur orientation/placement: %1/%2").arg(orientation, placement), xmlreader);
                         }
 
                   newSlur->setTrack(track);
@@ -7858,7 +7954,7 @@ static void addTie(const Notation& notation, Score* score, Note* note, const int
                   else if (orientation.isEmpty() || placement.isEmpty())
                         ; // ignore
                   else
-                        logger->logError(QString("unknown tied orientation/placement: %1/%2").arg(orientation).arg(placement), xmlreader);
+                        logger->logError(QString("unknown tied orientation/placement: %1/%2").arg(orientation, placement), xmlreader);
                   }
 
             const QString& lineType = notation.attribute("line-type");
@@ -8344,7 +8440,7 @@ void MusicXMLParserNotations::tuplet()
 
 void MusicXMLParserNotations::otherNotation()
       {
-      const QString type = { _e.attributes().value("type").toString() };
+      //const QString type = { _e.attributes().value("type").toString() };
       const QString smufl = { _e.attributes().value("smufl").toString() };
       if (!smufl.isEmpty()) {
             SymId id { SymId::noSym };
