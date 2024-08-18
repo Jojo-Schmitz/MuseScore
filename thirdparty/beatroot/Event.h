@@ -33,7 +33,7 @@ struct Event
 
       bool operator!=(const Event &e)
             {
-            return time != e.time || salience != e.salience;
+            return !qFuzzyCompare(time, e.time) || !qFuzzyCompare(salience, e.salience);
             }
       };
 
