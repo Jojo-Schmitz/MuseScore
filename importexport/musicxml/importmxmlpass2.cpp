@@ -3276,6 +3276,7 @@ void MusicXMLParserDirection::direction(const QString& partId,
             else
                   skipLogCurrElem();
             }
+      handleTempo();
       handleRepeats(measure, track, tick + _offset);
       handleNmiCmi(measure, track, tick + _offset, delayedDirections);
       handleChordSym(track, tick + _offset, harmonyMap);
@@ -3617,7 +3618,7 @@ void MusicXMLParserDirection::directionType(QList<MusicXmlSpannerDesc>& starts,
 
                   textToDynamic(nextPart);
                   textToCrescLine(nextPart);
-                  handleTempo(nextPart);
+                  //handleTempo(nextPart);
                   _wordsText += nextPart;
                   }
             else if (_e.name() == "rehearsal") {
@@ -4391,7 +4392,7 @@ void MusicXMLParserDirection::handleChordSym(const int track, const Fraction tic
       _wordsText.clear();
       }
 
-void MusicXMLParserDirection::handleTempo(QString& wordsString)
+void MusicXMLParserDirection::handleTempo(/*QString& wordsString*/)
       {
       // Pick up any tempo markings which may have been exported from Sibelius as <words>
       // eg. andante (q = c. 90)
