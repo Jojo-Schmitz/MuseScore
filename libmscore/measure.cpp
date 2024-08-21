@@ -4491,7 +4491,7 @@ void Measure::computeMinWidth(Segment* s, qreal x, bool isSystemHeader)
       if (!fs->visible())           // first enabled could be a clef change on invisible staff
             fs = fs->nextActive();
       bool first  = isFirstInSystem();
-      const Shape ls(first ? QRectF(0.0, -DBL_MAX, 0.0, DBL_MAX) : QRectF(0.0, 0.0, 0.0, spatium() * 4));
+      const Shape ls(first ? QRectF(0.0, -std::numeric_limits<qreal>::max(), 0.0, std::numeric_limits<qreal>::max()) : QRectF(0.0, 0.0, 0.0, spatium() * 4));
 
       if (isMMRest()) {
             // Reset MM rest to initial size and position
@@ -4616,7 +4616,7 @@ void Measure::computeMinWidth()
       // left barriere:
       //    Make sure no elements crosses the left boarder if first measure in a system.
       //
-      Shape ls(first ? QRectF(0.0, -DBL_MAX, 0.0, DBL_MAX) : QRectF(0.0, 0.0, 0.0, spatium() * 4));
+      Shape ls(first ? QRectF(0.0, -std::numeric_limits<qreal>::max(), 0.0, std::numeric_limits<qreal>::max()) : QRectF(0.0, 0.0, 0.0, spatium() * 4));
 
       x = s->minLeft(ls);
 

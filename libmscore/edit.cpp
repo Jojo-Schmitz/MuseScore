@@ -2372,7 +2372,7 @@ std::vector<ChordRest*> Score::deleteRange(Segment* s1, Segment* s2, int track1,
             bool fullMeasure = ss1 && (ss1->measure()->first(SegmentType::ChordRest) == ss1)
                   && (s2 == 0 || s2->isEndBarLineType());
 
-            Fraction tick2 = s2 ? s2->tick() : Fraction(INT_MAX, 1);
+            Fraction tick2 = s2 ? s2->tick() : Fraction(std::numeric_limits<int>::max(), 1);
 
             deleteSpannersFromRange(stick1, stick2, track1, track2, filter);
 

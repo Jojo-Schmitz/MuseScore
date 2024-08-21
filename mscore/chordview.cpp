@@ -180,10 +180,10 @@ void ChordView::drawBackground(QPainter* p, const QRectF& r)
       {
       if (chord == 0)
             return;
-      QRectF r1(-DBL_MAX,                 0.0,           DBL_MAX, DBL_MAX);
-      QRectF r2(ticks + CHORD_MAP_OFFSET, 0.0,           DBL_MAX, DBL_MAX);
-      QRectF r3(-DBL_MAX,                 127*keyHeight, DBL_MAX, keyHeight);
-      QRectF r4(ticks + CHORD_MAP_OFFSET, 127*keyHeight, DBL_MAX, keyHeight);
+      QRectF r1(-std::numeric_limits<qreal>::max(), 0.0,           std::numeric_limits<qreal>::max(), std::numeric_limits<qreal>::max());
+      QRectF r2(ticks + CHORD_MAP_OFFSET,           0.0,           std::numeric_limits<qreal>::max(), std::numeric_limits<qreal>::max());
+      QRectF r3(-std::numeric_limits<qreal>::max(), 127*keyHeight, std::numeric_limits<qreal>::max(), keyHeight);
+      QRectF r4(ticks + CHORD_MAP_OFFSET,           127*keyHeight, std::numeric_limits<qreal>::max(), keyHeight);
 
       QColor bg(0x71, 0x8d, 0xbe);
       QColor bg1 = bg.darker(150);

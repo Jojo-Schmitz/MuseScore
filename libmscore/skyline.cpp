@@ -173,7 +173,7 @@ void SkylineLine::add(qreal x, qreal y, qreal w)
             }
       if (x >= cx) {
             if (x > cx) {
-                  qreal cy = north ? DBL_MAX : -DBL_MAX;
+                  qreal cy = north ? std::numeric_limits<qreal>::max() : -std::numeric_limits<qreal>::max();
                   DP("    append1 %f %f\n", cy, x - cx);
                   append(cx, cy, x - cx);
                   }
@@ -207,7 +207,7 @@ qreal Skyline::minDistance(const Skyline& s) const
 
 qreal SkylineLine::minDistance(const SkylineLine& sl) const
       {
-      qreal dist = -DBL_MAX;
+      qreal dist = -std::numeric_limits<qreal>::max();
 
       qreal x1 = 0.0;
       qreal x2 = 0.0;
@@ -284,7 +284,7 @@ bool SkylineLine::valid() const
 
 bool SkylineLine::valid(const SkylineSegment& s) const
       {
-      return north ? (s.y != DBL_MAX) : (s.y != -DBL_MAX);
+      return north ? (s.y != std::numeric_limits<qreal>::max()) : (s.y != -std::numeric_limits<qreal>::max());
       }
 
 //---------------------------------------------------------
@@ -317,12 +317,12 @@ qreal SkylineLine::max() const
       {
       qreal val;
       if (north) {
-            val = DBL_MAX;
+            val = std::numeric_limits<qreal>::max();
             for (const SkylineSegment& s : *this)
                   val = qMin(val, s.y);
             }
       else {
-            val = -DBL_MAX;
+            val = -std::numeric_limits<qreal>::max();
             for (const SkylineSegment& s : *this)
                   val = qMax(val, s.y);
             }

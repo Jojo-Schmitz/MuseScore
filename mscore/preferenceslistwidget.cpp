@@ -209,8 +209,8 @@ IntPreferenceItem::IntPreferenceItem(QString name, std::function<void()> applyFu
         _initialValue(preferences.getInt(name)),
         _editorSpinBox(new QSpinBox)
       {
-      _editorSpinBox->setMaximum(INT_MAX);
-      _editorSpinBox->setMinimum(INT_MIN);
+      _editorSpinBox->setMaximum(std::numeric_limits<int>::max());
+      _editorSpinBox->setMinimum(std::numeric_limits<int>::min());
       _editorSpinBox->setValue(_initialValue);
       connect(_editorSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this, &PreferenceItem::editorValueModified);
       _applyFunction = applyFunc;
@@ -336,8 +336,8 @@ DoublePreferenceItem::DoublePreferenceItem(QString name, std::function<void()> a
         _initialValue(preferences.getDouble(name)),
         _editorDoubleSpinBox(new QDoubleSpinBox)
       {
-      _editorDoubleSpinBox->setMaximum(DBL_MAX);
-      _editorDoubleSpinBox->setMinimum(DBL_MIN);
+      _editorDoubleSpinBox->setMaximum(std::numeric_limits<double>::max());
+      _editorDoubleSpinBox->setMinimum(std::numeric_limits<double>::min());
       _editorDoubleSpinBox->setValue(_initialValue);
       if (qAbs(_initialValue) < 2.0)
             _editorDoubleSpinBox->setSingleStep(0.1);

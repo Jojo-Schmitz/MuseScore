@@ -1495,14 +1495,14 @@ FiguredBass* FiguredBass::addFiguredBassToSegment(Segment * seg, int track, cons
             fb->setParent(seg);
 
             // locate next SegChordRest in the same staff to estimate presumed duration of element
-            endTick = Fraction(INT_MAX,1);
+            endTick = Fraction(std::numeric_limits<int>::max(), 1);
             Segment *   nextSegm;
             for (int iVoice = 0; iVoice < VOICES; iVoice++) {
                   nextSegm = seg->nextCR(track + iVoice);
                   if(nextSegm && nextSegm->tick() < endTick)
                         endTick = nextSegm->tick();
                   }
-            if(endTick == Fraction(INT_MAX,1)) {            // no next segment: set up to score end
+            if(endTick == Fraction(std::numeric_limits<int>::max(),1)) {            // no next segment: set up to score end
                   Measure * meas = seg->score()->lastMeasure();
                   endTick = meas->tick() + meas->ticks();
                   }

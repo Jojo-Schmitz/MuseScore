@@ -138,7 +138,7 @@ int ConnectorInfo::orderedConnectionDistance(const ConnectorInfo& c1, const Conn
       c2Prev.toRelative(c2._prevLoc);
       if (c1Next == c2Prev)
             return distance(c1._nextLoc, c2._currentLoc);
-      return INT_MAX;
+      return std::numeric_limits<int>::max();
       }
 
 //---------------------------------------------------------
@@ -147,15 +147,15 @@ int ConnectorInfo::orderedConnectionDistance(const ConnectorInfo& c1, const Conn
 //    that the checked connectors should be connected.
 //    Returns 0 if can be readily connected via connect(),
 //    < 0 if other is likely to be the first,
-//    INT_MAX if cannot be connected
+//    std::numeric_limits<int>::max() if cannot be connected
 //---------------------------------------------------------
 
 int ConnectorInfo::connectionDistance(const ConnectorInfo& other) const
       {
       if (_type != other._type || _score != other._score)
-            return INT_MAX;
-      int distThisOther = INT_MAX;
-      int distOtherThis = INT_MAX;
+            return std::numeric_limits<int>::max();
+      int distThisOther = std::numeric_limits<int>::max();
+      int distOtherThis = std::numeric_limits<int>::max();
       if (hasNext() && _next == nullptr
          && other.hasPrevious() && other._prev == nullptr)
             distThisOther = orderedConnectionDistance(*this, other);

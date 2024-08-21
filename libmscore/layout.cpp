@@ -3945,8 +3945,8 @@ static void processLines(System* system, std::vector<Spanner*> lines, bool align
       if (align && segments.size() > 1) {
             const int nstaves = system->staves()->size();
             const qreal defaultY = segments[0]->rypos();
-            std::vector<double> yAbove(nstaves, -DBL_MAX);
-            std::vector<double> yBelow(nstaves, -DBL_MAX);
+            std::vector<double> yAbove(nstaves, -std::numeric_limits<double>::max());
+            std::vector<double> yBelow(nstaves, -std::numeric_limits<double>::max());
 
             for (SpannerSegment* ss : segments) {
                   if (ss->visible()) {
@@ -3958,7 +3958,7 @@ static void processLines(System* system, std::vector<Spanner*> lines, bool align
                   if (!ss->isStyled(Pid::OFFSET))
                         continue;
                   const qreal& staffY =  ss->spanner() && ss->spanner()->placeAbove() ? yAbove[ss->staffIdx()] : yBelow[ss->staffIdx()];
-                  if (staffY > -DBL_MAX)
+                  if (staffY > -std::numeric_limits<qreal>::max())
                         ss->rypos() = staffY;
                   else
                         ss->rypos() = defaultY;

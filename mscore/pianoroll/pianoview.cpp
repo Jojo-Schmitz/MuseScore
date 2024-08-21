@@ -381,9 +381,9 @@ void PianoView::drawBackground(QPainter* p, const QRectF& r)
       const QPen penLineSub   = QPen(colGridLine, 1.0, Qt::DotLine);
 
       QRectF r1;
-      r1.setCoords(-DBL_MAX, 0.0, tickToPixelX(0), DBL_MAX);
+      r1.setCoords(-std::numeric_limits<qreal>::max(), 0.0, tickToPixelX(0), std::numeric_limits<qreal>::max());
       QRectF r2;
-      r2.setCoords(tickToPixelX(_ticks), 0.0, DBL_MAX, DBL_MAX);
+      r2.setCoords(tickToPixelX(_ticks), 0.0, std::numeric_limits<qreal>::max(), std::numeric_limits<qreal>::max());
 
       p->fillRect(r, colWhiteKeyBg);
       if (r.intersects(r1))

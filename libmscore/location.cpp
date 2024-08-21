@@ -30,7 +30,7 @@ static constexpr Location relDefaults = Location::relative();
 int Location::track() const
       {
       if ((_staff == absDefaults._staff) || (_voice == absDefaults._voice))
-            return INT_MIN;
+            return std::numeric_limits<int>::min();
       return VOICES * _staff + _voice;
       }
 

@@ -80,7 +80,7 @@ Shape Shape::translated(const QPointF& pt) const
 
 qreal Shape::minHorizontalDistance(const Shape& a) const
       {
-      qreal dist = -DBL_MAX;      // min real
+      qreal dist = -std::numeric_limits<qreal>::max();      // min real
       for (const QRectF& r2 : a) {
             qreal by1 = r2.top();
             qreal by2 = r2.bottom();
@@ -104,7 +104,7 @@ qreal Shape::minHorizontalDistance(const Shape& a) const
 
 qreal Shape::minVerticalDistance(const Shape& a) const
       {
-      qreal dist = -DBL_MAX;      // min real
+      qreal dist = -std::numeric_limits<qreal>::max();      // min real
       for (const QRectF& r2 : a) {
             if (r2.height() <= 0.0)
                   continue;
@@ -159,7 +159,7 @@ qreal Shape::right() const
 
 qreal Shape::top() const
       {
-      qreal dist = DBL_MAX;
+      qreal dist = std::numeric_limits<qreal>::max();
       for (const QRectF& r : *this) {
             if (r.top() < dist)
                   dist = r.top();
@@ -173,7 +173,7 @@ qreal Shape::top() const
 
 qreal Shape::bottom() const
       {
-      qreal dist = -DBL_MAX;
+      qreal dist = -std::numeric_limits<qreal>::max();
       for (const QRectF& r : *this) {
             if (r.bottom() > dist)
                   dist = r.bottom();
@@ -189,7 +189,7 @@ qreal Shape::bottom() const
 
 qreal Shape::topDistance(const QPointF& p) const
       {
-      qreal dist = DBL_MAX;
+      qreal dist = std::numeric_limits<qreal>::max();
       for (const QRectF& r : *this) {
             if (p.x() >= r.left() && p.x() < r.right())
                   dist = qMin(dist, r.top() - p.y());
@@ -205,7 +205,7 @@ qreal Shape::topDistance(const QPointF& p) const
 
 qreal Shape::bottomDistance(const QPointF& p) const
       {
-      qreal dist = DBL_MAX;
+      qreal dist = std::numeric_limits<qreal>::max();
       for (const QRectF& r : *this) {
             if (p.x() >= r.left() && p.x() < r.right())
                   dist = qMin(dist, p.y() - r.bottom());

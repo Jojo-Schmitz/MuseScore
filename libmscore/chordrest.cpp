@@ -1257,8 +1257,8 @@ Shape ChordRest::shape() const
       {
       Shape shape;
       {
-      qreal x1 = DBL_MAX;
-      qreal x2 = -DBL_MAX;
+      qreal x1 = std::numeric_limits<qreal>::max();
+      qreal x2 = -std::numeric_limits<qreal>::max();
       bool adjustWidth = false;
       for (Lyrics* l : _lyrics) {
             if (!l || !l->addToSkyline())
@@ -1280,8 +1280,8 @@ Shape ChordRest::shape() const
       }
 
       {
-      qreal x1 = DBL_MAX;
-      qreal x2 = -DBL_MAX;
+      qreal x1 = std::numeric_limits<qreal>::max();
+      qreal x2 = -std::numeric_limits<qreal>::max();
       bool adjustWidth = false;
       for (Element* e : segment()->annotations()) {
             if (!e || !e->addToSkyline())
