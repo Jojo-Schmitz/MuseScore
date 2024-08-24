@@ -156,6 +156,7 @@ private slots:
       void harmony6() { mxmlMscxExportTestRef("testHarmony6"); }
       void harmony7() { mxmlMscxExportTestRef("testHarmony7"); }
       void harmony8() { mxmlIoTest("testHarmony8"); }
+      void harmony9() { mxmlIoTest("testHarmony9"); }
       void hello() { mxmlIoTest("testHello"); }
       void helloReadCompr() { mxmlReadTestCompr("testHello"); }
       void helloReadWriteCompr() { mxmlReadWriteTestCompr("testHello"); }
