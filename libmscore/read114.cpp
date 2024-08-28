@@ -3187,7 +3187,7 @@ Score::FileError MasterScore::read114(XmlReader& e)
       for (const auto &i : tm) {
             Fraction tick = Fraction::fromTicks(i.first);
             qreal tempo   = i.second.tempo;
-            if (tempomap()->tempo(tick.ticks()) != tempo) {
+            if (!qFuzzyCompare(tempomap()->tempo(tick.ticks()), tempo)) {
                   TempoText* tt = new TempoText(this);
                   tt->setXmlText(QString("<sym>metNoteQuarterUp</sym> = %1").arg(qRound(tempo*60)));
                   tt->setTempo(tempo);

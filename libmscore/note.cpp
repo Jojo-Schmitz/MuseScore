@@ -854,7 +854,7 @@ QString Note::tpcUserName(const bool explicitAccidental) const
             return pitchName;
 
       QString pitchOffset;
-      if (tuning() != 0)
+      if (!qFuzzyIsNull(tuning()))
             pitchOffset = QString::asprintf("%+.3f", tuning());
 
       if (!concertPitch() && transposition()) {

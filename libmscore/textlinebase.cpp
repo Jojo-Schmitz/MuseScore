@@ -308,7 +308,7 @@ void TextLineBaseSegment::layout()
       QPointF pp2(pos2());
 
       // diagonal line with no text or hooks - just use the basic rectangle for line
-      if (_text->empty() && _endText->empty() && pp2.y() != 0
+      if (_text->empty() && _endText->empty() && !qFuzzyIsNull(pp2.y())
           && (!isSingleOrBegin || textLineBase()->beginHookType() == HookType::NONE)
           && (!isSingleEndType() || textLineBase()->endHookType() == HookType::NONE)) {
             npoints = 1; // 2 points, but only one line must be drawn

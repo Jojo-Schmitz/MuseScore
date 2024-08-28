@@ -11,24 +11,25 @@
 //=============================================================================
 
 
+#include "musescore.h"
 #include "pianoview.h"
 #include "pianoruler.h"
 #include "pianokeyboard.h"
-#include "shortcut.h"
-#include "musescore.h"
-#include "scoreview.h"
 #include "preferences.h"
-#include "libmscore/part.h"
-#include "libmscore/staff.h"
-#include "libmscore/measure.h"
+#include "shortcut.h"
+#include "scoreview.h"
+
 #include "libmscore/chord.h"
-#include "libmscore/rest.h"
-#include "libmscore/score.h"
+#include "libmscore/measure.h"
 #include "libmscore/note.h"
+#include "libmscore/noteevent.h"
+#include "libmscore/part.h"
+#include "libmscore/rest.h"
+#include "libmscore/staff.h"
+#include "libmscore/score.h"
+#include "libmscore/segment.h"
 #include "libmscore/tie.h"
 #include "libmscore/tuplet.h"
-#include "libmscore/segment.h"
-#include "libmscore/noteevent.h"
 #include "libmscore/undo.h"
 #include "libmscore/utils.h"
 
@@ -381,9 +382,9 @@ void PianoView::drawBackground(QPainter* p, const QRectF& r)
       const QPen penLineSub   = QPen(colGridLine, 1.0, Qt::DotLine);
 
       QRectF r1;
-      r1.setCoords(-DBL_MAX, 0.0, tickToPixelX(0), DBL_MAX);
+      r1.setCoords(-std::numeric_limits<qreal>::max(), 0.0, tickToPixelX(0), std::numeric_limits<qreal>::max());
       QRectF r2;
-      r2.setCoords(tickToPixelX(_ticks), 0.0, DBL_MAX, DBL_MAX);
+      r2.setCoords(tickToPixelX(_ticks), 0.0, std::numeric_limits<qreal>::max(), std::numeric_limits<qreal>::max());
 
       p->fillRect(r, colWhiteKeyBg);
       if (r.intersects(r1))
@@ -2108,7 +2109,7 @@ void PianoView::setNotesToVoice(int voice) {
 
 void PianoView::setXZoom(int value)
       {
-      if (_xZoom != value) {
+      if (!qFuzzyCompare(_xZoom, value)) {
             _xZoom = value;
             scene()->update();
             emit xZoomChanged(_xZoom);

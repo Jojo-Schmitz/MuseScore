@@ -17,34 +17,33 @@
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //=============================================================================
 
+#include "click.h"
 #include "config.h"
-#include "seq.h"
 #include "musescore.h"
+#include "playpanel.h"
+#include "preferences.h"
+#include "scoreview.h"
+#include "seq.h"
+#include "synthcontrol.h"
 
 #include "audio/midi/msynthesizer.h"
+
+#include "libmscore/audio.h"
+#include "libmscore/chord.h"
+#include "libmscore/measure.h"
+#include "libmscore/note.h"
+#include "libmscore/part.h"
 #include "libmscore/rendermidi.h"
-#include "libmscore/slur.h"
-#include "libmscore/tie.h"
+#include "libmscore/repeatlist.h"
 #include "libmscore/score.h"
 #include "libmscore/segment.h"
-#include "libmscore/note.h"
-#include "libmscore/chord.h"
-#include "libmscore/tempo.h"
-#include "scoreview.h"
-#include "playpanel.h"
 #include "libmscore/staff.h"
-#include "libmscore/measure.h"
-#include "preferences.h"
-#include "libmscore/part.h"
-#include "libmscore/ottava.h"
+#include "libmscore/tempo.h"
+#include "libmscore/tie.h"
 #include "libmscore/utils.h"
-#include "libmscore/repeatlist.h"
-#include "libmscore/audio.h"
-#include "synthcontrol.h"
+
 #include "pianoroll/pianoroll.h"
 #include "pianotools.h"
-
-#include "click.h"
 
 #define OV_EXCLUDE_STATIC_CALLBACKS
 #include <vorbis/vorbisfile.h>
@@ -1631,7 +1630,7 @@ void Seq::heartBeatTimeout()
             prevTimeSig = cs->sigmap()->timesig(getCurTick()).nominal();
             emit timeSigChanged();
             }
-      if (cs && curTempo()!=prevTempo) {
+      if (cs && !qFuzzyCompare(curTempo(), prevTempo)) {
             prevTempo = curTempo();
             emit tempoChanged();
             }

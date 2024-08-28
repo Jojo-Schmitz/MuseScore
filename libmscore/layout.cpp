@@ -1014,7 +1014,7 @@ void Score::layoutChords3(std::vector<Note*>& notes, const Staff* staff, Segment
                   x = chord->stemPosX() - note->headBodyWidth();
 
             qreal ny = (note->line() + stepOffset) * stepDistance;
-            if (note->rypos() != ny) {
+            if (!qFuzzyCompare(note->rypos(), ny)) {
                   note->rypos() = ny;
                   if (chord->stem()) {
                         chord->stem()->layout();
@@ -3945,8 +3945,8 @@ static void processLines(System* system, std::vector<Spanner*> lines, bool align
       if (align && segments.size() > 1) {
             const int nstaves = system->staves()->size();
             const qreal defaultY = segments[0]->rypos();
-            std::vector<double> yAbove(nstaves, -DBL_MAX);
-            std::vector<double> yBelow(nstaves, -DBL_MAX);
+            std::vector<double> yAbove(nstaves, -std::numeric_limits<double>::max());
+            std::vector<double> yBelow(nstaves, -std::numeric_limits<double>::max());
 
             for (SpannerSegment* ss : segments) {
                   if (ss->visible()) {
@@ -3958,7 +3958,7 @@ static void processLines(System* system, std::vector<Spanner*> lines, bool align
                   if (!ss->isStyled(Pid::OFFSET))
                         continue;
                   const qreal& staffY =  ss->spanner() && ss->spanner()->placeAbove() ? yAbove[ss->staffIdx()] : yBelow[ss->staffIdx()];
-                  if (staffY > -DBL_MAX)
+                  if (staffY > -std::numeric_limits<qreal>::max())
                         ss->rypos() = staffY;
                   else
                         ss->rypos() = defaultY;
@@ -4926,7 +4926,7 @@ void LayoutContext::collectPage()
                   if (curSystem->vbox()) {
                         // if the header exists and there is a frame, move the frame downwards
                         // to avoid collisions
-                        distance = headerExtension ? headerExtension + headerFooterPadding : 0.0;
+                        distance = !qFuzzyIsNull(headerExtension) ? headerExtension + headerFooterPadding : 0.0;
                         }
                   else {
                         distance = score->styleP(Sid::staffUpperBorder);

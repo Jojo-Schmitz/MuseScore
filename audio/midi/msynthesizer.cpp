@@ -10,10 +10,10 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "config.h"
-#include "synthesizer.h"
 #include "msynthesizer.h"
+#include "synthesizer.h"
 #include "synthesizergui.h"
+
 #include "libmscore/xml.h"
 #include "mscore/preferences.h"
 
@@ -440,7 +440,7 @@ bool MasterSynthesizer::storeState()
 
 void MasterSynthesizer::setGain(float f)
       {
-      if (_gain != f) {
+      if (!qFuzzyCompare(_gain + 1.0, f + 1.0)) { // when set to MUTE, gain is 0
             _gain = f;
             emit gainChanged(_gain);
             }
@@ -454,7 +454,7 @@ void MasterSynthesizer::setGain(float f)
 
 void MasterSynthesizer::setGainAsDecibels(float decibelValue)
       {
-      if (decibelValue == minGainAsDecibels)
+      if (qFuzzyCompare(decibelValue, minGainAsDecibels))
             setGain(MUTE);
       else
             setGain(pow(10, ((decibelValue + N) / N )));
@@ -466,7 +466,7 @@ void MasterSynthesizer::setGainAsDecibels(float decibelValue)
 
 float MasterSynthesizer::convertGainToDecibels(float gain) const
       {
-      if (gain == MUTE)
+      if (qFuzzyCompare(gain + 1.0, MUTE + 1.0)) // as MUTE is 0.0
             return minGainAsDecibels; // return a usable value instead of -∞
       return ((N * std::log10(gain)) - N);
       }

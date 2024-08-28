@@ -18,6 +18,7 @@
 //=============================================================================
 
 #include "ruler.h"
+
 #include "libmscore/score.h"
 
 namespace Ms {
@@ -139,7 +140,7 @@ void Ruler::setScore(Score* s, Pos* lc)
 
 void Ruler::setMag(double x, double /*y*/)
       {
-      if (_xmag != x) {
+      if (!qFuzzyCompare(_xmag, x)) {
             _xmag = x;
 
             int tpix  = (480 * 4) * _xmag;

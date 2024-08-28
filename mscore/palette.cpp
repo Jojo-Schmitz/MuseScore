@@ -1427,9 +1427,9 @@ void Palette::write(XmlWriter& xml) const
                   xml.stag("Cell");
             if (cells[i]->drawStaff)
                   xml.tag("staff", cells[i]->drawStaff);
-            if (cells[i]->xoffset)
+            if (!qFuzzyIsNull(cells[i]->xoffset))
                   xml.tag("xoffset", cells[i]->xoffset);
-            if (cells[i]->yoffset)
+            if (!qFuzzyIsNull(cells[i]->yoffset))
                   xml.tag("yoffset", cells[i]->yoffset);
             if (!cells[i]->tag.isEmpty())
                   xml.tag("tag", cells[i]->tag);

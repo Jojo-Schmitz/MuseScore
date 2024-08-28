@@ -119,7 +119,7 @@ bool CharFormat::operator==(const CharFormat& cf) const
       return cf.style()     == style()
          && cf.preedit()    == preedit()
          && cf.valign()     == valign()
-         && cf.fontSize()   == fontSize()
+         && qFuzzyCompare(cf.fontSize(), fontSize())
          && cf.fontFamily() == fontFamily();
       }
 
@@ -1819,7 +1819,7 @@ void TextBase::layout1()
             t->layout(this);
             const QRectF* r = &t->boundingRect();
 
-            if (r->height() == 0)
+            if (qFuzzyIsNull(r->height()))
                   r = &_layout[i-i].boundingRect();
             y += t->lineSpacing();
             t->setY(y);
@@ -2074,7 +2074,7 @@ void TextBase::genText() const
                               xmlNesting.popS();
                         }
 
-                  if (format.fontSize() != fmt.fontSize())
+                  if (!qFuzzyCompare(format.fontSize(), fmt.fontSize()))
                         _text += QString("<font size=\"%1\"/>").arg(format.fontSize());
                   if (format.fontFamily() != fmt.fontFamily())
                         _text += QString("<font face=\"%1\"/>").arg(TextBase::escape(format.fontFamily()));
@@ -3217,7 +3217,7 @@ bool TextBase::hasCustomFormatting() const
                   const CharFormat& format = f.format;
                   if (fmt.style() != format.style())
                         return true;
-                  if (format.fontSize() != fmt.fontSize())
+                  if (!qFuzzyCompare(format.fontSize(), fmt.fontSize()))
                         return true;
                   if (format.fontFamily() != fmt.fontFamily())
                         return true;
@@ -3308,7 +3308,7 @@ QString TextBase::stripText(bool removeStyle, bool removeSize, bool removeFace) 
                               }
                         }
 
-                  if (!removeSize && (format.fontSize() != fmt.fontSize()))
+                  if (!removeSize && (!qFuzzyCompare(format.fontSize(), fmt.fontSize())))
                         _txt += QString("<font size=\"%1\"/>").arg(format.fontSize());
                   if (!removeFace && (format.fontFamily() != fmt.fontFamily()))
                         _txt += QString("<font face=\"%1\"/>").arg(TextBase::escape(format.fontFamily()));

@@ -3843,7 +3843,7 @@ static void writePitch(XmlWriter& xml, const Note* const note, const bool useDru
       // `alter2` represents a microtone or manually-adjusted note tuning.
       // In MusicXML, These two values are merged in the same "alter" tag.
       // https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-alter.htm
-      if (alter || alter2)
+      if (alter || !qFuzzyIsNull(alter2))
             xml.tag("alter", alter + alter2);
       xml.tag(useDrumset ? "display-octave" : "octave", octave);
       xml.etag();

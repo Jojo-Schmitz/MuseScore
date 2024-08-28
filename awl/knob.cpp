@@ -68,7 +68,7 @@ void Knob::setText(const QString& s)
 
 void Knob::setSpanDegrees(double val)
       {
-      if (val != _spanDegrees) {
+      if (!qFuzzyCompare(val, _spanDegrees)) {
             _spanDegrees = val;
             update();
             }
@@ -145,7 +145,7 @@ void Knob::mouseMoveEvent(QMouseEvent* ev)
       {
       int y       = ev->y();
       double delta = (maxValue() - minValue()) / 100.0f;
-      if (delta == 0)
+      if (qFuzzyIsNull(delta))
             delta = 1;
       _value  += (startY - y) * delta;
       if (_value < minValue())

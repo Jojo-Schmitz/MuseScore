@@ -306,7 +306,7 @@ void TempoText::updateTempo()
                   QStringList sl = re.capturedTexts();
                   if (sl.size() == 2) {
                         qreal nt = qreal(sl[1].toDouble()) * pa.f;
-                        if (nt != _tempo) {
+                        if (!qFuzzyCompare(nt, _tempo)) {
                               undoChangeProperty(Pid::TEMPO, QVariant(qreal(sl[1].toDouble()) * pa.f), propertyFlags(Pid::TEMPO));
                               _relative = 1.0;
                               _isRelative = false;
@@ -490,7 +490,7 @@ QString TempoText::accessibleInfo() const
       QString secondPart = text.split(" = ").back();
       int x1 = findTempoDuration(firstPart, len1, t1);
       int x2 = -1;
-      if (_relative)
+      if (!qFuzzyIsNull(_relative))
             x2 = findTempoDuration(secondPart, len2, t2);
 
       if (x1 != -1) {

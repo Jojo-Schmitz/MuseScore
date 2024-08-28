@@ -17,17 +17,16 @@
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //=============================================================================
 
-#include "musescore.h"
-#include "harmonyedit.h"
 #include "harmonycanvas.h"
+#include "harmonyedit.h"
+#include "musescore.h"
 #include "palette.h"
-#include "libmscore/accidental.h"
-#include "libmscore/score.h"
-#include "icons.h"
-#include "libmscore/pitchspelling.h"
-#include "libmscore/symbol.h"
+
 #include "libmscore/chordlist.h"
 #include "libmscore/mscore.h"
+#include "libmscore/pitchspelling.h"
+#include "libmscore/score.h"
+#include "libmscore/symbol.h"
 #include "libmscore/xml.h"
 
 namespace Ms {
@@ -607,7 +606,7 @@ void HarmonyCanvas::updateChordDescription()
                   y = ts->y;
                   continue;
                   }
-            if (ts->x != x || ts->y != y) {
+            if (!qFuzzyCompare(ts->x, x) || !qFuzzyCompare(ts->y, y)) {
                   RenderAction ra(RenderAction::RenderActionType::MOVE);
                   ra.movex = ts->x - x;
                   ra.movey = ts->y - y;

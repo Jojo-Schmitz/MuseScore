@@ -315,7 +315,7 @@ void HairpinSegment::layout()
                               ny = qMin(ny, sd->ipos().y());
                         else
                               ny = qMax(ny, sd->ipos().y());
-                        if (sd->ipos().y() != ny) {
+                        if (!qFuzzyCompare(sd->ipos().y(), ny)) {
                               sd->rypos() = ny;
                               if (sd->addToSkyline()) {
                                     Segment* s = sd->segment();
@@ -334,7 +334,7 @@ void HairpinSegment::layout()
                               ny = qMin(ny, ed->ipos().y());
                         else
                               ny = qMax(ny, ed->ipos().y());
-                        if (ed->ipos().y() != ny) {
+                        if (!qFuzzyCompare(ed->ipos().y(), ny)) {
                               ed->rypos() = ny;
                               if (ed->addToSkyline()) {
                                     Segment* s = ed->segment();

@@ -111,9 +111,9 @@ void DrumView::drawBackground(QPainter* p, const QRectF& r)
       Score* _score = staff->score();
 
       QRectF r1;
-      r1.setCoords(-DBL_MAX, 0.0, 480.0, DBL_MAX);
+      r1.setCoords(-std::numeric_limits<qreal>::max(), 0.0, 480.0, std::numeric_limits<qreal>::max());
       QRectF r2;
-      r2.setCoords(ticks + 480, 0.0, DBL_MAX, DBL_MAX);
+      r2.setCoords(ticks + 480, 0.0, std::numeric_limits<qreal>::max(), std::numeric_limits<qreal>::max());
       QColor bg(0x71, 0x8d, 0xbe);
 
       p->fillRect(r, bg);

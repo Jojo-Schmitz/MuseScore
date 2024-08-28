@@ -10,16 +10,16 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "measure.h"
-#include "score.h"
-#include "system.h"
-#include "undo.h"
+#include "accidental.h"
 #include "chord.h"
 #include "hook.h"
 #include "ledgerline.h"
-#include "accidental.h"
+#include "measure.h"
+#include "score.h"
 #include "stem.h"
 #include "tie.h"
+#include "system.h"
+#include "undo.h"
 
 namespace Ms {
 
@@ -336,7 +336,7 @@ void TieSegment::layoutSegment(const QPointF& p1, const QPointF& p2)
             return;
 
       QRectF bbox;
-      if (p1.y() == p2.y()) {
+      if (qFuzzyCompare(p1.y(), p2.y())) {
             // for horizontal ties we can estimate the bbox using simple math instead of having to call
             // computeBezier() which uses a whole lot of trigonometry to draw the entire tie
             bbox.setX(p1.x());

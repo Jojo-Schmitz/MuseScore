@@ -37,7 +37,7 @@ void AgentList::sort()
       struct {
             bool operator()(const Agent *a, const Agent *b)
                   {
-                  if (a->beatInterval == b->beatInterval)
+                  if (qFuzzyCompare(a->beatInterval, b->beatInterval))
                         return a->idNumber < b->idNumber;         // ensure stable ordering
                   return a->beatInterval < b->beatInterval;
                   }
@@ -72,10 +72,8 @@ void AgentList::removeDuplicates()
                         }
                   }
             }
-      int removed = 0;
       for (iterator itr = begin(); itr != end(); ) {
             if ((*itr)->phaseScore < 0.0) {
-                  ++removed;
                   delete *itr;
                   list.erase(itr);
                   }
@@ -109,8 +107,8 @@ void AgentList::beatTrack(const EventList &el,
             for (Container::iterator ai = currentAgents.begin();
                         ai != currentAgents.end(); ++ai) {
                   Agent *currentAgent = *ai;
-                  if (currentAgent->beatInterval != prevBeatInterval) {
-                        if ((prevBeatInterval >= 0) && !created && (ev.time < 5.0)) {
+                  if (!qFuzzyCompare(currentAgent->beatInterval, prevBeatInterval)) {
+                        if ((prevBeatInterval >= 0.0) && !created && (ev.time < 5.0)) {
                                           // Create new agent with different phase
                               Agent *newAgent = new Agent(params, prevBeatInterval);
                                           // This may add another agent to our list as well

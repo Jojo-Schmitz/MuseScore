@@ -387,7 +387,7 @@ void Piano::setYpos(int val)
 
 void Piano::setMag(double, double ym)
       {
-      if (_ymag != ym) {
+      if (!qFuzzyCompare(_ymag, ym)) {
             _ymag = ym;
             update();
             }

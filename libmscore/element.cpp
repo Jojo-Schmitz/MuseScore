@@ -2648,7 +2648,7 @@ QString Element::accessibleBarbeat() const
       std::pair<int, float>bar_beat = barbeat();
       if (bar_beat.first) {
             barsAndBeats += "; " + QObject::tr("Measure: %1").arg(QString::number(bar_beat.first));
-            if (bar_beat.second)
+            if (!qFuzzyIsNull(bar_beat.second))
                   barsAndBeats += "; " + QObject::tr("Beat: %1").arg(QString::number(bar_beat.second));
             }
       if (staffIdx() + 1)

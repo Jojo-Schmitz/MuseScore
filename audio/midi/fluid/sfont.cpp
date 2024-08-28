@@ -21,13 +21,11 @@
  * 02111-1307, USA
  */
 
-#include "sfont.h"
 #include "fluid.h"
+#include "sfont.h"
 #include "voice.h"
 
 // #define DEBUG_SFONT
-
-#include "libmscore/xml.h"
 
 static bool debugMode = false;
 
@@ -343,7 +341,7 @@ bool Preset::noteon(Fluid* synth, unsigned id, int chan, int key, int vel, doubl
                               /* Add preset modulators (global / local) to the voice. */
                               for (int i = 0; i < mod_list_count; i++){
                                     mod = mod_list[i];
-                                    if ((mod != 0) && (mod->amount != 0)) { /* disabled modulators can be skipped. */
+                                    if (mod && !qFuzzyIsNull(mod->amount)) { /* disabled modulators can be skipped. */
                                           /* Preset modulators -add- to existing instrument /
                                            * default modulators.  SF2.01 page 70 first bullet on
                                            * page */

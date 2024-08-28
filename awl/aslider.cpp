@@ -161,7 +161,7 @@ void AbstractSlider::keyPressEvent(QKeyEvent* ev)
             _value = _minValue;
       else if (_value > _maxValue)
             _value = _maxValue;
-      if (oval != _value)
+      if (!qFuzzyCompare(oval, _value))
             valueChange();
       }
 
@@ -198,7 +198,7 @@ void AbstractSlider::setValue(double val)
       else
             _value = val;
 
-      if (oldValue != _value)
+      if (!qFuzzyCompare(oldValue, _value))
             emit valueChanged(val, __id);
 
       update();

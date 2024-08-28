@@ -10,28 +10,26 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "scoreview.h"
-#include "zoombox.h"
+#include "fotomode.h"
 #include "musescore.h"
+#include "scoreview.h"
 #include "seq.h"
 #include "texttools.h"
-#include "pianotools.h"
-#include "fotomode.h"
-#include "tourhandler.h"
-#include "scoreaccessibility.h"
-#include "libmscore/score.h"
+#include "zoombox.h"
+
+#include "libmscore/chordrest.h"
 #include "libmscore/keysig.h"
-#include "libmscore/timesig.h"
-#include "libmscore/segment.h"
-#include "libmscore/utils.h"
-#include "libmscore/text.h"
 #include "libmscore/measure.h"
-#include "libmscore/stafflines.h"
-#include "libmscore/chord.h"
-#include "libmscore/shadownote.h"
 #include "libmscore/repeatlist.h"
+#include "libmscore/score.h"
+#include "libmscore/segment.h"
 #include "libmscore/select.h"
+#include "libmscore/shadownote.h"
 #include "libmscore/staff.h"
+#include "libmscore/stafflines.h"
+#include "libmscore/text.h"
+#include "libmscore/timesig.h"
+#include "libmscore/utils.h"
 
 namespace Ms {
 
@@ -126,7 +124,7 @@ bool ScoreView::gestureEvent(QGestureEvent *event)
                   // On Windows, totalScaleFactor() contains the net zoom.
                   // On OS X, totalScaleFactor() is 1, and scaleFactor() contains the net zoom.
                   qreal value = pinch->totalScaleFactor();
-                  if (value == 1) {
+                  if (qFuzzyCompare(value, 1)) {
                         value = pinch->scaleFactor();
                         }
                   setLogicalZoom(ZoomIndex::ZOOM_FREE, startLogicalZoomLevel * value, pinch->centerPoint());

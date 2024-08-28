@@ -63,6 +63,7 @@
 #include "libmscore/score.h"
 #include "libmscore/segment.h"
 #include "libmscore/shadownote.h"
+#include "libmscore/shape.h"
 #include "libmscore/slur.h"
 #include "libmscore/spanner.h"
 #include "libmscore/staff.h"
@@ -74,16 +75,15 @@
 #include "libmscore/sym.h"
 #include "libmscore/system.h"
 #include "libmscore/systemtext.h"
-#include "libmscore/textframe.h"
 #include "libmscore/text.h"
+#include "libmscore/textframe.h"
+#include "libmscore/textline.h"
 #include "libmscore/timesig.h"
 #include "libmscore/tuplet.h"
 #include "libmscore/undo.h"
 #include "libmscore/utils.h"
 #include "libmscore/volta.h"
 #include "libmscore/xml.h"
-#include "libmscore/textline.h"
-#include "libmscore/shape.h"
 
 #ifdef AVSOMR
 #include "avsomr/avsomr.h"
@@ -705,7 +705,7 @@ void ScoreView::moveControlCursor(const Fraction& tick)
 
             double addition = 0;
             if (_controlCursorTimer.isValid()) {
-                  if (!_panSettings.advancedWeighting || _controlModifier == _panSettings.minContinuousModifier || _controlModifier == _panSettings.maxContinuousModifier) {
+                  if (!_panSettings.advancedWeighting || qFuzzyCompare(_controlModifier, _panSettings.minContinuousModifier)|| qFuzzyCompare(_controlModifier, _panSettings.maxContinuousModifier)) {
                         addition = _controlCursorTimer.elapsed() * _controlModifier;
                         }
                   else {
@@ -1719,7 +1719,7 @@ void ScoreView::setPhysicalZoomLevel(const qreal physicalLevel)
       {
       const qreal currentPhysicalLevel = _matrix.m11();
 
-      if (physicalLevel == currentPhysicalLevel)
+      if (qFuzzyCompare(physicalLevel, currentPhysicalLevel))
             return;
 
       const double deltaPhysicalLevel = physicalLevel / currentPhysicalLevel;
@@ -3850,7 +3850,7 @@ void ScoreView::adjustCanvasPosition(const Element* el, bool playBack, int staff
             y = (page->height() + page->y()) - r.height();
 
       // hack: don't update if we haven't changed the offset
-      if (oldX == x && oldY == y)
+      if (qFuzzyCompare(oldX, x) && qFuzzyCompare(oldY, y))
             return;
 
       x *= -physicalZoomLevel();

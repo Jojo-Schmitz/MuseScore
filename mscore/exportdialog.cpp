@@ -421,7 +421,7 @@ void ExportDialog::accept()
                   preferences.setPreference(PREF_EXPORT_PDF_DPI, pdfDpiSpinbox->value());
       } else if (currentIndex == 1) {
             saveFormat = "png";
-            if (pngDpiSpinbox->value() != preferences.getDouble(PREF_EXPORT_PNG_RESOLUTION))
+            if (!qFuzzyCompare(pngDpiSpinbox->value(), preferences.getDouble(PREF_EXPORT_PNG_RESOLUTION)))
                   preferences.setPreference(PREF_EXPORT_PNG_RESOLUTION, pngDpiSpinbox->value());
       } else if (currentIndex == 2) {
             saveFormat = "svg";

@@ -17,9 +17,16 @@
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //=============================================================================
 
-#include <fenv.h>
-
 #include "musescore.h"
+#include "parteditbase.h"
+#include "playpanel.h"
+#include "preferences.h"
+#include "scoreview.h"
+#include "seq.h"
+#include "shortcut.h"
+
+#include "audio/midi/msynthesizer.h"
+
 #include "libmscore/score.h"
 #include "libmscore/instrument.h"
 #include "libmscore/measure.h"
@@ -28,14 +35,8 @@
 #include "libmscore/chord.h"
 #include "libmscore/note.h"
 #include "libmscore/undo.h"
+
 #include "mixer/mixer.h"
-#include "parteditbase.h"
-#include "scoreview.h"
-#include "playpanel.h"
-#include "preferences.h"
-#include "seq.h"
-#include "audio/midi/msynthesizer.h"
-#include "shortcut.h"
 
 #ifdef OSC
 #include "ofqf/qoscserver.h"
@@ -352,7 +353,7 @@ void MuseScore::oscMuteChannel(double val)
       if (i >= 0 && i < int(mms.size())) {
             MidiMapping& mm = mms[i];
             Channel* channel = mm.articulation();
-            channel->setMute(val==0.0f ? false : true);
+            channel->setMute(qFuzzyIsNull(val) ? false : true);
             if (mixer)
                   mixer->getPartAtIndex(i)->mute->setChecked(channel->mute());
             }

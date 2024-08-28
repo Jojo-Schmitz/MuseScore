@@ -72,11 +72,11 @@ void MeterSlider::setChannel(int n)
 void MeterSlider::setMeterVal(int channel, double v, double peak)
       {
       bool mustRedraw = false;
-      if (meterval[channel] != v) {
+      if (!qFuzzyCompare(meterval[channel], v)) {
             meterval[channel] = v;
             mustRedraw = true;
             }
-      if (peak != meterPeak[channel]) {
+      if (!qFuzzyCompare(peak, meterPeak[channel])) {
             meterPeak[channel] = peak;
             mustRedraw = true;
             }
@@ -244,7 +244,7 @@ void MeterSlider::paintEvent(QPaintEvent* ev)
                   p.drawLine(METER_LEFT_EDGE - 1, h + 1, METER_LEFT_EDGE - 1, h + 1);
                   continue;
                   }
-            else if (i == range)
+            else if (qFuzzyCompare(i, range))
                   h -= 2;
             p.drawText(QRect(0, h - 3, METER_LEFT_EDGE - 3, 9), Qt::AlignRight, QString("-") + s);
             p.drawLine(METER_LEFT_EDGE - 1, h + 1, METER_LEFT_EDGE - 1, h + 1);

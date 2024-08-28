@@ -6373,7 +6373,7 @@ SymId Sym::userName2id(const QString& s)
 bool GlyphKey::operator==(const GlyphKey& k) const
       {
       return (face == k.face) && (id == k.id)
-         && (magX == k.magX) && (magY == k.magY) && (worldScale == k.worldScale) && (color == k.color);
+         && qFuzzyCompare(magX, k.magX) && qFuzzyCompare(magY, k.magY) && qFuzzyCompare(worldScale, k.worldScale) && (color == k.color);
       }
 
 Sym ScoreFont::sym(SymId id) const

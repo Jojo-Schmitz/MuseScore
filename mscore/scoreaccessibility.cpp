@@ -1,22 +1,26 @@
 #include <QMainWindow>
 #include <QWidget>
-#include "scoreaccessibility.h"
-#include "musescore.h"
-#include "libmscore/segment.h"
-#include "libmscore/timesig.h"
-#include "libmscore/score.h"
-#include "libmscore/measure.h"
-#include "libmscore/spanner.h"
-#include "libmscore/sig.h"
-#include "libmscore/staff.h"
-#include "libmscore/part.h"
-#include "libmscore/sym.h"
-#include "inspector/inspector.h"
-#include "selectionwindow.h"
-#include "playpanel.h"
-#include "synthcontrol.h"
-#include "mixer/mixer.h"
+
 #include "drumroll.h"
+#include "musescore.h"
+#include "playpanel.h"
+#include "scoreaccessibility.h"
+#include "selectionwindow.h"
+#include "synthcontrol.h"
+
+#include "inspector/inspector.h"
+
+#include "libmscore/measure.h"
+#include "libmscore/part.h"
+#include "libmscore/score.h"
+#include "libmscore/segment.h"
+#include "libmscore/spanner.h"
+#include "libmscore/staff.h"
+#include "libmscore/sym.h"
+#include "libmscore/timesig.h"
+
+#include "mixer/mixer.h"
+
 #include "pianoroll/pianoroll.h"
 
 namespace Ms{
@@ -256,7 +260,7 @@ void ScoreAccessibility::currentInfoChanged()
                         seg = seg->prev1MM(SegmentType::ChordRest);
 
                   bar_beat = seg->barbeat();
-                  barsAndBeats += "; " + tr("End Measure: %1; End Beat: %2").arg(QString::number(bar_beat.first)).arg(QString::number(bar_beat.second));
+                  barsAndBeats += "; " + tr("End Measure: %1; End Beat: %2").arg(QString::number(bar_beat.first), QString::number(bar_beat.second));
                   optimizedBarsAndBeats = barsAndBeats;
                   }
             else {
@@ -266,7 +270,7 @@ void ScoreAccessibility::currentInfoChanged()
                         barsAndBeats += " " + tr("Measure: %1").arg(QString::number(bar_beat.first));
                         if (bar_beat.first != oldBar)
                               optimizedBarsAndBeats += " " + tr("Measure: %1").arg(QString::number(bar_beat.first));
-                        if (bar_beat.second) {
+                        if (!qFuzzyIsNull(bar_beat.second)) {
                               barsAndBeats += "; " + tr("Beat: %1").arg(QString::number(bar_beat.second));
                               optimizedBarsAndBeats += "; " + tr("Beat: %1").arg(QString::number(bar_beat.second));
                               }

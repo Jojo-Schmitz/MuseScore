@@ -81,8 +81,8 @@ class ConnectorInfo {
       int connectionDistance(const ConnectorInfo& c2) const;
       void forceConnect(ConnectorInfo* c2);
 
-      bool hasPrevious() const      { return (_prevLoc.measure() != INT_MIN); }
-      bool hasNext() const          { return (_nextLoc.measure() != INT_MIN); }
+      bool hasPrevious() const      { return (_prevLoc.measure() != std::numeric_limits<int>::min()); }
+      bool hasNext() const          { return (_nextLoc.measure() != std::numeric_limits<int>::min()); }
       bool isStart() const          { return (!hasPrevious() && hasNext()); }
       bool isMiddle() const         { return (hasPrevious() && hasNext());  }
       bool isEnd() const            { return (hasPrevious() && !hasNext()); }

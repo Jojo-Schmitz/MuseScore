@@ -458,7 +458,7 @@ void readTextStyle206(MStyle* style, XmlReader& e, std::map<QString, std::map<Si
                               value = int(placement);
                         break;
                   case Pid::LINE_WIDTH:
-                        if (lineWidth != -1.0)
+                        if (!qFuzzyCompare(lineWidth, -1.0))
                               value = lineWidth;
                         break;
                   default:

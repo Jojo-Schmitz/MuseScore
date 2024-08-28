@@ -19,11 +19,14 @@
 
 #include "editstaff.h"
 
-#include "editdrumset.h"
 #include "editpitch.h"
 #include "editstafftype.h"
 #include "editstringdata.h"
 #include "icons.h"
+#include "musescore.h"
+#include "seq.h"
+#include "selinstrument.h"
+
 #include "libmscore/instrtemplate.h"
 #include "libmscore/measure.h"
 #include "libmscore/part.h"
@@ -33,9 +36,6 @@
 #include "libmscore/text.h"
 #include "libmscore/undo.h"
 #include "libmscore/utils.h"
-#include "musescore.h"
-#include "seq.h"
-#include "selinstrument.h"
 
 namespace Ms {
 
@@ -413,7 +413,7 @@ void EditStaff::apply()
 
       if (inv != orgStaff->invisible(Fraction(0,1))
          || clefType != orgStaff->defaultClefType()
-         || userDist != orgStaff->userDist()
+         || !qFuzzyCompare(userDist, orgStaff->userDist())
          || cutAway != orgStaff->cutaway()
          || hideEmpty != orgStaff->hideWhenEmpty()
          || ifEmpty != orgStaff->showIfEmpty()

@@ -1,12 +1,13 @@
+
+#include "importmidi_beat.h"
+#include "importmidi_inner.h"
+#include "importmidi_operations.h"
 #include "importmidi_tempo.h"
 
-#include "importmidi_inner.h"
-#include "importmidi_beat.h"
 #include "libmscore/score.h"
 #include "libmscore/measure.h"
 #include "libmscore/tempo.h"
 #include "libmscore/tempotext.h"
-#include "importmidi_operations.h"
 
 
 namespace Ms {
@@ -44,7 +45,7 @@ void setTempoToScore(Score *score, int tick, double beatsPerSecond)
       if (score->tempomap()->find(tick) != score->tempomap()->end())
             return;
                   // don't repeat tempo, always set only tempo for tick 0
-      if (tick > 0 && score->tempo(Fraction::fromTicks(tick)) == beatsPerSecond)
+      if (tick > 0 && qFuzzyCompare(score->tempo(Fraction::fromTicks(tick)), beatsPerSecond))
             return;
 
       score->setTempo(Fraction::fromTicks(tick), beatsPerSecond);

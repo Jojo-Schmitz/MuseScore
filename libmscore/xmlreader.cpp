@@ -629,7 +629,7 @@ void XmlReader::reconnectBrokenConnectors()
             }
       std::sort(brokenPairs.begin(), brokenPairs.end(), distanceSort);
       for (auto& distPair : brokenPairs) {
-            if (distPair.first == INT_MAX)
+            if (distPair.first == std::numeric_limits<int>::max())
                   continue;
             auto& pair = distPair.second;
             if (pair.first->next() || pair.second->prev())

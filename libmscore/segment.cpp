@@ -2228,7 +2228,7 @@ qreal Segment::minHorizontalCollidingDistance(Segment* ns) const
 qreal Segment::minHorizontalDistance(Segment* ns, bool systemHeaderGap) const
       {
 
-      qreal ww = -DBL_MAX;        // can remain negative
+      qreal ww = -std::numeric_limits<qreal>::max();        // can remain negative
       for (unsigned staffIdx = 0; staffIdx < _shapes.size(); ++staffIdx) {
             if (score()->staff(staffIdx) && !score()->staff(staffIdx)->show())
                   continue;

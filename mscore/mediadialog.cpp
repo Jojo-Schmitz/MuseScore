@@ -189,7 +189,7 @@ void MediaDialog::addAudioPressed()
 
             if (deltaTime > 0) {
                   qreal tempo = dt / (480 * deltaTime);
-                  if(tempo != lastTempo) {
+                  if (!qFuzzyCompare(tempo, lastTempo)) {
                   qDebug() << tempo;
                         tmn->setTempo(tick, tempo);
                         lastTempo = tempo;

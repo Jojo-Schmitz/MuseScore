@@ -10,15 +10,14 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
+#include "bracketItem.h"
+#include "measure.h"
+#include "musescoreCore.h"
+#include "score.h"
 #include "scoreElement.h"
 #include "score.h"
 #include "undo.h"
 #include "xml.h"
-#include "bracket.h"
-#include "bracketItem.h"
-#include "measure.h"
-#include "spanner.h"
-#include "musescoreCore.h"
 
 namespace Ms {
 
@@ -328,7 +327,7 @@ void ScoreElement::undoChangeProperty(Pid id, const QVariant& v, PropertyFlags p
             // TODO: do this in caller?
             if (isElement()) {
                   Element* e = toElement(this);
-                  if (e->offset().y() != v.toPointF().y())
+                  if (!qFuzzyCompare(e->offset().y(), v.toPointF().y()))
                         e->setOffsetChanged(true, false, v.toPointF() - e->offset());
                   }
             }

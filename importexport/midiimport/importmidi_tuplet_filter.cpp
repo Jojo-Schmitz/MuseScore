@@ -1,9 +1,10 @@
-#include "importmidi_tuplet_filter.h"
-#include "importmidi_tuplet.h"
-#include "importmidi_tuplet_voice.h"
 #include "importmidi_chord.h"
-#include "importmidi_quant.h"
 #include "importmidi_inner.h"
+#include "importmidi_tuplet.h"
+#include "importmidi_tuplet_filter.h"
+#include "importmidi_tuplet_voice.h"
+#include "importmidi_quant.h"
+
 #include "libmscore/mscore.h"
 
 #include <set>
@@ -40,7 +41,7 @@ class TupletErrorResult
                          - div(relativeUsedChordPlaces, er.relativeUsedChordPlaces)
                          + div(sumLengthOfRests.numerator() * 1.0 / sumLengthOfRests.denominator(),
                                er.sumLengthOfRests.numerator() * 1.0 / er.sumLengthOfRests.denominator());
-            if (value == 0) {
+            if (qFuzzyIsNull(value)) {
                    value = div(voiceCount, er.voiceCount)
                          + div(tupletCount, er.tupletCount);
                   }
@@ -50,7 +51,7 @@ class TupletErrorResult
    private:
       static double div(double val1, double val2)
             {
-            if (val1 == val2)
+            if (qFuzzyCompare(val1, val2))
                   return 0;
             return (val1 - val2) / qMax(val1, val2);
             }

@@ -17,46 +17,45 @@
 
 #include <set>
 
-#include "rendermidi.h"
-#include "score.h"
-#include "volta.h"
-#include "note.h"
-#include "glissando.h"
-#include "instrument.h"
-#include "part.h"
-#include "chord.h"
-#include "trill.h"
-#include "vibrato.h"
-#include "style.h"
-#include "slur.h"
-#include "tie.h"
-#include "stafftext.h"
-#include "repeat.h"
-#include "articulation.h"
 #include "arpeggio.h"
-#include "durationtype.h"
-#include "measure.h"
-#include "tempo.h"
-#include "repeatlist.h"
-#include "changeMap.h"
-#include "dynamic.h"
-#include "navigate.h"
-#include "pedal.h"
-#include "staff.h"
-#include "hairpin.h"
+#include "articulation.h"
 #include "bend.h"
-#include "tremolo.h"
+#include "changeMap.h"
+#include "chord.h"
+#include "durationtype.h"
+#include "dynamic.h"
+#include "easeInOut.h"
+#include "glissando.h"
+#include "hairpin.h"
+#include "instrument.h"
+#include "measure.h"
+#include "navigate.h"
+#include "note.h"
 #include "noteevent.h"
+#include "part.h"
+#include "rendermidi.h"
+#include "repeat.h"
+#include "repeatlist.h"
+#include "score.h"
 #include "segment.h"
-#include "undo.h"
-#include "utils.h"
+#include "slur.h"
+#include "staff.h"
+#include "stafftextbase.h"
+#include "style.h"
 #include "sym.h"
 #include "synthesizerstate.h"
-#include "easeInOut.h"
-#include "global/log.h"
+#include "tempo.h"
+#include "tie.h"
+#include "tremolo.h"
+#include "trill.h"
+#include "vibrato.h"
+#include "undo.h"
+#include "utils.h"
+#include "volta.h"
 
 #include "audio/midi/event.h"
-#include "mscore/preferences.h"
+
+#include "global/log.h"
 
 namespace Ms {
 
@@ -439,7 +438,7 @@ static void collectNote(EventMap* events, int channel, const Note* note, qreal v
 
                   for (int t = change.first.ticks(); t <= endPoint; t++) {
                         int mult = multEvents.val(Fraction::fromTicks(t));
-                        if (mult == lastVal || mult == CONVERSION_FACTOR)
+                        if (mult == lastVal || qFuzzyCompare(mult, CONVERSION_FACTOR))
                               continue;
                         lastVal = mult;
 

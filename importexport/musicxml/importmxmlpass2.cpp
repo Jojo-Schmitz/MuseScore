@@ -2630,7 +2630,7 @@ static bool canAddTempoText(const TempoMap* const tempoMap, const int tick)
         return true;
     }
 
-    return tempoMap->tempo(tick) == Score::defaultTempo();
+    return qFuzzyCompare(tempoMap->tempo(tick), Score::defaultTempo());
 }
 
 //---------------------------------------------------------
@@ -4200,7 +4200,8 @@ double MusicXMLParserDirection::convertTextToNotes()
       _wordsText.replace(notesRegex, notesSubstring + "\\2");
 
       double tempoValue = TempoText::findTempoValue(_wordsText);
-      if (!tempoValue) tempoValue = 1.0 / 60.0; // default to quarter note
+      if (qFuzzyIsNull(tempoValue))
+            tempoValue = 1.0 / 60.0; // default to quarter note
       return tempoValue;
       }
 
@@ -7250,10 +7251,10 @@ void MusicXMLParserLyric::parse()
             lyric->setPropertyFlags(Pid::PLACEMENT, PropertyFlags::UNSTYLED);
             }
 
-      if (relX != 0 || relY != 0) {
+      if (!qFuzzyIsNull(relX) || !qFuzzyIsNull(relY)) {
             QPointF offset = lyric->offset();
-            offset.setX(relX != 0 ? relX : lyric->offset().x());
-            offset.setY(relY != 0 ? relY : lyric->offset().y());
+            offset.setX(!qFuzzyIsNull(relX) ? relX : lyric->offset().x());
+            offset.setY(!qFuzzyIsNull(relY) ? relY : lyric->offset().y());
             lyric->setOffset(offset);
             lyric->setPropertyFlags(Pid::OFFSET, PropertyFlags::UNSTYLED);
             }

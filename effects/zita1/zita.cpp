@@ -17,6 +17,7 @@
 // -----------------------------------------------------------------------
 
 #include <math.h>
+
 #include "zita.h"
 
 namespace Ms {
@@ -84,7 +85,7 @@ void Pareq::prepare(int nsamp)
       if (_touch1 != touchValue) {
             float g = _g0;
             float f = _f0;
-            if (g != _g1) {
+            if (!qFuzzyCompare(g, _g1)) {
                   upd = true;
                   if (g > 2 * _g1)
                        _g1 *= 2;
@@ -93,7 +94,7 @@ void Pareq::prepare(int nsamp)
                   else
                         _g1 = g;
                   }
-            if (f != _f1) {
+            if (!qFuzzyCompare(f, _f1)) {
                   upd = true;
                   if (f > 2 * _f1)
                         _f1 *= 2;
@@ -103,7 +104,7 @@ void Pareq::prepare(int nsamp)
                         _f1 = f;
                   }
             if (upd)  {
-                  if ((_state == BYPASS) && (_g1 == 1)) {
+                  if ((_state == BYPASS) && (qFuzzyCompare(_g1, 1))) {
                         calcpar1 (0, _g1, _f1);
                         }
                   else {

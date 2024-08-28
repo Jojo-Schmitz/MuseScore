@@ -10,17 +10,18 @@
 //  the file LICENSE.GPL
 //=============================================================================
 
-#include "libmscore/score.h"
-#include "libmscore/chord.h"
-#include "libmscore/note.h"
-#include "libmscore/notedot.h"
-#include "libmscore/beam.h"
-#include "libmscore/stem.h"
-#include "libmscore/hook.h"
-#include "libmscore/tuplet.h"
-#include "libmscore/staff.h"
 #include "inspector.h"
 #include "inspectorNote.h"
+
+#include "libmscore/beam.h"
+#include "libmscore/chord.h"
+#include "libmscore/hook.h"
+#include "libmscore/note.h"
+#include "libmscore/notedot.h"
+#include "libmscore/score.h"
+#include "libmscore/staff.h"
+#include "libmscore/stem.h"
+#include "libmscore/tuplet.h"
 
 namespace Ms {
 
@@ -166,7 +167,7 @@ void InspectorNote::setElement()
 
       bool nograce = !note->chord()->isGrace();
       s.leadingSpace->setEnabled(nograce);
-      s.resetLeadingSpace->setEnabled(nograce && s.leadingSpace->value());
+      s.resetLeadingSpace->setEnabled(nograce && !qFuzzyIsNull(s.leadingSpace->value()));
 
       if (!n.fixed->isChecked())
             n.fixedLine->setEnabled(false);
