@@ -1824,7 +1824,6 @@ void MuseScore::printFile()
       QSizeF size(cs->styleD(Sid::pageWidth), cs->styleD(Sid::pageHeight));
       QPageSize ps(QPageSize::id(size, QPageSize::Inch));
       printerDev.setPageSize(ps);
-      printerDev.setPageOrientation(size.width() > size.height() ? QPageLayout::Landscape : QPageLayout::Portrait);
 
       printerDev.setCreator("MuseScore Version: " VERSION);
       printerDev.setFullPage(true);
@@ -1874,13 +1873,17 @@ void MuseScore::printFile()
             for (int copy = 0; copy < copyCount; ++copy) {
                   bool firstPage = true;
                   for (int n = fromPage; n <= toPage; ++n) {
-                        if (!firstPage)
+                        if (!firstPage) {
+                              printerDev.setPageOrientation(size.width() > size.height() ? QPageLayout::Landscape : QPageLayout::Portrait);
                               printerDev.newPage();
+                              }
                         firstPage = false;
 
                         cs->print(&p, n);
-                        if ((copy + 1) < copyCount)
+                        if ((copy + 1) < copyCount) {
+                              printerDev.setPageOrientation(size.width() > size.height() ? QPageLayout::Landscape : QPageLayout::Portrait);
                               printerDev.newPage();
+                              }
                         }
                   }
             p.end();
@@ -2073,7 +2076,6 @@ bool MuseScore::savePdf(Score* cs_, QPrinter& printer)
       QSizeF size(cs_->styleD(Sid::pageWidth), cs_->styleD(Sid::pageHeight));
       QPageSize ps(size, QPageSize::Inch);
       printer.setPageSize(ps);
-      printer.setPageOrientation(size.width() > size.height() ? QPageLayout::Landscape : QPageLayout::Portrait);
       printer.setFullPage(true);
       printer.setColorMode(QPrinter::Color);
 #if defined(Q_OS_MAC)
@@ -2122,8 +2124,10 @@ bool MuseScore::savePdf(Score* cs_, QPrinter& printer)
       const QPixmap fgPixMap(preferences.getString(PREF_UI_CANVAS_FG_WALLPAPER));
 
       for (int n = 0; n < pages; ++n) {
-            if (!firstPage)
+            if (!firstPage) {
+                  printer.setPageOrientation(size.width() > size.height() ? QPageLayout::Landscape : QPageLayout::Portrait);
                   printer.newPage();
+                  }
             firstPage = false;
             switch (exportBgStyle) {
                   case 1:
@@ -2160,7 +2164,6 @@ bool MuseScore::savePdf(QList<Score*> cs_, const QString& saveName)
       QSizeF size(firstScore->styleD(Sid::pageWidth), firstScore->styleD(Sid::pageHeight));
       QPageSize ps(size, QPageSize::Inch);
       printer.setPageSize(ps);
-      printer.setPageOrientation(size.width() > size.height() ? QPageLayout::Landscape : QPageLayout::Portrait);
       printer.setFullPage(true);
       printer.setColorMode(QPrinter::Color);
 #if defined(Q_OS_MAC)
@@ -2208,7 +2211,6 @@ bool MuseScore::savePdf(QList<Score*> cs_, const QString& saveName)
             QPageSize ps1(size1, QPageSize::Inch);
             const QRect fillRect(0.0, 0.0, size1.width() * DPI, size1.height() * DPI);
             printer.setPageSize(ps1);
-            printer.setPageOrientation(size1.width() > size1.height() ? QPageLayout::Landscape : QPageLayout::Portrait);
             p.setViewport(QRect(0.0, 0.0, size1.width() * printer.logicalDpiX(),
                size1.height() * printer.logicalDpiY()));
             p.setWindow(QRect(0.0, 0.0, size1.width() * DPI, size1.height() * DPI));
@@ -2217,8 +2219,10 @@ bool MuseScore::savePdf(QList<Score*> cs_, const QString& saveName)
             const QList<Page*> pl = s->pages();
             int pages    = pl.size();
             for (int n = 0; n < pages; ++n) {
-                  if (!firstPage)
+                  if (!firstPage) {
+                        printer.setPageOrientation(size1.width() > size1.height() ? QPageLayout::Landscape : QPageLayout::Portrait);
                         printer.newPage();
+                        }
                   firstPage = false;
                   switch (exportBgStyle) {
                         case 1:
