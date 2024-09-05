@@ -192,6 +192,8 @@ public:
       void setHasInferredHeaderText(bool b) { _hasInferredHeaderText = b; }
       bool hasInferredHeaderText() const { return _hasInferredHeaderText; }
       QString exporterString() const { return _exporterString; }
+      bool hasDingbats() const { return _hasDingbats; }
+      void setHasDingbats() { _hasDingbats = true; }
 
 private:
       // functions
@@ -224,6 +226,7 @@ private:
       const int _maxDiff = 5;                   ///< Duration rounding tick threshold;
       QMap<Fraction, Fraction> _adjustedDurations;  ///< Rounded durations
       std::set<int> _seenDenominators;          ///< Denominators seen. Used for rounding errors.
+      bool _hasDingbats = false;
       };
 
 } // namespace Ms
