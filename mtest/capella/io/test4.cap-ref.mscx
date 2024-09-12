@@ -54,7 +54,7 @@
             </TimeSig>
           <Beam>
             <l1>8</l1>
-            <l2>4</l2>
+            <l2>7</l2>
             </Beam>
           <Chord>
             <durationType>eighth</durationType>
@@ -84,10 +84,10 @@
             <durationType>eighth</durationType>
             <Note>
               <Accidental>
-                <subtype>accidentalFlat</subtype>
+                <subtype>accidentalSharp</subtype>
                 </Accidental>
               <pitch>63</pitch>
-              <tpc>11</tpc>
+              <tpc>23</tpc>
               </Note>
             </Chord>
           <Beam>
@@ -97,9 +97,6 @@
           <Chord>
             <durationType>eighth</durationType>
             <Note>
-              <Accidental>
-                <subtype>accidentalNatural</subtype>
-                </Accidental>
               <pitch>64</pitch>
               <tpc>18</tpc>
               </Note>
@@ -160,18 +157,15 @@
             <durationType>eighth</durationType>
             <Note>
               <Accidental>
-                <subtype>accidentalFlat</subtype>
+                <subtype>accidentalSharp</subtype>
                 </Accidental>
               <pitch>70</pitch>
-              <tpc>12</tpc>
+              <tpc>24</tpc>
               </Note>
             </Chord>
           <Chord>
             <durationType>eighth</durationType>
             <Note>
-              <Accidental>
-                <subtype>accidentalNatural</subtype>
-                </Accidental>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
