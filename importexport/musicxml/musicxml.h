@@ -75,7 +75,7 @@ struct CreditWords {
             }
       };
 
-typedef  QList<CreditWords*> CreditWordsList;
+typedef  std::vector<CreditWords*> CreditWordsList;
 typedef  CreditWordsList::iterator iCreditWords;
 typedef  CreditWordsList::const_iterator ciCreditWords;
 
@@ -97,7 +97,7 @@ public:
       Measure* meas() const { return _meas; }
       };
 
-typedef QList<JumpMarkerDesc> JumpMarkerDescList;
+typedef std::vector<JumpMarkerDesc> JumpMarkerDescList;
 
 //---------------------------------------------------------
 //   SlurDesc
@@ -126,7 +126,7 @@ private:
 //---------------------------------------------------------
 
 typedef std::vector<MusicXmlPartGroup*> MusicXmlPartGroupList;
-typedef QMap<SLine*, QPair<int, int> > MusicXmlSpannerMap;
+typedef std::map<SLine*, std::pair<int, int> > MusicXmlSpannerMap;
 
 } // namespace Ms
 #endif

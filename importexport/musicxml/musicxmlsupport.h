@@ -37,8 +37,8 @@ namespace Ms {
  List of note start/stop times in a voice in a single staff.
 */
 
-typedef QPair<int, int> StartStop;
-typedef QList<StartStop> StartStopList;
+typedef std::pair<int, int> StartStop;
+typedef std::vector<StartStop> StartStopList;
 
 //---------------------------------------------------------
 //   NoteList
@@ -51,12 +51,12 @@ typedef QList<StartStop> StartStopList;
 class NoteList {
 public:
       NoteList();
-      void addNote(const int startTick, const int endTick, const int staff);
+      void addNote(const int startTick, const int endTick, const size_t staff);
       void dump(const int& voice) const;
       bool stavesOverlap(const int staff1, const int staff2) const;
       bool anyStaffOverlaps() const;
 private:
-      QList<StartStopList> _staffNoteLists; ///< The note start/stop times in all staves
+      std::vector<StartStopList> _staffNoteLists; ///< The note start/stop times in all staves
       };
 
 struct HarmonyDesc
@@ -135,7 +135,7 @@ public:
       void newMeasure();
       bool stavesOverlap(const int& voice) const;
 private:
-      QMap<int, NoteList> _noteLists; ///< The notelists for all the voices
+      std::map<int, NoteList> _noteLists; ///< The notelists for all the voices
       };
 
 //---------------------------------------------------------
@@ -165,7 +165,7 @@ struct MusicXMLInstrument {
 
       QString toString() const;
 
-      MusicXMLInstrument()      // required by QMap
+      MusicXMLInstrument()      // required by std::map
             : unpitched(-1), name(), midiChannel(-1), midiPort(-1), midiProgram(-1), midiVolume(100), midiPan(63),
             notehead(NoteHead::Group::HEAD_INVALID), line(0), stemDirection(Direction::AUTO) {}
       MusicXMLInstrument(QString s)
@@ -182,8 +182,7 @@ struct MusicXMLInstrument {
  A MusicXML drumset or set of instruments in a multi-instrument part.
  */
 
-typedef QMap<QString, MusicXMLInstrument> MusicXMLInstruments;
-typedef QMapIterator<QString, MusicXMLInstrument> MusicXMLInstrumentsIterator;
+typedef std::map<QString, MusicXMLInstrument> MusicXMLInstruments;
 
 
 //---------------------------------------------------------

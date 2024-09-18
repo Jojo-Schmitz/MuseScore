@@ -38,6 +38,8 @@
 
 #include "config.h"
 
+#include "global/containers.h"
+
 #include "libmscore/accidental.h"
 #include "libmscore/arpeggio.h"
 #include "libmscore/articulation.h"
@@ -130,7 +132,7 @@ namespace Ms {
 //   typedefs
 //---------------------------------------------------------
 
-typedef QMap<int, const FiguredBass*> FigBassMap;
+typedef std::map<int, const FiguredBass*> FigBassMap;
 
 //---------------------------------------------------------
 //   attributes -- prints <attributes> tag when necessary
@@ -312,8 +314,8 @@ struct MeasurePrintContext final
 //   ExportMusicXml
 //---------------------------------------------------------
 
-typedef QHash<const ChordRest* const, const Trill*> TrillHash;
-typedef QMap<const Instrument*, int> MxmlInstrumentMap;
+typedef std::unordered_map<const ChordRest*, const Trill*> TrillHash;
+typedef std::map<const Instrument*, int> MxmlInstrumentMap;
 
 class ExportMusicXml {
       Score* _score;
@@ -353,16 +355,14 @@ class ExportMusicXml {
       void calcDivMoveToTick(const Fraction& t, const Fraction& stretch = {1, 1});
       void calcDivisions();
       void keysigTimesig(const Measure* m, const Part* p);
-      void chordAttributes(Chord* chord, Notations& notations, Technical& technical,
-                           TrillHash& trillStart, TrillHash& trillStop);
-      void wavyLineStartStop(const ChordRest* const cr, Notations& notations, Ornaments& ornaments,
-                             TrillHash& trillStart, TrillHash& trillStop);
+      void chordAttributes(Chord* chord, Notations& notations, Technical& technical, TrillHash& trillStart, TrillHash& trillStop);
+      void wavyLineStartStop(const ChordRest* cr, Notations& notations, Ornaments& ornaments, TrillHash& trillStart, TrillHash& trillStop);
       void print(const Measure* const m, const int partNr, const int firstStaffOfPart, const int nrStavesInPart, const MeasurePrintContext& mpc);
       void findAndExportClef(const Measure* const m, const int staves, const int strack, const int etrack);
       void exportDefaultClef(const Part* const part, const Measure* const m);
       void writeElement(Element* el, const Measure* m, int sstaff, bool useDrumset);
-      void writeMeasureTracks(const Measure* const m, const int partIndex, const int strack, const int staves, const bool useDrumset, FigBassMap& fbMap, QSet<const Spanner*>& spannersStopped);
-      void writeMeasure(const Measure* const m, const int idx, const int staffCount, MeasureNumberStateHandler& mnsh, FigBassMap& fbMap, const MeasurePrintContext& mpc, QSet<const Spanner*>& spannersStopped);
+      void writeMeasureTracks(const Measure* const m, const int partIndex, const int strack, const int staves, const bool useDrumset, FigBassMap& fbMap, std::set<const Spanner*>& spannersStopped);
+      void writeMeasure(const Measure* const m, const int idx, const int staffCount, MeasureNumberStateHandler& mnsh, FigBassMap& fbMap, const MeasurePrintContext& mpc, std::set<const Spanner*>& spannersStopped);
       void repeatAtMeasureStart(Attributes& attr, const Measure* const m, int strack, int etrack, int track);
       void repeatAtMeasureStop(const Measure* const m, int strack, int etrack, int track);
       void writeParts();
@@ -1037,8 +1037,8 @@ static void findTrills(const Measure* const measure, int strack, int etrack, Tri
                   Element* elem2 = tr->endElement();
 
                   if (elem1 && elem1->isChordRest() && elem2 && elem2->isChordRest()) {
-                        trillStart.insert(toChordRest(elem1), tr);
-                        trillStop.insert(toChordRest(elem2), tr);
+                        trillStart.insert({ toChordRest(elem1), tr });
+                        trillStop.insert({ toChordRest(elem2), tr });
                         }
                   }
             }
@@ -2306,12 +2306,12 @@ void ExportMusicXml::keysig(const KeySig* ks, ClefType ct, int staff, bool visib
             // are in insertion order -> sorting required
 
             // first put the KeySyms in a map
-            QMap<qreal, KeySym> map;
+            std::map<qreal, KeySym> map;
             for (const KeySym& ksym : keysyms) {
-                  map.insert(ksym.spos.x(), ksym);
+                  map.insert({ ksym.spos.x(), ksym});
                   }
             // then write them (automatically sorted on key)
-            for (const KeySym& ksym : map) {
+            for (const KeySym& ksym : mu::values(map)) {
                   int line = static_cast<int>(round(2 * ksym.spos.y()));
                   int step = (po - line) % 7;
                   _xml.tag("key-step", QString(QChar(table2[step])));
@@ -2713,11 +2713,11 @@ static void wavyLineStop(const Trill* tr, const int number, Notations& notations
 //   wavyLineStartStop
 //---------------------------------------------------------
 
-void ExportMusicXml::wavyLineStartStop(const ChordRest* const cr, Notations& notations, Ornaments& ornaments,
+void ExportMusicXml::wavyLineStartStop(const ChordRest* cr, Notations& notations, Ornaments& ornaments,
                                        TrillHash& trillStart, TrillHash& trillStop)
       {
-      if (trillStart.contains(cr) && trillStop.contains(cr)) {
-            const Trill* tr = trillStart.value(cr);
+      if (mu::contains(trillStart, cr) && mu::contains(trillStop, cr)) {
+            const Trill* tr = trillStart.at(cr);
             int n = findTrill(0);
             if (n >= 0) {
                   wavyLineStart(tr, n, notations, ornaments, _xml);
@@ -2728,8 +2728,8 @@ void ExportMusicXml::wavyLineStartStop(const ChordRest* const cr, Notations& not
                          cr, cr->staffIdx(), cr->tick().ticks());
             }
       else {
-            if (trillStop.contains(cr)) {
-                  const Trill* tr = trillStop.value(cr);
+            if (mu::contains(trillStop, cr)) {
+                  const Trill* tr = trillStop.at(cr);
                   int n = findTrill(tr);
                   if (n >= 0)
                         // trill stop after trill start
@@ -2746,10 +2746,10 @@ void ExportMusicXml::wavyLineStartStop(const ChordRest* const cr, Notations& not
                   if (n >= 0) {
                         wavyLineStop(tr, n, notations, ornaments, _xml);
                         }
-                  trillStop.remove(cr);
+                  mu::remove(trillStop, cr);
                   }
-            if (trillStart.contains(cr)) {
-                  const Trill* tr = trillStart.value(cr);
+            if (mu::contains(trillStart, cr)) {
+                  const Trill* tr = trillStart.at(cr);
                   int n = findTrill(tr);
                   if (n >= 0)
                         qDebug("wavyLineStartStop error");
@@ -2762,7 +2762,7 @@ void ExportMusicXml::wavyLineStartStop(const ChordRest* const cr, Notations& not
                         else
                               qDebug("too many overlapping trills (cr %p staff %d tick %d)",
                                      cr, cr->staffIdx(), cr->tick().ticks());
-                        trillStart.remove(cr);
+                        mu::remove(trillStart, cr);
                         }
                   }
             }
@@ -2835,7 +2835,7 @@ static void tremoloSingleStartStop(Chord* chord, Notations& notations, Ornaments
 //   fermatas
 //---------------------------------------------------------
 
-static void fermatas(const QVector<Element*>& cra, XmlWriter& xml, Notations& notations)
+static void fermatas(const std::vector<Element*>& cra, XmlWriter& xml, Notations& notations)
       {
       for (const Element* e : cra) {
             if (!e->isFermata() || !ExportMusicXml::canWrite(e))
@@ -3218,7 +3218,7 @@ void ExportMusicXml::chordAttributes(Chord* chord, Notations& notations, Technic
                                      TrillHash& trillStart, TrillHash& trillStop)
       {
       if (!chord->isGrace()) {
-            QVector<Element*> fl;
+            std::vector<Element*> fl;
             for (Element* e : chord->segment()->annotations()) {
                   if (e->track() == chord->track() && e->isFermata())
                         fl.push_back(e);
@@ -3891,7 +3891,7 @@ void ExportMusicXml::chord(Chord* chord, int staff, const std::vector<Lyrics*>* 
       {
       Part* part = chord->score()->staff(chord->track() / VOICES)->part();
       int partNr = _score->parts().indexOf(part);
-      int instNr = instrMap.value(part->instrument(_tick), -1);
+      int instNr = mu::value(instrMap, part->instrument(_tick), -1);
       /*
       qDebug("chord() %p parent %p isgrace %d #gracenotes %d graceidx %d",
              chord, chord->parent(), chord->isGrace(), chord->graceNotes().size(), chord->graceIndex());
@@ -4196,7 +4196,7 @@ void ExportMusicXml::rest(Rest* rest, int staff, const std::vector<Lyrics*>* ll)
             writeBeam(_xml, rest, rest->beam());
 
       Notations notations;
-      QVector<Element*> fl;
+      std::vector<Element*> fl;
       for (Element* e : rest->segment()->annotations()) {
             if (e->isFermata() && e->track() == rest->track())
                   fl.push_back(e);
@@ -5239,15 +5239,24 @@ void ExportMusicXml::textLine(TextLineBase const* const tl, int staff, const Fra
 // supported by MusicXML need to be filtered out. Everything not recognized
 // as MusicXML dynamics is written as other-dynamics.
 
+template<typename T>
+inline std::set<QString>& operator<<(std::set<QString>& s, const T& v)
+      {
+      s.insert(v);
+      return s;
+      }
+
 void ExportMusicXml::dynamic(Dynamic const* const dyn, int staff)
       {
-      QSet<QString> set; // the valid MusicXML dynamics
-      set << "f" << "ff" << "fff" << "ffff" << "fffff" << "ffffff"
-          << "fp" << "fz"
-          << "mf" << "mp"
-          << "p" << "pp" << "ppp" << "pppp" << "ppppp" << "pppppp"
-          << "rf" << "rfz"
-          << "sf" << "sffz" << "sfp" << "sfpp" << "sfz";
+      static std::set<QString> set;   // the valid MusicXML dynamics
+      if (set.empty()) {
+            set << "f" << "ff" << "fff" << "ffff" << "fffff" << "ffffff"
+                << "fp" << "fz"
+                << "mf" << "mp"
+                << "p" << "pp" << "ppp" << "pppp" << "ppppp" << "pppppp"
+                << "rf" << "rfz"
+                << "sf" << "sffz" << "sfp" << "sfpp" << "sfz";
+            }
 
       directionTag(_xml, _attr, dyn);
 
@@ -5259,7 +5268,7 @@ void ExportMusicXml::dynamic(Dynamic const* const dyn, int staff)
       _xml.stag(tagName);
       const QString dynTypeName = dyn->dynamicTypeName();
 
-      if (set.contains(dynTypeName)) {
+      if (mu::contains(set, dynTypeName)) {
             _xml.tagE(dynTypeName);
             }
       else if (!dynTypeName.isEmpty()) {
@@ -5297,7 +5306,7 @@ void ExportMusicXml::dynamic(Dynamic const* const dyn, int staff)
                         // found a non-dynamics character
                         if (inDynamicsSym) {
                               if (!text.isEmpty()) {
-                                    if (set.contains(text))
+                                    if (mu::contains(set, text))
                                           _xml.tagE(text);
                                     else
                                           _xml.tag("other-dynamics", text);
@@ -5309,7 +5318,7 @@ void ExportMusicXml::dynamic(Dynamic const* const dyn, int staff)
                         }
                   }
             if (!text.isEmpty()) {
-                  if (inDynamicsSym && set.contains(text))
+                  if (inDynamicsSym && mu::contains(set, text))
                         _xml.tagE(text);
                   else
                         _xml.tag("other-dynamics", text);
@@ -5971,10 +5980,10 @@ static void figuredBass(XmlWriter& xml, int strack, int etrack, int track, const
                               if (extend) {
                                     //qDebug("figuredbass() extend to %d + %d = %d",
                                     //       cr->tick(), fb->ticks(), cr->tick() + fb->ticks());
-                                    fbMap.insert(strack, fb);
+                                    fbMap.insert({ strack, fb });
                                     }
                               else
-                                    fbMap.remove(strack);
+                                    mu::remove(fbMap, strack);
                               const Fraction crEndTick = cr->tick() + cr->actualTicks();
                               const Fraction fbEndTick = fb->segment()->tick() + fb->ticks();
                               const bool writeDuration = fb->ticks() < cr->actualTicks();
@@ -5995,8 +6004,8 @@ static void figuredBass(XmlWriter& xml, int strack, int etrack, int track, const
                         }
                   }
             // check for extend pending
-            if (fbMap.contains(strack)) {
-                  const FiguredBass* fb = fbMap.value(strack);
+            if (mu::contains(fbMap, strack)) {
+                  const FiguredBass* fb = fbMap.at(strack);
                   Fraction crEndTick = cr->tick() + cr->actualTicks();
                   Fraction fbEndTick = fb->segment()->tick() + fb->ticks();
                   bool writeDuration = fb->ticks() < cr->actualTicks();
@@ -6006,7 +6015,7 @@ static void figuredBass(XmlWriter& xml, int strack, int etrack, int track, const
                         }
                   if (fbEndTick <= crEndTick) {
                         //qDebug("figuredbass() at tick %d extend done", cr->tick() + cr->actualTicks());
-                        fbMap.remove(strack);
+                        mu::remove(fbMap, strack);
                         }
                   }
             }
@@ -6081,15 +6090,15 @@ static void spannerStart(ExportMusicXml* exp, int strack, int etrack, int track,
 // note that more than one voice may contains notes ending at tick2,
 // remember which spanners have already been stopped (the "stopped" set)
 
-static void spannerStop(ExportMusicXml* exp, int strack, int etrack, const Fraction& tick2, int sstaff, QSet<const Spanner*>& stopped)
+static void spannerStop(ExportMusicXml* exp, int strack, int etrack, const Fraction& tick2, int sstaff, std::set<const Spanner*>& stopped)
       {
       for (auto it : exp->score()->spanner()) {
-            Spanner* e = it.second;
+            const Spanner* e = it.second;
 
             if (e->tick2() != tick2 || e->track() < strack || e->track() >= etrack)
                   continue;
 
-            if (!stopped.contains(e)) {
+            if (!mu::contains(stopped, e)) {
                   stopped.insert(e);
                   switch (e->type()) {
                         case ElementType::HAIRPIN:
@@ -6102,7 +6111,7 @@ static void spannerStop(ExportMusicXml* exp, int strack, int etrack, const Fract
                               exp->pedal(toPedal(e), sstaff, Fraction(-1,1));
                               break;
                         case ElementType::TEXTLINE:
-                              exp->textLine(toTextLineBase(e), sstaff, Fraction(-1,1));
+                              exp->textLine(static_cast<const TextLineBase*>(e), sstaff, Fraction(-1,1));
                               break;
                         case ElementType::LET_RING:
                               exp->textLine(toLetRing(e), sstaff, Fraction(-1,1));
@@ -6140,7 +6149,7 @@ void ExportMusicXml::keysigTimesig(const Measure* m, const Part* p)
       //qDebug("keysigTimesig m %p strack %d etrack %d", m, strack, etrack);
 
       // search all staves for non-generated key signatures
-      QMap<int, KeySig*> keysigs; // map staff to key signature
+      std::map<int, KeySig*> keysigs; // map staff to key signature
       for (Segment* seg = m->first(); seg; seg = seg->next()) {
             if (seg->tick() > m->tick())
                   break;
@@ -6160,31 +6169,31 @@ void ExportMusicXml::keysigTimesig(const Measure* m, const Part* p)
       //ClefType ct = rest->staff()->clef(rest->tick());
 
       // write the key signatues
-      if (!keysigs.isEmpty()) {
+      if (!keysigs.empty()) {
             // determine if all staves have a keysig and all keysigs are identical
             // in that case a single <key> is written, without number=... attribute
             int nstaves = p->nstaves();
             bool singleKey = true;
             // check if all staves have a keysig
             for (int i = 0; i < nstaves; i++)
-                  if (!keysigs.contains(i))
+                  if (!mu::contains(keysigs, i))
                         singleKey = false;
             // check if all keysigs are identical
             if (singleKey)
                   for (int i = 1; i < nstaves; i++)
-                        if (!(keysigs.value(i)->key() == keysigs.value(0)->key()))
+                        if (!(keysigs.at(i)->key() == keysigs.at(0)->key()))
                               singleKey = false;
 
             // write the keysigs
             //qDebug(" singleKey %d", singleKey);
             if (singleKey) {
                   // keysig applies to all staves
-                  keysig(keysigs.value(0), p->staff(0)->clef(m->tick()), 0, keysigs.value(0)->visible());
+                  keysig(keysigs.at(0), p->staff(0)->clef(m->tick()), 0, keysigs.at(0)->visible());
                   }
             else {
                   // staff-specific keysigs
-                  for (int st : keysigs.keys())
-                        keysig(keysigs.value(st), p->staff(st)->clef(m->tick()), st + 1, keysigs.value(st)->visible());
+                  for (int st : mu::keys(keysigs))
+                        keysig(keysigs.at(st), p->staff(st)->clef(m->tick()), st + 1, keysigs.at(st)->visible());
                   }
             }
       else {
@@ -6200,7 +6209,7 @@ void ExportMusicXml::keysigTimesig(const Measure* m, const Part* p)
             }
 
       // search all staves for non-generated time signatures
-      QMap<int, TimeSig*> timesigs;   // map staff to time signature
+      std::map<int, TimeSig*> timesigs;   // map staff to time signature
       for (Segment* seg = m->first(); seg; seg = seg->next()) {
             if (seg->tick() > m->tick())
                   break;
@@ -6226,7 +6235,7 @@ void ExportMusicXml::keysigTimesig(const Measure* m, const Part* p)
             bool singleTime = true;
             // check if all staves have a keysig
             for (size_t i = 0; i < nstaves; i++) {
-                  if (!timesigs.contains(static_cast<int>(i)))
+                  if (!mu::contains(timesigs, static_cast<int>(i)))
                         singleTime = false;
                   }
             // check if all timesigs are identical
@@ -6245,7 +6254,7 @@ void ExportMusicXml::keysigTimesig(const Measure* m, const Part* p)
                   }
             else {
                   // staff-specific timesig
-                  for (int st : timesigs.keys())
+                  for (int st : mu::keys(timesigs))
                         timesig(timesigs[st], st + 1);
                   }
             }
@@ -6368,8 +6377,8 @@ static void initInstrMap(MxmlInstrumentMap& im, const InstrumentList* il, const 
       im.clear();
       for (auto i = il->begin(); i != il->end(); ++i) {
             const Instrument* pinstr = i->second;
-            if (!im.contains(pinstr))
-                  im.insert(pinstr, im.size());
+            if (!mu::contains(im, pinstr))
+                  im.insert({ pinstr, static_cast<int>(im.size()) });
             }
       }
 
@@ -6377,7 +6386,7 @@ static void initInstrMap(MxmlInstrumentMap& im, const InstrumentList* il, const 
 //  initReverseInstrMap
 //---------------------------------------------------------
 
-typedef QMap<int, const Instrument*> MxmlReverseInstrumentMap;
+typedef std::map<int, const Instrument*> MxmlReverseInstrumentMap;
 
 /**
  Initialize the number t Instrument* map for a Part
@@ -6387,9 +6396,9 @@ typedef QMap<int, const Instrument*> MxmlReverseInstrumentMap;
 static void initReverseInstrMap(MxmlReverseInstrumentMap& rim, const MxmlInstrumentMap& im)
       {
       rim.clear();
-      for (const Instrument* i : im.keys()) {
-            int instNr = im.value(i);
-            rim.insert(instNr, i);
+      for (const Instrument* i : mu::keys(im)) {
+            int instNr = im.at(i);
+            rim.insert({ instNr, i });
             }
       }
 
@@ -6681,7 +6690,7 @@ void ExportMusicXml::findAndExportClef(const Measure* const m, const int staves,
  Find the set of pitches actually used in a part.
  */
 
-typedef QSet<int> pitchSet;       // the set of pitches used
+typedef std::set<int> pitchSet;       // the set of pitches used
 
 static void addChordPitchesToSet(const Chord* c, pitchSet& set)
       {
@@ -6823,7 +6832,7 @@ static void partList(XmlWriter& xml, Score* score, MxmlInstrumentMap& instrMap)
                         DrumInstrument di = drumset->drum(i);
                         if (di.notehead != NoteHead::Group::HEAD_INVALID)
                               scoreInstrument(xml, idx + 1, i + 1, di.name);
-                        else if (pitches.contains(i))
+                        else if (mu::contains(pitches, i))
                               scoreInstrument(xml, idx + 1, i + 1, QString("Instrument %1").arg(i + 1));
                         }
                   int midiPort = part->midiPort() + 1;
@@ -6832,26 +6841,29 @@ static void partList(XmlWriter& xml, Score* score, MxmlInstrumentMap& instrMap)
 
                   for (int i = 0; i < 128; ++i) {
                         DrumInstrument di = drumset->drum(i);
-                        if (di.notehead != NoteHead::Group::HEAD_INVALID || pitches.contains(i))
+                        if (di.notehead != NoteHead::Group::HEAD_INVALID || mu::contains(pitches, i))
                               midiInstrument(xml, idx + 1, i + 1, part->instrument(), score, i + 1);
                         }
                   }
             else {
                   MxmlReverseInstrumentMap rim;
                   initReverseInstrMap(rim, instrMap);
-                  for (int instNr : rim.keys()) {
-                        scoreInstrument(xml, idx + 1, instNr + 1, MScoreTextToMXML::toPlainText(rim.value(instNr)->trackName()), rim.value(instNr));
+                  for (int instNr : mu::keys(rim)) {
+                        const Instrument* instr = rim.at(instNr);
+                        scoreInstrument(xml, idx + 1, instNr + 1,
+                                        MScoreTextToMXML::toPlainText(instr->trackName()),
+                                        instr);
                         }
-                  for (auto ii = rim.constBegin(); ii != rim.constEnd(); ii++) {
-                        int instNr = ii.key();
+                  for (auto ii = rim.cbegin(); ii != rim.cend(); ii++) {
+                        int instNr = ii->first;
                         int midiPort = part->midiPort() + 1;
-                        if (ii.value()->channel().size() > 0)
-                              midiPort = score->masterScore()->midiMapping(ii.value()->channel(0)->channel())->port() + 1;
+                        if (ii->second->channel().size() > 0)
+                              midiPort = score->masterScore()->midiMapping(ii->second->channel(0)->channel())->port() + 1;
                         if (midiPort >= 1 && midiPort <= 16)
                               xml.tag(QString("midi-device %1 port=\"%2\"").arg(instrId(idx+1, instNr + 1)).arg(midiPort), "");
                         else
                               xml.tag(QString("midi-device %1").arg(instrId(idx+1, instNr + 1)), "");
-                        midiInstrument(xml, idx + 1, instNr + 1, rim.value(instNr), score);
+                        midiInstrument(xml, idx + 1, instNr + 1, rim.at(instNr), score);
                         }
                   }
 
@@ -7249,7 +7261,7 @@ void ExportMusicXml::writeMeasureTracks(const Measure* const m,
                                         const int strack, const int staves, // TODO remove ??
                                         const bool useDrumset,
                                         FigBassMap& fbMap,
-                                        QSet<const Spanner*>& spannersStopped)
+                                        std::set<const Spanner*>& spannersStopped)
       {
       bool tboxesAboveWritten = false;
       const auto tboxesAbove = findTextFramesToWriteAsWordsAbove(m);
@@ -7350,7 +7362,7 @@ void ExportMusicXml::writeMeasure(const Measure* const m,
                                   MeasureNumberStateHandler& mnsh,
                                   FigBassMap& fbMap,
                                   const MeasurePrintContext& mpc,
-                                  QSet<const Spanner*>& spannersStopped)
+                                  std::set<const Spanner*>& spannersStopped)
       {
       const Part* part = _score->parts().at(partIndex);
       const int staves = part->nstaves();
@@ -7391,7 +7403,7 @@ void ExportMusicXml::writeMeasure(const Measure* const m,
             if (staves > 1)
                   _xml.tag("staves", staves);
             if (instrMap.size() > 1)
-                  _xml.tag("instruments", instrMap.size());
+                  _xml.tag("instruments", static_cast<int>(instrMap.size()));
             }
 
       // make sure clefs at end of measure get exported at start of next measure
@@ -7472,7 +7484,7 @@ void ExportMusicXml::writeParts()
 
             // set of spanners already stopped in this part
             // required to prevent multiple spanner stops for the same spanner
-            QSet<const Spanner*> spannersStopped;
+            std::set<const Spanner*> spannersStopped;
 
             const auto& pages = _score->pages();
             MeasurePrintContext mpc;
