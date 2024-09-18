@@ -3814,12 +3814,33 @@ void MusicXMLParserDirection::textToDynamic(QString& text) const
       {
       if (!preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTINFERTEXTTYPE))
             return;
-      QString simplifiedText = text.simplified();
-      for (auto dyn : dynList) {
-            if (dyn.tag == simplifiedText) {
-                  text = text.replace(simplifiedText, dyn.text);
+      QString simplifiedText = MScoreTextToMXML::toPlainText(text).simplified();
+      // Correct finale's incorrect dynamic export
+      if (_pass1.exporterString().contains("finale")) {
+            static const std::map<QString, QString> finaleDynamicSubs
+                        = { { "π", "pp" }, { "P", "mp" },  { "F", "mf" },  { "ƒ", "ff" }, { "Ï", "fff" },
+                            { "S", "sf" }, { "ß", "sfz" }, { "Z", "fz" },  { "Í", "fp" } };
+            for (const auto& sub : finaleDynamicSubs) {
+                  if (simplifiedText == sub.first) {
+                        simplifiedText = sub.second;
+                        break;
+                        }
                   }
             }
+#if 0
+      // We don't want to count a single 'm', 'r', 's' or 'z' as a whole dynamic
+      static const QRegularExpression singleCharDynamic("^[mrsz]$");
+      // try to find a dynamic - xml representation or
+      // if found add to dynamics list and set text to blank string
+      if (!simplifiedText.contains(singleCharDynamic) && TConv::dynamicValid(simplifiedText.toStdString())) {
+            Dynamic::Type dt = TConv::fromXml(simplifiedText.toStdString(), Dynamic::Type::OTHER);
+            if (dt != Dynamic::Type::OTHER) {
+                  _dynaVelocity = QString::number(round(Dynamic::dynamicVelocity(dt) / 0.9));
+                  _dynamicsList.push_back(Dynamic::dynamicTypeName(dt));
+                  text.clear();
+                  }
+            }
+#endif
       }
 
 //---------------------------------------------------------
