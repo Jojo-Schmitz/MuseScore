@@ -161,12 +161,12 @@ jobs:
         LUPDATE_ARGS: ""
         POSTPROCESS_ARGS: ${{ env.DO_PLACEHOLDER_TRANSLATIONS == 'true' && '--generate-placeholder-translations' || '' }}
       run: |
-        bash ./build/ci/translation/run_lupdate.sh
+        #bash ./build/ci/translation/run_lupdate.sh
     - name: Update .ts files
       if: env.DO_UPDATE_TS == 'true'
       run: |
-        bash ./build/ci/translation/tx_install.sh -t ${{ secrets.TRANSIFEX_API_TOKEN }} -s linux
-        bash ./build/ci/translation/tx_pull.sh
+        #bash ./build/ci/translation/tx_install.sh -t ${{ secrets.TRANSIFEX_API_TOKEN }} -s linux
+        #bash ./build/ci/translation/tx_pull.sh
     - name: Build
       run: |
         T_ID=${{ secrets.TELEMETRY_TRACK_ID }}; if [ -z "$T_ID" ]; then T_ID="''"; fi

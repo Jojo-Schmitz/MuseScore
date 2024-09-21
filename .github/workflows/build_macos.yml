@@ -165,6 +165,9 @@ jobs:
         restore-keys: ${{github.workflow}}-ccache-
     - name: Setup ccache
       run: |
+        #sudo rm -rf "/Applications/Visual Studio.app"
+        #sudo rm -rf "/Applications/Visual Studio 2019.app"
+        #sudo rm -rf "/Users/runner/Library/Android/sdk"
         brew install ccache
         bash ./build/ci/tools/setup_ccache_config.sh
 
@@ -176,12 +179,12 @@ jobs:
         LUPDATE_ARGS: ""
         POSTPROCESS_ARGS: "--warn-only ${{ env.DO_PLACEHOLDER_TRANSLATIONS == 'true' && '--generate-placeholder-translations' || '' }}"
       run: |
-        bash ./build/ci/translation/run_lupdate.sh
+        #bash ./build/ci/translation/run_lupdate.sh
     - name: Update .ts files
       if: env.DO_UPDATE_TS == 'true'
       run: |
-        bash ./build/ci/translation/tx_install.sh -t ${{ secrets.TRANSIFEX_API_TOKEN }} -s macos
-        bash ./build/ci/translation/tx_pull.sh
+        #bash ./build/ci/translation/tx_install.sh -t ${{ secrets.TRANSIFEX_API_TOKEN }} -s macos
+        #bash ./build/ci/translation/tx_pull.sh
     - name: Build
       run: |
         #C_URL=${SENTRY_URL}; if [ -z "$C_URL" ]; then C_URL="''"; fi
