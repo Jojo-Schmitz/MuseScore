@@ -5,11 +5,9 @@ on:
     branches:
     - 3.x
   pull_request:
-    branches:
-    - 3.x
-
   schedule:
-    - cron: '0 4 */1 * *' # At 04:00 on every day-of-month
+    - cron: '0 3 */1 */1 *' # At 03:00 on every day-of-month for master
+    - cron: '0 5 */1 */1 *' # At 05:00 on every day-of-month for current release branch
   workflow_dispatch:
     inputs:
       build_mode:
@@ -19,6 +17,10 @@ on:
       publish:
         description: 'Publish to FTP: on - publish'
         default: 'off'
+        required: false
+      sentry_project:
+        description: 'Upload symbols and dumps to Sentry (choose a project): mu3(default for stable build), sandbox'
+        default: ''
         required: false
   workflow_call:
     inputs:
@@ -31,81 +33,169 @@ on:
         description: 'Publish to FTP: on - publish'
         default: 'off'
         type: string
+        required: false
+      sentry_project:
+        description: 'Upload symbols and dumps to Sentry (choose a project): mu3(default for stable build), sandbox'
+        default: ''
+        type: string
+        required: false
 
 env:
   CURRENT_RELEASE_BRANCH: 3.x
- 
+
 jobs:
   linux_x64:
     runs-on: ubuntu-20.04
+    if: github.event_name != 'schedule' || github.repository == 'musescore/MuseScore'
     steps:
     - name: Cancel Previous Runs
       uses: styfle/cancel-workflow-action@0.12.1
       with:
         access_token: ${{ github.token }}
-    - name: Clone repository
+    - name: Exit if current release branch configuration is incorrect
+      if: ${{ github.event_name == 'schedule' && github.event.schedule == '0 5 */1 */1 *' && env.CURRENT_RELEASE_BRANCH == '' }}
+      run: |
+        echo "::error::CURRENT_RELEASE_BRANCH is empty"
+        exit 1
+    - name: Clone repository (default)
       uses: actions/checkout@v4
+      if: ${{ github.event_name != 'schedule' || github.event.schedule == '0 3 */1 */1 *' }}
+    - name: Clone repository (${{ env.CURRENT_RELEASE_BRANCH }})
+      uses: actions/checkout@v4
+      if: ${{ github.event_name == 'schedule' && github.event.schedule == '0 5 */1 */1 *' }}
+      with:
+        ref: ${{ env.CURRENT_RELEASE_BRANCH }}
     - name: "Configure workflow"
       env:
         pull_request_title: ${{ github.event.pull_request.title }}
+        SENTRY_SERVER_KEY: ${{ secrets.SENTRY_SERVER_KEY }}
+        SENTRY_SERVER_SANDBOX_KEY: ${{ secrets.SENTRY_SERVER_SANDBOX_KEY }}
+        SENTRY_PROJECT: ${{ inputs.sentry_project }}
       run: |
-        sudo bash ./build/ci/tools/make_build_mode_env.sh -e ${{ github.event_name }} -m ${{ inputs.build_mode }}
+        bash ./build/ci/tools/make_build_mode_env.sh -e ${{ github.event_name }} -m ${{ inputs.build_mode }}
         BUILD_MODE=$(cat ./build.artifacts/env/build_mode.env)
 
-        sudo bash ./build/ci/tools/make_build_number.sh
+        bash ./build/ci/tools/make_build_number.sh
         BUILD_NUMBER=$(cat ./build.artifacts/env/build_number.env)
 
-        DO_BUILD='true'
+        DO_UPDATE_TS='false'
+        if [[ "$BUILD_MODE" == "testing" || "$BUILD_MODE" == "stable" ]]; then
+          DO_UPDATE_TS='true'
+          if [ -z "${{ secrets.TRANSIFEX_API_TOKEN }}" ]; then
+            echo "::warning::TRANSIFEX_API_TOKEN is empty; updating .ts files disabled"
+            DO_UPDATE_TS='false'
+          fi
+        fi
+
+        DO_PLACEHOLDER_TRANSLATIONS='false'
+        if [[ "$BUILD_MODE" == "nightly" || "$BUILD_MODE" == "devel" ]]; then
+          DO_PLACEHOLDER_TRANSLATIONS='true'
+        fi
+
+        DO_UPLOAD_SYMBOLS='false'
+        SENTRY_URL=""
+
+        if [ "$SENTRY_SERVER_KEY" != "" ]; then
+          if [ -z "$SENTRY_PROJECT" ] && [ "$BUILD_MODE" == "stable" ]; then
+            SENTRY_PROJECT="mu3"
+          fi
+
+          if [ "$SENTRY_PROJECT" == "mu3" ]; then
+            DO_UPLOAD_SYMBOLS='true'
+            SENTRY_URL=https://sentry.musescore.org/api/3/minidump/?sentry_key=$SENTRY_SERVER_KEY
+          fi
+        fi
+
+        if [ -z "$SENTRY_PROJECT" ] && [ "$BUILD_MODE" == "nightly" ]; then
+          SENTRY_PROJECT="sandbox"
+        fi
+
+        if [ "$SENTRY_PROJECT" == "sandbox" ] && [ "$SENTRY_SERVER_SANDBOX_KEY" != "" ]; then
+          DO_UPLOAD_SYMBOLS='true'
+          SENTRY_URL=https://sentry.musescore.org/api/3/minidump/?sentry_key=$SENTRY_SERVER_SANDBOX_KEY
+        fi
 
         DO_PUBLISH='false'
-        if [[ "${{ inputs.publish }}" == "on" || "$BUILD_MODE" == "nightly" ]]; then
+        if [[ "${{ inputs.publish }}" == "on" || ("${{ github.event_name }}" == "schedule" && $BUILD_MODE == 'nightly') ]]; then
           DO_PUBLISH='true'
           if [ -z "${{ secrets.OSUOSL_SSH_ENCRYPT_SECRET }}" ]; then
-            echo "warning: not set OSUOSL_SSH_ENCRYPT_SECRET, publish disabled"
+            echo "::warning::OSUOSL_SSH_ENCRYPT_SECRET is empty; not publishing to OSUOSL"
             DO_PUBLISH='false'
-          fi  
+          fi
         fi
 
         ADD_INFO="_${GITHUB_REF#refs/heads/}"
-        if [ "${{ github.event_name }}" == "schedule" ] && [ "${{ github.event.schedule }}" == "0 5 */1 */1 *" ]; then ADD_INFO="_${CURRENT_RELEASE_BRANCH}"; fi
+        if [ "${{ github.event_name }}" == "schedule" ] && [ "${{ github.event.schedule }}" == "0 5 */1 */1 *" ]; then ADD_INFO="_${{ env.CURRENT_RELEASE_BRANCH }}"; fi
         if [ "${{ github.event_name }}" == "pull_request" ]; then ADD_INFO="_${{ github.event.pull_request.number }}_${pull_request_title}"; fi
-        UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\?' '_' <<<"Mu3.7_${BUILD_NUMBER}_Lin${ADD_INFO}")"
+        UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\’' '_' <<<"Mu3.7_${BUILD_NUMBER}_Lin${ADD_INFO}")"
 
         echo "github.repository: ${{ github.repository }}"
-        echo "BUILD_MODE=$BUILD_MODE" >> $GITHUB_ENV
-        echo "BUILD_MODE: $BUILD_MODE"
-        echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
-        echo "BUILD_NUMBER: $BUILD_NUMBER"
-        echo "DO_BUILD=$DO_BUILD" >> $GITHUB_ENV
-        echo "DO_BUILD: $DO_BUILD"
-        echo "DO_PUBLISH=$DO_PUBLISH" >> $GITHUB_ENV
-        echo "DO_PUBLISH: $DO_PUBLISH"
-        echo "UPLOAD_ARTIFACT_NAME=$UPLOAD_ARTIFACT_NAME" >> $GITHUB_ENV
-        echo "UPLOAD_ARTIFACT_NAME: $UPLOAD_ARTIFACT_NAME"
+        echo "BUILD_MODE=$BUILD_MODE" | tee -a $GITHUB_ENV
+        echo "BUILD_NUMBER=$BUILD_NUMBER" | tee -a $GITHUB_ENV
+        echo "DO_UPDATE_TS=$DO_UPDATE_TS" | tee -a $GITHUB_ENV
+        echo "DO_PLACEHOLDER_TRANSLATIONS=$DO_PLACEHOLDER_TRANSLATIONS" | tee -a $GITHUB_ENV
+        echo "DO_UPLOAD_SYMBOLS=$DO_UPLOAD_SYMBOLS" | tee -a $GITHUB_ENV
+        echo "SENTRY_PROJECT=$SENTRY_PROJECT" | tee -a $GITHUB_ENV
+        echo "SENTRY_URL=$SENTRY_URL" | tee -a $GITHUB_ENV
+        echo "DO_PUBLISH=$DO_PUBLISH" | tee -a $GITHUB_ENV
+        echo "UPLOAD_ARTIFACT_NAME=$UPLOAD_ARTIFACT_NAME" | tee -a $GITHUB_ENV
+
+        echo "CCACHE_TIMESTAMP=$(date -u +"%F-%T")" | tee -a $GITHUB_ENV
+
+    - name: Restore ccache files
+      uses: actions/cache@v4
+      with:
+        path: ${{ github.workspace }}/.ccache
+        key: ${{github.workflow}}-ccache-${{ env.CCACHE_TIMESTAMP }}
+        restore-keys: ${{github.workflow}}-ccache-
+    - name: Setup ccache
+      run: |
+        sudo apt-get update && sudo apt-get install -y ccache
+        bash ./build/ci/tools/setup_ccache_config.sh
 
     - name: Setup environment
-      if: env.DO_BUILD == 'true'
       run: |
-        sudo bash ./build/ci/linux/setup.sh
+        bash ./build/ci/linux/setup.sh
+    - name: Generate _en.ts files
+      env:
+        LUPDATE_ARGS: ""
+        POSTPROCESS_ARGS: ${{ env.DO_PLACEHOLDER_TRANSLATIONS == 'true' && '--generate-placeholder-translations' || '' }}
+      run: |
+        bash ./build/ci/translation/run_lupdate.sh
+    - name: Update .ts files
+      if: env.DO_UPDATE_TS == 'true'
+      run: |
+        bash ./build/ci/translation/tx_install.sh -t ${{ secrets.TRANSIFEX_API_TOKEN }} -s linux
+        bash ./build/ci/translation/tx_pull.sh
     - name: Build
-      if: env.DO_BUILD == 'true'
       run: |
         T_ID=${{ secrets.TELEMETRY_TRACK_ID }}; if [ -z "$T_ID" ]; then T_ID="''"; fi
-        sudo bash ./build/ci/linux/build.sh -n ${{ github.run_id }} --telemetry $T_ID
+        bash ./build/ci/linux/build.sh -n ${{ env.BUILD_NUMBER }} --telemetry $T_ID
+        echo "============== ccache ==============="
+        ccache -s
     - name: Package
-      if: env.DO_BUILD == 'true'
       run: |
-        sudo bash ./build/ci/linux/package.sh
-    - name: Checksum 
-      if: env.DO_BUILD == 'true'
+        bash ./build/ci/linux/package.sh
+    - name: Checksum
       run: |
-        sudo bash ./build/ci/tools/checksum.sh
-    - name: Publish package
+        bash ./build/ci/tools/checksum.sh
+    - name: Generate and upload dump symbols
+      if: env.DO_UPLOAD_SYMBOLS == 'true'
+      run: |
+        APP_BIN=$(find "$(pwd)/build.release/src/app/" -type f -name "mscore3portable*" -print -quit)
+        ARCH=x86-64
+        cmake -DAPP_BIN=${APP_BIN} \
+              -DARCH=${ARCH} \
+              -DSENTRY_URL=https://sentry.musescore.org \
+              -DSENTRY_ORG=musescore \
+              -DSENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }} \
+              -DSENTRY_PROJECT=${SENTRY_PROJECT} \
+              -P build/ci/crashdumps/ci_generate_and_upload.cmake
+    - name: Publish to OSUOSL
       if: env.DO_PUBLISH == 'true'
       run: |
-        sudo bash ./build/ci/tools/osuosl/publish.sh -s ${{ secrets.OSUOSL_SSH_ENCRYPT_SECRET }} --os linux -v 3
+        bash ./build/ci/tools/osuosl/publish.sh -s ${{ secrets.OSUOSL_SSH_ENCRYPT_SECRET }} --os linux -v 3
     - name: Upload artifacts on GitHub
-      if: env.DO_BUILD == 'true'
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.UPLOAD_ARTIFACT_NAME }}
@@ -118,22 +208,51 @@ jobs:
         CFLAGS: "-fsanitize=address -fno-omit-frame-pointer"
         CXXFLAGS: "-fsanitize=address -fno-omit-frame-pointer"
     steps:
+    - name: Cancel Previous Runs
+      uses: styfle/cancel-workflow-action@0.12.1
+      with:
+        access_token: ${{ github.token }}
     - name: Clone repository
       uses: actions/checkout@v4
+    - name: Configure workflow
+      run: |
+        bash ./build/ci/tools/make_build_number.sh
+        BUILD_NUMBER=$(cat ./build.artifacts/env/build_number.env)
+
+        echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
+        echo "BUILD_NUMBER: $BUILD_NUMBER"
+        echo "BUILD_NUMBER=$BUILD_NUMBER" | tee -a $GITHUB_ENV
+
+        echo "CCACHE_TIMESTAMP=$(date -u +"%F-%T")" | tee -a $GITHUB_ENV
+
+    - name: Restore ccache files
+      uses: actions/cache@v4
+      with:
+        path: ${{ github.workspace }}/.ccache
+        key: ${{github.workflow}}-ccache-${{ env.CCACHE_TIMESTAMP }}
+        restore-keys: ${{github.workflow}}-ccache-
+    - name: Setup ccache
+      run: |
+        sudo apt-get update && sudo apt-get install -y ccache
+        bash ./build/ci/tools/setup_ccache_config.sh
+
     - name: Setup environment
       run: |
-        sudo bash ./build/ci/linux/setup.sh
+        bash ./build/ci/linux/setup.sh
     - name: Build
       run: |
         mkdir -p build.artifacts/env
-        #sudo bash ./build/ci/linux/build.sh -n ${{ github.run_id }} --build_mode mtests
-        ./build/ci/linux/build.sh -n ${{ github.run_id }} --build_mode mtests
-    - name: Run mtests 
+        #bash ./build/ci/linux/build_utest.sh -n ${{ env.BUILD_NUMBER }}
+        bash ./build/ci/linux/build.sh -n ${{ env.BUILD_NUMBER }} --build_mode mtests
+        echo "============== ccache ==============="
+        ccache -s
+    - name: Free up disk space
+      # After building, too little disk space is left. Remove unnecessary tools to free up disk space.
       run: |
-        # At moment build and run mtests consume 13.4 Gb of the disk.
-        # After left too little free space.
-        # So, we remove unnecessary tools, for more free space
         sudo docker system prune -a -f
         sudo rm -rf /usr/local/lib/android
-        #sudo bash ./build/ci/linux/runmtests.sh
-        ./build/ci/linux/runmtests.sh
+    - name: Run tests 
+      run: |
+        bash ./build/ci/linux/runmtests.sh
+      env:
+        ASAN_OPTIONS: "detect_leaks=0"
