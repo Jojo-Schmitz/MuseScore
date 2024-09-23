@@ -113,11 +113,9 @@ bool PluginAPI::writeScore(Score* s, const QString& name, const QString& ext)
 
 Score* PluginAPI::readScore(const QString& name, bool noninteractive)
       {
-      bool oldConvertermode = converterMode;
       bool oldIgnoreWarnings = ignoreWarnings;
-      converterMode = ignoreWarnings = noninteractive;
+      ignoreWarnings = noninteractive;
       Ms::Score* score = msc()->openScore(name, !noninteractive);
-      converterMode = oldConvertermode;
       ignoreWarnings = oldIgnoreWarnings;
       if (score) {
             if (noninteractive)
