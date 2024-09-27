@@ -4663,7 +4663,7 @@ void ExportMusicXml::systemText(StaffTextBase const* const text, int staff)
       {
       const int offset = calculateTimeDeltaInDivisions(text->tick(), tick(), div);
 
-      if (text->plainText() == "") {
+      if (text->plainText().isEmpty()) {
             // sometimes empty Texts are present, exporting would result
             // in invalid MusicXML (as an empty direction-type would be created)
             return;
@@ -7816,27 +7816,64 @@ void ExportMusicXml::harmony(Harmony const* const h, FretDiagram const* const fd
             // export an unrecognized Chord
             // which may contain arbitrary text
             //
-            const QString textNameEscaped = h->hTextName().toHtmlEscaped();
+            const QString textName = h->hTextName();
             switch (h->harmonyType()) {
                   case HarmonyType::NASHVILLE: {
-                        _xml.tag("function", h->hFunction());
-                        QString k = "kind text=\"" + textNameEscaped + "\"";
-                        _xml.tag(k, "none");
+                        QString alter;
+                        QString functionText = h->hFunction();
+                        if (functionText.isEmpty()) {
+                              // we just dump the text as deprecated function
+                              _xml.tag("function", textName);
+                              _xml.tag("kind", "none");
+                              break;
+                              }
+                        else if (!functionText.at(0).isDigit()) {
+                              alter = functionText.at(0);
+                              functionText = functionText.at(1);
+                              }
+                        _xml.stag("numeral");
+                        _xml.tag("numeral-root", functionText);
+                        if (alter == "b")
+                              _xml.tag("numeral-alter", "-1");
+                        else if (alter == "#")
+                              _xml.tag("numeral-alter", "1");
+                        _xml.etag();
+                        if (!h->xmlKind().isEmpty()) {
+                              QString s = "kind";
+                              QString kindText = h->musicXmlText();
+                              if (!h->musicXmlText().isEmpty())
+                                    s += " text=\"" + kindText + "\"";
+                              if (h->xmlSymbols() == "yes")
+                                    s += " use-symbols=\"yes\"";
+                              if (h->xmlParens() == "yes")
+                                    s += " parentheses-degrees=\"yes\"";
+                              _xml.tag(s, h->xmlKind());
+                              }
+                        else {
+                              // default is major
+                              _xml.tag("kind", "major");
+                              }
                         }
                         break;
                   case HarmonyType::ROMAN: {
-                        // TODO: parse?
-                        _xml.tag("function", h->hTextName());   // note: HTML escape done by tag()
-                        QString k = "kind text=\"\"";
-                        _xml.tag(k, "none");
+                        static const QRegularExpression romanRegex("[iv]+|[IV]+");
+                        if (textName.contains(romanRegex)) {
+                              _xml.stag("numeral");
+                              QString k = "numeral-root text=\"" + textName + "\"";
+                              _xml.tag(k, "1");
+                              _xml.etag();
+                              // only check for major or minor
+                              _xml.tag("kind", textName.at(0).isUpper() ? "major" : "minor");
+                              break;
+                              }
                         }
-                        break;
+                        // fallthrough
                   case HarmonyType::STANDARD:
                   default: {
                         _xml.stag("root");
                         _xml.tag("root-step text=\"\"", "C");
                         _xml.etag();       // root
-                        QString k = "kind text=\"" + textNameEscaped + "\"";
+                        QString k = "kind text=\"" + textName.toHtmlEscaped() + "\"";
                         _xml.tag(k, "none");
                         }
                         break;
