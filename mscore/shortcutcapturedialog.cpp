@@ -115,9 +115,11 @@ void ShortcutCaptureDialog::keyPress(QKeyEvent* e)
 
       k += e->modifiers();
       // remove shift-modifier for keys that don't need it: letters and special keys
-      if ((k & Qt::ShiftModifier) && ((e->key() < 0x41) || (e->key() > 0x5a) || (e->key() >= 0x01000000))) {
+      if ((k & Qt::ShiftModifier)
+          && ((e->key() < Qt::Key_A || e->key() > Qt::Key_Z)
+              && e->key() != Qt::Key_Up && e->key() != Qt::Key_Down && e->key() >= Qt::Key_Escape)) {
             qDebug() << k;
-            k -= Qt::ShiftModifier;
+            k &= Qt::ShiftModifier;
             qDebug() << k;
             }
 
