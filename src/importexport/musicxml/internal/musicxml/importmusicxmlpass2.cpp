@@ -3087,7 +3087,7 @@ void MusicXmlParserPass2::staffTuning(StringData* t)
     int octave = 0;
     while (m_e.readNextStartElement()) {
         if (m_e.name() == "tuning-alter") {
-            alter = m_e.readInt();
+            alter = m_e.readText().trimmed().toInt();
         } else if (m_e.name() == "tuning-octave") {
             octave = m_e.readInt();
         } else if (m_e.name() == "tuning-step") {
@@ -5713,7 +5713,7 @@ void MusicXmlParserPass2::key(const String& partId, Measure* measure, const Frac
             flushAlteredTone(key, keyStep, keyAlter, keyAccidental, smufl);
             keyStep = m_e.readText();
         } else if (m_e.name() == "key-alter") {
-            keyAlter = m_e.readText();
+            keyAlter = m_e.readText().trimmed();
         } else if (m_e.name() == "key-accidental") {
             smufl = m_e.attribute("smufl");
             keyAccidental = m_e.readText();
@@ -7400,8 +7400,7 @@ void MusicXmlParserPass2::harmony(const String& partId, Measure* measure, const 
                 } else if (m_e.name() == "root-alter") {
                     // attributes: print-object, print-style
                     //             location (left-right)
-                    // Cubase exports this value with a trailing newline
-                    alter = m_e.readText().simplified().toInt();
+                    alter = m_e.readText().trimmed().toInt();
                 } else {
                     skipLogCurrElem();
                 }
@@ -7443,8 +7442,7 @@ void MusicXmlParserPass2::harmony(const String& partId, Measure* measure, const 
                 } else if (m_e.name() == "bass-alter") {
                     // attributes: print-object, print-style
                     //             location (left-right)
-                    // Cubase exports this value with a trailing newline
-                    alter = m_e.readText().simplified().toInt();
+                    alter = m_e.readText().trimmed().toInt();
                 } else {
                     skipLogCurrElem();
                 }
@@ -7458,7 +7456,7 @@ void MusicXmlParserPass2::harmony(const String& partId, Measure* measure, const 
                 if (m_e.name() == "degree-value") {
                     degreeValue = m_e.readInt();
                 } else if (m_e.name() == "degree-alter") {
-                    degreeAlter = m_e.readInt();
+                    degreeAlter = m_e.readText().trimmed().toInt();
                 } else if (m_e.name() == "degree-type") {
                     degreeType = m_e.readText();
                 } else {
