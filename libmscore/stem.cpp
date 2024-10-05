@@ -79,11 +79,10 @@ qreal Stem::stemLen() const
 
 void Stem::layout()
       {
-      qreal l    = _len + _userLen;
-      qreal _up  = up() ? -1.0 : 1.0;
-      l         *= _up;
-
-      qreal y1 = 0.0;                           // vertical displacement to match note attach point
+      qreal _up        = up() ? -1.0 : 1.0;
+      qreal l          = (_len + _userLen) * _up;
+      qreal x          = 0.0;                           // horizontal displacement to match note attach point
+      qreal y1         = 0.0;                           // vertical displacement to match note attach point
       const Staff* stf = staff();
       if (chord()) {
             setMag(chord()->mag());
@@ -105,18 +104,66 @@ void Stem::layout()
                   }
             else {                              // non-TAB
                   // move stem start to note attach point
-                  Note* n  = up() ? chord()->downNote() : chord()->upNote();
-                  if ((up() && !n->mirror()) || (!up() && n->mirror()))
-                        y1 += n->stemUpSE().y();
-                  else
-                        y1 += n->stemDownNW().y();
+                  bool u = up();
+                  Note* n  = u ? chord()->downNote() : chord()->upNote();
+                  bool m = n->mirror();
+                  qreal lw = lineWidthMag();
+                  SymId symId = n->noteHead();
+                  if ((u && !m) || (!u && m)) {
+                        // default offsets for all fonts, fits for most
+                        x  = n->stemUpSE().x() - 0.5 * lw;
+                        y1 = n->stemUpSE().y();
+                        if (symId == SymId::noteheadDoubleWhole) {
+                              x  += n->headWidth();
+                              y1 -= 0.5 * spatium();
+                              }
+                        // some fonts' qlyphs need special treatment, suitable offsets found after lots of trial and error
+                        QString musicalFont = score()->styleSt(Sid::musicalSymbolFont);
+                        if (musicalFont == "AloisenGrooveU") {
+                              if (symId == SymId::noteheadHalf || symId == SymId::noteheadBlack)
+                                    x += n->headWidth() - 0.075 * lw; // sticks out of the notehead a bit, but does so for downstem too
+                              }
+                        else if (musicalFont == "AloisenU" || musicalFont == "Bravura") {
+                              if (symId == SymId::noteheadHalf || symId == SymId::noteheadBlack)
+                                    x += 1.1 * lw; // apparently these glyphs` stemUpSE cater for stemwidth, but need an extra 0.1 to prevent a slight 'hump'
+                              }
+#if 0 // fixing the metadata instead
+                        else if (musicalFont == "Emmentaler") {
+                              if (symId == SymId::noteheadHalf)
+                                    x += 0.2 * lw; // to prevent a slight 'hump', we should be able to fix this in the metadata
+                              else if (symId == SymId::noteheadBlack)
+                                    x -= 2.5 * lw; // pure madness, but we should be able to fix this in the metadata
+                              }
+                        else if (musicalFont == "Gonville") {
+                              if (symId == SymId::noteheadHalf || symId == SymId::noteheadBlack)
+                                    x += 0.7 * lw; // we should be able to fix this in the metadata
+                              }
+#endif
+                        else if (musicalFont == "Legato") {
+                              if (symId == SymId::noteheadDoubleWhole) // so far the only font with correct metadata for this notehead
+                                    x -= n->headWidth();
+                              }
+                        else if (musicalFont == "Petaluma") {
+                              if (symId == SymId::noteheadDoubleWhole)
+                                    x -= 0.25 * lw;
+                              else if (symId == SymId::noteheadHalf)
+                                    x += 0.25 * lw;
+                              }
+                        }
+                  else { // here all fonts seem to agree;
+                        x  = n->stemDownNW().x() + 0.5 * lw;
+                        y1 = n->stemDownNW().y();
+                        if (symId == SymId::noteheadDoubleWhole)
+                              y1 += 0.5 * spatium();
+                        }
+                  rxpos() = n->rxpos();
                   rypos() = n->rypos();
                   }
             }
 
       qreal lw5 = 0.5 * lineWidthMag();
 
-      line.setLine(0.0, y1, 0.0, l);
+      line.setLine(x, y1, x, l);
 
       // compute bounding rectangle
       QRectF r(line.p1(), line.p2());
