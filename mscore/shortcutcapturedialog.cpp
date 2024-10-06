@@ -18,9 +18,9 @@
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //=============================================================================
 
-#include "shortcutcapturedialog.h"
 #include "musescore.h"
 #include "shortcut.h"
+#include "shortcutcapturedialog.h"
 
 namespace Ms {
 
@@ -113,12 +113,48 @@ void ShortcutCaptureDialog::keyPress(QKeyEvent* e)
          || k == Qt::Key_ScrollLock || k == Qt::Key_unknown)
             return;
 
-      k += e->modifiers();
-      // remove shift-modifier for keys that don't need it: letters and special keys
-      if ((k & Qt::ShiftModifier) && ((e->key() < 0x41) || (e->key() > 0x5a) || (e->key() >= 0x01000000))) {
-            qDebug() << k;
-            k -= Qt::ShiftModifier;
-            qDebug() << k;
+      k |= e->modifiers();
+      // remove shift-modifier for keys that don't need it: all non-letters except some special keys
+      if ((k & Qt::ShiftModifier) && ((e->key() <  Qt::Key_A) || (e->key() >  Qt::Key_Z))) {
+            switch (e->key()) {
+                  //case Qt::Key_Escape:
+#if (!defined (_MSCVER) && !defined (_MSC_VER))
+                  case Qt::Key_F1 ... Qt::Key_F12: // or even up to Qt::Key_F35
+#else
+                  case Qt::Key_F1:
+                  case Qt::Key_F2:
+                  case Qt::Key_F3:
+                  case Qt::Key_F4:
+                  case Qt::Key_F5:
+                  case Qt::Key_F6:
+                  case Qt::Key_F7:
+                  case Qt::Key_F8:
+                  case Qt::Key_F9:
+                  case Qt::Key_F10:
+                  case Qt::Key_F12:
+#endif
+                  case Qt::Key_Up:
+                  case Qt::Key_Down:
+                  case Qt::Key_Left:
+                  case Qt::Key_Right:
+                  case Qt::Key_Insert:
+                  case Qt::Key_Delete:
+                  case Qt::Key_Home:
+                  case Qt::Key_End:
+                  case Qt::Key_PageUp:
+                  case Qt::Key_PageDown:
+                  case Qt::Key_Space:
+                  // German special letters with keys on a German keyboard
+                  case Qt::Key_Adiaeresis:
+                  case Qt::Key_Odiaeresis:
+                  case Qt::Key_Udiaeresis:
+                  //case Qt::Key_ssharp: // there's no capital `ß` and with `Shift` it'd be `?`
+                        break;
+                  default:
+                        qDebug() << k;
+                        k &= ~Qt::ShiftModifier;
+                        qDebug() << k;
+                  }
             }
 
       switch(key.count()) {
@@ -135,7 +171,7 @@ void ShortcutCaptureDialog::keyPress(QKeyEvent* e)
       bool conflict = false;
       QString msgString;
 
-      for (Shortcut* ss : localShortcuts) {
+      for (Shortcut* ss : qAsConst(localShortcuts)) {
             if (s == ss)
                   continue;
             if (!(s->state() & ss->state()))    // no conflict if states do not overlap
@@ -143,7 +179,7 @@ void ShortcutCaptureDialog::keyPress(QKeyEvent* e)
 
             QList<QKeySequence> skeys = QKeySequence::keyBindings(ss->standardKey());
 
-            for (const QKeySequence& ks : skeys) {
+            for (const QKeySequence& ks : qAsConst(skeys)) {
                   if (ks == key) {
                         msgString = tr("Shortcut conflicts with %1").arg(ss->descr());
                         conflict = true;
