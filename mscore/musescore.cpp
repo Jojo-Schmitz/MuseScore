@@ -4249,6 +4249,7 @@ void MuseScore::clipboardChanged()
 
       bool flag = true;
       getAction("paste")->setEnabled(flag);
+      getAction("paste-clone")->setEnabled(flag);
       getAction("swap")->setEnabled(flag);
       }
 
