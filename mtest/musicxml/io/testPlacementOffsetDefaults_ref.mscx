@@ -5,9 +5,9 @@
     <currentLayer>0</currentLayer>
     <Division>480</Division>
     <Style>
-      <pageWidth>8.26998</pageWidth>
+      <pageWidth>8.26997</pageWidth>
       <pageHeight>11.69</pageHeight>
-      <pagePrintableWidth>7.08888</pagePrintableWidth>
+      <pagePrintableWidth>7.08887</pagePrintableWidth>
       <pageEvenLeftMargin>0.590551</pageEvenLeftMargin>
       <pageOddLeftMargin>0.590551</pageOddLeftMargin>
       <pageEvenTopMargin>0.590551</pageEvenTopMargin>
@@ -53,7 +53,7 @@
     <showFrames>1</showFrames>
     <showMargins>0</showMargins>
     <metaTag name="arranger"></metaTag>
-    <metaTag name="composer">James Mizen</metaTag>
+    <metaTag name="composer">Composer / arranger</metaTag>
     <metaTag name="copyright"></metaTag>
     <metaTag name="lyricist"></metaTag>
     <metaTag name="movementNumber"></metaTag>
@@ -62,7 +62,7 @@
     <metaTag name="source"></metaTag>
     <metaTag name="translator"></metaTag>
     <metaTag name="workNumber"></metaTag>
-    <metaTag name="workTitle">Lyric elision</metaTag>
+    <metaTag name="workTitle">Untitled score</metaTag>
     <Part>
       <Staff id="1">
         <StaffType group="pitched">
@@ -70,19 +70,19 @@
           </StaffType>
         <hideWhenEmpty>3</hideWhenEmpty>
         </Staff>
-      <trackName>Flute</trackName>
-      <Instrument id="flute">
-        <longName>Flute</longName>
-        <shortName>Fl.</shortName>
-        <trackName>Flute</trackName>
-        <minPitchP>59</minPitchP>
-        <maxPitchP>98</maxPitchP>
-        <minPitchA>60</minPitchA>
-        <maxPitchA>93</maxPitchA>
-        <instrumentId>wind.flutes.flute</instrumentId>
+      <trackName>Voice</trackName>
+      <Instrument id="voice">
+        <longName>Voice</longName>
+        <shortName>Vo.</shortName>
+        <trackName>Voice</trackName>
+        <minPitchP>38</minPitchP>
+        <maxPitchP>84</maxPitchP>
+        <minPitchA>41</minPitchA>
+        <maxPitchA>79</maxPitchA>
+        <instrumentId>voice.vocals</instrumentId>
         <Articulation>
           <velocity>100</velocity>
-          <gateTime>95</gateTime>
+          <gateTime>100</gateTime>
           </Articulation>
         <Articulation name="staccatissimo">
           <velocity>100</velocity>
@@ -121,7 +121,7 @@
           <gateTime>100</gateTime>
           </Articulation>
         <Channel>
-          <program value="73"/>
+          <program value="52"/>
           <controller ctrl="10" value="63"/>
           </Channel>
         </Instrument>
@@ -131,11 +131,18 @@
         <height>10</height>
         <Text>
           <style>Title</style>
-          <text>Lyric elision</text>
+          <offset x="0" y="-0.0367999"/>
+          <text><font size="22"/>Untitled score</text>
+          </Text>
+        <Text>
+          <style>Subtitle</style>
+          <offset x="0" y="9.9632"/>
+          <text><font size="14"/>Subtitle</text>
           </Text>
         <Text>
           <style>Composer</style>
-          <text>James Mizen</text>
+          <align>left,bottom</align>
+          <text>Composer / arranger</text>
           </Text>
         </VBox>
       <Measure>
@@ -148,50 +155,64 @@
             <sigN>4</sigN>
             <sigD>4</sigD>
             </TimeSig>
-          <Chord>
-            <durationType>quarter</durationType>
+          <Rest>
+            <durationType>measure</durationType>
+            <duration>1/1</duration>
             <Lyrics>
-              <text>ce<sym>lyricsElision</sym>e<sym>lyricsElision</sym>in</text>
+              <text>Lyrics</text>
               </Lyrics>
-            <StemDirection>down</StemDirection>
-            <Note>
-              <pitch>71</pitch>
-              <tpc>19</tpc>
-              </Note>
-            </Chord>
-          <Chord>
-            <durationType>quarter</durationType>
+            </Rest>
+          </voice>
+        </Measure>
+      <Measure>
+        <LayoutBreak>
+          <subtype>line</subtype>
+          </LayoutBreak>
+        <voice>
+          <Rest>
+            <durationType>measure</durationType>
+            <duration>1/1</duration>
             <Lyrics>
-              <text>ce‿e in</text>
+              <offset x="0.571501" y="3"/>
+              <text>lyrics</text>
               </Lyrics>
-            <StemDirection>down</StemDirection>
-            <Note>
-              <pitch>71</pitch>
-              <tpc>19</tpc>
-              </Note>
-            </Chord>
-          <Chord>
-            <durationType>quarter</durationType>
+            </Rest>
+          </voice>
+        </Measure>
+      <Measure>
+        <voice>
+          <Rest>
+            <durationType>measure</durationType>
+            <duration>1/1</duration>
             <Lyrics>
-              <text>ce<sym>lyricsElision</sym>e<sym>lyricsElision</sym>in</text>
+              <placement>above</placement>
+              <text>lyrics</text>
               </Lyrics>
-            <StemDirection>down</StemDirection>
-            <Note>
-              <pitch>71</pitch>
-              <tpc>19</tpc>
-              </Note>
-            </Chord>
-          <Chord>
-            <durationType>quarter</durationType>
+            </Rest>
+          </voice>
+        </Measure>
+      <Measure>
+        <LayoutBreak>
+          <subtype>line</subtype>
+          </LayoutBreak>
+        <voice>
+          <Rest>
+            <durationType>measure</durationType>
+            <duration>1/1</duration>
             <Lyrics>
-              <text>ce<sym>lyricsElision</sym>e‿in</text>
+              <placement>above</placement>
+              <offset x="0.571501" y="-2"/>
+              <text>lyrics</text>
               </Lyrics>
-            <StemDirection>down</StemDirection>
-            <Note>
-              <pitch>71</pitch>
-              <tpc>19</tpc>
-              </Note>
-            </Chord>
+            </Rest>
+          </voice>
+        </Measure>
+      <Measure>
+        <voice>
+          <Rest>
+            <durationType>measure</durationType>
+            <duration>1/1</duration>
+            </Rest>
           <BarLine>
             <subtype>end</subtype>
             </BarLine>
