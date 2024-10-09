@@ -5613,24 +5613,18 @@ static TDuration determineDuration(const bool rest, const QString& type, const i
       //       rest, qPrintable(type), dots, qPrintable(dura.print()), qPrintable(mDura.print()));
 
       TDuration res;
-      if (rest) {
-            if (isWholeMeasureRest(rest, type, dura, mDura))
-                  res.setType(TDuration::DurationType::V_MEASURE);
-            else if (type.isEmpty()) {
-                  // If no type, set duration type based on duration.
-                  // Note that sometimes unusual duration (e.g. 261/256) are found.
-                  res.setVal(dura.ticks());
-                  }
-            else {
-                  res.setType(type);
-                  res.setDots(dots);
-                  }
+      if (rest && isWholeMeasureRest(rest, type, dura, mDura))
+            res.setType(TDuration::DurationType::V_MEASURE);
+      else if (type.isEmpty()) {
+            // If no type, set duration type based on duration.
+            // Note that sometimes unusual duration (e.g. 261/256) are found.
+            res.setVal(dura.ticks());
             }
       else {
             res.setType(type);
             res.setDots(dots);
             if (res.type() == TDuration::DurationType::V_INVALID)
-                  res.setType(TDuration::DurationType::V_QUARTER);  // default, TODO: use dura ?
+                  res.setType(TDuration::DurationType::V_QUARTER);
             }
 
       //qDebug("-> dur %hhd (%s) dots %d ticks %s",
