@@ -6,7 +6,7 @@
     <Division>480</Division>
     <Style>
       <enableVerticalSpread>1</enableVerticalSpread>
-      <concertPitch>1</concertPitch>
+      <concertPitch>0</concertPitch>
       <defaultFramePadding>0.5</defaultFramePadding>
       <defaultFrameWidth>0.2</defaultFrameWidth>
       <defaultFrameRound>25</defaultFrameRound>
