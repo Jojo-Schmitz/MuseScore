@@ -6019,22 +6019,14 @@ void MusicXmlParserPass2::divisions()
 // the type for all rests.
 // Sibelius calls all whole-measure rests "whole", even if the duration != 4/4
 
-static bool isWholeMeasureRest(const bool rest, const String& type, const Fraction dura, const Fraction mDura)
+static bool isWholeMeasureRest(const String& type, const Fraction restDuration, const Fraction measureDuration)
 {
-    if (!rest) {
+    if (!restDuration.isValid() || !measureDuration.isValid()) {
         return false;
     }
 
-    if (!dura.isValid()) {
-        return false;
-    }
-
-    if (!mDura.isValid()) {
-        return false;
-    }
-
-    return (type.empty() && dura == mDura)
-           || (type == u"whole" && dura == mDura && dura != Fraction(1, 1));
+    return (type.empty() && restDuration == measureDuration)
+           || (type == u"whole" && restDuration == measureDuration && restDuration != Fraction(1, 1));
 }
 
 //---------------------------------------------------------
@@ -6046,35 +6038,30 @@ static bool isWholeMeasureRest(const bool rest, const String& type, const Fracti
  * This includes whole measure rest detection.
  */
 
-static TDuration determineDuration(const bool rest, const String& type, const int dots, const Fraction dura, const Fraction mDura)
+static TDuration determineDuration(const bool isRest, const String& type, const int dots, const Fraction chordRestDuration,
+                                   const Fraction measureDuration)
 {
-    //LOGD("determineDuration rest %d type '%s' dots %d dura %s mDura %s",
-    //       rest, muPrintable(type), dots, muPrintable(dura.print()), muPrintable(mDura.print()));
+    //LOGD("determineDuration %s, type <%s>, dots %d, duration %s, measure duration %s",
+    //      isRest ? "rest" : "chord", muPrintable(durationType), dots, muPrintable(chordRestDuration.toString()), muPrintable(measureDuration.toString()));
 
     TDuration res;
-    if (rest) {
-        if (isWholeMeasureRest(rest, type, dura, mDura)) {
-            res.setType(DurationType::V_MEASURE);
-        } else if (type.empty()) {
-            // If no type, set duration type based on duration.
-            // Note that sometimes unusual duration (e.g. 261/256) are found.
-            res.setVal(dura.ticks());
-        } else {
-            ByteArray ba = type.toAscii();
-            res.setType(TConv::fromXml(ba.constChar(), DurationType::V_INVALID));
-            res.setDots(dots);
-        }
+    if (isRest && isWholeMeasureRest(type, chordRestDuration, measureDuration)) {
+        res.setType(DurationType::V_MEASURE);
+    } else if (type.empty()) {
+        // If no type, set duration type based on duration.
+        // Note that sometimes unusual duration (e.g. 261/256) are found.
+        res.setVal(chordRestDuration.ticks());
     } else {
         ByteArray ba = type.toAscii();
         res.setType(TConv::fromXml(ba.constChar(), DurationType::V_INVALID));
         res.setDots(dots);
         if (res.type() == DurationType::V_INVALID) {
-            res.setType(DurationType::V_QUARTER);        // default, TODO: use dura ?
+            res.setType(DurationType::V_QUARTER);        // default, TODO: use chordRestDuration?
         }
     }
 
-    //LOGD("-> dur %hhd (%s) dots %d ticks %s",
-    //       res.type(), muPrintable(res.name()), res.dots(), muPrintable(dura.print()));
+    //LOGD("-> duration %hhd, dots %d, ticks %s",
+    //      res.type(), res.dots(), muPrintable(chordRestDuration.toString()));
 
     return res;
 }
