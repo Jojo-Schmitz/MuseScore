@@ -120,6 +120,13 @@ void ShortcutCaptureDialog::keyPress(QKeyEvent* e)
             qDebug() << k;
             }
 
+      // remove Ctrl+Alt modifiers from a few keys
+      if ((k & (Qt::ControlModifier | Qt::AltModifier)) && !isCtrlAltNeeded(e->key(), e->text())) { // Qt::KeyAltGr, right Alt
+            qDebug() << k;
+            k &= ~(Qt::ControlModifier | Qt::AltModifier);
+            qDebug() << k;
+            }
+
       switch(key.count()) {
             case 0: key = QKeySequence(k); break;
             case 1: key = QKeySequence(key[0], k); break;
@@ -248,6 +255,30 @@ bool ShortcutCaptureDialog::isShiftAllowed(int key, const QString& keyStr)
                   return true;
             default:
                   return false;
+            }
+      }
+
+bool ShortcutCaptureDialog::isCtrlAltNeeded(int key, const QString& keyStr) {
+      // key that needs AltGR (here esp. on German keyboards), but should not in shortuts
+      if (keyStr.size() == 1 && (keyStr.at(0) == QChar(u'€')))
+            return false;
+
+      // (non-letter) keys that need AltGR (here esp. for German keyboards), but should not in shortuts
+      switch (key) {
+            case Qt::Key_twosuperior:   // default action: voice 2
+            case Qt::Key_threesuperior: // default action: voice 3
+            case Qt::Key_BraceLeft:     // default action: reduce strech
+            case Qt::Key_BracketLeft:
+            case Qt::Key_BracketRight:
+            case Qt::Key_BraceRight:    // default action: increase stretch
+            case Qt::Key_Backslash:
+            case Qt::Key_At:
+            //case Qt::Key_Euro:          // doesn't exist, but see above
+            case Qt::Key_AsciiTilde:
+            case Qt::Key_Bar:
+                  return false;
+            default:
+                  return true;
             }
       }
 
