@@ -114,7 +114,7 @@ void ShortcutCaptureDialog::keyPress(QKeyEvent* e)
 
       k |= e->modifiers();
       // remove shift-modifier for non-letter keys, except a few keys
-      if ((k & Qt::ShiftModifier) && !isShiftAllowed(e->key())) {
+      if ((k & Qt::ShiftModifier) && !isShiftAllowed(e->key(), e->text())) {
             qDebug() << k;
             k &= ~Qt::ShiftModifier;
             qDebug() << k;
@@ -190,15 +190,14 @@ void ShortcutCaptureDialog::keyPress(QKeyEvent* e)
             );
       }
 
-bool ShortcutCaptureDialog::isShiftAllowed(int k)
+bool ShortcutCaptureDialog::isShiftAllowed(int key, const QString& keyStr)
       {
-      // Letter keys where Shift should not be removed
-      if (k >= Qt::Key_A && k <= Qt::Key_Z) {
+      // letter keys where Shift should not be removed
+      if (keyStr.size() == 1 && keyStr.at(0).isLetter())
             return true;
-            }
 
       // non-letter keys where Shift should not be removed
-      switch (k) {
+      switch (key) {
             case Qt::Key_Up:
             case Qt::Key_Down:
             case Qt::Key_Left:
