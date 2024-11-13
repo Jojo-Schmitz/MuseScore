@@ -10,8 +10,7 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#ifndef __TYPES_H__
-#define __TYPES_H__
+#pragma once
 
 #include "config.h"
 
@@ -43,11 +42,11 @@ enum class ElementType : char {
       MEASURE_NUMBER,
       MMREST_RANGE,
       INSTRUMENT_NAME,
-      SLUR_SEGMENT,
-      TIE_SEGMENT,
       BAR_LINE,
       STAFF_LINES,
       SYSTEM_DIVIDER,
+      SLUR_SEGMENT,
+      TIE_SEGMENT,
       STEM_SLASH,
       ARPEGGIO,
       ACCIDENTAL,
@@ -666,5 +665,3 @@ Q_DECLARE_METATYPE(Ms::PlayEventType);
 Q_DECLARE_METATYPE(Ms::AccidentalType);
 
 Q_DECLARE_METATYPE(Ms::HPlacement);
-
-#endif
