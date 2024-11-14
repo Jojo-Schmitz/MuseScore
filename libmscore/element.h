@@ -10,8 +10,7 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#ifndef __ELEMENT_H__
-#define __ELEMENT_H__
+#pragma once
 
 #include "elementgroup.h"
 #include "fraction.h"
@@ -206,6 +205,7 @@ class Element : public ScoreElement {
       const Measure* findMeasure() const;
       MeasureBase* findMeasureBase();
       const MeasureBase* findMeasureBase() const;
+      ChordRest* findChordRest();
 
       virtual bool isElement() const override { return true;        }
 
@@ -604,6 +604,3 @@ extern void collectElements(void* data, Element* e);
 }     // namespace Ms
 
 Q_DECLARE_METATYPE(Ms::ElementType);
-
-#endif
-

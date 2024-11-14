@@ -1474,7 +1474,7 @@ Measure* Element::findMeasure()
       else if (_parent)
             return _parent->findMeasure();
       else
-            return 0;
+            return nullptr;
       }
 
 //---------------------------------------------------------
@@ -1498,7 +1498,7 @@ MeasureBase* Element::findMeasureBase()
       else if (_parent)
             return _parent->findMeasureBase();
       else
-            return 0;
+            return nullptr;
       }
 
 //---------------------------------------------------------
@@ -1509,6 +1509,20 @@ const MeasureBase* Element::findMeasureBase() const
       {
       Element* e = const_cast<Element*>(this);
       return e->findMeasureBase();
+      }
+
+//---------------------------------------------------------
+//   findChordRest
+//---------------------------------------------------------
+
+ChordRest* Element::findChordRest()
+      {
+      if (isChordRest())
+            return toChordRest(this);
+      else if (_parent)
+            return _parent->findChordRest();
+      else
+            return nullptr;
       }
 
 //---------------------------------------------------------
