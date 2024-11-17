@@ -57,6 +57,7 @@ public:
       bool setProperty(Pid, const QVariant&) override;
       QVariant getProperty(Pid) const override;
 
+      QPointF numberPosition(const QRectF&) const;
       QRectF numberRect() const override;
       Shape shape() const override;
 
