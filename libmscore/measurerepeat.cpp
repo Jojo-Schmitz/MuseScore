@@ -125,6 +125,21 @@ void MeasureRepeat::layout()
       addbbox(numberRect());
       }
 
+QPointF MeasureRepeat::numberPosition(const QRectF& numberBbox) const
+{
+    qreal x = (symBbox(symId()).width() - numberBbox.width()) * .5;
+    // -pos().y(): relative to topmost staff line
+    // - 0.5 * r.height(): relative to the baseline of the number symbol
+    // (rather than the center)
+    qreal staffTop = -pos().y();
+    // Single line staff barlines extend above top of staff
+    if (staffType() && staffType()->lines() == 1)
+          staffTop -= 2.0 * spatium();
+    qreal y = std::min(staffTop, -symBbox(symId()).height() / 2) + numberPos() * spatium() - numberBbox.height() * .5;
+
+    return QPointF(x, y);
+}
+
 //---------------------------------------------------------
 //   numberRect
 ///   returns the measure repeat number's bounding rectangle
@@ -135,9 +150,7 @@ QRectF MeasureRepeat::numberRect() const
       if (track() == -1 || numberSym().empty()) // don't display in palette
             return QRectF();
       QRectF r = symBbox(numberSym());
-      qreal x = (symBbox(symId()).width() - symBbox(numberSym()).width()) * .5;
-      qreal y = numberPos() * spatium() - staff()->height() * .5;
-      r.translate(QPointF(x, y));
+      r.translate(numberPosition(r));
       return r;
       }
 
