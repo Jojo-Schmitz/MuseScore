@@ -40,6 +40,9 @@ echo "BUILD_UI_MU4: $BUILD_UI_MU4"
 
 MUSESCORE_REVISION=$(git rev-parse --short=7 HEAD)
 
+# reosolve error reg. "Cycle in dependencies between targets 'audio' and 'awl'"
+defaults write com.apple.dt.XCBuild EnableSwiftBuildSystemIntegration 0
+
 make -f Makefile.osx \
     MUSESCORE_BUILD_CONFIG=$MUSESCORE_BUILD_CONFIG \
     MUSESCORE_REVISION=$MUSESCORE_REVISION \
