@@ -17,8 +17,7 @@
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //=============================================================================
 
-#ifndef __IMPORTMXMLPASS2_H__
-#define __IMPORTMXMLPASS2_H__
+#pragma once
 
 #include <array>
 
@@ -449,6 +448,7 @@ private:
       void sound();
       void dynamics();
       void otherDirection();
+      void symbol();
       void handleRepeats(Measure* measure, const int track, const Fraction tick);
       QString matchRepeat() const;
       void handleNmiCmi(Measure* measure, const int track, const Fraction tick, DelayedDirectionsList& delayedDirections);
@@ -537,4 +537,3 @@ private:
       };
 
 } // namespace Ms
-#endif
