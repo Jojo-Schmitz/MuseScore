@@ -5844,14 +5844,8 @@ static bool commonAnnotations(ExportMusicXml* exp, const Element* e, int sstaff)
       {
       bool instrChangeHandled  = false;
 
-      // note: write the changed instrument details (transposition) here,
+      // note: the instrument change details are handled in ExportMusicXml::writeMeasureTracks,
       // optionally writing the associated staff text is done below
-      if (e->isInstrumentChange()) {
-            const InstrumentChange* instrChange = toInstrumentChange(e);
-            exp->writeInstrumentChange(instrChange);
-            instrChangeHandled = true;
-            }
-
       if (e->isSymbol())
             exp->symbol(toSymbol(e), sstaff);
       else if (e->isTempoText())
@@ -7062,6 +7056,8 @@ void ExportMusicXml::writeInstrumentChange(const InstrumentChange* instrChange)
       const QString longName = instr->longNames()[0].name();
       const QString shortName = instr->shortNames()[0].name();
 
+      // Instrument changes could happen anywhere in the measure, so we close the initial attributes in any case
+      _attr.stop(_xml);
       _xml.stag("print");
       if (!longName.isEmpty()) {
             _xml.stag("part-name-display");
@@ -7105,8 +7101,8 @@ void ExportMusicXml::writeInstrumentDetails(const Instrument* instrument, const 
                   }
             _xml.tag("diatonic",  instrument->transpose().diatonic % 7);
             _xml.tag("chromatic", instrument->transpose().chromatic % 12);
-            int octaveChange = instrument->transpose().chromatic / 12;
-            if (octaveChange != 0)
+            const int octaveChange = instrument->transpose().chromatic / 12;
+            if (octaveChange)
                   _xml.tag("octave-change", octaveChange);
             _xml.etag();
             if (concertPitch)
@@ -7328,16 +7324,16 @@ void ExportMusicXml::writeMeasureTracks(const Measure* const m,
 
       const int etrack = strack + VOICES * staves;
 
-      for (int st = strack; st < etrack; ++st) {
+      for (int track = strack; track < etrack; ++track) {
             // sstaff - xml staff number, counting from 1 for this
             // instrument
             // special number 0 -> don’t show staff number in
             // xml output (because there is only one staff)
 
-            int sstaff = (staves > 1) ? st - strack + VOICES : 0;
+            int sstaff = (staves > 1) ? track - strack + VOICES : 0;
             sstaff /= VOICES;
             for (Segment* seg = m->first(); seg; seg = seg->next()) {
-                  Element* const el = seg->element(st);
+                  Element* const el = seg->element(track);
                   if (!el) {
                         continue;
                         }
@@ -7346,7 +7342,13 @@ void ExportMusicXml::writeMeasureTracks(const Measure* const m,
                         continue;
 
                   // generate backup or forward to the start time of the element
-                  moveToTickIfNeed(seg->tick(), stretch(_score, st, m->tick()));
+                  moveToTickIfNeed(seg->tick(), stretch(_score, track, m->tick()));
+
+                  Element* ic = seg->findAnnotation(ElementType::INSTRUMENT_CHANGE, strack, etrack - 1);
+                  if (ic && (track == strack)) {
+                        const InstrumentChange* instrChange = toInstrumentChange(ic);
+                        writeInstrumentChange(instrChange);
+                        }
 
                   // handle annotations and spanners (directions attached to this note or rest)
                   if (el->isChordRest()) {
@@ -7361,9 +7363,9 @@ void ExportMusicXml::writeMeasureTracks(const Measure* const m,
                                     }
                               tboxesAboveWritten = true;
                               }
-                        if (!tboxesBelowWritten && isLastPart && (etrack - VOICES) <= st) {
+                        if (!tboxesBelowWritten && isLastPart && (etrack - VOICES) <= track) {
                               for (TBox* const tbox : tboxesBelow) {
-                                    const int lastStaffNr = st / VOICES;
+                                    const int lastStaffNr = track / VOICES;
                                     const System* sys = m->coveringMMRestOrThis()->system();
                                     QPointF textPos = tbox->text()->canvasPos() - m->coveringMMRestOrThis()->canvasPos();
                                     if (lastStaffNr < sys->staves()->size()) {
@@ -7374,10 +7376,10 @@ void ExportMusicXml::writeMeasureTracks(const Measure* const m,
                                     }
                               tboxesBelowWritten = true;
                               }
-                        harmonies(this, st, seg);
-                        annotations(this, strack, etrack, st, sstaff, seg);
-                        figuredBass(_xml, strack, etrack, st, static_cast<const ChordRest*>(el), fbMap, div);
-                        spannerStart(this, strack, etrack, st, sstaff, seg);
+                        harmonies(this, track, seg);
+                        annotations(this, strack, etrack, track, sstaff, seg);
+                        figuredBass(_xml, strack, etrack, track, static_cast<const ChordRest*>(el), fbMap, div);
+                        spannerStart(this, strack, etrack, track, sstaff, seg);
                         }
 
                   // write element el if necessary
@@ -7385,7 +7387,7 @@ void ExportMusicXml::writeMeasureTracks(const Measure* const m,
 
                   // handle annotations and spanners (directions attached to this note or rest)
                   if (el->isChordRest()) {
-                        const int spannerStaff = st / VOICES;
+                        const int spannerStaff = track / VOICES;
                         const int starttrack = spannerStaff * VOICES;
                         const int endtrack = (spannerStaff + 1) * VOICES;
                         spannerStop(this, starttrack, endtrack, _tick, sstaff, spannersStopped);
@@ -7393,13 +7395,13 @@ void ExportMusicXml::writeMeasureTracks(const Measure* const m,
 
                   } // for (Segment* seg = ...
             _attr.stop(_xml);
-            const bool isLastVoiceOfStaff = st % VOICES == VOICES - 1;
-            const bool isLastVoiceOfLastStaff = st == etrack - 1;
+            const bool isLastVoiceOfStaff = track % VOICES == VOICES - 1;
+            const bool isLastVoiceOfLastStaff = track == etrack - 1;
             if (isLastVoiceOfStaff && !isLastVoiceOfLastStaff) {
                   // move tick to start of measure, generates backup to next staff, needs this staff's stretch
-                  moveToTick(m->tick(), stretch(_score, st, m->tick()));
+                  moveToTick(m->tick(), stretch(_score, track, m->tick()));
                   }
-            } // for (int st = ...
+            } // for (int track = ...
       }
 
 //---------------------------------------------------------
