@@ -10,22 +10,12 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "box.h"
-#include "textframe.h"
-#include "text.h"
-#include "score.h"
-#include "barline.h"
-#include "repeat.h"
-#include "symbol.h"
-#include "system.h"
-#include "image.h"
-#include "layoutbreak.h"
-#include "fret.h"
-#include "mscore.h"
-#include "stafftext.h"
 #include "icon.h"
-#include "xml.h"
-#include "measure.h"
+#include "image.h"
+#include "score.h"
+#include "stafftext.h"
+#include "system.h"
+#include "textframe.h"
 #include "undo.h"
 
 namespace Ms {

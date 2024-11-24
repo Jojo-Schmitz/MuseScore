@@ -14,19 +14,20 @@
 #include <QFile>
 #include <QCoreApplication>
 #include <QTextStream>
-#include "libmscore/mscore.h"
-#include "libmscore/score.h"
-#include "libmscore/durationtype.h"
-#include "libmscore/measure.h"
-#include "libmscore/segment.h"
-#include "libmscore/tempotext.h"
-#include "libmscore/chord.h"
-#include "libmscore/note.h"
-#include "libmscore/keysig.h"
-#include "audio/exports/exportmidi.h"
 #include <QIODevice>
 
+#include "libmscore/chord.h"
+#include "libmscore/durationtype.h"
+#include "libmscore/keysig.h"
 #include "libmscore/mcursor.h"
+#include "libmscore/measure.h"
+#include "libmscore/mscore.h"
+#include "libmscore/note.h"
+#include "libmscore/score.h"
+#include "libmscore/segment.h"
+
+#include "audio/exports/exportmidi.h"
+
 #include "mtest/testutils.h"
 #define DIR QString("libmscore/midi/")
 
@@ -61,6 +62,7 @@ class TestMidi : public QObject, public MTest
       void midiPortExport()   { midiExportTestRef("testMidiPort"); }
       void midiArpeggio()     { midiExportTestRef("testArpeggio"); }
       void midiMutedUnison()  { midiExportTestRef("testMutedUnison"); }
+      void midiMeasureRepeats() { midiExportTestRef("testMeasureRepeats"); }
       void midi184376ExportMidiInitialKeySig()
             {
             midiExportTestRef("testInitialKeySigThenRepeatToMeas2");    // tick 0 has Bb keysig.  Meas 2 has no key sig. Meas 2 repeats back to start of Meas 2.  Result should have initial Bb keysig
@@ -607,5 +609,6 @@ void TestMidi::midiExportTestRef(const QString& file)
 
 QTEST_MAIN(TestMidi)
 
+#if __has_include("tst_midi.moc")
 #include "tst_midi.moc"
-
+#endif

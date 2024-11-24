@@ -10,11 +10,11 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "score.h"
 #include "measure.h"
-#include "undo.h"
 #include "range.h"
+#include "score.h"
 #include "spanner.h"
+#include "undo.h"
 
 namespace Ms {
 
@@ -27,6 +27,14 @@ void Score::cmdJoinMeasure(Measure* m1, Measure* m2)
       {
       if (!m1 || !m2)
             return;
+
+      for (int staffIdx = 0; staffIdx < nstaves(); ++staffIdx) {
+            if (m1->isMeasureRepeatGroupWithPrevM(staffIdx) || m2->isMeasureRepeatGroupWithNextM(staffIdx)) {
+                  MScore::setError(CANNOT_SPLIT_MEASURE_REPEAT);
+                  return;
+                  }
+            }
+
       if (m1->isMMRest())
             m1 = m1->mmRestFirst();
       if (m2->isMMRest())

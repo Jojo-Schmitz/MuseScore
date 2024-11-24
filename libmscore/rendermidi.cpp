@@ -29,12 +29,12 @@
 #include "hairpin.h"
 #include "instrument.h"
 #include "measure.h"
+#include "measurerepeat.h"
 #include "navigate.h"
 #include "note.h"
 #include "noteevent.h"
 #include "part.h"
 #include "rendermidi.h"
-#include "repeat.h"
 #include "repeatlist.h"
 #include "score.h"
 #include "segment.h"
@@ -159,7 +159,7 @@ void Score::updateCapo()
 
 void Score::updateChannel()
       {
-      for (Staff* s : staves()) {
+      for (Staff*& s : staves()) {
             for (int i = 0; i < VOICES; ++i)
                   s->clearChannelList(i);
             }
@@ -169,7 +169,7 @@ void Score::updateChannel()
       for (Segment* s = fm->first(SegmentType::ChordRest); s; s = s->next1(SegmentType::ChordRest)) {
             for (const Element* e : s->annotations()) {
                   if (e->isInstrumentChange()) {
-                        for (Staff* staff : *e->part()->staves()) {
+                        for (Staff*& staff : *e->part()->staves()) {
                               for (int voice = 0; voice < VOICES; ++voice)
                                     staff->insertIntoChannelList(voice, s->tick(), 0);
                               }
@@ -199,7 +199,7 @@ void Score::updateChannel()
             }
 
       for (Segment* s = fm->first(SegmentType::ChordRest); s; s = s->next1(SegmentType::ChordRest)) {
-            for (Staff* st : staves()) {
+            for (Staff*& st : staves()) {
                   int strack = st->idx() * VOICES;
                   int etrack = strack + VOICES;
                   for (int track = strack; track < etrack; ++track) {
@@ -278,7 +278,7 @@ static void playNote(EventMap* events, const Note* note, int channel, int pitch,
                                     static_cast<qreal>(glissando->easeOut()) / 100.0);
                               easeInOut.timeList(static_cast<int>((timeDelta + timeStep * 0.5) / timeStep), int(timeDelta), &onTimes);
                               double nTimes = static_cast<double>(onTimes.size() - 1);
-                              for (double time : onTimes) {
+                              for (double time : qAsConst(onTimes)) {
                                     int p = static_cast<int>((t / nTimes) * pitchDelta);
                                     int timeStamp = std::min(onTime + int(time), offTime - 1);
                                     int midiPitch = (p * 16384) / 1200 + 8192;
@@ -721,7 +721,7 @@ void MidiRenderer::collectMeasureEventsSimple(EventMap* events, Measure const * 
                   events->registerChannel(channel);
 
                   qreal veloMultiplier = 1;
-                  for (Articulation* a : chord->articulations()) {
+                  for (Articulation*& a : chord->articulations()) {
                         if (a->playArticulation()) {
                               veloMultiplier *= instr->getVelocityMultiplier(a->articulationName());
                               }
@@ -730,7 +730,7 @@ void MidiRenderer::collectMeasureEventsSimple(EventMap* events, Measure const * 
                   SndConfig config;       // dummy
 
                   if (!graceNotesMerged(chord))
-                        for (Chord* c : chord->graceNotesBefore())
+                        for (Chord*& c : chord->graceNotesBefore())
                               for (const Note* note : c->notes())
                                     collectNote(events, channel, note, veloMultiplier, tickOffset, st1, config);
 
@@ -738,7 +738,7 @@ void MidiRenderer::collectMeasureEventsSimple(EventMap* events, Measure const * 
                         collectNote(events, channel, note, veloMultiplier, tickOffset, st1, config);
 
                   if (!graceNotesMerged(chord))
-                        for (Chord* c : chord->graceNotesAfter())
+                        for (Chord*& c : chord->graceNotesAfter())
                               for (const Note* note : c->notes())
                                     collectNote(events, channel, note, veloMultiplier, tickOffset, st1, config);
                   }
@@ -814,7 +814,7 @@ void MidiRenderer::collectMeasureEventsDefault(EventMap* events, Measure const *
 
                   // Get a velocity multiplier
                   qreal veloMultiplier = 1;
-                  for (Articulation* a : chord->articulations()) {
+                  for (Articulation*& a : chord->articulations()) {
                         if (a->playArticulation()) {
                               veloMultiplier *= instr->getVelocityMultiplier(a->articulationName());
                               }
@@ -828,7 +828,7 @@ void MidiRenderer::collectMeasureEventsDefault(EventMap* events, Measure const *
                   //
 
                   if (!graceNotesMerged(chord))
-                        for (Chord* c : chord->graceNotesBefore())
+                        for (Chord*& c : chord->graceNotesBefore())
                               for (const Note* note : c->notes())
                                     collectNote(events, channel, note, veloMultiplier, tickOffset, st1, config);
 
@@ -836,7 +836,7 @@ void MidiRenderer::collectMeasureEventsDefault(EventMap* events, Measure const *
                         collectNote(events, channel, note, veloMultiplier, tickOffset, st1, config);
 
                   if (!graceNotesMerged(chord))
-                        for (Chord* c : chord->graceNotesAfter())
+                        for (Chord*& c : chord->graceNotesAfter())
                               for (const Note* note : c->notes())
                                     collectNote(events, channel, note, veloMultiplier, tickOffset, st1, config);
                   }
@@ -891,7 +891,7 @@ void Score::updateHairpin(Hairpin* h)
                   st->velocities().addRamp(tick, tick2, veloChange, method, direction);
                   break;
             case Dynamic::Range::PART:
-                  for (Staff* s : *st->part()->staves()) {
+                  for (Staff*& s : *st->part()->staves()) {
                         s->velocities().addRamp(tick, tick2, veloChange, method, direction);
                         }
                   break;
@@ -999,7 +999,7 @@ void Score::updateVelo()
                               Instrument* instr = chord->part()->instrument();
 
                               qreal veloMultiplier = 1;
-                              for (Articulation* a : chord->articulations()) {
+                              for (Articulation*& a : chord->articulations()) {
                                     if (a->playArticulation()) {
                                           veloMultiplier *= instr->getVelocityMultiplier(a->articulationName());
                                           }
@@ -1042,7 +1042,7 @@ void Score::updateVelo()
       }
 
 //---------------------------------------------------------
-//   renderStaffSegment
+//   renderStaffChunk
 //---------------------------------------------------------
 
 void MidiRenderer::renderStaffChunk(const Chunk& chunk, EventMap* events, const StaffContext& sctx)
@@ -1054,9 +1054,15 @@ void MidiRenderer::renderStaffChunk(const Chunk& chunk, EventMap* events, const 
       Measure const * lastMeasure = start->prevMeasure();
 
       for (Measure const * m = start; m != end; m = m->nextMeasure()) {
-            if (lastMeasure && m->isRepeatMeasure(sctx.staff)) {
-                  int offset = (m->tick() - lastMeasure->tick()).ticks();
-                  collectMeasureEvents(events, lastMeasure, sctx, tickOffset + offset);
+            int staffIdx = sctx.staff->idx();
+            if (m->isMeasureRepeatGroup(staffIdx)) {
+                  MeasureRepeat* mr = m->measureRepeatElement(staffIdx);
+                  Measure const* playMeasure = lastMeasure;
+                  for (int i = m->measureRepeatCount(staffIdx); i < mr->numMeasures() && playMeasure->prevMeasure(); ++i) {
+                        playMeasure = playMeasure->prevMeasure();
+                        }
+                  int offset = (m->tick() - playMeasure->tick()).ticks();
+                  collectMeasureEvents(events, playMeasure, sctx, tickOffset + offset);
                   }
             else {
                   lastMeasure = m;
@@ -1946,7 +1952,7 @@ bool graceNotesMerged(Chord* chord)
       {
       if (findFirstTrill(chord))
             return true;
-      for (Articulation* a : chord->articulations())
+      for (Articulation*& a : chord->articulations())
             for (auto& oe : excursions)
                   if ( oe.atype == a->symId() )
                         return true;
@@ -1974,7 +1980,7 @@ void renderChordArticulation(Chord* chord, QList<NoteEventList> & ell, int & gat
                   renderNoteArticulation(events, note, false, trill->trillType(), trill->ornamentStyle());
                   }
             else {
-                  for (Articulation* a : chord->articulations()) {
+                  for (Articulation*& a : chord->articulations()) {
                         if (!a->playArticulation())
                               continue;
                         if (!renderNoteArticulation(events, note, false, a->symId(), a->ornamentStyle()))
@@ -1996,7 +2002,7 @@ static bool shouldRenderNote(Note* n)
                   // The previous tied note probably has events for this note too.
                   // That is, we don't need to render this note separately.
                   return false;
-            for (Articulation* a : n->chord()->articulations()) {
+            for (Articulation*& a : n->chord()->articulations()) {
                   if (a->isOrnament()) {
                         return false;
                         }
@@ -2369,7 +2375,7 @@ void MidiRenderer::renderChunk(const Chunk& chunk, EventMap* events, const Conte
             }
 
       // create note & other events
-      for (Staff* st : score->staves()) {
+      for (Staff*& st : score->staves()) {
             StaffContext sctx;
             sctx.staff = st;
             sctx.method = renderMethod;
@@ -2454,8 +2460,8 @@ bool MidiRenderer::canBreakChunk(const Measure* last)
       // being properly rendered, disallow breaking
       // chunk at repeat measure.
       if (const Measure* next = last->nextMeasure())
-            for (const Staff* staff : score->staves()) {
-                  if (next->isRepeatMeasure(staff))
+            for (Staff*& staff : score->staves()) {
+                  if (next->isMeasureRepeatGroup(staff->idx()))
                         return false;
                   }
 

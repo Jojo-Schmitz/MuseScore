@@ -36,6 +36,7 @@
 #include "layoutbreak.h"
 #include "line.h"
 #include "lyrics.h"
+#include "measurerepeat.h"
 #include "measure.h"
 #include "mscore.h"
 #include "note.h"
@@ -44,7 +45,6 @@
 #include "part.h"
 #include "pitchspelling.h"
 #include "rehearsalmark.h"
-#include "repeat.h"
 #include "repeatlist.h"
 #include "rest.h"
 #include "revisions.h"
@@ -1661,7 +1661,7 @@ MeasureBase* Score::measure(int idx) const
 
 //---------------------------------------------------------
 //   crMeasure
-//    Returns a measure containing chords an rests
+//    Returns a measure containing chords and/or rests
 //    by its index skipping other MeasureBase descendants
 //---------------------------------------------------------
 
@@ -1849,8 +1849,8 @@ void Score::scanElements(void* data, void (*func)(void*, Element*), bool all)
                         mmr->scanElements(data, func, all);
                   }
             }
-      for (Page* page : pages()) {
-            for (System* s :page->systems())
+      for (Page*& page : pages()) {
+            for (System*& s :page->systems())
                   s->scanElements(data, func, all);
             func(data, page);
             }
@@ -1940,7 +1940,7 @@ void MasterScore::addExcerpt(Excerpt* ex)
       Score* score = ex->partScore();
 
       int nstaves { 1 }; // Initialise to 1 to force writing of the first part.
-      for (Staff* s : score->staves()) {
+      for (Staff*& s : score->staves()) {
             const LinkedElements* ls = s->links();
             if (ls == 0)
                   continue;
@@ -1959,9 +1959,9 @@ void MasterScore::addExcerpt(Excerpt* ex)
                   break;
                   }
             }
-      if (ex->tracks().isEmpty()) {      // SHOULDN'T HAPPEN, protected in the UI, but it happens during read-in!!!
+      if (ex->tracks().isEmpty()) { // SHOULDN'T HAPPEN, protected in the UI, but it happens during read-in!!!
             QMultiMap<int, int> tracks;
-            for (Staff* s : score->staves()) {
+            for (Staff*& s : score->staves()) {
                   const LinkedElements* ls = s->links();
                   if (ls == 0)
                         continue;
@@ -2267,11 +2267,11 @@ void Score::splitStaff(int staffIdx, int splitPoint)
             Tie* tie;
             Note* nnote;
             };
-      QMap<Note*, OldTie> oldTies;
+      QHash<Note*, OldTie> oldTies;
 
       // Notes under the split point can be part of a tuplet, so keep track
       // of the tuplet mapping too!
-      QMap<Tuplet*, Tuplet*> tupletMapping;
+      QHash<Tuplet*, Tuplet*> tupletMapping;
       Tuplet* tupletSrc[VOICES] = { };
       Tuplet* tupletDst[VOICES] = { };
 
@@ -2356,14 +2356,14 @@ void Score::splitStaff(int staffIdx, int splitPoint)
                                                 continue;
                                           if (slur->startCR() == chord) {
                                                 slur->undoChangeProperty(Pid::TRACK, slur->track()+VOICES);
-                                                for (ScoreElement* ee : slur->linkList()) {
+                                                for (ScoreElement*& ee : slur->linkList()) {
                                                       Slur* lslur = toSlur(ee);
                                                       lslur->setStartElement(0);
                                                       }
                                                 }
                                           if (slur->endCR() == chord) {
                                                 slur->undoChangeProperty(Pid::SPANNER_TRACK2, slur->track2()+VOICES);
-                                                for (ScoreElement* ee : slur->linkList()) {
+                                                for (ScoreElement*& ee : slur->linkList()) {
                                                       Slur* lslur = toSlur(ee);
                                                       lslur->setEndElement(0);
                                                       }
@@ -2522,7 +2522,7 @@ void Score::adjustBracketsDel(int sidx, int eidx)
       {
       for (int staffIdx = 0; staffIdx < _staves.size(); ++staffIdx) {
             Staff* staff = _staves[staffIdx];
-            for (BracketItem* bi : staff->brackets()) {
+            for (BracketItem*& bi : staff->brackets()) {
                   int span = bi->bracketSpan();
                   if ((span == 0) || ((staffIdx + span) < sidx) || (staffIdx > eidx))
                         continue;
@@ -2549,7 +2549,7 @@ void Score::adjustBracketsIns(int sidx, int eidx)
       {
       for (int staffIdx = 0; staffIdx < _staves.size(); ++staffIdx) {
             Staff* staff = _staves[staffIdx];
-            for (BracketItem* bi : staff->brackets()) {
+            for (BracketItem*& bi : staff->brackets()) {
                   int span = bi->bracketSpan();
                   if ((span == 0) || ((staffIdx + span) < sidx) || (staffIdx > eidx))
                         continue;
@@ -2615,7 +2615,7 @@ void Score::cmdRemoveStaff(int staffIdx)
       if (s->links()) {
             Staff* sameScoreLinkedStaff = 0;
             auto staves = s->links();
-            for (auto le : *staves) {
+            for (auto& le : *staves) {
                   Staff* staff = toStaff(le);
                   if (staff == s)
                         continue;
@@ -2691,7 +2691,7 @@ void Score::sortStaves(QList<int>& dst)
 
 void Score::mapExcerptTracks(QList<int> &dst)
       {
-      for (Excerpt* e : excerpts()) {
+      for (Excerpt*& e : excerpts()) {
             QMultiMap<int, int> tr = e->tracks();
             QMultiMap<int, int> tracks;
             for (QMap<int, int>::iterator it = tr.begin(); it != tr.end(); ++it) {
@@ -2738,7 +2738,7 @@ void Score::cmdConcertPitchChanged(bool flag, bool /*useDoubleSharpsFlats*/)
                         Harmony* h  = toHarmony(e);
                         int rootTpc = transposeTpc(h->rootTpc(), interval, true);
                         int baseTpc = transposeTpc(h->baseTpc(), interval, true);
-                        for (ScoreElement* se : h->linkList()) {
+                        for (ScoreElement*& se : h->linkList()) {
                               // don't transpose all links
                               // just ones resulting from mmrests
                               Harmony* he = toHarmony(se);    // toHarmony() does not work as e is an ScoreElement
@@ -2986,7 +2986,7 @@ void Score::padToggle(Pad p, const EditData& ed)
                   ChordRest* cr = InputState::chordRest(e);
                   if (!cr)
                         continue;
-                  if (cr->isRepeatMeasure() || (cr->isRest() && toRest(cr)->measure() && toRest(cr)->measure()->isMMRest())) {
+                  if (cr->isMeasureRepeat() || (cr->isRest() && toRest(cr)->measure() && toRest(cr)->measure()->isMMRest())) {
                         canAdjustLength = false;
                         break;
                         }
@@ -3804,7 +3804,7 @@ QList<Score*> Score::scoreList()
       QList<Score*> scores;
       Score* root = masterScore();
       scores.append(root);
-      for (const Excerpt* ex : root->excerpts()) {
+      for (Excerpt*& ex : root->excerpts()) {
             if (ex->partScore())
                   scores.append(ex->partScore());
             }
@@ -3818,7 +3818,7 @@ QList<Score*> Score::scoreList()
 bool Score::switchLayer(const QString& s)
       {
       int layerIdx = 0;
-      for (const Layer& l : layer()) {
+      for (Layer& l : layer()) {
             if (s == l.name) {
                   setCurrentLayer(layerIdx);
                   return true;
@@ -3902,9 +3902,9 @@ bool Score::isSpannerStartEnd(const Fraction& tick, int track) const
 
 void Score::insertTime(const Fraction& tick, const Fraction& len)
       {
-      for (Staff* staff : staves())
+      for (Staff*& staff : staves())
             staff->insertTime(tick, len);
-      for (Part* part : parts())
+      for (Part*& part : parts())
             part->insertTime(tick, len);
       }
 
@@ -3943,7 +3943,7 @@ void MasterScore::setPos(POS pos, Fraction tick)
       // even though tick position might not have changed, layout might have
       // so we should update cursor here
       // however, we must be careful not to call setPos() again while handling posChanged, or recursion results
-      for (Score* s : scoreList())
+      for (Score*& s : scoreList())
             emit s->posChanged(pos, unsigned(tick.ticks()));
       }
 
@@ -5117,7 +5117,7 @@ void MasterScore::setPlaybackScore(Score* score)
 
       for (MidiMapping& mm : _midiMapping)
             mm.articulation()->setSoloMute(true);
-      for (Part* part : score->parts()) {
+      for (Part*& part : score->parts()) {
             for (auto& i : *part->instruments()) {
                   Instrument* instr = i.second;
                   for (Channel* ch : instr->channel()) {
@@ -5176,7 +5176,7 @@ void MasterScore::updateExpressive(Synthesizer* synth, bool expressive, bool for
                   }
             }
 
-      for (Part* p : parts()) {
+      for (Part*& p : parts()) {
             const InstrumentList* il = p->instruments();
             for (auto it = il->begin(); it != il->end(); it++) {
                   Instrument* i = it->second;

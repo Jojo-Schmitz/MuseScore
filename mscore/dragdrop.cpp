@@ -10,25 +10,24 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "libmscore/score.h"
-#include "libmscore/element.h"
-#include "libmscore/note.h"
-#include "libmscore/rest.h"
-#include "libmscore/measure.h"
-#include "libmscore/system.h"
-#include "libmscore/segment.h"
-#include "libmscore/page.h"
-#include "libmscore/image.h"
-#include "libmscore/text.h"
-#include "libmscore/spanner.h"
-#include "libmscore/chord.h"
-#include "libmscore/icon.h"
-#include "libmscore/xml.h"
-#include "libmscore/stafflines.h"
+#include "continuouspanel.h"
 #include "musescore.h"
 #include "scoreview.h"
-#include "continuouspanel.h"
 #include "tourhandler.h"
+
+#include "libmscore/element.h"
+#include "libmscore/icon.h"
+#include "libmscore/image.h"
+#include "libmscore/note.h"
+#include "libmscore/measure.h"
+#include "libmscore/page.h"
+#include "libmscore/score.h"
+#include "libmscore/segment.h"
+#include "libmscore/spanner.h"
+#include "libmscore/stafflines.h"
+#include "libmscore/system.h"
+#include "libmscore/xml.h"
+
 
 namespace Ms {
 
@@ -381,7 +380,7 @@ void ScoreView::dragMoveEvent(QDragMoveEvent* event)
             case ElementType::INSTRUMENT_CHANGE:
             case ElementType::REHEARSAL_MARK:
             case ElementType::JUMP:
-            case ElementType::REPEAT_MEASURE:
+            case ElementType::MEASURE_REPEAT:
             case ElementType::ICON:
             case ElementType::CHORD:
             case ElementType::SPACER:
@@ -524,7 +523,7 @@ void ScoreView::dropEvent(QDropEvent* event)
                   case ElementType::INSTRUMENT_CHANGE:
                   case ElementType::REHEARSAL_MARK:
                   case ElementType::JUMP:
-                  case ElementType::REPEAT_MEASURE:
+                  case ElementType::MEASURE_REPEAT:
                   case ElementType::ICON:
                   case ElementType::NOTE:
                   case ElementType::CHORD:
