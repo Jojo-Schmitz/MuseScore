@@ -803,7 +803,7 @@ Segment* Score::setNoteRest(Segment* segment, int track, NoteVal nval, Fraction 
                         nr = ncr = new Rest(this);
                         nr->setTrack(track);
                         ncr->setDurationType(d);
-                        ncr->setTicks(d == TDuration::DurationType::V_MEASURE ? measure->ticks() : d.fraction());
+                        ncr->setTicks(d.isMeasure() ? measure->ticks() : d.fraction());
                         }
                   else {
                         nr = note = new Note(this);
