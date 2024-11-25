@@ -2,8 +2,7 @@ name: 'Check: Visual Tests (vtests)'
 
 on:
   pull_request:
-    branches:
-    - 3.x
+  workflow_dispatch:
 
 jobs:
   run_vtests:
@@ -34,7 +33,7 @@ jobs:
     - name: Setup the environment
       if: contains( env.found, '1')
       run: |
-        sudo bash ./build/ci/linux/setup.sh
+        bash ./build/ci/linux/setup.sh
     - name: Build
       if: contains( env.found, '1')
       run: |
