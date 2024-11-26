@@ -13,7 +13,6 @@
 #ifndef __UTILS_H__
 #define __UTILS_H__
 
-#include "mscore.h"
 #include "interval.h"
 #include "sym.h"
 
@@ -54,6 +53,8 @@ extern int line2pitch(int line, ClefType clef, Key);
 extern int y2pitch(qreal y, ClefType clef, qreal spatium);
 extern int quantizeLen(int, int);
 extern QString pitch2string(int v);
+extern int string2pitch(const QString& s);
+extern QString convertPitchStringFlatsAndSharpsToUnicode(const QString& str);
 extern void transposeInterval(int pitch, int tpc, int* rpitch, int* rtpc,
    Interval, bool useDoubleSharpsFlats);
 extern int transposeTpc(int tpc, Interval interval, bool useDoubleSharpsFlats);
