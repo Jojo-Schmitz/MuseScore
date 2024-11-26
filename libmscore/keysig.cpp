@@ -89,6 +89,10 @@ void KeySig::addLayout(SymId sym, qreal x, int line)
 
 void KeySig::layout()
       {
+      // We do not show keys if the key is for instrument change and we are in concert pitch mode
+      if (forInstrumentChange() && concertPitch())
+            return;
+
       qreal _spatium = spatium();
       setbbox(QRectF());
 
@@ -100,7 +104,6 @@ void KeySig::layout()
                   }
             return;
             }
-
       _sig.keySymbols().clear();
       if (staff() && !staff()->staffType(tick())->genKeysig())
             return;
