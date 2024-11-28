@@ -428,7 +428,7 @@ bool Score::pasteStaff(XmlReader& e, Segment* dst, int dstStaff, Fraction scale)
                               e.skipCurrentElement();    // ignore bar line
                               }
                         else {
-                              qDebug("PasteStaff: element %s not handled", tag.toUtf8().data());
+                              qDebug("PasteStaff: element %s not handled", tag.toUtf8().constData());
                               e.skipCurrentElement();    // ignore
                               }
                         }
@@ -475,7 +475,7 @@ bool Score::pasteStaff(XmlReader& e, Segment* dst, int dstStaff, Fraction scale)
                   }
             }
 
-      for (Score* s : scoreList())     // for all parts
+      for (Score*& s : scoreList())     // for all parts
             s->connectTies();
 
       if (pasted) {                       //select only if we pasted something
@@ -780,7 +780,7 @@ void Score::pasteSymbols(XmlReader& e, ChordRest* dst)
                                     harmSegm          = meas ? meas->undoGetSegment(SegmentType::ChordRest, destTick) : nullptr;
                               }
                               if (destTrack >= maxTrack || harmSegm == nullptr) {
-                                    qDebug("PasteSymbols: no track or segment for %s", tag.toUtf8().data());
+                                    qDebug("PasteSymbols: no track or segment for %s", tag.toUtf8().constData());
                                     e.skipCurrentElement();       // ignore
                                     continue;
                                     }
@@ -825,7 +825,7 @@ void Score::pasteSymbols(XmlReader& e, ChordRest* dst)
                               }
                         else if (tag == "HairPin") {
                               if (destTrack >= maxTrack) {
-                                    qDebug("PasteSymbols: no track for %s", tag.toLocal8Bit().data());
+                                    qDebug("PasteSymbols: no track for %s", tag.toLocal8Bit().constData());
                                     e.skipCurrentElement();
                                     continue;
                                     }
@@ -845,13 +845,13 @@ void Score::pasteSymbols(XmlReader& e, ChordRest* dst)
                                     currSegm = currSegm->nextCR(destTrack);
                               // check the intended dest. track and segment exist
                               if (destTrack >= maxTrack || currSegm == nullptr) {
-                                    qDebug("PasteSymbols: no track or segment for %s", tag.toUtf8().data());
+                                    qDebug("PasteSymbols: no track or segment for %s", tag.toUtf8().constData());
                                     e.skipCurrentElement();       // ignore
                                     continue;
                                     }
                               // check there is a segment element in the required track
                               if (currSegm->element(destTrack) == nullptr) {
-                                    qDebug("PasteSymbols: no track element for %s", tag.toUtf8().data());
+                                    qDebug("PasteSymbols: no track element for %s", tag.toUtf8().constData());
                                     e.skipCurrentElement();
                                     continue;
                                     }
@@ -983,7 +983,7 @@ void Score::pasteSymbols(XmlReader& e, ChordRest* dst)
                                     undoAddElement(el);
                                     }
                               else {
-                                    qDebug("PasteSymbols: element %s not handled", tag.toUtf8().data());
+                                    qDebug("PasteSymbols: element %s not handled", tag.toUtf8().constData());
                                     e.skipCurrentElement();    // ignore
                                     }
                               }           // if !Harmony
@@ -1103,21 +1103,18 @@ void Score::cmdPaste(const QMimeData* ms, MuseScoreView* view, Fraction scale)
                   select(nel);
             }
       else if ((_selection.isRange() || _selection.isList()) && ms->hasFormat(mimeStaffListFormat)) {
-            ChordRest* cr = 0;
+            ChordRest* cr = nullptr;
             if (_selection.isRange())
                   cr = _selection.firstChordRest();
             else if (_selection.isSingle()) {
-                  Element* e = _selection.element();
-                  if (!e->isNote() && !e->isChordRest()) {
-                        qDebug("cannot paste to %s", e->name());
+                  cr = _selection.element()->findChordRest();
+                  if (!cr) {
+                        qDebug("cannot paste to %s", _selection.element()->name());
                         MScore::setError(DEST_NO_CR);
                         return;
                         }
-                  if (e->isNote())
-                        e = toNote(e)->chord();
-                  cr  = toChordRest(e);
                   }
-            if (cr == 0) {
+            if (!cr) {
                   MScore::setError(NO_DEST);
                   return;
                   }
@@ -1138,21 +1135,18 @@ void Score::cmdPaste(const QMimeData* ms, MuseScoreView* view, Fraction scale)
                   }
             }
       else if (ms->hasFormat(mimeSymbolListFormat)) {
-            ChordRest* cr = 0;
+            ChordRest* cr = nullptr;
             if (_selection.isRange())
                   cr = _selection.firstChordRest();
             else if (_selection.isSingle()) {
-                  Element* e = _selection.element();
-                  if (!e->isNote() && !e->isRest() && !e->isChord()) {
-                        qDebug("cannot paste to %s", e->name());
+                  cr = _selection.element()->findChordRest();
+                  if (!cr) {
+                        qDebug("cannot paste to %s", _selection.element()->name());
                         MScore::setError(DEST_NO_CR);
                         return;
                         }
-                  if (e->isNote())
-                        e = toNote(e)->chord();
-                  cr  = toChordRest(e);
                   }
-            if (cr == 0) {
+            if (!cr) {
                   MScore::setError(NO_DEST);
                   return;
                   }
@@ -1198,7 +1192,7 @@ void Score::cmdPaste(const QMimeData* ms, MuseScoreView* view, Fraction scale)
       else {
             qDebug("cannot paste selState %d staffList %s",
                int(_selection.state()), (ms->hasFormat(mimeStaffListFormat))? "true" : "false");
-            for (const QString& s : ms->formats())
+            for (QString& s : ms->formats())
                   qDebug("  format %s", qPrintable(s));
             }
       }
