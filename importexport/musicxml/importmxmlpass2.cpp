@@ -2965,7 +2965,7 @@ void MusicXMLParserPass2::measureLayout(Measure* measure)
       while (_e.readNextStartElement()) {
             if (_e.name() == "measure-distance") {
                   const Spatium val(_e.readElementText().toDouble() / 10.0);
-                  if (!measure->prev()->isHBox()) {
+                  if (!measure->prev() || !measure->prev()->isHBox()) {
                         _score->insertMeasure(ElementType::HBOX, measure);
                         toHBox(measure)->setBoxWidth(val);
                         }
