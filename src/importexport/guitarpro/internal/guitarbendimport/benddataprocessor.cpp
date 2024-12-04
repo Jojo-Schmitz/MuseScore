@@ -133,7 +133,6 @@ static void createGuitarBends(const BendDataContext& bendDataCtx, mu::engraving:
     }
 
     Note* startNote = startChord->upNote(); // TODO: separate notes in the same chord
-    int pitch = bendData.quarterTones / 2;
 
     if (bendData.type == GuitarBendType::PRE_BEND) {
         int pitch = bendData.quarterTones / 2;
@@ -142,10 +141,10 @@ static void createGuitarBends(const BendDataContext& bendDataCtx, mu::engraving:
         GuitarBend* bend = score->addGuitarBend(bendData.type, note);
         QuarterOffset quarterOff = bendData.quarterTones % 2 ? QuarterOffset::QUARTER_SHARP : QuarterOffset::NONE;
         bend->setEndNotePitch(note->pitch(), quarterOff);
-        Note* startNote = bend->startNote();
-        if (startNote) {
-            startNote->setPitch(note->pitch() - pitch);
-            startNote->setTpcFromPitch();
+        Note* bendStartNote = bend->startNote();
+        if (bendStartNote) {
+            bendStartNote->setPitch(note->pitch() - pitch);
+            bendStartNote->setTpcFromPitch();
         }
     } else if (bendData.type == GuitarBendType::SLIGHT_BEND) {
         GuitarBend* bend = score->addGuitarBend(bendData.type, note);
@@ -165,6 +164,7 @@ static void createGuitarBends(const BendDataContext& bendDataCtx, mu::engraving:
         }
 
         QuarterOffset quarterOff = bendData.quarterTones % 2 ? QuarterOffset::QUARTER_SHARP : QuarterOffset::NONE;
+        int pitch = bendData.quarterTones / 2;
         bend->setEndNotePitch(startNote->pitch() + pitch, quarterOff);
         bend->setStartTimeFactor(bendData.startFactor);
         bend->setEndTimeFactor(bendData.endFactor);
