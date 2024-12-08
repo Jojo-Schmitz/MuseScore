@@ -2083,9 +2083,24 @@ static QList<NoteEventList> renderChord(Chord* chord, int gateTime, int ontime, 
 
 void Score::createGraceNotesPlayEvents(const Fraction& tick, Chord* chord, int& ontime, int& trailtime)
       {
-      QVector<Chord*> gnb = chord->graceNotesBefore();
+      QVector<Chord*> gnb = {};
+      int nb = 0;
+      // exclude grace chords where all notes are set not to play
+      for (Chord* c : chord->graceNotesBefore()) {
+            bool play = false;
+            for (Note* note : c->notes()) {
+                  if (note->play()) {
+                        play = true;;
+                        break;
+                        }
+                  }
+            if (play) {
+                  gnb.push_back(c);
+                  nb++;
+                  }
+            }
+
       QVector<Chord*> gna = chord->graceNotesAfter();
-      int nb = gnb.size();
       int na = gna.size();
       if (0 == nb + na) {
             return; // return immediately if no grace notes to deal with
