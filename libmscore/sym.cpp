@@ -6601,11 +6601,16 @@ void Ms::ScoreFont::initScoreFonts()
       // Linux:  "$XDG_DATA_HOME/SMuFL/Fonts", "$XDG_DATA_DIRS/SMuFL/Fonts"
       // as per https://doc.qt.io/qt-5/qstandardpaths.html#standardLocations that is the (start of the) list
       // which `GenericDataLocation` gives (without the "/SMuFL/Fonts")
-#ifdef Q_OS_WIN
-      // take only the first two entries of that list on Windows (on Mac it is 2 elements only anyway)
+      // take only the first two entries of that list (on Windows, on Mac it is 2 elements only anyway).
+      // These standard location roughly match up with what the following returns, but some adjustments are needed.
       QStringList systemFontsPaths = QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation).mid(0, 2);
-#else
-      QStringList systemFontsPaths = QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation);
+#if defined(Q_OS_WIN)
+      // On Windows, the second standard location returned by Qt is %ProgramData%, but we want %CommonProgramFiles%
+      systemFontsPaths[1] = qgetenv("CommonProgramFiles").replace("\\", "/"); // "C:\\Program Files\\Common Files"
+#elif defined(Q_OS_LINUX)
+      // On Unix systems, we want $XDG_DATA_DIRS and $XDG_DATA_HOME
+      QStringList xdgDataDirs = QString::fromLocal8Bit(qgetenv("XDG_DATA_DIRS")).split(':');
+      systemFontsPaths = xdgDataDirs << qgetenv("XDG_DATA_HOME");
 #endif
       for (QString& systemFontsPath : systemFontsPaths) {
             systemFontsPath += "/SMuFL/Fonts";
