@@ -3883,7 +3883,7 @@ qreal Measure::createEndBarLines(bool isLastMeasureInSystem)
             //  create the courtesy key sig.
             //
 
-            bool show = score()->styleB(Sid::genCourtesyKeysig) && !sectionBreak() && nm;
+            bool show = score()->styleB(Sid::genCourtesyKeysig) && !isFinalMeasureOfSection() && nm;
 
             setHasCourtesyKeySig(false);
 
