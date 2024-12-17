@@ -4221,7 +4221,8 @@ System* Score::collectSystem(LayoutContext& lc)
 
       Measure* lm  = system->lastMeasure();
       if (lm) {
-            minWidth += lm->createEndBarLines(true);
+            if (lc.prevMeasure && !lc.prevMeasure->sectionBreak())
+                  minWidth += lm->createEndBarLines(true);
             Measure* nm = lm->nextMeasure();
             if (nm) {
                   qreal w = lm->width();
