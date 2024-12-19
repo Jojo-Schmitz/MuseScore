@@ -747,7 +747,7 @@ bool Element::readProperties(XmlReader& e)
                   }
 #ifndef NDEBUG
             else {
-                  for (ScoreElement* eee : qAsConst(*_links)) {
+                  for (ScoreElement* eee : *_links) {
                         Element* ee = static_cast<Element*>(eee);
                         if (ee->type() != type()) {
                               qFatal("link %s(%d) type mismatch %s linked to %s",

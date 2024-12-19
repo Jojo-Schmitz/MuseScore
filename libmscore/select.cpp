@@ -17,9 +17,8 @@
 
 #include "global/log.h"
 
-#include "accidental.h"
+#include "mscore.h"
 #include "arpeggio.h"
-#include "articulation.h"
 #include "barline.h"
 #include "beam.h"
 #include "chord.h"
@@ -32,29 +31,33 @@
 #include "fret.h"
 #include "hook.h"
 #include "input.h"
+#include "limits.h"
 #include "lyrics.h"
 #include "measure.h"
-#include "mscore.h"
 #include "note.h"
 #include "notedot.h"
 #include "page.h"
-#include "part.h"
 #include "rest.h"
 #include "score.h"
 #include "segment.h"
 #include "select.h"
 #include "sig.h"
-#include "staff.h"
-#include "stafftext.h"
+#include "slur.h"
 #include "stem.h"
 #include "stemslash.h"
-#include "sticking.h"
-#include "system.h"
 #include "tie.h"
+#include "system.h"
+#include "text.h"
 #include "tremolo.h"
 #include "tuplet.h"
 #include "utils.h"
 #include "xml.h"
+#include "staff.h"
+#include "part.h"
+#include "accidental.h"
+#include "articulation.h"
+#include "stafftext.h"
+#include "sticking.h"
 
 namespace Ms {
 
@@ -484,7 +487,7 @@ void Selection::appendChord(Chord* chord)
             if (note->accidental()) _el.append(note->accidental());
             for (Element* el : note->el())
                   appendFiltered(el);
-            for (NoteDot* dot : qAsConst(note->dots()))
+            for (NoteDot* dot : note->dots())
                   _el.append(dot);
 
             if (note->tieFor() && (note->tieFor()->endElement() != 0)) {
@@ -602,10 +605,10 @@ void Selection::updateSelectedElements()
                         }
                   if (e->isChord()) {
                         Chord* chord = toChord(e);
-                        for (Chord* graceNote : qAsConst(chord->graceNotes()))
+                        for (Chord* graceNote : chord->graceNotes())
                               if (canSelect(graceNote)) appendChord(graceNote);
                         appendChord(chord);
-                        for (Articulation* art : qAsConst(chord->articulations()))
+                        for (Articulation* art : chord->articulations())
                               appendFiltered(art);
                         }
                   else {
@@ -707,7 +710,7 @@ void Selection::dump()
             case SelState::RANGE:  qDebug("RANGE"); break;
             case SelState::LIST:   qDebug("LIST"); break;
             }
-      for (const Element* e : qAsConst(_el))
+      for (const Element* e : _el)
             qDebug("  %p %s", e, e->name());
       }
 
@@ -839,10 +842,10 @@ QByteArray Selection::staffMimeData() const
       Fraction ticks  = tickEnd() - tickStart();
       int staves = staffEnd() - staffStart();
       if (!MScore::testMode) {
-            xml.stag(QString("StaffList version=\"" MSC_VERSION "\" tick=\"%1\" len=\"%2\" staff=\"%3\" staves=\"%4\"").arg(tickStart().toString(), ticks.toString()).arg(staffStart()).arg(staves));
+            xml.stag(QString("StaffList version=\"" MSC_VERSION "\" tick=\"%1\" len=\"%2\" staff=\"%3\" staves=\"%4\"").arg(tickStart().toString()).arg(ticks.toString()).arg(staffStart()).arg(staves));
             }
       else {
-            xml.stag(QString("StaffList version=\"2.00\" tick=\"%1\" len=\"%2\" staff=\"%3\" staves=\"%4\"").arg(tickStart().toString(), ticks.toString()).arg(staffStart()).arg(staves));
+            xml.stag(QString("StaffList version=\"2.00\" tick=\"%1\" len=\"%2\" staff=\"%3\" staves=\"%4\"").arg(tickStart().toString()).arg(ticks.toString()).arg(staffStart()).arg(staves));
             }
       Segment* seg1 = _startSegment;
       Segment* seg2 = _endSegment;
@@ -1144,7 +1147,7 @@ std::vector<Note*> Selection::noteList(int selTrack) const
                                     continue;
                               Chord* c = toChord(e);
                               nl.insert(nl.end(), c->notes().begin(), c->notes().end());
-                              for (Chord* g : qAsConst(c->graceNotes())) {
+                              for (Chord* g : c->graceNotes()) {
                                     nl.insert(nl.end(), g->notes().begin(), g->notes().end());
                                     }
                               }
