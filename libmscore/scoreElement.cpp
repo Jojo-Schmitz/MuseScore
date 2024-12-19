@@ -10,13 +10,15 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "bracketItem.h"
-#include "measure.h"
-#include "musescoreCore.h"
-#include "score.h"
 #include "scoreElement.h"
+#include "score.h"
 #include "undo.h"
 #include "xml.h"
+#include "bracket.h"
+#include "bracketItem.h"
+#include "measure.h"
+#include "spanner.h"
+#include "musescoreCore.h"
 
 namespace Ms {
 
