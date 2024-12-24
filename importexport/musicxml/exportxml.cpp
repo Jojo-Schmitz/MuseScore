@@ -3734,6 +3734,20 @@ static void writeNotehead(XmlWriter& xml, const Note* const note)
             noteheadTagname += QString(" smufl=\"%1\"").arg(noteheadName);
             xml.tag(noteheadTagname, "other");
             }
+
+      if (note->headScheme() == NoteHead::Scheme::HEAD_PITCHNAME // [A-G]
+          || note->headScheme() == NoteHead::Scheme::HEAD_PITCHNAME_GERMAN // + H
+          || note->headScheme() == NoteHead::Scheme::HEAD_SOLFEGE // + Do, Re, Mi, Fa, So(l), La, [ST]i
+          || note->headScheme() == NoteHead::Scheme::HEAD_SOLFEGE_FIXED) {
+            const char* noteheadName = Sym::id2name(note->noteHead());
+            QString textName = QString::fromLatin1(noteheadName).remove(QRegularExpression("^note")).remove(QRegularExpression("(Sharp|Flat)?(Whole|Half|Black){1}$"));
+            QString accName  = QString::fromLatin1(noteheadName).remove(QRegularExpression("^note[A-HLMRST]{1}[aeio]?")).remove(QRegularExpression("(Whole|Half|Black){1}$")).toLower();
+            xml.stag("notehead-text");
+            xml.tag("display-text", textName);
+            if (!accName.isEmpty())
+                  xml.tag("accidental-text", accName);
+            xml.etag();
+            }
       }
 
 //---------------------------------------------------------
