@@ -86,12 +86,12 @@ installBottleManually libsndfile
 installBottleManually portaudio
 
 
-export QT_SHORT_VERSION=5.15.2
+export QT_SHORT_VERSION=5.15.10
 export QT_PATH=$HOME/Qt
 export QT_MACOS=$QT_PATH/$QT_SHORT_VERSION/clang_64
 export PATH=$PATH:$QT_MACOS/bin
 echo "PATH=$PATH" >> $GITHUB_ENV
-wget -nv -O qt5.zip https://s3.amazonaws.com/utils.musescore.org/Qt5152_mac.zip
+wget -nv -O qt5.zip https://github.com/Jojo-Schmitz/musescore_build_qt/releases/download/v10885153030/Qt.5.15.10.for.macOS.with.QtWebEngine.zip
 mkdir -p $QT_MACOS
 unzip -qq qt5.zip -d $QT_MACOS
 rm qt5.zip
