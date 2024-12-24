@@ -6421,9 +6421,24 @@ Note* MusicXMLParserPass2::note(const QString& partId,
                   if (noteheadValue == "none")
                         hasHead = false;
                   else if (noteheadValue == "named" && _pass1.exporterSoftware() == MusicXMLExporterSoftware::NOTEFLIGHT)
-                        headScheme = NoteHead::Scheme::HEAD_PITCHNAME;
+                        headScheme = NoteHead::Scheme::HEAD_PITCHNAME; // NoteHead::Scheme::HEAD_PITCHNAME_GERMAN is not an option here?
                   else
                         headGroup = convertNotehead(noteheadValue);
+                  }
+            else if (_e.name() == "notehead-text") {
+                  QString noteheadText;
+                  while (_e.readNextStartElement()) {
+                        if (_e.name() == "display-text")
+                              noteheadText = _e.readElementText();
+                        else if (_e.name() == "accidental-text")
+                              _e.skipCurrentElement();
+                        else
+                              skipLogCurrElem();
+                        }
+                  if (noteheadText.size() == 1)
+                        headScheme = (noteheadText == "H") ? NoteHead::Scheme::HEAD_PITCHNAME_GERMAN : NoteHead::Scheme::HEAD_PITCHNAME;
+                  else
+                        headScheme = NoteHead::Scheme::HEAD_SOLFEGE_FIXED;
                   }
             else if (_e.name() == "rest") {
                   rest = true;
