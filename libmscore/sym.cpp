@@ -6653,6 +6653,24 @@ void ScoreFont::scanUserFonts(const QString& path, bool standard)
                         }
                   }
 
+#if 0
+            QString metadataPath;
+            QStringList metadataFilenameOptions = {
+                "/metadata.json",
+                QString("/%1.json").arg(fontName),
+                QString("/%1_metadata.json").arg(fontName).toLower().remove(' ')
+            };
+            for (const auto& option : metadataFilenameOptions) {
+                if (QFile::exists(dirs.filePath() + option)) {
+                    metadataPath = dirs.filePath() + option;
+                    break;
+                }
+            }
+            if (metadataPath.isEmpty()) {
+                qDebug() << "No metadata file found for font" << fontName;
+                continue;
+            }
+#endif
             bool hasMetadataFile = QFileInfo::exists(fontDirPath + (standard ? fontName : "metadata") + ".json");
 
             if (hasMetadataFile && !fontFilename.isEmpty()) {
