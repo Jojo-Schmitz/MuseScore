@@ -112,6 +112,7 @@ InspectorNote::InspectorNote(QWidget* parent)
             { Pid::SMALL,          1, c.isSmall,       c.resetSmall         },
             { Pid::NO_STEM,        1, c.stemless,      c.resetStemless      },
             { Pid::STEM_DIRECTION, 1, c.stemDirection, c.resetStemDirection },
+            { Pid::HOOK_REVERSED,  1, c.reversedHook,  c.resetReversedHook  },
 
             { Pid::LEADING_SPACE,  2, s.leadingSpace,  s.resetLeadingSpace  },
             };

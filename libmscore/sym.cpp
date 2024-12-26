@@ -6403,6 +6403,15 @@ void ScoreFont::draw(SymId id, QPainter* painter, const QSizeF& mag, const QPoin
       draw(id, painter, mag, pos, worldScale);
       }
 
+void ScoreFont::drawReversed(SymId id, QPainter* painter, qreal mag, const QPointF& pos) const
+      {
+      qreal worldScale = painter->worldTransform().m11();
+      painter->save();
+         painter->scale(-1.0, +1.0);
+         draw(id, painter, QSizeF(mag, mag), pos, worldScale);
+      painter->restore();
+      }
+
 void ScoreFont::draw(SymId id, QPainter* painter, qreal mag, const QPointF& pos, qreal worldScale) const
       {
       draw(id, painter, QSizeF(mag, mag), pos, worldScale);

@@ -1533,6 +1533,11 @@ void Element::undoSetVisible(bool v)
 //   drawSymbol
 //---------------------------------------------------------
 
+void Element::drawSymbolReversed(SymId id, QPainter* p, const QPointF& o, qreal scale) const
+      {
+      score()->scoreFont()->drawReversed(id, p, magS() * scale, o);
+      }
+
 void Element::drawSymbol(SymId id, QPainter* p, const QPointF& o, qreal scale) const
       {
       score()->scoreFont()->draw(id, p, magS() * scale, o);
