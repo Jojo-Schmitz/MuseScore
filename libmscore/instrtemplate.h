@@ -157,6 +157,8 @@ extern void clearInstrumentTemplates();
 extern bool loadInstrumentTemplates(const QString& instrTemplates);
 extern bool saveInstrumentTemplates(const QString& instrTemplates);
 extern InstrumentTemplate* searchTemplate(const QString& name);
+extern const InstrumentTemplate* combinedTemplateSearch(const QString& mxmlId, const QString& name, const int transposition, const int bank,
+                                                        const int program);
 extern InstrumentIndex searchTemplateIndexForTrackName(const QString& trackName);
 extern InstrumentIndex searchTemplateIndexForId(const QString& id);
 extern InstrumentTemplate* searchTemplateForMusicXmlId(const QString& mxmlId);
