@@ -1415,7 +1415,7 @@ static void addTextToNote(int l, int c, QString txt, QString placement, QString 
 
 /**
  Helper for direction().
- SLine placement is modified by changing the first segments user offset
+ SLine placement is modified by changing the first segment's user offset
  As the SLine has just been created, it does not have any segment yet
  */
 
@@ -1436,11 +1436,11 @@ static void setSLinePlacement(SLine* sli, const QString placement)
                   qreal y = 0;
                   y +=  offsAbove;
                   // add linesegment containing the user offset
-                  LineSegment* tls= sli->createLineSegment();
+                  LineSegment* tls = sli->createLineSegment();
                   //qDebug("   y = %g", y);
                   tls->setAutoplace(false);
                   y *= sli->score()->spatium();
-                  tls->setUserOff(QPointF(0, y));
+                  tls->setUserOff2(QPointF(0, y));
                   sli->add(tls);
                   }
             }
@@ -1450,7 +1450,7 @@ static void setSLinePlacement(SLine* sli, const QString placement)
 #endif
       if (placement == "above" || placement == "below") {
             sli->setPlacement(placement == "above" ? Placement::ABOVE : Placement::BELOW);
-            sli->setPropertyFlags(Pid::PLACEMENT, PropertyFlags::UNSTYLED);
+            sli->setPropertyFlags(Pid::PLACEMENT, PropertyFlags::NOSTYLE);
             sli->resetProperty(Pid::OFFSET);
             }
       }
