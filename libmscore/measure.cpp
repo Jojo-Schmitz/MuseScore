@@ -1806,9 +1806,9 @@ void Measure::adjustToLen(Fraction nf, bool appendRestsIfNecessary)
             startTick += diff;
 
       score()->undoInsertTime(startTick, diff);
-      score()->undo(new InsertTime(score(), startTick, diff));
 
       for (Score* s : score()->scoreList()) {
+            s->undo(new InsertTime(s, startTick, diff));
             Measure* m = s->tick2measure(tick());
             s->undo(new ChangeMeasureLen(m, nf));
             if (nl > ol) {
@@ -1860,15 +1860,18 @@ void Measure::adjustToLen(Fraction nf, bool appendRestsIfNecessary)
                         // convert the measure duration in a list of values (no dots for rests)
                         std::vector<TDuration> durList = toDurationList(nf * stretch, false, 0);
 
-                        rest->undoChangeProperty(Pid::DURATION, QVariant::fromValue<Fraction>(durList[0].fraction()));
+                        // set the existing rest to the first value of the duration list
+                        TDuration firstDur = durList[0];
+                        rest->undoChangeProperty(Pid::DURATION, firstDur.isMeasure() ? ticks() : firstDur.fraction());
                         rest->undoChangeProperty(Pid::DURATION_TYPE, QVariant::fromValue<TDuration>(durList[0]));
 
                         // add rests for any other duration list value
                         Fraction tickOffset = tick() + rest->actualTicks();
                         for (unsigned i = 1; i < durList.size(); i++) {
                               Rest* newRest = new Rest(s);
-                              newRest->setDurationType(durList.at(i));
-                              newRest->setTicks(durList.at(i).fraction());
+                              TDuration dur = durList.at(i);
+                              newRest->setDurationType(dur);
+                              newRest->setTicks(dur.isMeasure() ? ticks() : dur.fraction());
                               newRest->setTrack(rest->track());
                               score()->undoAddCR(newRest, this, tickOffset);
                               tickOffset += newRest->actualTicks();

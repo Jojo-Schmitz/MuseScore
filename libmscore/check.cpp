@@ -10,16 +10,15 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "score.h"
-#include "slur.h"
-#include "measure.h"
-#include "tuplet.h"
 #include "chordrest.h"
+#include "clef.h"
+#include "keysig.h"
+#include "measure.h"
 #include "rest.h"
+#include "score.h"
 #include "segment.h"
 #include "staff.h"
-#include "keysig.h"
-#include "clef.h"
+#include "tuplet.h"
 #include "utils.h"
 
 namespace Ms {
@@ -331,7 +330,7 @@ void Measure::fillGap(const Fraction& pos, const Fraction& len, int track, const
       d.setVal(len.ticks());
       if (d.isValid()) {
             Rest* rest = new Rest(score());
-            rest->setTicks(len);
+            rest->setTicks(d.isMeasure() ? ticks() : len);
             rest->setDurationType(d);
             rest->setTrack(track);
             rest->setGap(useGapRests);
