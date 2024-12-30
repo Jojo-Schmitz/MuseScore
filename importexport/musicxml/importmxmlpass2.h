@@ -22,6 +22,7 @@
 
 #include <array>
 
+#include "libmscore/lyrics.h"
 #include "libmscore/score.h"
 #include "libmscore/tuplet.h"
 #include "importxmlfirstpass.h"
@@ -131,10 +132,11 @@ struct GraceNoteLyrics {
 
 class MusicXMLParserLyric {
 public:
-      MusicXMLParserLyric(const LyricNumberHandler lyricNumberHandler,
-                          QXmlStreamReader& e, Score* score, MxmlLogger* logger);
+      MusicXMLParserLyric(const LyricNumberHandler lyricNumberHandler, QXmlStreamReader& e, Score* score, MxmlLogger* logger,
+                          bool isVoiceStaff);
       QSet<Lyrics*> extendedLyrics() const { return _extendedLyrics; }
       QMap<int, Lyrics*> numberedLyrics() const { return _numberedLyrics; }
+      const std::vector<Sticking*>& inferredStickings() const { return _inferredStickings; }
       void parse();
 private:
       void skipLogCurrElem();
@@ -151,6 +153,9 @@ private:
       QString placement() const;
       qreal totalY() const { return _defaultY + _relativeY; }
       bool hasTotalY() const { return !qFuzzyIsNull(_defaultY) || !qFuzzyIsNull(_relativeY); }
+      std::vector<Sticking*> _inferredStickings;   // stickings with valid number
+      bool isLikelySticking(const QString& text, const Lyrics::Syllabic syllabic, const bool hasExtend);
+      bool _isVoiceStaff = true;
       };
 
 //---------------------------------------------------------
@@ -427,14 +432,19 @@ private:
       QString _sndSegno;
       QString _sndToCoda;
       QString _placement;
-      bool _hasDefaultY;
-      qreal _defaultY;
-      bool _hasRelativeY;
-      qreal _relativeY;
+      bool _hasDefaultX = false;
+      bool _hasDefaultY = false;
+      qreal _defaultX = 0.0;
+      qreal _defaultY = 0.0;
+      bool _hasRelativeX = false;
+      bool _hasRelativeY = false;
+      qreal _relativeX = 0.0;
+      qreal _relativeY = 0.0;
+      bool hasTotalX() const { return _hasRelativeX || _hasDefaultX; }
       bool hasTotalY() const { return _hasRelativeY || _hasDefaultY; }
       bool _isBold;
-      double _tpoMetro;                 // tempo according to metronome
-      double _tpoSound;                 // tempo according to sound
+      double _tpoMetro = 0.0;                 // tempo according to metronome
+      double _tpoSound = 0.0;                 // tempo according to sound
       bool _systemDirection = false;
       bool _visible = true;
       QList<Element*> _elems;
@@ -455,6 +465,7 @@ private:
       void handleNmiCmi(Measure* measure, const int track, const Fraction tick, DelayedDirectionsList& delayedDirections);
       void handleChordSym(const int track, const Fraction tick, HarmonyMap& harmonyMap);
       bool isLikelyFingering(const QString& fingeringStr) const;
+      bool isLikelySticking();
       bool isLikelyCredit(const Fraction& tick) const;
       void textToCrescLine(QString& text);
       void addInferredCrescLine(const int track, const Fraction& tick, const bool isVocalStaff);
