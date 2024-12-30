@@ -183,8 +183,8 @@ public:
       int octaveShift(const QString& id, const int staff, const Fraction f) const;
       const CreditWordsList& credits() const { return _credits; }
       bool hasBeamingInfo() const { return _hasBeamingInfo; }
-      bool isVocalStaff(const QString& id) const { return _parts[id].isVocalStaff(); }
-      bool isPercussionStaff(const QString& id) const { return _parts[id].isPercussionStaff(); }
+      bool isVocalStaff(const QString& partId) const { return _parts[partId].isVocalStaff(); }
+      bool isPercussionStaff(const QString& partId) const { return _parts[partId].isPercussionStaff(); }
       static VBox* createAndAddVBoxForCreditWords(Score* const score);
       int maxDiff() const { return _maxDiff; }
       void insertAdjustedDuration(Fraction key, Fraction value) { _adjustedDurations.insert(key, value); }

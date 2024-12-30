@@ -22,6 +22,7 @@
 
 #include <array>
 
+#include "libmscore/lyrics.h"
 #include "libmscore/score.h"
 #include "libmscore/tuplet.h"
 #include "importxmlfirstpass.h"
@@ -131,10 +132,11 @@ struct GraceNoteLyrics {
 
 class MusicXMLParserLyric {
 public:
-      MusicXMLParserLyric(const LyricNumberHandler lyricNumberHandler,
-                          QXmlStreamReader& e, Score* score, MxmlLogger* logger);
+      MusicXMLParserLyric(const LyricNumberHandler lyricNumberHandler, QXmlStreamReader& e, Score* score, MxmlLogger* logger,
+                          bool isVoiceStaff);
       QSet<Lyrics*> extendedLyrics() const { return _extendedLyrics; }
       QMap<int, Lyrics*> numberedLyrics() const { return _numberedLyrics; }
+      const std::vector<Sticking*>& inferredStickings() const { return _inferredStickings; }
       void parse();
 private:
       void skipLogCurrElem();
@@ -151,6 +153,9 @@ private:
       QString placement() const;
       qreal totalY() const { return _defaultY + _relativeY; }
       bool hasTotalY() const { return !qFuzzyIsNull(_defaultY) || !qFuzzyIsNull(_relativeY); }
+      std::vector<Sticking*> _inferredStickings;   // stickings with valid number
+      bool isLikelySticking(const QString& text, const Lyrics::Syllabic syllabic, const bool hasExtend);
+      bool _isVoiceStaff = true;
       };
 
 //---------------------------------------------------------
