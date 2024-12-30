@@ -141,6 +141,7 @@ private slots:
       void figuredBassDivisions() { mxmlIoTest("testFiguredBassDivisions"); }
       // void finaleInstr() { mxmlImportTestRef("testFinaleInstr"); } // TODO
       void finaleInstr2() { mxmlImportTestRef("testFinaleInstr2"); }
+      void finaleDynamics() { mxmlImportTestRef("testFinaleDynamics"); }
       // void formattedThings() { mxmlIoTest("testFormattedThings"); } // TODO
       void fractionMinus() { mxmlIoTestRef("testFractionMinus"); }
       void fractionPlus() { mxmlIoTestRef("testFractionPlus"); }
