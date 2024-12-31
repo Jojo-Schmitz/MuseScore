@@ -15,7 +15,7 @@ while [[ "$#" -gt 0 ]]; do
     shift
 done
 
-if [ $VERSION -eq 0 ]; then 
+if [ "$VERSION" -eq 0 ]; then 
     SCRIPT_DIR=$(cd "$(dirname ${BASH_SOURCE[0]})" && pwd)
     VERSION=$(cmake -P "$SCRIPT_DIR/../config.cmake" | sed -n -e "s/^.*VERSION  *//p")
 fi    
