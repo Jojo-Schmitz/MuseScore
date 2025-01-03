@@ -11,24 +11,25 @@
 //=============================================================================
 
 
-#include "pianoview.h"
-#include "pianoruler.h"
-#include "pianokeyboard.h"
-#include "shortcut.h"
 #include "musescore.h"
-#include "scoreview.h"
+#include "pianokeyboard.h"
+#include "pianoruler.h"
+#include "pianoview.h"
 #include "preferences.h"
-#include "libmscore/part.h"
-#include "libmscore/staff.h"
-#include "libmscore/measure.h"
+#include "scoreview.h"
+#include "shortcut.h"
+
 #include "libmscore/chord.h"
+#include "libmscore/measure.h"
+#include "libmscore/note.h"
+#include "libmscore/noteevent.h"
+#include "libmscore/part.h"
 #include "libmscore/rest.h"
 #include "libmscore/score.h"
-#include "libmscore/note.h"
+#include "libmscore/segment.h"
+#include "libmscore/staff.h"
 #include "libmscore/tie.h"
 #include "libmscore/tuplet.h"
-#include "libmscore/segment.h"
-#include "libmscore/noteevent.h"
 #include "libmscore/undo.h"
 #include "libmscore/utils.h"
 
@@ -732,11 +733,19 @@ void PianoView::wheelEvent(QWheelEvent* event)
             }
       else if (event->modifiers() == Qt::ControlModifier) {
             //Vertical zoom
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+            zoomView(step, false, event->position().x(), event->position().y());
+#else
             zoomView(step, false, event->x(), event->y());
+#endif
             }
       else if (event->modifiers() == (Qt::ShiftModifier | Qt::ControlModifier)) {
             //Horizontal zoom
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+            zoomView(step, true, event->position().x(), event->position().y());
+#else
             zoomView(step, true, event->x(), event->y());
+#endif
             }
       }
 
@@ -1228,7 +1237,11 @@ QVector<Note*> PianoView::getSegmentNotes(Segment* seg, int track)
       ChordRest* cr = seg->cr(track);
       if (cr && cr->isChord()) {
             Chord* chord = toChord(cr);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+            notes.append(QVector<Note*>(chord->notes().begin(), chord->notes().end()));
+#else
             notes.append(QVector<Note*>::fromStdVector(chord->notes()));
+#endif
             }
 
       return notes;
