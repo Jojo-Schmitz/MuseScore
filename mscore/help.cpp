@@ -93,8 +93,13 @@ void HelpQuery::textChanged(const QString& ss)
       emptyState = false;
       if (!mscore->helpEngine())
             return;
+#if 0 // QT_VERSION >= QT_VERSION_CHECK(5, 15, 0) // TODO
+      QList<QHelpLink>list = mscore->helpEngine()->documentsForIdentifier(s);
+//      QQList<QHelpLink>list = mscore->helpEngine()->indexModel()->documentsForKeyword(s);
+#else
       QMap<QString,QUrl>list = mscore->helpEngine()->linksForIdentifier(s);
 //      QMap<QString,QUrl>list = mscore->helpEngine()->indexModel()->linksForKeyword(s);
+#endif
       int k = 0;
       for (auto i = list.begin(); i != list.end(); ++i) {
             QAction* action = new QAction(i.key(), this);
@@ -134,7 +139,11 @@ void HelpQuery::returnPressed()
       QHelpEngine* he = mscore->helpEngine();
       if (!he)
             return;
+#if 0 // QT_VERSION >= QT_VERSION_CHECK(5, 15, 0) // TODO
+      QList<QHelpLink>list = he->documentsForIdentifier(entry->text().toLower());
+#else
       QMap<QString,QUrl>list = he->linksForIdentifier(entry->text().toLower());
+#endif
       if (!list.isEmpty()) {
             mscore->showHelp(list.begin().value());
             }

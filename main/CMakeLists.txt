@@ -228,22 +228,6 @@ if (MINGW)
 else (MINGW)
 
    if ( NOT MSVC )
-      ## install qwebengine core
-      if (NOT APPLE)
-         install(PROGRAMS
-            ${QT_INSTALL_LIBEXECS}/QtWebEngineProcess
-            DESTINATION bin
-            )
-         install(DIRECTORY
-            ${QT_INSTALL_DATA}/resources
-            DESTINATION lib/qt5
-            )
-         install(DIRECTORY
-            ${QT_INSTALL_TRANSLATIONS}/qtwebengine_locales
-            DESTINATION lib/qt5/translations
-            )
-      endif(NOT APPLE)
-
       set_target_properties (
          mscore
          PROPERTIES

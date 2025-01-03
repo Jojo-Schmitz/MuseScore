@@ -10,17 +10,18 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "fret.h"
-#include "measure.h"
-#include "system.h"
-#include "score.h"
-#include "stringdata.h"
 #include "chord.h"
-#include "note.h"
-#include "segment.h"
-#include "mscore.h"
+#include "fret.h"
 #include "harmony.h"
+#include "measure.h"
+#include "mscore.h"
+#include "note.h"
+#include "rest.h"
+#include "score.h"
+#include "segment.h"
 #include "staff.h"
+#include "stringdata.h"
+#include "system.h"
 #include "undo.h"
 
 namespace Ms {

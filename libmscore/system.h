@@ -19,8 +19,6 @@
 */
 
 #include "element.h"
-#include "spatium.h"
-#include "symbol.h"
 #include "skyline.h"
 
 namespace Ms {
