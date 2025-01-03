@@ -3195,6 +3195,8 @@ class ScoreFont {
       QString toString(SymId) const;
       QPixmap sym2pixmap(SymId, qreal) { return QPixmap(); }      // TODOxxxx
 
+      void drawReversed
+               (SymId id,                  QPainter*, qreal mag,         const QPointF& pos) const;
       void draw(SymId id,                  QPainter*, const QSizeF& mag, const QPointF& pos, qreal scale) const;
       void draw(SymId id,                  QPainter*, qreal mag,         const QPointF& pos, qreal scale) const;
       void draw(SymId id,                  QPainter*, qreal mag,         const QPointF& pos) const;

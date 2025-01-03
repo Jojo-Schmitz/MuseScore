@@ -403,7 +403,7 @@ QPointF Stem::hookPos() const
       {
       QPointF p(pos() + line.p2());
 
-      qreal xoff = 0.5 * lineWidthMag();
+      qreal xoff = !chord()->hookIsReversed() ? 0.5 * lineWidthMag() : -chord()->hook()->width();
       p.rx() += xoff;
       return p;
       }
