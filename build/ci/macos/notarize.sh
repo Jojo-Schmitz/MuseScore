@@ -8,7 +8,7 @@ APPLE_USERNAME=""
 APPLE_PASSWORD=""
 
 # This information is public and can be extracted by anyone from the final .app file
-APPLE_TEAM_ID="6EPAF2X3PR"
+APPLE_TEAM_ID="9QTZUZM4J9"
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
