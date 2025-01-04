@@ -196,6 +196,9 @@ static bool startWithNewScore = false;
 double guiScaling = 0.0;
 static double userDPI = 0.0;
 int trimMargin = -1;
+#ifdef USE_WEBENGINE
+bool noWebView = true;
+#endif
 bool exportScoreParts = false;
 bool saveScoreParts = false;
 bool ignoreWarnings = false;
@@ -206,6 +209,7 @@ bool exportScoreMp3 = false;
 bool exportScorePartsPdf = false;
 bool unrollRepeats = false;
 bool needUpdateSource = false;
+
 static bool exportTransposedScore = false;
 static QString transposeExportOptions;
 static QString highlightConfigPath;

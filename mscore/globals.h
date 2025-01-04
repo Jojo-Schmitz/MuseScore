@@ -31,6 +31,9 @@ extern bool converterMode;
 extern bool pluginMode;
 extern double guiScaling;
 extern int trimMargin;
+#ifdef USE_WEBENGINE
+extern bool noWebView;
+#endif
 extern bool ignoreWarnings;
 
 enum TelemetryDataCollectionType : unsigned char {
