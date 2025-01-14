@@ -205,7 +205,6 @@ class Element : public ScoreElement {
       const Measure* findMeasure() const;
       MeasureBase* findMeasureBase();
       const MeasureBase* findMeasureBase() const;
-      ChordRest* findChordRest();
 
       virtual bool isElement() const override { return true;        }
 

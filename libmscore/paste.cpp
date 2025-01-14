@@ -1107,9 +1107,11 @@ void Score::cmdPaste(const QMimeData* ms, MuseScoreView* view, Fraction scale)
             if (_selection.isRange())
                   cr = _selection.firstChordRest();
             else if (_selection.isSingle()) {
-                  cr = _selection.element()->findChordRest();
+                  Element* e = _selection.element();
+                  Measure* measure = e->findMeasure();
+                  cr = measure ? measure->findChordRest(e->tick(), e->track()) : nullptr;
                   if (!cr) {
-                        qDebug("cannot paste to %s", _selection.element()->name());
+                        qDebug("cannot paste to %s", e->name());
                         MScore::setError(DEST_NO_CR);
                         return;
                         }
@@ -1139,9 +1141,11 @@ void Score::cmdPaste(const QMimeData* ms, MuseScoreView* view, Fraction scale)
             if (_selection.isRange())
                   cr = _selection.firstChordRest();
             else if (_selection.isSingle()) {
-                  cr = _selection.element()->findChordRest();
+                  Element* e = _selection.element();
+                  Measure* measure = e->findMeasure();
+                  cr = measure ? measure->findChordRest(e->tick(), e->track()) : nullptr;
                   if (!cr) {
-                        qDebug("cannot paste to %s", _selection.element()->name());
+                        qDebug("cannot paste to %s", e->name());
                         MScore::setError(DEST_NO_CR);
                         return;
                         }

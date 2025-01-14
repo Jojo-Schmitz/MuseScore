@@ -1512,20 +1512,6 @@ const MeasureBase* Element::findMeasureBase() const
       }
 
 //---------------------------------------------------------
-//   findChordRest
-//---------------------------------------------------------
-
-ChordRest* Element::findChordRest()
-      {
-      if (isChordRest())
-            return toChordRest(this);
-      else if (_parent)
-            return _parent->findChordRest();
-      else
-            return nullptr;
-      }
-
-//---------------------------------------------------------
 //   undoSetColor
 //---------------------------------------------------------
 
