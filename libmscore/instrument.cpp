@@ -288,7 +288,10 @@ void Instrument::write(XmlWriter& xml, const Part* part) const
 
 QString Instrument::recognizeInstrumentId() const
       {
-      static QString defaultInstrumentId("keyboard.piano");
+      // Return a MusicXML "Sound ID", which is essentially an instrument ID.
+      // See https://github.com/w3c/musicxml/blob/gh-pages/schema/sounds.xml
+      static const QString defaultInstrumentId("keyboard.piano");
+      static const QString defaultMusicXmlPercussionId("drum.group.set");
 
       QList<QString> nameList;
 
@@ -296,15 +299,17 @@ QString Instrument::recognizeInstrumentId() const
       nameList << _longNames.toStringList();
       nameList << _shortNames.toStringList();
 
-      InstrumentTemplate* tmplByName = Ms::searchTemplateForInstrNameList(nameList);
+      const InstrumentTemplate* tmplByName = Ms::searchTemplateForInstrNameList(nameList/*, _useDrumset*/);
 
       if (tmplByName && !tmplByName->musicXMLid.isEmpty())
             return tmplByName->musicXMLid;
 
-      if (!channel(0))
+      const Channel* channel = this->channel(0);
+
+      if (!channel)
             return defaultInstrumentId;
 
-      InstrumentTemplate* tmplMidiProgram = Ms::searchTemplateForMidiProgram(channel(0)->program(), useDrumset());
+      InstrumentTemplate* tmplMidiProgram = Ms::searchTemplateForMidiProgram(channel->program(), _useDrumset);
 
       if (tmplMidiProgram && !tmplMidiProgram->musicXMLid.isEmpty())
             return tmplMidiProgram->musicXMLid;
@@ -314,6 +319,8 @@ QString Instrument::recognizeInstrumentId() const
       if (guessedTmpl && !guessedTmpl->musicXMLid.isEmpty())
             return guessedTmpl->musicXMLid;
 
+      if (_useDrumset)
+            return defaultMusicXmlPercussionId;
       return defaultInstrumentId;
       }
 
@@ -1633,7 +1640,7 @@ void Instrument::updateInstrumentId()
                   }
             }
 
-      _id = fallback.isEmpty() ? QString("piano") : fallback;
+      _id = fallback.isEmpty() ? (_useDrumset ? QString("drumset") : QString("piano")) : fallback;
       }
 
 //---------------------------------------------------------
