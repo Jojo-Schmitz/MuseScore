@@ -50,11 +50,11 @@ private slots:
       void gpDynamic()        { gpReadTest("dynamic", "gp"); }
       void gpxDynamic()       { gpReadTest("dynamic", "gpx"); }
       void gp5Dynamic()       { gpReadTest("dynamic", "gp5"); }
-//      void gpGraceNote()      { gpReadTest("grace", "gp"); }
-//      void gpxGraceNote()     { gpReadTest("grace", "gpx"); }
+//      void gpGraceNote()      { gpReadTest("grace", "gp"); } // TODO: causes crash
+//      void gpxGraceNote()     { gpReadTest("grace", "gpx"); } // TODO: causes crash
       void gp5GraceNote()     { gpReadTest("grace", "gp5"); }
-//      void gpVolta()          { gpReadTest("volta", "gp"); }
-//      void gpxVolta()         { gpReadTest("volta", "gpx"); }
+      void gpVolta()          { gpReadTest("volta", "gp"); }
+      void gpxVolta()         { gpReadTest("volta", "gpx"); }
       void gp5Volta()         { gpReadTest("volta", "gp5"); }
       void gp4Volta()         { gpReadTest("volta", "gp4"); }
       void gp3Volta()         { gpReadTest("volta", "gp3"); }
@@ -71,11 +71,11 @@ private slots:
       void gpBasicBend()      { gpReadTest("basic-bend", "gp"); }
       void gpxBasicBend()     { gpReadTest("basic-bend", "gpx"); }
       void gp5BasicBend()     { gpReadTest("basic-bend", "gp5"); }
-//      void gpBend()           { gpReadTest("bend", "gp"); }
-//      void gpxBend()          { gpReadTest("bend", "gpx"); }
-//      void gp5Bend()          { gpReadTest("bend", "gp5"); }
-//      void gp4Bend()          { gpReadTest("bend", "gp4"); }
-//      void gp3Bend()          { gpReadTest("bend", "gp3"); }
+      void gpBend()           { gpReadTest("bend", "gp"); }
+      void gpxBend()          { gpReadTest("bend", "gpx"); }
+      void gp5Bend()          { gpReadTest("bend", "gp5"); }
+      void gp4Bend()          { gpReadTest("bend", "gp4"); }
+      void gp3Bend()          { gpReadTest("bend", "gp3"); }
       void gpKeysig()         { gpReadTest("keysig", "gp"); }
       void gpxKeysig()        { gpReadTest("keysig", "gpx"); }
       void gp5Keysig()        { gpReadTest("keysig", "gp5"); }
@@ -83,52 +83,52 @@ private slots:
       void gpDottedTuplets()  { gpReadTest("dotted-tuplets", "gp"); }
       void gpxDottedTuplets() { gpReadTest("dotted-tuplets", "gpx"); }
       void gp5DottedTuplets() { gpReadTest("dotted-tuplets", "gp5"); }
-//      void gpTupletSlur()     { gpReadTest("tuplet-with-slur", "gp"); }
-//      void gpxTupletSlur()    { gpReadTest("tuplet-with-slur", "gpx"); }
-//      void gp4TupletSlur()    { gpReadTest("tuplet-with-slur", "gp4"); }
-//      void gpBeamsStemsLL()   { gpReadTest("beams-stems-ledger-lines", "gp"); }
-//      void gpxBeamsStemsLL()  { gpReadTest("beams-stems-ledger-lines", "gpx"); }
-//      void gp5BeamsStemsLL()  { gpReadTest("beams-stems-ledger-lines", "gp5"); }
-//      void gpFretDiagram_2Instr()  { gpReadTest("fret-diagram_2instruments", "gp"); }
-//      void gpxFretDiagram_2Instr() { gpReadTest("fret-diagram_2instruments", "gpx"); }
-//      void gpFretDiagram()    { gpReadTest("fret-diagram", "gp"); }
-//      void gpxFretDiagram()   { gpReadTest("fret-diagram", "gpx"); }
-//      void gp5FretDiagram()   { gpReadTest("fret-diagram", "gp5"); }
-//      void gp4FretDiagram()   { gpReadTest("fret-diagram", "gp4"); }
+      void gpTupletSlur()     { gpReadTest("tuplet-with-slur", "gp"); }
+      void gpxTupletSlur()    { gpReadTest("tuplet-with-slur", "gpx"); }
+      void gp4TupletSlur()    { gpReadTest("tuplet-with-slur", "gp4"); }
+      void gpBeamsStemsLL()   { gpReadTest("beams-stems-ledger-lines", "gp"); }
+      void gpxBeamsStemsLL()  { gpReadTest("beams-stems-ledger-lines", "gpx"); }
+      void gp5BeamsStemsLL()  { gpReadTest("beams-stems-ledger-lines", "gp5"); }
+      void gpFretDiagram_2Instr()  { gpReadTest("fret-diagram_2instruments", "gp"); }
+      void gpxFretDiagram_2Instr() { gpReadTest("fret-diagram_2instruments", "gpx"); }
+      void gpFretDiagram()    { gpReadTest("fret-diagram", "gp"); }
+      void gpxFretDiagram()   { gpReadTest("fret-diagram", "gpx"); }
+      void gp5FretDiagram()   { gpReadTest("fret-diagram", "gp5"); }
+      void gp4FretDiagram()   { gpReadTest("fret-diagram", "gp4"); }
       void gpFadeIn()         { gpReadTest("fade-in", "gp"); }
       void gpxFadeIn()        { gpReadTest("fade-in", "gpx"); }
       void gp5FadeIn()        { gpReadTest("fade-in", "gp5"); }
       void gp4FadeIn()        { gpReadTest("fade-in", "gp4"); }
-//      void gpSlurNoteMask()   { gpReadTest("slur-notes-effect-mask", "gp"); }
-//      void gpxSlurNoteMask()  { gpReadTest("slur-notes-effect-mask", "gpx"); }
+      void gpSlurNoteMask()   { gpReadTest("slur-notes-effect-mask", "gp"); }
+      void gpxSlurNoteMask()  { gpReadTest("slur-notes-effect-mask", "gpx"); }
       void gp5SlurNoteMask()  { gpReadTest("slur-notes-effect-mask", "gp5"); }
       void gpCentered()       { gpReadTest("rest-centered", "gp"); }
       void gpxCentered()      { gpReadTest("rest-centered", "gpx"); }
       void gp5Centered()      { gpReadTest("rest-centered", "gp5"); }
       void gp4Centered()      { gpReadTest("rest-centered", "gp4"); }
-//      void gpSlideInAbove()   { gpReadTest("slide-in-above", "gp"); }
-//      void gpxSlideInAbove()  { gpReadTest("slide-in-above", "gpx"); }
-//      void gp5SlideInAbove()  { gpReadTest("slide-in-above", "gp5"); }
+      void gpSlideInAbove()   { gpReadTest("slide-in-above", "gp"); }
+      void gpxSlideInAbove()  { gpReadTest("slide-in-above", "gpx"); }
+      void gp5SlideInAbove()  { gpReadTest("slide-in-above", "gp5"); }
       void gp4SlideInAbove()  { gpReadTest("slide-in-above", "gp4"); }
-//      void gpSlideInBelow()   { gpReadTest("slide-in-below", "gp"); }
-//      void gpxSlideInBelow()  { gpReadTest("slide-in-below", "gpx"); }
-//      void gp5SlideInBelow()  { gpReadTest("slide-in-below", "gp5"); }
-//      void gp4SlideInBelow()  { gpReadTest("slide-in-below", "gp4"); }
-//      void gpSlideOutUp()     { gpReadTest("slide-out-up", "gp"); }
-//      void gpxSlideOutUp()    { gpReadTest("slide-out-up", "gpx"); }
-//      void gp5SlideOutUp()    { gpReadTest("slide-out-up", "gp5"); }
-//      void gp4SlideOutUp()    { gpReadTest("slide-out-up", "gp4"); }
-//      void gpSlideOutDown()   { gpReadTest("slide-out-down", "gp"); }
-//      void gpxSlideOutDown()  { gpReadTest("slide-out-down", "gpx"); }
-//      void gp5SlideOutDown()  { gpReadTest("slide-out-down", "gp5"); }
-//      void gp4SlideOutDown()  { gpReadTest("slide-out-down", "gp4"); }
-//      void gpLegatoSlide()    { gpReadTest("legato-slide", "gp"); }
-//      void gpxLegatoSlide()   { gpReadTest("legato-slide", "gpx"); }
-//      void gp5LegatoSlide()   { gpReadTest("legato-slide", "gp5"); }
-//      void gp4LegatoSlide()   { gpReadTest("legato-slide", "gp4"); }
-//      void gpShiftSlide()     { gpReadTest("shift-slide", "gp"); }
-//      void gpxShiftSlide()    { gpReadTest("shift-slide", "gpx"); }
-//      void gp5ShiftSlide()    { gpReadTest("shift-slide", "gp5"); }
+      void gpSlideInBelow()   { gpReadTest("slide-in-below", "gp"); }
+      void gpxSlideInBelow()  { gpReadTest("slide-in-below", "gpx"); }
+      void gp5SlideInBelow()  { gpReadTest("slide-in-below", "gp5"); }
+      void gp4SlideInBelow()  { gpReadTest("slide-in-below", "gp4"); }
+      void gpSlideOutUp()     { gpReadTest("slide-out-up", "gp"); }
+      void gpxSlideOutUp()    { gpReadTest("slide-out-up", "gpx"); }
+      void gp5SlideOutUp()    { gpReadTest("slide-out-up", "gp5"); }
+      void gp4SlideOutUp()    { gpReadTest("slide-out-up", "gp4"); }
+      void gpSlideOutDown()   { gpReadTest("slide-out-down", "gp"); }
+      void gpxSlideOutDown()  { gpReadTest("slide-out-down", "gpx"); }
+      void gp5SlideOutDown()  { gpReadTest("slide-out-down", "gp5"); }
+      void gp4SlideOutDown()  { gpReadTest("slide-out-down", "gp4"); }
+      void gpLegatoSlide()    { gpReadTest("legato-slide", "gp"); }
+      void gpxLegatoSlide()   { gpReadTest("legato-slide", "gpx"); }
+      void gp5LegatoSlide()   { gpReadTest("legato-slide", "gp5"); }
+      void gp4LegatoSlide()   { gpReadTest("legato-slide", "gp4"); }
+      void gpShiftSlide()     { gpReadTest("shift-slide", "gp"); }
+      void gpxShiftSlide()    { gpReadTest("shift-slide", "gpx"); }
+      void gp5ShiftSlide()    { gpReadTest("shift-slide", "gp5"); }
       void gp4ShiftSlide()    { gpReadTest("shift-slide", "gp4"); }
       void gpDoubleBar()      { gpReadTest("double-bar", "gp"); }
       void gpxDoubleBar()     { gpReadTest("double-bar", "gpx"); }
@@ -160,10 +160,10 @@ private slots:
       void gp4Brush()         { gpReadTest("brush", "gp4"); }
       void gpRepeats()        { gpReadTest("repeats", "gp"); }
       void gpxRepeats()       { gpReadTest("repeats", "gpx"); }
-//      void gpGraceBefore()    { gpReadTest("grace-before-beat", "gp"); }
-//      void gpxGraceBefore()   { gpReadTest("grace-before-beat", "gpx"); }
-//      void gpGraceOn()        { gpReadTest("grace-on-beat", "gp"); }
-//      void gpxGraceOn()       { gpReadTest("grace-on-beat", "gpx"); }
+      void gpGraceBefore()    { gpReadTest("grace-before-beat", "gp"); }
+      void gpxGraceBefore()   { gpReadTest("grace-before-beat", "gpx"); }
+      void gpGraceOn()        { gpReadTest("grace-on-beat", "gp"); }
+      void gpxGraceOn()       { gpReadTest("grace-on-beat", "gpx"); }
       void gpPalmMute()       { gpReadTest("palm-mute", "gp"); }
       void gpxPalmMute()      { gpReadTest("palm-mute", "gpx"); }
       void gp5PalmMute()      { gpReadTest("palm-mute", "gp5"); }
@@ -175,26 +175,26 @@ private slots:
       void gpTapSlapPop()     { gpReadTest("tap-slap-pop", "gp"); }
       void gpxTapSlapPop()    { gpReadTest("tap-slap-pop", "gpx"); }
       void gp5TapSlapPop()    { gpReadTest("tap-slap-pop", "gp5"); }
-//      void gpBarre()          { gpReadTest("barre", "gp"); }
-//      void gpxBarre()         { gpReadTest("barre", "gpx"); }
-//      void gpTimer()          { gpReadTest("timer", "gp"); }
-//      void gpxTimer()         { gpReadTest("timer", "gpx"); }
+      void gpBarre()          { gpReadTest("barre", "gp"); }
+      void gpxBarre()         { gpReadTest("barre", "gpx"); }
+      void gpTimer()          { gpReadTest("timer", "gp"); }
+      void gpxTimer()         { gpReadTest("timer", "gpx"); }
       void gpText()           { gpReadTest("text", "gp"); }
       void gpxText()          { gpReadTest("text", "gpx"); }
       void gpArtHarmonic()    { gpReadTest("artificial-harmonic", "gp"); }
       void gpxArtHarmonic()   { gpReadTest("artificial-harmonic", "gpx"); }
-//      void gpGhost()          { gpReadTest("ghost-note", "gp"); }
-//      void gpxGhost()         { gpReadTest("ghost-note", "gpx"); }
+      void gpGhost()          { gpReadTest("ghost-note", "gp"); }
+      void gpxGhost()         { gpReadTest("ghost-note", "gpx"); }
       void gp3GhostNote() { gpReadTest("ghost_note", "gp3"); }
-//      void gpRasg()           { gpReadTest("rasg", "gp"); }
-//      void gpxRasg()          { gpReadTest("rasg", "gpx"); }
-//      void gpPercussion()     { gpReadTest("all-percussion", "gp"); }
-//      void gpxPercussion()    { gpReadTest("all-percussion", "gpx"); }
-//      void gp5Percussion()    { gpReadTest("all-percussion", "gp5"); }
-//      void gpFermata()        { gpReadTest("fermata", "gp"); }
-//      void gpxFermata()       { gpReadTest("fermata", "gpx"); }
-//      void gpDirections()     { gpReadTest("directions", "gp"); }
-////ws: no idea why this does not work      void gpxDirections()   { gpReadTest("directions", "gpx"); }
+      void gpRasg()           { gpReadTest("rasg", "gp"); }
+      void gpxRasg()          { gpReadTest("rasg", "gpx"); }
+      void gpPercussion()     { gpReadTest("all-percussion", "gp"); }
+      void gpxPercussion()    { gpReadTest("all-percussion", "gpx"); }
+      void gp5Percussion()    { gpReadTest("all-percussion", "gp5"); }
+      void gpFermata()        { gpReadTest("fermata", "gp"); }
+      void gpxFermata()       { gpReadTest("fermata", "gpx"); }
+      void gpDirections()     { gpReadTest("directions", "gp"); }
+      void gpxDirections()    { gpReadTest("directions", "gpx"); }
       void gpSlur()           { gpReadTest("slur", "gp"); }
       void gpxSlur()          { gpReadTest("slur", "gpx"); }
       void gp4Slur()          { gpReadTest("slur", "gp4"); }
@@ -211,8 +211,8 @@ private slots:
       void gp5Vibrato()       { gpReadTest("vibrato", "gp5"); }
       void gpVolumeSwell()    { gpReadTest("volume-swell", "gp"); }
       void gpxVolumeSwell()   { gpReadTest("volume-swell", "gpx"); }
-//      void gpTremoloBar()     { gpReadTest("tremolo-bar", "gp"); }
-//      void gpxTremoloBar()    { gpReadTest("tremolo-bar", "gpx"); }
+      void gpTremoloBar()     { gpReadTest("tremolo-bar", "gp"); }
+      void gpxTremoloBar()    { gpReadTest("tremolo-bar", "gpx"); }
       void gpFreeTime()       { gpReadTest("free-time", "gp"); }
       void gpxFreeTime()      { gpReadTest("free-time", "gpx"); }
       void gpRepeatBar()      { gpReadTest("repeated-bars", "gp"); }
@@ -235,8 +235,8 @@ private slots:
       void gpxOttava4()       { gpReadTest("ottava4", "gpx"); }
       void gpOttava5()        { gpReadTest("ottava5", "gp"); }
       void gpxOttava5()       { gpReadTest("ottava5", "gpx"); }
-//      void gpChornamesKeyboard()  { gpReadTest("chordnames_keyboard", "gp"); }
-//      void gpxChornamesKeyboard() { gpReadTest("chordnames_keyboard", "gpx"); }
+      void gpChornamesKeyboard()  { gpReadTest("chordnames_keyboard", "gp"); }
+      void gpxChornamesKeyboard() { gpReadTest("chordnames_keyboard", "gpx"); }
       void gpClefs()          { gpReadTest("clefs", "gp"); }
       void gpxClefs()         { gpReadTest("clefs", "gpx"); }
       void gpxTuplets()       { gpReadTest("tuplets", "gpx"); }
