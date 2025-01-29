@@ -25,6 +25,7 @@ class Spanner;
 class ScoreRange;
 class ChordRest;
 class Score;
+class Spacer;
 
 //---------------------------------------------------------
 //   TrackList
@@ -73,13 +74,24 @@ struct Annotation {
 //---------------------------------------------------------
 
 class ScoreRange {
-      QList<TrackList*> tracks;
+      void backupSpacers(Segment* first, Segment* last);
+      void restoreSpacers(Score* score, const Fraction& tick) const;
+      void deleteSpacers();
+
+      struct SpacerBackup
+      {
+          Fraction sPosition;
+          int staffIdx;
+          Spacer* s = nullptr;
+      };
+      QList<TrackList*> _tracks;
+      QList<SpacerBackup> _spacers;
       Segment* _first;
       Segment* _last;
 
    protected:
-      QList<Spanner*> spanner;
-      QList<Annotation> annotations;
+      QList<Spanner*> _spanner;
+      QList<Annotation> _annotations;
 
    public:
       ScoreRange() {}
