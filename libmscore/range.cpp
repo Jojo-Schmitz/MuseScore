@@ -10,22 +10,23 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "range.h"
-#include "measure.h"
-#include "segment.h"
-#include "rest.h"
-#include "chord.h"
-#include "score.h"
-#include "slur.h"
-#include "tie.h"
-#include "note.h"
-#include "tuplet.h"
 #include "barline.h"
-#include "utils.h"
-#include "staff.h"
+#include "chord.h"
 #include "excerpt.h"
+#include "marker.h"
+#include "measure.h"
+#include "note.h"
+#include "range.h"
 #include "repeat.h"
+#include "rest.h"
+#include "score.h"
+#include "segment.h"
+#include "slur.h"
+#include "staff.h"
+#include "tie.h"
 #include "tremolo.h"
+#include "tuplet.h"
+#include "utils.h"
 
 namespace Ms {
 
@@ -81,7 +82,7 @@ void TrackList::appendTuplet(Tuplet* srcTuplet, Tuplet* dstTuplet)
                   Segment* seg = toSegment(de->parent());
                   for (Element* ee : seg->annotations()) {
                         if (ee->track() == e->track())
-                              _range->annotations.push_back({ e->tick(), ee->clone() });
+                              _range->_annotations.push_back({ e->tick(), ee->clone() });
                         }
                   }
             }
@@ -172,7 +173,7 @@ void TrackList::append(Element* e)
                         Segment* s1 = src->segment();
                         for (Element* ee : s1->annotations()) {
                               if (ee->track() == e->track())
-                                    _range->annotations.push_back({ s1->tick(), ee->clone() });
+                                    _range->_annotations.push_back({ s1->tick(), ee->clone() });
                               }
                         if (e->isChord()) {
                               Chord* chord = toChord(e);
@@ -277,7 +278,7 @@ void TrackList::read(const Segment* fs, const Segment* es)
             if (!e || e->generated()) {
                   for (Element* ee : s->annotations()) {
                         if (ee->track() == _track)
-                              _range->annotations.push_back({ s->tick(), ee->clone() });
+                              _range->_annotations.push_back({ s->tick(), ee->clone() });
                         }
                   continue;
                   }
@@ -641,7 +642,8 @@ bool TrackList::write(Score* score, const Fraction& tick) const
 
 ScoreRange::~ScoreRange()
       {
-      qDeleteAll(tracks);
+      qDeleteAll(_tracks);
+      deleteJumpsAndMarkers();
       }
 
 //---------------------------------------------------------
@@ -658,7 +660,7 @@ void ScoreRange::read(Segment* first, Segment* last, bool readSpanner)
       int startTrack = 0;
       int endTrack   = score->nstaves() * VOICES;
 
-      spanner.clear();
+      _spanner.clear();
 
       if (readSpanner) {
             Fraction stick = first->tick();
@@ -671,7 +673,7 @@ void ScoreRange::read(Segment* first, Segment* last, bool readSpanner)
                         ns->setStartElement(0);
                         ns->setEndElement(0);
                         ns->setTick(ns->tick() - stick);
-                        spanner.push_back(ns);
+                        _spanner.push_back(ns);
                         }
                   }
             }
@@ -682,9 +684,10 @@ void ScoreRange::read(Segment* first, Segment* last, bool readSpanner)
                   TrackList* dl = new TrackList(this);
                   dl->setTrack(track);
                   dl->read(first, last);
-                  tracks.append(dl);
+                  _tracks.append(dl);
                   }
             }
+      backupJumpsAndMarkers(first, last);
       }
 
 //---------------------------------------------------------
@@ -693,7 +696,7 @@ void ScoreRange::read(Segment* first, Segment* last, bool readSpanner)
 
 bool ScoreRange::write(Score* score, const Fraction& tick) const
       {
-      for (TrackList* dl : tracks) {
+      for (TrackList* dl : _tracks) {
             int track = dl->track();
             if (!dl->write(score, tick))
                   return false;
@@ -713,7 +716,7 @@ bool ScoreRange::write(Score* score, const Fraction& tick) const
                   }
             ++track;
             }
-      for (Spanner* s : spanner) {
+      for (Spanner* s : _spanner) {
             s->setTick(s->tick() + tick);
             if (s->isSlur()) {
                   Slur* slur = toSlur(s);
@@ -736,7 +739,7 @@ bool ScoreRange::write(Score* score, const Fraction& tick) const
                   }
             score->undoAddElement(s);
             }
-      for (const Annotation& a : annotations) {
+      for (const Annotation& a : _annotations) {
             Measure* tm = score->tick2measure(a.tick);
             Segment *op = toSegment(a.e->parent());
             Segment* s = tm->undoGetSegment(op->segmentType(), a.tick);
@@ -745,6 +748,7 @@ bool ScoreRange::write(Score* score, const Fraction& tick) const
                   score->undoAddElement(a.e);
                   }
             }
+      restoreJumpsAndMarkers(score, tick);
       return true;
       }
 
@@ -756,11 +760,11 @@ void ScoreRange::fill(const Fraction& f)
       {
       const Fraction oldDuration = ticks();
       Fraction oldEndTick = _first->tick() + oldDuration;
-      for (auto t : qAsConst(tracks))
+      for (auto t : qAsConst(_tracks))
             t->appendGap(f);
 
       Fraction diff = ticks() - oldDuration;
-      for (Spanner* sp : qAsConst(spanner)) {
+      for (Spanner* sp : qAsConst(_spanner)) {
             if (sp->tick2() >= oldEndTick && sp->tick() < oldEndTick)
                   sp->setTicks(sp->ticks() + diff);
             }
@@ -773,7 +777,7 @@ void ScoreRange::fill(const Fraction& f)
 
 bool ScoreRange::truncate(const Fraction& f)
       {
-      for (TrackList* dl : qAsConst(tracks)) {
+      for (TrackList* dl : qAsConst(_tracks)) {
             if (dl->empty())
                   continue;
             Element* e = dl->back();
@@ -783,7 +787,7 @@ bool ScoreRange::truncate(const Fraction& f)
             if (r->ticks() < f)
                   return false;
             }
-      for (TrackList* dl : qAsConst(tracks))
+      for (TrackList* dl : qAsConst(_tracks))
             dl->truncate(f);
       return true;
       }
@@ -794,7 +798,92 @@ bool ScoreRange::truncate(const Fraction& f)
 
 Fraction ScoreRange::ticks() const
       {
-      return tracks.empty() ? Fraction() : tracks[0]->ticks();
+      return _tracks.empty() ? Fraction() : _tracks[0]->ticks();
+      }
+
+//---------------------------------------------------------
+//   endOfMeasure
+//---------------------------------------------------------
+
+bool ScoreRange::endOfMeasure(Element* e) const
+      {
+      bool result = false;
+
+      if (e->isMarker()
+          && ((toMarker(e)->markerType() == Marker::Type::TOCODA // any right hand side marker
+              || toMarker(e)->markerType() == Marker::Type::TOCODASYM
+              || toMarker(e)->markerType() == Marker::Type::FINE)))
+            result = true;
+      else if (e->isJump())
+            result = true;
+      return result;
+      }
+
+//---------------------------------------------------------
+//   backupJumpsAndMarkers
+//---------------------------------------------------------
+
+void ScoreRange::backupJumpsAndMarkers(Segment* first, Segment* last)
+      {
+      Measure* fm = first->measure();
+      Measure* lm = last->measure();
+
+      for (Measure* m = fm; m && m != lm->nextMeasure(); m = m->nextMeasure()) {
+            // Backup Markers and Jumps (Measures's son)
+            for (Element* e : m->el()) {
+                  if (e && (e->isMarker() || e->isJump())) {
+                        JumpsMarkersBackup mJMBackup;
+                        mJMBackup.sPosition = (endOfMeasure(e) ? m->endTick() : m->tick());
+                        mJMBackup.e = e->clone();
+                        _jumpsMarkers.push_back(mJMBackup);
+                        }
+                  }
+            // Last Measure
+            if (m->sectionBreak() || (m->nextMeasure() && (m->nextMeasure()->first(SegmentType::TimeSig))))
+                  break;
+            }
+      }
+
+//---------------------------------------------------------
+//   restoreJumpsAndMarkers
+//---------------------------------------------------------
+void ScoreRange::restoreJumpsAndMarkers(Score* score, const Fraction& tick) const
+      {
+      //---------------------------------------------------------
+      //   addJumpMarker
+      //---------------------------------------------------------
+      auto addJumpMarker = [&](Measure* m, Element* e)
+      {
+            // We add every element as a Measure could have as many elements (even of the same type) as the users decides
+            Element* ce = e->clone();
+            ce->setParent(m);
+            ce->setTrack(0);
+            m->add(ce);
+            };
+
+      for (const JumpsMarkersBackup& jmb : _jumpsMarkers) {
+            for (Measure* m = score->tick2measure(tick); m; m = m->nextMeasure()) {
+                  // Markers: we keep them as long as they are in the measure before the final tick
+                  // Jumps: we keep them as long as they are in the measure after the start tick
+                  if (((endOfMeasure(jmb.e)) && ((jmb.sPosition > m->tick()) && (jmb.sPosition <= m->endTick())))
+                      || ((!endOfMeasure(jmb.e)) && ((jmb.sPosition >= m->tick()) && (jmb.sPosition < m->endTick()))))
+                        addJumpMarker(m, jmb.e);
+
+                  // Double check to deal only with suitable Measures
+                  if (m->sectionBreak() || (m->nextMeasure() && (m->nextMeasure()->first(SegmentType::TimeSig))))
+                        break;
+                  }
+            }
+      }
+
+//---------------------------------------------------------
+//   deleteJumpsAndMarkers
+//---------------------------------------------------------
+
+void ScoreRange::deleteJumpsAndMarkers()
+      {
+      for (const JumpsMarkersBackup& jmb : _jumpsMarkers)
+            delete jmb.e;
       }
 
 //---------------------------------------------------------
