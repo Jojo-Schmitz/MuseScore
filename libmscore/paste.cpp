@@ -1106,21 +1106,20 @@ void Score::cmdPaste(const QMimeData* ms, MuseScoreView* view, Fraction scale)
                   select(nel);
             }
       else if ((_selection.isRange() || _selection.isList()) && ms->hasFormat(mimeStaffListFormat)) {
-            ChordRest* cr = 0;
+            ChordRest* cr = nullptr;
             if (_selection.isRange())
                   cr = _selection.firstChordRest();
             else if (_selection.isSingle()) {
                   Element* e = _selection.element();
-                  if (!e->isNote() && !e->isChordRest()) {
+                  Measure* measure = e->findMeasure();
+                  cr = measure ? measure->findChordRest(e->tick(), e->track()) : nullptr;
+                  if (!cr) {
                         qDebug("cannot paste to %s", e->name());
                         MScore::setError(DEST_NO_CR);
                         return;
                         }
-                  if (e->isNote())
-                        e = toNote(e)->chord();
-                  cr  = toChordRest(e);
                   }
-            if (cr == 0) {
+            if (!cr) {
                   MScore::setError(NO_DEST);
                   return;
                   }
@@ -1141,21 +1140,20 @@ void Score::cmdPaste(const QMimeData* ms, MuseScoreView* view, Fraction scale)
                   }
             }
       else if (ms->hasFormat(mimeSymbolListFormat)) {
-            ChordRest* cr = 0;
+            ChordRest* cr = nullptr;
             if (_selection.isRange())
                   cr = _selection.firstChordRest();
             else if (_selection.isSingle()) {
                   Element* e = _selection.element();
-                  if (!e->isNote() && !e->isRest() && !e->isChord()) {
+                  Measure* measure = e->findMeasure();
+                  cr = measure ? measure->findChordRest(e->tick(), e->track()) : nullptr;
+                  if (!cr) {
                         qDebug("cannot paste to %s", e->name());
                         MScore::setError(DEST_NO_CR);
                         return;
                         }
-                  if (e->isNote())
-                        e = toNote(e)->chord();
-                  cr  = toChordRest(e);
                   }
-            if (cr == 0) {
+            if (!cr) {
                   MScore::setError(NO_DEST);
                   return;
                   }
