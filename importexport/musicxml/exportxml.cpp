@@ -6728,6 +6728,8 @@ void ExportMusicXml::print(const Measure* const m, const int partNr, const int f
                               _xml.tag("staff-distance", QString("%1").arg(QString::number(getTenthsFromDots(staffDist),'f',2)));
                               _xml.etag();
                               }
+                        else
+                              _xml.tag("staff-details", QString("number=\"%1\" print-object=\"no\"").arg(staffIdx + 1));
                         }
 
                   _xml.etag();
