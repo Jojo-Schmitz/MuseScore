@@ -14,6 +14,7 @@
 
 #include "measure.h"
 #include "musescoreCore.h"
+#include "rehearsalmark.h"
 #include "score.h"
 #include "staff.h"
 #include "system.h"
@@ -435,13 +436,25 @@ void TempoText::layout()
       {
       TextBase::layout();
 
+      if (!autoplace())
+            return;
+
+      // tempo text on first chordrest of measure should align over time sig if present, unless time sig is above staff
       Segment* s = segment();
       if (!s)                       // for use in palette
             return;
 
-      // tempo text on first chordrest of measure should align over time sig if present
-      //
-      if (autoplace() && s->rtick().isZero()) {
+      RehearsalMark* rehearsalMark = toRehearsalMark(s->findAnnotation(ElementType::REHEARSAL_MARK, track(), track()));
+      QRectF rehearsMarkBbox = rehearsalMark ? rehearsalMark->bbox().translated(rehearsalMark->pos()) : QRectF();
+      QRectF thisBbox = bbox().translated(pos());
+
+      if (rehearsalMark && rehearsMarkBbox.bottom() > thisBbox.top()) {
+            qreal rightEdge = rehearsMarkBbox.right();
+            const qreal padding = 0.5 * fontMetrics().xHeight();
+            qreal curX = pos().x();
+            rxpos() = std::max(curX, rightEdge + padding);
+            }
+      else if (s->rtick().isZero()) {
             Segment* p = segment()->prev(SegmentType::TimeSig);
             if (p) {
                   rxpos() -= s->x() - p->x();
