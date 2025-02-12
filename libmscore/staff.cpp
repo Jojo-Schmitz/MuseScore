@@ -635,7 +635,7 @@ void Staff::write(XmlWriter& xml) const
       xml.stag(this, QString("id=\"%1\"").arg(idx + 1));
       if (links()) {
             Score* s = masterScore();
-            for (auto& le : *links()) {
+            for (auto*& le : *links()) {
                   Staff* staff = toStaff(le);
                   if ((staff->score() == s) && (staff != this))
                         xml.tag("linkedTo", staff->idx() + 1);
@@ -662,8 +662,6 @@ void Staff::write(XmlWriter& xml) const
             xml.tag("defaultTransposingClef", ClefInfo::tag(ct._transposingClef));
             }
 
-      if (invisible(Fraction(0,1)))
-            xml.tag("invisible", invisible(Fraction(0,1)));
       if (hideWhenEmpty() != HideMode::AUTO)
             xml.tag("hideWhenEmpty", int(hideWhenEmpty()));
       if (cutaway())
@@ -687,7 +685,6 @@ void Staff::write(XmlWriter& xml) const
       writeProperty(xml, Pid::STAFF_BARLINE_SPAN_FROM);
       writeProperty(xml, Pid::STAFF_BARLINE_SPAN_TO);
       writeProperty(xml, Pid::STAFF_USERDIST);
-      writeProperty(xml, Pid::STAFF_COLOR);
       writeProperty(xml, Pid::PLAYBACK_VOICE1);
       writeProperty(xml, Pid::PLAYBACK_VOICE2);
       writeProperty(xml, Pid::PLAYBACK_VOICE3);
@@ -1000,7 +997,7 @@ bool Staff::primaryStaff() const
             return true;
       QList<Staff*> s;
       QList<Staff*> ss;
-      for (auto& e : *_links) {
+      for (auto*& e : *_links) {
             Staff* staff = toStaff(e);
             if (staff->score() == score()) {
                   s.append(staff);
