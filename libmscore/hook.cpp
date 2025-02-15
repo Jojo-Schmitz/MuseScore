@@ -80,7 +80,15 @@ void Hook::draw(QPainter* painter) const
             return;
 
       painter->setPen(curColor());
-      drawSymbol(_sym, painter);
+
+      if (chord()->hookIsReversed()) {
+            qreal scale = 1.0;
+            qreal dx = chord()->hook()->width() + (1.5 * chord()->stem()->lineWidthMag());
+            QPointF offset = QPointF(-dx, 0.0);
+            drawSymbolReversed(_sym, painter, offset, scale);
+            }
+      else drawSymbol(_sym, painter);
+
       }
 
 }
