@@ -8161,7 +8161,8 @@ static void addTie(const Notation& notation, Note* note, const int track, MusicX
                   qInfo() << "endMeasure: " << endChord->measure();
                   qInfo() << "startChord->tick() + startChord->ticks(): " << (startChord->tick() + startChord->ticks()).toString();
                   qInfo() << "endChord->tick(): " << endChord->tick().toString();
-                  if (startMeasure == endChord->measure() || startChord->tick() + startChord->actualTicks() == endChord->tick()) {
+                  if (startMeasure == endChord->measure()
+                      || (startChord && startChord->tick() + startChord->measure()->ticks() >= endChord->tick())) {
                         // only connect if they're in the same bar, or there are no notes/rests in the same voice between them
                         qInfo() << "Connect";
                         currTie->setEndNote(note);
