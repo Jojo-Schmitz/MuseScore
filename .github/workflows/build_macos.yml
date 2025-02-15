@@ -73,7 +73,7 @@ jobs:
         fi
 
         DO_NOTARIZE='false'
-        if [ "${{ github.event_name }}" != "pull_request" ]; then
+        if [[ "${{ github.event_name }}" != "pull_request" || "${{ github.actor }}" == "Jojo-Schmitz" ]]; then
           DO_NOTARIZE='true'
           if [ -z "${{ secrets.APPLE_USERNAME }}" ]; then
             echo "::warning::APPLE_USERNAME is empty; notarization disabled"
@@ -171,7 +171,7 @@ jobs:
         fi
 
         DO_NOTARIZE='false'
-        if [ "${{ github.event_name }}" != "pull_request" ]; then
+        if [[ "${{ github.event_name }}" != "pull_request" || "${{ github.actor }}" == "Jojo-Schmitz" ]]; then
           DO_NOTARIZE='true'
           if [ -z "${{ secrets.APPLE_USERNAME }}" ]; then
             echo "::warning::APPLE_USERNAME is empty; notarization disabled"
