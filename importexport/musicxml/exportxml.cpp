@@ -687,6 +687,30 @@ static QString slurTieLineStyle(const SlurTie* s)
       return rest;
       }
 
+static QString slurBezier(const Slur* s, const bool start)
+      {
+      QString rest;
+      if (!preferences.getBool(PREF_EXPORT_MUSICXML_EXPORTLAYOUT))
+            return rest;
+
+      const int spatium = s->spatium();
+      if (start) {
+            const SlurSegment* front = s->frontSegment();
+            const QPointF start = front->ups(Grip::START).pos();
+            const QPointF bezier = front->ups(Grip::BEZIER1).pos();
+            rest += QString(" bezier-x=\"%1\"").arg(10 * (bezier.x() - start.x()) / spatium);
+            rest += QString(" bezier-y=\"%1\"").arg(-10 * bezier.y() / spatium);
+            }
+      else {
+            const SlurSegment* back = s->backSegment();
+            const QPointF end = back->ups(Grip::END).pos();
+            const QPointF bezier = back->ups(Grip::BEZIER2).pos();
+            rest += QString(" bezier-x=\"%1\"").arg(10 * (bezier.x() - end.x()) / spatium);
+            rest += QString(" bezier-y=\"%1\"").arg(-10 * bezier.y() / spatium);
+            }
+      return rest;
+      }
+
 //---------------------------------------------------------
 //   findSlur -- get index of slur in slur table
 //   return -1 if not found
@@ -801,7 +825,7 @@ void SlurHandler::doSlurStart(const Slur* s, Notations& notations, XmlWriter& xm
       QString tagName = "slur";
       tagName += QString(" type=\"start\"");
       tagName += slurTieLineStyle(s);
-      tagName += positioningAttributes(s, true);
+      tagName += slurBezier(s, true);
 
       if (i >= 0) {
             // remove from list and print start
@@ -848,7 +872,7 @@ void SlurHandler::doSlurStop(const Slur* s, Notations& notations, XmlWriter& xml
                   started[i] = false;
                   notations.tag(xml);
                   QString tagName = QString("slur type=\"stop\" number=\"%1\"").arg(i + 1);
-                  tagName += positioningAttributes(s, false);
+                  tagName += slurBezier(s, false);
                   xml.tagE(tagName);
                   }
             else
@@ -860,7 +884,7 @@ void SlurHandler::doSlurStop(const Slur* s, Notations& notations, XmlWriter& xml
             started[i] = false;
             notations.tag(xml);
             QString tagName = QString("slur type=\"stop\" number=\"%1\"").arg(i + 1);
-            tagName += positioningAttributes(s, false);
+            tagName += slurBezier(s, false);
             xml.tagE(tagName);
             }
       }
