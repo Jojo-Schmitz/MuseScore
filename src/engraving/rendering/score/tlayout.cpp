@@ -2067,7 +2067,7 @@ void TLayout::layoutFermata(const Fermata* item, Fermata::LayoutData* ldata, con
     double x = 0.0;
     double y = 0.0;
     const Segment* s = item->segment();
-    const EngravingItem* e = s->element(item->track());
+    const EngravingItem* e = s ? s->element(item->track()) : nullptr;
 
     if (e) {
         LD_CONDITION(e->ldata()->isSetBbox()); // e->shape()
@@ -2105,10 +2105,12 @@ void TLayout::layoutFermata(const Fermata* item, Fermata::LayoutData* ldata, con
 
     if (item->autoplace()) {
         const Segment* s2 = item->segment();
-        const Measure* m = s2->measure();
-        LD_CONDITION(ldata->isSetPos());
-        LD_CONDITION(m->ldata()->isSetPos());
-        LD_CONDITION(s2->ldata()->isSetPos());
+        if (s2) {
+            const Measure* m = s2->measure();
+            LD_CONDITION(ldata->isSetPos());
+            LD_CONDITION(m->ldata()->isSetPos());
+            LD_CONDITION(s2->ldata()->isSetPos());
+        }
     }
 
     Autoplace::autoplaceSegmentElement(item, ldata);
