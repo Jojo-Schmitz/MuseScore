@@ -10,24 +10,24 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "barline.h"
-#include "score.h"
-#include "sym.h"
-#include "staff.h"
-#include "part.h"
-#include "system.h"
-#include "measure.h"
-#include "segment.h"
 #include "articulation.h"
-#include "stafftype.h"
-#include "xml.h"
-#include "marker.h"
-#include "stafflines.h"
-#include "spanner.h"
-#include "undo.h"
+#include "barline.h"
 #include "fermata.h"
-#include "symbol.h"
 #include "image.h"
+#include "marker.h"
+#include "measure.h"
+#include "part.h"
+#include "score.h"
+#include "segment.h"
+#include "spanner.h"
+#include "staff.h"
+#include "stafflines.h"
+#include "stafftype.h"
+#include "sym.h"
+#include "symbol.h"
+#include "system.h"
+#include "undo.h"
+#include "xml.h"
 
 namespace Ms {
 
@@ -54,7 +54,7 @@ static void undoChangeBarLineType(BarLine* bl, BarLineType barType, bool allStav
       else if (bl->barLineType() == BarLineType::START_REPEAT) {
             if (m->isFirstInSystem()) {
                   if (barType != BarLineType::END_REPEAT) {
-                        for (Score* lscore : m->score()->scoreList()) {
+                        for (Score*& lscore : m->score()->scoreList()) {
                               Measure* lmeasure = lscore->tick2measure(m->tick());
                               if (lmeasure)
                                   lmeasure->undoChangeProperty(Pid::REPEAT_START, false);
@@ -128,7 +128,7 @@ static void undoChangeBarLineType(BarLine* bl, BarLineType barType, bool allStav
                               // barlines themselves are not necessarily linked,
                               // so use staffList to find linked staves
                               BarLine* sbl = toBarLine(e);
-                              for (Staff* lstaff : sbl->staff()->staffList()) {
+                              for (Staff*& lstaff : sbl->staff()->staffList()) {
                                     Score* lscore = lstaff->score();
                                     int ltrack = lstaff->idx() * VOICES;
 
@@ -173,7 +173,7 @@ static void undoChangeBarLineType(BarLine* bl, BarLineType barType, bool allStav
                               }
                         }
                   else if (segmentType == SegmentType::BeginBarLine) {
-                        for (Score* lscore : m2->score()->scoreList()) {
+                        for (Score*& lscore : m2->score()->scoreList()) {
                               Measure* lmeasure = lscore->tick2measure(m2->tick());
                               Segment* segment1 = lmeasure->undoGetSegmentR(SegmentType::BeginBarLine, Fraction(0, 1));
                               for (Element* e : segment1->elist()) {
@@ -189,7 +189,7 @@ static void undoChangeBarLineType(BarLine* bl, BarLineType barType, bool allStav
                   }
                   break;
             case BarLineType::START_REPEAT: {
-                  for (Score* lscore : m2->score()->scoreList()) {
+                  for (Score*& lscore : m2->score()->scoreList()) {
                         Measure* lmeasure = lscore->tick2measure(m2->tick());
                         if (lmeasure)
                               lmeasure->undoChangeProperty(Pid::REPEAT_START, true);
@@ -197,7 +197,7 @@ static void undoChangeBarLineType(BarLine* bl, BarLineType barType, bool allStav
                   }
                   break;
             case BarLineType::END_REPEAT: {
-                  for (Score* lscore : m2->score()->scoreList()) {
+                  for (Score*& lscore : m2->score()->scoreList()) {
                         Measure* lmeasure = lscore->tick2measure(m2->tick());
                         if (lmeasure)
                               lmeasure->undoChangeProperty(Pid::REPEAT_END, true);
@@ -205,7 +205,7 @@ static void undoChangeBarLineType(BarLine* bl, BarLineType barType, bool allStav
                   }
                   break;
             case BarLineType::END_START_REPEAT: {
-                  for (Score* lscore : m2->score()->scoreList()) {
+                  for (Score*& lscore : m2->score()->scoreList()) {
                         Measure* lmeasure = lscore->tick2measure(m2->tick());
                         if (lmeasure) {
                               lmeasure->undoChangeProperty(Pid::REPEAT_END, true);
@@ -491,7 +491,7 @@ void BarLine::getY() const
       int oneLine = st1->lines() <= 1;
       if (oneLine && _spanFrom == 0) {
             from = BARLINE_SPAN_1LINESTAFF_FROM;
-            if (!_spanStaff || (staffIdx1 == nstaves - 1))
+            if (!_spanStaff || (staffIdx1 == nstaves - 1) || (staffIdx2 == staffIdx1))
                   to = BARLINE_SPAN_1LINESTAFF_TO;
             }
       SysStaff* sysStaff1  = system->staff(staffIdx1);
