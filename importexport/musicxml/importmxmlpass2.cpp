@@ -3101,6 +3101,14 @@ void MusicXMLParserPass2::staffDetails(const QString& partId, Measure* measure)
                   else
                         _logger->logError(QString("illegal staff-lines %1").arg(staffLines), &_e);
                   }
+            else if (_e.name() == "line-detail") {
+                  const QColor color = _e.attributes().value("color").toString();
+                  if (color.isValid())
+                        _score->staff(staffIdx)->staffType(Fraction(0, 1))->setColor(color);
+                  if (_e.attributes().value("print-object") == "no")
+                        _score->staff(staffIdx)->staffType(Fraction(0, 1))->setInvisible(true);
+                  _e.skipCurrentElement();
+                  }
             else if (_e.name() == "staff-tuning")
                   staffTuning(&stringData);
             else if (_e.name() == "staff-size") {
