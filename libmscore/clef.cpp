@@ -15,18 +15,18 @@
  Implementation of classes Clef (partial) and ClefList (complete).
 */
 
+#include "ambitus.h"
 #include "clef.h"
 #include "measure.h"
-#include "ambitus.h"
-#include "xml.h"
+#include "part.h"
+#include "score.h"
+#include "segment.h"
+#include "staff.h"
+#include "stafftype.h"
 #include "sym.h"
 #include "symbol.h"
 #include "system.h"
-#include "score.h"
-#include "staff.h"
-#include "segment.h"
-#include "stafftype.h"
-#include "part.h"
+#include "xml.h"
 
 namespace Ms {
 
@@ -38,9 +38,10 @@ const ClefInfo ClefInfo::clefTable[] = {
 // { "G15mb","G",         2, -2, 59, { 0, 3,-1, 2, 5, 1, 4, 4, 1, 5, 2, 6, 3, 7 }, SymId::gClef15mb,                QT_TRANSLATE_NOOP("clefTable", "Treble clef 15ma bassa"),                  StaffGroup::STANDARD  },
 { "G15mb","G",         2, -2, 31, { 0, 3,-1, 2, 5, 1, 4, 4, 1, 5, 2, 6, 3, 7 }, SymId::gClef15mb,                QT_TRANSLATE_NOOP("clefTable", "Treble clef 15ma bassa"),                  StaffGroup::STANDARD  },
 { "G8vb", "G",         2, -1, 38, { 0, 3,-1, 2, 5, 1, 4, 4, 1, 5, 2, 6, 3, 7 }, SymId::gClef8vb,                 QT_TRANSLATE_NOOP("clefTable", "Treble clef 8va bassa"),                   StaffGroup::STANDARD  },
-{ "G8va", "G",         2,  1, 52, { 0, 3,-1, 2, 5, 1, 4, 4, 1, 5, 2, 6, 3, 7 }, SymId::gClef8va,                 QT_TRANSLATE_NOOP("clefTable", "Treble clef 8va alta"),                   StaffGroup::STANDARD  },
-{ "G15ma","G",         2,  2, 59, { 0, 3,-1, 2, 5, 1, 4, 4, 1, 5, 2, 6, 3, 7 }, SymId::gClef15ma,                QT_TRANSLATE_NOOP("clefTable", "Treble clef 15ma alta"),                  StaffGroup::STANDARD  },
+{ "G8va", "G",         2,  1, 52, { 0, 3,-1, 2, 5, 1, 4, 4, 1, 5, 2, 6, 3, 7 }, SymId::gClef8va,                 QT_TRANSLATE_NOOP("clefTable", "Treble clef 8va alta"),                    StaffGroup::STANDARD  },
+{ "G15ma","G",         2,  2, 59, { 0, 3,-1, 2, 5, 1, 4, 4, 1, 5, 2, 6, 3, 7 }, SymId::gClef15ma,                QT_TRANSLATE_NOOP("clefTable", "Treble clef 15ma alta"),                   StaffGroup::STANDARD  },
 { "G8vbo","G",         2, -1, 38, { 0, 3,-1, 2, 5, 1, 4, 4, 1, 5, 2, 6, 3, 7 }, SymId::gClef8vbOld,              QT_TRANSLATE_NOOP("clefTable", "Double treble clef 8va bassa on 2nd line"),StaffGroup::STANDARD  },
+{ "G8vbc","G",         2, -1, 38, { 0, 3,-1, 2, 5, 1, 4, 4, 1, 5, 2, 6, 3, 7 }, SymId::gClef8vbCClef,            QT_TRANSLATE_NOOP("clefTable", "G clef ottava bassa with C clef"),         StaffGroup::STANDARD  },
 { "G8vbp","G",         2,  0, 45, { 0, 3,-1, 2, 5, 1, 4, 4, 1, 5, 2, 6, 3, 7 }, SymId::gClef8vbParens,           QT_TRANSLATE_NOOP("clefTable", "Treble clef optional 8va bassa"),          StaffGroup::STANDARD  },
 { "G1",   "G",         1,  0, 47, { 2, 5, 1, 4, 7, 3, 6, 6, 3, 7, 4, 8, 5, 9 }, SymId::gClef,                    QT_TRANSLATE_NOOP("clefTable", "French violin clef"),                StaffGroup::STANDARD  },
 { "C1",   "C",         1,  0, 43, { 5, 1, 4, 0, 3,-1, 2, 2, 6, 3, 7, 4, 8, 5 }, SymId::cClef,                    QT_TRANSLATE_NOOP("clefTable", "Soprano clef"),                      StaffGroup::STANDARD  },
@@ -52,14 +53,14 @@ const ClefInfo ClefInfo::clefTable[] = {
 { "C1_F18C", "C",      1,  0, 43, { 5, 1, 4, 0, 3,-1, 2, 2, 6, 3, 7, 4, 8, 5 }, SymId::cClefFrench,              QT_TRANSLATE_NOOP("clefTable", "Soprano clef (French, 18th century)"), StaffGroup::STANDARD  },
 { "C3_F18C", "C",      3,  0, 39, { 1, 4, 0, 3, 6, 2, 5, 5, 2, 6, 3, 7, 4, 8 }, SymId::cClefFrench,              QT_TRANSLATE_NOOP("clefTable", "Alto clef (French, 18th century)"),  StaffGroup::STANDARD  },
 { "C4_F18C", "C",      4,  0, 37, { 6, 2, 5, 1, 4, 0, 3, 3, 0, 4, 1, 5, 2, 6 }, SymId::cClefFrench,              QT_TRANSLATE_NOOP("clefTable", "Tenor clef (French, 18th century)"), StaffGroup::STANDARD  },
-{ "C1_F20C", "C",      1,  0, 43, { 5, 1, 4, 0, 3,-1, 2, 2, 6, 3, 7, 4, 8, 5 }, SymId::cClefFrench20C,           QT_TRANSLATE_NOOP("clefTable", "Soprano clef (French, 20th century)"),  StaffGroup::STANDARD  },
+{ "C1_F20C", "C",      1,  0, 43, { 5, 1, 4, 0, 3,-1, 2, 2, 6, 3, 7, 4, 8, 5 }, SymId::cClefFrench20C,           QT_TRANSLATE_NOOP("clefTable", "Soprano clef (French, 20th century)"), StaffGroup::STANDARD  },
 { "C3_F20C", "C",      3,  0, 39, { 1, 4, 0, 3, 6, 2, 5, 5, 2, 6, 3, 7, 4, 8 }, SymId::cClefFrench20C,           QT_TRANSLATE_NOOP("clefTable", "Alto clef (French, 20th century)"),  StaffGroup::STANDARD  },
 { "C4_F20C", "C",      4,  0, 37, { 6, 2, 5, 1, 4, 0, 3, 3, 0, 4, 1, 5, 2, 6 }, SymId::cClefFrench20C,           QT_TRANSLATE_NOOP("clefTable", "Tenor clef (French, 20th century)"), StaffGroup::STANDARD  },
 { "F",    "F",         4,  0, 33, { 2, 5, 1, 4, 7, 3, 6, 6, 3, 7, 4, 8, 5, 9 }, SymId::fClef,                    QT_TRANSLATE_NOOP("clefTable", "Bass clef"),                         StaffGroup::STANDARD  },
 { "F15mb","F",         4, -2, 19, { 2, 5, 1, 4, 7, 3, 6, 6, 3, 7, 4, 8, 5, 9 }, SymId::fClef15mb,                QT_TRANSLATE_NOOP("clefTable", "Bass clef 15ma bassa"),                    StaffGroup::STANDARD  },
 { "F8vb", "F",         4, -1, 26, { 2, 5, 1, 4, 7, 3, 6, 6, 3, 7, 4, 8, 5, 9 }, SymId::fClef8vb,                 QT_TRANSLATE_NOOP("clefTable", "Bass clef 8va bassa"),                     StaffGroup::STANDARD  },
-{ "F8va", "F",         4,  1, 40, { 2, 5, 1, 4, 7, 3, 6, 6, 3, 7, 4, 8, 5, 9 }, SymId::fClef8va,                 QT_TRANSLATE_NOOP("clefTable", "Bass clef 8va alta"),                     StaffGroup::STANDARD  },
-{ "F15ma","F",         4,  2, 47, { 2, 5, 1, 4, 7, 3, 6, 6, 3, 7, 4, 8, 5, 9 }, SymId::fClef15ma,                QT_TRANSLATE_NOOP("clefTable", "Bass clef 15ma alta"),                    StaffGroup::STANDARD  },
+{ "F8va", "F",         4,  1, 40, { 2, 5, 1, 4, 7, 3, 6, 6, 3, 7, 4, 8, 5, 9 }, SymId::fClef8va,                 QT_TRANSLATE_NOOP("clefTable", "Bass clef 8va alta"),                      StaffGroup::STANDARD  },
+{ "F15ma","F",         4,  2, 47, { 2, 5, 1, 4, 7, 3, 6, 6, 3, 7, 4, 8, 5, 9 }, SymId::fClef15ma,                QT_TRANSLATE_NOOP("clefTable", "Bass clef 15ma alta"),                     StaffGroup::STANDARD  },
 { "F3",   "F",         3,  0, 35, { 4, 0, 3,-1, 2, 5, 1, 1, 5, 2, 6, 3, 7, 4 }, SymId::fClef,                    QT_TRANSLATE_NOOP("clefTable", "Baritone clef (F clef)"),            StaffGroup::STANDARD  },
 { "F5",   "F",         5,  0, 31, { 0, 3,-1, 2, 5, 1, 4, 4, 1, 5, 2, 6, 3, 7 }, SymId::fClef,                    QT_TRANSLATE_NOOP("clefTable", "Subbass clef"),                      StaffGroup::STANDARD  },
 { "F_F18C","F",        4,  0, 33, { 2, 5, 1, 4, 7, 3, 6, 6, 3, 7, 4, 8, 5, 9 }, SymId::fClefFrench,              QT_TRANSLATE_NOOP("clefTable", "F clef (French, 18th century)"),     StaffGroup::STANDARD  },
