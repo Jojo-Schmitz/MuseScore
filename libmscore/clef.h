@@ -33,7 +33,7 @@ static const int NO_CLEF = -1000;
 //---------------------------------------------------------
 //   ClefType
 //---------------------------------------------------------
-// table must be in sync with enum ClefType in clef.cpp
+// enum must be in sync with clefTable in clef.cpp
 enum class ClefType : signed char {
       INVALID = -1,
       G = 0,
@@ -42,6 +42,7 @@ enum class ClefType : signed char {
       G8_VA,
       G15_MA,
       G8_VB_O,
+      G8_VB_C,
       G8_VB_P,
       G_1,
       C1,
