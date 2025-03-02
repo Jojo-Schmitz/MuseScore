@@ -5286,11 +5286,13 @@ void ExportMusicXml::textLine(TextLineBase const* const tl, int staff, const Fra
       switch (hookType) {
             case HookType::HOOK_90T:
                   lineEnd = "both";
-                  rest += QString(" end-length=\"%1\"").arg(std::abs(hookHeight * 20));
+                  if (preferences.getBool(PREF_EXPORT_MUSICXML_EXPORTLAYOUT))
+                        rest += QString(" end-length=\"%1\"").arg(std::abs(hookHeight * 20));
                   break;
             case HookType::HOOK_90:
                   lineEnd = (hookHeight < 0.0) ? "up" : "down";
-                  rest += QString(" end-length=\"%1\"").arg(std::abs(hookHeight * 10));
+                  if (preferences.getBool(PREF_EXPORT_MUSICXML_EXPORTLAYOUT))
+                        rest += QString(" end-length=\"%1\"").arg(std::abs(hookHeight * 10));
                   break;
             case HookType::NONE:
                   lineEnd = "none";
