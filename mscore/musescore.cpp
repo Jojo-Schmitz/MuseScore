@@ -1787,6 +1787,8 @@ MuseScore::MuseScore()
       menuTools->addAction(getAction("slash-rhythm"));
       menuTools->addSeparator();
 
+      menuTools->addAction(getAction("enh-both"));
+      menuTools->addAction(getAction("enh-current"));
       menuTools->addAction(getAction("pitch-spell"));
       menuTools->addAction(getAction("reset-groupings"));
       menuTools->addAction(getAction("resequence-rehearsal-marks"));
