@@ -477,7 +477,7 @@ void updateExternalValuesFromPreferences() {
             dir.mkpath(preferences.getString(PREF_APP_PATHS_MYEXTENSIONS));
             dir.mkpath(preferences.getString(PREF_APP_PATHS_MYPLUGINS));
             dir.mkpath(preferences.getString(PREF_APP_PATHS_MYSCOREFONTS));
-            for (QString path : preferences.getString(PREF_APP_PATHS_MYSOUNDFONTS).split(";"))
+            for (QString& path : preferences.getString(PREF_APP_PATHS_MYSOUNDFONTS).split(";"))
                   dir.mkpath(path);
                   }
             }
@@ -811,7 +811,7 @@ bool MuseScore::importExtension(QString path)
 
       auto loadSoundFontAsync = [&]() {
             // After install: add sfz to zerberus
-            QDir sfzDir(QString("%1/%2/%3/%4").arg(preferences.getString(PREF_APP_PATHS_MYEXTENSIONS), extensionId, version).arg(Extension::sfzsDir));
+            QDir sfzDir(QString("%1/%2/%3/%4").arg(preferences.getString(PREF_APP_PATHS_MYEXTENSIONS), extensionId, version, QString(Extension::sfzsDir)));
             if (sfzDir.exists()) {
                   // get all sfz files
                   QDirIterator it(sfzDir.absolutePath(), QStringList("*.sfz"), QDir::Files, QDirIterator::Subdirectories);
@@ -832,7 +832,7 @@ bool MuseScore::importExtension(QString path)
                   }
 
             // After install: add soundfont to fluid
-            QDir sfDir(QString("%1/%2/%3/%4").arg(preferences.getString(PREF_APP_PATHS_MYEXTENSIONS), extensionId, version).arg(Extension::soundfontsDir));
+            QDir sfDir(QString("%1/%2/%3/%4").arg(preferences.getString(PREF_APP_PATHS_MYEXTENSIONS), extensionId, version, QString(Extension::soundfontsDir)));
             if (sfDir.exists()) {
                   // get all soundfont files
                   QStringList filters("*.sf2");
@@ -868,7 +868,7 @@ bool MuseScore::importExtension(QString path)
             }
 
       // after install: refresh workspaces if needed
-      QDir workspacesDir(QString("%1/%2/%3/%4").arg(preferences.getString(PREF_APP_PATHS_MYEXTENSIONS), extensionId, version).arg(Extension::workspacesDir));
+      QDir workspacesDir(QString("%1/%2/%3/%4").arg(preferences.getString(PREF_APP_PATHS_MYEXTENSIONS), extensionId, version, QString(Extension::workspacesDir)));
       if (workspacesDir.exists() && !MScore::noGui) {
             auto wsList = workspacesDir.entryInfoList(QStringList("*.workspace"), QDir::Files);
             if (!wsList.isEmpty()) {
@@ -888,7 +888,7 @@ bool MuseScore::uninstallExtension(QString extensionId)
       {
       QString version = Extension::getLatestVersion(extensionId);
       // Before install: remove sfz from zerberus
-      QDir sfzDir(QString("%1/%2/%3/%4").arg(preferences.getString(PREF_APP_PATHS_MYEXTENSIONS), extensionId, version).arg(Extension::sfzsDir));
+      QDir sfzDir(QString("%1/%2/%3/%4").arg(preferences.getString(PREF_APP_PATHS_MYEXTENSIONS), extensionId, version, QString(Extension::sfzsDir)));
       if (sfzDir.exists()) {
             // get all sfz files
             QDirIterator it(sfzDir.absolutePath(), QStringList("*.sfz"), QDir::Files, QDirIterator::Subdirectories);
@@ -903,7 +903,7 @@ bool MuseScore::uninstallExtension(QString extensionId)
             s->gui()->synthesizerChanged();
             }
       // Before install: remove soundfont from fluid
-      QDir sfDir(QString("%1/%2/%3/%4").arg(preferences.getString(PREF_APP_PATHS_MYEXTENSIONS), extensionId, version).arg(Extension::soundfontsDir));
+      QDir sfDir(QString("%1/%2/%3/%4").arg(preferences.getString(PREF_APP_PATHS_MYEXTENSIONS), extensionId, version, QString(Extension::soundfontsDir)));
       if (sfDir.exists()) {
             // get all soundfont files
             QStringList filters("*.sf2");
@@ -921,7 +921,7 @@ bool MuseScore::uninstallExtension(QString extensionId)
             s->gui()->synthesizerChanged();
             }
       bool refreshWorkspaces = false;
-      QDir workspacesDir(QString("%1/%2/%3/%4").arg(preferences.getString(PREF_APP_PATHS_MYEXTENSIONS), extensionId, version).arg(Extension::workspacesDir));
+      QDir workspacesDir(QString("%1/%2/%3/%4").arg(preferences.getString(PREF_APP_PATHS_MYEXTENSIONS), extensionId, version, QString(Extension::workspacesDir)));
       if (workspacesDir.exists()) {
             auto wsList = workspacesDir.entryInfoList(QStringList("*.workspace"), QDir::Files);
             if (!wsList.isEmpty())
@@ -1787,6 +1787,8 @@ MuseScore::MuseScore()
       menuTools->addAction(getAction("slash-rhythm"));
       menuTools->addSeparator();
 
+      menuTools->addAction(getAction("enh-both"));
+      menuTools->addAction(getAction("enh-current"));
       menuTools->addAction(getAction("pitch-spell"));
       menuTools->addAction(getAction("reset-groupings"));
       menuTools->addAction(getAction("resequence-rehearsal-marks"));
@@ -1984,7 +1986,7 @@ MuseScore::MuseScore()
       if (!MScore::noGui) {
             retranslate();
             //accessibility for menus
-            for (QMenu* menu : mb->findChildren<QMenu*>()) {
+            for (QMenu*& menu : mb->findChildren<QMenu*>()) {
                   menu->setAccessibleName(menu->objectName());
                   menu->setAccessibleDescription(Shortcut::getMenuShortcutString(menu));
                   }
@@ -2328,7 +2330,7 @@ void MuseScore::helpBrowser1() const
       QString help = QString("https://musescore.org/redirect/help?tag=handbook&locale=%1").arg(getLocaleISOCode());
       //try to find an exact match
       bool found = false;
-      for (LanguageItem item : _languages) {
+      for (const LanguageItem& item : _languages) {
             if (item.key == lang) {
                   QString handbook = item.handbook;
                   if (!handbook.isNull()) {
@@ -2341,7 +2343,7 @@ void MuseScore::helpBrowser1() const
       //try a to find a match on first two letters
       if (!found && lang.size() > 2) {
             lang = lang.left(2);
-            for (LanguageItem item : _languages) {
+            for (const LanguageItem& item : _languages) {
                   if (item.key == lang){
                       QString handbook = item.handbook;
                       if (!handbook.isNull())
@@ -2602,7 +2604,7 @@ void MuseScore::openRecentMenu()
       {
       openRecent->clear();
       bool hasAnyRecentFiles = false;
-      for (const QFileInfo& fi : recentScores()) {
+      for (QFileInfo& fi : recentScores()) {
             QAction* action = openRecent->addAction(fi.fileName().replace("&", "&&"));  // show filename only
 
             QString filePath = fi.canonicalFilePath();
@@ -2981,7 +2983,7 @@ void MuseScore::dropEvent(QDropEvent* event)
       {
       const QMimeData* dta = event->mimeData();
       if (dta->hasUrls()) {
-            for (const QUrl& u : event->mimeData()->urls()) {
+            for (QUrl& u : event->mimeData()->urls()) {
                   if (u.scheme() == "file") {
                         QString file = u.toLocalFile();
                         openScore(file);
@@ -3846,7 +3848,7 @@ static bool doProcessJob(QString jsonFile)
                   return false;
                   }
             QJsonObject obj = i.toObject();
-            for (const auto& key : obj.keys()) {
+            for (auto& key : obj.keys()) {
                   if (key == "in")
                         inFile = obj.value(key).toString();
                   else if (key == "out") {
@@ -4862,7 +4864,7 @@ void MuseScore::play(Element* e, int pitch) const
 
             Note* masterNote = note;
             if (note->linkList().size() > 1) {
-                  for (ScoreElement* se_ : note->linkList()) {
+                  for (ScoreElement*& se_ : note->linkList()) {
                         if (se_->score() == note->masterScore() && se_->isNote()) {
                               masterNote = toNote(se_);
                               break;
@@ -5164,7 +5166,7 @@ void MuseScore::writeSessionFile(bool cleanExit)
       xml.stag(QStringLiteral("museScore version=\"" MSC_VERSION "\" full-version=\"%1\"").arg(fullVersion()));
       xml.tagE(cleanExit ? "clean" : "dirty");
 
-      for (MasterScore* score : scoreList) {
+      for (MasterScore*& score : scoreList) {
             xml.stag("Score");
             xml.tag("created", score->created());
             xml.tag("dirty", score->dirty());
@@ -6735,7 +6737,7 @@ void MuseScore::updateLayer()
       if (cs) {
             enable = cs->layer().size() > 1;
             if (enable) {
-                  for (const Layer& l : cs->layer())
+                  for (Layer& l : cs->layer())
                         layerSwitch->addItem(l.name);
                   layerSwitch->setCurrentIndex(cs->currentLayer());
                   }
@@ -8165,7 +8167,7 @@ void MuseScore::init(QStringList& argv)
 
       if (MScore::debugMode) {
             QStringList sl(QCoreApplication::libraryPaths());
-            for (const QString& s : sl)
+            for (QString& s : sl)
                   qDebug("LibraryPath: <%s>", qPrintable(s));
             }
 
@@ -8264,8 +8266,8 @@ void MuseScore::init(QStringList& argv)
       else {
             showSplashMessage(sc, tr("Initializing main window…"));
             mscore->readSettings();
-            QObject::connect(qApp, SIGNAL(messageReceived(const QString&)),
-               mscore, SLOT(handleMessage(const QString&)));
+            QObject::connect(qApp, SIGNAL(messageReceived(QString)),
+               mscore, SLOT(handleMessage(QString)));
 
             static_cast<QtSingleApplication*>(qApp)->setActivationWindow(mscore, false);
             // count filenames specified on the command line
@@ -8369,88 +8371,85 @@ void MuseScore::init(QStringList& argv)
 
 
 bool MuseScore::saveScoreParts(const QString& inFilePath, const QString& outFilePath)
-{
-    MasterScore* score = mscore->readScore(inFilePath);
-    if (!score) {
-        return false;
-    }
+      {
+      MasterScore* score = mscore->readScore(inFilePath);
+      if (!score)
+            return false;
 
-    if (!styleFile.isEmpty()) {
-        QFile f(styleFile);
-        if (f.open(QIODevice::ReadOnly)) {
-            score->style().load(&f);
-        }
-    }
-    score->switchToPageMode();
+      if (!styleFile.isEmpty()) {
+            QFile f(styleFile);
+            if (f.open(QIODevice::ReadOnly))
+                  score->style().load(&f);
+            }
+      score->switchToPageMode();
 
-    // if no parts, generate parts from existing instruments
-    if (score->excerpts().isEmpty()) {
-        auto excerpts = Excerpt::createAllExcerpt(score);
-        for (Excerpt* e : qAsConst(excerpts)) {
-              Score* nscore = new Score(e->oscore());
-              e->setPartScore(nscore);
-              nscore->style().set(Sid::createMultiMeasureRests, true);
-              auto excerptCmdFake = new AddExcerpt(e);
-              excerptCmdFake->redo(nullptr);
-              Excerpt::createExcerpt(e);
-        }
-    }
+      // if no parts, generate parts from existing instruments
+      if (score->excerpts().isEmpty()) {
+            auto excerpts = Excerpt::createAllExcerpt(score);
+            for (Excerpt*& e : excerpts) {
+                  Score* nscore = new Score(e->oscore());
+                  e->setPartScore(nscore);
+                  nscore->style().set(Sid::createMultiMeasureRests, true);
+                  auto excerptCmdFake = new AddExcerpt(e);
+                  excerptCmdFake->redo(nullptr);
+                  Excerpt::createExcerpt(e);
+                  }
+            }
 
-    QJsonArray partsObjList;
-    QJsonArray partsMetaList;
-    QJsonArray partsTitles;
+      QJsonArray partsObjList;
+      QJsonArray partsMetaList;
+      QJsonArray partsTitles;
 
-    for (Excerpt* excerpt : qAsConst(score->excerpts())) {
-        Score* part = excerpt->partScore();
-        QMap<QString, QString> partMetaTags = part->metaTags();
+      for (Excerpt*& excerpt : score->excerpts()) {
+            Score* part = excerpt->partScore();
+            QMap<QString, QString> partMetaTags = part->metaTags();
 
-        QJsonValue partTitle(part->title());
-        partsTitles << partTitle;
+            QJsonValue partTitle(part->title());
+            partsTitles << partTitle;
 
-        QVariantMap meta;
-        for (const QString& key: partMetaTags.keys()) {
-            meta[key] = partMetaTags[key];
-        }
+            QVariantMap meta;
+            for (const QString& key: partMetaTags)
+                  meta[key] = partMetaTags[key];
 
-        QJsonValue partMetaObj = QJsonObject::fromVariantMap(meta);
-        partsMetaList << partMetaObj;
+            QJsonValue partMetaObj = QJsonObject::fromVariantMap(meta);
+            partsMetaList << partMetaObj;
 
-        QJsonValue partObj(QString::fromLatin1(exportMsczAsJSON(part)));
-        partsObjList << partObj;
-    }
+            QJsonValue partObj(QString::fromLatin1(exportMsczAsJSON(part)));
+            partsObjList << partObj;
+            }
 
-    QJsonObject json;
-    json["parts"] = partsTitles;
-    json["partsMeta"] = partsMetaList;
-    json["partsBin"] = partsObjList;
+      QJsonObject json;
+      json["parts"] = partsTitles;
+      json["partsMeta"] = partsMetaList;
+      json["partsBin"] = partsObjList;
 
-    QJsonDocument jsonDoc(json);
-    QFile out(outFilePath);
+      QJsonDocument jsonDoc(json);
+      QFile out(outFilePath);
 
-    bool res = out.open(QIODevice::WriteOnly);
-    if (res) {
-        out.write(jsonDoc.toJson(QJsonDocument::Compact));
-        out.close();
-    }
+      bool res = out.open(QIODevice::WriteOnly);
+      if (res) {
+            out.write(jsonDoc.toJson(QJsonDocument::Compact));
+            out.close();
+            }
 
-    delete score;
-    return res;
-}
+      delete score;
+      return res;
+      }
 
 QByteArray MuseScore::exportMsczAsJSON(Score* score)
-{
-    QBuffer buffer;
-    buffer.open(QIODevice::ReadWrite);
+      {
+      QBuffer buffer;
+      buffer.open(QIODevice::ReadWrite);
 
-    QString fileName = saveFilename(score->title()) + ".mscz";
-    score->saveCompressedFile(&buffer, fileName, false, true);
+      QString fileName = saveFilename(score->title()) + ".mscz";
+      score->saveCompressedFile(&buffer, fileName, false, true);
 
-    buffer.open(QIODevice::ReadOnly);
-    QByteArray scoreData = buffer.readAll();
-    buffer.close();
+      buffer.open(QIODevice::ReadOnly);
+      QByteArray scoreData = buffer.readAll();
+      buffer.close();
 
-    return scoreData.toBase64();
-}
+      return scoreData.toBase64();
+      }
 
 bool MuseScore::exportUnrolled(const QString& inFilePath)
 {
