@@ -300,7 +300,6 @@ void MScore::init()
       layoutBreakColor    = QColor(0xA0A0A4);
       frameMarginColor    = QColor(0xA0A0A4);
       bgColor             = QColor(0xdddddd);
-
       //
       //  initialize styles
       //
@@ -342,7 +341,14 @@ void MScore::init()
             ":/fonts/edwin/Edwin-Bold.otf",
             ":/fonts/edwin/Edwin-Italic.otf",
             ":/fonts/edwin/Edwin-BdIta.otf",
+            ":/fonts/FreeMono.ttf",
+            ":/fonts/FreeMonoBold.ttf",
+            ":/fonts/FreeMonoOblique.ttf",
+            ":/fonts/FreeMonoBoldOblique.ttf",
             ":/fonts/FreeSans.ttf",
+            ":/fonts/FreeSansBold.ttf",
+            ":/fonts/FreeSansOblique.ttf",
+            ":/fonts/FreeSansBoldOblique.ttf",
             ":/fonts/FreeSerif.ttf",
             ":/fonts/FreeSerifBold.ttf",
             ":/fonts/FreeSerifItalic.ttf",

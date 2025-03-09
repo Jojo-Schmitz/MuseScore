@@ -495,11 +495,18 @@ if (APPLE)
       ../fonts/edwin/Edwin-Bold.otf
       ../fonts/edwin/Edwin-Italic.otf
       ../fonts/edwin/Edwin-BdIta.otf
+      ../fonts/FreeMono.ttf
+      ../fonts/FreeMonoBold.ttf
+      ../fonts/FreeMonoOblique.ttf
+      ../fonts/FreeMonoBoldOblique.ttf
+      ../fonts/FreeSans.ttf
+      ../fonts/FreeSansBold.ttf
+      ../fonts/FreeSansOblique.ttf
+      ../fonts/FreeSansBoldOblique.ttf
       ../fonts/FreeSerif.ttf
       ../fonts/FreeSerifBold.ttf
       ../fonts/FreeSerifItalic.ttf
       ../fonts/FreeSerifBoldItalic.ttf
-      ../fonts/FreeSans.ttf
       ../fonts/mscoreTab.ttf
       ../fonts/mscore-BC.ttf
       ../fonts/bravura/BravuraText.otf
