@@ -347,6 +347,7 @@ void MScore::init()
             ":/fonts/FreeMonoBoldOblique.ttf",
             ":/fonts/FreeSans.ttf",
             ":/fonts/FreeSansBold.ttf",
+            ":/fonts/FreeSansBoldTab.ttf",
             ":/fonts/FreeSansOblique.ttf",
             ":/fonts/FreeSansBoldOblique.ttf",
             ":/fonts/FreeSerif.ttf",

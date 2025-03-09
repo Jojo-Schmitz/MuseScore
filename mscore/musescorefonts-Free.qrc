@@ -6,6 +6,7 @@
         <file alias="fonts/FreeMonoBoldOblique.ttf">../fonts/FreeMonoBoldOblique.ttf</file>
         <file alias="fonts/FreeSans.ttf">../fonts/FreeSans.ttf</file>
         <file alias="fonts/FreeSansBold.ttf">../fonts/FreeSansBold.ttf</file>
+        <file alias="fonts/FreeSansBoldTab.ttf">../fonts/FreeSansBoldTab.ttf</file>
         <file alias="fonts/FreeSansOblique.ttf">../fonts/FreeSansOblique.ttf</file>
         <file alias="fonts/FreeSansBoldOblique.ttf">../fonts/FreeSansBoldOblique.ttf</file>
         <!--<file alias="fonts/FreeSerif.ttf">../fonts/FreeSerif.ttf</file>-->
