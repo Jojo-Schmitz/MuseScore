@@ -632,6 +632,23 @@ static QString color2xml(const Element* el)
       }
 
 //---------------------------------------------------------
+//   frame2xml
+//---------------------------------------------------------
+
+static QString frame2xml(const TextBase* el)
+      {
+      switch (el->frameType()) {
+            case FrameType::CIRCLE:
+                  return " enclosure=\"circle\"";
+            case FrameType::SQUARE:
+                  return " enclosure=\"rectangle\"";
+            default:
+                  return QString();
+            }
+      }
+
+
+//---------------------------------------------------------
 //   fontStyleToXML
 //---------------------------------------------------------
 
@@ -2648,6 +2665,7 @@ static void writeAccidental(XmlWriter& xml, const QString& tagName, const Accide
 
 static void writeDisplayName(XmlWriter& xml, const QString& partName)
       {
+      // TODO: add text style attributes
       QString displayText;
       for (int i = 0; i < partName.size(); ++i) {
             QChar ch = partName.at(i);
@@ -4572,12 +4590,7 @@ static void wordsMetronome(XmlWriter& xml, Score* s, TextBase const* const text,
       else {
             xml.stag("direction-type");
             QString attr;
-            if (text->hasFrame()) {
-                  if (text->circle())
-                        attr = " enclosure=\"circle\"";
-                  else
-                        attr = " enclosure=\"rectangle\"";
-                  }
+            attr += frame2xml(text);
             attr += color2xml(text);
             attr += positioningAttributes(text);
             MScoreTextToMXML mttm("words", attr, defFmt, mtf);
@@ -4725,12 +4738,7 @@ void ExportMusicXml::tboxTextAsWords(TextBase const* const text, const int staff
       _xml.stag(tagname);
       _xml.stag("direction-type");
       QString attr;
-      if (text->hasFrame()) {
-            if (text->circle())
-                  attr = " enclosure=\"circle\"";
-            else
-                  attr = " enclosure=\"rectangle\"";
-            }
+      attr += frame2xml(text);
       attr += positioningAttributesForTboxText(relativePosition, text->spatium());
       attr += " valign=\"top\"";
       MScoreTextToMXML mttm("words", attr, defFmt, mtf);
@@ -4756,7 +4764,7 @@ void ExportMusicXml::rehearsal(RehearsalMark const* const rmk, int staff)
       QString attr;
       if (rmk->circle())
             attr = " enclosure=\"circle\"";
-      else if (!rmk->hasFrame())
+      else if (!rmk->hasFrame()) // special default case
             attr = " enclosure=\"none\"";
       attr += color2xml(rmk);
       attr += positioningAttributes(rmk);
@@ -5273,6 +5281,7 @@ void ExportMusicXml::dynamic(Dynamic const* const dyn, int staff)
       _xml.stag("direction-type");
 
       QString tagName = "dynamics";
+      tagName += frame2xml(dyn);
       tagName += color2xml(dyn);
       tagName += positioningAttributes(dyn);
       _xml.stag(tagName);
