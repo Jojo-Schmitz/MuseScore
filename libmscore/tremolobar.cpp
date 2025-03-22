@@ -10,12 +10,11 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "tremolobar.h"
-#include "score.h"
-#include "undo.h"
-#include "staff.h"
-#include "chord.h"
 #include "note.h"
+#include "score.h"
+#include "staff.h"
+#include "tremolobar.h"
+#include "undo.h"
 #include "xml.h"
 
 namespace Ms {
@@ -87,6 +86,7 @@ void TremoloBar::draw(QPainter* painter) const
 void TremoloBar::write(XmlWriter& xml) const
       {
       xml.stag(this);
+      writeProperty(xml, Pid::COLOR);
       writeProperty(xml, Pid::MAG);
       writeProperty(xml, Pid::LINE_WIDTH);
       writeProperty(xml, Pid::PLAY);
@@ -119,6 +119,8 @@ void TremoloBar::read(XmlReader& e)
                   ;
             else if (tag == "play")
                   setPlay(e.readInt());
+            else if (readProperty(tag, e, Pid::COLOR))
+                  ;
             else if (readProperty(tag, e, Pid::LINE_WIDTH))
                   ;
             else
