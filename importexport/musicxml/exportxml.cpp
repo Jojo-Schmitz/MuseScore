@@ -7928,7 +7928,9 @@ double ExportMusicXml::getTenthsFromDots(double dots) const
 static void writeMusicXML(const FretDiagram* item, XmlWriter& xml)
       {
       qDebug("FretDiagram::writeMusicXML() this %p harmony %p", item, item->harmony());
-      xml.stag("frame");
+      QString frame = "frame";
+      frame += color2xml(item);
+      xml.stag(frame);
       xml.tag("frame-strings", item->strings());
       xml.tag("frame-frets", item->frets());
       if (item->fretOffset() > 0)
