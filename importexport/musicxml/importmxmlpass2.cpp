@@ -6223,6 +6223,9 @@ Note* MusicXMLParserPass2::note(const QString& partId,
                   beamColor.setNamedColor(_e.attributes().value("color").toString());
                   beam(beamTypes);
                   }
+            else if (_e.name() == "accidental") {
+                  _e.skipCurrentElement();  // skip but don't log
+                  }
             else if (_e.name() == "chord") {
                   chord = true;
                   _e.skipCurrentElement();  // skip but don't log
