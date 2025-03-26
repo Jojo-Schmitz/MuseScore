@@ -84,7 +84,7 @@ class ScoreRange {
    public:
       ScoreRange() {}
       ~ScoreRange();
-      void read(Segment* first, Segment* last, bool readSpanner = true);
+      void read(Segment* first, Segment* last);
       bool write(Score*, const Fraction&) const;
       Fraction ticks() const;
       Segment* first() const { return _first; }

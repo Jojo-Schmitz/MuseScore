@@ -702,7 +702,7 @@ void Score::globalInsertChord(const Position& pos)
       Fraction fraction  = duration.fraction();
       ScoreRange r;
 
-      r.read(s1, s2, false);
+      r.read(s1, s2);
 
       int strack = 0;                      // for now for all tracks
       int etrack = nstaves() * VOICES;

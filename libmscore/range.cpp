@@ -648,7 +648,7 @@ ScoreRange::~ScoreRange()
 //   read
 //---------------------------------------------------------
 
-void ScoreRange::read(Segment* first, Segment* last, bool readSpanner)
+void ScoreRange::read(Segment* first, Segment* last)
       {
       _first        = first;
       _last         = last;
@@ -660,21 +660,17 @@ void ScoreRange::read(Segment* first, Segment* last, bool readSpanner)
 
       spanner.clear();
 
-      if (readSpanner) {
-            Fraction stick = first->tick();
-            Fraction etick = last->tick();
-            for (auto i : first->score()->spanner()) {
-                  Spanner* s = i.second;
-                  if (s->tick() >= stick && s->tick() < etick && s->track() >= startTrack && s->track() < endTrack) {
-                        Spanner* ns = toSpanner(s->clone());
-                        ns->setParent(0);
-                        ns->setStartElement(0);
-                        ns->setEndElement(0);
-                        ns->setTick(ns->tick() - stick);
-                        spanner.push_back(ns);
-                        }
+      Fraction stick = first->tick();
+      Fraction etick = last->tick();
+      for (auto i : first->score()->spanner()) {
+            Spanner* s = i.second;
+            if (s->tick() >= stick && s->tick() < etick && s->track() >= startTrack && s->track() < endTrack) {
+                  Spanner* ns = toSpanner(s->clone());
+                  s->undoChangeProperty(Pid::TICK, s->tick() - stick);
+                  spanner.push_back(ns);
                   }
             }
+
       for (int staffIdx : qAsConst(sl)) {
             int sTrack = staffIdx * VOICES;
             int eTrack = sTrack + VOICES;
@@ -714,7 +710,7 @@ bool ScoreRange::write(Score* score, const Fraction& tick) const
             ++track;
             }
       for (Spanner* s : spanner) {
-            s->setTick(s->tick() + tick);
+            s->undoChangeProperty(Pid::TICK, s->tick() + tick);
             if (s->isSlur()) {
                   Slur* slur = toSlur(s);
                   if (slur->startCR()->isGrace()) {
@@ -734,7 +730,6 @@ bool ScoreRange::write(Score* score, const Fraction& tick) const
                   else
                         s->setEndElement(0);
                   }
-            score->undoAddElement(s);
             }
       for (const Annotation& a : annotations) {
             Measure* tm = score->tick2measure(a.tick);
@@ -762,7 +757,7 @@ void ScoreRange::fill(const Fraction& f)
       Fraction diff = ticks() - oldDuration;
       for (Spanner* sp : qAsConst(spanner)) {
             if (sp->tick2() >= oldEndTick && sp->tick() < oldEndTick)
-                  sp->setTicks(sp->ticks() + diff);
+                  sp->undoChangeProperty(Pid::SPANNER_TICKS, sp->ticks() + diff);
             }
       }
 
