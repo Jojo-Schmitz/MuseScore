@@ -169,7 +169,7 @@ private slots:
       void holes() { mxmlIoTest("testHoles"); }
       void implicitMeasure1() { mxmlIoTest("testImplicitMeasure1"); }
       void incompleteTuplet() { mxmlIoTestRef("testIncompleteTuplet"); }
-      void incorrectStaffNumber1() { mxmlIoTestRef("testIncorrectStaffNumber1"); }
+      void onvisibleNotations() { mxmlIoTest("testInvisibleNotations"); }
       void incorrectStaffNumber2() { mxmlIoTestRef("testIncorrectStaffNumber2"); }
       void inferredCredits1() { mxmlImportTestRef("testInferredCredits1"); }
       void inferredCredits2() { mxmlImportTestRef("testInferredCredits2"); }
