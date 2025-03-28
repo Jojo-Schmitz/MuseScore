@@ -1063,7 +1063,7 @@ static void addArticulationToChord(const Notation& notation, ChordRest* cr)
       const QString place = notation.attribute("placement");
       const QColor color = notation.attribute("color");
       Articulation* na = new Articulation(articSym, cr->score());
-
+      na->setVisible(notation.visible());
       if (color.isValid()/* && preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTLAYOUT)*/)
             na->setColor(color);
       if (dir == "up" || dir == "down") {
@@ -1102,6 +1102,7 @@ static void addFermataToChord(const Notation& notation, ChordRest* cr)
       Segment* seg = cr->segment();
       Fermata* na = new Fermata(articSym, cr->score());
       na->setTrack(cr->track());
+      na->setVisible(notation.visible());
       if (color.isValid()/* && preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTLAYOUT)*/)
             na->setColor(color);
       if (!direction.isEmpty()) {
@@ -1192,6 +1193,7 @@ static void addMordentToChord(const Notation& notation, ChordRest* cr)
                   mordent->setAnchor(ArticulationAnchor::BOTTOM_CHORD);
             else
                   mordent->setAnchor(ArticulationAnchor::CHORD);
+            mordent->setVisible(notation.visible());
             if (color.isValid()/* && preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTLAYOUT)*/)
                   mordent->setColor(color);
             cr->add(mordent);
@@ -1222,6 +1224,7 @@ static void addTurnToChord(const Notation& notation, ChordRest* cr)
             turn->setAnchor(ArticulationAnchor::BOTTOM_CHORD);
       else
             turn->setAnchor(ArticulationAnchor::CHORD);
+      turn->setVisible(notation.visible());
       if (color.isValid()/* && preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTLAYOUT)*/)
             turn->setColor(color);
       cr->add(turn);
@@ -1408,7 +1411,8 @@ static NoteHead::Group convertNotehead(QString mxmlName)
  */
 
 static void addTextToNote(long l, long c, QString txt, QString placement, QString fontWeight,
-                          qreal fontSize, QString fontStyle, QString fontFamily, QColor color, Tid subType, Score* score, Note* note)
+                          qreal fontSize, QString fontStyle, QString fontFamily, bool visible, QColor color,
+                          Tid subType, Score* score, Note* note)
       {
       if (note) {
             if (!txt.isEmpty()) {
@@ -1438,6 +1442,7 @@ static void addTextToNote(long l, long c, QString txt, QString placement, QStrin
                         t->setPropertyFlags(Pid::PLACEMENT, PropertyFlags::UNSTYLED);
                         t->resetProperty(Pid::OFFSET);
                         }
+                  t->setVisible(visible);
                   if (color.isValid()/* && preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTLAYOUT)*/) {
                         t->setColor(color);
                         t->setPropertyFlags(Pid::COLOR, PropertyFlags::UNSTYLED);
@@ -4231,7 +4236,7 @@ void MusicXMLInferredFingering::addToNotes(std::vector<Note*>& notes) const
       for (int i = 0; i < _fingerings.size(); ++i) {
             // Fingerings in reverse order
             addTextToNote(-1, -1, _fingerings[_fingerings.size() - 1 - i], _placement, "", -1, "", "",
-                        QColor(), Tid::FINGERING, notes[i]->score(), notes[i]);
+                          true, QColor(), Tid::FINGERING, notes[i]->score(), notes[i]);
             }
       }
 
@@ -7468,6 +7473,7 @@ QString MusicXMLParserLyric::placement() const
 void MusicXMLParserNotations::slur()
       {
       Notation notation = Notation::notationWithAttributes(_e.name().toString(), _e.attributes(), "notations");
+      notation.setVisible(_visible);
       _notations.push_back(notation);
 
       // any grace note containing a slur stop means
@@ -7521,12 +7527,14 @@ static void addSlur(const Notation& notation, SlurStack& slurs, ChordRest* cr, c
                   if (cr->isGrace())
                         newSlur->setAnchor(Spanner::Anchor::CHORD);
                   const QString lineType = notation.attribute("line-type");
-                  if (lineType == "solid" || lineType.isEmpty())
-                        newSlur->setLineType(0);
+                  if (lineType == "dashed")
+                        newSlur->setLineType(2);
                   else if (lineType == "dotted")
                         newSlur->setLineType(1);
-                  else if (lineType == "dashed")
-                        newSlur->setLineType(2);
+                  else if (lineType == "solid" || lineType.isEmpty())
+                        newSlur->setLineType(0);
+                  else
+                  newSlur->setVisible(notation.visible());
                   const QColor color = notation.attribute("color");
                   if (color.isValid()/* && preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTLAYOUT))*/)
                         newSlur->setColor(color);
@@ -7594,6 +7602,7 @@ static void addSlur(const Notation& notation, SlurStack& slurs, ChordRest* cr, c
 void MusicXMLParserNotations::tied()
       {
       Notation notation = Notation::notationWithAttributes(_e.name().toString(), _e.attributes(), "notations");
+      notation.setVisible(_visible);
       // Make sure "stops" get processed before "starts"
       if (notation.attribute("type") == "stop")
             _notations.insert(_notations.begin(), notation);
@@ -7647,14 +7656,17 @@ void MusicXMLParserNotations::articulations()
             SymId id = SymId::noSym;
             if (convertArticulationToSymId(_e.name().toString(), id)) {
                   if (_e.name() == "detached-legato") {
-                        _notations.push_back(Notation::notationWithAttributes("tenuto",
-                                                                              _e.attributes(), "articulations", SymId::articTenutoAbove));
-                        _notations.push_back(Notation::notationWithAttributes("staccato",
-                                                                              _e.attributes(), "articulations", SymId::articStaccatoAbove));
+                        Notation artic = Notation::notationWithAttributes("tenuto", _e.attributes(), "articulations", SymId::articTenutoAbove);
+                        artic.setVisible(_visible);
+                        _notations.push_back(artic);
+                        artic = Notation::notationWithAttributes("staccato", _e.attributes(), "articulations", SymId::articStaccatoAbove);
+                        artic.setVisible(_visible);
+                        _notations.push_back(artic);
                         }
                   else {
                         Notation artic = Notation::notationWithAttributes(_e.name().toString(),
                                                                           _e.attributes(), "articulations", id);
+                        artic.setVisible(_visible);
                         _notations.push_back(artic);
                         }
                   _e.skipCurrentElement();  // skip but don't log
@@ -7671,8 +7683,9 @@ void MusicXMLParserNotations::articulations()
                         breath = SymId::breathMarkSalzedo;
                   else // Use comma as the default symbol
                         breath = SymId::breathMarkComma;
-                  _notations.push_back(Notation::notationWithAttributes("breath",
-                                                                         attributes, "articulations", breath));
+                  Notation notation = Notation::notationWithAttributes("breath", attributes, "articulations", breath);
+                  notation.setVisible(_visible);
+                  _notations.push_back(notation);
                   }
             else if (_e.name() == "caesura") {
                   QXmlStreamAttributes attributes = _e.attributes();
@@ -7688,16 +7701,17 @@ void MusicXMLParserNotations::articulations()
                         caesura = SymId::caesuraSingleStroke;
                   else // Use as the default symbol
                         caesura = SymId::caesura;
-                  _notations.push_back(Notation::notationWithAttributes("breath",
-                                                                         attributes, "articulations", caesura));
+                  Notation notation = Notation::notationWithAttributes("breath", attributes, "articulations", caesura);
+                  notation.setVisible(_visible);
+                  _notations.push_back(notation);
                   }
             else if (_e.name() == "doit"
                      || _e.name() == "falloff"
                      || _e.name() == "plop"
                      || _e.name() == "scoop") {
-                  Notation artic = Notation::notationWithAttributes("chord-line",
-                                                                    _e.attributes(), "articulations");
+                  Notation artic = Notation::notationWithAttributes("chord-line", _e.attributes(), "articulations");
                   artic.setSubType(_e.name().toString());
+                  artic.setVisible(_visible);
                   _notations.push_back(artic);
                   _e.skipCurrentElement();  // skip but don't log
                   }
@@ -7707,6 +7721,7 @@ void MusicXMLParserNotations::articulations()
                   if (!smufl.isEmpty()) {
                         Notation artic = Notation::notationWithAttributes(_e.name().toString(),
                                                                                _e.attributes(), "articulations", id);
+                        artic.setVisible(_visible);
                         _notations.push_back(artic);
                         }
                   _e.skipCurrentElement();  // skip but don't log
@@ -7734,6 +7749,7 @@ void MusicXMLParserNotations::ornaments()
             if (convertArticulationToSymId(_e.name().toString(), id)) {
                   Notation notation = Notation::notationWithAttributes(_e.name().toString(),
                                                                        _e.attributes(), "ornaments", id);
+                  notation.setVisible(_visible);
                   _notations.push_back(notation);
                   _e.skipCurrentElement();  // skip but don't log
                   }
@@ -7771,6 +7787,7 @@ void MusicXMLParserNotations::ornaments()
             else if (_e.name() == "other-ornament") {
                   Notation notation = Notation::notationWithAttributes(_e.name().toString(),
                                                                        _e.attributes(), "ornaments");
+                  notation.setVisible(_visible);
                   _notations.push_back(notation);
                   _e.skipCurrentElement();  // skip but don't log
                   }
@@ -7783,6 +7800,7 @@ void MusicXMLParserNotations::ornaments()
       // so don't add an additional one
       if (trillMark && _wavyLineType != "start" && _wavyLineType != "startstop") {
             Notation ornament = Notation::notationWithAttributes("trill-mark", _e.attributes(), "ornaments", SymId::ornamentTrill);
+            ornament.setVisible(_visible);
             _notations.push_back(ornament);
             }
       }
@@ -7802,6 +7820,7 @@ void MusicXMLParserNotations::technical()
             if (convertArticulationToSymId(_e.name().toString(), id)) {
                   Notation notation = Notation::notationWithAttributes(_e.name().toString(),
                                                                        _e.attributes(), "technical", id);
+                  notation.setVisible(_visible);
                   _notations.push_back(notation);
                   _e.skipCurrentElement();  // skip but don't log
                   }
@@ -7809,6 +7828,7 @@ void MusicXMLParserNotations::technical()
                   Notation notation = Notation::notationWithAttributes(_e.name().toString(),
                                                                        _e.attributes(), "technical");
                   notation.setText(_e.readElementText());
+                  notation.setVisible(_visible);
                   _notations.push_back(notation);
                   }
             else if (_e.name() == "harmonic")
@@ -7816,8 +7836,10 @@ void MusicXMLParserNotations::technical()
             else if (_e.name() == "handbell") {
                   const QXmlStreamAttributes attributes = _e.attributes();
                   convertArticulationToSymId(_e.readElementText(), id);
-                  _notations.push_back(Notation::notationWithAttributes(_e.name().toString(),
-                                                                        attributes, "technical", id));
+                  Notation notation = Notation::notationWithAttributes(_e.name().toString(),
+                                                                       attributes, "technical", id);
+                  notation.setVisible(_visible);
+                  _notations.push_back(notation);
                   }
             else if (_e.name() == "harmon-mute")
                   harmonMute();
@@ -7825,9 +7847,11 @@ void MusicXMLParserNotations::technical()
                   hole();
             else if (_e.name() == "tap") {
                   id = (_e.attributes().value("hand").toString() == "left") ? SymId::guitarLeftHandTapping : SymId::guitarRightHandTapping;
-                  _notations.push_back(Notation::notationWithAttributes(_e.name().toString(),
-                                                                        _e.attributes(), "technical", id));
-                  _e.skipCurrentElement();  // skip but don't log
+                  Notation notation = Notation::notationWithAttributes(_e.name().toString(),
+                                                                       _e.attributes(), "technical");
+                  notation.setVisible(_visible);
+                  _notations.push_back(notation);
+                         _e.skipCurrentElement();  // skip but don't log
                   }
             else if (_e.name() == "other-technical")
                   otherTechnical();
@@ -7845,6 +7869,7 @@ void MusicXMLParserNotations::otherTechnical()
             SymId id = Sym::name2id(smufl);
             Notation notation = Notation::notationWithAttributes(_e.name().toString(),
                                                                _e.attributes(), "technical", id);
+            notation.setVisible(_visible);
             _notations.push_back(notation);
             _e.skipCurrentElement();
             return;
@@ -7876,6 +7901,7 @@ void MusicXMLParserNotations::harmonic()
             QString name = _e.name().toString();
             if (name == "natural") {
                   notation.setSubType(name);
+                  notation.setVisible(_visible);
                   _e.skipCurrentElement();  // skip but don't log
                   }
             else if (name == "artificial") { // TODO: add artificial harmonic when supported by musescore
@@ -7924,7 +7950,9 @@ void MusicXMLParserNotations::harmonMute()
                   } else
                   _e.skipCurrentElement();
             }
-      _notations.push_back(Notation::notationWithAttributes("harmon-closed", attributes, "technical", mute));
+      Notation notation = Notation::notationWithAttributes("harmon-closed", attributes, "technical", mute);
+      notation.setVisible(_visible);
+      _notations.push_back(notation);
       }
 
 //---------------------------------------------------------
@@ -7961,7 +7989,9 @@ void MusicXMLParserNotations::hole()
             else
                   _e.skipCurrentElement();
             }
-      _notations.push_back(Notation::notationWithAttributes("hole-closed", attributes, "technical", hole));
+      Notation notation = Notation::notationWithAttributes("hole-closed", attributes, "technical", hole);
+      notation.setVisible(_visible);
+      _notations.push_back(notation);
       }
 
 //---------------------------------------------------------
@@ -7980,7 +8010,7 @@ void MusicXMLParserNotations::addTechnical(const Notation& notation, Note* note)
             // TODO: distinguish between keyboards (style Tid::FINGERING)
             // and (plucked) strings (style Tid::LH_GUITAR_FINGERING)
             addTextToNote(_e.lineNumber(), _e.columnNumber(), notation.text(), placement, fontWeight, fontSize, fontStyle, fontFamily,
-                          color, Tid::FINGERING, _score, note);
+                          notation.visible(), color, Tid::FINGERING, _score, note);
             }
       else if (notation.name() == "fret") {
             int fret = notation.text().toInt();
@@ -7993,7 +8023,7 @@ void MusicXMLParserNotations::addTechnical(const Notation& notation, Note* note)
             }
       else if (notation.name() == "pluck") {
             addTextToNote(_e.lineNumber(), _e.columnNumber(), notation.text(), placement, fontWeight, fontSize, fontStyle, fontFamily,
-                          color, Tid::RH_GUITAR_FINGERING, _score, note);
+                          notation.visible(), color, Tid::RH_GUITAR_FINGERING, _score, note);
             }
       else if (notation.name() == "string") {
             if (note) {
@@ -8001,7 +8031,7 @@ void MusicXMLParserNotations::addTechnical(const Notation& notation, Note* note)
                         note->setString(notation.text().toInt() - 1);
                   else
                         addTextToNote(_e.lineNumber(), _e.columnNumber(), notation.text(), placement, fontWeight, fontSize, fontStyle, fontFamily,
-                                      color, Tid::STRING_NUMBER, _score, note);
+                                      notation.visible(), color, Tid::STRING_NUMBER, _score, note);
                   }
             else
                   _logger->logError("no note for string", &_e);
@@ -8021,6 +8051,7 @@ void MusicXMLParserNotations::mordentNormalOrInverted()
       {
       Notation notation = Notation::notationWithAttributes(_e.name().toString(), _e.attributes(), "ornaments");
       notation.setText(_e.readElementText());
+      notation.setVisible(_visible);
       _notations.push_back(notation);
       }
 
@@ -8076,6 +8107,7 @@ static void addGlissandoSlide(const Notation& notation, Note* note,
                   gliss->setTick(tick);
                   gliss->setTrack(track);
                   gliss->setParent(note);
+                  gliss->setVisible(notation.visible());
                   if (glissandoColor.isValid()/* && preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTLAYOUT)*/)
                         gliss->setLineColor(glissandoColor);
                   if (lineType == "dashed")
@@ -8167,7 +8199,7 @@ static void addTie(const Notation& notation, Note* note, const int track, MusicX
             note->setTieFor(currTie);
             currTie->setStartNote(note);
             currTie->setTrack(track);
-
+            currTie->setVisible(notation.visible());
             const QColor color = notation.attribute("color");
             if (color.isValid()/* && preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTLAYOUT)*/)
                   currTie->setColor(color);
@@ -8291,6 +8323,7 @@ static void addBreath(const Notation& notation, ChordRest* cr)
       // b->setTrack(trk + voice); TODO check next line
       b->setTrack(cr->track());
       b->setSymId(breath);
+      b->setVisible(notation.visible());
       if (color.isValid()/* && preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTLAYOUT)*/)
             b->setColor(color);
       b->setPlacement(placement == "below" ? Placement::BELOW : Placement::ABOVE);
@@ -8318,6 +8351,7 @@ static void addChordLine(const Notation& notation, Note* note,
                         chordline->setChordLineType(ChordLineType::PLOP);
                   else if (chordLineType == "scoop")
                         chordline->setChordLineType(ChordLineType::SCOOP);
+                  chordline->setVisible(notation.visible());
                   if (color.isValid()/* && preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTLAYOUT)*/)
                         chordline->setColor(color);
                   note->chord()->add(chordline);
@@ -8442,6 +8476,8 @@ void MusicXMLParserNotations::skipLogCurrElem()
 
 void MusicXMLParserNotations::parse()
       {
+      _visible = _e.attributes().value("print-object") != "no";
+
       while (_e.readNextStartElement()) {
             if (_e.name() == "arpeggiate") {
                   _arpeggioType = _e.attributes().value("direction").toString();
@@ -8629,6 +8665,7 @@ void MusicXMLParserNotations::fermata()
 
       notation.setSymId(convertFermataToSymId(fermataText));
       notation.setText(fermataText);
+      notation.setVisible(_visible);
       _notations.push_back(notation);
       }
 
@@ -8691,6 +8728,7 @@ void MusicXMLParserNotations::otherNotation()
             if (convertArticulationToSymId(_e.name().toString(), id) && id != SymId::noSym) {
                   Notation notation = Notation::notationWithAttributes(_e.name().toString(),
                                                                        _e.attributes(), "notations", id);
+                  notation.setVisible(_visible);
                   _notations.push_back(notation);
                   _e.skipCurrentElement();
                   }
