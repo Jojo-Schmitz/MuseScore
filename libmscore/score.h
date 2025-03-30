@@ -20,13 +20,13 @@
 
 #include "input.h"
 #include "instrument.h"
-#include "select.h"
-#include "synthesizerstate.h"
-#include "mscoreview.h"
-#include "spannermap.h"
 #include "layoutbreak.h"
+#include "mscoreview.h"
 #include "property.h"
+#include "select.h"
+#include "spannermap.h"
 #include "sym.h"
+#include "synthesizerstate.h"
 
 namespace Ms {
 
@@ -1317,7 +1317,9 @@ class MasterScore : public Score {
       void reorderMidiMapping();
       void rebuildExcerptsMidiMapping();
       void removeDeletedMidiMapping();
+
       int updateMidiMapping();
+      void doUpdateMidiMapping(int& maxport, Part* part, Channel* channel, bool useDrumset);
 
       QFileInfo _sessionStartBackupInfo;
       QFileInfo info;
