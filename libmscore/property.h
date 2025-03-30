@@ -213,6 +213,8 @@ enum class Pid {
       OFFSET2,
       BREAK_MMR,
       MMREST_NUMBER_POS,
+      //MMREST_NUMBER_VISIBLE,
+      MEASURE_REPEAT_NUMBER_POS,
       REPEAT_COUNT,
 
       USER_STRETCH,
