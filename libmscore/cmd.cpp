@@ -958,7 +958,6 @@ Fraction Score::makeGap(Segment* segment, int track, const Fraction& _sd, Tuplet
                         continue;
                   Segment* seg1 = seg->next(SegmentType::ChordRest);
                   Fraction tick2     = seg1 ? seg1->tick() : seg->measure()->tick() + seg->measure()->ticks();
-                  //segment       = seg;
                   Fraction td(tick2 - seg->tick());
                   if (td > sd)
                         td = sd;
@@ -1071,16 +1070,6 @@ Fraction Score::makeGap(Segment* segment, int track, const Fraction& _sd, Tuplet
             if (sd.isZero())
                   break;
             }
-//      Fraction ticks = measure->tick() + measure->ticks() - segment->tick();
-//      Fraction td = Fraction::fromTicks(ticks);
-// NEEDS REVIEW !!
-// once the statement below is removed, these two lines do nothing
-//      if (td > sd)
-//            td = sd;
-// ???  accumulated should already contain the total value of the created gap: line 749, 811 or 838
-//      this line creates a qreal-sized gap if the needed gap crosses a measure boundary
-//      by adding again the duration already added in line 838
-//      accumulated += td;
 
       const Fraction t1 = firstSegmentEnd;
       const Fraction t2 = firstSegment->tick() + accumulated;
@@ -1364,7 +1353,7 @@ void Score::changeCRlen(ChordRest* cr, const Fraction& dstF, bool fillWithRest)
       // make longer
       //
       // split required len into Measures
-      QList<Fraction> flist = splitGapToMeasureBoundaries(cr, dstF);
+      const QList<Fraction> flist = splitGapToMeasureBoundaries(cr, dstF);
       if (flist.empty())
             return;
 
@@ -1378,7 +1367,7 @@ void Score::changeCRlen(ChordRest* cr, const Fraction& dstF, bool fillWithRest)
 
       bool first = true;
       Fraction totalLen = cr->rtick() + f;
-      for (Fraction& f2 : flist) {
+      for (const Fraction& f2 : flist) {
             if (!cr1) {
                   expandVoice(s, track);
                   cr1 = toChordRest(s->element(track));
@@ -2741,13 +2730,13 @@ void Score::cmdMirrorNoteHead()
 
 void Score::cmdIncDecDuration(int nSteps, bool stepDotted)
       {
-      if (selection().isRange()) {
-            if (!selection().canCopy())
+      if (_selection.isRange()) {
+            if (!_selection.canCopy())
                   return;
-            QString mimeType = selection().mimeType();
+            QString mimeType = _selection.mimeType();
             if (mimeType.isEmpty())
                   return;
-            ChordRest* firstCR = selection().firstChordRest();
+            ChordRest* firstCR = _selection.firstChordRest();
             if (firstCR->isGrace())
                   firstCR = toChordRest(firstCR->parent());
             TDuration initialDuration = firstCR->ticks();
@@ -2755,78 +2744,51 @@ void Score::cmdIncDecDuration(int nSteps, bool stepDotted)
             if (!d.isValid())
                   return;
             Fraction scale = d.ticks() / initialDuration.ticks();
-            for (ChordRest* cr : getSelectedChordRests()) {
+            const QSet<ChordRest*> crs = getSelectedChordRests();
+            for (ChordRest* cr : crs) {
                   Fraction newTicks = cr->ticks() * scale;
                   if (newTicks < Fraction(1, 1024) || (stepDotted && cr->durationType().dots() != firstCR->durationType().dots() && !cr->isGrace()))
                         return;
                   }
             QMimeData* mimeData = new QMimeData;
-            mimeData->setData(mimeType, selection().mimeData());
+            mimeData->setData(mimeType, _selection.mimeData());
             QByteArray data(mimeData->data(mimeStaffListFormat));
             XmlReader e(data);
             e.setPasteMode(true);
-            deleteRange(selection().startSegment(), selection().endSegment(), staff2track(selection().staffStart()), staff2track(selection().staffEnd()), selectionFilter());
-            pasteStaff(e, selection().startSegment(), selection().staffStart(), scale);
-            return;
+            deleteRange(_selection.startSegment(), _selection.endSegment(), staff2track(_selection.staffStart()), staff2track(_selection.staffEnd()), selectionFilter());
+            pasteStaff(e, _selection.startSegment(), _selection.staffStart(), scale);
             }
-      if (selection().isList() && selection().elements().size() > 1) {
-            // List - act as if pressing duration toggle (distinct from range based Half/Double
-            TDuration newDuration(stepDotted
-                                  ? _is.duration().shiftRetainDots(nSteps, stepDotted)
-                                  : _is.duration().shift(nSteps));
-            _is.duration().shiftRetainDots(nSteps, stepDotted);
-            _is.setDuration(newDuration);
-            QSet<ChordRest*> crs = getSelectedChordRests();
-            for (auto cr : getSelectedChordRests()) {
-                  changeCRlen(cr, newDuration);
+      else if (_selection.isList()) {
+            const QSet<ChordRest*> crs = getSelectedChordRests();
+            for (ChordRest* cr : crs) {
+                  // if measure rest is selected as input, then the correct initialDuration will be the
+                  // duration of the measure's time signature, else is just the ChordRest's duration
+                  TDuration initialDuration = cr->durationType();
+                  if (initialDuration == TDuration::DurationType::V_MEASURE) {
+                        initialDuration = TDuration(cr->measure()->timesig(), true);
+
+                        if (initialDuration.fraction() < cr->measure()->timesig() && nSteps > 0)
+                              // Duration already shortened by truncation; shorten one step less
+                              --nSteps;
+                        }
+                  TDuration newDuration { stepDotted ? initialDuration.shiftRetainDots(nSteps, stepDotted) : initialDuration.shift(nSteps) };
+                  if (!newDuration.isValid())
+                        continue;
+                  if (cr->isGrace())
+                        undoChangeChordRestLen(cr, newDuration);
+                  else
+                        changeCRlen(cr, newDuration);
                   }
-            for (auto cr : qAsConst(crs)) {
+            // 2nd loop needed to reselect what was selected before 1st loop
+            // as `changeCRlen()` changes the selection to `SelectType::SINGLE`
+            for (ChordRest* cr : crs) {
                   Element* e = cr;
                   if (cr->isChord())
                         e = toChord(cr)->upNote();
                   if (canReselectItem(e))
                         select(e, SelectType::ADD);
                   }
-            return;
             }
-
-      Element* el = selection().element();
-      if (el == 0)
-            return;
-      if (el->isNote())
-            el = el->parent();
-      if (!el->isChordRest())
-            return;
-
-      ChordRest* cr = toChordRest(el);
-
-      // if measure rest is selected as input, then the correct initialDuration will be the
-      // duration of the measure's time signature, else is just the input state's duration
-      TDuration initialDuration;
-      if (cr->durationType() == TDuration::DurationType::V_MEASURE) {
-            initialDuration = TDuration(cr->measure()->timesig(), true);
-
-            if (initialDuration.fraction() < cr->measure()->timesig() && nSteps > 0) {
-                  // Duration already shortened by truncation; shorten one step less
-                  --nSteps;
-                  }
-            }
-      else {
-            initialDuration = _is.duration();
-            }
-      TDuration d = (nSteps != 0) ? initialDuration.shiftRetainDots(nSteps, stepDotted) : initialDuration;
-      if (!d.isValid())
-            return;
-      if (cr->isChord() && (toChord(cr)->noteType() != NoteType::NORMAL)) {
-            //
-            // handle appoggiatura and acciaccatura
-            //
-            undoChangeChordRestLen(cr, d);
-            }
-      else
-            changeCRlen(cr, d);
-      _is.setDuration(d);
-      nextInputPos(cr, false);
       }
 
 //---------------------------------------------------------
@@ -3608,6 +3570,8 @@ Segment* Score::setChord(Segment* segment, int track, Chord* chordTemplate, Frac
             //
             //  Note does not fit on current measure, create Tie to
             //  next part of note
+            if (!nr)
+                  break;
             std::vector<Note*> notes = nr->notes();
             for (size_t i = 0; i < notes.size(); ++i) {
                   tie[i] = new Tie(this);

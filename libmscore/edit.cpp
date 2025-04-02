@@ -4167,9 +4167,7 @@ static Chord* findLinkedChord(Chord* c, Staff* nstaff)
       Segment* s  = c->segment();
       Measure* nm = nstaff->score()->tick2measure(s->tick());
       Segment* ns = nm->findSegment(s->segmentType(), s->tick());
-      if (!ns)
-            return 0;
-      Element* ne = ns->element(dtrack);
+      Element* ne = ns ? ns->element(dtrack) : nullptr;
       if (!ne || !ne->isChord())
             return 0;
       Chord* nc = toChord(ne);
