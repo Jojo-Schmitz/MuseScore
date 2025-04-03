@@ -2761,7 +2761,7 @@ void Score::cmdIncDecDuration(int nSteps, bool stepDotted)
             for (ChordRest* cr : crs) {
                   TDuration newDuration(stepDotted
                                         ? cr->durationType().fraction() * Fraction(3, 3 + nSteps)
-                                        : cr->durationType().fraction() * Fraction(3 - nSteps, 3 + nSteps));
+                                        : cr->durationType().fraction() * Fraction(3 - nSteps, 3 + nSteps), true);
                   changeCRlen(cr, newDuration);
                   }
             for (ChordRest* cr : crs) {
