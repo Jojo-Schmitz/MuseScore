@@ -43,8 +43,10 @@ if [[ ! -d "appimagetool" ]]; then
   download_appimage_release AppImage/AppImageKit appimagetool 12
   cd ..
 fi
-export PATH="${PWD%/}/appimagetool:${PATH}"
-appimagetool --version
+if [[ "${UPDATE_INFORMATION}" ]]; then
+  export PATH="$BUILD_TOOLS/appimageupdatetool:$PATH"
+  appimageupdatetool --version
+fi
 
 if [[ ! -d "appimageupdatetool" ]]; then
   mkdir appimageupdatetool
@@ -171,9 +173,15 @@ fallback_libraries=(
 # PREVIOUSLY EXTRACTED APPIMAGES
 # These include their own dependencies. We bundle them uncompressed to avoid
 # creating a double layer of compression (AppImage inside AppImage).
+if [[ "${UPDATE_INFORMATION}" ]]; then
 extracted_appimages=(
   appimageupdatetool
 )
+else
+extracted_appimages=(
+  # none
+)
+fi
 
 for file in "${unwanted_files[@]}"; do
   rm -rf "${appdir}/${file}"
@@ -245,7 +253,7 @@ done
 appimage="${APPIMAGE_NAME}" # name to use for AppImage file
 
 appimagetool_args=( # array
-  # none
+  --no-appstream # do not check upstream metadata
   )
 
 created_files=(
