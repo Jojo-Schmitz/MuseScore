@@ -45,7 +45,10 @@ if [[ ! -d "appimagetool" ]]; then
 fi
 if [[ "${UPDATE_INFORMATION}" ]]; then
   export PATH="$BUILD_TOOLS/appimageupdatetool:$PATH"
-  appimageupdatetool --version
+
+   # `appimageupdatetool`'s `AppRun` script gets confused when called via a symlink.
+   # Resolve the symlink here to avoid this issue.
+   $(readlink -f "$(which appimageupdatetool)") --version
 fi
 
 if [[ ! -d "appimageupdatetool" ]]; then
