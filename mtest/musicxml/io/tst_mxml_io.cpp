@@ -191,6 +191,7 @@ private slots:
       void invisibleDirection() { mxmlIoTest("testInvisibleDirection"); }
       void invisibleElements() { mxmlIoTest("testInvisibleElements"); }
       void invisibleNote() { mxmlMscxExportTestRef("testInvisibleNote"); }
+      void invisibleNotations() { mxmlIoTest("testInvisibleNotations"); }
       void keysig1() { mxmlIoTest("testKeysig1"); }
       void keysig2() { mxmlIoTest("testKeysig2"); }
       void layoutCleanup1() { mxmlImportTestRef("testLayoutCleanup1"); }
