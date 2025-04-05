@@ -21,6 +21,7 @@ while [[ "$#" -gt 0 ]]; do
         --telemetry) TELEMETRY_TRACK_ID="$2"; shift ;;
         --build_mode) BUILD_MODE="$2"; shift ;;
         --build_mu4) BUILD_UI_MU4="$2"; shift ;;
+        --arch) PACKARCH="$2"; shift ;;
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
     esac
     shift
@@ -57,6 +58,11 @@ echo "=== ENVIRONMENT === "
 cat ./../musescore_environment.sh
 source ./../musescore_environment.sh
 
+# disable update module due to current broken functionality
+if [ "$PACKARCH" == "aarch64" ] || [ "$PACKARCH" == "armv7l" ]; then
+  MUSESCORE_BUILD_UPDATE_MODULE="OFF"
+fi
+
 echo " "
 ${CXX} --version
 ${CC} --version
@@ -73,6 +79,8 @@ make CPUS=2 $OPTIONS \
      MUSESCORE_REVISION=$MUSESCORE_REVISION \
      BUILD_NUMBER=$BUILD_NUMBER \
      TELEMETRY_TRACK_ID=$TELEMETRY_TRACK_ID \
+     MUSESCORE_BUILD_CRASHPAD_CLIENT=${MUSESCORE_BUILD_CRASHPAD_CLIENT:-"ON"} \
+     MUSESCORE_BUILD_UPDATE_MODULE=${MUSESCORE_BUILD_UPDATE_MODULE:-"ON"} \
      SUFFIX=$SUFFIX \
      $BUILDTYPE
 
