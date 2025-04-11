@@ -5088,7 +5088,16 @@ void LayoutContext::collectPage()
             }
 
       Fraction stick = Fraction(-1,1);
-      for (System* s : qAsConst(page->systems())) {
+
+      QList<System*> systems = page->systems();
+      if (const Measure* lm = systems.back()->lastMeasure()) {
+            if (const Measure* nm = lm->nextMeasureMM()) {
+                  System* sys = nm->system();
+                  systems.append(sys);
+                  }
+            }
+
+      for (System* s : qAsConst(systems)) {
             Score* currentScore = s->score();
             for (MeasureBase* mb : s->measures()) {
                   if (!mb->isMeasure())
