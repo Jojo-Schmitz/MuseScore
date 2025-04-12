@@ -1315,14 +1315,14 @@ QVector<Note*> PianoView::addNote(Fraction startTick, Fraction duration, int pit
                         if (newSeg)
                               addedNotes.append(getSegmentNotes(newSeg, track));
                         }
+                  }
             }
-      }
 
       if (addedNotes.size() >= 3) {
             addedNotes.pop_back();
             for (auto it = addedNotes.begin(); it != addedNotes.end(); it++)
                   toggleTie(*it);
-      }
+            }
 
       return addedNotes;
       }
