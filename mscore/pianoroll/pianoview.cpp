@@ -1318,11 +1318,8 @@ QVector<Note*> PianoView::addNote(Fraction startTick, Fraction duration, int pit
                   }
             }
 
-      if (addedNotes.size() >= 3) {
-            addedNotes.pop_back();
-            for (auto it = addedNotes.begin(); it != addedNotes.end(); it++)
-                  toggleTie(*it);
-            }
+      for (auto it : addedNotes)
+            toggleTie(it);
 
       return addedNotes;
       }
