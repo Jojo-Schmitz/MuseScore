@@ -464,9 +464,6 @@ static void collectNote(EventMap* events, int channel, const Note* note, qreal v
             }
 
       // Bends
-      NPlayEvent ev(ME_PITCHBEND, channel, 0, 64); // 0:64 is 8192 - no pitch bend
-      ev.setOriginatingStaff(staffIdx);
-      events->insert(std::pair<int, NPlayEvent>(tick1, ev));
       for (Element* e : note->el()) {
             if (e == 0 || e->type() != ElementType::BEND)
                   continue;
@@ -522,6 +519,9 @@ static void collectNote(EventMap* events, int channel, const Note* note, qreal v
                         }
                   lastPointTick = nextPointTick;
                   }
+            NPlayEvent ev(ME_PITCHBEND, channel, 0, 64); // 0:64 is 8192 - no pitch bend
+            ev.setOriginatingStaff(staffIdx);
+            events->insert(std::pair<int, NPlayEvent>(tick1, ev));
             }
       }
 
