@@ -610,6 +610,15 @@ bool Palette::applyPaletteElement(Element* element, Qt::KeyboardModifiers modifi
                   score->cmdAddSpanner(spanner, cr1->staffIdx(), startSegment, endSegment);
                   spanner->isVoiceSpecific();
                   }
+            else if ((element->isClef() || element->isTimeSig() || element->isKeySig()) && score->noteEntryMode()) {
+                  // in note input mode place clef / time sig / key sig before cursor
+                  Element* e = score->inputState().cr();
+                  if (!e)
+                        e = sel.elements().front();
+                  else if (e->isChord())
+                        e = toChord(e)->notes().front();
+                  applyDrop(score, viewer, e, element, modifiers);
+                  }
             else {
                   for (Element* e : sel.elements())
                         applyDrop(score, viewer, e, element, modifiers);
