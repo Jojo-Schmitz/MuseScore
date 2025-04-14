@@ -476,6 +476,7 @@ class Element : public ScoreElement {
       bool custom(Pid) const;
       virtual bool isUserModified() const;
 
+      void drawSymbolReversed(SymId id, QPainter* p, const QPointF& o = QPointF(), qreal scale = 1.0) const;
       void drawSymbol(SymId id, QPainter* p, const QPointF& o = QPointF(), qreal scale = 1.0) const;
       void drawSymbol(SymId id, QPainter* p, const QPointF& o, int n) const;
       void drawSymbols(const std::vector<SymId>&, QPainter* p, const QPointF& o = QPointF(), qreal scale = 1.0) const;
