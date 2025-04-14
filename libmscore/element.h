@@ -10,8 +10,7 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#ifndef __ELEMENT_H__
-#define __ELEMENT_H__
+#pragma once
 
 #include "elementgroup.h"
 #include "fraction.h"
@@ -604,6 +603,3 @@ extern void collectElements(void* data, Element* e);
 }     // namespace Ms
 
 Q_DECLARE_METATYPE(Ms::ElementType);
-
-#endif
-
