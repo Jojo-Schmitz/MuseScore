@@ -5508,7 +5508,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
         <location filename="../../mscore/exportdialog.ui" line="122"/>
         <location filename="../../mscore/exportdialog.ui" line="198"/>
         <source>DPI</source>
-        <translation>DPI</translation>
+        <translation>dpi</translation>
     </message>
     <message>
         <location filename="../../mscore/exportdialog.ui" line="317"/>
@@ -12329,7 +12329,7 @@ Grupa niemiarowa przekracza takt.</translation>
     <message>
         <location filename="../../mscore/musescoredialogs.cpp" line="177"/>
         <source>Build date: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Data kompilacji: %1</translation>
     </message>
     <message>
         <location filename="../../mscore/musescoredialogs.cpp" line="181"/>
@@ -16238,7 +16238,7 @@ zakończone niepowodzeniem: %2.</translation>
     <message>
         <location filename="../../mscore/fotomode.cpp" line="322"/>
         <source>Resolution (%1 DPI)…</source>
-        <translation>Rozdzielczość (%1 DPI)…</translation>
+        <translation>Rozdzielczość (%1 dpi)…</translation>
     </message>
     <message>
         <location filename="../../mscore/fotomode.cpp" line="324"/>
@@ -20613,7 +20613,7 @@ Dostosowanie opóźnienia może pomóc zsynchronizować Twoje urządzenie MIDI z
         <location filename="../../mscore/prefsdialog.ui" line="3602"/>
         <location filename="../../mscore/prefsdialog.ui" line="3718"/>
         <source>Choose resolution DPI</source>
-        <translation>Wybierz rozdzielczość w DPI</translation>
+        <translation>Wybierz rozdzielczość w dpi</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3636"/>
@@ -20644,7 +20644,7 @@ Dostosowanie opóźnienia może pomóc zsynchronizować Twoje urządzenie MIDI z
         <location filename="../../mscore/prefsdialog.ui" line="3599"/>
         <location filename="../../mscore/prefsdialog.ui" line="3715"/>
         <source>Resolution DPI</source>
-        <translation>Rozdzielczość w DPI</translation>
+        <translation>Rozdzielczość w dpi</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3554"/>
@@ -20656,7 +20656,7 @@ Dostosowanie opóźnienia może pomóc zsynchronizować Twoje urządzenie MIDI z
         <location filename="../../mscore/prefsdialog.ui" line="3721"/>
         <source>DPI</source>
         <extracomment>dots per inch</extracomment>
-        <translation>DPI</translation>
+        <translation>dpi</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3750"/>
@@ -21546,7 +21546,7 @@ Odwiedź %1stronę internetową MuseScore&apos;a%2, aby pozyskać najnowszą wer
     <message>
         <location filename="../../libmscore/harmony.cpp" line="1987"/>
         <source>Roman numeral</source>
-        <translation>Cyfry rzymskie</translation>
+        <translation>Numeracja rzymska</translation>
     </message>
     <message>
         <location filename="../../libmscore/harmony.cpp" line="1989"/>
@@ -23502,7 +23502,7 @@ Uwaga: &quot;Ctrl+Shift+1&quot; to jedna kombinacja klawiszy.</translation>
     <message>
         <location filename="../../libmscore/style.cpp" line="2479"/>
         <source>Roman Numeral Analysis</source>
-        <translation>Cyfry rzymskie</translation>
+        <translation>Numeracja rzymska</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2480"/>
@@ -27767,12 +27767,12 @@ zakończone niepowodzeniem.</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2320"/>
         <source>Roman Numeral Analysis</source>
-        <translation>Cyfry rzymskie</translation>
+        <translation>Numeracja rzymska</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2321"/>
         <source>Add Roman numeral analysis</source>
-        <translation>Dodaj cyfry rzymskie</translation>
+        <translation>Dodaj numerację rzymską</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2327"/>
@@ -30663,7 +30663,7 @@ zakończone niepowodzeniem.</translation>
     <message>
         <location filename="../../libmscore/clef.cpp" line="75"/>
         <source>G clef ottava bassa with C clef</source>
-        <translation type="unfinished"></translation>
+        <translation>Klucz G 8va bassa z kluczem C</translation>
     </message>
 </context>
 <context>
