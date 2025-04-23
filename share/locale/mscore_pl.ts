@@ -5508,7 +5508,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
         <location filename="../../mscore/exportdialog.ui" line="122"/>
         <location filename="../../mscore/exportdialog.ui" line="198"/>
         <source>DPI</source>
-        <translation>dpi</translation>
+        <translation>DPI</translation>
     </message>
     <message>
         <location filename="../../mscore/exportdialog.ui" line="317"/>
@@ -16238,7 +16238,7 @@ zakończone niepowodzeniem: %2.</translation>
     <message>
         <location filename="../../mscore/fotomode.cpp" line="322"/>
         <source>Resolution (%1 DPI)…</source>
-        <translation>Rozdzielczość (%1 dpi)…</translation>
+        <translation>Rozdzielczość (%1 DPI)…</translation>
     </message>
     <message>
         <location filename="../../mscore/fotomode.cpp" line="324"/>
@@ -20613,7 +20613,7 @@ Dostosowanie opóźnienia może pomóc zsynchronizować Twoje urządzenie MIDI z
         <location filename="../../mscore/prefsdialog.ui" line="3602"/>
         <location filename="../../mscore/prefsdialog.ui" line="3718"/>
         <source>Choose resolution DPI</source>
-        <translation>Wybierz rozdzielczość w dpi</translation>
+        <translation>Wybierz rozdzielczość w DPI</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3636"/>
@@ -20644,7 +20644,7 @@ Dostosowanie opóźnienia może pomóc zsynchronizować Twoje urządzenie MIDI z
         <location filename="../../mscore/prefsdialog.ui" line="3599"/>
         <location filename="../../mscore/prefsdialog.ui" line="3715"/>
         <source>Resolution DPI</source>
-        <translation>Rozdzielczość w dpi</translation>
+        <translation>Rozdzielczość w DPI</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3554"/>
@@ -20656,7 +20656,7 @@ Dostosowanie opóźnienia może pomóc zsynchronizować Twoje urządzenie MIDI z
         <location filename="../../mscore/prefsdialog.ui" line="3721"/>
         <source>DPI</source>
         <extracomment>dots per inch</extracomment>
-        <translation>dpi</translation>
+        <translation>DPI</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3750"/>
