@@ -1496,8 +1496,8 @@ class MStyle {
       bool readStyleValCompat(XmlReader&);
       bool readTextStyleValCompat(XmlReader&);
 
-      void resetAllStyles(Score* score, const QSet<Sid>& ignoredStyles = QSet<Sid>());
-      void resetStyles(Score* score, const QSet<Sid>& stylesToReset);
+      void resetAllStyles(Score* score, const QVector<Sid>& ignoredStyles = QVector<Sid>());
+      void resetStyles(Score* score, const QVector<Sid>& stylesToReset);
 
       static const char* valueType(const Sid);
       static const char* valueName(const Sid);
@@ -1532,8 +1532,8 @@ Tid textStyleFromName(const QString&);
 const std::vector<Tid>& allTextStyles();
 const std::vector<Tid>& primaryTextStyles();
 
-QSet<Sid> pageStyles();
-QSet<Sid> fretStyles();
+QVector<Sid> pageStyles();
+QVector<Sid> fretStyles();
 
 #ifndef NDEBUG
 extern void checkStyles();

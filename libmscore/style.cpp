@@ -2648,9 +2648,9 @@ const std::vector<Tid>& primaryTextStyles()
 //   pageStyles
 //---------------------------------------------------------
 
-QSet<Sid> pageStyles()
+QVector<Sid> pageStyles()
 {
-    static const QSet<Sid> styles {
+    static const QVector<Sid> styles {
         Sid::pageWidth,
         Sid::pageHeight,
         Sid::pagePrintableWidth,
@@ -2671,9 +2671,9 @@ QSet<Sid> pageStyles()
 //   fretStyles
 //---------------------------------------------------------
 
-QSet<Sid> fretStyles()
+QVector<Sid> fretStyles()
 {
-      static const QSet<Sid> styles {
+      static const QVector<Sid> styles {
             Sid::fretPlacement,
             Sid::fretStrings,
             Sid::fretFrets,
@@ -4265,7 +4265,7 @@ void MStyle::save(XmlWriter& xml, bool optimize)
 //   reset
 //---------------------------------------------------------
 
-void MStyle::resetAllStyles(Score* score, const QSet<Sid>& ignoredStyles)
+void MStyle::resetAllStyles(Score* score, const QVector<Sid>& ignoredStyles)
       {
       for (const StyleType& st : styleTypes) {
            if (ignoredStyles.isEmpty() || !ignoredStyles.contains(st.styleIdx())) {
@@ -4274,7 +4274,7 @@ void MStyle::resetAllStyles(Score* score, const QSet<Sid>& ignoredStyles)
       }
       }
 
-void MStyle::resetStyles(Score* score, const QSet<Sid>& stylesToReset)
+void MStyle::resetStyles(Score* score, const QVector<Sid>& stylesToReset)
       {
       for (const StyleType& st : styleTypes) {
            if (stylesToReset.contains(st.styleIdx())) {

@@ -1155,8 +1155,8 @@ void EditStyle::on_resetStylesButton_clicked()
 void EditStyle::resetStyle(Score* score)
 {
       auto ignoreStyles = pageStyles();
-      ignoreStyles.insert(Sid::concertPitch);
-      ignoreStyles.insert(Sid::createMultiMeasureRests);
+      ignoreStyles.push_back(Sid::concertPitch);
+      ignoreStyles.push_back(Sid::createMultiMeasureRests);
       score->style().resetAllStyles(score, ignoreStyles);
 }
 
