@@ -49,9 +49,9 @@ Score::FileError applyMusicXMLPVGStyles(Score* score, MxmlLogger* logger)
             
       // Reset styles to default
       auto ignoreStyles = pageStyles();
-      ignoreStyles.unite(fretStyles());
-      ignoreStyles.insert(Sid::concertPitch);
-      ignoreStyles.insert(Sid::createMultiMeasureRests);
+      ignoreStyles.append(fretStyles());
+      ignoreStyles.push_back(Sid::concertPitch);
+      ignoreStyles.push_back(Sid::createMultiMeasureRests);
       score->style().resetAllStyles(score, ignoreStyles);
       score->update();
 
