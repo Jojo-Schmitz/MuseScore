@@ -22,6 +22,7 @@
       <chordSymbolAFontSize>10</chordSymbolAFontSize>
       <chordSymbolBFontSize>10</chordSymbolBFontSize>
       <nashvilleNumberFontSize>10</nashvilleNumberFontSize>
+      <hideInstrumentNameIfOneInstrument>0</hideInstrumentNameIfOneInstrument>
       <slurEndWidth>0.05</slurEndWidth>
       <slurMidWidth>0.21</slurMidWidth>
       <tieEndWidth>0.05</tieEndWidth>

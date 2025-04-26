@@ -235,7 +235,7 @@
       </Part>
     <Staff id="1">
       <VBox>
-        <height>12.5</height>
+        <height>10</height>
         <Text>
           <style>Title</style>
           <offset x="0" y="-0.07525"/>
@@ -248,8 +248,7 @@
           </Text>
         <Text>
           <style>Composer</style>
-          <align>right,top</align>
-          <offset x="0" y="17.4247"/>
+          <align>left,bottom</align>
           <text>Henry Ives</text>
           </Text>
         </VBox>

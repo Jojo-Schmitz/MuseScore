@@ -183,7 +183,7 @@ private slots:
       void inferredRights() { mxmlImportTestRef("testInferredRights"); }
       void inferredTempoText() { mxmlImportTestRef("testInferredTempoText"); }
       void inferredTempoText2() { mxmlImportTestRef("testInferredTempoText2"); }
-      void inferredTransposition() { mxmlImportTestRef("testInferredRights"); }
+      void inferredTransposition() { mxmlImportTestRef("testInferredTransposition"); }
       void instrumentChangeMIDIportExport() { mxmlMscxExportTestRef("testInstrumentChangeMIDIportExport"); }
       void instrumentSound() { mxmlIoTestRef("testInstrumentSound"); }
       void invalidLayout() { mxmlMscxExportTestRef("testInvalidLayout"); }

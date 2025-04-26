@@ -104,6 +104,7 @@
         </Staff>
       <trackName>MusicXML Part</trackName>
       <Instrument id="piano">
+        <longName>MusicXML Part</longName>
         <trackName>MusicXML Part</trackName>
         <minPitchP>21</minPitchP>
         <maxPitchP>108</maxPitchP>
