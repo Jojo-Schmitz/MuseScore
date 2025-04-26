@@ -277,7 +277,7 @@ Score::Score(MasterScore* parent, bool forcePartStyle /* = true */)
             _style = parent->style();
 
             // but borrow defaultStyle page layout settings
-            for (auto i : pageStyles())
+            for (auto& i : pageStyles())
                   _style.set(i, MScore::defaultStyle().value(i));
             // and force some style settings that just make sense for parts
             if (forcePartStyle) {
