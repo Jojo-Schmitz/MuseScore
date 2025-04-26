@@ -6914,9 +6914,13 @@ static void findPitchesUsed(const Part* part, pitchSet& set)
 
 static void partList(XmlWriter& xml, Score* score, MxmlInstrumentMap& instrMap)
       {
+      const auto& parts = score->parts();
+      const QColor longInstrumentColor = score->styleV(Sid::longInstrumentColor).value<QColor>();
+      const QColor shortInstrumentColor = score->styleV(Sid::shortInstrumentColor).value<QColor>();
+      bool hiddenInstrName = score->styleB(Sid::hideInstrumentNameIfOneInstrument) && parts.size() == 1;
+
       xml.stag("part-list");
       int staffCount = 0;                             // count sum of # staves in parts
-      const auto& parts = score->parts();
       std::array<int, MAX_PART_GROUPS> partGroupEnd;  // staff where part group ends (bracketSpan is in staves, not parts)
       partGroupEnd.fill(-1);
       for (int idx = 0; idx < parts.size(); ++idx) {
@@ -6969,25 +6973,36 @@ static void partList(XmlWriter& xml, Score* score, MxmlInstrumentMap& instrMap)
             xml.stag(QString("score-part id=\"P%1\"").arg(idx+1));
             initInstrMap(instrMap, part->instruments(), score);
             static const QRegExp acc("[♭♯]");
-            QString attributes;
+            QString longInstrumentAttributes;
+            QString shortInstrumentAttributes;
             // by default export the parts long name as part-name
             QString partName = part->longName();
             // use the track name if no part long name
             if (partName.isEmpty()) {
                   partName = part->partName();
                   if (!partName.isEmpty())
-                        attributes = " print-object=\"no\"";
+                        hiddenInstrName = true;
                   }
-            xml.tag("part-name" + attributes, MScoreTextToMXML::toPlainText(partName).replace(u'♭', 'b').replace(u'♯', '#'));
+            if (hiddenInstrName) {
+                  longInstrumentAttributes = " print-object=\"no\"";
+                  shortInstrumentAttributes = " print-object=\"no\"";
+                  }
+            if (longInstrumentColor != preferences.getColor(PREF_UI_SCORE_DEFAULTCOLOR))
+                  longInstrumentAttributes += QString("color=\"%1\"").arg(longInstrumentColor.name());
+            xml.tag("part-name" + longInstrumentAttributes,
+                    MScoreTextToMXML::toPlainText(partName).replace(u'♭', 'b').replace(u'♯', '#'));
             if (partName.contains(acc)) {
-                  xml.stag("part-name-display");
+                  xml.stag("part-name-display" + longInstrumentAttributes);
                   writeDisplayName(xml, partName);
                   xml.etag();
                   }
             if (!part->shortName().isEmpty()) {
-                  xml.tag("part-abbreviation", MScoreTextToMXML::toPlainText(part->shortName()).replace(u'♭', 'b').replace(u'♯', '#'));
+                  if (shortInstrumentColor != preferences.getColor(PREF_UI_SCORE_DEFAULTCOLOR))
+                        shortInstrumentAttributes += QString("color=\"%1\"").arg(shortInstrumentColor.name());
+                  xml.tag("part-abbreviation" + shortInstrumentAttributes,
+                          MScoreTextToMXML::toPlainText(part->shortName()).replace(u'♭', 'b').replace(u'♯', '#'));
                   if (part->shortName().contains(acc)) {
-                        xml.stag("part-abbreviation-display");
+                        xml.stag("part-abbreviation-display" + shortInstrumentAttributes);
                         writeDisplayName(xml, part->shortName());
                         xml.etag();
                         }

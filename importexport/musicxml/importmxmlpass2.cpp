@@ -2264,6 +2264,7 @@ void MusicXMLParserPass2::part()
       if (!_pass1.hasPart(id)) {
             _logger->logError(QString("MusicXMLParserPass2::part cannot find part '%1'").arg(id), &_e);
             skipLogCurrElem();
+            return;
             }
 
       initPartState(id);
@@ -2280,20 +2281,30 @@ void MusicXMLParserPass2::part()
       setPartInstruments(_logger, &_e, msPart, id, _score, _pass1.getInstrList(id), _pass1.getIntervals(id), instruments);
 
       // set the part name
-      msPart->setPartName(mxmlPart.getName());
-      if (mxmlPart.getPrintName() && !isLikelyIncorrectPartName(mxmlPart.getName()))
-            msPart->setLongNameAll(mxmlPart.getName());
+      QString partName = mxmlPart.getName();
+      msPart->setPartName(partName);
+      const bool inconsistentVisibility = mxmlPart.getPrintName() != mxmlPart.getPrintAbbr();
+      if (!isLikelyIncorrectPartName(partName))
+            msPart->setLongNameAll(partName);
       else
-            msPart->setLongNameAll(""); // Delete possibly inferred names in setPartInstruments
-      if (mxmlPart.getPrintAbbr())
+            msPart->setLongNameAll("");
+      if (!mxmlPart.getAbbr().isEmpty()) {
             msPart->setPlainShortNameAll(mxmlPart.getAbbr());
+            if (inconsistentVisibility) // TODO: improve logic to set visibility of part names
+                  msPart->setLongNameAll("");
+            }
       else
-            msPart->setPlainShortNameAll(""); // Delete possibly inferred names in setPartInstruments
+            msPart->setPlainShortNameAll("");
+
+      // set the parts first instrument
       // try to prevent an empty track name
       if (msPart->partName().isEmpty()) {
             QString instrId = _pass1.getInstrList(id).instrument(Fraction(0, 1));
             msPart->setPartName(instruments[instrId].name);
             }
+
+      if (_pass1.nparts() == 1 && mxmlPart.getPrintName() && mxmlPart.getPrintAbbr())
+            _score->style().set(Sid::hideInstrumentNameIfOneInstrument, false);
 
 #ifdef DEBUG_VOICE_MAPPER
       VoiceList voicelist = _pass1.getVoiceList(id);

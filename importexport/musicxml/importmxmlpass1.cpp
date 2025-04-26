@@ -2187,6 +2187,7 @@ void MusicXMLParserPass1::scorePart(const QString& curPartGroupName)
                   _parts[id].setName(name);
                   }
             else if (_e.name() == "part-name-display") {
+                  _parts[id].setPrintName(_e.attributes().value("print-object") != "no");
                   QString name;
                   while (_e.readNextStartElement()) {
                         if (_e.name() == "display-text")
@@ -2209,6 +2210,7 @@ void MusicXMLParserPass1::scorePart(const QString& curPartGroupName)
                   _parts[id].setAbbr(name);
                   }
             else if (_e.name() == "part-abbreviation-display") {
+                  _parts[id].setPrintAbbr(_e.attributes().value("print-object") != "no");
                   QString name;
                   while (_e.readNextStartElement()) {
                         if (_e.name() == "display-text")
