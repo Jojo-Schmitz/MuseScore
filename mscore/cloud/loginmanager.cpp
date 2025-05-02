@@ -10,10 +10,6 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#ifdef USE_WEBENGINE
-#include <QWebEngineCookieStore>
-#endif
-
 #include "loginmanager.h"
 #include "loginmanager_p.h"
 #include "musescore.h"
