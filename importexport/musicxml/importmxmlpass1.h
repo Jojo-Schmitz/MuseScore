@@ -17,8 +17,7 @@
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //=============================================================================
 
-#ifndef __IMPORTMXMLPASS1_H__
-#define __IMPORTMXMLPASS1_H__
+#pragma once
 
 #include "libmscore/score.h"
 #include "importxmlfirstpass.h"
@@ -203,6 +202,8 @@ public:
       MusicXMLExporterSoftware exporterSoftware() const { return _exporterSoftware; }
       bool sibOrDolet() const;
       bool dolet() const;
+      bool hasDingbats() const { return _hasDingbats; }
+      void setHasDingbats() { _hasDingbats = true; }
 
 private:
       // functions
@@ -236,7 +237,7 @@ private:
       const int _maxDiff = 5;                   ///< Duration rounding tick threshold;
       QMap<Fraction, Fraction> _adjustedDurations;  ///< Rounded durations
       std::set<int> _seenDenominators;          ///< Denominators seen. Used for rounding errors.
+      bool _hasDingbats = false;
       };
 
 } // namespace Ms
-#endif
