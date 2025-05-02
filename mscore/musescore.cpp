@@ -210,7 +210,9 @@ static bool startWithNewScore = false;
 double guiScaling = 0.0;
 static double userDPI = 0.0;
 int trimMargin = -1;
+#ifdef USE_WEBENGINE
 bool noWebView = false;
+#endif
 bool exportScoreParts = false;
 bool saveScoreParts = false;
 bool ignoreWarnings = false;
@@ -7633,7 +7635,9 @@ MuseScoreApplication::CommandLineParseResult MuseScoreApplication::parseCommandL
       parser.addOption(QCommandLineOption({"t", "test-mode"}, "Set test mode flag for all files")); // this includes --template-mode
       parser.addOption(QCommandLineOption(      "run-test-script", "Run script tests listed in the command line arguments"));
       parser.addOption(QCommandLineOption({"M", "midi-operations"}, "Specify MIDI import operations file", "file"));
+#ifdef USE_WEBENGINE
       parser.addOption(QCommandLineOption({"w", "no-webview"}, "No web view in start center"));
+#endif
       parser.addOption(QCommandLineOption({"P", "export-score-parts"}, "Use with '-o <file>.pdf', export score and parts"));
       parser.addOption(QCommandLineOption(      "no-fallback-font", "Don't use a fallback musical font"));
       parser.addOption(QCommandLineOption({"f", "force"}, "Use with '-o <file>', ignore warnings reg. score being corrupted or from wrong version"));
@@ -7773,7 +7777,9 @@ MuseScoreApplication::CommandLineParseResult MuseScoreApplication::parseCommandL
                   parser.showHelp(EXIT_FAILURE);
             midiImportOperations.setOperationsFile(temp);
             }
+#ifdef USE_WEBENGINE
       noWebView = parser.isSet("w");
+#endif
       exportScoreParts = parser.isSet("export-score-parts");
       if (exportScoreParts && !converterMode)
             parser.showHelp(EXIT_FAILURE);

@@ -13,7 +13,14 @@
 #ifndef __STARTCENTER_H__
 #define __STARTCENTER_H__
 
-#include "config.h"
+#ifdef USE_WEBENGINE
+#include <QWebEngineUrlRequestInterceptor>
+#include <QWebEngineUrlRequestInfo>
+#include <QWebEnginePage>
+#include <QWebEngineProfile>
+#include <QWebEngineView>
+#endif
+
 #include "abstractdialog.h"
 #include "ui_startcenter.h"
 
@@ -75,7 +82,7 @@ class Startcenter : public AbstractDialog, public Ui::Startcenter {
 #ifdef USE_WEBENGINE
       MyWebView* _webView;
 #endif
-      virtual void closeEvent(QCloseEvent*);
+      virtual void closeEvent(QCloseEvent*) override;
 
     private slots:
       void loadScore(QString);
@@ -83,7 +90,7 @@ class Startcenter : public AbstractDialog, public Ui::Startcenter {
       void openScoreClicked();
 
     protected:
-      virtual void retranslate() { retranslateUi(this); }
+      virtual void retranslate() override { retranslateUi(this); }
 
     signals:
       void closed(bool);

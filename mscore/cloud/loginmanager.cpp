@@ -730,7 +730,7 @@ void LoginManager::uploadMedia()
             QNetworkReply *reply = mscore->networkManager()->put(request, _mp3File);
             connect(_progressDialog, SIGNAL(canceled()), reply, SLOT(abort()));
             connect(reply, SIGNAL(finished()), this, SLOT(mediaUploadFinished()));
-            connect(reply, SIGNAL(uploadProgress(qint64,qint64)), this, SLOT(mediaUploadProgress(qint64, qint64)));
+            connect(reply, SIGNAL(uploadProgress(qint64,qint64)), this, SLOT(mediaUploadProgress(qint64,qint64)));
             }
       }
 
