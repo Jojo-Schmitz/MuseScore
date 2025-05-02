@@ -119,7 +119,7 @@ class TimeSig final : public Element {
       const Groups& groups() const    { return _groups; }
       void setGroups(const Groups& e) { _groups = e; }
 
-      Fraction globalSig() const           { return (_sig * _stretch).reduced();  }
+      Fraction globalSig() const           { return (_sig / _stretch).reduced();  }
       void setGlobalSig(const Fraction& f) { _stretch = (_sig / f).reduced(); }
 
       bool isLocal() const                 { return _stretch != Fraction(1,1); }
