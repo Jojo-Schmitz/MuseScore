@@ -202,7 +202,7 @@ void Staff::addBracket(BracketItem* b)
             //
             // create new bracket level
             //
-            for (Staff* s : score()->staves()) {
+            for (Staff*& s : score()->staves()) {
                   if (s == this)
                         s->_brackets.append(b);
                   else {
@@ -635,7 +635,7 @@ void Staff::write(XmlWriter& xml) const
       xml.stag(this, QString("id=\"%1\"").arg(idx + 1));
       if (links()) {
             Score* s = masterScore();
-            for (auto le : *links()) {
+            for (auto*& le : *links()) {
                   Staff* staff = toStaff(le);
                   if ((staff->score() == s) && (staff != this))
                         xml.tag("linkedTo", staff->idx() + 1);
@@ -662,8 +662,6 @@ void Staff::write(XmlWriter& xml) const
             xml.tag("defaultTransposingClef", ClefInfo::tag(ct._transposingClef));
             }
 
-      if (invisible(Fraction(0,1)))
-            xml.tag("invisible", invisible(Fraction(0,1)));
       if (hideWhenEmpty() != HideMode::AUTO)
             xml.tag("hideWhenEmpty", int(hideWhenEmpty()));
       if (cutaway())
@@ -687,7 +685,6 @@ void Staff::write(XmlWriter& xml) const
       writeProperty(xml, Pid::STAFF_BARLINE_SPAN_FROM);
       writeProperty(xml, Pid::STAFF_BARLINE_SPAN_TO);
       writeProperty(xml, Pid::STAFF_USERDIST);
-      writeProperty(xml, Pid::STAFF_COLOR);
       writeProperty(xml, Pid::PLAYBACK_VOICE1);
       writeProperty(xml, Pid::PLAYBACK_VOICE2);
       writeProperty(xml, Pid::PLAYBACK_VOICE3);
@@ -920,7 +917,7 @@ QList<Note*> Staff::getNotes() const
 
 void Staff::addChord(QList<Note*>& list, Chord* chord, int voice) const
       {
-      for (Chord* c : chord->graceNotes())
+      for (Chord*& c : chord->graceNotes())
             addChord(list, c, voice);
       for (Note* note : chord->notes()) {
             if (note->tieBack())
@@ -996,7 +993,7 @@ bool Staff::primaryStaff() const
             return true;
       QList<Staff*> s;
       QList<Staff*> ss;
-      for (auto e : *_links) {
+      for (auto*& e : *_links) {
             Staff* staff = toStaff(e);
             if (staff->score() == score()) {
                   s.append(staff);
@@ -1305,7 +1302,7 @@ QList<Staff*> Staff::staffList() const
       {
       QList<Staff*> staffList;
       if (_links) {
-            for (ScoreElement* e : *_links)
+            for (ScoreElement*& e : *_links)
                   staffList.append(toStaff(e));
 //            staffList = _linkedStaves->staves();
             }
