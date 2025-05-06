@@ -8,9 +8,9 @@ name: Build and draft release
 on:
   # schedule: # scheduled workflows will only run on the default branch. edit default values under gen1 and gen2 below
   #   - cron: '0 4 */1 * *' # At 04:00 on every day-of-month
-  # push: # push.inputs field does not exist, use gen1 and gen2 below
-  #   branches:
-  #   - temp32
+  push: # push.inputs field does not exist, use gen1 and gen2 below
+    branches:
+    - temp34
   # pull_request: # pull_request.inputs field does not exist, edit gen1 below
   workflow_dispatch: # triggered by github web ui run "Build and draft release" workflow button
     inputs:
@@ -116,10 +116,6 @@ jobs:
           echo "runvisualtest=on" | tee -a "$GITHUB_OUTPUT"
           echo "publish=off" | tee -a "$GITHUB_OUTPUT"
           echo "notarize=on" | tee -a "$GITHUB_OUTPUT"
-
-          echo "platforms=linux_armhf linux_arm64" | tee -a "$GITHUB_OUTPUT" 
-          echo "runtest=off" | tee -a "$GITHUB_OUTPUT"
-          echo "runvisualtest=off" | tee -a "$GITHUB_OUTPUT"
 
         else
 

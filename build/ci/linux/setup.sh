@@ -4,7 +4,7 @@ trap 'echo setup.sh failed; exit 1' ERR
 
 df -h .
 
-# PARAM
+# PARAM 
 
 #   optional
 PACKARCH="x86_64" # mtest, vtest
