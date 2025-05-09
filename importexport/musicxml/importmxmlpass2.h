@@ -175,6 +175,8 @@ public:
       QString print() const;
       void setText(const QString& text) { _text = text; }
       QString text() const { return _text; }
+      void setVisible(const bool visible) { _visible = visible; }
+      bool visible() const { return _visible; }
       static Notation notationWithAttributes(const QString& name, const QXmlStreamAttributes attributes,
                                 const QString& parent = QString(), const SymId& symId = SymId::noSym);
 private:
@@ -184,6 +186,7 @@ private:
       QString _subType;
       QString _text;
       std::map<QString, QString> _attributes;
+      bool _visible = true;
       };
 
 //---------------------------------------------------------
@@ -280,6 +283,7 @@ private:
       bool _slurStop { false };
       bool _slurStart { false };
       bool _wavyLineStop { false };
+      bool _visible = true;
       };
 
 //---------------------------------------------------------
