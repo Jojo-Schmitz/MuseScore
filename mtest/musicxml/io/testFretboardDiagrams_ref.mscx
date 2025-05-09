@@ -17,6 +17,7 @@
       <chordSymbolAFontSize>10</chordSymbolAFontSize>
       <chordSymbolBFontSize>10</chordSymbolBFontSize>
       <nashvilleNumberFontSize>10</nashvilleNumberFontSize>
+      <hideInstrumentNameIfOneInstrument>0</hideInstrumentNameIfOneInstrument>
       <tupletFontSize>10</tupletFontSize>
       <fingeringFontSize>10</fingeringFontSize>
       <lhGuitarFingeringFontSize>10</lhGuitarFingeringFontSize>

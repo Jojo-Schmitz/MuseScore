@@ -5,6 +5,7 @@
     <currentLayer>0</currentLayer>
     <Division>480</Division>
     <Style>
+      <hideInstrumentNameIfOneInstrument>0</hideInstrumentNameIfOneInstrument>
       <Spatium>1.74978</Spatium>
       </Style>
     <showInvisible>1</showInvisible>
