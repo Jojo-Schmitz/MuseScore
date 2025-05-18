@@ -4259,8 +4259,30 @@ System* Score::collectSystem(LayoutContext& lc)
             // don’t stretch last system of a section (or the last of the piece),
             // if accumulated minWidth is <= lastSystemFillLimit
             //
-            if ((lc.curMeasure == 0  || (lm && lm->sectionBreak()))
-               && ((minWidth / systemWidth) <= styleD(Sid::lastSystemFillLimit))) {
+            bool shouldJustify = true;
+            if ((minWidth / systemWidth) <= styleD(Sid::lastSystemFillLimit)) {
+                  shouldJustify = false;
+                  const MeasureBase* lastMb = lc.curMeasure;
+
+                  // For systems with a section break, don't justify
+                  if (lm && lm->sectionBreak())
+                        lastMb = nullptr;
+
+                  // Justify if system is followed by a measure or HBox
+                  while (lastMb) {
+                        if (lastMb->isMeasure() || lastMb->isHBox()) {
+                              shouldJustify = true;
+                              break;
+                              }
+                        // Frames can contain section breaks too, account for that here
+                        if (lastMb->sectionBreak()) {
+                              shouldJustify = false;
+                              break;
+                              }
+                        lastMb = lastMb->nextMeasure();
+                        }
+                  }
+            if (shouldJustify && !MScore::noHorizontalStretch) { // debug feature
                   if (minWidth > rest)
                         rest = rest * .5;
                   else
