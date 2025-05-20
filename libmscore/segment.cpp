@@ -2269,8 +2269,9 @@ qreal Segment::minHorizontalDistance(Segment* ns, bool systemHeaderGap) const
             else {
                   bool possibleGap = false;
                   bool notGap = false;
-                  bool isCrossStaffed = false;
+                  bool isCrossStaff = false;
                   bool isAdjacent = true;
+                  bool isNonGapRest = false;
                   for (int i = 0; i < score()->nstaves() * VOICES; i++) {
                         Element* el = element(i);
                         if (!el)
@@ -2279,22 +2280,28 @@ qreal Segment::minHorizontalDistance(Segment* ns, bool systemHeaderGap) const
                               possibleGap = true;
                         else {
                               notGap = true;
-                              if (el->isChord() && toChord(el)->staffMove() != 0) {
-                                    isCrossStaffed = true;
+                              if (el->isChord() && toChord(el)->staffMove()) {
+                                    isCrossStaff = true;
                                     break;
                                     }
                               if (ns && ns->element(i)) {
-                                    isAdjacent = true;
-                                    break;
+                                    if (el->isRest()) {
+                                          isNonGapRest = true;
+                                          break;
+                                          }
+                                    else {
+                                          isAdjacent = true;
+                                          break;
+                                          }
                                     }
                               }
                         }
                   if (possibleGap && !notGap)
                         return 0.0;
-                  if (isCrossStaffed)
+                  if (isCrossStaff || isNonGapRest)
                         w = qMax(w, score()->noteHeadWidth());
-                  if (isAdjacent || isCrossStaffed)
-                        w = w + score()->styleP(Sid::minNoteDistance);
+                  if (isCrossStaff || isNonGapRest || isAdjacent)
+                        w += score()->styleP(Sid::minNoteDistance);
                   }
             }
       else if (nst == SegmentType::ChordRest) {
