@@ -2269,6 +2269,7 @@ qreal Segment::minHorizontalDistance(Segment* ns, bool systemHeaderGap) const
             else {
                   bool possibleGap = false;
                   bool notGap = false;
+                  bool isCrossStaffed = false;
                   bool isAdjacent = true;
                   for (int i = 0; i < score()->nstaves() * VOICES; i++) {
                         Element* el = element(i);
@@ -2278,6 +2279,10 @@ qreal Segment::minHorizontalDistance(Segment* ns, bool systemHeaderGap) const
                               possibleGap = true;
                         else {
                               notGap = true;
+                              if (el->isChord() && toChord(el)->staffMove() != 0) {
+                                    isCrossStaffed = true;
+                                    break;
+                                    }
                               if (ns && ns->element(i)) {
                                     isAdjacent = true;
                                     break;
@@ -2286,12 +2291,9 @@ qreal Segment::minHorizontalDistance(Segment* ns, bool systemHeaderGap) const
                         }
                   if (possibleGap && !notGap)
                         return 0.0;
-                  // minimum distance between notes was one note head width
-                  // this should not be necessary given we are calculating actual segment distances
-                  // also, minNoteDistance is only needed in cases where there are adjacent notes
-                  // in the same voice
-                  //w = qMax(w, score()->noteHeadWidth()) + score()->styleP(Sid::minNoteDistance);
-                  if (isAdjacent)
+                  if (isCrossStaffed)
+                        w = qMax(w, score()->noteHeadWidth());
+                  if (isAdjacent || isCrossStaffed)
                         w = w + score()->styleP(Sid::minNoteDistance);
                   }
             }
