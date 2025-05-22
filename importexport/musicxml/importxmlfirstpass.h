@@ -94,7 +94,7 @@ private:
       QString name;
       bool _printName = true;
       QString abbr;
-      bool _printAbbr = false;
+      bool _printAbbr = true;
       bool _hasTab = false;
       QStringList measureNumbers;             // MusicXML measure number attribute
       QList<Fraction> measureDurations;       // duration in fraction for every measure
