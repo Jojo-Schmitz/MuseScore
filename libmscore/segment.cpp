@@ -2270,7 +2270,7 @@ qreal Segment::minHorizontalDistance(Segment* ns, bool systemHeaderGap) const
                   bool possibleGap = false;
                   bool notGap = false;
                   bool isCrossStaff = false;
-                  bool isAdjacent = true;
+                  bool isAdjacent = false;
                   bool isNonGapRest = false;
                   for (int i = 0; i < score()->nstaves() * VOICES; i++) {
                         Element* el = element(i);
