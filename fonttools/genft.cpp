@@ -472,7 +472,6 @@ static void genJson()
             QString s = QString("U+%1").arg(code, 0, 16);
             jg.insert("codepoint", s);
 
-            QJsonValue val(s);
             o.insert(smufl, jg);
             }
       QJsonDocument d(o);
