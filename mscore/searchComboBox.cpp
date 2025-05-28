@@ -37,29 +37,49 @@ void SearchComboBox::searchTextChanged(const QString& s)
       if (cv == 0)
             return;
 
-      bool ok;
-
-      int n = s.toInt(&ok);
-      if (ok && n > 0) {
-            setSearchType(SearchType::SEARCH_MEASURE);
-            _found = cv->searchMeasure(n);
+      if (s[0].isNumber()) { // 'absolute' measure number
+            bool ok;
+            int n = s.toInt(&ok);
+            if (ok && n > 0) {
+                  setSearchType(SearchType::SEARCH_MEASURE);
+                  _found = cv->searchMeasure(n);
+                  }
             }
-      else {
-            if (s.size() >= 2 && s[0].toLower() == 'p' && s[1].isNumber()) {
-                  n = s.midRef(1).toInt(&ok);
-                  if (ok) {
-                        setSearchType(SearchType::SEARCH_PAGE);
-                        _found = cv->searchPage(n);
-                        }
+#if 0 // TODO
+      else if (s.size() >= 2 && s[0] == '#' && s[1].isNumber()) { // 'logical' measure number
+            bool ok;
+            int n = s.midRef(1).toInt(&ok);
+            if (ok) {
+                  setSearchType(SearchType::SEARCH_MEASURE);
+                  _found = cv->searchMeasureLogical(n);
                   }
-
-            if (searchType() != SearchType::SEARCH_PAGE) {
+            }
+#endif
+      else if (s.size() >= 2 && s[0].toLower() == 'p' && s[1].isNumber()) { // page number
+            bool ok;
+            int n = s.midRef(1).toInt(&ok);
+            if (ok) {
+                  setSearchType(SearchType::SEARCH_PAGE);
+                  _found = cv->searchPage(n);
+                  }
+            }
+      else if (s.size() >= 2 && s[0].toLower() == 'r' && s[1].isNumber()) { // numerical rehearsal mark
                   setSearchType(SearchType::SEARCH_REHEARSAL_MARK);
-                  if (s.size() >= 2 && s[0].toLower() == 'r' && s[1].isNumber())
-                        _found = cv->searchRehearsalMark(s.mid(1));
-                  else
-                        _found = cv->searchRehearsalMark(s);
+                  _found = cv->searchRehearsalMark(s.mid(1));
+            }
+#if 0 // TODO
+      else if (s.size() >= 2 && s[0].toLower() == 's' && s[1].isNumber()) { // section number
+            bool ok;
+            int n = s.midRef(1).toInt(&ok);
+            if (ok && n > 0) {
+                  setSearchType(SearchType::SEARCH_SECTION);
+                  _found = cv->searchSection(n);
                   }
+            }
+#endif
+      if (!_found) { // maybe a 'normal' rehearsal mark
+            setSearchType(SearchType::SEARCH_REHEARSAL_MARK);
+            _found = cv->searchRehearsalMark(s);
             }
       //updating status bar
       ScoreAccessibility::instance()->updateAccessibilityInfo();
@@ -100,6 +120,11 @@ QString AccessibleSearchBox::text(QAccessible::Text t) const
                         type = tr("Page");
                         value = value.mid(1);
                         break;
+#if 0 // TODO
+                  case SearchComboBox::SearchType::SEARCH_SECTION:
+                        type = tr("Section");
+                        break;
+#endif
                   case SearchComboBox::SearchType::SEARCH_REHEARSAL_MARK:
                         type = tr("Rehearsal Mark");
                         break;
