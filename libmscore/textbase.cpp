@@ -1908,8 +1908,8 @@ void TextBase::layoutFrame()
                   frame.adjust(-w * .5, 0.0, w * .5, 0.0);
                   }
 #else
-            // make sure width >= height
-            if (frame.height() > frame.width()) {
+            // make sure width >= height and only a single line (so basically square for single characters)
+            if (frame.height() > frame.width() && rows() == 1) {
                   qreal w = frame.height() - frame.width();
                   frame.adjust(-w * .5, 0.0, w * .5, 0.0);
                   }
