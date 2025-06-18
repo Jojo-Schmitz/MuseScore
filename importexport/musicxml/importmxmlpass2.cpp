@@ -3470,7 +3470,7 @@ void MusicXMLParserDirection::direction(const QString& partId,
                         t->setFrameType(FrameType::NO_FRAME);
                         }
                   else if (_enclosure == "rectangle") {
-                        t->setFrameType(FrameType::SQUARE);
+                        t->setFrameType(FrameType::RECTANGLE);
                         t->setFrameRound(0);
                         }
 
