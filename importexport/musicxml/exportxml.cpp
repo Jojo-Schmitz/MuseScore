@@ -656,7 +656,7 @@ static QString frame2xml(const TextBase* el)
       switch (el->frameType()) {
             case FrameType::CIRCLE:
                   return " enclosure=\"circle\"";
-            case FrameType::SQUARE:
+            case FrameType::RECTANGLE:
                   return " enclosure=\"rectangle\"";
             default:
                   return QString();

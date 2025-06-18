@@ -246,7 +246,7 @@ void Score::writeMovement(XmlWriter& xml, bool selectionOnly)
       xml.setCurTrack(-1);
       if (isMaster()) {
             if (!selectionOnly) {
-                  for (const Excerpt* excerpt : excerpts()) {
+                  for (Excerpt*& excerpt : excerpts()) {
                         if (excerpt->partScore() != this)
                               excerpt->partScore()->write(xml, false);       // recursion
                         }
