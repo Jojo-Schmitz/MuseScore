@@ -252,15 +252,15 @@ void readTextStyle206(MStyle* style, XmlReader& e, std::map<QString, std::map<Si
             else if (tag == "sizeIsSpatiumDependent" || tag == "spatiumSizeDependent")
                   sizeIsSpatiumDependent = e.readInt();
             else if (tag == "frameWidth") { // obsolete
-                  frameType = FrameType::SQUARE;
+                  frameType = FrameType::RECTANGLE;
                   /*frameWidthMM =*/ e.readDouble();
                   }
             else if (tag == "frameWidthS") {
-                  frameType = FrameType::SQUARE;
+                  frameType = FrameType::RECTANGLE;
                   frameWidth = Spatium(e.readDouble());
                   }
             else if (tag == "frame")
-                  frameType = e.readInt() ? FrameType::SQUARE : FrameType::NO_FRAME;
+                  frameType = e.readInt() ? FrameType::RECTANGLE : FrameType::NO_FRAME;
             else if (tag == "paddingWidth")          // obsolete
                   /*paddingWidthMM =*/ e.readDouble();
             else if (tag == "paddingWidthS")
@@ -1321,7 +1321,7 @@ static bool readTextProperties206(XmlReader& e, TextBase* t)
       else if (tag == "foregroundColor")  // same as "color" ?
             e.skipCurrentElement();
       else if (tag == "frame") {
-            t->setFrameType(e.readBool() ? FrameType::SQUARE : FrameType::NO_FRAME);
+            t->setFrameType(e.readBool() ? FrameType::RECTANGLE : FrameType::NO_FRAME);
             t->setPropertyFlags(Pid::FRAME_TYPE, PropertyFlags::UNSTYLED);
             }
       else if (tag == "frameRound")
@@ -1331,7 +1331,7 @@ static bool readTextProperties206(XmlReader& e, TextBase* t)
                   t->setFrameType(FrameType::CIRCLE);
             else {
                   if (t->circle())
-                        t->setFrameType(FrameType::SQUARE);
+                        t->setFrameType(FrameType::RECTANGLE);
                   }
             t->setPropertyFlags(Pid::FRAME_TYPE, PropertyFlags::UNSTYLED);
             }

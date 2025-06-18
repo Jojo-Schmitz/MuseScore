@@ -30,7 +30,7 @@ class ChangeText;
 //---------------------------------------------------------
 
 enum class FrameType : char {
-      NO_FRAME, SQUARE, CIRCLE
+      NO_FRAME, RECTANGLE, CIRCLE
       };
 
 //---------------------------------------------------------
@@ -389,7 +389,7 @@ class TextBase : public Element {
       // helper functions
       bool hasFrame() const                      { return _frameType != FrameType::NO_FRAME; }
       bool circle() const                        { return _frameType == FrameType::CIRCLE; }
-      bool square() const                        { return _frameType == FrameType::SQUARE; }
+      bool rectangle() const                     { return _frameType == FrameType::RECTANGLE; }
 
       Tid tid() const                            { return _tid; }
       void setTid(Tid id)                        { _tid = id; }
