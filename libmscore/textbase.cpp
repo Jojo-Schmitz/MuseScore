@@ -1902,7 +1902,7 @@ void TextBase::layoutFrame()
       else
             frame = bbox();
 
-      if (square()) {
+      if (rectangle()) {
 #if 0
             // "real" square
             if (frame.width() > frame.height()) {

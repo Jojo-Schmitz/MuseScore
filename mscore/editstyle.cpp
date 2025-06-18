@@ -589,7 +589,7 @@ EditStyle::EditStyle(Score* s, QWidget* parent)
 
       textStyleFrameType->clear();
       textStyleFrameType->addItem(tr("None", "no frame for text"), int(FrameType::NO_FRAME));
-      textStyleFrameType->addItem(tr("Rectangle"), int(FrameType::SQUARE));
+      textStyleFrameType->addItem(tr("Rectangle"), int(FrameType::RECTANGLE));
       textStyleFrameType->addItem(tr("Circle"), int(FrameType::CIRCLE));
 
       resetTextStyleName->setIcon(*icons[int(Icons::reset_ICON)]);

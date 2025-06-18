@@ -994,7 +994,7 @@ static const StyleType styleTypes[] {
       { Sid::rehearsalMarkFontStyle,        "rehearsalMarkFontStyle",       int(FontStyle::Bold) },
       { Sid::rehearsalMarkColor,            "rehearsalMarkColor",           QColor(0, 0, 0, 255) },
       { Sid::rehearsalMarkAlign,            "rehearsalMarkAlign",           QVariant::fromValue(Align::HCENTER | Align::BASELINE) },
-      { Sid::rehearsalMarkFrameType,        "rehearsalMarkFrameType",       int(FrameType::SQUARE)  },
+      { Sid::rehearsalMarkFrameType,        "rehearsalMarkFrameType",       int(FrameType::RECTANGLE)  },
       { Sid::rehearsalMarkFramePadding,     "rehearsalMarkFramePadding",    0.5 },
       { Sid::rehearsalMarkFrameWidth,       "rehearsalMarkFrameWidth",      0.16 },
       { Sid::rehearsalMarkFrameRound,       "rehearsalMarkFrameRound",      0 },

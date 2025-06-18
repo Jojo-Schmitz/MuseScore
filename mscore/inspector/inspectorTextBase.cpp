@@ -12,9 +12,9 @@
 
 #include "inspector.h"
 #include "inspectorTextBase.h"
-#include "libmscore/text.h"
+
 #include "libmscore/score.h"
-#include "icons.h"
+#include "libmscore/textbase.h"
 
 namespace Ms {
 
@@ -52,7 +52,7 @@ InspectorTextBase::InspectorTextBase(QWidget* parent)
       QComboBox* b = t.frameType;
       b->clear();
       b->addItem(b->QObject::tr("None", "no frame for text"), int(FrameType::NO_FRAME));
-      b->addItem(b->QObject::tr("Rectangle"), int(FrameType::SQUARE));
+      b->addItem(b->QObject::tr("Rectangle"), int(FrameType::RECTANGLE));
       b->addItem(b->QObject::tr("Circle"), int(FrameType::CIRCLE));
 
       connect(t.resetToStyle, SIGNAL(clicked()), SLOT(resetToStyle()));
