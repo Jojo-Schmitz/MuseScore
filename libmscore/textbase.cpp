@@ -190,7 +190,8 @@ QString TextCursor::currentWord() const
       {
       const TextBlock& t = _text->_layout[row()];
       QString s = t.text(column(), -1);
-      return s.remove(QRegularExpression(" .*"));
+      static QRegularExpression regex(" .*");
+      return s.remove(regex);
       }
 
 //---------------------------------------------------------
@@ -1895,7 +1896,7 @@ void TextBase::layoutFrame()
       else
             frame = bbox();
 
-      if (square()) {
+      if (rectangle()) {
 #if 0
             // "real" square
             if (frame.width() > frame.height()) {
@@ -1906,7 +1907,7 @@ void TextBase::layoutFrame()
                   qreal w = frame.height() - frame.width();
                   frame.adjust(-w * .5, 0.0, w * .5, 0.0);
                   }
-#else
+//#else
             // make sure width >= height
             if (frame.height() > frame.width()) {
                   qreal w = frame.height() - frame.width();
