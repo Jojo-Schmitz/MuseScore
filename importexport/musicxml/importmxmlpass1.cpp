@@ -1747,7 +1747,7 @@ void MusicXMLParserPass1::defaults()
             else if (/*isImportLayout && */_e.name() == "staff-layout") {
                   while (_e.readNextStartElement()) {
                         if (_e.name() == "staff-distance") {
-                              Spatium val(_e.readElementText().toDouble() / 10.0);
+                              const Spatium val(_e.readElementText().toDouble() / 10.0);
                               if (isImportLayout)
                                     _score->style().set(Sid::staffDistance, val);
                               }
