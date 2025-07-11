@@ -3327,6 +3327,7 @@ void MusicXMLParserDirection::direction(const QString& partId,
       //qDebug("direction track %d", track);
       QList<MusicXmlSpannerDesc> starts;
       QList<MusicXmlSpannerDesc> stops;
+      bool isDynamicRange = false;
 
       // note: file order is direction-type first, then staff
       // this means staff is still unknown when direction-type is handled
@@ -3408,6 +3409,8 @@ void MusicXMLParserDirection::direction(const QString& partId,
 
             addElemOffset(tt, track, placement(), measure, tick + _offset);
             }
+      else if (isLikelyDynamicRange())
+            isDynamicRange = true;
       else if (!_wordsText.isEmpty() || !_rehearsalText.isEmpty() || !_metroText.isEmpty()) {
             TextBase* t = 0;
             if (_tpoSound > 0.1 || attemptTempoTextCoercion(tick)) {
@@ -3550,11 +3553,25 @@ void MusicXMLParserDirection::direction(const QString& partId,
                   }
             }
 
+      Dynamic* firstDyn = nullptr;
+
       // do dynamics
       // LVIFIX: check import/export of <other-dynamics>unknown_text</...>
       for (QStringList::Iterator it = _dynamicsList.begin(); it != _dynamicsList.end(); ++it ) {
             Dynamic* dyn = new Dynamic(_score);
             dyn->setDynamicType(*it);
+
+            if (isDynamicRange) {
+                  if (it == _dynamicsList.begin())
+                        firstDyn = dyn;
+                  else if (it == _dynamicsList.end() - 1 && firstDyn) {
+                        // append hyphen and this dynamic to first
+                        firstDyn->setXmlText(firstDyn->xmlText() + "<sym>dynamicCombinedSeparatorHyphen</sym>" + dyn->xmlText());
+                        delete dyn;
+                        continue;
+                        }
+                  }
+
             if (!_dynaVelocity.isEmpty()) {
                   int dynaValue = round(_dynaVelocity.toDouble() * 0.9);
                   if (dynaValue > 127)
@@ -4570,6 +4587,19 @@ void MusicXMLParserDirection::handleChordSym(const int track, const Fraction tic
       if (insert)
             harmonyMap.insert(std::pair<int, HarmonyDesc>(ticks, newHarmonyDesc));
       _wordsText.clear();
+      }
+
+bool MusicXMLParserDirection::isLikelyDynamicRange() const
+      {
+      if (!preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTINFERTEXTTYPE))
+            return false;
+
+      QString rawWordsText = _wordsText.simplified();
+      static const QRegularExpression re("(<.*?>)");
+      rawWordsText.remove(re);
+
+      // If there are two dynamics and a hyphen in a single direction node, this is most likely something like "mp-f"
+      return (rawWordsText.simplified() == "-" || rawWordsText.simplified() == "—") && _dynamicsList.size() == 2;
       }
 
 //---------------------------------------------------------
