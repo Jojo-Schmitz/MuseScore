@@ -545,7 +545,7 @@ void PageSettings::spatiumChanged(double val)
 
 void PageSettings::pageOffsetChanged(int val)
       {
-      preview->score()->setPageNumberOffset(val-1);
+      preview->score()->undoChangePageNumberOffset(val - 1);
       updatePreview();
       }
 
