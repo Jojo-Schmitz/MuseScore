@@ -46,8 +46,8 @@ QVector<ScoreFont> ScoreFont::_builtinScoreFonts {
       ScoreFont("Finale Maestro", "Finale Maestro", ":/fonts/finalemaestro/", "FinaleMaestro.otf"),
       ScoreFont("Finale Broadway", "Finale Broadway", ":/fonts/finalebroadway/", "FinaleBroadway.otf"),
       };
-QVector<ScoreFont> ScoreFont::_userScoreFonts {};
-QVector<ScoreFont> ScoreFont::_systemScoreFonts {};
+QVector<ScoreFont> ScoreFont::_privateScoreFonts {};
+QVector<ScoreFont> ScoreFont::_standardScoreFonts {};
 QVector<ScoreFont> ScoreFont::_allScoreFonts {};
 
 std::array<uint, size_t(SymId::lastSym)+1> ScoreFont::_mainSymCodeTable { {0} };
@@ -6603,45 +6603,59 @@ void Ms::ScoreFont::initScoreFonts()
       // Linux:  "$XDG_DATA_HOME/SMuFL/Fonts", "$XDG_DATA_DIRS/SMuFL/Fonts"
       // as per https://doc.qt.io/qt-5/qstandardpaths.html#standardLocations that is the (start of the) list
       // which `GenericDataLocation` gives (without the "/SMuFL/Fonts")
-#ifdef Q_OS_WIN
-      // take only the first two entries of that list on Windows (on Mac it is 2 elements only anyway)
-      QStringList systemFontsPaths = QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation).mid(0, 2);
-#else
-      QStringList systemFontsPaths = QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation);
+      // take only the first two entries of that list (on Windows, on Mac it is 2 elements only anyway).
+      // These standard location roughly match up with what the following returns, but some adjustments are needed.
+      QStringList standardLocations = QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation).mid(0, 2);
+#if defined(Q_OS_WIN)
+      // On Windows, the second standard location returned by Qt is %ProgramData%, but we want %CommonProgramFiles%
+      QStringList globalFontsPaths {
+            standardLocations.first(),
+            qgetenv("CommonProgramFiles").replace("\\", "/") // "C:\\Program Files\\Common Files"
+            };
+#elif defined(Q_OS_MACOS)
+      // MacOS is correctly handled by Qt
+      QStringList globalFontsPaths = standardLocations;
+#elif defined(Q_OS_LINUX)
+      // On Unix systems, we want $XDG_DATA_HOME (user-specific) and $XDG_DATA_DIRS (system-wide)
+      QStringList globalFontsPaths { qgetenv("XDG_DATA_HOME") };
+      if (globalFontsPaths.isEmpty()) // XDG_DATA_HOME not set or empty
+            globalFontsPaths.append(qgetenv("HOME") + "/.local/share");
+      globalFontsPaths.append(QString::fromLocal8Bit(qgetenv("XDG_DATA_DIRS")).split(':'));
 #endif
-      for (QString& systemFontsPath : systemFontsPaths) {
-            systemFontsPath += "/SMuFL/Fonts";
-            scanUserFonts(systemFontsPath, true);
-            }
+
+      // The first location is the user-wide location, so we should iterate in reverse order so that
+      // user-specific fonts can override system-wide fonts
+      for (auto it = globalFontsPaths.rbegin(); it != globalFontsPaths.rend(); ++it)
+            scanUserFonts(*it + "/SMuFL/Fonts", false);
       }
 
-void ScoreFont::scanUserFonts(const QString& path, bool system)
+void ScoreFont::scanUserFonts(const QString& path, bool standard)
       {
       QVector<ScoreFont> userfonts;
 
-      QDirIterator iterator(path, QDir::Dirs | QDir::NoDotAndDotDot | QDir::Readable);
+      QDirIterator dirs(path, QDir::Dirs | QDir::NoDotAndDotDot | QDir::Readable);
 
-      while (iterator.hasNext()) {
-            iterator.next();
-            QString fontDirPath = iterator.filePath() + "/";
-            QString fontDirName = iterator.fileName();
+      while (dirs.hasNext()) {
+            QString fontDir = dirs.next();
+            QString fontDirPath = dirs.filePath() + "/";
+            QString fontDirName = dirs.fileName();
 
             QString fontName;
             QString fontFilename;
-            QDirIterator innerIterator(fontDirPath, { "*.otf", "*.ttf" }, QDir::Files);
+            QDirIterator files(fontDirPath, { "*.otf", "*.ttf" }, QDir::Files);
 
-            while (innerIterator.hasNext()) {
-                  QString potentialFontFile = innerIterator.next();
+            while (files.hasNext()) {
+                  QString potentialFontFile = files.next();
                   QFileInfo fileinfo(potentialFontFile);
 
                   if (fileinfo.completeBaseName().toLower() == fontDirName.toLower()) {
                         fontName = fileinfo.completeBaseName();
-                        fontFilename = innerIterator.fileName();
+                        fontFilename = files.fileName();
                         break;
                         }
                   }
 
-            bool hasMetadataFile = QFileInfo::exists(fontDirPath + (system ? fontName : "metadata") + ".json");
+            bool hasMetadataFile = QFileInfo::exists(fontDirPath + (standard ? fontName : "metadata") + ".json");
 
             if (hasMetadataFile && !fontFilename.isEmpty()) {
                   QByteArray name = fontName.toLocal8Bit();
@@ -6652,26 +6666,26 @@ void ScoreFont::scanUserFonts(const QString& path, bool system)
             }
 
 
-      qDebug() << "Found" << userfonts.count() << (system ? "system" : "user") << "score font" << (userfonts.count() > 1? "s" : "") << " in" << path <<".";
+      qDebug() << "Found" << userfonts.count() << (standard ? "standard" : "private") << "score" << (userfonts.count() > 1? "fonts" : "font") << "in" << path << ".";
 
       // TODO: Check for fonts that duplicate built-in fonts
-      if (!system) // reset list when re-reading due to changed Preferences
-            _userScoreFonts.clear();
+      if (!standard) // reset list when re-reading due to changed Preferences
+            _privateScoreFonts.clear();
 
       // Make sure the fonts are loaded, to avoid the situation that MuseScore
       // thinks a font exists but in practice it has disappeared.
       for (ScoreFont& f : userfonts) {
             ScoreFont font = f;
             if (!font.face)
-                  font.load(system);
-            if (system)
-                  _systemScoreFonts.push_back(font);
+                  font.load(standard);
+            if (standard)
+                  _standardScoreFonts.push_back(font);
             else
-                  _userScoreFonts.push_back(font);
+                  _privateScoreFonts.push_back(font);
             }
 
       _allScoreFonts = _builtinScoreFonts;
-      _allScoreFonts << _userScoreFonts << _systemScoreFonts;
+      _allScoreFonts << _privateScoreFonts << _standardScoreFonts;
 
       // Include external and internal score fonts into QFontDatabase
       for (auto& f : _allScoreFonts) {
@@ -6742,7 +6756,7 @@ void ScoreFont::computeMetrics(Sym* sym, int code)
 //   load
 //---------------------------------------------------------
 
-void ScoreFont::load(bool system)
+void ScoreFont::load(bool standard)
       {
       QString facePath = _fontPath + _filename;
       QFile f(facePath);
@@ -6771,7 +6785,7 @@ void ScoreFont::load(bool system)
             }
 
       QJsonParseError error;
-      QFile fi(_fontPath + (system ? _name : "metadata") + ".json");
+      QFile fi(_fontPath + (standard ? _name : "metadata") + ".json");
       if (!fi.open(QIODevice::ReadOnly))
             qDebug("ScoreFont: open glyph metadata file <%s> failed", qPrintable(fi.fileName()));
       QJsonObject metadataJson = QJsonDocument::fromJson(fi.readAll(), &error).object();
