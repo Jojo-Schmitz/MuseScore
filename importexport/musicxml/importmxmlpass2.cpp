@@ -3118,8 +3118,13 @@ void MusicXMLParserPass2::staffDetails(const QString& partId, Measure* measure)
             else if (_e.name() == "staff-tuning")
                   staffTuning(&stringData);
             else if (_e.name() == "staff-size") {
+                  bool hasScale;
+                  qreal scale = _e.attributes().value("scale").toDouble(&hasScale);
+                  if (!hasScale)
+                        scale = 1.0;
                   const double val = _e.readElementText().toDouble() / 100;
-                  _score->staff(staffIdx)->setProperty(Pid::MAG, val);
+                  _score->staff(staffIdx)->setProperty(Pid::MAG, scale);
+                  _score->staff(staffIdx)->setProperty(Pid::LINE_DISTANCE, val);
                   }
             else
                   skipLogCurrElem();
