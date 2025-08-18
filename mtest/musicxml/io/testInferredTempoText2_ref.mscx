@@ -19,33 +19,12 @@
       <stemWidth>0.1</stemWidth>
       <staffLineWidth>0.11</staffLineWidth>
       <pedalLineWidth>0.11</pedalLineWidth>
-      <chordSymbolAFontSize>10</chordSymbolAFontSize>
-      <chordSymbolBFontSize>10</chordSymbolBFontSize>
-      <nashvilleNumberFontSize>10</nashvilleNumberFontSize>
       <slurEndWidth>0.05</slurEndWidth>
       <slurMidWidth>0.21</slurMidWidth>
       <tieEndWidth>0.05</tieEndWidth>
       <tieMidWidth>0.21</tieMidWidth>
       <voltaLineWidth>0.11</voltaLineWidth>
       <ottavaLineWidth>0.11</ottavaLineWidth>
-      <tupletFontSize>10</tupletFontSize>
-      <fingeringFontSize>10</fingeringFontSize>
-      <lhGuitarFingeringFontSize>10</lhGuitarFingeringFontSize>
-      <rhGuitarFingeringFontSize>10</rhGuitarFingeringFontSize>
-      <stringNumberFontSize>10</stringNumberFontSize>
-      <partInstrumentFontSize>10</partInstrumentFontSize>
-      <dynamicsFontSize>10</dynamicsFontSize>
-      <tempoFontSize>10</tempoFontSize>
-      <metronomeFontSize>10</metronomeFontSize>
-      <measureNumberFontSize>10</measureNumberFontSize>
-      <mmRestRangeFontSize>10</mmRestRangeFontSize>
-      <rehearsalMarkFontSize>10</rehearsalMarkFontSize>
-      <repeatLeftFontSize>10</repeatLeftFontSize>
-      <repeatRightFontSize>10</repeatRightFontSize>
-      <glissandoFontSize>10</glissandoFontSize>
-      <bendFontSize>10</bendFontSize>
-      <headerFontSize>10</headerFontSize>
-      <footerFontSize>10</footerFontSize>
       <Spatium>1.74978</Spatium>
       </Style>
     <showInvisible>1</showInvisible>
