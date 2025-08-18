@@ -1378,6 +1378,7 @@ QPoint Harmony::calculateBoundingRect()
       const qreal        standardNoteWidth = symWidth(SymId::noteheadBlack);
       qreal              newx = 0.0;
       qreal              newy = 0.0;
+      const bool alignToFretDiagram = fd && fd->visible();
 
       if (textList.empty()) {
             TextBase::layout1();
@@ -1387,7 +1388,7 @@ QPoint Harmony::calculateBoundingRect()
 
             qreal xx = 0.0;
             qreal yy = 0.0;
-            if (fd) {
+            if (alignToFretDiagram) {
                   if (align() & Align::RIGHT)
                         xx = fd->width() / 2.0;
                   yy = rypos();
@@ -1417,7 +1418,7 @@ QPoint Harmony::calculateBoundingRect()
                   yy = -bb.height() - bb.y();
 
             qreal xx = -bb.x(); // Align::LEFT
-            if (fd) {
+            if (alignToFretDiagram) {
                   if (align() & Align::RIGHT)
                         xx = fd->bbox().width() - bb.width();
                   else if (align() & Align::HCENTER)
@@ -1454,6 +1455,10 @@ QPoint Harmony::calculateBoundingRect()
                         }
 
                   }
+            }
+      if (fd && !fd->visible()) {
+            // Translate to base position around note
+            newx -= fd->pos().x();
             }
       return QPoint(newx, newy);
       }
