@@ -1575,7 +1575,7 @@ static void updateStyles(Score* score,
       const double dblLyricSize = lyricSize.toDouble(); // but avoid comparing (double) floating point number with exact value later
       const double epsilon = 0.001;                     // use epsilon instead
 
-      bool needUseDefaultFont = preferences.getBool(PREF_MIGRATION_APPLY_EDWIN_FOR_XML_FILES);
+      const bool needUseDefaultFont = preferences.getBool(PREF_MIGRATION_APPLY_EDWIN_FOR_XML_FILES);
 
       // loop over all text styles (except the empty, always hidden, first one)
       // set all text styles to the MusicXML defaults
@@ -1584,6 +1584,7 @@ static void updateStyles(Score* score,
             // The MusicXML specification does not specify to which kinds of text
             // the word-font setting applies. Setting all sizes to the size specified
             // gives bad results, so a selection is made:
+            // Only apply word-font style when "Apply default typeface" is unchecked
             // exclude lyrics odd and even lines (handled separately),
             // Roman numeral analysis (special case, leave untouched)
             // and text types used in the title frame
@@ -1592,7 +1593,7 @@ static void updateStyles(Score* score,
             if (tid == Tid::LYRICS_ODD || tid == Tid::LYRICS_EVEN)
                   continue;
 
-            bool needUseDefaultSize = tid == Tid::HARMONY_ROMAN
+            const bool needUseDefaultSize = needUseDefaultFont || tid == Tid::HARMONY_ROMAN
                                       || isTitleFrameStyle(tid);
 
             const TextStyle* ts = textStyle(tid);
