@@ -21,54 +21,12 @@
       <stemWidth>0.11</stemWidth>
       <staffLineWidth>0.11</staffLineWidth>
       <pedalLineWidth>0.11</pedalLineWidth>
-      <chordSymbolAFontSize>11.9365</chordSymbolAFontSize>
-      <chordSymbolBFontSize>11.9365</chordSymbolBFontSize>
-      <nashvilleNumberFontSize>11.9365</nashvilleNumberFontSize>
       <slurEndWidth>0.07</slurEndWidth>
       <slurMidWidth>0.21</slurMidWidth>
       <tieEndWidth>0.07</tieEndWidth>
       <tieMidWidth>0.21</tieMidWidth>
       <voltaLineWidth>0.11</voltaLineWidth>
       <ottavaLineWidth>0.11</ottavaLineWidth>
-      <tupletFontSize>11.9365</tupletFontSize>
-      <fingeringFontSize>11.9365</fingeringFontSize>
-      <lhGuitarFingeringFontSize>11.9365</lhGuitarFingeringFontSize>
-      <rhGuitarFingeringFontSize>11.9365</rhGuitarFingeringFontSize>
-      <stringNumberFontSize>11.9365</stringNumberFontSize>
-      <longInstrumentFontSize>11.9365</longInstrumentFontSize>
-      <shortInstrumentFontSize>11.9365</shortInstrumentFontSize>
-      <partInstrumentFontSize>11.9365</partInstrumentFontSize>
-      <dynamicsFontSize>11.9365</dynamicsFontSize>
-      <expressionFontSize>11.9365</expressionFontSize>
-      <tempoFontSize>11.9365</tempoFontSize>
-      <metronomeFontSize>11.9365</metronomeFontSize>
-      <measureNumberFontSize>11.9365</measureNumberFontSize>
-      <mmRestRangeFontSize>11.9365</mmRestRangeFontSize>
-      <translatorFontSize>11.9365</translatorFontSize>
-      <systemFontSize>11.9365</systemFontSize>
-      <staffFontSize>11.9365</staffFontSize>
-      <rehearsalMarkFontSize>11.9365</rehearsalMarkFontSize>
-      <repeatLeftFontSize>11.9365</repeatLeftFontSize>
-      <repeatRightFontSize>11.9365</repeatRightFontSize>
-      <frameFontSize>11.9365</frameFontSize>
-      <glissandoFontSize>11.9365</glissandoFontSize>
-      <bendFontSize>11.9365</bendFontSize>
-      <headerFontSize>11.9365</headerFontSize>
-      <footerFontSize>11.9365</footerFontSize>
-      <instrumentChangeFontSize>11.9365</instrumentChangeFontSize>
-      <stickingFontSize>11.9365</stickingFontSize>
-      <user1FontSize>11.9365</user1FontSize>
-      <user2FontSize>11.9365</user2FontSize>
-      <user3FontSize>11.9365</user3FontSize>
-      <user4FontSize>11.9365</user4FontSize>
-      <user5FontSize>11.9365</user5FontSize>
-      <user6FontSize>11.9365</user6FontSize>
-      <user7FontSize>11.9365</user7FontSize>
-      <user8FontSize>11.9365</user8FontSize>
-      <user9FontSize>11.9365</user9FontSize>
-      <user10FontSize>11.9365</user10FontSize>
-      <user11FontSize>11.9365</user11FontSize>
-      <user12FontSize>11.9365</user12FontSize>
       <Spatium>1.2192</Spatium>
       </Style>
     <showInvisible>1</showInvisible>

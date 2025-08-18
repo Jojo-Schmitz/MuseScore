@@ -24,53 +24,11 @@
       <ledgerLineWidth>0.10807</ledgerLineWidth>
       <beamWidth>0.50391</beamWidth>
       <hairpinWidth>0.07227</hairpinWidth>
-      <chordSymbolAFontSize>8.8</chordSymbolAFontSize>
-      <chordSymbolBFontSize>8.8</chordSymbolBFontSize>
-      <nashvilleNumberFontSize>8.8</nashvilleNumberFontSize>
       <smallNoteMag>0.65</smallNoteMag>
       <graceNoteMag>0.65</graceNoteMag>
       <voltaLineWidth>0.11979</voltaLineWidth>
       <tupletBracketWidth>0.10807</tupletBracketWidth>
-      <tupletFontSize>8.8</tupletFontSize>
-      <fingeringFontSize>8.8</fingeringFontSize>
-      <lhGuitarFingeringFontSize>8.8</lhGuitarFingeringFontSize>
-      <rhGuitarFingeringFontSize>8.8</rhGuitarFingeringFontSize>
-      <stringNumberFontSize>8.8</stringNumberFontSize>
-      <longInstrumentFontSize>8.8</longInstrumentFontSize>
-      <shortInstrumentFontSize>8.8</shortInstrumentFontSize>
-      <partInstrumentFontSize>8.8</partInstrumentFontSize>
-      <dynamicsFontSize>8.8</dynamicsFontSize>
-      <expressionFontSize>8.8</expressionFontSize>
-      <tempoFontSize>8.8</tempoFontSize>
-      <metronomeFontSize>8.8</metronomeFontSize>
-      <measureNumberFontSize>8.8</measureNumberFontSize>
-      <mmRestRangeFontSize>8.8</mmRestRangeFontSize>
-      <translatorFontSize>8.8</translatorFontSize>
-      <systemFontSize>8.8</systemFontSize>
-      <staffFontSize>8.8</staffFontSize>
       <staffFrameWidth>0.07227</staffFrameWidth>
-      <rehearsalMarkFontSize>8.8</rehearsalMarkFontSize>
-      <repeatLeftFontSize>8.8</repeatLeftFontSize>
-      <repeatRightFontSize>8.8</repeatRightFontSize>
-      <frameFontSize>8.8</frameFontSize>
-      <glissandoFontSize>8.8</glissandoFontSize>
-      <bendFontSize>8.8</bendFontSize>
-      <headerFontSize>8.8</headerFontSize>
-      <footerFontSize>8.8</footerFontSize>
-      <instrumentChangeFontSize>8.8</instrumentChangeFontSize>
-      <stickingFontSize>8.8</stickingFontSize>
-      <user1FontSize>8.8</user1FontSize>
-      <user2FontSize>8.8</user2FontSize>
-      <user3FontSize>8.8</user3FontSize>
-      <user4FontSize>8.8</user4FontSize>
-      <user5FontSize>8.8</user5FontSize>
-      <user6FontSize>8.8</user6FontSize>
-      <user7FontSize>8.8</user7FontSize>
-      <user8FontSize>8.8</user8FontSize>
-      <user9FontSize>8.8</user9FontSize>
-      <user10FontSize>8.8</user10FontSize>
-      <user11FontSize>8.8</user11FontSize>
-      <user12FontSize>8.8</user12FontSize>
       <Spatium>1.69333</Spatium>
       </Style>
     <showInvisible>1</showInvisible>
