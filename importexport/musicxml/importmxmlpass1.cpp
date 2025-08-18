@@ -767,6 +767,38 @@ static void inferFromTitle(QString& title, QString& inferredSubtitle, QString& i
       inferredSubtitle = subtitleLines.join("\n");
       inferredCredits = creditLines.join("\n");
       }
+
+static void resizeTitleBox(VBox* vbox)
+      {
+      double calculatedVBoxHeight = 0;
+      ElementList elist = vbox->el();
+      Score* score = vbox->score();
+      for (Element* e : elist) {
+            //score->renderer()->layoutItem(e);
+            }
+
+      double padding = vbox->spatium();
+
+      for (Element* e : elist) {
+            if (e->isText()) {
+                  Text* txt = toText(e);
+                  //Text::LayoutData* txtLD = txt->mutldata();
+
+                  //LD_CONDITION(txtLD->isSetBbox());
+
+                  //QRectF bbox = txtLD->bbox();
+                  //bbox.moveTop(0.0);
+                  //txtLD->setBbox(bbox);
+                  //calculatedVBoxHeight += txtLD->bbox().height() + padding;
+                  }
+            }
+
+      qreal heightInSp = calculatedVBoxHeight / padding;
+      if (heightInSp > vbox->propertyDefault(Pid::BOX_HEIGHT).toDouble()) {
+            vbox->undoChangeProperty(Pid::BOX_HEIGHT, heightInSp);
+            }
+      }
+
 //---------------------------------------------------------
 //   addCreditWords
 //---------------------------------------------------------
@@ -819,6 +851,11 @@ static VBox* addCreditWords(Score* const score, const CreditWordsList& crWords, 
                   rights.remove(tagRe);
                   score->setMetaTag("copyright", rights);
                   }
+            }
+
+      if (vbox && !MScore::testMode) {
+            // Correct size
+            resizeTitleBox(vbox);
             }
 
       return vbox;
