@@ -4509,11 +4509,18 @@ void MusicXMLParserDirection::handleRepeats(Measure* measure, const int track, c
                   // Sometimes Jumps and Markers are exported on the incorrect side
                   // of the barline (i.e. end of mm. 29 vs. beginning of mm. 30).
                   // This fixes that.
-                  bool closerToLeft = tick - measure->tick() < measure->endTick() - tick;
+                  const bool closerToLeft = tick - measure->tick() < measure->endTick() - tick;
                   if (tb->tid() == Tid::REPEAT_RIGHT && closerToLeft && measure->prevMeasure())
                         measure = measure->prevMeasure();
                   else if (tb->tid() == Tid::REPEAT_LEFT && !closerToLeft && measure->nextMeasure())
                         measure = measure->nextMeasure();
+                  // Temporary solution to indent codas - add a horizontal frame at start of system or midway through
+                  const MeasureBase* prevMeasureBase = measure->prev();
+                  const bool hbox = prevMeasureBase && prevMeasureBase->isHBox();
+                  if (tb->isMarker() && toMarker(tb)->markerType() == Marker::Type::CODA && !hbox) {
+                        _score->insertMeasure(ElementType::HBOX, measure);
+                        toHBox(measure->prev())->setBoxWidth(Spatium(10));
+                        }
                   tb->setVisible(_visible);
                   measure->add(tb);
                   }
