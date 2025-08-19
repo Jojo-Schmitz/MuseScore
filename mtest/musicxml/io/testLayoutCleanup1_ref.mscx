@@ -99,12 +99,10 @@
         <height>10</height>
         <Text>
           <style>Title</style>
-          <offset x="0" y="-0.07525"/>
           <text><font size="22"/>Layout Cleanup 1</text>
           </Text>
         <Text>
           <style>Subtitle</style>
-          <offset x="0" y="9.92425"/>
           <text><font size="16"/>MuseScore Testcase</text>
           </Text>
         <Text>

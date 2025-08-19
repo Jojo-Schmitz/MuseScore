@@ -100,12 +100,10 @@
         <height>10</height>
         <Text>
           <style>Title</style>
-          <offset x="0" y="-0.0454943"/>
           <text><font size="22"/>Fretboard Diagrams</text>
           </Text>
         <Text>
           <style>Subtitle</style>
-          <offset x="0" y="9.9545"/>
           <text><font size="16"/>MuseScore testfile</text>
           </Text>
         <Text>

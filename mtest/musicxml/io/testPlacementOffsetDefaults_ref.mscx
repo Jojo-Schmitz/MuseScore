@@ -110,12 +110,10 @@
         <height>10</height>
         <Text>
           <style>Title</style>
-          <offset x="0" y="-0.0367999"/>
           <text><font size="22"/>Untitled score</text>
           </Text>
         <Text>
           <style>Subtitle</style>
-          <offset x="0" y="9.9632"/>
           <text><font size="14"/>Subtitle</text>
           </Text>
         <Text>
