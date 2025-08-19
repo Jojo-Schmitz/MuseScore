@@ -1244,6 +1244,11 @@ QString ParsedChord::fromXml(const QString& rawKind, const QString& rawKindText,
             implied = true;
             extension = 5;
             }
+      else if (kind == "pedal") {
+            // Ignore, assume major
+            _quality = "major";
+            implied = true;
+            }
       else
             _quality = kind;
 
