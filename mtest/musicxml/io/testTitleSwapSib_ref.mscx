@@ -315,7 +315,6 @@
         <Text>
           <style>Lyricist</style>
           <align>left,top</align>
-          <offset x="0" y="-0.114849"/>
           <text><font size="10"/>2</text>
           </Text>
         </VBox>
@@ -342,7 +341,6 @@
         <height>10</height>
         <Text>
           <align>center,top</align>
-          <offset x="0" y="-0.083"/>
           <text><font size="22.0128"/>Title</text>
           </Text>
         </VBox>
