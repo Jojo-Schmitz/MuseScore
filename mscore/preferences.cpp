@@ -93,16 +93,18 @@ void Preferences::init(bool storeInMemoryOnly)
       checkUpdateStartup = false;
 #endif
 
+#if defined(Q_OS_MAC) || defined(Q_OS_WIN) || defined(USE_PORTAUDIO)
       bool defaultUsePortAudio = false;
+#endif
       bool defaultUsePulseAudio = false;
       bool defaultUseJackAudio = false;
       bool defaultUseAlsaAudio = false;
 
 #if defined(Q_OS_MAC) || defined(Q_OS_WIN)
-      defaultUsePortAudio  = true;
+      defaultUsePortAudio = true;
       // Linux
 #elif defined(USE_PULSEAUDIO)
-      defaultUsePulseAudio  = true;
+      defaultUsePulseAudio = true;
 #elif defined(USE_ALSA)
       defaultUseAlsaAudio = true;
 #elif defined(USE_PORTAUDIO)
