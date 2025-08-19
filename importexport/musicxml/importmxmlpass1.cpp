@@ -548,7 +548,7 @@ static bool overrideTextStyleForComposer(const QString& creditString)
  Also sets Align and Yoff.
  */
 
-static void addText2(VBox* vbx, Score* s, const QString strTxt, const Tid stl, const Align align, const double yoffs)
+static void addText2(VBox* vbx, Score* s, const QString strTxt, const Tid stl, const Align align)
       {
       if (stl != Tid::COMPOSER && overrideTextStyleForComposer(strTxt)) {
             // HACK: in some Dolet 8 files the composer is written as a subtitle, which leads to stupid formatting.
@@ -556,7 +556,6 @@ static void addText2(VBox* vbx, Score* s, const QString strTxt, const Tid stl, c
             Text* text = new Text(s, Tid::COMPOSER);
             text->setXmlText(strTxt);
             text->setXmlText(strTxt.trimmed());
-            text->setOffset(QPointF(0.0, yoffs));
             text->setPropertyFlags(Pid::OFFSET, PropertyFlags::UNSTYLED);
           vbx->add(text);
       } else      if (!strTxt.isEmpty()) {
@@ -564,7 +563,6 @@ static void addText2(VBox* vbx, Score* s, const QString strTxt, const Tid stl, c
             text->setXmlText(strTxt.trimmed());
             text->setAlign(align);
             text->setPropertyFlags(Pid::ALIGN, PropertyFlags::UNSTYLED);
-            text->setOffset(QPointF(0.0, yoffs));
             text->setPropertyFlags(Pid::OFFSET, PropertyFlags::UNSTYLED);
             vbx->add(text);
             }
@@ -839,10 +837,9 @@ static VBox* addCreditWords(Score* const score, const CreditWordsList& crWords, 
             if (mustAddWordToVbox(w->type)) {
                   const Tid tid = top ? tidForCreditWords(w, words, pageSize.width()) : Tid::DEFAULT;
                   const Align align = alignForCreditWords(w, pageSize.width(), tid);
-                  double yoffs = tid == Tid::COMPOSER ? 0.0 : (maxy - w->defaultY) * score->spatium() / 10;
                   if (!vbox)
                         vbox = MusicXMLParserPass1::createAndAddVBoxForCreditWords(score);
-                  addText2(vbox, score, w->words, tid, align, yoffs);
+                  addText2(vbox, score, w->words, tid, align);
                   }
             else if (w->type == "rights" && score->metaTag("copyright").isEmpty()) {
                   // Add rights to footer, not a vbox

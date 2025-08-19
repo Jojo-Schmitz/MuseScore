@@ -171,12 +171,10 @@
         <height>10</height>
         <Text>
           <style>Title</style>
-          <offset x="0" y="-0.00874889"/>
           <text><font size="22"/>Volta Hiding</text>
           </Text>
         <Text>
           <style>Subtitle</style>
-          <offset x="0" y="9.99123"/>
           <text><font size="16"/>MuseScore Testcase</text>
           </Text>
         <Text>
