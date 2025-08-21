@@ -560,7 +560,7 @@ void FretDiagram::layout()
 
       if (_harmony)
             _harmony->layout();
-      if (_harmony && _harmony->autoplace() && _harmony->parent()) {
+      if (_harmony && _harmony->autoplace() && _harmony->parent() && _harmony->parent()->visible()) {
             Segment* s = toSegment(parent());
             Measure* m = s->measure();
             int si     = staffIdx();
@@ -1366,6 +1366,14 @@ QVariant FretDiagram::propertyDefault(Pid pid) const
                   }
             }
       return Element::propertyDefault(pid);
+      }
+
+void FretDiagram::setVisible(bool f)
+      {
+      Element::setVisible(f);
+
+      if (_harmony && _harmony->isStyled(Pid::OFFSET))
+            _harmony->resetProperty(Pid::OFFSET);
       }
 
 void FretDiagram::setTrack(int val)
