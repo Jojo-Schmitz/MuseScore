@@ -2233,11 +2233,13 @@ QVariant Harmony::propertyDefault(Pid id) const
                         }
                   }
                   break;
-            case Pid::OFFSET:
-                  if (parent() && parent()->isFretDiagram()) {
+            case Pid::OFFSET: {
+                  const FretDiagram* fd = parent() && parent()->isFretDiagram() ? toFretDiagram(parent()) : nullptr;
+                  if (fd && fd->visible()) {
                         v = QVariant(QPointF(0.0, 0.0));
                         break;
                         }
+                  }
                   // fall-through
             default:
                   v = TextBase::propertyDefault(id);
@@ -2253,7 +2255,8 @@ QVariant Harmony::propertyDefault(Pid id) const
 Sid Harmony::getPropertyStyle(Pid pid) const
       {
       if (pid == Pid::OFFSET) {
-            if (parent() && parent()->isFretDiagram())
+            const FretDiagram* fd = parent() && parent()->isFretDiagram() ? toFretDiagram(parent()) : nullptr;
+            if (fd && fd->visible())
                   return Sid::NOSTYLE;
             else if (tid() == Tid::HARMONY_A)
                   return placeAbove() ? Sid::chordSymbolAPosAbove : Sid::chordSymbolAPosBelow;
