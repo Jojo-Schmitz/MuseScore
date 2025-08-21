@@ -1406,7 +1406,7 @@ QPoint Harmony::calculateBoundingRect()
             }
       else {
             QRectF bb;
-            for (TextSegment* ts : qAsConst(textList))
+            for (TextSegment*& ts : textList)
                   bb |= ts->tightBoundingRect().translated(ts->x, ts->y);
 
             qreal yy = -bb.y();  // Align::TOP
@@ -1437,7 +1437,7 @@ QPoint Harmony::calculateBoundingRect()
                   newy = ypos;
                   }
 
-            for (TextSegment* ts : qAsConst(textList))
+            for (TextSegment*& ts : textList)
                   ts->offset = QPointF(xx, yy);
 
             setbbox(bb.translated(xx, yy));
