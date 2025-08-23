@@ -97,9 +97,9 @@ private slots:
       void colorExport() { mxmlMscxExportTestRef("testColorExport"); }
       void colors() { mxmlIoTest("testColors"); }
       void completeMeasureRests() { mxmlIoTest("testCompleteMeasureRests"); }
-      void copyrightScale() { mxmlImportTestRef("testCopyrightScale"); }
       void connectedArpeggios1() { mxmlImportTestRef("testConnectedArpeggios"); }
       void connectedArpeggios2() { mxmlIoTestRef("testConnectedArpeggios"); }
+      void copyrightScale() { mxmlImportTestRef("testCopyrightScale"); }
       void cueGraceNotes1() { mxmlImportTestRef("testCueGraceNotes"); }
       void cueGraceNotes2() { mxmlIoTestRef("testCueGraceNotes"); }
       void cueNotes() { mxmlIoTest("testCueNotes"); }
@@ -177,12 +177,12 @@ private slots:
       void inferredCrescLines2() { mxmlImportTestRef("testInferredCrescLines2"); }
       void inferredDynamics() { mxmlImportTestRef("testInferredDynamics"); }
       void inferredDynamicsExpressiont() { mxmlImportTestRef("testInferredDynamicsExpression"); }
-      void inferreFractions() { mxmlImportTestRef("testInferFraction"); }
       void inferredFingerings() { mxmlImportTestRef("testInferredFingerings"); }
+      void inferredFractions() { mxmlImportTestRef("testInferredFraction"); }
       void inferredRights() { mxmlImportTestRef("testInferredRights"); }
       void inferredTempoText() { mxmlImportTestRef("testInferredTempoText"); }
       void inferredTempoText2() { mxmlImportTestRef("testInferredTempoText2"); }
-      void inferredTransposition() { mxmlImportTestRef("testInferredRights"); }
+      void inferredTransposition() { mxmlImportTestRef("testInferredTransposition"); }
       void instrumentChangeMIDIportExport() { mxmlMscxExportTestRef("testInstrumentChangeMIDIportExport"); }
       void instrumentSound() { mxmlIoTestRef("testInstrumentSound"); }
       void invalidLayout() { mxmlMscxExportTestRef("testInvalidLayout"); }
