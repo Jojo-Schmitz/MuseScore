@@ -377,7 +377,6 @@ class MScore {
       static bool saveTemplateMode;
       static bool noGui;
 
-      static bool noExcerpts;
       static bool noImages;
 
       static bool pdfPrinting;

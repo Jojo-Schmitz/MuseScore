@@ -3588,41 +3588,22 @@ static bool readScore(Score* score, XmlReader& e)
                         }
                   score->addSpanner(s);
                   }
-            else if (tag == "Excerpt") {
-                  if (MScore::noExcerpts)
-                        e.skipCurrentElement();
-                  else {
-                        if (score->isMaster()) {
-                              Excerpt* ex = new Excerpt(static_cast<MasterScore*>(score));
-                              ex->read(e);
-                              score->excerpts().append(ex);
-                              }
-                        else {
-                              qDebug("read206: readScore(): part cannot have parts");
-                              e.skipCurrentElement();
-                              }
-                        }
-                  }
             else if (tag == "Score") {          // recursion
-                  if (MScore::noExcerpts)
-                        e.skipCurrentElement();
-                  else {
-                        e.tracks().clear();
-                        e.clearUserTextStyles();
-                        MasterScore* m = score->masterScore();
-                        Score* s       = new Score(m, MScore::baseStyle());
-                        int defaultsVersion = m->style().defaultStyleVersion();
-                        s->setStyle(*MStyle::resolveStyleDefaults(defaultsVersion));
-                        s->style().setDefaultStyleVersion(defaultsVersion);
-                        s->setEnableVerticalSpread(false);
-                        Excerpt* ex = new Excerpt(m);
+                  e.tracks().clear();
+                  e.clearUserTextStyles();
+                  MasterScore* m = score->masterScore();
+                  Score* s       = new Score(m, MScore::baseStyle());
+                  int defaultsVersion = m->style().defaultStyleVersion();
+                  s->setStyle(*MStyle::resolveStyleDefaults(defaultsVersion));
+                  s->style().setDefaultStyleVersion(defaultsVersion);
+                  s->setEnableVerticalSpread(false);
+                  Excerpt* ex = new Excerpt(m);
 
-                        ex->setPartScore(s);
-                        e.setLastMeasure(nullptr);
-                        readScore(s, e);
-                        ex->setTracks(e.tracks());
-                        m->addExcerpt(ex);
-                        }
+                  ex->setPartScore(s);
+                  e.setLastMeasure(nullptr);
+                  readScore(s, e);
+                  ex->setTracks(e.tracks());
+                  m->addExcerpt(ex);
                   }
             else if (tag == "PageList")
                   e.skipCurrentElement();
