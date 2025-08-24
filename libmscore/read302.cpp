@@ -166,21 +166,6 @@ bool Score::read(XmlReader& e)
                   s->read(e);
                   addSpanner(s);
                   }
-            else if (tag == "Excerpt") {
-                  if (MScore::noExcerpts)
-                        e.skipCurrentElement();
-                  else {
-                        if (isMaster()) {
-                              Excerpt* ex = new Excerpt(static_cast<MasterScore*>(this));
-                              ex->read(e);
-                              excerpts().append(ex);
-                              }
-                        else {
-                              qDebug("Score::read(): part cannot have parts");
-                              e.skipCurrentElement();
-                              }
-                        }
-                  }
             else if (e.name() == "Tracklist") {
                   int strack = e.intAttribute("sTrack",   -1);
                   int dtrack = e.intAttribute("dstTrack", -1);
@@ -189,24 +174,20 @@ bool Score::read(XmlReader& e)
                   e.skipCurrentElement();
                   }
             else if (tag == "Score") {          // recursion
-                  if (MScore::noExcerpts)
-                        e.skipCurrentElement();
-                  else {
-                        e.tracks().clear();     // ???
-                        MasterScore* m = masterScore();
-                        Score* s       = new Score(m, MScore::baseStyle());
-                        int defaultsVersion = m->style().defaultStyleVersion();
-                        s->setStyle(*MStyle::resolveStyleDefaults(defaultsVersion));
-                        s->style().setDefaultStyleVersion(defaultsVersion);
-                        Excerpt* ex    = new Excerpt(m);
+                  e.tracks().clear();     // ???
+                  MasterScore* m = masterScore();
+                  Score* s       = new Score(m, MScore::baseStyle());
+                  int defaultsVersion = m->style().defaultStyleVersion();
+                  s->setStyle(*MStyle::resolveStyleDefaults(defaultsVersion));
+                  s->style().setDefaultStyleVersion(defaultsVersion);
+                  Excerpt* ex    = new Excerpt(m);
 
-                        ex->setPartScore(s);
-                        e.setLastMeasure(nullptr);
-                        s->read(e);
-                        s->linkMeasures(m);
-                        ex->setTracks(e.tracks());
-                        m->addExcerpt(ex);
-                        }
+                  ex->setPartScore(s);
+                  e.setLastMeasure(nullptr);
+                  s->read(e);
+                  s->linkMeasures(m);
+                  ex->setTracks(e.tracks());
+                  m->addExcerpt(ex);
                   }
             else if (tag == "name") {
                   QString n = e.readElementText();

@@ -97,7 +97,6 @@ int     MScore::division    = 480; // 3840;   // pulses per quarter note (PPQ) /
 int     MScore::sampleRate  = 44100;
 int     MScore::mtcType;
 
-bool    MScore::noExcerpts = false;
 bool    MScore::noImages = false;
 bool    MScore::pdfPrinting = false;
 bool    MScore::svgPrinting = false;
