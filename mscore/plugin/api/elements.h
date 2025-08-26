@@ -130,10 +130,23 @@ class Element : public Ms::PluginAPI::ScoreElement {
        */
       Q_PROPERTY(qreal posY READ posY)
       /**
+       * Reference position of this element relative to its parent element, in spatium units.
+       * Use `pos.x` or `pos.y` to access the X and Y components of this point.
+       * \see Element::posX
+       * \see Element::posY
+       * \since MuseScore 3.7
+       */
+      Q_PROPERTY(QPointF pos READ pos)
+      /**
        * Position of this element in page coordinates, in spatium units.
        * \since MuseScore 3.5
        */
       Q_PROPERTY(QPointF pagePos READ pagePos)
+      /**
+       * Position of this element relative to the canvas (user interface), in spatium units.
+       * \since MuseScore 3.7
+       */
+      Q_PROPERTY(QPointF canvasPos READ canvasPos)
 
       /**
        * Bounding box of this element.
@@ -402,7 +415,9 @@ class Element : public Ms::PluginAPI::ScoreElement {
       qreal posX() const { return element()->pos().x() / element()->spatium(); }
       qreal posY() const { return element()->pos().y() / element()->spatium(); }
 
+      QPointF pos() const { return element()->pos() / element()->spatium(); }
       QPointF pagePos() const { return element()->pagePos() / element()->spatium(); }
+      QPointF canvasPos() const { return element()->canvasPos() / element()->spatium(); }
 
       Ms::PluginAPI::Element* parent() const { return wrap(element()->parent()); }
       Staff* staff() { return wrap<Staff>(element()->staff()); }
