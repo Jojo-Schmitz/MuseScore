@@ -2717,14 +2717,15 @@ void ScoreView::cmd(const char* s)
                   cv->cmdEnterRest(TDuration(TDuration::DurationType::V_EIGHTH));
                   }},
             {{"interval1",
-              "interval2", "interval-2",
-              "interval3", "interval-3",
-              "interval4", "interval-4",
-              "interval5", "interval-5",
-              "interval6", "interval-6",
-              "interval7", "interval-7",
-              "interval8", "interval-8",
-              "interval9", "interval-9"}, [](ScoreView* cv, const QByteArray& cmd) {
+              "interval2",  "interval-2",
+              "interval3",  "interval-3",
+              "interval4",  "interval-4",
+              "interval5",  "interval-5",
+              "interval6",  "interval-6",
+              "interval7",  "interval-7",
+              "interval8",  "interval-8",
+              "interval9",  "interval-9",
+              "interval10", "interval-10"}, [](ScoreView* cv, const QByteArray& cmd) {
                   int n = cmd.mid(8).toInt();
                   std::vector<Note*> nl;
                   if (cv->score()->selection().isRange()) {
