@@ -389,6 +389,7 @@ public:
       void dynamic(Dynamic const* const dyn, int staff);
       void systemText(StaffTextBase const* const text, int staff);
       void tempoText(TempoText const* const text, int staff);
+      void tempoSound(TempoText const* const text);
       void harmony(Harmony const* const, FretDiagram const* const fd, const Fraction& offset = Fraction(0, 1));
       Score* score() const { return _score; };
       double getTenthsFromInches(double) const;
@@ -4583,14 +4584,17 @@ void ExportMusicXml::tempoText(TempoText const* const text, int staff)
 
       if (staff)
             _xml.tag("staff", staff);
+      tempoSound(text);
+      _xml.etag();
+      }
 
+void ExportMusicXml::tempoSound(TempoText const* const text)
+      {
       // Format tempo with maximum 2 decimal places, because in some MuseScore files tempo is stored
       // imprecisely and this could cause rounding errors (e.g. 92 BPM would be saved as 91.9998).
       qreal bpm = text->tempo() * 60.0;
       qreal bpmRounded = round(bpm * 100) / 100;
       _xml.tagE(QString("sound tempo=\"%1\"").arg(QString::number(bpmRounded)));
-
-      _xml.etag();
       }
 
 //---------------------------------------------------------
@@ -5800,6 +5804,12 @@ static void measureStyle(XmlWriter& xml, Attributes& attr, const Measure* const 
 
 static bool commonAnnotations(ExportMusicXml* exp, const Element* e, int sstaff)
       {
+      if (!exp->canWrite(e)) {
+            // write only tempo
+            if (e->isTempoText())
+                  exp->tempoSound(toTempoText(e));
+            return false;
+            }
       bool instrChangeHandled  = false;
 
       // note: the instrument change details are handled in ExportMusicXml::writeMeasureTracks,
