@@ -353,8 +353,8 @@ Shortcut Shortcut::_sc[] = {
          MsWidget::SCORE_TAB,
          STATE_NORMAL | STATE_NOTE_ENTRY_STAFF_PITCHED | STATE_NOTE_ENTRY_STAFF_DRUM,
          "interval1",
-         QT_TRANSLATE_NOOP("action","Unison Above"),
-         QT_TRANSLATE_NOOP("action","Enter unison above")
+         QT_TRANSLATE_NOOP("action","Unison"),
+         QT_TRANSLATE_NOOP("action","Enter unison")
          },
       {
          MsWidget::SCORE_TAB,
@@ -415,6 +415,13 @@ Shortcut Shortcut::_sc[] = {
       {
          MsWidget::SCORE_TAB,
          STATE_NORMAL | STATE_NOTE_ENTRY_STAFF_PITCHED | STATE_NOTE_ENTRY_STAFF_DRUM,
+         "interval10",
+         QT_TRANSLATE_NOOP("action","Tenth Above"),
+         QT_TRANSLATE_NOOP("action","Enter tenth above")
+         },
+      {
+         MsWidget::SCORE_TAB,
+         STATE_NORMAL | STATE_NOTE_ENTRY_STAFF_PITCHED | STATE_NOTE_ENTRY_STAFF_DRUM,
          "interval-2",
          QT_TRANSLATE_NOOP("action","Second Below"),
          QT_TRANSLATE_NOOP("action","Enter second below")
@@ -467,6 +474,13 @@ Shortcut Shortcut::_sc[] = {
          "interval-9",
          QT_TRANSLATE_NOOP("action","Ninth Below"),
          QT_TRANSLATE_NOOP("action","Enter ninth below")
+         },
+      {
+         MsWidget::SCORE_TAB,
+         STATE_NORMAL | STATE_NOTE_ENTRY_STAFF_PITCHED | STATE_NOTE_ENTRY_STAFF_DRUM,
+         "interval-10",
+         QT_TRANSLATE_NOOP("action","Tenth Below"),
+         QT_TRANSLATE_NOOP("action","Enter tenth below")
          },
       {
          MsWidget::SCORE_TAB,
