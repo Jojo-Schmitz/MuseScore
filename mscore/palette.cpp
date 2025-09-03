@@ -109,7 +109,7 @@ Palette::Palette(std::unique_ptr<PalettePanel> pp, QWidget* parent)
 
       const auto allCells = pp->takeCells(0, pp->ncells());
       for (const PaletteCellPtr& cell : allCells) {
-            Element* e = cell.unique() ? cell->element.release() : (cell->element ? cell->element->clone() : nullptr);
+            Element* e = cell.use_count() == 1 ? cell->element.release() : (cell->element ? cell->element->clone() : nullptr);
             if (e) {
                   PaletteCell* newCell = append(e, cell->name, cell->tag, cell->mag);
                   newCell->drawStaff = cell->drawStaff;
@@ -120,12 +120,12 @@ Palette::Palette(std::unique_ptr<PalettePanel> pp, QWidget* parent)
             }
 
       if (moreElements())
-            connect(this, SIGNAL(displayMore(const QString&)), mscore, SLOT(showMasterPalette(const QString&)));
+            connect(this, SIGNAL(displayMore(QString&)), mscore, SLOT(showMasterPalette(QString&)));
       }
 
 Palette::~Palette()
       {
-      for (PaletteCell* cell : cells)
+      for (PaletteCell*& cell : cells)
             delete cell;
       }
 
@@ -153,7 +153,7 @@ bool Palette::filter(const QString& text)
       // if palette name is searched for, display all elements in the palette
       if (_name.startsWith(t, Qt::CaseInsensitive)) {
             PaletteCell* c  = cells.first();
-            for (PaletteCell* cell : cells)
+            for (PaletteCell*& cell : cells)
                   dragCells.append(cell);
 
             bool contains = t.isEmpty() || c;
@@ -163,12 +163,12 @@ bool Palette::filter(const QString& text)
                   res = false;
             }
 
-      for (PaletteCell* cell : cells) {
+      for (PaletteCell*& cell : cells) {
             QStringList h = cell->name.toLower().split(" ");
             bool c        = false;
             QStringList n = t.split(" ");
-            for (QString hs : h) {
-                  for (QString ns : n) {
+            for (QString& hs : h) {
+                  for (QString& ns : n) {
                         if (!ns.trimmed().isEmpty())
                               c = hs.trimmed().startsWith(ns.trimmed());
                         }
@@ -280,7 +280,7 @@ void Palette::contextMenuEvent(QContextMenuEvent* event)
             if (menu.exec(mapToGlobal(event->pos())) == copyNameMenuItem) {
                   PaletteCell* cell = cellAt(i);
                   if (cell) {
-                        QRegularExpression regex("<sym>(.+?)</sym>");
+                        static QRegularExpression regex("<sym>(.+?)</sym>");
                         QString symSmuflName = QString("<sym>%1</sym>").arg(regex.match(cell->name).captured(1));
                         QApplication::clipboard()->setText(symSmuflName);
                         }
@@ -526,7 +526,7 @@ bool Palette::applyPaletteElement(Element* element, Qt::KeyboardModifiers modifi
       if (viewer && viewer->editMode() && !(viewer->mscoreState() & STATE_ALLTEXTUAL_EDIT))
             viewer->changeState(ViewState::NORMAL);
 
-      if (viewer->mscoreState() != STATE_EDIT
+      if (viewer && viewer->mscoreState() != STATE_EDIT
          && viewer->mscoreState() != STATE_LYRICS_EDIT
          && viewer->mscoreState() != STATE_HARMONY_FIGBASS_EDIT) { // Already in startCmd in this case
             score->startCmd();
@@ -1887,7 +1887,7 @@ void Palette::dragEnterEvent(QDragEnterEvent* event)
             event->ignore();
 #ifndef NDEBUG
             qDebug("dragEnterEvent: formats:");
-            for (const QString& s : event->mimeData()->formats())
+            for (QString& s : event->mimeData()->formats())
                   qDebug("   %s", qPrintable(s));
 #endif
             }
@@ -1933,7 +1933,6 @@ void Palette::dropEvent(QDropEvent* event)
             QList<QUrl>ul = event->mimeData()->urls();
             QUrl u = ul.front();
             if (u.scheme() == "file") {
-                  QFileInfo fi(u.path());
                   Image* s = new Image(gscore);
                   QString filePath(u.toLocalFile());
                   s->load(filePath);
