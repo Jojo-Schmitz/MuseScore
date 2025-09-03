@@ -270,11 +270,11 @@ PianorollEditor::PianorollEditor(QWidget* parent)
 
       tbTweak->addWidget(new QLabel(tr("Cursor:")));
       pos = new Awl::PosLabel;
-      pos->setFrameStyle(QFrame::NoFrame | QFrame::Plain);
+      pos->setFrameStyle(static_cast<int>(QFrame::NoFrame) | static_cast<int>(QFrame::Plain));
 
       tbTweak->addWidget(pos);
       Awl::PitchLabel* pl = new Awl::PitchLabel();
-      pl->setFrameStyle(QFrame::NoFrame | QFrame::Plain);
+      pl->setFrameStyle(static_cast<int>(QFrame::NoFrame) | static_cast<int>(QFrame::Plain));
       tbTweak->addWidget(pl);
 
       tbTweak->addSeparator();

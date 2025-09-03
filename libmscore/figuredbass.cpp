@@ -583,7 +583,7 @@ void FiguredBassItem::draw(QPainter* painter) const
       painter->setBrush(Qt::NoBrush);
       QPen pen(figuredBass()->curColor(), FB_CONTLINE_THICKNESS * _spatium, Qt::SolidLine, Qt::RoundCap);
       painter->setPen(pen);
-      painter->drawText(bbox(), Qt::TextDontClip | Qt::AlignLeft | Qt::AlignTop, displayText());
+      painter->drawText(bbox(), static_cast<int>(Qt::TextDontClip) | static_cast<int>(Qt::AlignLeft | Qt::AlignTop), displayText());
 
       // continuation line
       qreal lineEndX = 0.0;
@@ -1400,29 +1400,29 @@ bool FiguredBassFont::read(XmlReader& e)
             else if (tag == "defaultLineHeight")
                   defLineHeight = e.readDouble();
             else if (tag == "parenthesisRoundOpen")
-                  displayParenthesis[1] = e.readElementText()[0];
+                  displayParenthesis[1] = e.readElementText().at(0);
             else if (tag == "parenthesisRoundClosed")
-                  displayParenthesis[2] = e.readElementText()[0];
+                  displayParenthesis[2] = e.readElementText().at(0);
             else if (tag == "parenthesisSquareOpen")
-                  displayParenthesis[3] = e.readElementText()[0];
+                  displayParenthesis[3] = e.readElementText().at(0);
             else if (tag == "parenthesisSquareClosed")
-                  displayParenthesis[4] = e.readElementText()[0];
+                  displayParenthesis[4] = e.readElementText().at(0);
             else if (tag == "doubleflat")
-                  displayAccidental[int(FiguredBassItem::Modifier::DOUBLEFLAT)]= e.readElementText()[0];
+                  displayAccidental[int(FiguredBassItem::Modifier::DOUBLEFLAT)]= e.readElementText().at(0);
             else if (tag == "flat")
-                  displayAccidental[int(FiguredBassItem::Modifier::FLAT)]      = e.readElementText()[0];
+                  displayAccidental[int(FiguredBassItem::Modifier::FLAT)]      = e.readElementText().at(0);
             else if (tag == "natural")
-                  displayAccidental[int(FiguredBassItem::Modifier::NATURAL)]   = e.readElementText()[0];
+                  displayAccidental[int(FiguredBassItem::Modifier::NATURAL)]   = e.readElementText().at(0);
             else if (tag == "sharp")
-                  displayAccidental[int(FiguredBassItem::Modifier::SHARP)]     = e.readElementText()[0];
+                  displayAccidental[int(FiguredBassItem::Modifier::SHARP)]     = e.readElementText().at(0);
             else if (tag == "doublesharp")
-                  displayAccidental[int(FiguredBassItem::Modifier::DOUBLESHARP)]= e.readElementText()[0];
+                  displayAccidental[int(FiguredBassItem::Modifier::DOUBLESHARP)]= e.readElementText().at(0);
             else if (tag == "cross")
-                  displayAccidental[int(FiguredBassItem::Modifier::CROSS)]     = e.readElementText()[0];
+                  displayAccidental[int(FiguredBassItem::Modifier::CROSS)]     = e.readElementText().at(0);
             else if (tag == "backslash")
-                  displayAccidental[int(FiguredBassItem::Modifier::BACKSLASH)] = e.readElementText()[0];
+                  displayAccidental[int(FiguredBassItem::Modifier::BACKSLASH)] = e.readElementText().at(0);
             else if (tag == "slash")
-                  displayAccidental[int(FiguredBassItem::Modifier::SLASH)]     = e.readElementText()[0];
+                  displayAccidental[int(FiguredBassItem::Modifier::SLASH)]     = e.readElementText().at(0);
             else if (tag == "digit") {
                   int digit = e.intAttribute("value");
                   if (digit < 0 || digit > 9)
@@ -1430,21 +1430,21 @@ bool FiguredBassFont::read(XmlReader& e)
                   while (e.readNextStartElement()) {
                         const QStringRef& t(e.name());
                         if (t == "simple")
-                              displayDigit[int(FiguredBassItem::Style::MODERN)]  [digit][int(FiguredBassItem::Combination::SIMPLE)]      = e.readElementText()[0];
+                              displayDigit[int(FiguredBassItem::Style::MODERN)]  [digit][int(FiguredBassItem::Combination::SIMPLE)]      = e.readElementText().at(0);
                         else if (t == "crossed")
-                              displayDigit[int(FiguredBassItem::Style::MODERN)]  [digit][int(FiguredBassItem::Combination::CROSSED)]     = e.readElementText()[0];
+                              displayDigit[int(FiguredBassItem::Style::MODERN)]  [digit][int(FiguredBassItem::Combination::CROSSED)]     = e.readElementText().at(0);
                         else if (t == "backslashed")
-                              displayDigit[int(FiguredBassItem::Style::MODERN)]  [digit][int(FiguredBassItem::Combination::BACKSLASHED)] = e.readElementText()[0];
+                              displayDigit[int(FiguredBassItem::Style::MODERN)]  [digit][int(FiguredBassItem::Combination::BACKSLASHED)] = e.readElementText().at(0);
                         else if (t == "slashed")
-                              displayDigit[int(FiguredBassItem::Style::MODERN)]  [digit][int(FiguredBassItem::Combination::SLASHED)]     = e.readElementText()[0];
+                              displayDigit[int(FiguredBassItem::Style::MODERN)]  [digit][int(FiguredBassItem::Combination::SLASHED)]     = e.readElementText().at(0);
                         else if (t == "simpleHistoric")
-                              displayDigit[int(FiguredBassItem::Style::HISTORIC)][digit][int(FiguredBassItem::Combination::SIMPLE)]      = e.readElementText()[0];
+                              displayDigit[int(FiguredBassItem::Style::HISTORIC)][digit][int(FiguredBassItem::Combination::SIMPLE)]      = e.readElementText().at(0);
                         else if (t == "crossedHistoric")
-                              displayDigit[int(FiguredBassItem::Style::HISTORIC)][digit][int(FiguredBassItem::Combination::CROSSED)]     = e.readElementText()[0];
+                              displayDigit[int(FiguredBassItem::Style::HISTORIC)][digit][int(FiguredBassItem::Combination::CROSSED)]     = e.readElementText().at(0);
                         else if (t == "backslashedHistoric")
-                              displayDigit[int(FiguredBassItem::Style::HISTORIC)][digit][int(FiguredBassItem::Combination::BACKSLASHED)] = e.readElementText()[0];
+                              displayDigit[int(FiguredBassItem::Style::HISTORIC)][digit][int(FiguredBassItem::Combination::BACKSLASHED)] = e.readElementText().at(0);
                         else if (t == "slashedHistoric")
-                              displayDigit[int(FiguredBassItem::Style::HISTORIC)][digit][int(FiguredBassItem::Combination::SLASHED)]     = e.readElementText()[0];
+                              displayDigit[int(FiguredBassItem::Style::HISTORIC)][digit][int(FiguredBassItem::Combination::SLASHED)]     = e.readElementText().at(0);
                         else {
                               e.unknown();
                               return false;

@@ -13,7 +13,6 @@
 #include "scoreBrowser.h"
 #include "musescore.h"
 #include "icons.h"
-#include "libmscore/score.h"
 
 namespace Ms {
 
@@ -90,7 +89,7 @@ ScoreListWidget* ScoreBrowser::createScoreList()
       sl->setUniformItemSizes(true);
       sl->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
       sl->setLineWidth(0);
-      sl->setFrameStyle(QFrame::NoFrame | QFrame::Plain);
+      sl->setFrameStyle(static_cast<int>(QFrame::NoFrame) | static_cast<int>(QFrame::Plain));
       sl->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
       sl->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
       sl->setLayoutMode(QListView::SinglePass);
@@ -216,7 +215,7 @@ void ScoreBrowser::setScores(QFileInfoList& s)
                   sl = createScoreList();
                   l->addWidget(sl);
                   unsigned count = 0; //nbr of entries added
-                  for (const QFileInfo& fi : dir.entryInfoList(filter, QDir::Files, QDir::Name)) {
+                  for (QFileInfo& fi : dir.entryInfoList(filter, QDir::Files, QDir::Name)) {
                         if (entries.contains(fi.filePath()))
                             continue;
                         sl->addItem(genScoreItem(fi, sl));
@@ -294,7 +293,7 @@ void ScoreBrowser::filter(const QString &searchString)
       {
       int numCategoriesWithMathingScores = 0;
 
-      for (ScoreListWidget* list : scoreLists) {
+      for (ScoreListWidget*& list : scoreLists) {
             int numMatchedScores = 0;
 
             for (int i = 0; i < list->count(); ++i) {
@@ -339,7 +338,7 @@ void ScoreBrowser::scoreClicked(QListWidgetItem* current)
             preview->setScore(item->info());
             emit scoreSelected(item->info().filePath());
 
-            for (ScoreListWidget* sl : scoreLists) {
+            for (ScoreListWidget*& sl : scoreLists) {
                   if (static_cast<QListWidget*>(sl) != item->listWidget()) {
                         sl->clearSelection();
                         }
