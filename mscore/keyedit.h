@@ -22,6 +22,8 @@
 
 #include "ui_keyedit.h"
 
+#include "libmscore/keysig.h"
+
 namespace Ms {
 
 class Palette;

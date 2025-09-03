@@ -4986,7 +4986,7 @@ void MuseScore::zoomBoxChanged(const ZoomIndex index, const qreal logicalLevel)
 
 void MuseScore::setZoom(const ZoomIndex index, const qreal logicalFreeZoomLevel/* = 0.0*/)
       {
-      zoomAndSavePrevious([=]() { cv->setLogicalZoom(index, cv->calculateLogicalZoomLevel(index, logicalFreeZoomLevel)); });
+      zoomAndSavePrevious([=, this]() { cv->setLogicalZoom(index, cv->calculateLogicalZoomLevel(index, logicalFreeZoomLevel)); });
       }
 
 //---------------------------------------------------------
@@ -5016,7 +5016,7 @@ void MuseScore::setZoomWithToggle(const ZoomIndex index)
 
 void MuseScore::zoomBySteps(const qreal numSteps)
       {
-      zoomAndSavePrevious([=]() { cv->zoomBySteps(numSteps); });
+      zoomAndSavePrevious([=, this]() { cv->zoomBySteps(numSteps); });
       }
 
 //---------------------------------------------------------
