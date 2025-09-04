@@ -432,7 +432,7 @@ void PianoKeyItem::paint(QPainter* p, const QStyleOptionGraphicsItem* /*o*/, QWi
             p->setFont(f);
             QString text = "C" + QString::number((_pitch / 12) - 1);
             p->drawText(QRectF(KEY_WIDTH / 2, KEY_HEIGHT - 8, 0, 0),
-               Qt::AlignCenter | Qt::TextDontClip, text);
+               static_cast<int>(Qt::AlignCenter) | static_cast<int>(Qt::TextDontClip), text);
             }
       }
 

@@ -17,10 +17,6 @@
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //=============================================================================
 
-#include "paletteworkspace.h"
-
-#include "libmscore/keysig.h"
-#include "libmscore/timesig.h"
 
 #include "createpalettedialog.h"
 #include "keyedit.h"
@@ -29,6 +25,7 @@
 #include "palettedialog.h"
 #include "palettecelldialog.h"
 #include "palettewidget.h"
+#include "paletteworkspace.h"
 #include "timedialog.h"
 
 namespace Ms {
@@ -362,7 +359,7 @@ void UserPaletteController::queryRemove(const QModelIndexList& removeIndices, in
             if (visible) {
                   showHideOrDeleteDialog(
                      customCount == 1 ? tr("Do you want to hide this custom palette cell or permanently delete it?") : tr("Do you want to hide these custom palette cells or permanently delete them?"),
-                     [=](RemoveAction action) { remove(removeIndices, action); }
+                     [=, this](RemoveAction action) { remove(removeIndices, action); }
                      );
                   return;
                   }
@@ -375,7 +372,7 @@ void UserPaletteController::queryRemove(const QModelIndexList& removeIndices, in
                      mscore
                      );
 
-                  connect(msg, &QDialog::finished, this, [=]() {
+                  connect(msg, &QDialog::finished, this, [=, this]() {
                         const auto result = msg->standardButton(msg->clickedButton());
                         if (result == QMessageBox::Yes)
                               remove(removeIndices, RemoveAction::DeletePermanently);
@@ -391,7 +388,7 @@ void UserPaletteController::queryRemove(const QModelIndexList& removeIndices, in
             if (visible) {
                   showHideOrDeleteDialog(
                      customCount == 1 ? tr("Do you want to hide this custom palette or permanently delete it?") : tr("Do you want to hide these custom palettes or permanently delete them?"),
-                     [=](RemoveAction action) { remove(removeIndices, action); }
+                     [=, this](RemoveAction action) { remove(removeIndices, action); }
                      );
                   return;
                   }

@@ -132,7 +132,7 @@ QVariant InspectorBase::getValue(const InspectorItem& ii) const
                   QStringList sl = v.toString().split(",", QString::SkipEmptyParts);
 #endif
                   QList<int> il;
-                  for (const QString& l : sl) {
+                  for (QString& l : sl) {
                         int i = l.simplified().toInt();
                         il.append(i);
                         }
@@ -189,7 +189,7 @@ void InspectorBase::setValue(const InspectorItem& ii, QVariant val)
             case P_TYPE::INT_LIST: {
                   QString s;
                   QList<int> il = val.value<QList<int>>();
-                  for (int i : il) {
+                  for (int& i : il) {
                         if (!s.isEmpty())
                               s += ", ";
                         s += QString("%1").arg(i);
@@ -426,7 +426,6 @@ void InspectorBase::valueChanged(int idx, bool reset)
                   ps = PropertyFlags::STYLED;
             else if (ps == PropertyFlags::STYLED)
                   ps = PropertyFlags::UNSTYLED;
-            QVariant val1 = e->getProperty(id);
             if (reset) {
                   val2 = e->propertyDefault(id);
                   if (!val2.isValid())
@@ -561,7 +560,7 @@ void InspectorBase::mapSignals(const std::vector<InspectorItem>& il, const std::
                   if (qobject_cast<QToolButton*>(rw)) {
                         QToolButton* resetButton = qobject_cast<QToolButton*>(rw);
                         resetButton->setIcon(*icons[int(Icons::reset_ICON)]);
-                        connect(resetButton, &QToolButton::clicked, [=] { resetClicked(i); });
+                        connect(resetButton, &QToolButton::clicked, this, [=, this] { resetClicked(i); });
                         Sid sidx = inspector->element()->getPropertyStyle(ii.t);
                         // S button for fingering placement is bugged and proposed to be hidden
                         // it can be brought back once the relevant design is fixed, 
@@ -572,17 +571,17 @@ void InspectorBase::mapSignals(const std::vector<InspectorItem>& il, const std::
                               resetButton->setMenu(menu);
                               resetButton->setPopupMode(QToolButton::MenuButtonPopup);
                               QAction* a = menu->addAction(tr("Set as style"));
-                              connect(a, &QAction::triggered, [=] { setStyleClicked(i); });
+                              connect(a, &QAction::triggered, this, [=, this] { setStyleClicked(i); });
                               }
                         }
                   else {
                         ResetButton* b = qobject_cast<ResetButton*>(rw);
-                        connect(b, &ResetButton::resetClicked, [=] { resetClicked(i); });
+                        connect(b, &ResetButton::resetClicked, this, [=, this] { resetClicked(i); });
                         Sid sidx = inspector->element()->getPropertyStyle(ii.t);
                         // Same, see comment above
                         if (sidx != Sid::NOSTYLE && sidx != Sid::fingeringPlacement) {
                               b->enableSetStyle(true);
-                              connect(b, &ResetButton::setStyleClicked, [=] { setStyleClicked(i); });
+                              connect(b, &ResetButton::setStyleClicked, this, [=, this] { setStyleClicked(i); });
                               }
                         }
                   }
@@ -600,35 +599,35 @@ void InspectorBase::mapSignals(const std::vector<InspectorItem>& il, const std::
                   }
 
             if (qobject_cast<QDoubleSpinBox*>(w))
-                  connect(qobject_cast<QDoubleSpinBox*>(w), QOverload<double>::of(&QDoubleSpinBox::valueChanged), [=] { valueChanged(i); });
+                  connect(qobject_cast<QDoubleSpinBox*>(w), QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, [=, this] { valueChanged(i); });
             else if (qobject_cast<QSpinBox*>(w))
-                  connect(qobject_cast<QSpinBox*>(w), QOverload<int>::of(&QSpinBox::valueChanged), [=] { valueChanged(i); });
+                  connect(qobject_cast<QSpinBox*>(w), QOverload<int>::of(&QSpinBox::valueChanged), this, [=, this] { valueChanged(i); });
             else if (qobject_cast<QFontComboBox*>(w))
-                  connect(qobject_cast<QFontComboBox*>(w), QOverload<const QFont&>::of(&QFontComboBox::currentFontChanged), [=] { valueChanged(i); });
+                  connect(qobject_cast<QFontComboBox*>(w), QOverload<const QFont&>::of(&QFontComboBox::currentFontChanged), this, [=, this] { valueChanged(i); });
             else if (qobject_cast<QComboBox*>(w))
-                  connect(qobject_cast<QComboBox*>(w), QOverload<int>::of(&QComboBox::currentIndexChanged), [=] { valueChanged(i); });
+                  connect(qobject_cast<QComboBox*>(w), QOverload<int>::of(&QComboBox::currentIndexChanged), this, [=, this] { valueChanged(i); });
             else if (qobject_cast<QCheckBox*>(w))
-                  connect(qobject_cast<QCheckBox*>(w), QOverload<bool>::of(&QCheckBox::toggled), [=] { valueChanged(i); });
+                  connect(qobject_cast<QCheckBox*>(w), QOverload<bool>::of(&QCheckBox::toggled), this, [=, this] { valueChanged(i); });
             else if (qobject_cast<Awl::ColorLabel*>(w))
-                  connect(qobject_cast<Awl::ColorLabel*>(w), QOverload<QColor>::of(&Awl::ColorLabel::colorChanged), [=] { valueChanged(i); });
+                  connect(qobject_cast<Awl::ColorLabel*>(w), QOverload<QColor>::of(&Awl::ColorLabel::colorChanged), this, [=, this] { valueChanged(i); });
             else if (qobject_cast<QRadioButton*>(w))
-                  connect(qobject_cast<QRadioButton*>(w), QOverload<bool>::of(&QRadioButton::toggled), [=] { valueChanged(i); });
+                  connect(qobject_cast<QRadioButton*>(w), QOverload<bool>::of(&QRadioButton::toggled), this, [=, this] { valueChanged(i); });
             else if (qobject_cast<QPushButton*>(w))
-                  connect(qobject_cast<QPushButton*>(w), QOverload<bool>::of(&QPushButton::toggled), [=] { valueChanged(i); });
+                  connect(qobject_cast<QPushButton*>(w), QOverload<bool>::of(&QPushButton::toggled), this, [=, this] { valueChanged(i); });
             else if (qobject_cast<QToolButton*>(w))
-                  connect(qobject_cast<QToolButton*>(w), QOverload<bool>::of(&QToolButton::toggled), [=] { valueChanged(i); });
+                  connect(qobject_cast<QToolButton*>(w), QOverload<bool>::of(&QToolButton::toggled), this, [=, this] { valueChanged(i); });
             else if (qobject_cast<QLineEdit*>(w))
-                  connect(qobject_cast<QLineEdit*>(w), QOverload<const QString&>::of(&QLineEdit::textChanged), [=] { valueChanged(i); });
+                  connect(qobject_cast<QLineEdit*>(w), QOverload<const QString&>::of(&QLineEdit::textChanged), this, [=, this] { valueChanged(i); });
             else if (qobject_cast<Ms::AlignSelect*>(w))
-                  connect(qobject_cast<Ms::AlignSelect*>(w), QOverload<Align>::of(&Ms::AlignSelect::alignChanged), [=] { valueChanged(i); });
+                  connect(qobject_cast<Ms::AlignSelect*>(w), QOverload<Align>::of(&Ms::AlignSelect::alignChanged), this, [=, this] { valueChanged(i); });
             else if (qobject_cast<Ms::FontStyleSelect*>(w))
-                  connect(qobject_cast<Ms::FontStyleSelect*>(w), QOverload<FontStyle>::of(&Ms::FontStyleSelect::fontStyleChanged), [=] { valueChanged(i); });
+                  connect(qobject_cast<Ms::FontStyleSelect*>(w), QOverload<FontStyle>::of(&Ms::FontStyleSelect::fontStyleChanged), this, [=, this] { valueChanged(i); });
             else if (qobject_cast<Ms::OffsetSelect*>(w))
-                  connect(qobject_cast<Ms::OffsetSelect*>(w), QOverload<const QPointF&>::of(&Ms::OffsetSelect::offsetChanged), [=] { valueChanged(i); });
+                  connect(qobject_cast<Ms::OffsetSelect*>(w), QOverload<const QPointF&>::of(&Ms::OffsetSelect::offsetChanged), this, [=, this] { valueChanged(i); });
             else if (qobject_cast<Ms::ScaleSelect*>(w))
-                  connect(qobject_cast<Ms::ScaleSelect*>(w), QOverload<const QSizeF&>::of(&Ms::ScaleSelect::scaleChanged), [=] { valueChanged(i); });
+                  connect(qobject_cast<Ms::ScaleSelect*>(w), QOverload<const QSizeF&>::of(&Ms::ScaleSelect::scaleChanged), this, [=, this] { valueChanged(i); });
             else if (qobject_cast<Ms::SizeSelect*>(w))
-                  connect(qobject_cast<Ms::SizeSelect*>(w), QOverload<const QVariant&>::of(&Ms::SizeSelect::valueChanged), [=] { valueChanged(i); });
+                  connect(qobject_cast<Ms::SizeSelect*>(w), QOverload<const QVariant&>::of(&Ms::SizeSelect::valueChanged), this, [=, this] { valueChanged(i); });
             else
                   qFatal("not supported widget %s", w->metaObject()->className());
             ++i;

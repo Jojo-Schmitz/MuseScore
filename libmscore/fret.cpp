@@ -434,7 +434,7 @@ void FretDiagram::draw(QPainter* painter) const
                   painter->rotate(90);
                   if (_numPos == 0) {
                         painter->drawText(QRectF(.0, stringDist * (_strings - 1), .0, .0),
-                           Qt::AlignLeft|Qt::TextDontClip, text);
+                           static_cast<int>(Qt::AlignLeft)|static_cast<int>(Qt::TextDontClip), text);
                         }
                   else {
                         painter->drawText(QRectF(.0, .0, .0, .0),

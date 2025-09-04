@@ -14,11 +14,12 @@
 
 #include "ui_timedialog.h"
 
+#include "libmscore/timesig.h"
+
 namespace Ms {
 
 class Palette;
 class PaletteScrollArea;
-class TimeSig;
 class Score;
 class Chord;
 

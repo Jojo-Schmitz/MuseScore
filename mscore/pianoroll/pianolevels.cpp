@@ -24,16 +24,13 @@
 #include "pianoview.h"
 #include "pianolevelsfilter.h"
 #include "preferences.h"
-#include "libmscore/segment.h"
-#include "libmscore/score.h"
-#include "libmscore/staff.h"
+
 #include "libmscore/chord.h"
-#include "libmscore/rest.h"
 #include "libmscore/note.h"
-#include "libmscore/slur.h"
-#include "libmscore/tie.h"
-#include "libmscore/tuplet.h"
 #include "libmscore/noteevent.h"
+#include "libmscore/score.h"
+#include "libmscore/segment.h"
+#include "libmscore/staff.h"
 
 namespace Ms {
 
@@ -534,7 +531,7 @@ void PianoLevels::moveLocator(QMouseEvent* e)
       Pos pos(_score->tempomap(), _score->sigmap(), qMax(pixelXToTick(e->pos().x()), 0), TType::TICKS);
       if (e->buttons() & Qt::LeftButton)
             emit locatorMoved(0, pos);
-      else if (e->buttons() & Qt::MidButton)
+      else if (e->buttons() & Qt::MiddleButton)
             emit locatorMoved(1, pos);
       else if (e->buttons() & Qt::RightButton)
             emit locatorMoved(2, pos);
@@ -595,7 +592,7 @@ void PianoLevels::setStaff(Staff* s, Pos* l)
 
 void PianoLevels::addChord(Chord* chord, int voice)
       {
-      for (Chord* c : chord->graceNotes())
+      for (Chord*& c : chord->graceNotes())
             addChord(c, voice);
       for (Note* note : chord->notes()) {
             if (note->tieBack())

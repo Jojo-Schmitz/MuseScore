@@ -46,17 +46,17 @@ static const qreal superScriptOffset = -.9;      // of x-height
 
 static QString accessibleChar(QChar chr)
       {
-      if (chr == " ") return QObject::tr("space");
-      if (chr == "-") return QObject::tr("dash");
-      if (chr == "=") return QObject::tr("equals");
-      if (chr == ",") return QObject::tr("comma");
-      if (chr == ".") return QObject::tr("period");
-      if (chr == ":") return QObject::tr("colon");
-      if (chr == ";") return QObject::tr("semicolon");
-      if (chr == "(") return QObject::tr("left parenthesis");
-      if (chr == ")") return QObject::tr("right parenthesis");
-      if (chr == "[") return QObject::tr("left bracket");
-      if (chr == "]") return QObject::tr("right bracket");
+      if (chr == ' ') return QObject::tr("space");
+      if (chr == '-') return QObject::tr("dash");
+      if (chr == '=') return QObject::tr("equals");
+      if (chr == ',') return QObject::tr("comma");
+      if (chr == '.') return QObject::tr("period");
+      if (chr == ':') return QObject::tr("colon");
+      if (chr == ';') return QObject::tr("semicolon");
+      if (chr == '(') return QObject::tr("left parenthesis");
+      if (chr == ')') return QObject::tr("right parenthesis");
+      if (chr == '[') return QObject::tr("left bracket");
+      if (chr == ']') return QObject::tr("right bracket");
       return chr;
       }
 
@@ -2324,7 +2324,7 @@ bool TextBase::mousePress(EditData& ed)
       TextEditData* ted = static_cast<TextEditData*>(ed.getData(this));
       if (!ted->cursor.set(ed.startMove, shift ? QTextCursor::KeepAnchor : QTextCursor::MoveAnchor))
             return false;
-      if (ed.buttons == Qt::MidButton)
+      if (ed.buttons == Qt::MiddleButton)
             paste(ed);
       score()->setUpdateAll();
       return true;

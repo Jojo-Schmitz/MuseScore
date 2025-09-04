@@ -114,19 +114,19 @@ PianorollEditor::PianorollEditor(QWidget* parent)
       struct ToolIconData
       {
             QString _icon;
-            PianoRollEditTool _tool;
             QString _tooltip;
+            PianoRollEditTool _tool;
             bool _selected;
             };
       ToolIconData _iconDataTool[] = {
-            { QStringLiteral(":/data/icons/preEdit-select.svg"), PianoRollEditTool::SELECT, tr("Select Notes"), true },
-            { QStringLiteral(":/data/icons/preEdit-insertNote.svg"), PianoRollEditTool::ADD, tr("Add Note"), false },
-            //{ QStringLiteral(":/data/icons/preEdit-appendChord.svg"), PianoRollEditTool::APPEND_NOTE, tr("Append Note to Chord"), false },
-            { QStringLiteral(":/data/icons/preEdit-cutNote.svg"), PianoRollEditTool::CUT, tr("Cut Chord"), false },
-            { QStringLiteral(":/data/icons/preEdit-eraseNote.svg"), PianoRollEditTool::ERASE, tr("Erase Note"), false },
-            { QStringLiteral(":/data/icons/preEdit-changeLength.svg"), PianoRollEditTool::EVENT_ADJUST, tr("Change Playback Length"), false },
-            { QStringLiteral(":/data/icons/preEdit-tie.svg"), PianoRollEditTool::TIE, tr("Toggle Tie"), false },
-            { "", PianoRollEditTool::LAST, "", false },
+            { QStringLiteral(":/data/icons/preEdit-select.svg"), tr("Select Notes"), PianoRollEditTool::SELECT, true },
+            { QStringLiteral(":/data/icons/preEdit-insertNote.svg"), tr("Add Note"), PianoRollEditTool::ADD, false },
+            //{ QStringLiteral(":/data/icons/preEdit-appendChord.svg"), tr("Append Note to Chord"), PianoRollEditTool::APPEND_NOTE, false },
+            { QStringLiteral(":/data/icons/preEdit-cutNote.svg"), tr("Cut Chord"), PianoRollEditTool::CUT, false },
+            { QStringLiteral(":/data/icons/preEdit-eraseNote.svg"), tr("Erase Note"), PianoRollEditTool::ERASE, false },
+            { QStringLiteral(":/data/icons/preEdit-changeLength.svg"), tr("Change Playback Length"), PianoRollEditTool::EVENT_ADJUST, false },
+            { QStringLiteral(":/data/icons/preEdit-tie.svg"), tr("Toggle Tie"), PianoRollEditTool::TIE, false },
+            { "", "", PianoRollEditTool::LAST, false },
             };
 
       for (ToolIconData* p = _iconDataTool; p->_tool != PianoRollEditTool::LAST; ++p) {
@@ -137,7 +137,7 @@ PianorollEditor::PianorollEditor(QWidget* parent)
             bn->setCheckable(true);
             bn->setToolTip(p->_tooltip);
             PianoRollEditTool tool = p->_tool;
-            connect(bn, &QToolButton::clicked, this, [=]() {this->setEditNoteTool(tool); });
+            connect(bn, &QToolButton::clicked, this, [=, this]() {this->setEditNoteTool(tool); });
 
             if (p->_selected)
                   bn->setChecked(true);
@@ -181,7 +181,7 @@ PianorollEditor::PianorollEditor(QWidget* parent)
             bnLen->setIcon(icon);
             bnLen->setCheckable(true);
             int length = p->_measureFrac;
-            connect(bnLen, &QToolButton::clicked, this, [=](){this->setEditNoteLength(length);});
+            connect(bnLen, &QToolButton::clicked, this, [=, this](){this->setEditNoteLength(length);});
 
             if (p->_selected)
                   bnLen->setChecked(true);
@@ -216,7 +216,7 @@ PianorollEditor::PianorollEditor(QWidget* parent)
             bn->setIcon(icon);
             bn->setCheckable(true);
             int length = p->_len;
-            connect(bn, &QToolButton::clicked, this, [=](){this->setEditNoteDots(length, bn);});
+            connect(bn, &QToolButton::clicked, this, [=, this](){this->setEditNoteDots(length, bn);});
 
             if (p->_selected)
                   bn->setChecked(true);
@@ -234,16 +234,16 @@ PianorollEditor::PianorollEditor(QWidget* parent)
       struct VoiceIconData
       {
             QString _icon;
-            int _voice;
             QString _tooltip;
+            int _voice;
             bool _selected;
       };
       VoiceIconData _iconDataVoice[] = {
-            { QStringLiteral(":/data/icons/voice-1.svg"), 0, tr("Voice 1"), true },
-            { QStringLiteral(":/data/icons/voice-2.svg"), 1, tr("Voice 2"), false },
-            { QStringLiteral(":/data/icons/voice-3.svg"), 2, tr("Voice 3"), false },
-            { QStringLiteral(":/data/icons/voice-4.svg"), 3, tr("Voice 4"), false },
-            { "", -1, "", false },
+            { QStringLiteral(":/data/icons/voice-1.svg"), tr("Voice 1"), 0, true },
+            { QStringLiteral(":/data/icons/voice-2.svg"), tr("Voice 2"), 1, false },
+            { QStringLiteral(":/data/icons/voice-3.svg"), tr("Voice 3"), 2, false },
+            { QStringLiteral(":/data/icons/voice-4.svg"), tr("Voice 4"), 3, false },
+            { "", "", -1, false },
             };
 
       for (VoiceIconData* p = _iconDataVoice; p->_voice != -1; ++p) {
@@ -254,7 +254,7 @@ PianorollEditor::PianorollEditor(QWidget* parent)
             bn->setCheckable(true);
             bn->setToolTip(p->_tooltip);
             int voice = p->_voice;
-            connect(bn, &QToolButton::clicked, this, [=](){this->setEditNoteVoice(voice);});
+            connect(bn, &QToolButton::clicked, this, [=, this](){this->setEditNoteVoice(voice);});
 
             if (p->_selected)
                   bn->setChecked(true);
@@ -270,11 +270,11 @@ PianorollEditor::PianorollEditor(QWidget* parent)
 
       tbTweak->addWidget(new QLabel(tr("Cursor:")));
       pos = new Awl::PosLabel;
-      pos->setFrameStyle(QFrame::NoFrame | QFrame::Plain);
+      pos->setFrameStyle(static_cast<int>(QFrame::NoFrame) | static_cast<int>(QFrame::Plain));
 
       tbTweak->addWidget(pos);
       Awl::PitchLabel* pl = new Awl::PitchLabel();
-      pl->setFrameStyle(QFrame::NoFrame | QFrame::Plain);
+      pl->setFrameStyle(static_cast<int>(QFrame::NoFrame) | static_cast<int>(QFrame::Plain));
       tbTweak->addWidget(pl);
 
       tbTweak->addSeparator();
@@ -409,11 +409,11 @@ PianorollEditor::PianorollEditor(QWidget* parent)
       connect(pianoView,          SIGNAL(pitchChanged(int)),              pl,          SLOT(setPitch(int)));
       connect(pianoView,          SIGNAL(pitchChanged(int)),              pianoKbd,    SLOT(setPitch(int)));
       connect(pianoKbd,           SIGNAL(pitchChanged(int)),              pl,          SLOT(setPitch(int)));
-      connect(pianoView,          SIGNAL(trackingPosChanged(const Pos&)), pos,         SLOT(setValue(const Pos&)));
-      connect(pianoView,          SIGNAL(trackingPosChanged(const Pos&)), ruler,       SLOT(setPos(const Pos&)));
-      connect(pianoView,          SIGNAL(trackingPosChanged(const Pos&)), pianoLevels, SLOT(setPos(const Pos&)));
-      connect(ruler,              SIGNAL(posChanged(const Pos&)),         pos,         SLOT(setValue(const Pos&)));
-      connect(pianoLevels,        SIGNAL(posChanged(const Pos&)),         pos,         SLOT(setValue(const Pos&)));
+      connect(pianoView,          SIGNAL(trackingPosChanged(Pos&)),       pos,         SLOT(setValue(Pos&)));
+      connect(pianoView,          SIGNAL(trackingPosChanged(Pos&)),       ruler,       SLOT(setPos(Pos&)));
+      connect(pianoView,          SIGNAL(trackingPosChanged(Pos&)),       pianoLevels, SLOT(setPos(Pos&)));
+      connect(ruler,              SIGNAL(posChanged(Pos&)),               pos,         SLOT(setValue(Pos&)));
+      connect(pianoLevels,        SIGNAL(posChanged(Pos&)),               pos,         SLOT(setValue(Pos&)));
       connect(tuplet,             SIGNAL(valueChanged(int)),              pianoView,   SLOT(setTuplet(int)));
       connect(tuplet,             SIGNAL(valueChanged(int)),              pianoLevels, SLOT(setTuplet(int)));
       connect(barPattern,         SIGNAL(activated(int)),                 pianoView,   SLOT(setBarPattern(int)));
@@ -422,11 +422,11 @@ PianorollEditor::PianorollEditor(QWidget* parent)
       connect(pianoLevelsChooser, SIGNAL(levelsIndexChanged(int)),        pianoLevels, SLOT(setLevelsIndex(int)));
       connect(pianoKbd,           SIGNAL(pitchHighlightToggled(int)),     pianoView,   SLOT(togglePitchHighlight(int)));
 
-      connect(hsb,         SIGNAL(valueChanged(int)),                 SLOT(setXpos(int)));
+      connect(hsb,                              SIGNAL(valueChanged(int)),   SLOT(setXpos(int)));
       connect(pianoView->horizontalScrollBar(), SIGNAL(valueChanged(int)),   SLOT(setXpos(int)));
 
-      connect(ruler,              SIGNAL(locatorMoved(int, const Pos&)), SLOT(moveLocator(int, const Pos&)));
-      connect(pianoLevels,        SIGNAL(locatorMoved(int, const Pos&)), SLOT(moveLocator(int, const Pos&)));
+      connect(ruler,              SIGNAL(locatorMoved(int,Pos&)),        SLOT(moveLocator(int,Pos&)));
+      connect(pianoLevels,        SIGNAL(locatorMoved(int,Pos&)),        SLOT(moveLocator(int,Pos&)));
       connect(veloType,           SIGNAL(activated(int)),                SLOT(veloTypeChanged(int)));
       connect(velocity,           SIGNAL(valueChanged(int)),             SLOT(velocityChanged(int)));
       connect(onTime,             SIGNAL(valueChanged(int)),             SLOT(onTimeChanged(int)));
@@ -459,7 +459,7 @@ PianorollEditor::PianorollEditor(QWidget* parent)
 //      popup->addAction(getAction("delete"));
 
       addActions(actions);
-      for (auto* action : actions)
+      for (auto*& action : actions)
             connect(action, &QAction::triggered, this, [this, action](bool){ cmd(action); });
 
       setXpos(0);
@@ -474,7 +474,7 @@ PianorollEditor::~PianorollEditor()
       {
       if (_score)
             _score->removeViewer(this);
-      for (auto* action : actions)
+      for (auto*& action : actions)
             action->disconnect(this);
       }
 
@@ -586,7 +586,7 @@ void PianorollEditor::setStaff(Staff* st)
                   setLocator(POS::CURRENT, _score->pos(POS::CURRENT).ticks());
                   setLocator(POS::LEFT,    _score->pos(POS::LEFT).ticks());
                   setLocator(POS::RIGHT,   _score->pos(POS::RIGHT).ticks());
-                  connect(_score, SIGNAL(posChanged(POS,unsigned)), SLOT(posChanged(POS,unsigned)));
+                  connect(_score, SIGNAL(posChanged(POS,uint)), SLOT(posChanged(POS,uint)));
                   connect(_score, SIGNAL(playlistChanged()), SLOT(playlistChanged()));
                   }
             }
@@ -718,7 +718,7 @@ void PianorollEditor::selectionChanged()
             _score->select(0, SelectType::SINGLE, 0);
       else {
             _score->deselectAll();
-            for (PianoItem* item : items) {
+            for (PianoItem*& item : items) {
                   Note* note = item->note();
                   if (!note->selected())
                         _score->select(note, SelectType::ADD, 0);
@@ -996,7 +996,7 @@ void PianorollEditor::showWaveView(bool val)
             if (waveView == 0) {
                   waveView = new WaveView;
                   connect(pianoView, SIGNAL(magChanged(double,double)), waveView, SLOT(setMag(double,double)));
-                  connect(pianoView, SIGNAL(posChanged(const Pos&)), waveView,   SLOT(setValue(const Pos&)));
+                  connect(pianoView, SIGNAL(posChanged(Pos&)), waveView, SLOT(setValue(Pos&)));
                   waveView->setAudio(_score->audio());
                   waveView->setScore(_score, locator);
                   split->addWidget(waveView);

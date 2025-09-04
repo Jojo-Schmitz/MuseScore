@@ -228,7 +228,7 @@ void ChordStyleEditor::restore()
 HarmonyCanvas::HarmonyCanvas(QWidget* parent)
    : QFrame(parent)
       {
-      setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
+      setFrameStyle(static_cast<int>(QFrame::StyledPanel) | static_cast<int>(QFrame::Raised));
       setAcceptDrops(true);
       setFocusPolicy(Qt::StrongFocus);
       extraMag = 3.0;
@@ -253,7 +253,6 @@ void HarmonyCanvas::paintEvent(QPaintEvent* event)
 
       qreal spatium = gscore->spatium();
       qreal mag = PALETTE_SPATIUM * extraMag / spatium;
-      spatium = SPATIUM20;
 
       QPainter p(this);
 

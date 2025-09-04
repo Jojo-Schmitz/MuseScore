@@ -780,19 +780,19 @@ void PianoView::showPopupMenu(const QPoint& posGlobal)
       popup.addSeparator();
 
       act = new QAction(tr("Set Voice 1"));
-      connect(act, &QAction::triggered, this, [=](){this->setNotesToVoice(0);});
+      connect(act, &QAction::triggered, this, [this](){this->setNotesToVoice(0);});
       popup.addAction(act);
 
       act = new QAction(tr("Set Voice 2"));
-      connect(act, &QAction::triggered, this, [=](){this->setNotesToVoice(1);});
+      connect(act, &QAction::triggered, this, [this](){this->setNotesToVoice(1);});
       popup.addAction(act);
 
       act = new QAction(tr("Set Voice 3"));
-      connect(act, &QAction::triggered, this, [=](){this->setNotesToVoice(2);});
+      connect(act, &QAction::triggered, this, [this](){this->setNotesToVoice(2);});
       popup.addAction(act);
 
       act = new QAction(tr("Set Voice 4"));
-      connect(act, &QAction::triggered, this, [=](){this->setNotesToVoice(3);});
+      connect(act, &QAction::triggered, this, [this](){this->setNotesToVoice(3);});
       popup.addAction(act);
 
       popup.addSeparator();

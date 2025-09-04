@@ -74,7 +74,7 @@ static inline float f_max(float x, float a)
 //   round_to_zero
 //---------------------------------------------------------
 
-static inline void round_to_zero(volatile float *f)
+static inline void round_to_zero(float *f)
       {
       *f += 1e-18f;
       *f -= 1e-18f;

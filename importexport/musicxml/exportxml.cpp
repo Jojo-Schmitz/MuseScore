@@ -8159,9 +8159,9 @@ void ExportMusicXml::harmony(Harmony const* const h, FretDiagram const* const fd
                         static const QRegularExpression roman("(b|#)?([ivIV]+)");
                         if (textName.contains(roman)) {
                               _xml.stag("numeral");
-                              if (textName.at(0) == "b")
+                              if (textName.at(0) == 'b')
                                     alter = -1;
-                              else if (textName.at(0) == "#")
+                              else if (textName.at(0) == '#')
                                     alter = 1;
                               const QString numberStr = textName.mid(alter? 1 : 0);
                               int harmony = 1;

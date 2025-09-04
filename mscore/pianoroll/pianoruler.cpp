@@ -308,7 +308,7 @@ void PianoRuler::moveLocator(QMouseEvent* e)
       Pos pos(pix2pos(e->pos().x()));
       if (e->buttons() & Qt::LeftButton)
             emit locatorMoved(0, pos);
-      else if (e->buttons() & Qt::MidButton)
+      else if (e->buttons() & Qt::MiddleButton)
             emit locatorMoved(1, pos);
       else if (e->buttons() & Qt::RightButton)
             emit locatorMoved(2, pos);

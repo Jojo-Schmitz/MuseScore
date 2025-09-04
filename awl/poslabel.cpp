@@ -30,7 +30,7 @@ PosLabel::PosLabel(TempoMap* tl, TimeSigMap* sl, QWidget* parent)
    : QLabel(parent), pos(tl, sl)
       {
       _smpte = false;
-      setFrameStyle(WinPanel | Sunken);
+      setFrameStyle(static_cast<int>(WinPanel) | static_cast<int>(Sunken));
       setLineWidth(2);
       setMidLineWidth(3);
       int fw = style()->pixelMetric(QStyle::PM_DefaultFrameWidth);
@@ -42,7 +42,7 @@ PosLabel::PosLabel(QWidget* parent)
    : QLabel(parent)
       {
       _smpte = false;
-      setFrameStyle(WinPanel | Sunken);
+      setFrameStyle(static_cast<int>(WinPanel) | static_cast<int>(Sunken));
       setLineWidth(2);
       setMidLineWidth(3);
       int fw = style()->pixelMetric(QStyle::PM_DefaultFrameWidth);

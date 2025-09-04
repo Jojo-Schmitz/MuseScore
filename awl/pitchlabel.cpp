@@ -31,7 +31,7 @@ PitchLabel::PitchLabel(QWidget* parent)
       {
       _pitchMode = true;
       _value = -1;
-      setFrameStyle(WinPanel | Sunken);
+      setFrameStyle(static_cast<int>(WinPanel) | static_cast<int>(Sunken));
       setLineWidth(2);
       setMidLineWidth(3);
       setValue(0);
