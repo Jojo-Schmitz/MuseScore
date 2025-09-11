@@ -2398,7 +2398,7 @@ void MusicXMLParserPass2::part()
                   if (endNote->tieBack())
                         continue;
                   const Chord* endChord = endNote->chord();
-                  if (startChord && startNote->pitch() == endNote->pitch()
+                  if (startChord && startNote->pitch() == endNote->pitch() && startChord->tick() < endChord->tick()
                       && endChord && (startMeasure == endChord->measure() || startChord->tick() + startChord->actualTicks() == endChord->tick())) {
                         unendedTie->setEndNote(endNote);
                         endNote->setTieBack(unendedTie);
@@ -7646,6 +7646,11 @@ static void addSlur(const Notation& notation, SlurStack& slurs, ChordRest* cr, c
                   slurs[slurNo] = SlurDesc();
                   newSlur->setTick(tick);
                   newSlur->setStartElement(cr);
+                  if (newSlur->ticks().negative()) {
+                        logger->logError(QString("slur end is before slur start"), xmlreader);
+                        delete newSlur;
+                        return;
+                        }
                   }
             else {
                   // slur start for new slur: init
