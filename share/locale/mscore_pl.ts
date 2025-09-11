@@ -27867,32 +27867,32 @@ zakończone niepowodzeniem.</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="356"/>
         <source>Unison</source>
-        <translation type="unfinished"></translation>
+        <translation>Pryma</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="357"/>
         <source>Enter unison</source>
-        <translation type="unfinished"></translation>
+        <translation>Wpisz prymę</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="419"/>
         <source>Tenth Above</source>
-        <translation type="unfinished"></translation>
+        <translation>Decyma powyżej</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="420"/>
         <source>Enter tenth above</source>
-        <translation type="unfinished"></translation>
+        <translation>Wpisz decymę powyżej</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="482"/>
         <source>Tenth Below</source>
-        <translation type="unfinished"></translation>
+        <translation>Decyma poniżej</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="483"/>
         <source>Enter tenth below</source>
-        <translation type="unfinished"></translation>
+        <translation>Wpisz decymę poniżej</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1965"/>
