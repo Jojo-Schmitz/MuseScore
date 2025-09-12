@@ -61,6 +61,9 @@
 #include <QWebEngineView>
 #include <QWebEngineUrlRequestInterceptor>
 #include <QWebEngineProfile>
+#include <QWebEngineCookieStore>
+#include <QWebEngineUrlRequestInfo>
+#include <QWebEnginePage>
 #endif
 
 #include <QtXml>
