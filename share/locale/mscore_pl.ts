@@ -4158,7 +4158,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/editstyle.ui" line="4032"/>
         <source>Only for a change to C Major / A minor</source>
-        <translation type="unfinished"></translation>
+        <translation>Tylko dla zmiany na C-dur/a-moll</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="5593"/>
@@ -4275,7 +4275,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/editstyle.ui" line="4026"/>
         <source>♮ in Key Signature Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>♮ w zmianach oznaczeń tonacji</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="5644"/>
