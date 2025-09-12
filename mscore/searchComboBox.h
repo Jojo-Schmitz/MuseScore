@@ -11,6 +11,9 @@ public:
             SEARCH_MEASURE,
             SEARCH_PAGE,
             SEARCH_REHEARSAL_MARK,
+#if 0 // TODO
+            SEARCH_SECTION,
+#endif
             NO_SEARCH
             };
 private:
