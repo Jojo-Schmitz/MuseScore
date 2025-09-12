@@ -13,27 +13,6 @@
       <pageEvenBottomMargin>0.590551</pageEvenBottomMargin>
       <pageOddTopMargin>0.590551</pageOddTopMargin>
       <pageOddBottomMargin>0.590551</pageOddBottomMargin>
-      <chordSymbolAFontSize>10</chordSymbolAFontSize>
-      <chordSymbolBFontSize>10</chordSymbolBFontSize>
-      <nashvilleNumberFontSize>10</nashvilleNumberFontSize>
-      <tupletFontSize>10</tupletFontSize>
-      <fingeringFontSize>10</fingeringFontSize>
-      <lhGuitarFingeringFontSize>10</lhGuitarFingeringFontSize>
-      <rhGuitarFingeringFontSize>10</rhGuitarFingeringFontSize>
-      <stringNumberFontSize>10</stringNumberFontSize>
-      <partInstrumentFontSize>10</partInstrumentFontSize>
-      <dynamicsFontSize>10</dynamicsFontSize>
-      <tempoFontSize>10</tempoFontSize>
-      <metronomeFontSize>10</metronomeFontSize>
-      <measureNumberFontSize>10</measureNumberFontSize>
-      <mmRestRangeFontSize>10</mmRestRangeFontSize>
-      <rehearsalMarkFontSize>10</rehearsalMarkFontSize>
-      <repeatLeftFontSize>10</repeatLeftFontSize>
-      <repeatRightFontSize>10</repeatRightFontSize>
-      <glissandoFontSize>10</glissandoFontSize>
-      <bendFontSize>10</bendFontSize>
-      <headerFontSize>10</headerFontSize>
-      <footerFontSize>10</footerFontSize>
       <Spatium>1.75</Spatium>
       </Style>
     <showInvisible>1</showInvisible>
@@ -128,12 +107,10 @@
         <height>10</height>
         <Text>
           <style>Title</style>
-          <offset x="0" y="-0.07525"/>
           <text><font size="22"/>Staff Emptiness</text>
           </Text>
         <Text>
           <style>Subtitle</style>
-          <offset x="0" y="9.92425"/>
           <text><font size="16"/>MuseScore Testcase</text>
           </Text>
         <Text>

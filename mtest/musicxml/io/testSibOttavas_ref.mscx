@@ -28,9 +28,6 @@
       <ledgerLineWidth>0.15625</ledgerLineWidth>
       <hairpinWidth>0.125</hairpinWidth>
       <pedalLineWidth>0.15625</pedalLineWidth>
-      <chordSymbolAFontSize>11.9365</chordSymbolAFontSize>
-      <chordSymbolBFontSize>11.9365</chordSymbolBFontSize>
-      <nashvilleNumberFontSize>11.9365</nashvilleNumberFontSize>
       <smallNoteMag>0.75</smallNoteMag>
       <graceNoteMag>0.6</graceNoteMag>
       <slurEndWidth>0.0625</slurEndWidth>
@@ -40,46 +37,7 @@
       <voltaLineWidth>0.15625</voltaLineWidth>
       <ottavaLineWidth>0.15625</ottavaLineWidth>
       <tupletBracketWidth>0.125</tupletBracketWidth>
-      <tupletFontSize>11.9365</tupletFontSize>
-      <fingeringFontSize>11.9365</fingeringFontSize>
-      <lhGuitarFingeringFontSize>11.9365</lhGuitarFingeringFontSize>
-      <rhGuitarFingeringFontSize>11.9365</rhGuitarFingeringFontSize>
-      <stringNumberFontSize>11.9365</stringNumberFontSize>
-      <longInstrumentFontSize>11.9365</longInstrumentFontSize>
-      <shortInstrumentFontSize>11.9365</shortInstrumentFontSize>
-      <partInstrumentFontSize>11.9365</partInstrumentFontSize>
-      <dynamicsFontSize>11.9365</dynamicsFontSize>
-      <expressionFontSize>11.9365</expressionFontSize>
-      <tempoFontSize>11.9365</tempoFontSize>
-      <metronomeFontSize>11.9365</metronomeFontSize>
-      <measureNumberFontSize>11.9365</measureNumberFontSize>
-      <mmRestRangeFontSize>11.9365</mmRestRangeFontSize>
-      <translatorFontSize>11.9365</translatorFontSize>
-      <systemFontSize>11.9365</systemFontSize>
-      <staffFontSize>11.9365</staffFontSize>
       <staffFrameWidth>0.15625</staffFrameWidth>
-      <rehearsalMarkFontSize>11.9365</rehearsalMarkFontSize>
-      <repeatLeftFontSize>11.9365</repeatLeftFontSize>
-      <repeatRightFontSize>11.9365</repeatRightFontSize>
-      <frameFontSize>11.9365</frameFontSize>
-      <glissandoFontSize>11.9365</glissandoFontSize>
-      <bendFontSize>11.9365</bendFontSize>
-      <headerFontSize>11.9365</headerFontSize>
-      <footerFontSize>11.9365</footerFontSize>
-      <instrumentChangeFontSize>11.9365</instrumentChangeFontSize>
-      <stickingFontSize>11.9365</stickingFontSize>
-      <user1FontSize>11.9365</user1FontSize>
-      <user2FontSize>11.9365</user2FontSize>
-      <user3FontSize>11.9365</user3FontSize>
-      <user4FontSize>11.9365</user4FontSize>
-      <user5FontSize>11.9365</user5FontSize>
-      <user6FontSize>11.9365</user6FontSize>
-      <user7FontSize>11.9365</user7FontSize>
-      <user8FontSize>11.9365</user8FontSize>
-      <user9FontSize>11.9365</user9FontSize>
-      <user10FontSize>11.9365</user10FontSize>
-      <user11FontSize>11.9365</user11FontSize>
-      <user12FontSize>11.9365</user12FontSize>
       <Spatium>1.75101</Spatium>
       </Style>
     <showInvisible>1</showInvisible>
