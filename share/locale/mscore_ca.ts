@@ -4156,6 +4156,11 @@ Per defecte, es col·locaran tal que el seu extrem dret estigui al mateix nivell
         <translation>Afinació</translation>
     </message>
     <message>
+        <location filename="../../mscore/editstyle.ui" line="4032"/>
+        <source>Only for a change to C Major / A minor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../mscore/editstyle.ui" line="5593"/>
         <source>Reset &apos;Accidental to note distance&apos; value</source>
         <translation type="unfinished"></translation>
@@ -4266,6 +4271,11 @@ Per defecte, es col·locaran tal que el seu extrem dret estigui al mateix nivell
         <location filename="../../mscore/editstyle.ui" line="11768"/>
         <source>Spelling</source>
         <translation>LLetreja</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editstyle.ui" line="4026"/>
+        <source>♮ in Key Signature Changes</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="5644"/>
@@ -4822,11 +4832,6 @@ Per defecte, es col·locaran tal que el seu extrem dret estigui al mateix nivell
         <translation>Distància cap de nota:</translation>
     </message>
     <message>
-        <location filename="../../mscore/editstyle.ui" line="4026"/>
-        <source>♮ in Key Signatures</source>
-        <translation>♮ en les armadures</translation>
-    </message>
-    <message>
         <location filename="../../mscore/editstyle.ui" line="4039"/>
         <source>Before key signature if changing to fewer ♯ or ♭</source>
         <translation>Abans de l&apos;armadura si es canvia a una tonalitat amb menys ♯ o ♭</translation>
@@ -5253,11 +5258,6 @@ Per defecte, es col·locaran tal que el seu extrem dret estigui al mateix nivell
         <location filename="../../mscore/editstyle.ui" line="4015"/>
         <source>Cents offset</source>
         <translation>Desplaçament per cents</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editstyle.ui" line="4032"/>
-        <source>Only for a change to C Maj / A min</source>
-        <translation>Només per un canvi a Do Major / La menor</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="103"/>
@@ -13147,7 +13147,7 @@ error: %2</translation>
         <translation>Inspector</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspectorBase.cpp" line="574"/>
+        <location filename="../../mscore/inspector/inspectorBase.cpp" line="573"/>
         <source>Set as style</source>
         <translation>Definir com a estil</translation>
     </message>
@@ -15104,17 +15104,17 @@ a internet habilitada</translation>
 <context>
     <name>Ms::PaletteElementEditor</name>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="62"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="59"/>
         <source>Create Key Signature</source>
         <translation>Crea l&apos;armadura</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="64"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="61"/>
         <source>Create Time Signature</source>
         <translation>Crea la indicació de compàs</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="79"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="76"/>
         <source>The palette was hidden or changed</source>
         <translation>La paleta estava amagada o canviada</translation>
     </message>
@@ -15135,12 +15135,12 @@ a internet habilitada</translation>
 <context>
     <name>Ms::PaletteWorkspace</name>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="846"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="843"/>
         <source>Do you want to permanently delete this custom palette?</source>
         <translation>¿Vol suprimir aquesta paleta personalitzada de manera permanent?</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="873"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="870"/>
         <source>Do you want to restore this palette to its default state? All changes to this palette will be lost.</source>
         <translation>¿Vol restaurar aquesta paleta al seu estat per defecte? Es perdran tots els canvis a aquesta paleta.</translation>
     </message>
@@ -16053,7 +16053,7 @@ failed: %2</source>
 error: %2</translation>
     </message>
     <message>
-        <location filename="../../libmscore/edit.cpp" line="3317"/>
+        <location filename="../../libmscore/edit.cpp" line="3324"/>
         <source>Please select the complete tuplet and retry the command</source>
         <translation>Selecciona completament el grup artificial/trèmolo i torna a provar la comanda</translation>
     </message>
@@ -16145,22 +16145,22 @@ error: %2</translation>
 <context>
     <name>Ms::ScoreBrowser</name>
     <message>
-        <location filename="../../mscore/scoreBrowser.cpp" line="65"/>
+        <location filename="../../mscore/scoreBrowser.cpp" line="64"/>
         <source>There are no templates matching the current search.</source>
         <translation>No hi ha plantilles que coincideixin amb la recerca.</translation>
     </message>
     <message>
-        <location filename="../../mscore/scoreBrowser.cpp" line="154"/>
+        <location filename="../../mscore/scoreBrowser.cpp" line="153"/>
         <source>Choose Instruments</source>
         <translation>Tria instruments</translation>
     </message>
     <message>
-        <location filename="../../mscore/scoreBrowser.cpp" line="158"/>
+        <location filename="../../mscore/scoreBrowser.cpp" line="157"/>
         <source>Create New Score…</source>
         <translation>Crea una nova partitura…</translation>
     </message>
     <message>
-        <location filename="../../mscore/scoreBrowser.cpp" line="241"/>
+        <location filename="../../mscore/scoreBrowser.cpp" line="240"/>
         <source>Custom Templates</source>
         <translation>Plantilles personalitzades</translation>
     </message>
@@ -16992,42 +16992,42 @@ nivell de música i preferències personals.</translation>
 <context>
     <name>Ms::UserPaletteController</name>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="317"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="314"/>
         <source>Delete permanently</source>
         <translation>Suprimeix definitivament</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="318"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="315"/>
         <source>Hide</source>
         <translation>Amaga</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="364"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="361"/>
         <source>Do you want to hide this custom palette cell or permanently delete it?</source>
         <translation>¿Vol amagar aquesta cel·la de paleta personalitzada o suprimir-la de manera permanent?</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="364"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="361"/>
         <source>Do you want to hide these custom palette cells or permanently delete them?</source>
         <translation>¿Vol amagar aquestes cel·les de paleta personalitzada o suprimir-les de manera permanent?</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="373"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="370"/>
         <source>Do you want to permanently delete this custom palette cell?</source>
         <translation>¿Vol suprimir aquesta cel·la de paleta personalitzada de manera permanent?</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="373"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="370"/>
         <source>Do you want to permanently delete these custom palette cells?</source>
         <translation>¿Vol suprimir aquestes cel·les de paleta personalitzada de manera permanent?</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="393"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="390"/>
         <source>Do you want to hide this custom palette or permanently delete it?</source>
         <translation>¿Vol amagar aquesta paleta personalitzada o suprimir-la de manera permanent?</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="393"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="390"/>
         <source>Do you want to hide these custom palettes or permanently delete them?</source>
         <translation>¿Vol amagar aquestes paletes personalitzades o suprimir-les de manera permanent?</translation>
     </message>

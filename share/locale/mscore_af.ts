@@ -4156,6 +4156,11 @@ By verstek sal hulle so geplaas word dat hulle regtereinde op dieselfde vlak is.
         <translation>Stemming</translation>
     </message>
     <message>
+        <location filename="../../mscore/editstyle.ui" line="4032"/>
+        <source>Only for a change to C Major / A minor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../mscore/editstyle.ui" line="5593"/>
         <source>Reset &apos;Accidental to note distance&apos; value</source>
         <translation type="unfinished"></translation>
@@ -4266,6 +4271,11 @@ By verstek sal hulle so geplaas word dat hulle regtereinde op dieselfde vlak is.
         <location filename="../../mscore/editstyle.ui" line="11768"/>
         <source>Spelling</source>
         <translation>Spelling</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editstyle.ui" line="4026"/>
+        <source>♮ in Key Signature Changes</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="5644"/>
@@ -4822,11 +4832,6 @@ By verstek sal hulle so geplaas word dat hulle regtereinde op dieselfde vlak is.
         <translation>Nootkop-afstand:</translation>
     </message>
     <message>
-        <location filename="../../mscore/editstyle.ui" line="4026"/>
-        <source>♮ in Key Signatures</source>
-        <translation>♮ in toonsoorttekens</translation>
-    </message>
-    <message>
         <location filename="../../mscore/editstyle.ui" line="4039"/>
         <source>Before key signature if changing to fewer ♯ or ♭</source>
         <translation>Vóór toonsoortteken indien verander word na minder ♯ of ♭</translation>
@@ -5253,11 +5258,6 @@ By verstek sal hulle so geplaas word dat hulle regtereinde op dieselfde vlak is.
         <location filename="../../mscore/editstyle.ui" line="4015"/>
         <source>Cents offset</source>
         <translation>Sente-verplasing</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editstyle.ui" line="4032"/>
-        <source>Only for a change to C Maj / A min</source>
-        <translation>Slegs by &apos;n verandering na C maj. / A min.</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="103"/>
@@ -13147,7 +13147,7 @@ oop te maak, het misluk: %2</translation>
         <translation>Inspekteur</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspectorBase.cpp" line="574"/>
+        <location filename="../../mscore/inspector/inspectorBase.cpp" line="573"/>
         <source>Set as style</source>
         <translation>Stel as styl</translation>
     </message>
@@ -15105,17 +15105,17 @@ nodig</translation>
 <context>
     <name>Ms::PaletteElementEditor</name>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="62"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="59"/>
         <source>Create Key Signature</source>
         <translation>Skep toonsoortteken</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="64"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="61"/>
         <source>Create Time Signature</source>
         <translation>Skep tydmaatteken</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="79"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="76"/>
         <source>The palette was hidden or changed</source>
         <translation>Die palet is versteek of gewysig</translation>
     </message>
@@ -15136,12 +15136,12 @@ nodig</translation>
 <context>
     <name>Ms::PaletteWorkspace</name>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="846"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="843"/>
         <source>Do you want to permanently delete this custom palette?</source>
         <translation>Wil jy hierdie pasgemaakte palet permanent skrap?</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="873"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="870"/>
         <source>Do you want to restore this palette to its default state? All changes to this palette will be lost.</source>
         <translation>Wil jy hierdie palet herstel na sy verstektoestand? Alle wysings aan hierdie palet sal verloor word. </translation>
     </message>
@@ -16055,7 +16055,7 @@ failed: %2</source>
 oop te maak, het misluk: %2</translation>
     </message>
     <message>
-        <location filename="../../libmscore/edit.cpp" line="3317"/>
+        <location filename="../../libmscore/edit.cpp" line="3324"/>
         <source>Please select the complete tuplet and retry the command</source>
         <translation>Selekteer asseblief die volledige onreëlmatige nootgroep en herprobeer die opdrag</translation>
     </message>
@@ -16147,22 +16147,22 @@ oop te maak, het misluk: %2</translation>
 <context>
     <name>Ms::ScoreBrowser</name>
     <message>
-        <location filename="../../mscore/scoreBrowser.cpp" line="65"/>
+        <location filename="../../mscore/scoreBrowser.cpp" line="64"/>
         <source>There are no templates matching the current search.</source>
         <translation>Daar is geen sjablone wat die huide soektog pas nie.</translation>
     </message>
     <message>
-        <location filename="../../mscore/scoreBrowser.cpp" line="154"/>
+        <location filename="../../mscore/scoreBrowser.cpp" line="153"/>
         <source>Choose Instruments</source>
         <translation>Kies instrumente</translation>
     </message>
     <message>
-        <location filename="../../mscore/scoreBrowser.cpp" line="158"/>
+        <location filename="../../mscore/scoreBrowser.cpp" line="157"/>
         <source>Create New Score…</source>
         <translation>Skep nuwe partituur…</translation>
     </message>
     <message>
-        <location filename="../../mscore/scoreBrowser.cpp" line="241"/>
+        <location filename="../../mscore/scoreBrowser.cpp" line="240"/>
         <source>Custom Templates</source>
         <translation>Pasgemaakte sjabloon</translation>
     </message>
@@ -16994,42 +16994,42 @@ Wil jy hierdie toere sien?</translation>
 <context>
     <name>Ms::UserPaletteController</name>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="317"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="314"/>
         <source>Delete permanently</source>
         <translation>Skrap permanent</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="318"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="315"/>
         <source>Hide</source>
         <translation>Versteek</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="364"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="361"/>
         <source>Do you want to hide this custom palette cell or permanently delete it?</source>
         <translation>Wil jy hierdie pasgemaakte palet-sel versteek of permanent skrap?</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="364"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="361"/>
         <source>Do you want to hide these custom palette cells or permanently delete them?</source>
         <translation>Wil jy hierdie pasgemaakte paletselle versteek of permanent skrap?</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="373"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="370"/>
         <source>Do you want to permanently delete this custom palette cell?</source>
         <translation>Wil jy hierdie pasgemaakte paletsel permanent skrap?</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="373"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="370"/>
         <source>Do you want to permanently delete these custom palette cells?</source>
         <translation>Wil jy hierdie pasgemaakte paletselle permanent skrap?</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="393"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="390"/>
         <source>Do you want to hide this custom palette or permanently delete it?</source>
         <translation>Wil jy hierdie pasgemaakte palet versteek of permanent skrap?</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="393"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="390"/>
         <source>Do you want to hide these custom palettes or permanently delete them?</source>
         <translation>Wil jy hierdie pasgemaakte palette versteek of permanent skrap?</translation>
     </message>

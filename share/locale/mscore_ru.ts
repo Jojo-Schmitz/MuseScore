@@ -4157,6 +4157,11 @@ By default, they will be placed such as that their right end are at the same lev
         <translation>Строй</translation>
     </message>
     <message>
+        <location filename="../../mscore/editstyle.ui" line="4032"/>
+        <source>Only for a change to C Major / A minor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../mscore/editstyle.ui" line="5593"/>
         <source>Reset &apos;Accidental to note distance&apos; value</source>
         <translation type="unfinished"></translation>
@@ -4267,6 +4272,11 @@ By default, they will be placed such as that their right end are at the same lev
         <location filename="../../mscore/editstyle.ui" line="11768"/>
         <source>Spelling</source>
         <translation>Написание</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editstyle.ui" line="4026"/>
+        <source>♮ in Key Signature Changes</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="5644"/>
@@ -4823,11 +4833,6 @@ By default, they will be placed such as that their right end are at the same lev
         <translation>Отступ головки нот:</translation>
     </message>
     <message>
-        <location filename="../../mscore/editstyle.ui" line="4026"/>
-        <source>♮ in Key Signatures</source>
-        <translation>Бекары в ключевых знаках</translation>
-    </message>
-    <message>
         <location filename="../../mscore/editstyle.ui" line="4039"/>
         <source>Before key signature if changing to fewer ♯ or ♭</source>
         <translation>Перед ключевой подписью, если становится меньше диезов, или бемолей</translation>
@@ -5255,11 +5260,6 @@ By default, they will be placed such as that their right end are at the same lev
         <location filename="../../mscore/editstyle.ui" line="4015"/>
         <source>Cents offset</source>
         <translation>Смещение по центам</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editstyle.ui" line="4032"/>
-        <source>Only for a change to C Maj / A min</source>
-        <translation>Только при переходе в до мажор/ля минор</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="103"/>
@@ -13150,7 +13150,7 @@ failed: %2</source>
         <translation>Инспектор</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspectorBase.cpp" line="574"/>
+        <location filename="../../mscore/inspector/inspectorBase.cpp" line="573"/>
         <source>Set as style</source>
         <translation>Установить в качестве стиля</translation>
     </message>
@@ -15104,17 +15104,17 @@ connection enabled</source>
 <context>
     <name>Ms::PaletteElementEditor</name>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="62"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="59"/>
         <source>Create Key Signature</source>
         <translation>Создать ключевые знаки</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="64"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="61"/>
         <source>Create Time Signature</source>
         <translation>Создать тактовый размер</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="79"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="76"/>
         <source>The palette was hidden or changed</source>
         <translation>Палитра была спрятана или изменена</translation>
     </message>
@@ -15135,12 +15135,12 @@ connection enabled</source>
 <context>
     <name>Ms::PaletteWorkspace</name>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="846"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="843"/>
         <source>Do you want to permanently delete this custom palette?</source>
         <translation>Вы действительно хотите удалить эту нестандартную палитру навсегда?</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="873"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="870"/>
         <source>Do you want to restore this palette to its default state? All changes to this palette will be lost.</source>
         <translation>Вы действительно хотите восстановить состояние этой палитры по умолчанию? Все изменения, произведённые над этой палитрой, будут утеряны.</translation>
     </message>
@@ -16053,7 +16053,7 @@ failed: %2</source>
 %2</translation>
     </message>
     <message>
-        <location filename="../../libmscore/edit.cpp" line="3317"/>
+        <location filename="../../libmscore/edit.cpp" line="3324"/>
         <source>Please select the complete tuplet and retry the command</source>
         <translation>Выделите всю мультиоль и повторите команду</translation>
     </message>
@@ -16145,22 +16145,22 @@ failed: %2</source>
 <context>
     <name>Ms::ScoreBrowser</name>
     <message>
-        <location filename="../../mscore/scoreBrowser.cpp" line="65"/>
+        <location filename="../../mscore/scoreBrowser.cpp" line="64"/>
         <source>There are no templates matching the current search.</source>
         <translation>Нет шаблонов, удовлетворяющих поисковому запросу.</translation>
     </message>
     <message>
-        <location filename="../../mscore/scoreBrowser.cpp" line="154"/>
+        <location filename="../../mscore/scoreBrowser.cpp" line="153"/>
         <source>Choose Instruments</source>
         <translation>Выбрать инструменты оркестра</translation>
     </message>
     <message>
-        <location filename="../../mscore/scoreBrowser.cpp" line="158"/>
+        <location filename="../../mscore/scoreBrowser.cpp" line="157"/>
         <source>Create New Score…</source>
         <translation>Создать новую партитуру…</translation>
     </message>
     <message>
-        <location filename="../../mscore/scoreBrowser.cpp" line="241"/>
+        <location filename="../../mscore/scoreBrowser.cpp" line="240"/>
         <source>Custom Templates</source>
         <translation>Свои шаблоны</translation>
     </message>
@@ -16992,42 +16992,42 @@ Please select a measure and try again</source>
 <context>
     <name>Ms::UserPaletteController</name>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="317"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="314"/>
         <source>Delete permanently</source>
         <translation>Удалить навсегда</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="318"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="315"/>
         <source>Hide</source>
         <translation>Скрыть</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="364"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="361"/>
         <source>Do you want to hide this custom palette cell or permanently delete it?</source>
         <translation>Хотите ли вы спрятать эту нестандартную ячейку палитры или удалить её навсегда?</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="364"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="361"/>
         <source>Do you want to hide these custom palette cells or permanently delete them?</source>
         <translation>Хотите ли вы спрятать эти нестандартные ячейки палитры или удалить их навсегда?</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="373"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="370"/>
         <source>Do you want to permanently delete this custom palette cell?</source>
         <translation>Вы действительно хотите удалить эту нестандартную ячейку палитры навсегда?</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="373"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="370"/>
         <source>Do you want to permanently delete these custom palette cells?</source>
         <translation>Вы действительно хотите удалить эти нестандартные ячейки палитры навсегда?</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="393"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="390"/>
         <source>Do you want to hide this custom palette or permanently delete it?</source>
         <translation>Хотите ли вы спрятать эту нестандартную палитру или удалить её навсегда?</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette/paletteworkspace.cpp" line="393"/>
+        <location filename="../../mscore/palette/paletteworkspace.cpp" line="390"/>
         <source>Do you want to hide these custom palettes or permanently delete them?</source>
         <translation>Хотите ли вы спрятать эти нестандартные палитры или удалить их навсегда?</translation>
     </message>

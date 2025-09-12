@@ -4023,13 +4023,13 @@ By default, they will be placed such as that their right end are at the same lev
         <item>
          <widget class="QGroupBox" name="keySigNaturalsGroup">
           <property name="title">
-           <string>♮ in Key Signatures</string>
+           <string>♮ in Key Signature Changes</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
            <item>
             <widget class="QRadioButton" name="radioKeySigNatNone">
              <property name="text">
-              <string>Only for a change to C Maj / A min</string>
+              <string>Only for a change to C Major / A minor</string>
              </property>
             </widget>
            </item>
