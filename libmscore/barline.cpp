@@ -733,9 +733,13 @@ void BarLine::draw(QPainter* painter) const
                   break;
             }
       Segment* s = segment();
-      if (s && s->isEndBarLineType() && !score()->printing()) {
-            Measure* m = s->measure();
-            if (m->isIrregular() && score()->markIrregularMeasures() && !m->isMMRest()) {
+      if (s && !score()->printing() && score()->showUnprintable() && score()->markIrregularMeasures()) {
+            Measure* m;
+            if (s->isEndBarLineType())
+                  m = s->measure();
+            else
+                  m = s->measure()->prevMeasure();
+            if (m && m->isIrregular() && !m->isMMRest()) {
                   painter->setPen(MScore::layoutBreakColor);
                   QFont f("Edwin");
                   f.setPointSizeF(12 * spatium() * MScore::pixelRatio / SPATIUM20);
