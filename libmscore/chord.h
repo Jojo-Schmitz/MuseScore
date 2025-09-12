@@ -58,6 +58,7 @@ class Chord final : public ChordRest {
 
       Stem*               _stem;
       Hook*               _hook;
+      bool                _hookIsReversed;
       StemSlash*          _stemSlash;    // for acciacatura
 
       Arpeggio*           _arpeggio;
@@ -230,6 +231,9 @@ class Chord final : public ChordRest {
       QString accessibleExtraInfo() const override;
 
       Note* firstGraceOrNote();
+
+      bool hookIsReversed () const  { return hook() ? _hookIsReversed : false; }
+      void setHookReversed(bool v)  { _hookIsReversed = v; }
 
       Shape shape() const override;
       };
