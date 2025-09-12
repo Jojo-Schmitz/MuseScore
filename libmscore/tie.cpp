@@ -128,8 +128,6 @@ void TieSegment::changeAnchor(EditData& ed, Element* element)
             const std::vector<SpannerSegment*>& ss = spanner()->spannerSegments();
 
             TieSegment* newSegment = toTieSegment(ed.curGrip == Grip::END ? ss.back() : ss.front());
-            score()->endCmd();
-            score()->startCmd();
             ed.view->startEdit(newSegment, ed.curGrip);
             triggerLayout();
             }
@@ -189,6 +187,8 @@ void TieSegment::editDrag(EditData& ed)
             setAutoAdjust(0.0, 0.0);
             roffset() += offset;
             }
+
+      triggerLayout();
       }
 
 //---------------------------------------------------------
