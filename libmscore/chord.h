@@ -84,7 +84,6 @@ class Chord final : public ChordRest {
 
       void layoutPitched();
       void layoutTablature();
-      qreal noteHeadWidth() const;
 
    public:
       Chord(Score* s = 0);
@@ -100,6 +99,7 @@ class Chord final : public ChordRest {
       ElementType type() const override   { return ElementType::CHORD; }
       qreal chordMag() const;
       qreal mag() const override;
+      qreal noteHeadWidth() const;
 
       void write(XmlWriter& xml) const override;
       void read(XmlReader&) override;
