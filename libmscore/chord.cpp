@@ -380,7 +380,13 @@ qreal Chord::stemPosX() const
       const StaffType* st = stf ? stf->staffTypeForElement(this) : 0;
       if (st && st->isTabStaff())
             return st->chordStemPosX(this) * spatium();
-      return _up ? noteHeadWidth() : 0.0;
+
+      const Note* refNote = _up ? upNote() : downNote();
+      QPointF stemAttach = _up ? refNote->stemUpSE() : refNote->stemDownNW();
+      if (stemAttach.isNull())
+            return _up ? noteHeadWidth() : 0.0;
+      qreal noteWidthOffset = _up ? (refNote->headBodyWidth() - noteHeadWidth()) : 0.0;
+      return stemAttach.x() - noteWidthOffset;
       }
 
 //---------------------------------------------------------

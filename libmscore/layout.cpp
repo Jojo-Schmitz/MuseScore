@@ -1011,7 +1011,7 @@ void Score::layoutChords3(std::vector<Note*>& notes, const Staff* staff, Segment
                   else
                         x = -note->headBodyWidth() + overlapMirror;
             else if (_up)
-                  x = chord->stemPosX() - note->headBodyWidth();
+                  x = chord->noteHeadWidth() - note->headBodyWidth();
 
             qreal ny = (note->line() + stepOffset) * stepDistance;
             if (note->rypos() != ny) {
