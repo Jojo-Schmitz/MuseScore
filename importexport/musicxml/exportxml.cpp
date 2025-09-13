@@ -6262,16 +6262,13 @@ void ExportMusicXml::keysigTimesig(const Measure* m, const Part* p)
             //qDebug(" singleKey %d", singleKey);
             if (singleKey) {
                   // keysig applies to all staves
-                  if (!keysigs.value(0)->forInstrumentChange())
-                        keysig(keysigs.value(0), p->staff(0)->clef(m->tick()), 0, keysigs.value(0)->visible());
+                  keysig(keysigs.value(0), p->staff(0)->clef(m->tick()), 0, keysigs.value(0)->visible());
                   }
             else {
                   // staff-specific keysigs
                   const QList<int> ksigs = keysigs.keys();
-                  for (int st : ksigs) {
-                        if (!keysigs.value(st)->forInstrumentChange())
-                              keysig(keysigs.value(st), p->staff(st)->clef(m->tick()), st + 1, keysigs.value(st)->visible());
-                        }
+                  for (int st : ksigs)
+                        keysig(keysigs.value(st), p->staff(st)->clef(m->tick()), st + 1, keysigs.value(st)->visible());
                   }
             }
       else {
@@ -6777,7 +6774,7 @@ void ExportMusicXml::findAndExportClef(const Measure* const m, const int staves,
                   sstaff /= VOICES;
 
                   Clef* cle = static_cast<Clef*>(seg->element(st));
-                  if (cle && !cle->forInstrumentChange()) {
+                  if (cle) {
                         clefDebug("exportxml: clef at start measure ti=%d ct=%d gen=%d", tick, int(cle->clefType()), cle->generated());
                         // output only clef changes, not generated clefs at line beginning
                         // exception: at tick=0, export clef anyway
@@ -7196,10 +7193,6 @@ void ExportMusicXml::writeInstrumentChange(const InstrumentChange* instrChange)
             }
       _xml.etag();
 
-      for (KeySig* keySig : instrChange->keySigs()) {
-            int st = _score->staffIdx(part);
-            keysig(keySig, part->staff(st)->clef(instrChange->tick()), _score->staffIdx(part), keySig->visible());
-            }
       writeInstrumentDetails(instr, _score->styleB(Sid::concertPitch));
 
       _xml.stag("sound");
