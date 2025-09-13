@@ -6742,6 +6742,74 @@ void ScoreFont::computeMetrics(Sym* sym, int code)
 //   load
 //---------------------------------------------------------
 
+// access needed stylistic alternates
+static const struct GlyphWithAlternates  {
+      QString     key;
+      QString     alternateKey;
+      SymId       alternateSymId;
+      } GLYPHS_WITH_ALTERNATES[] = {
+            {     QString("4stringTabClef"),
+                  QString("4stringTabClefSerif"),
+                  SymId::fourStringTabClefSerif
+            },
+            {     QString("6stringTabClef"),
+                  QString("6stringTabClefSerif"),
+                  SymId::sixStringTabClefSerif
+            },
+            {     QString("cClef"),
+                  QString("cClefFrench"),
+                  SymId::cClefFrench
+            },
+            {     QString("cClef"),
+                  QString("cClefFrench20C"),
+                  SymId::cClefFrench20C
+            },
+            {     QString("fClef"),
+                  QString("fClefFrench"),
+                  SymId::fClefFrench
+            },
+            {     QString("fClef"),
+                  QString("fClef19thCentury"),
+                  SymId::fClef19thCentury
+            },
+            {     QString("noteheadBlack"),
+                  QString("noteheadBlackOversized"),
+                  SymId::noteheadBlack
+            },
+            {     QString("noteheadHalf"),
+                  QString("noteheadHalfOversized"),
+                  SymId::noteheadHalf
+            },
+            {     QString("noteheadWhole"),
+                  QString("noteheadWholeOversized"),
+                  SymId::noteheadWhole
+            },
+            {     QString("noteheadDoubleWhole"),
+                  QString("noteheadDoubleWholeOversized"),
+                  SymId::noteheadDoubleWhole
+            },
+            {     QString("noteheadDoubleWholeSquare"),
+                  QString("noteheadDoubleWholeSquareOversized"),
+                  SymId::noteheadDoubleWholeSquare
+            },
+            {     QString("noteheadDoubleWhole"),
+                  QString("noteheadDoubleWholeAlt"),
+                  SymId::noteheadDoubleWholeAlt
+            },
+            {     QString("brace"),
+                  QString("braceSmall"),
+                  SymId::braceSmall
+            },
+            {     QString("brace"),
+                  QString("braceLarge"),
+                  SymId::braceLarge
+            },
+            {     QString("brace"),
+                  QString("braceLarger"),
+                  SymId::braceLarger
+            },
+      };
+
 void ScoreFont::load(bool system)
       {
       QString facePath = _fontPath + _filename;
@@ -6779,10 +6847,18 @@ void ScoreFont::load(bool system)
             qDebug("Json parse error in <%s>(offset: %d): %s", qPrintable(fi.fileName()),
                error.offset, qPrintable(error.errorString()));
 
-      QJsonObject oo = metadataJson.value("glyphsWithAnchors").toObject();
-      for (auto &i : oo.keys()) {
-            QJsonObject ooo = oo.value(i).toObject();
-            SymId symId = Sym::lnhash.value(i, SymId::noSym);
+      QJsonObject glyphsWithAnchors = metadataJson.value("glyphsWithAnchors").toObject();
+      for (auto &symName : glyphsWithAnchors.keys()) {
+            QJsonObject anchor = glyphsWithAnchors.value(symName).toObject();
+            SymId symId = Sym::lnhash.value(symName, SymId::noSym);
+            if (symId == SymId::noSym) {
+                for (auto& alternate : GLYPHS_WITH_ALTERNATES) {
+                    if (alternate.alternateKey == symName) {
+                        symId = alternate.alternateSymId;
+                        break;
+                    }
+                }
+            }
             if (symId == SymId::noSym) {
                   // currently, Bravura contains a bunch of entries in glyphsWithAnchors
                   // for glyph names that will not be found - flag32ndUpStraight, etc.
@@ -6790,50 +6866,57 @@ void ScoreFont::load(bool system)
                   continue;
                   }
             Sym* sym = &_symbols[int(symId)];
-            for (auto &j : ooo.keys()) {
-                  if (j == "stemDownNW") {
-                        qreal x = ooo.value(j).toArray().at(0).toDouble();
-                        qreal y = ooo.value(j).toArray().at(1).toDouble();
+            for (auto &anchorId : anchor.keys()) {
+                  if (anchorId == "stemDownNW") {
+                        qreal x = anchor.value(anchorId).toArray().at(0).toDouble();
+                        qreal y = anchor.value(anchorId).toArray().at(1).toDouble();
                         sym->setStemDownNW(QPointF(x, -y) * SPATIUM20);
                         }
-                  else if (j == "stemUpSE") {
-                        qreal x = ooo.value(j).toArray().at(0).toDouble();
-                        qreal y = ooo.value(j).toArray().at(1).toDouble();
+                  else if (anchorId == "stemUpSE") {
+                        qreal x = anchor.value(anchorId).toArray().at(0).toDouble();
+                        qreal y = anchor.value(anchorId).toArray().at(1).toDouble();
                         sym->setStemUpSE(QPointF(x, -y) * SPATIUM20);
                         }
-                  else if (j == "stemDownSW") {
-                        qreal x = ooo.value(j).toArray().at(0).toDouble();
-                        qreal y = ooo.value(j).toArray().at(1).toDouble();
+                  else if (anchorId == "stemDownSW") {
+                        qreal x = anchor.value(anchorId ).toArray().at(0).toDouble();
+                        qreal y = anchor.value(anchorId).toArray().at(1).toDouble();
                         sym->setStemDownSW(QPointF(x, -y) * SPATIUM20);
                         }
-                  else if (j == "stemUpNW") {
-                        qreal x = ooo.value(j).toArray().at(0).toDouble();
-                        qreal y = ooo.value(j).toArray().at(1).toDouble();
+                  else if (anchorId == "stemUpNW") {
+                        qreal x = anchor.value(anchorId).toArray().at(0).toDouble();
+                        qreal y = anchor.value(anchorId).toArray().at(1).toDouble();
                         sym->setStemUpNW(QPointF(x, -y) * SPATIUM20);
                         }
-                  else if (j == "cutOutNE") {
-                        qreal x = ooo.value(j).toArray().at(0).toDouble();
-                        qreal y = ooo.value(j).toArray().at(1).toDouble();
+                  else if (anchorId == "cutOutNE") {
+                        qreal x = anchor.value(anchorId).toArray().at(0).toDouble();
+                        qreal y = anchor.value(anchorId).toArray().at(1).toDouble();
                         sym->setCutOutNE(QPointF(x, -y) * SPATIUM20);
                         }
-                  else if (j == "cutOutNW") {
-                        qreal x = ooo.value(j).toArray().at(0).toDouble();
-                        qreal y = ooo.value(j).toArray().at(1).toDouble();
+                  else if (anchorId == "cutOutNW") {
+                        qreal x = anchor.value(anchorId).toArray().at(0).toDouble();
+                        qreal y = anchor.value(anchorId).toArray().at(1).toDouble();
                         sym->setCutOutNW(QPointF(x, -y) * SPATIUM20);
                         }
-                  else if (j == "cutOutSE") {
-                        qreal x = ooo.value(j).toArray().at(0).toDouble();
-                        qreal y = ooo.value(j).toArray().at(1).toDouble();
+                  else if (anchorId == "cutOutSE") {
+                        qreal x = anchor.value(anchorId).toArray().at(0).toDouble();
+                        qreal y = anchor.value(anchorId).toArray().at(1).toDouble();
                         sym->setCutOutSE(QPointF(x, -y) * SPATIUM20);
                         }
-                  else if (j == "cutOutSW") {
-                        qreal x = ooo.value(j).toArray().at(0).toDouble();
-                        qreal y = ooo.value(j).toArray().at(1).toDouble();
+                  else if (anchorId == "cutOutSW") {
+                        qreal x = anchor.value(anchorId).toArray().at(0).toDouble();
+                        qreal y = anchor.value(anchorId).toArray().at(1).toDouble();
                         sym->setCutOutSW(QPointF(x, -y) * SPATIUM20);
                         }
+#if 0 // TODO ?
+                  else if (anchorId == "opticalCenter") {
+                        qreal x = anchor.value(anchorId).toArray().at(0).toDouble();
+                        qreal y = anchor.value(anchorId).toArray().at(1).toDouble();
+                        sym->opticalCenter(QPointF(x, -y) * SPATIUM20);
+                        }
+#endif
                   }
             }
-      oo = metadataJson.value("engravingDefaults").toObject();
+      QJsonObject engravingDefaults = metadataJson.value("engravingDefaults").toObject();
       static std::list<std::pair<QString, Sid>> engravingDefaultsMapping = {
             // "arrowShaftThickness" not supported
             { "barlineSeparation",             Sid::doubleBarDistance },
@@ -6868,18 +6951,18 @@ void ScoreFont::load(bool system)
             { "tieMidpointThickness",          Sid::tieMidWidth },
             { "tupletBracketThickness",        Sid::tupletBracketWidth }
             };
-      for (auto &i : oo.keys()) {
+      for (auto &engravingDefaultsId : engravingDefaults.keys()) {
             for (auto mapping : engravingDefaultsMapping) {
-                  if (i == mapping.first) {
-                        qreal value = oo.value(i).toDouble();
+                  if (engravingDefaultsId == mapping.first) {
+                        qreal value = engravingDefaults.value(engravingDefaultsId).toDouble();
 
-                        if (i == "beamSpacing")
-                              value /= oo.value("beamThickness").toDouble();
+                        if (engravingDefaultsId == "beamSpacing")
+                              value /= engravingDefaults.value("beamThickness").toDouble();
 
                         _engravingDefaults.push_back(std::make_pair(mapping.second, value));
                         }
-                  else if (i == "textEnclosureThickness")
-                        _textEnclosureThickness = oo.value(i).toDouble();
+                  else if (engravingDefaultsId == "textEnclosureThickness")
+                        _textEnclosureThickness = engravingDefaults.value(engravingDefaultsId).toDouble();
                   }
             }
       _engravingDefaults.push_back(std::make_pair(Sid::musicalTextFont, QString("%1 Text").arg(_family)));
@@ -6963,88 +7046,18 @@ void ScoreFont::load(bool system)
                   }
             }
 
-      // access needed stylistic alternates
-
-      struct StylisticAlternate {
-            QString     key;
-            QString     altKey;
-            SymId       id;
-            }
-      alternate[] = {
-                  {     QString("4stringTabClef"),
-                        QString("4stringTabClefSerif"),
-                        SymId::fourStringTabClefSerif
-                  },
-                  {     QString("6stringTabClef"),
-                        QString("6stringTabClefSerif"),
-                        SymId::sixStringTabClefSerif
-                  },
-                  {     QString("cClef"),
-                        QString("cClefFrench"),
-                        SymId::cClefFrench
-                  },
-                  {     QString("cClef"),
-                        QString("cClefFrench20C"),
-                        SymId::cClefFrench20C
-                  },
-                  {     QString("fClef"),
-                        QString("fClefFrench"),
-                        SymId::fClefFrench
-                  },
-                  {     QString("fClef"),
-                        QString("fClef19thCentury"),
-                        SymId::fClef19thCentury
-                  },
-                  {     QString("noteheadBlack"),
-                        QString("noteheadBlackOversized"),
-                        SymId::noteheadBlack
-                  },
-                  {     QString("noteheadHalf"),
-                        QString("noteheadHalfOversized"),
-                        SymId::noteheadHalf
-                  },
-                  {     QString("noteheadWhole"),
-                        QString("noteheadWholeOversized"),
-                        SymId::noteheadWhole
-                  },
-                  {     QString("noteheadDoubleWhole"),
-                        QString("noteheadDoubleWholeOversized"),
-                        SymId::noteheadDoubleWhole
-                  },
-                  {     QString("noteheadDoubleWholeSquare"),
-                        QString("noteheadDoubleWholeSquareOversized"),
-                        SymId::noteheadDoubleWholeSquare
-                  },
-                  {     QString("noteheadDoubleWhole"),
-                        QString("noteheadDoubleWholeAlt"),
-                        SymId::noteheadDoubleWholeAlt
-                  },
-                  {     QString("brace"),
-                        QString("braceSmall"),
-                        SymId::braceSmall
-                  },
-                  {     QString("brace"),
-                        QString("braceLarge"),
-                        SymId::braceLarge
-                  },
-                  {     QString("brace"),
-                        QString("braceLarger"),
-                        SymId::braceLarger
-                  }
-            };
-
       // find each relevant alternate in "glyphsWithAlternates" value
       QJsonObject oa = metadataJson.value("glyphsWithAlternates").toObject();
       bool ok;
-      for (const StylisticAlternate& c : alternate) {
+      for (const GlyphWithAlternates& c : GLYPHS_WITH_ALTERNATES) {
             QJsonObject::const_iterator i = oa.constFind(c.key);
             if (i != oa.end()) {
                   QJsonArray oaa = i.value().toObject().value("alternates").toArray();
-                  // locate the relevant altKey in alternate array
+                  // locate the relevant alternateKey in alternate array
                   for (const auto &j : qAsConst(oaa)) {
                         QJsonObject jo = j.toObject();
-                        if (jo.value("name") == c.altKey) {
-                              Sym* sym = &_symbols[int(c.id)];
+                        if (jo.value("name") == c.alternateKey) {
+                              Sym* sym = &_symbols[int(c.alternateSymId)];
                               int code = jo.value("codepoint").toString().midRef(2).toInt(&ok, 16);
                               if (ok)
                                     computeMetrics(sym, code);
