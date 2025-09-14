@@ -163,7 +163,7 @@ void SlurSegment::changeAnchor(EditData& ed, Element* element)
             return;
 
       // save current start/end elements
-      for (ScoreElement* e : spanner()->linkList()) {
+      for (ScoreElement*& e : spanner()->linkList()) {
             Spanner* sp = toSpanner(e);
             score()->undoStack()->push1(new ChangeStartEndSpanner(sp, sp->startElement(), sp->endElement()));
             }
@@ -173,7 +173,7 @@ void SlurSegment::changeAnchor(EditData& ed, Element* element)
             Fraction ticks = ecr->tick() - cr->tick();
             spanner()->undoChangeProperty(Pid::SPANNER_TICKS, ticks);
             int diff = cr->track() - spanner()->track();
-            for (auto e : spanner()->linkList()) {
+            for (auto& e : spanner()->linkList()) {
                   Spanner* s = toSpanner(e);
                   s->undoChangeProperty(Pid::TRACK, s->track() + diff);
                   }
@@ -183,7 +183,7 @@ void SlurSegment::changeAnchor(EditData& ed, Element* element)
             Fraction ticks = cr->tick() - scr->tick();
             spanner()->undoChangeProperty(Pid::SPANNER_TICKS, ticks);
             int diff = cr->track() - spanner()->track();
-            for (auto e : spanner()->linkList()) {
+            for (auto& e : spanner()->linkList()) {
                   Spanner* s = toSpanner(e);
                   s->undoChangeProperty(Pid::SPANNER_TRACK2, s->track() + diff);
                   }
@@ -191,7 +191,7 @@ void SlurSegment::changeAnchor(EditData& ed, Element* element)
             }
 
       // update start/end elements (which could be grace notes)
-      for (ScoreElement* lsp : spanner()->linkList()) {
+      for (ScoreElement*& lsp : spanner()->linkList()) {
             Spanner* sp = static_cast<Spanner*>(lsp);
             if (sp == spanner()) {
                   score()->undo(new ChangeSpannerElements(sp, scr, ecr));
@@ -483,7 +483,7 @@ static qreal fixArticulations(qreal yo, Chord* c, qreal _up, bool stemSide = fal
       // return unchanged position, or position of outmost "close" articulation
       //
 #if 1
-      for (Articulation* a : c->articulations()) {
+      for (Articulation*& a : c->articulations()) {
             if (!a->layoutCloseToNote() || !a->addToSkyline())
                   continue;
             // skip if articulation on stem side but slur is not or vice versa
@@ -686,6 +686,8 @@ void Slur::slurPos(SlurPos* sp)
                   pt = sc->stemPos() - sc->pagePos() + sc->stem()->p2();
                   if (useTablature)                   // in tabs, stems are centred on note:
                         pt.rx() = hw1 * 0.5 + (note1 ? note1->bboxXShift() : 0.0);          // skip half notehead to touch stem, anatoly-os: incorrect. half notehead width is not always the stem position
+                  else
+                        pt.rx() = (note1 ? ((_up ? note1->stemUpSE().x() : note1->stemDownNW().x()) + note1->bboxXShift()) : 0.0);
                   // clear the stem (x)
                   // allow slight overlap (y) as per Gould
                   // don't allow overlap with hook if not disabling the autoplace checks against start/end segments in SlurSegment::layoutSegment()
@@ -706,6 +708,8 @@ void Slur::slurPos(SlurPos* sp)
                   pt = ec->stemPos() - ec->pagePos() + ec->stem()->p2();
                   if (useTablature)
                         pt.rx() = hw2 * 0.5;
+                  else
+                        pt.rx() = (note2 ? (_up ? note2->stemUpSE().x() : note2->stemDownNW().x()) : 0.0);
                   // don't allow overlap with beam
                   qreal yadj = ec->beam() ? 0.75 : -0.25;
                   yadj *= _spatium * __up;
