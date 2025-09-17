@@ -31167,82 +31167,82 @@ dividere di nuovo alle posizioni ritmiche</translation>
 <context>
     <name>elementName</name>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="35"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="57"/>
         <source>Symbol</source>
         <translation>Simbolo</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="36"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="35"/>
         <source>Text</source>
         <translation>Testo</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="40"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="39"/>
         <source>Instrument Name</source>
         <translation>Nome strumento</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="41"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="40"/>
         <source>Slur Segment</source>
         <translation>Segmento legatura di portamento</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="44"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="43"/>
         <source>Staff Lines</source>
         <translation>Righe pentagramma</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="43"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="42"/>
         <source>Barline</source>
         <translation>Stanghetta</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="46"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="45"/>
         <source>Stem Slash</source>
         <translation>Gambo Barrato</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="47"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="46"/>
         <source>Arpeggio</source>
         <translation>Arpeggiato</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="48"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="47"/>
         <source>Accidental</source>
         <translation>Alterazione</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="50"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="49"/>
         <source>Stem</source>
         <translation>Gambo</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="52"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="51"/>
         <source>Note</source>
         <translation>Nota</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="53"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="52"/>
         <source>Clef</source>
         <translation>Chiave</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="54"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="53"/>
         <source>Key Signature</source>
         <translation>Armatura di chiave</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="55"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="54"/>
         <source>Ambitus</source>
         <translation>Ambitus</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="56"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="55"/>
         <source>Time Signature</source>
         <translation>Indicazione metrica</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="57"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="56"/>
         <source>Rest</source>
         <translation>Pausa</translation>
     </message>
@@ -31287,17 +31287,17 @@ dividere di nuovo alle posizioni ritmiche</translation>
         <translation>Partitura</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="38"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="37"/>
         <source>Measure Number</source>
         <translation>Numero battuta</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="42"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="41"/>
         <source>Tie Segment</source>
         <translation>Segmento legatura di valore</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="45"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="44"/>
         <source>System Divider</source>
         <translation>Separatore sistema</translation>
     </message>
@@ -31467,7 +31467,7 @@ dividere di nuovo alle posizioni ritmiche</translation>
         <translation>Segmento glissando</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="37"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="36"/>
         <source>Layout Break</source>
         <translation>Interrompi impaginazione</translation>
     </message>
@@ -31487,17 +31487,17 @@ dividere di nuovo alle posizioni ritmiche</translation>
         <translation>Diteggiatura</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="49"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="48"/>
         <source>Ledger Line</source>
         <translation>Tagli addizionali</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="39"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="38"/>
         <source>Multimeasure Rest Range</source>
         <translation>Intervallo battuta d&apos;aspetto</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="51"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="50"/>
         <source>Flag</source>
         <translation>Flag</translation>
     </message>
@@ -34545,6 +34545,11 @@ Questa partitura ha già delle parti. La modifica delle indicazioni metriche loc
         <location filename="../../libmscore/sym.cpp" line="5838"/>
         <source>Divide measured tremolo by 6</source>
         <translation>Dividi per 6 il tremolo misurato</translation>
+    </message>
+    <message>
+        <location filename="../../libmscore/sym.cpp" line="5849"/>
+        <source>Tuplet 3</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="5903"/>

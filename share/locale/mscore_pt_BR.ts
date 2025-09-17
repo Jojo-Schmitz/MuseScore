@@ -31159,82 +31159,82 @@ falhou</translation>
 <context>
     <name>elementName</name>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="35"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="57"/>
         <source>Symbol</source>
         <translation>Símbolo</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="36"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="35"/>
         <source>Text</source>
         <translation>Texto</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="40"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="39"/>
         <source>Instrument Name</source>
         <translation>Nome do Instrumento</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="41"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="40"/>
         <source>Slur Segment</source>
         <translation>Segmento de Ligadura</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="44"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="43"/>
         <source>Staff Lines</source>
         <translation>Linhas de Pauta</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="43"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="42"/>
         <source>Barline</source>
         <translation>Barra de Compasso</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="46"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="45"/>
         <source>Stem Slash</source>
         <translation>Haste Diagonal</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="47"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="46"/>
         <source>Arpeggio</source>
         <translation>Arpejo</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="48"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="47"/>
         <source>Accidental</source>
         <translation>Acidente</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="50"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="49"/>
         <source>Stem</source>
         <translation>Haste</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="52"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="51"/>
         <source>Note</source>
         <translation>Nota</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="53"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="52"/>
         <source>Clef</source>
         <translation>Clave</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="54"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="53"/>
         <source>Key Signature</source>
         <translation>Armadura de Clave</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="55"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="54"/>
         <source>Ambitus</source>
         <translation>Ambitus</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="56"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="55"/>
         <source>Time Signature</source>
         <translation>Fórmula de Compasso</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="57"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="56"/>
         <source>Rest</source>
         <translation>Pausa</translation>
     </message>
@@ -31279,17 +31279,17 @@ falhou</translation>
         <translation>Partitura</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="38"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="37"/>
         <source>Measure Number</source>
         <translation>Número do Compasso</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="42"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="41"/>
         <source>Tie Segment</source>
         <translation>Segmento de Ligadura</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="45"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="44"/>
         <source>System Divider</source>
         <translation>Divisor de Sistema</translation>
     </message>
@@ -31459,7 +31459,7 @@ falhou</translation>
         <translation>Segmento Glissando</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="37"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="36"/>
         <source>Layout Break</source>
         <translation>Parar linha</translation>
     </message>
@@ -31479,17 +31479,17 @@ falhou</translation>
         <translation>Fixação</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="49"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="48"/>
         <source>Ledger Line</source>
         <translation>Linha Complementar</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="39"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="38"/>
         <source>Multimeasure Rest Range</source>
         <translation>Abrangência da pausa multi-compasso</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="51"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="50"/>
         <source>Flag</source>
         <translation>Bandeirola</translation>
     </message>
@@ -34532,6 +34532,11 @@ This score already has part scores. Changing local time signatures while part sc
     <message>
         <location filename="../../libmscore/sym.cpp" line="5838"/>
         <source>Divide measured tremolo by 6</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../libmscore/sym.cpp" line="5849"/>
+        <source>Tuplet 3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

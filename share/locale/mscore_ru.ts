@@ -31157,82 +31157,82 @@ failed</source>
 <context>
     <name>elementName</name>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="35"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="57"/>
         <source>Symbol</source>
         <translation>Символ</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="36"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="35"/>
         <source>Text</source>
         <translation>Текст</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="40"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="39"/>
         <source>Instrument Name</source>
         <translation>Название инструмента</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="41"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="40"/>
         <source>Slur Segment</source>
         <translation>Сегмент лиги</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="44"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="43"/>
         <source>Staff Lines</source>
         <translation>Линии стана</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="43"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="42"/>
         <source>Barline</source>
         <translation>Тактовая черта</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="46"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="45"/>
         <source>Stem Slash</source>
         <translation>Хвостик штиля</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="47"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="46"/>
         <source>Arpeggio</source>
         <translation>Арпеджио</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="48"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="47"/>
         <source>Accidental</source>
         <translation>Знак альтерации</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="50"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="49"/>
         <source>Stem</source>
         <translation>Штиль</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="52"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="51"/>
         <source>Note</source>
         <translation>Нота</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="53"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="52"/>
         <source>Clef</source>
         <translation>Ключ</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="54"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="53"/>
         <source>Key Signature</source>
         <translation>Ключевые знаки</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="55"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="54"/>
         <source>Ambitus</source>
         <translation>Окружение</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="56"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="55"/>
         <source>Time Signature</source>
         <translation>Тактовый размер</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="57"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="56"/>
         <source>Rest</source>
         <translation>Пауза</translation>
     </message>
@@ -31277,17 +31277,17 @@ failed</source>
         <translation>Партитура</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="38"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="37"/>
         <source>Measure Number</source>
         <translation>Номер такта</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="42"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="41"/>
         <source>Tie Segment</source>
         <translation>Сегмент связующей лиги</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="45"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="44"/>
         <source>System Divider</source>
         <translation>Системный разделитель</translation>
     </message>
@@ -31457,7 +31457,7 @@ failed</source>
         <translation>Сегмент Глиссандо</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="37"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="36"/>
         <source>Layout Break</source>
         <translation>Разрыв макета</translation>
     </message>
@@ -31477,17 +31477,17 @@ failed</source>
         <translation>Подсказки по палочкам</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="49"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="48"/>
         <source>Ledger Line</source>
         <translation>Добавочная линейка</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="39"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="38"/>
         <source>Multimeasure Rest Range</source>
         <translation>Диапазон оркестровых пауз</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="51"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="50"/>
         <source>Flag</source>
         <translation>Флаг</translation>
     </message>
@@ -34533,6 +34533,11 @@ This score already has part scores. Changing local time signatures while part sc
     <message>
         <location filename="../../libmscore/sym.cpp" line="5838"/>
         <source>Divide measured tremolo by 6</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../libmscore/sym.cpp" line="5849"/>
+        <source>Tuplet 3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

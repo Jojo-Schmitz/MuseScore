@@ -31149,82 +31149,82 @@ sikertelen</translation>
 <context>
     <name>elementName</name>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="35"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="57"/>
         <source>Symbol</source>
         <translation>Szimbólum</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="36"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="35"/>
         <source>Text</source>
         <translation>Szöveg</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="40"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="39"/>
         <source>Instrument Name</source>
         <translation>Hangszernév</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="41"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="40"/>
         <source>Slur Segment</source>
         <translation>Kötőív szegmens</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="44"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="43"/>
         <source>Staff Lines</source>
         <translation>Kottavonalak</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="43"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="42"/>
         <source>Barline</source>
         <translation>Ütemvonal</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="46"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="45"/>
         <source>Stem Slash</source>
         <translation>Kottaszár áthúzás</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="47"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="46"/>
         <source>Arpeggio</source>
         <translation>Arpeggio</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="48"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="47"/>
         <source>Accidental</source>
         <translation>Módosító</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="50"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="49"/>
         <source>Stem</source>
         <translation>Kottaszár</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="52"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="51"/>
         <source>Note</source>
         <translation>Hangjegy</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="53"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="52"/>
         <source>Clef</source>
         <translation>Kulcs</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="54"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="53"/>
         <source>Key Signature</source>
         <translation>Előjegyzés</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="55"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="54"/>
         <source>Ambitus</source>
         <translation>Hangterjedelem</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="56"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="55"/>
         <source>Time Signature</source>
         <translation>Ütemmutató:</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="57"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="56"/>
         <source>Rest</source>
         <translation>Szünet</translation>
     </message>
@@ -31269,17 +31269,17 @@ sikertelen</translation>
         <translation>Kotta</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="38"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="37"/>
         <source>Measure Number</source>
         <translation>Ütem száma</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="42"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="41"/>
         <source>Tie Segment</source>
         <translation>Átkötőív szegmens</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="45"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="44"/>
         <source>System Divider</source>
         <translation>Sorelválasztó</translation>
     </message>
@@ -31449,7 +31449,7 @@ sikertelen</translation>
         <translation>Glissando szegmens</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="37"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="36"/>
         <source>Layout Break</source>
         <translation>Töréspont</translation>
     </message>
@@ -31469,17 +31469,17 @@ sikertelen</translation>
         <translation>Tapadás</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="49"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="48"/>
         <source>Ledger Line</source>
         <translation>Pótvonal</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="39"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="38"/>
         <source>Multimeasure Rest Range</source>
         <translation>Többütemes szünet tartomány</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scoreElement.cpp" line="51"/>
+        <location filename="../../libmscore/scoreElement.cpp" line="50"/>
         <source>Flag</source>
         <translation>Zászló</translation>
     </message>
@@ -34523,6 +34523,11 @@ This score already has part scores. Changing local time signatures while part sc
     <message>
         <location filename="../../libmscore/sym.cpp" line="5838"/>
         <source>Divide measured tremolo by 6</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../libmscore/sym.cpp" line="5849"/>
+        <source>Tuplet 3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
