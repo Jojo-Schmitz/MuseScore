@@ -270,6 +270,7 @@
         <voice>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <small>1</small>

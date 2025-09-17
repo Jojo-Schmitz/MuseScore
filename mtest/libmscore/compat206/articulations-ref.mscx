@@ -90,6 +90,7 @@
             </TimeSig>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>quarter</durationType>
@@ -100,6 +101,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>quarter</durationType>
@@ -110,6 +112,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>quarter</durationType>
@@ -120,6 +123,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataBelow</subtype>
+            <timeStretch>1</timeStretch>
             <placement>below</placement>
             </Fermata>
           <Chord>
@@ -135,6 +139,7 @@
         <voice>
           <Fermata>
             <subtype>fermataShortAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>quarter</durationType>
@@ -145,6 +150,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataShortAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>quarter</durationType>
@@ -155,6 +161,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataShortAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>quarter</durationType>
@@ -165,6 +172,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataShortBelow</subtype>
+            <timeStretch>1</timeStretch>
             <placement>below</placement>
             </Fermata>
           <Chord>
@@ -180,6 +188,7 @@
         <voice>
           <Fermata>
             <subtype>fermataLongAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>quarter</durationType>
@@ -190,6 +199,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataLongAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>quarter</durationType>
@@ -200,6 +210,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataLongAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>quarter</durationType>
@@ -210,6 +221,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataLongBelow</subtype>
+            <timeStretch>1</timeStretch>
             <placement>below</placement>
             </Fermata>
           <Chord>
@@ -228,6 +240,7 @@
         <voice>
           <Fermata>
             <subtype>fermataVeryLongAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>quarter</durationType>
@@ -238,6 +251,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataVeryLongAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>quarter</durationType>
@@ -248,6 +262,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataVeryLongAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>quarter</durationType>
@@ -258,6 +273,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataVeryLongBelow</subtype>
+            <timeStretch>1</timeStretch>
             <placement>below</placement>
             </Fermata>
           <Chord>
@@ -1907,24 +1923,28 @@
         <voice>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Rest>
             <durationType>quarter</durationType>
             </Rest>
           <Fermata>
             <subtype>fermataShortAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Rest>
             <durationType>quarter</durationType>
             </Rest>
           <Fermata>
             <subtype>fermataLongAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Rest>
             <durationType>quarter</durationType>
             </Rest>
           <Fermata>
             <subtype>fermataVeryLongAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Rest>
             <durationType>quarter</durationType>

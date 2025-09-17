@@ -109,6 +109,7 @@
             </TimeSig>
           <Fermata>
             <subtype>fermataBelow</subtype>
+            <timeStretch>1</timeStretch>
             <play>0</play>
             <placement>below</placement>
             </Fermata>
@@ -125,6 +126,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataBelow</subtype>
+            <timeStretch>1</timeStretch>
             <play>0</play>
             <placement>below</placement>
             </Fermata>
@@ -149,6 +151,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>eighth</durationType>
@@ -170,6 +173,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>eighth</durationType>
@@ -187,6 +191,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataBelow</subtype>
+            <timeStretch>1</timeStretch>
             <placement>below</placement>
             </Fermata>
           <Chord>
@@ -231,6 +236,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>eighth</durationType>
@@ -248,6 +254,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>eighth</durationType>
@@ -258,6 +265,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             <play>0</play>
             </Fermata>
           <Beam>
@@ -287,6 +295,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>eighth</durationType>

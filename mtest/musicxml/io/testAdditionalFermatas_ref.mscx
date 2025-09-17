@@ -218,6 +218,7 @@
         <voice>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>quarter</durationType>
@@ -267,6 +268,7 @@
         <voice>
           <Fermata>
             <subtype>fermataBelow</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>whole</durationType>
@@ -281,6 +283,7 @@
         <voice>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>quarter</durationType>
@@ -318,6 +321,7 @@
         <voice>
           <Fermata>
             <subtype>fermataBelow</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>whole</durationType>
@@ -330,6 +334,7 @@
         <voice>
           <Fermata>
             <subtype>fermataBelow</subtype>
+            <timeStretch>1</timeStretch>
             <visible>0</visible>
             <placement>below</placement>
             </Fermata>
@@ -346,6 +351,7 @@
         <voice>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>quarter</durationType>
@@ -397,6 +403,7 @@
         <voice>
           <Fermata>
             <subtype>fermataBelow</subtype>
+            <timeStretch>1</timeStretch>
             <visible>0</visible>
             </Fermata>
           <Chord>
@@ -427,6 +434,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>quarter</durationType>
@@ -480,6 +488,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataBelow</subtype>
+            <timeStretch>1</timeStretch>
             <visible>0</visible>
             </Fermata>
           <Chord>

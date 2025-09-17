@@ -234,7 +234,7 @@ class ScoreElement {
       void undoResetProperty(Pid id);
 
       void undoPushProperty(Pid);
-      void writeProperty(XmlWriter& xml, Pid id) const;
+      void writeProperty(XmlWriter& xml, Pid id, bool force = false) const;
       void writeStyledProperties(XmlWriter&) const;
 
       QList<ScoreElement*> linkList() const;

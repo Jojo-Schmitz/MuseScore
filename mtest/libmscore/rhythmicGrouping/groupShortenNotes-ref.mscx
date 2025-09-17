@@ -284,6 +284,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>16th</durationType>
@@ -409,6 +410,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>16th</durationType>

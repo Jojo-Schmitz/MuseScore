@@ -14,25 +14,24 @@
 #define __FERMATA_H__
 
 #include "element.h"
-#include "mscore.h"
 #include "sym.h"
 
 namespace Ms {
 
 class ChordRest;
-class Segment;
 class Measure;
-class System;
 class Page;
+class Segment;
+class System;
 
 //---------------------------------------------------------
 //    Fermata
 //---------------------------------------------------------
 
 class Fermata final : public Element {
-      SymId _symId;
-      qreal _timeStretch;
-      bool _play;
+      SymId _symId = SymId::noSym;
+      qreal _timeStretch = -1.0;
+      bool _play = true;
 
       void draw(QPainter*) const override;
       Sid getPropertyStyle(Pid) const override;
@@ -49,9 +48,10 @@ class Fermata final : public Element {
       qreal mag() const override;
 
       SymId symId() const                   { return _symId; }
-      void setSymId(SymId id)               { _symId  = id;  }
+      void setSymId(SymId id)               { _symId = id;   }
+      void setSymIdAndTimeStretch(SymId id);
       int subtype() const override;
-      QString userName() const;
+      QString userName() const override;
 
       void layout() override;
 

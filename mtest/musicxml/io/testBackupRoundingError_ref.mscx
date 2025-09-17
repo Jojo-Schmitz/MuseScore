@@ -648,6 +648,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>quarter</durationType>
@@ -671,6 +672,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Rest>
             <durationType>eighth</durationType>
@@ -824,6 +826,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <small>1</small>
@@ -1023,6 +1026,7 @@
         <voice>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Rest>
             <visible>0</visible>
@@ -1758,6 +1762,7 @@
             </location>
           <Fermata>
             <subtype>fermataBelow</subtype>
+            <timeStretch>1</timeStretch>
             <placement>below</placement>
             </Fermata>
           <Spanner type="Pedal">
@@ -1794,6 +1799,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Rest>
             <durationType>eighth</durationType>
@@ -1804,6 +1810,7 @@
             </Rest>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Rest>
             <durationType>whole</durationType>
@@ -1971,6 +1978,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataAbove</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>half</durationType>
@@ -2026,6 +2034,7 @@
             </Chord>
           <Fermata>
             <subtype>fermataBelow</subtype>
+            <timeStretch>1</timeStretch>
             </Fermata>
           <Chord>
             <durationType>half</durationType>
