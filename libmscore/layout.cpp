@@ -4780,7 +4780,7 @@ void Score::layoutSystemElements(System* system, LayoutContext& lc)
 
       for (const Segment* s : sl) {
             for (Element* e : s->annotations()) {
-                  if (e->isStaffText() || e->isSystemText() || e->isInstrumentChange())
+                  if (e->isStaffText() || e->isInstrumentChange())
                         e->layout();
                   }
             }
@@ -4803,6 +4803,13 @@ void Score::layoutSystemElements(System* system, LayoutContext& lc)
 
             layoutHarmonies(sl);
             alignHarmonies(system, sl, false, styleP(Sid::maxFretShiftAbove), styleP(Sid::maxFretShiftBelow));
+            }
+
+      for (const Segment* s : sl) {
+            for (Element* e : s->annotations()) {
+                  if (e->isSystemText())
+                        e->layout();
+                  }
             }
 
       //-------------------------------------------------------------
