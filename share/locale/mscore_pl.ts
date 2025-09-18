@@ -34552,7 +34552,7 @@ Ta partytura ma już partie. Zmiana lokalnych oznaczeń metrycznych, gdy obecne 
     <message>
         <location filename="../../libmscore/sym.cpp" line="5849"/>
         <source>Tuplet 3</source>
-        <translation type="unfinished"></translation>
+        <translation>Triola</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="5903"/>
