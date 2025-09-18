@@ -6704,11 +6704,11 @@ Note* MusicXMLParserPass2::note(const QString& partId,
                               // create a new tuplet
                               handleTupletStart(cr, tuplet, actualNotes, normalNotes, notations.tupletDesc());
                               }
-                        if (tupletAction & MxmlTupletFlag::ADD_CHORD) {
+                        if (tuplet && tupletAction & MxmlTupletFlag::ADD_CHORD) {
                               cr->setTuplet(tuplet);
                               tuplet->add(cr);
                               }
-                        if (tupletAction & MxmlTupletFlag::STOP_CURRENT) {
+                        if (tuplet && tupletAction & MxmlTupletFlag::STOP_CURRENT) {
                               if (missingCurr.isValid() && missingCurr > Fraction(0, 1)) {
                                     qDebug("add missing %s to current tuplet", qPrintable(missingCurr.print()));
                                     const int track = msTrack + msVoice;
