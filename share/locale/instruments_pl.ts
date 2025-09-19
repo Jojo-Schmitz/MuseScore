@@ -4739,7 +4739,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1366"/>
         <source>Guzheng</source>
-        <translation type="unfinished"></translation>
+        <translation>Guzheng</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1499"/>
@@ -5742,13 +5742,13 @@
         <location filename="../instruments/instrumentsxml.h" line="1367"/>
         <source>Gz.</source>
         <comment>Guzheng</comment>
-        <translation type="unfinished"></translation>
+        <translation>G.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1369"/>
         <source>Ko.</source>
         <comment>Koto</comment>
-        <translation type="unfinished">K.</translation>
+        <translation>K.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1408"/>
