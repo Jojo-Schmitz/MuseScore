@@ -381,7 +381,10 @@ Sid Fermata::getPropertyStyle(Pid pid) const
 
 qreal Fermata::mag() const
       {
-      return staff() ? staff()->mag(tick()) * score()->styleD(Sid::articulationMag) : 1.0;
+      qreal m = staff() ? staff()->mag(tick()) * score()->styleD(Sid::articulationMag) : 1.0;
+      if (segment() && segment()->isChordRestType() && segment()->element(track()))
+            m *= toChordRest(segment()->element(track()))->mag();
+      return m;
       }
 
 //---------------------------------------------------------
