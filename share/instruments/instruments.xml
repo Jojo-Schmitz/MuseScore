@@ -11692,6 +11692,22 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>common</genre>
                   <genre>orchestra</genre>
             </Instrument>
+            <Instrument id="guzheng">
+                  <longName>Guzheng</longName>
+                  <shortName>Gz.</shortName>
+                  <description>Chinese plucked half-tube zither.</description>
+                  <musicXMLid>pluck.guzhen</musicXMLid>
+                  <clef>G</clef>
+                  <barlineSpan>1</barlineSpan>
+                  <aPitchRange>38-86</aPitchRange>
+                  <pPitchRange>38-86</pPitchRange>
+                  <singleNoteDynamics>0</singleNoteDynamics>
+                  <Channel>
+                        <!--MIDI: Bank 0, Prog 107; MS General: Koto-->
+                        <program value="107"/> <!--Koto-->
+                  </Channel>
+                  <genre>world</genre>
+            </Instrument>
             <Instrument id="koto">
                   <longName>Koto</longName>
                   <shortName>Ko.</shortName>

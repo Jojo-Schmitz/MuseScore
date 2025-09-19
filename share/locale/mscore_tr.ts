@@ -21670,39 +21670,39 @@ En son sürümü edinmek için %1MuseScore web sitesini %2 ziyaret edin.</transl
         <translation>Yüklenemedi</translation>
     </message>
     <message>
-        <location filename="../../libmscore/fret.cpp" line="1391"/>
-        <location filename="../../libmscore/fret.cpp" line="1484"/>
+        <location filename="../../libmscore/fret.cpp" line="1397"/>
+        <location filename="../../libmscore/fret.cpp" line="1490"/>
         <source>with chord symbol %1</source>
         <translation>akor sembolü %1 ile</translation>
     </message>
     <message>
-        <location filename="../../libmscore/fret.cpp" line="1391"/>
-        <location filename="../../libmscore/fret.cpp" line="1484"/>
+        <location filename="../../libmscore/fret.cpp" line="1397"/>
+        <location filename="../../libmscore/fret.cpp" line="1490"/>
         <source>without chord symbol</source>
         <translation>akor sembolü olmadan</translation>
     </message>
     <message>
-        <location filename="../../libmscore/fret.cpp" line="1403"/>
+        <location filename="../../libmscore/fret.cpp" line="1409"/>
         <source>string %1</source>
         <translation>tel %1</translation>
     </message>
     <message>
-        <location filename="../../libmscore/fret.cpp" line="1409"/>
+        <location filename="../../libmscore/fret.cpp" line="1415"/>
         <source>circle marker</source>
         <translation>çember işaretçi</translation>
     </message>
     <message>
-        <location filename="../../libmscore/fret.cpp" line="1412"/>
+        <location filename="../../libmscore/fret.cpp" line="1418"/>
         <source>cross marker</source>
         <translation>çapraz işaretçi</translation>
     </message>
     <message>
-        <location filename="../../libmscore/fret.cpp" line="1443"/>
+        <location filename="../../libmscore/fret.cpp" line="1449"/>
         <source>%1 and %2</source>
         <translation>%1 ve %2</translation>
     </message>
     <message numerus="yes">
-        <location filename="../../libmscore/fret.cpp" line="1450"/>
+        <location filename="../../libmscore/fret.cpp" line="1456"/>
         <source>%n dot(s) on fret(s) %1</source>
         <extracomment>Omit the &quot;%n &quot; for the singular translation (and the &quot;(s)&quot; too)</extracomment>
         <translation>
@@ -21710,37 +21710,37 @@ En son sürümü edinmek için %1MuseScore web sitesini %2 ziyaret edin.</transl
         </translation>
     </message>
     <message>
-        <location filename="../../libmscore/fret.cpp" line="1461"/>
+        <location filename="../../libmscore/fret.cpp" line="1467"/>
         <source>fret %1</source>
         <translation>perde %1</translation>
     </message>
     <message>
-        <location filename="../../libmscore/fret.cpp" line="1465"/>
+        <location filename="../../libmscore/fret.cpp" line="1471"/>
         <source>barré %1</source>
         <translation>bare %1</translation>
     </message>
     <message>
-        <location filename="../../libmscore/fret.cpp" line="1468"/>
+        <location filename="../../libmscore/fret.cpp" line="1474"/>
         <source>beginning string %1</source>
         <translation>başlangıç Teli %1</translation>
     </message>
     <message>
-        <location filename="../../libmscore/fret.cpp" line="1471"/>
+        <location filename="../../libmscore/fret.cpp" line="1477"/>
         <source>and ending string %1</source>
         <translation>ve biten Tel %1</translation>
     </message>
     <message>
-        <location filename="../../libmscore/fret.cpp" line="1473"/>
+        <location filename="../../libmscore/fret.cpp" line="1479"/>
         <source>partial barré %1 %2 %3</source>
         <translation>Kısmi Bareli %1 %2 %3</translation>
     </message>
     <message>
-        <location filename="../../libmscore/fret.cpp" line="1482"/>
+        <location filename="../../libmscore/fret.cpp" line="1488"/>
         <source>no content</source>
         <translation>içerik yok</translation>
     </message>
     <message numerus="yes">
-        <location filename="../../libmscore/fret.cpp" line="1487"/>
+        <location filename="../../libmscore/fret.cpp" line="1493"/>
         <source>%n string(s) total</source>
         <translation>
             <numerusform>%n Teller Toplam</numerusform>
