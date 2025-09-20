@@ -3096,8 +3096,14 @@ void MuseScore::createPlayPanel()
             playPanel->setGain(synti->gain());
             playPanel->setScore(cs);
             addDockWidget(Qt::RightDockWidgetArea, playPanel);
-            playPanel->setVisible(false);
-            playPanel->setFloating(false);
+
+            QSettings settings;
+            settings.beginGroup("MainWindow");
+            bool floatPanel = settings.value("floatPlayPanel").toBool();
+            settings.endGroup();
+
+            playPanel->setFloating(floatPanel);
+            restoreGeometry(playPanel);
             }
       }
 
@@ -3114,14 +3120,11 @@ void MuseScore::showPlayPanel(bool visible)
                   return;
 
             createPlayPanel();
-
-            // The play panel must be set visible before being set floating for positioning
-            // and window geometry reasons.
             playPanel->setVisible(visible);
-            playPanel->setFloating(false);
             }
       else
             reDisplayDockWidget(playPanel, visible);
+
       playId->setChecked(visible);
       }
 
@@ -4666,6 +4669,8 @@ void MuseScore::writeSettings()
       settings.beginGroup("MainWindow");
       settings.setValue("showPanel", paletteWidget && paletteWidget->isVisible());
       settings.setValue("showInspector", _inspector && _inspector->isVisible());
+      settings.setValue("showPlayPanel", playPanel && playPanel->isVisible());
+      settings.setValue("floatPlayPanel", playPanel && playPanel->isFloating());
       settings.setValue("showPianoKeyboard", _pianoTools && _pianoTools->isVisible());
       settings.setValue("showSelectionWindow", selectionWindow && selectionWindow->isVisible());
       settings.setValue("state", saveState());
@@ -8349,10 +8354,15 @@ void MuseScore::init(QStringList& argv)
             qApp->processEvents();
             }
 
-      mscore->showPlayPanel(preferences.getBool(PREF_UI_APP_STARTUP_SHOWPLAYPANEL));
       QSettings settings;
       if (settings.value("synthControlVisible", false).toBool())
             mscore->showSynthControl(true);
+
+      settings.beginGroup("MainWindow");
+      const bool forceShowPlayPanel = preferences.getBool(PREF_UI_APP_STARTUP_SHOWPLAYPANEL);
+      const bool lastSessionShowedPlayPanel = settings.value("showPlayPanel").toBool();
+      settings.endGroup();
+      mscore->showPlayPanel(forceShowPlayPanel || lastSessionShowedPlayPanel);
       }
 
 
