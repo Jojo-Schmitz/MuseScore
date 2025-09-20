@@ -5580,12 +5580,15 @@ static void directionMarker(XmlWriter& xml, const Marker* const m, const std::ve
       {
       const Marker::Type mtp = getEffectiveMarkerType(m, jumps);
       QString words;
+      QString smufl;
       QString type;
       QString sound;
 
       switch (mtp) {
-            case Marker::Type::CODA:
             case Marker::Type::VARCODA:
+                  smufl = "codaSquare";
+                  // FALLTHROUGH
+            case Marker::Type::CODA:
             case Marker::Type::CODETTA:
                   type = "coda";
                   if (m->label().isEmpty())
@@ -5593,8 +5596,10 @@ static void directionMarker(XmlWriter& xml, const Marker* const m, const std::ve
                   else
                         sound = "coda=\"" + m->label() + "\"";
                   break;
-            case Marker::Type::SEGNO:
             case Marker::Type::VARSEGNO:
+                  smufl = "segnoSerpent1";
+                  // FALLTHROUGH
+            case Marker::Type::SEGNO:
                   type = "segno";
                   if (m->label().isEmpty())
                         sound = "segno=\"1\"";
@@ -5628,6 +5633,8 @@ static void directionMarker(XmlWriter& xml, const Marker* const m, const std::ve
             xml.stag("direction-type");
             QString attrs = color2xml(m);
             attrs += positioningAttributes(m);
+            if (!smufl.isEmpty())
+                  attrs += QString(" smufl=\"%1\"").arg(smufl);
             if (!type.isEmpty())
                   xml.tagE(type + attrs);
             if (!words.isEmpty())

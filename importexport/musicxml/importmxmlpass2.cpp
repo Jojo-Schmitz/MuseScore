@@ -3760,11 +3760,23 @@ void MusicXMLParserDirection::directionType(QList<MusicXmlSpannerDesc>& starts,
             else if (_e.name() == "wedge")
                   wedge(type, n, starts, stops);
             else if (_e.name() == "coda") {
-                  _wordsText += "<sym>coda</sym>";
+                  const QString smufl = _e.attributes().value("smufl").toString();
+                  if (!smufl.isEmpty())
+                        _wordsText += "<sym>" + smufl + "</sym>";
+                  else
+                        _wordsText += "<sym>coda</sym>";
                   _e.skipCurrentElement();
                   }
             else if (_e.name() == "segno") {
-                  _wordsText += "<sym>segno</sym>";
+                  const QString smufl = _e.attributes().value("smufl").toString();
+                  if (!smufl.isEmpty())
+                      _wordsText += "<sym>" + smufl + "</sym>";
+                  else
+                      _wordsText += "<sym>segno</sym>";
+                  _e.skipCurrentElement();
+                        }
+            else if (_e.name() == "eyeglasses") {
+                  _wordsText += "<sym>miscEyeglasses</sym>";
                   _e.skipCurrentElement();
                   }
             else if (_e.name() == "symbol") {
