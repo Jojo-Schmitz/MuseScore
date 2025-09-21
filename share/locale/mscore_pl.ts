@@ -2952,7 +2952,7 @@ space unit</extracomment>
         <location filename="../../mscore/editstyle.ui" line="7063"/>
         <location filename="../../mscore/editstyle.ui" line="7281"/>
         <source>Line thickness at end:</source>
-        <translation>Grubość linii końcowej:</translation>
+        <translation>Grubość linii na końcu:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="7168"/>
@@ -4524,7 +4524,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
         <location filename="../../mscore/editstyle.ui" line="7181"/>
         <location filename="../../mscore/editstyle.ui" line="7415"/>
         <source>Reset &apos;Line thickness at end&apos; value</source>
-        <translation>Resetuj wartość &quot;Grubość linii końcowej&quot;</translation>
+        <translation>Resetuj wartość &quot;Grubość linii na końcu&quot;</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="7014"/>
