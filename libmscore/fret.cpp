@@ -1219,6 +1219,10 @@ void FretDiagram::add(Element* e)
       if (e->isHarmony()) {
             _harmony = toHarmony(e);
             _harmony->setTrack(track());
+
+            //! on the same lavel as diagram
+            _harmony->setZ(z());
+
             if (_harmony->propertyFlags(Pid::OFFSET) == PropertyFlags::STYLED)
                   _harmony->resetProperty(Pid::OFFSET);
             _harmony->setProperty(Pid::ALIGN, int(Align::HCENTER | Align::TOP));
