@@ -662,7 +662,7 @@ static int convertNote(const QString& s, NoteSpellingType noteSpelling, NoteCase
 //   parseHarmony
 //    determine root and bass tpc & case
 //    compare body of chordname against chord list
-//    return true if chord is recognized
+//    return nullptr if chord is not recognized
 //---------------------------------------------------------
 
 const ChordDescription* Harmony::parseHarmony(const QString& ss, int* root, int* base, bool syntaxOnly)
@@ -670,7 +670,7 @@ const ChordDescription* Harmony::parseHarmony(const QString& ss, int* root, int*
       _id = -1;
       if (_parsedForm) {
             delete _parsedForm;
-            _parsedForm = 0;
+            _parsedForm = nullptr;
             }
       _textName.clear();
       bool useLiteral = false;
@@ -682,7 +682,7 @@ const ChordDescription* Harmony::parseHarmony(const QString& ss, int* root, int*
             _textName = ss;
             *root = Tpc::TPC_INVALID;
             *base = Tpc::TPC_INVALID;
-            return 0;
+            return nullptr;
             }
 
       // pre-process for parentheses
@@ -694,7 +694,7 @@ const ChordDescription* Harmony::parseHarmony(const QString& ss, int* root, int*
       if (_leftParen || _rightParen)
             s = s.simplified();     // in case of spaces inside parentheses
       if (s.isEmpty())
-            return 0;
+            return nullptr;
 
       // pre-process for lower case minor chords
       bool preferMinor;
@@ -725,7 +725,7 @@ const ChordDescription* Harmony::parseHarmony(const QString& ss, int* root, int*
                         qDebug("failed <%s>", qPrintable(ss));
                         _userName = s;
                         _textName = s;
-                        return 0;
+                        return nullptr;
                         }
                   }
             *root = r;
@@ -750,7 +750,7 @@ const ChordDescription* Harmony::parseHarmony(const QString& ss, int* root, int*
 
       _userName = s;
       const ChordList* cl = score()->style().chordList();
-      const ChordDescription* cd = 0;
+      const ChordDescription* cd = nullptr;
       if (useLiteral)
             cd = descr(s);
       else {
