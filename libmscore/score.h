@@ -20,12 +20,12 @@
 
 #include "input.h"
 #include "instrument.h"
-#include "select.h"
-#include "synthesizerstate.h"
-#include "mscoreview.h"
-#include "spannermap.h"
 #include "layoutbreak.h"
+#include "mscoreview.h"
 #include "property.h"
+#include "select.h"
+#include "spannermap.h"
+#include "synthesizerstate.h"
 #include "sym.h"
 
 namespace Ms {
@@ -857,6 +857,7 @@ class Score : public QObject, public ScoreElement {
       Segment* tick2leftSegmentMM(const Fraction& tick) { return tick2leftSegment(tick, /* useMMRest */ true); }
       void fixTicks();
       void rebuildTempoAndTimeSigMaps(Measure* m);
+      void fixAnacrusisTempo(const std::vector<Measure*>& measures) const;
       Element* nextElement();
       Element* prevElement();
       ChordRest* cmdNextPrevSystem(ChordRest*, bool);
