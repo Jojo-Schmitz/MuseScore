@@ -13,11 +13,65 @@
 #ifndef __STARTCENTER_H__
 #define __STARTCENTER_H__
 
-#include "config.h"
+#ifdef USE_WEBENGINE
+#include <QWebEngineUrlRequestInterceptor>
+#include <QWebEngineUrlRequestInfo>
+#include <QWebEnginePage>
+#include <QWebEngineProfile>
+#include <QWebEngineView>
+#endif
+
 #include "abstractdialog.h"
 #include "ui_startcenter.h"
 
 namespace Ms {
+
+#ifdef USE_WEBENGINE
+
+class MyWebUrlRequestInterceptor : public QWebEngineUrlRequestInterceptor {
+    Q_OBJECT
+
+    public:
+      MyWebUrlRequestInterceptor(QObject* p = Q_NULLPTR)
+            : QWebEngineUrlRequestInterceptor(p) {}
+
+      void interceptRequest(QWebEngineUrlRequestInfo& info)
+            {
+            info.setHttpHeader("Accept-Language",
+                  QString("%1;q=0.8,en-US;q=0.6,en;q=0.4").arg(mscore->getLocaleISOCode()).toUtf8());
+            }
+      };
+
+//---------------------------------------------------------
+//   MyWebEnginePage
+//---------------------------------------------------------
+
+class MyWebEnginePage : public QWebEnginePage {
+    Q_OBJECT
+
+    public:
+      MyWebEnginePage(QObject* parent = Q_NULLPTR)
+            : QWebEnginePage(parent) {}
+
+      bool acceptNavigationRequest(const QUrl& url, QWebEnginePage::NavigationType type, bool isMainFrame);
+      };
+
+//---------------------------------------------------------
+//   MyWebEngineView
+//---------------------------------------------------------
+
+class MyWebView : public QWebEngineView {
+    Q_OBJECT
+
+   public slots:
+
+   public:
+      MyWebView(QWidget* parent = 0);
+      ~MyWebView();
+      virtual QSize sizeHint() const;
+      };
+
+#endif //USE_WEBENGINE
 
 //---------------------------------------------------------
 //   Startcenter
@@ -25,7 +79,10 @@ namespace Ms {
 
 class Startcenter : public AbstractDialog, public Ui::Startcenter {
       Q_OBJECT
-      virtual void closeEvent(QCloseEvent*);
+#ifdef USE_WEBENGINE
+      MyWebView* _webView;
+#endif
+      virtual void closeEvent(QCloseEvent*) override;
 
     private slots:
       void loadScore(QString);
@@ -33,7 +90,7 @@ class Startcenter : public AbstractDialog, public Ui::Startcenter {
       void openScoreClicked();
 
     protected:
-      virtual void retranslate() { retranslateUi(this); }
+      virtual void retranslate() override { retranslateUi(this); }
 
     signals:
       void closed(bool);
