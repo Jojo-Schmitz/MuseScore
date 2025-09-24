@@ -26039,12 +26039,12 @@ zakończone niepowodzeniem.</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1499"/>
         <source>Other…</source>
-        <translation>Pozostałe…</translation>
+        <translation>Inna…</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1500"/>
         <source>Other tuplets</source>
-        <translation>Pozostałe grupy niemiarowe</translation>
+        <translation>Inne grupy niemiarowe</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1506"/>
