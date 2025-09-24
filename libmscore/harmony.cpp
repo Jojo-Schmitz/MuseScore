@@ -1378,6 +1378,7 @@ QPoint Harmony::calculateBoundingRect()
       const qreal        standardNoteWidth = symWidth(SymId::noteheadBlack);
       qreal              newx = 0.0;
       qreal              newy = 0.0;
+      const bool alignToFretDiagram = fd && fd->visible();
 
       if (textList.empty()) {
             TextBase::layout1();
@@ -1387,7 +1388,7 @@ QPoint Harmony::calculateBoundingRect()
 
             qreal xx = 0.0;
             qreal yy = 0.0;
-            if (fd) {
+            if (alignToFretDiagram) {
                   if (align() & Align::RIGHT)
                         xx = fd->width() / 2.0;
                   yy = rypos();
@@ -1405,7 +1406,7 @@ QPoint Harmony::calculateBoundingRect()
             }
       else {
             QRectF bb;
-            for (TextSegment* ts : qAsConst(textList))
+            for (TextSegment*& ts : textList)
                   bb |= ts->tightBoundingRect().translated(ts->x, ts->y);
 
             qreal yy = -bb.y();  // Align::TOP
@@ -1417,7 +1418,7 @@ QPoint Harmony::calculateBoundingRect()
                   yy = -bb.height() - bb.y();
 
             qreal xx = -bb.x(); // Align::LEFT
-            if (fd) {
+            if (alignToFretDiagram) {
                   if (align() & Align::RIGHT)
                         xx = fd->bbox().width() - bb.width();
                   else if (align() & Align::HCENTER)
@@ -1436,7 +1437,7 @@ QPoint Harmony::calculateBoundingRect()
                   newy = ypos;
                   }
 
-            for (TextSegment* ts : qAsConst(textList))
+            for (TextSegment*& ts : textList)
                   ts->offset = QPointF(xx, yy);
 
             setbbox(bb.translated(xx, yy));
@@ -1454,6 +1455,10 @@ QPoint Harmony::calculateBoundingRect()
                         }
 
                   }
+            }
+      if (fd && !fd->visible()) {
+            // Translate to base position around note
+            newx -= fd->pos().x();
             }
       return QPoint(newx, newy);
       }
@@ -2228,11 +2233,13 @@ QVariant Harmony::propertyDefault(Pid id) const
                         }
                   }
                   break;
-            case Pid::OFFSET:
-                  if (parent() && parent()->isFretDiagram()) {
+            case Pid::OFFSET: {
+                  const FretDiagram* fd = parent() && parent()->isFretDiagram() ? toFretDiagram(parent()) : nullptr;
+                  if (fd && fd->visible()) {
                         v = QVariant(QPointF(0.0, 0.0));
                         break;
                         }
+                  }
                   // fall-through
             default:
                   v = TextBase::propertyDefault(id);
@@ -2248,7 +2255,8 @@ QVariant Harmony::propertyDefault(Pid id) const
 Sid Harmony::getPropertyStyle(Pid pid) const
       {
       if (pid == Pid::OFFSET) {
-            if (parent() && parent()->isFretDiagram())
+            const FretDiagram* fd = parent() && parent()->isFretDiagram() ? toFretDiagram(parent()) : nullptr;
+            if (fd && fd->visible())
                   return Sid::NOSTYLE;
             else if (tid() == Tid::HARMONY_A)
                   return placeAbove() ? Sid::chordSymbolAPosAbove : Sid::chordSymbolAPosBelow;
