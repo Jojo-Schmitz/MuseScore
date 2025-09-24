@@ -1690,6 +1690,8 @@ void TextBase::createLayout()
                   }
             else if (state == 1) {
                   if (c == '>') {
+                        static QString prevFontFace;
+                        static qreal prevFontSize = 0;
                         bool unstyleFontStyle = false;
                         state = 0;
                         if (token == "b") {
@@ -1710,12 +1712,22 @@ void TextBase::createLayout()
                               }
                         else if (token == "/u")
                               cursor.format()->setUnderline(false);
-                        else if (token == "sub")
+                        else if (token == "s") {
+                              cursor.format()->setStrike(true);
+                              unstyleFontStyle = true;
+                              }
+                        else if (token == "/s")
+                              cursor.format()->setStrike(false);
+                        else if (token == "sub") {
                               cursor.format()->setValign(VerticalAlignment::AlignSubScript);
+                              unstyleFontStyle = true;
+                              }
                         else if (token == "/sub")
                               cursor.format()->setValign(VerticalAlignment::AlignNormal);
-                        else if (token == "sup")
+                        else if (token == "sup") {
                               cursor.format()->setValign(VerticalAlignment::AlignSuperScript);
+                              unstyleFontStyle = true;
+                              }
                         else if (token == "/sup")
                               cursor.format()->setValign(VerticalAlignment::AlignNormal);
                         else if (token == "sym") {
@@ -1740,20 +1752,43 @@ void TextBase::createLayout()
                                     }
                               }
                         else if (token.startsWith("font ")) {
-                              token = token.mid(5);
-                              if (token.startsWith("size=\"")) {
-                                    cursor.format()->setFontSize(parseNumProperty(token.mid(6)));
-                                    setPropertyFlags(Pid::FONT_SIZE, PropertyFlags::UNSTYLED);
+                              token = token.mid(5).trimmed();
+                              while (!token.isEmpty()) {
+                                    if (token.startsWith("size=\"")) {
+                                          qreal size = parseNumProperty(token.mid(6));
+                                          token = token.mid(token.indexOf('"', 6) + 1).trimmed();
+                                          if (!token.endsWith("/"))
+                                                prevFontSize = cursor.format()->fontSize();
+                                          cursor.format()->setFontSize(size);
+                                          setPropertyFlags(Pid::FONT_SIZE, PropertyFlags::UNSTYLED);
+                                          }
+                                    else if (token.startsWith("face=\"")) {
+                                          QString face = parseStringProperty(token.mid(6));
+                                          face = unEscape(face);
+                                          token = token.mid(token.indexOf('"', 6) + 1).trimmed();
+                                          if (!token.endsWith("/"))
+                                                prevFontFace = cursor.format()->fontFamily();
+                                          cursor.format()->setFontFamily(face);
+                                          setPropertyFlags(Pid::FONT_FACE, PropertyFlags::UNSTYLED);
+                                          }
+                                    else if (token == "/")
+                                          break;
+                                    else {
+                                          qDebug("cannot parse html property <%s> in text <%s>",
+                                                 qPrintable(token), qPrintable(_text));
+                                          break;
+                                          }
                                     }
-                              else if (token.startsWith("face=\"")) {
-                                    QString face = parseStringProperty(token.mid(6));
-                                    face = unEscape(face);
-                                    cursor.format()->setFontFamily(face);
-                                    setPropertyFlags(Pid::FONT_FACE, PropertyFlags::UNSTYLED);
+                              }
+                        else if ( token == "/font" ) {
+                              if (prevFontSize) {
+                                    cursor.format()->setFontSize(prevFontSize);
+                                    prevFontSize = 0;
                                     }
-                              else
-                                    qDebug("cannot parse html property <%s> in text <%s>",
-                                       qPrintable(token), qPrintable(_text));
+                              if (!prevFontFace.isEmpty()) {
+                                    cursor.format()->setFontFamily(prevFontFace);
+                                    prevFontFace = "";
+                                    }
                               }
                         if (unstyleFontStyle)
                               setPropertyFlags(Pid::FONT_STYLE, PropertyFlags::UNSTYLED);
@@ -2075,10 +2110,14 @@ void TextBase::genText() const
                               xmlNesting.popS();
                         }
 
-                  if (format.fontSize() != fmt.fontSize())
-                        _text += QString("<font size=\"%1\"/>").arg(format.fontSize());
-                  if (format.fontFamily() != fmt.fontFamily())
-                        _text += QString("<font face=\"%1\"/>").arg(TextBase::escape(format.fontFamily()));
+                  if (fmt.fontSize() != format.fontSize() || fmt.fontFamily() != format.fontFamily()) {
+                        _text += "<font";
+                        if (fmt.fontSize() != format.fontSize())
+                              _text += QString(" size=\"%1\"/>").arg(format.fontSize());
+                        if (fmt.fontFamily() != format.fontFamily())
+                              _text += QString(" face=\"%1\"/>").arg(TextBase::escape(format.fontFamily()));
+                        _text += "/>";
+                        }
 
                   VerticalAlignment va = format.valign();
                   VerticalAlignment cva = fmt.valign();
@@ -3314,10 +3353,15 @@ QString TextBase::stripText(bool removeStyle, bool removeSize, bool removeFace) 
                               }
                         }
 
-                  if (!removeSize && (format.fontSize() != fmt.fontSize()))
-                        _txt += QString("<font size=\"%1\"/>").arg(format.fontSize());
-                  if (!removeFace && (format.fontFamily() != fmt.fontFamily()))
-                        _txt += QString("<font face=\"%1\"/>").arg(TextBase::escape(format.fontFamily()));
+                  if ((!removeSize && fmt.fontSize() != format.fontSize()) ||
+                      (!removeSize && fmt.fontSize() != format.fontSize())) {
+                        _txt += "<font";
+                        if (!removeSize && fmt.fontSize() != format.fontSize())
+                              _txt += QString(" size=\"%1\"").arg(format.fontSize());
+                        if (!removeFace && fmt.fontFamily() != format.fontFamily())
+                              _txt += QString(" face=\"%1\"").arg(TextBase::escape(format.fontFamily()));
+                        _txt += "/>"; // TODO: proper nesting with an end tag "</font>"
+                  }
 
                   VerticalAlignment va = format.valign();
                   VerticalAlignment cva = fmt.valign();
