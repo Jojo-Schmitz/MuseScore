@@ -686,6 +686,8 @@ void Slur::slurPos(SlurPos* sp)
                   pt = sc->stemPos() - sc->pagePos() + sc->stem()->p2();
                   if (useTablature)                   // in tabs, stems are centred on note:
                         pt.rx() = hw1 * 0.5 + (note1 ? note1->bboxXShift() : 0.0);          // skip half notehead to touch stem, anatoly-os: incorrect. half notehead width is not always the stem position
+                  else
+                        pt.rx() = (note1 ? (_up ? note1->stemUpSE().x() : note1->stemDownNW().x()) : 0.0) + (note1 ? note1->bboxXShift() : 0.0);
                   // clear the stem (x)
                   // allow slight overlap (y) as per Gould
                   // don't allow overlap with hook if not disabling the autoplace checks against start/end segments in SlurSegment::layoutSegment()
@@ -706,6 +708,8 @@ void Slur::slurPos(SlurPos* sp)
                   pt = ec->stemPos() - ec->pagePos() + ec->stem()->p2();
                   if (useTablature)
                         pt.rx() = hw2 * 0.5;
+                  else
+                        pt.rx() = (note2 ? (_up ? note2->stemUpSE().x() : note2->stemDownNW().x()) : 0.0);
                   // don't allow overlap with beam
                   qreal yadj = ec->beam() ? 0.75 : -0.25;
                   yadj *= _spatium * __up;
