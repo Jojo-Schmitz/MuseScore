@@ -22,9 +22,6 @@
       <stemWidth>0.125</stemWidth>
       <staffLineWidth>0.125</staffLineWidth>
       <ledgerLineWidth>0.15625</ledgerLineWidth>
-      <chordSymbolAFontSize>22</chordSymbolAFontSize>
-      <chordSymbolBFontSize>22</chordSymbolBFontSize>
-      <nashvilleNumberFontSize>22</nashvilleNumberFontSize>
       <smallNoteMag>0.75</smallNoteMag>
       <graceNoteMag>0.6</graceNoteMag>
       <concertPitch>1</concertPitch>
@@ -32,45 +29,6 @@
       <slurMidWidth>0.21875</slurMidWidth>
       <tieEndWidth>0.0625</tieEndWidth>
       <tieMidWidth>0.21875</tieMidWidth>
-      <tupletFontSize>22</tupletFontSize>
-      <fingeringFontSize>22</fingeringFontSize>
-      <lhGuitarFingeringFontSize>22</lhGuitarFingeringFontSize>
-      <rhGuitarFingeringFontSize>22</rhGuitarFingeringFontSize>
-      <stringNumberFontSize>22</stringNumberFontSize>
-      <longInstrumentFontSize>22</longInstrumentFontSize>
-      <shortInstrumentFontSize>22</shortInstrumentFontSize>
-      <partInstrumentFontSize>22</partInstrumentFontSize>
-      <dynamicsFontSize>22</dynamicsFontSize>
-      <expressionFontSize>22</expressionFontSize>
-      <tempoFontSize>22</tempoFontSize>
-      <metronomeFontSize>22</metronomeFontSize>
-      <measureNumberFontSize>22</measureNumberFontSize>
-      <mmRestRangeFontSize>22</mmRestRangeFontSize>
-      <translatorFontSize>22</translatorFontSize>
-      <systemFontSize>22</systemFontSize>
-      <staffFontSize>22</staffFontSize>
-      <rehearsalMarkFontSize>22</rehearsalMarkFontSize>
-      <repeatLeftFontSize>22</repeatLeftFontSize>
-      <repeatRightFontSize>22</repeatRightFontSize>
-      <frameFontSize>22</frameFontSize>
-      <glissandoFontSize>22</glissandoFontSize>
-      <bendFontSize>22</bendFontSize>
-      <headerFontSize>22</headerFontSize>
-      <footerFontSize>22</footerFontSize>
-      <instrumentChangeFontSize>22</instrumentChangeFontSize>
-      <stickingFontSize>22</stickingFontSize>
-      <user1FontSize>22</user1FontSize>
-      <user2FontSize>22</user2FontSize>
-      <user3FontSize>22</user3FontSize>
-      <user4FontSize>22</user4FontSize>
-      <user5FontSize>22</user5FontSize>
-      <user6FontSize>22</user6FontSize>
-      <user7FontSize>22</user7FontSize>
-      <user8FontSize>22</user8FontSize>
-      <user9FontSize>22</user9FontSize>
-      <user10FontSize>22</user10FontSize>
-      <user11FontSize>22</user11FontSize>
-      <user12FontSize>22</user12FontSize>
       <Spatium>1.75</Spatium>
       </Style>
     <showInvisible>1</showInvisible>
@@ -168,7 +126,6 @@ Arranged by [Arranger]</metaTag>
           </Text>
         <Text>
           <style>Subtitle</style>
-          <offset x="0" y="9.45"/>
           <text><font size="11.94"/>for Piano</text>
           </Text>
         <Text>

@@ -23,53 +23,11 @@
       <staffLineWidth>0.09115</staffLineWidth>
       <ledgerLineWidth>0.11003</ledgerLineWidth>
       <hairpinWidth>0.10026</hairpinWidth>
-      <chordSymbolAFontSize>10.25</chordSymbolAFontSize>
-      <chordSymbolBFontSize>10.25</chordSymbolBFontSize>
-      <nashvilleNumberFontSize>10.25</nashvilleNumberFontSize>
       <smallNoteMag>0.6</smallNoteMag>
       <graceNoteMag>0.6</graceNoteMag>
       <voltaLineWidth>0.13021</voltaLineWidth>
       <tupletBracketWidth>0.10026</tupletBracketWidth>
-      <tupletFontSize>10.25</tupletFontSize>
-      <fingeringFontSize>10.25</fingeringFontSize>
-      <lhGuitarFingeringFontSize>10.25</lhGuitarFingeringFontSize>
-      <rhGuitarFingeringFontSize>10.25</rhGuitarFingeringFontSize>
-      <stringNumberFontSize>10.25</stringNumberFontSize>
-      <longInstrumentFontSize>10.25</longInstrumentFontSize>
-      <shortInstrumentFontSize>10.25</shortInstrumentFontSize>
-      <partInstrumentFontSize>10.25</partInstrumentFontSize>
-      <dynamicsFontSize>10.25</dynamicsFontSize>
-      <expressionFontSize>10.25</expressionFontSize>
-      <tempoFontSize>10.25</tempoFontSize>
-      <metronomeFontSize>10.25</metronomeFontSize>
-      <measureNumberFontSize>10.25</measureNumberFontSize>
-      <mmRestRangeFontSize>10.25</mmRestRangeFontSize>
-      <translatorFontSize>10.25</translatorFontSize>
-      <systemFontSize>10.25</systemFontSize>
-      <staffFontSize>10.25</staffFontSize>
       <staffFrameWidth>0.13021</staffFrameWidth>
-      <rehearsalMarkFontSize>10.25</rehearsalMarkFontSize>
-      <repeatLeftFontSize>10.25</repeatLeftFontSize>
-      <repeatRightFontSize>10.25</repeatRightFontSize>
-      <frameFontSize>10.25</frameFontSize>
-      <glissandoFontSize>10.25</glissandoFontSize>
-      <bendFontSize>10.25</bendFontSize>
-      <headerFontSize>10.25</headerFontSize>
-      <footerFontSize>10.25</footerFontSize>
-      <instrumentChangeFontSize>10.25</instrumentChangeFontSize>
-      <stickingFontSize>10.25</stickingFontSize>
-      <user1FontSize>10.25</user1FontSize>
-      <user2FontSize>10.25</user2FontSize>
-      <user3FontSize>10.25</user3FontSize>
-      <user4FontSize>10.25</user4FontSize>
-      <user5FontSize>10.25</user5FontSize>
-      <user6FontSize>10.25</user6FontSize>
-      <user7FontSize>10.25</user7FontSize>
-      <user8FontSize>10.25</user8FontSize>
-      <user9FontSize>10.25</user9FontSize>
-      <user10FontSize>10.25</user10FontSize>
-      <user11FontSize>10.25</user11FontSize>
-      <user12FontSize>10.25</user12FontSize>
       <Spatium>1.80798</Spatium>
       </Style>
     <showInvisible>1</showInvisible>

@@ -7180,8 +7180,15 @@ static void writeStaffDetails(XmlWriter& xml, const Part* part, const QVector<in
                               }
                         }
 
-                  if (!qFuzzyCompare(staffMag, 1.0))
-                        xml.tag("staff-size", staffMag * 100);
+                  const qreal lineDistance = st->lineDistance(Fraction(0, 1));
+                  const bool needWriteLineDistance = !qFuzzyCompare(lineDistance, 1.0);
+                  const bool needWriteMag = !qFuzzyCompare(staffMag, 1.0);
+                  if (needWriteLineDistance || needWriteMag) {
+                        QString staffSize = "staff-size";
+                        if (needWriteMag)
+                              staffSize += QString(" scale=\"%1\"").arg(staffMag);
+                        xml.tag(staffSize, lineDistance * 100);
+                        }
 
                   xml.etag();
                   }
