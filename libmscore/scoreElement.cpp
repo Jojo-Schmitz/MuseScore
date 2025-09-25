@@ -394,8 +394,7 @@ bool ScoreElement::readProperty(const QStringRef& s, XmlReader& e, Pid id)
 //   writeProperty
 //
 //    - styled properties are never written
-//    - unstyled properties are always written regardless of value (bug?) or if forced,
-//    - properties without style are written if different from default value
+//    - other properties are written if forced or if different from default value
 //-----------------------------------------------------------------------------
 
 void ScoreElement::writeProperty(XmlWriter& xml, Pid pid, bool force) const
@@ -407,8 +406,7 @@ void ScoreElement::writeProperty(XmlWriter& xml, Pid pid, bool force) const
             qDebug("%s invalid property %d <%s>", name(), int(pid), propertyName(pid));
             return;
             }
-      PropertyFlags f = propertyFlags(pid);
-      QVariant d = !force && (f != PropertyFlags::STYLED) ? propertyDefault(pid) : QVariant();
+      QVariant d = force ? QVariant() : propertyDefault(pid);
 
       if (pid == Pid::FONT_STYLE) {
             FontStyle ds = FontStyle(d.isValid() ? d.toInt() : 0);
