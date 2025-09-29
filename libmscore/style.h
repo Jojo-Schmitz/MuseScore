@@ -1492,6 +1492,7 @@ class MStyle {
       bool readProperties440(XmlReader& e, int mscVersion);
       bool readProperties450(XmlReader& e, int mscVersion);
       bool readProperties460(XmlReader& e, int mscVersion);
+      bool readProperties470(XmlReader& e, int mscVersion);
       bool readStyleValCompat(XmlReader&);
       bool readTextStyleValCompat(XmlReader&);
 
