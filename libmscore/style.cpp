@@ -3745,7 +3745,7 @@ bool MStyle::readProperties440(XmlReader& e, int mscVersion)
 
 bool  MStyle::readProperties450(XmlReader& e, int mscVersion)
       {
-      if (/*mscVersion >= 460 && */readProperties460(e, mscVersion))
+      if (mscVersion >= 460 && readProperties460(e, mscVersion))
             return true;
 
       const QStringRef& tag(e.name());
@@ -3820,11 +3820,26 @@ bool  MStyle::readProperties450(XmlReader& e, int mscVersion)
 
 bool  MStyle::readProperties460(XmlReader& e, int mscVersion)
       {
-      if (mscVersion > 460)
-            qDebug("Yet unknown version detected");
+      if (/*mscVersion >= 470 && */readProperties470(e, mscVersion))
+            return true;
 
       const QStringRef& tag(e.name());
 
+      //if (tag == "pagePrintableWidth")                            // rounding issue, so let's pass
+      //     return false;
+      //else if (tag == "pageEvenLeftMargin")                       // rounding issue, so let's pass
+      //     return false;
+      //else if (tag == "pageOddLeftMargin")                        // rounding issue, so let's pass
+      //     return false;
+      //else if (tag == "pageEvenTopMargin")                        // rounding issue, so let's pass
+      //     return false;
+      //else if (tag == "pageEvenBottomMargin")                     // rounding issue, so let's pass
+      //     return false;
+      //else if (tag == "pageOddTopMargin")                         // rounding issue, so let's pass
+      //     return false;
+      //else if (tag == "pageOddBottomMargin")                      // rounding issue, so let's pass
+      //     return false;
+      //else
       if (     tag == "lyricsLimitDashCount"
             || tag == "lyricsMaxDashCount"
             || tag == "lyricsCenterDashedSyllables"
@@ -3843,22 +3858,12 @@ bool  MStyle::readProperties460(XmlReader& e, int mscVersion)
             }
       else if (tag == "spacingDensity")                             // Mu4.6+ only, let's skip
             e.skipCurrentElement();
-      else if (tag == "accidentalDistance") {                       // 0.25 -> 0.22
-            qreal accidentalDistance = e.readDouble();
-            if (!qFuzzyCompare(accidentalDistance, 0.22))           // Changed from 4.6+ default
-                  set(Sid::accidentalDistance, accidentalDistance);
-            }
-      else if (tag == "articulationAnchorLuteFingering") {          // 1 -> 4
-            int articulationAnchorLuteFingering = e.readInt();
-            if (articulationAnchorLuteFingering != 4)               // Changed from 4.6+ default
-                  set(Sid::articulationAnchorLuteFingering, articulationAnchorLuteFingering);
-            }
       else if (tag == "hairpinPosition")                            // Mu4.6+ only, let's skip
             e.skipCurrentElement();
-      else if (tag == "pedalFontSize") {                            // 10 -> 12
-            int pedalFontSize = e.readInt();
-            if (pedalFontSize != 12)                                // Changed from 4.6+ default
-                  set(Sid::pedalFontSize, pedalFontSize);
+      else if (tag == "pedalHookHeight") {                          // -1.2 -> 1.2
+            qreal pedalHookHeight = e.readDouble();
+            if (!qFuzzyCompare(pedalHookHeight, 1.2))               // Changed from 4.6+ default
+                  set(Sid::pedalHookHeight, pedalHookHeight);
             }
       else if (tag == "pedalPosition")                              // Mu4.6+ only, let's skip
             e.skipCurrentElement();
@@ -3871,15 +3876,29 @@ bool  MStyle::readProperties460(XmlReader& e, int mscVersion)
             if (fretFrets != 4)                                     // Changed from 4.6+ default
                   set(Sid::fretFrets, fretFrets);
             }
-      else if (tag == "fretFretSpacing") {                          // 0.7 -> 0.8
-            qreal fretFretSpacing = e.readDouble();
-            if (!qFuzzyCompare(fretFretSpacing, 0.22))              // Changed from 4.6+ default
-                  set(Sid::fretFretSpacing, fretFretSpacing);
-            }
-      else if (tag == "barreLineWidth") {                           // 0.85 -> 1
-            qreal barreLineWidth = e.readDouble();
-            if (!qFuzzyCompare(barreLineWidth, 1))                  // Changed from 4.6+ default
-                  set(Sid::barreLineWidth, barreLineWidth);
+      else if (tag == "measureNumberPlacementMode") {               // measureNumberAllStaves -> measureNumberPlacementMode
+            bool measureNumberAllStaves;                            // 0 (false) -> above-system
+            QString measureNumberPlacementMode = e.readElementText();
+            if (measureNumberPlacementMode == "above-system")
+                  measureNumberAllStaves = false;                   // exact match
+            else if (measureNumberPlacementMode == "below-system") {
+                  qWarning() << "Unsupported measureNumberPlacementMode mode: \"" << measureNumberPlacementMode
+                             << "\", assuming \"above-system\"";
+                  measureNumberAllStaves = false;                   // ToDo, best match?!
+                  }
+            else if (measureNumberPlacementMode == "on-so-staves") {
+                  qWarning() << "Unsupported measureNumberPlacementMode mode: \"" << measureNumberPlacementMode
+                             << "\", assuming \"on-all-staves\"";
+                  measureNumberAllStaves = true;                    // ToDo, best match?!
+                  }
+            else if (measureNumberPlacementMode == "on-all-staves")
+                  measureNumberAllStaves = true;                    // exact match
+            else {
+                  measureNumberAllStaves = false;                   // pre-Mu4.6 default
+                  qDebug() << "Unknown measureNumberPlacementMode mode: \"" << measureNumberPlacementMode
+                           << "\", assuming \"above-system\"";
+                  }
+            set(Sid::measureNumberAllStaves, measureNumberAllStaves);
             }
       else if (tag == "barlineBeforeSigChange"
             || tag == "doubleBarlineBeforeKeySig"
@@ -3896,7 +3915,8 @@ bool  MStyle::readProperties460(XmlReader& e, int mscVersion)
                   }
             }
       else if (tag == "verticallyStackModifiers"
-            || tag == "chordStackedModiferMag"
+            || tag == "chordStackedModiferMag"                     // typo in early Mu4.6-dev
+            || tag == "chordStackedModifierMag"
             || tag == "chordBassNoteStagger"
             || tag == "chordBassNoteScale"
             || tag == "polychordDividerThickness"
@@ -3914,6 +3934,11 @@ bool  MStyle::readProperties460(XmlReader& e, int mscVersion)
             || tag == "voltaAlignStartBeforeKeySig"
             || tag == "voltaAlignEndLeftOfBarline")                 // Mu4.6+ only, let's skip
             e.skipCurrentElement();
+      else if (tag == "ottavaHookBelow") {                          // -1 -> 1
+            qreal ottavaHookBelow = e.readDouble();
+            if (!qFuzzyCompare(ottavaHookBelow, 1.0))               // Changed from 4.6+ default
+                  set(Sid::ottavaHookBelow, ottavaHookBelow);
+            }
       else if (tag == "ottavaPosition")                             // Mu4.6+ only, let's skip
             e.skipCurrentElement();
       else if (tag == "tupletPosition"
@@ -3956,8 +3981,6 @@ bool  MStyle::readProperties460(XmlReader& e, int mscVersion)
             || tag.startsWith("hopo")
             || tag.startsWith("lhTapping")
             || tag.startsWith("rhTapping"))                         // Mu4.6+ only, let's skip
-            e.skipCurrentElement();
-      else if (tag == "stringNumberPosition")                       // Mu4.6+ only, let's skip
             e.skipCurrentElement();
       else if (tag == "stringNumberPosition")                       // Mu4.6+ only, let's skip
             e.skipCurrentElement();
@@ -4101,6 +4124,48 @@ bool  MStyle::readProperties460(XmlReader& e, int mscVersion)
             e.skipCurrentElement();
       else if (tag == "systemObjectsBelowBottomStaff")              // Mu4.6+ only, let's skip
             e.skipCurrentElement();
+      //else if (tag == "spatium")                                  // rounding issue, so let's pass
+      //     return false;
+      else // still no match
+            return false;
+      return true;
+      }
+
+bool  MStyle::readProperties470(XmlReader& e, int mscVersion)
+      {
+#if 0
+      if (/*mscVersion >= 480 && */readProperties480(e, mscVersion))
+            return true
+#else
+      if (mscVersion > 470)
+            qDebug("Yet unknown version detected");
+#endif
+
+      const QStringRef& tag(e.name());
+
+      //if (tag == "pagePrintableWidth")           // rounding issue, so let's pass
+      //     return false;
+      //else if (tag == "pageEvenLeftMargin")      // rounding issue, so let's pass
+      //     return false;
+      //else if (tag == "pageOddLeftMargin")       // rounding issue, so let's pass
+      //     return false;
+      //else if (tag == "pageEvenTopMargin")       // rounding issue, so let's pass
+      //     return false;
+      //else if (tag == "pageEvenBottomMargin")    // rounding issue, so let's pass
+      //     return false;
+      //else if (tag == "pageOddTopMargin")        // rounding issue, so let's pass
+      //     return false;
+      //else if (tag == "pageOddBottomMargin")     // rounding issue, so let's pass
+      //     return false;
+      //else
+      if (tag == "harmonyHarmonyDistance")         // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
+      else if (tag == "showFretOnFullBendRelease") // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
+      else if (tag == "defaultsVersion")           // 4mm -> 4nn, let's skip, i.e. reset to Mu3's 302
+            e.skipCurrentElement();
+      //else if (tag == "spatium")                 // rounding issue, so let's pass
+      //     return false;
       else // still no match
             return false;
       return true;
