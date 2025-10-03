@@ -19,9 +19,11 @@ export MACOSX_DEPLOYMENT_TARGET=10.13
 
 if [ "$BUILD_ARCH" == "Apple" ]
 then
-    curl -LO https://github.com/macports/macports-base/releases/download/v2.10.7/MacPorts-2.10.7-13-Ventura.pkg
-    sudo installer -verbose -pkg MacPorts-2.10.7-13-Ventura.pkg -target /
-    rm MacPorts-2.10.7-13-Ventura.pkg
+    MACPORTSVERSION=2.11.5
+    MACOSVERSION=14-Sonoma
+    curl -LO https://github.com/macports/macports-base/releases/download/v${MACPORTSVERSION}/MacPorts-${MACPORTSVERSION}-${MACOSVERSION}.pkg
+    sudo installer -verbose -pkg MacPorts-${MACPORTSVERSION}-${MACOSVERSION}.pkg -target /
+    rm MacPorts-${MACPORTSVERSION}-${MACOSVERSION}.pkg
     export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
     echo -e "universal_target ${MACOSX_DEPLOYMENT_TARGET}\nmacosx_deployment_target ${MACOSX_DEPLOYMENT_TARGET}\nmacosx_sdk_version ${MACOSX_DEPLOYMENT_TARGET}" | sudo tee -a /opt/local/etc/macports/macports.conf
     sudo port install git pkgconfig cmake
