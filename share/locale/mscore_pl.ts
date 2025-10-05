@@ -1894,7 +1894,7 @@
         <location filename="../../mscore/editstaff.ui" line="930"/>
         <location filename="../../mscore/editstaff.ui" line="933"/>
         <source>Use single note dynamics</source>
-        <translation>Użyj pojedynczej nuty dynamiki</translation>
+        <translation>Użyj dynamiki pojedynczej nuty</translation>
     </message>
     <message>
         <location filename="../../mscore/editstaff.ui" line="951"/>
@@ -4839,7 +4839,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/editstyle.ui" line="4046"/>
         <source>After key signature if changing to fewer ♯ or ♭. Before if changing between ♯ and ♭</source>
-        <translation>Po oznaczeniu tonacji, jeśli zmienia się na mniej ♯ lub ♭. Przed, jeśli zmienia się między ♯ i ♭</translation>
+        <translation>Po oznaczeniu tonacji, jeśli zmienia się na mniej ♯ lub ♭; przed, jeśli zmienia się między ♯ i ♭</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="6178"/>
@@ -7852,7 +7852,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_hairpin.ui" line="91"/>
         <source>Reset &apos;Use single note dynamics&apos; value</source>
-        <translation>Resetuj wartość &quot;Użyj pojedynczej nuty dynamiki&quot;</translation>
+        <translation>Resetuj wartość &quot;Użyj dynamiki pojedynczej nuty&quot;</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_hairpin.ui" line="104"/>
@@ -7882,7 +7882,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_hairpin.ui" line="235"/>
         <source>Use single note dynamics</source>
-        <translation>Użyj pojedynczej nuty dynamiki</translation>
+        <translation>Użyj dynamiki pojedynczej nuty</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_hairpin.ui" line="277"/>
@@ -8079,7 +8079,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_image.ui" line="14"/>
         <source>Image Inspector</source>
-        <translation>Kontroler obrazów</translation>
+        <translation>Kontroler obrazu</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_image.ui" line="57"/>
@@ -10967,7 +10967,7 @@ oznaczeń metrycznych i tonacji</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_vibrato.ui" line="14"/>
         <source>Vibrato Inspector</source>
-        <translation>Kontroler vibrato</translation>
+        <translation>Kontroler vibrata</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_vibrato.ui" line="57"/>
