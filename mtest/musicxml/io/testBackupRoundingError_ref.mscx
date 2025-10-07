@@ -110,6 +110,9 @@
           <text>MuseScore testfile</text>
           </Text>
         </VBox>
+      <HBox>
+        <width>7</width>
+        </HBox>
       <Measure>
         <voice>
           <Clef>
@@ -205,7 +208,7 @@
             </Chord>
           <Beam>
             <StemDirection>up</StemDirection>
-            <l1>-12</l1>
+            <l1>-14</l1>
             <l2>-19</l2>
             </Beam>
           <Chord>
