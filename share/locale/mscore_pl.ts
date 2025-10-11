@@ -5874,7 +5874,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_ambitus.ui" line="14"/>
         <source>Ambitus Inspector</source>
-        <translation>Kontroler ambitusu</translation>
+        <translation>Kontroler ambitusów</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_ambitus.ui" line="57"/>
@@ -6323,7 +6323,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_arpeggio.ui" line="14"/>
         <source>Arpeggio Inspector</source>
-        <translation>Kontroler arpeggia</translation>
+        <translation>Kontroler arpeggiów</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_arpeggio.ui" line="57"/>
@@ -6499,7 +6499,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_barline.ui" line="14"/>
         <source>Barline Inspector</source>
-        <translation>Kontroler kreski taktowej</translation>
+        <translation>Kontroler kresek taktowych</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_barline.ui" line="57"/>
@@ -6602,7 +6602,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_beam.ui" line="14"/>
         <source>Beam Inspector</source>
-        <translation>Kontroler belki</translation>
+        <translation>Kontroler belek</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_beam.ui" line="57"/>
@@ -6715,7 +6715,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_bend.ui" line="17"/>
         <source>Bend Inspector</source>
-        <translation>Kontroler podciągnięcia</translation>
+        <translation>Kontroler podciągnięć</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_bend.ui" line="60"/>
@@ -6808,7 +6808,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_bracket.ui" line="14"/>
         <source>Bracket Inspector</source>
-        <translation>Kontroler klamry</translation>
+        <translation>Kontroler klamr</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_bracket.ui" line="57"/>
@@ -6836,7 +6836,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_break.ui" line="14"/>
         <source>Layout Break Inspector</source>
-        <translation>Kontroler łamania układu</translation>
+        <translation>Kontroler łamań układu</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_break.ui" line="57"/>
@@ -6849,7 +6849,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_caesura.ui" line="14"/>
         <source>Breath/Caesura Inspector</source>
-        <translation>Kontroler oddechu/cezury</translation>
+        <translation>Kontroler oddechów/cezur</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_caesura.ui" line="57"/>
@@ -6898,7 +6898,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_chord.ui" line="14"/>
         <source>Chord Inspector</source>
-        <translation>Kontroler akordu</translation>
+        <translation>Kontroler akordów</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_chord.ui" line="57"/>
@@ -6976,7 +6976,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_clef.ui" line="14"/>
         <source>Clef Inspector</source>
-        <translation>Kontroler klucza</translation>
+        <translation>Kontroler kluczy</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_clef.ui" line="60"/>
@@ -7127,7 +7127,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_element.ui" line="14"/>
         <source>Element Inspector</source>
-        <translation>Kontroler elementu</translation>
+        <translation>Kontroler elementów</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_element.ui" line="57"/>
@@ -7238,7 +7238,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_fermata.ui" line="14"/>
         <source>Fermata Inspector</source>
-        <translation>Kontroler fermaty</translation>
+        <translation>Kontroler fermat</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_fermata.ui" line="57"/>
@@ -7301,7 +7301,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_fingering.ui" line="14"/>
         <source>Fingering Inspector</source>
-        <translation>Kontroler palcowania</translation>
+        <translation>Kontroler palcowań</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_fingering.ui" line="57"/>
@@ -7329,7 +7329,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_frametext.ui" line="6"/>
         <source>Frame Text Inspector</source>
-        <translation>Kontroler tekstu ramki</translation>
+        <translation>Kontroler tekstu ramek</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_frametext.ui" line="49"/>
@@ -7352,7 +7352,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_fret.ui" line="14"/>
         <source>Fretboard Diagram Inspector</source>
-        <translation>Kontroler diagramu akordu</translation>
+        <translation>Kontroler diagramów akordów</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_fret.ui" line="57"/>
@@ -7535,7 +7535,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="14"/>
         <source>Glissando Inspector</source>
-        <translation>Kontroler glissanda</translation>
+        <translation>Kontroler glissand</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="57"/>
@@ -7728,7 +7728,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_group_element.ui" line="14"/>
         <source>Element Group Inspector</source>
-        <translation>Kontroler grupy elementu</translation>
+        <translation>Kontroler grupy elementów</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_group_element.ui" line="57"/>
@@ -7771,7 +7771,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_hbox.ui" line="14"/>
         <source>Horizontal Frame Inspector</source>
-        <translation>Kontroler ramki poziomej</translation>
+        <translation>Kontroler ramek poziomych</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_hbox.ui" line="60"/>
@@ -8011,7 +8011,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_harmony.ui" line="14"/>
         <source>Chord Symbol Inspector</source>
-        <translation>Kontroler symbolu akordu</translation>
+        <translation>Kontroler symbolów akordów</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_harmony.ui" line="57"/>
@@ -8079,7 +8079,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_image.ui" line="14"/>
         <source>Image Inspector</source>
-        <translation>Kontroler obrazu</translation>
+        <translation>Kontroler obrazów</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_image.ui" line="57"/>
@@ -8142,7 +8142,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_iname.ui" line="14"/>
         <source>Instrument Name Inspector</source>
-        <translation>Kontroler nazwy instrumentu</translation>
+        <translation>Kontroler nazw instrumentów</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_iname.ui" line="57"/>
@@ -8170,7 +8170,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_instrchange.ui" line="14"/>
         <source>Instrument Change Inspector</source>
-        <translation>Kontroler zmiany instrumentu</translation>
+        <translation>Kontroler zmian instrumentów</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_instrchange.ui" line="54"/>
@@ -8266,7 +8266,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_keysig.ui" line="14"/>
         <source>Key Signature Inspector</source>
-        <translation>Kontroler oznaczenia tonacji</translation>
+        <translation>Kontroler oznaczeń tonacji</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_keysig.ui" line="57"/>
@@ -8337,7 +8337,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_letring.ui" line="14"/>
         <source>Let Ring Inspector</source>
-        <translation>Kontroler wybrzmienia</translation>
+        <translation>Kontroler wybrzmień</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_letring.ui" line="57"/>
@@ -8577,7 +8577,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_mmrest.ui" line="14"/>
         <source>Multimeasure Rest Inspector</source>
-        <translation>Kontroler pauzy wielotaktowej</translation>
+        <translation>Kontroler pauz wielotaktowych</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_mmrest.ui" line="60"/>
@@ -8678,7 +8678,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_measurenumber.ui" line="14"/>
         <source>Measure Number Inspector</source>
-        <translation>Kontroler numeru taktu</translation>
+        <translation>Kontroler numerów taktów</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_measurenumber.ui" line="57"/>
@@ -8736,7 +8736,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="14"/>
         <source>Note Inspector</source>
-        <translation>Kontroler nuty</translation>
+        <translation>Kontroler nut</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="57"/>
@@ -8964,7 +8964,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_notedot.ui" line="14"/>
         <source>Note Dot Inspector</source>
-        <translation>Kontroler kropki nuty</translation>
+        <translation>Kontroler kropek nut</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_notedot.ui" line="57"/>
@@ -9007,7 +9007,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_ottava.ui" line="14"/>
         <source>Ottava Inspector</source>
-        <translation>Kontroler przenośnika oktawowego</translation>
+        <translation>Kontroler przenośników oktawowych</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_ottava.ui" line="57"/>
@@ -9095,7 +9095,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_palmmute.ui" line="14"/>
         <source>Palm Mute Inspector</source>
-        <translation>Kontroler palm mutingu</translation>
+        <translation>Kontroler palm mutingów</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_palmmute.ui" line="57"/>
@@ -9171,7 +9171,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_rest.ui" line="14"/>
         <source>Rest Inspector</source>
-        <translation>Kontroler pauzy</translation>
+        <translation>Kontroler pauz</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_rest.ui" line="60"/>
@@ -9194,7 +9194,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_sectionbreak.ui" line="14"/>
         <source>Section Break Inspector</source>
-        <translation>Kontroler łamania sekcji</translation>
+        <translation>Kontroler łamań sekcji</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_sectionbreak.ui" line="56"/>
@@ -9274,7 +9274,7 @@ oznaczeń metrycznych i tonacji</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_segment.ui" line="14"/>
         <source>Segment Inspector</source>
-        <translation>Kontroler segmentu</translation>
+        <translation>Kontroler segmentów</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_segment.ui" line="57"/>
@@ -9323,7 +9323,7 @@ oznaczeń metrycznych i tonacji</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_slur.ui" line="14"/>
         <source>Slur/Tie Inspector</source>
-        <translation>Kontroler łuku/ligatury</translation>
+        <translation>Kontroler łuków/ligatur</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_slur.ui" line="92"/>
@@ -9386,7 +9386,7 @@ oznaczeń metrycznych i tonacji</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_spacer.ui" line="6"/>
         <source>Spacer Inspector</source>
-        <translation>Kontroler odstępu</translation>
+        <translation>Kontroler odstępów</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_spacer.ui" line="49"/>
@@ -9415,7 +9415,7 @@ oznaczeń metrycznych i tonacji</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_stafftext.ui" line="14"/>
         <source>Staff/System Text Inspector</source>
-        <translation>Kontroler tekstu pięciolinii/systemu</translation>
+        <translation>Kontroler tekstu pięciolinii/systemów</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_stafftext.ui" line="57"/>
@@ -9463,7 +9463,7 @@ oznaczeń metrycznych i tonacji</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_stafftypechange.ui" line="14"/>
         <source>Staff Type Change Inspector</source>
-        <translation>Kontroler zmiany typu pięciolinii</translation>
+        <translation>Kontroler zmian typów pięciolinii</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_stafftypechange.ui" line="60"/>
@@ -9662,7 +9662,7 @@ oznaczeń metrycznych i tonacji</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_stem.ui" line="14"/>
         <source>Stem Inspector</source>
-        <translation>Kontroler laseczki</translation>
+        <translation>Kontroler laseczek</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_stem.ui" line="57"/>
@@ -9741,7 +9741,7 @@ oznaczeń metrycznych i tonacji</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_tbox.ui" line="14"/>
         <source>Text Frame Inspector</source>
-        <translation>Kontroler ramki tekstu</translation>
+        <translation>Kontroler ramek tekstu</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tbox.ui" line="57"/>
@@ -9874,7 +9874,7 @@ oznaczeń metrycznych i tonacji</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_tempotext.ui" line="14"/>
         <source>Tempo Text Inspector</source>
-        <translation>Kontroler tekstu oznaczenia tempa</translation>
+        <translation>Kontroler tekstu oznaczeń tempa</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tempotext.ui" line="57"/>
@@ -10387,7 +10387,7 @@ oznaczeń metrycznych i tonacji</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_timesig.ui" line="14"/>
         <source>Time Signature Inspector</source>
-        <translation>Kontroler oznaczenia metrycznego</translation>
+        <translation>Kontroler oznaczeń metrycznych</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_timesig.ui" line="60"/>
@@ -10430,7 +10430,7 @@ oznaczeń metrycznych i tonacji</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_tremolo.ui" line="14"/>
         <source>Tremolo Inspector</source>
-        <translation>Kontroler tremola/tremolanda</translation>
+        <translation>Kontroler tremoli/tremoland</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tremolo.ui" line="57"/>
@@ -10468,7 +10468,7 @@ oznaczeń metrycznych i tonacji</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_tremolobar.ui" line="14"/>
         <source>Tremolo Bar Inspector</source>
-        <translation>Kontroler wajchy tremolo</translation>
+        <translation>Kontroler wajch tremolo</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tremolobar.ui" line="57"/>
@@ -10536,7 +10536,7 @@ oznaczeń metrycznych i tonacji</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_trill.ui" line="14"/>
         <source>Trill Inspector</source>
-        <translation>Kontroler trylu</translation>
+        <translation>Kontroler trylów</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_trill.ui" line="57"/>
@@ -10644,7 +10644,7 @@ oznaczeń metrycznych i tonacji</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="14"/>
         <source>Tuplet Inspector</source>
-        <translation>Kontroler grupy niemiarowej</translation>
+        <translation>Kontroler grup niemiarowych</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="57"/>
@@ -10828,7 +10828,7 @@ oznaczeń metrycznych i tonacji</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_vbox.ui" line="14"/>
         <source>Vertical Frame Inspector</source>
-        <translation>Kontroler ramki pionowej</translation>
+        <translation>Kontroler ramek pionowych</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_vbox.ui" line="60"/>
@@ -10967,7 +10967,7 @@ oznaczeń metrycznych i tonacji</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_vibrato.ui" line="14"/>
         <source>Vibrato Inspector</source>
-        <translation>Kontroler vibrata</translation>
+        <translation>Kontroler vibrat</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_vibrato.ui" line="57"/>
@@ -11046,7 +11046,7 @@ oznaczeń metrycznych i tonacji</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_volta.ui" line="6"/>
         <source>Volta Inspector</source>
-        <translation>Kontroler volty</translation>
+        <translation>Kontroler volt</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_volta.ui" line="49"/>
