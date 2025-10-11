@@ -8011,7 +8011,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_harmony.ui" line="14"/>
         <source>Chord Symbol Inspector</source>
-        <translation>Kontroler symbolów akordów</translation>
+        <translation>Kontroler symboli akordów</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_harmony.ui" line="57"/>
