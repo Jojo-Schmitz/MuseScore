@@ -804,57 +804,57 @@
     <message>
         <location filename="../../mscore/editpitch.ui" line="54"/>
         <source>Octave 9</source>
-        <translation type="unfinished">Octava 9</translation>
+        <translation>octava a șasea</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="59"/>
         <source>Octave 8</source>
-        <translation>Octava 8</translation>
+        <translation>octava a cincea</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="64"/>
         <source>Octave 7</source>
-        <translation>Octava 7</translation>
+        <translation>octava a patra</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="69"/>
         <source>Octave 6</source>
-        <translation>Octava 6</translation>
+        <translation>octava a treia</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="74"/>
         <source>Octave 5</source>
-        <translation>Octava 5</translation>
+        <translation>octava a doua</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="79"/>
         <source>Octave 4</source>
-        <translation>Octava 4</translation>
+        <translation>octava întâi</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="84"/>
         <source>Octave 3</source>
-        <translation>Octava 3</translation>
+        <translation>octava mică</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="89"/>
         <source>Octave 2</source>
-        <translation>Octava 2</translation>
+        <translation>octava mare</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="94"/>
         <source>Octave 1</source>
-        <translation>Octava 1</translation>
+        <translation>contraoctavă</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="99"/>
         <source>Octave 0</source>
-        <translation>Octava 0</translation>
+        <translation>subcontraoctavă</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="104"/>
         <source>Octave -1</source>
-        <translation>Octava -1</translation>
+        <translation>subsubcontraoctavă</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="109"/>
@@ -873,8 +873,173 @@
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="124"/>
-        <source>E♭</source>
-        <translation>Mi♭</translation>
+        <source>D♯</source>
+        <translation>Re♯</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="149"/>
+        <source>G♯</source>
+        <translation>Sol♯</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="159"/>
+        <source>A♯</source>
+        <translation>La♯</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="194"/>
+        <source>D♯ 9</source>
+        <translation>re♯⁶</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="274"/>
+        <source>D♯ 8</source>
+        <translation>re♯⁵</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="314"/>
+        <source>G♯ 8</source>
+        <translation>sol♯⁵</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="330"/>
+        <source>A♯ 8</source>
+        <translation>la♯⁵</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="384"/>
+        <source>D♯ 7</source>
+        <translation>re♯⁴</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="424"/>
+        <source>G♯ 7</source>
+        <translation>sol♯⁴</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="440"/>
+        <source>A♯ 7</source>
+        <translation>la♯⁴</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="494"/>
+        <source>D♯ 6</source>
+        <translation>re♯³</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="534"/>
+        <source>G♯ 6</source>
+        <translation>sol♯³</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="550"/>
+        <source>A♯ 6</source>
+        <translation>la♯³</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="604"/>
+        <source>D♯ 5</source>
+        <translation>re♯²</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="644"/>
+        <source>G♯ 5</source>
+        <translation>sol♯²</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="660"/>
+        <source>A♯ 5</source>
+        <translation>la♯²</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="714"/>
+        <source>D♯ 4</source>
+        <translation>re♯¹</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="758"/>
+        <source>G♯ 4</source>
+        <translation>sol♯¹</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="774"/>
+        <source>A♯ 4</source>
+        <translation>la♯¹</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="828"/>
+        <source>D♯ 3</source>
+        <translation>re♯</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="872"/>
+        <source>G♯ 3</source>
+        <translation>sol♯</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="888"/>
+        <source>A♯ 3</source>
+        <translation>la♯</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="942"/>
+        <source>D♯ 2</source>
+        <translation>Re♯</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="982"/>
+        <source>G♯ 2</source>
+        <translation>Sol♯</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="998"/>
+        <source>A♯ 2</source>
+        <translation>La♯</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="1052"/>
+        <source>D♯ 1</source>
+        <translation>Re♯₁</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="1092"/>
+        <source>G♯ 1</source>
+        <translation>Sol♯₁</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="1108"/>
+        <source>A♯ 1</source>
+        <translation>La♯₁</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="1162"/>
+        <source>D♯ 0</source>
+        <translation>Re♯₂</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="1202"/>
+        <source>G♯ 0</source>
+        <translation>Sol♯₂</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="1218"/>
+        <source>A♯ 0</source>
+        <translation>La♯₂</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="1272"/>
+        <source>D♯ -1</source>
+        <translation>Re♯₃</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="1312"/>
+        <source>G♯ -1</source>
+        <translation>Sol♯₃</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="1328"/>
+        <source>A♯ -1</source>
+        <translation>La♯₃</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="129"/>
@@ -897,19 +1062,9 @@
         <translation>Sol</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="149"/>
-        <source>A♭</source>
-        <translation>La♭</translation>
-    </message>
-    <message>
         <location filename="../../mscore/editpitch.ui" line="154"/>
         <source>A</source>
         <translation>La</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="159"/>
-        <source>B♭</source>
-        <translation>Si♭</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="164"/>
@@ -923,653 +1078,498 @@
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="174"/>
-        <location filename="../../mscore/editpitch.ui" line="341"/>
+        <location filename="../../mscore/editpitch.ui" line="346"/>
         <source>C 9</source>
-        <translation>Do 9</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="179"/>
-        <source>C♯ 9</source>
-        <translation>Do♯ 9</translation>
+        <translation>do⁶</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="184"/>
-        <source>D 9</source>
-        <translation>Re 9</translation>
+        <source>C♯ 9</source>
+        <translation>do♯⁶</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="189"/>
-        <source>E♭ 9</source>
-        <translation>Mi♭ 9</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="194"/>
-        <source>E 9</source>
-        <translation>Mi 9</translation>
+        <source>D 9</source>
+        <translation>re⁶</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="199"/>
-        <source>F 9</source>
-        <translation>Fa 9</translation>
+        <source>E 9</source>
+        <translation>mi⁶</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="204"/>
-        <source>F♯ 9</source>
-        <translation>Fa♯ 9</translation>
+        <source>F 9</source>
+        <translation>fa⁶</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="209"/>
+        <source>F♯ 9</source>
+        <translation>fa♯⁶</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/editpitch.ui" line="214"/>
         <source>G 9</source>
-        <translation>Sol 9</translation>
+        <translation>sol⁶</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="239"/>
-        <location filename="../../mscore/editpitch.ui" line="451"/>
+        <location filename="../../mscore/editpitch.ui" line="244"/>
+        <location filename="../../mscore/editpitch.ui" line="456"/>
         <source>C 8</source>
-        <translation>Do 8</translation>
+        <translation>do⁵</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="253"/>
+        <location filename="../../mscore/editpitch.ui" line="258"/>
         <source>C♯ 8</source>
-        <translation>Do♯ 8</translation>
+        <translation>do♯⁵</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="261"/>
+        <location filename="../../mscore/editpitch.ui" line="266"/>
         <source>D 8</source>
-        <translation>Re 8</translation>
+        <translation>re⁵</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="269"/>
-        <source>E♭ 8</source>
-        <translation>Mi♭ 8</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="277"/>
+        <location filename="../../mscore/editpitch.ui" line="282"/>
         <source>E 8</source>
-        <translation>Mi 8</translation>
+        <translation>mi⁵</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="285"/>
+        <location filename="../../mscore/editpitch.ui" line="290"/>
         <source>F 8</source>
-        <translation>Fa 8</translation>
+        <translation>fa⁵</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="293"/>
+        <location filename="../../mscore/editpitch.ui" line="298"/>
         <source>F♯ 8</source>
-        <translation>Fa♯ 8</translation>
+        <translation>fa♯⁵</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="301"/>
+        <location filename="../../mscore/editpitch.ui" line="306"/>
         <source>G 8</source>
-        <translation>Sol 8</translation>
+        <translation>sol⁵</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="309"/>
-        <source>A♭ 8</source>
-        <translation>La♭ 8</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="317"/>
+        <location filename="../../mscore/editpitch.ui" line="322"/>
         <source>A 8</source>
-        <translation>La 8</translation>
+        <translation>la⁵</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="325"/>
-        <source>B♭ 8</source>
-        <translation>Si♭ 8</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="333"/>
+        <location filename="../../mscore/editpitch.ui" line="338"/>
         <source>B 8</source>
-        <translation>Si 8</translation>
+        <translation>si⁵</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="349"/>
-        <location filename="../../mscore/editpitch.ui" line="561"/>
+        <location filename="../../mscore/editpitch.ui" line="354"/>
+        <location filename="../../mscore/editpitch.ui" line="566"/>
         <source>C 7</source>
-        <translation>Do 7</translation>
+        <translation>do⁴</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="363"/>
+        <location filename="../../mscore/editpitch.ui" line="368"/>
         <source>C♯ 7</source>
-        <translation>Do♯ 7</translation>
+        <translation>do♯⁴</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="371"/>
+        <location filename="../../mscore/editpitch.ui" line="376"/>
         <source>D 7</source>
-        <translation>Re 7</translation>
+        <translation>re⁴</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="379"/>
-        <source>E♭ 7</source>
-        <translation>Mi♭ 7</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="387"/>
+        <location filename="../../mscore/editpitch.ui" line="392"/>
         <source>E 7</source>
-        <translation>Mi 7</translation>
+        <translation>mi⁴</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="395"/>
+        <location filename="../../mscore/editpitch.ui" line="400"/>
         <source>F 7</source>
-        <translation>Fa 7</translation>
+        <translation>fa⁴</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="403"/>
+        <location filename="../../mscore/editpitch.ui" line="408"/>
         <source>F♯ 7</source>
-        <translation>Fa♯ 7</translation>
+        <translation>fa♯⁴</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="411"/>
+        <location filename="../../mscore/editpitch.ui" line="416"/>
         <source>G 7</source>
-        <translation>Sol 7</translation>
+        <translation>sol⁴</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="419"/>
-        <source>A♭ 7</source>
-        <translation>La♭ 7</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="427"/>
+        <location filename="../../mscore/editpitch.ui" line="432"/>
         <source>A 7</source>
-        <translation>La 7</translation>
+        <translation>la⁴</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="435"/>
-        <source>B♭ 7</source>
-        <translation>Si♭ 7</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="443"/>
+        <location filename="../../mscore/editpitch.ui" line="448"/>
         <source>B 7</source>
-        <translation>Si 7</translation>
+        <translation>si⁴</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="459"/>
-        <location filename="../../mscore/editpitch.ui" line="671"/>
+        <location filename="../../mscore/editpitch.ui" line="464"/>
+        <location filename="../../mscore/editpitch.ui" line="676"/>
         <source>C 6</source>
-        <translation>Do 6</translation>
+        <translation>do³</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="473"/>
+        <location filename="../../mscore/editpitch.ui" line="478"/>
         <source>C♯ 6</source>
-        <translation>Do♯ 6</translation>
+        <translation>do♯³</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="481"/>
+        <location filename="../../mscore/editpitch.ui" line="486"/>
         <source>D 6</source>
-        <translation>Re 6</translation>
+        <translation>re³</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="489"/>
-        <source>E♭ 6</source>
-        <translation>Mi♭ 6</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="497"/>
+        <location filename="../../mscore/editpitch.ui" line="502"/>
         <source>E 6</source>
-        <translation>Mi 6</translation>
+        <translation>mi³</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="505"/>
+        <location filename="../../mscore/editpitch.ui" line="510"/>
         <source>F 6</source>
-        <translation>Fa 6</translation>
+        <translation>fa³</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="513"/>
+        <location filename="../../mscore/editpitch.ui" line="518"/>
         <source>F♯ 6</source>
-        <translation>Fa♯ 6</translation>
+        <translation>fa♯³</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="521"/>
+        <location filename="../../mscore/editpitch.ui" line="526"/>
         <source>G 6</source>
-        <translation>Sol 6</translation>
+        <translation>sol³</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="529"/>
-        <source>A♭ 6</source>
-        <translation>La♭ 6</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="537"/>
+        <location filename="../../mscore/editpitch.ui" line="542"/>
         <source>A 6</source>
-        <translation>La 6</translation>
+        <translation>la³</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="545"/>
-        <source>B♭ 6</source>
-        <translation>Si♭ 6</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="553"/>
+        <location filename="../../mscore/editpitch.ui" line="558"/>
         <source>B 6</source>
-        <translation>Si 6</translation>
+        <translation>si³</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="569"/>
-        <location filename="../../mscore/editpitch.ui" line="785"/>
+        <location filename="../../mscore/editpitch.ui" line="574"/>
+        <location filename="../../mscore/editpitch.ui" line="790"/>
         <source>C 5</source>
-        <translation>Do 5</translation>
+        <translation>do²</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="583"/>
+        <location filename="../../mscore/editpitch.ui" line="588"/>
         <source>C♯ 5</source>
-        <translation>Do♯ 5</translation>
+        <translation>do♯²</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="591"/>
+        <location filename="../../mscore/editpitch.ui" line="596"/>
         <source>D 5</source>
-        <translation>Re 5</translation>
+        <translation>re²</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="599"/>
-        <source>E♭ 5</source>
-        <translation>Mi♭ 5</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="607"/>
+        <location filename="../../mscore/editpitch.ui" line="612"/>
         <source>E 5</source>
-        <translation>Mi 5</translation>
+        <translation>mi²</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="615"/>
+        <location filename="../../mscore/editpitch.ui" line="620"/>
         <source>F 5</source>
-        <translation>Fa 5</translation>
+        <translation>fa²</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="623"/>
+        <location filename="../../mscore/editpitch.ui" line="628"/>
         <source>F♯ 5</source>
-        <translation>Fa♯ 5</translation>
+        <translation>fa♯²</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="631"/>
+        <location filename="../../mscore/editpitch.ui" line="636"/>
         <source>G 5</source>
-        <translation>Sol 5</translation>
+        <translation>sol²</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="639"/>
-        <source>A♭ 5</source>
-        <translation>La♭ 5</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="647"/>
+        <location filename="../../mscore/editpitch.ui" line="652"/>
         <source>A 5</source>
-        <translation>La 5</translation>
+        <translation>la²</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="655"/>
-        <source>B♭ 5</source>
-        <translation>Si♭ 5</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="663"/>
+        <location filename="../../mscore/editpitch.ui" line="668"/>
         <source>B 5</source>
-        <translation>Si 5</translation>
+        <translation>si²</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="679"/>
-        <location filename="../../mscore/editpitch.ui" line="899"/>
+        <location filename="../../mscore/editpitch.ui" line="684"/>
+        <location filename="../../mscore/editpitch.ui" line="904"/>
         <source>C 4</source>
-        <translation>Do 4</translation>
+        <translation>do¹</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="693"/>
+        <location filename="../../mscore/editpitch.ui" line="698"/>
         <source>C♯ 4</source>
-        <translation>Do♯ 4</translation>
+        <translation>do♯¹</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="701"/>
+        <location filename="../../mscore/editpitch.ui" line="706"/>
         <source>D 4</source>
-        <translation>Re 4</translation>
+        <translation>re¹</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="709"/>
-        <source>E♭ 4</source>
-        <translation>Mi♭ 4</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="717"/>
+        <location filename="../../mscore/editpitch.ui" line="722"/>
         <source>E 4</source>
-        <translation>Mi 4</translation>
+        <translation>mi¹</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="725"/>
+        <location filename="../../mscore/editpitch.ui" line="730"/>
         <source>F 4</source>
-        <translation>Fa 4</translation>
+        <translation>fa¹</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="733"/>
+        <location filename="../../mscore/editpitch.ui" line="738"/>
         <source>F♯ 4</source>
-        <translation>Fa♯ 4</translation>
+        <translation>fa♯¹</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="741"/>
+        <location filename="../../mscore/editpitch.ui" line="746"/>
         <source>G 4</source>
-        <translation>Sol 4</translation>
+        <translation>sol¹</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="753"/>
-        <source>A♭ 4</source>
-        <translation>La♭ 4</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="761"/>
+        <location filename="../../mscore/editpitch.ui" line="766"/>
         <source>A 4</source>
-        <translation>La 4</translation>
+        <translation>la¹</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="769"/>
-        <source>B♭ 4</source>
-        <translation>Si♭ 4</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="777"/>
+        <location filename="../../mscore/editpitch.ui" line="782"/>
         <source>B 4</source>
-        <translation>Si 4</translation>
+        <translation>si¹</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="793"/>
-        <location filename="../../mscore/editpitch.ui" line="1009"/>
+        <location filename="../../mscore/editpitch.ui" line="798"/>
+        <location filename="../../mscore/editpitch.ui" line="1014"/>
         <source>C 3</source>
-        <translation>Do 3</translation>
+        <translation>do</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="807"/>
+        <location filename="../../mscore/editpitch.ui" line="812"/>
         <source>C♯ 3</source>
-        <translation>Do♯ 3</translation>
+        <translation>do♯</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="815"/>
+        <location filename="../../mscore/editpitch.ui" line="820"/>
         <source>D 3</source>
-        <translation>Re 3</translation>
+        <translation>re</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="823"/>
-        <source>E♭ 3</source>
-        <translation>Mi♭ 3</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="831"/>
+        <location filename="../../mscore/editpitch.ui" line="836"/>
         <source>E 3</source>
-        <translation>Mi 3</translation>
+        <translation>mi</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="839"/>
+        <location filename="../../mscore/editpitch.ui" line="844"/>
         <source>F 3</source>
-        <translation>Fa 3</translation>
+        <translation>fa</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="851"/>
+        <location filename="../../mscore/editpitch.ui" line="856"/>
         <source>F♯ 3</source>
-        <translation>Fa♯ 3</translation>
+        <translation>fa♯</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="859"/>
+        <location filename="../../mscore/editpitch.ui" line="864"/>
         <source>G 3</source>
-        <translation>Sol 3</translation>
+        <translation>sol</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="867"/>
-        <source>A♭ 3</source>
-        <translation>La♭ 3</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="875"/>
+        <location filename="../../mscore/editpitch.ui" line="880"/>
         <source>A 3</source>
-        <translation>La 3</translation>
+        <translation>la</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="883"/>
-        <source>B♭ 3</source>
-        <translation>Si♭ 3</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="891"/>
+        <location filename="../../mscore/editpitch.ui" line="896"/>
         <source>B 3</source>
-        <translation>Si 3</translation>
+        <translation>si</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="907"/>
-        <location filename="../../mscore/editpitch.ui" line="1119"/>
+        <location filename="../../mscore/editpitch.ui" line="912"/>
+        <location filename="../../mscore/editpitch.ui" line="1124"/>
         <source>C 2</source>
-        <translation>Do 2</translation>
+        <translation>Do</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="921"/>
+        <location filename="../../mscore/editpitch.ui" line="926"/>
         <source>C♯ 2</source>
-        <translation>Do♯ 2</translation>
+        <translation>Do♯</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="929"/>
+        <location filename="../../mscore/editpitch.ui" line="934"/>
         <source>D 2</source>
-        <translation>Re 2</translation>
+        <translation>Re</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="937"/>
-        <source>E♭ 2</source>
-        <translation>Mi♭ 2</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="945"/>
+        <location filename="../../mscore/editpitch.ui" line="950"/>
         <source>E 2</source>
-        <translation>Mi 2</translation>
+        <translation>Mi</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="953"/>
+        <location filename="../../mscore/editpitch.ui" line="958"/>
         <source>F 2</source>
-        <translation>Fa 2</translation>
+        <translation>Fa</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="961"/>
+        <location filename="../../mscore/editpitch.ui" line="966"/>
         <source>F♯ 2</source>
-        <translation>Fa♯ 2</translation>
+        <translation>Fa♯</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="969"/>
+        <location filename="../../mscore/editpitch.ui" line="974"/>
         <source>G 2</source>
-        <translation>Sol 2</translation>
+        <translation>Sol</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="977"/>
-        <source>A♭ 2</source>
-        <translation>La♭ 2</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="985"/>
+        <location filename="../../mscore/editpitch.ui" line="990"/>
         <source>A 2</source>
-        <translation>La 2</translation>
+        <translation>La</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="993"/>
-        <source>B♭ 2</source>
-        <translation>Si♭ 2</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="1001"/>
+        <location filename="../../mscore/editpitch.ui" line="1006"/>
         <source>B 2</source>
-        <translation>Si 2</translation>
+        <translation>Si</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1017"/>
-        <location filename="../../mscore/editpitch.ui" line="1229"/>
+        <location filename="../../mscore/editpitch.ui" line="1022"/>
+        <location filename="../../mscore/editpitch.ui" line="1234"/>
         <source>C 1</source>
-        <translation>Do 1</translation>
+        <translation>Do₁</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1031"/>
+        <location filename="../../mscore/editpitch.ui" line="1036"/>
         <source>C♯ 1</source>
-        <translation>Do♯ 1</translation>
+        <translation>Do♯₁</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1039"/>
+        <location filename="../../mscore/editpitch.ui" line="1044"/>
         <source>D 1</source>
-        <translation>Re 1</translation>
+        <translation>Re₁</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1047"/>
-        <source>E♭ 1</source>
-        <translation>Mi♭ 1</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="1055"/>
+        <location filename="../../mscore/editpitch.ui" line="1060"/>
         <source>E 1</source>
-        <translation>Mi 1</translation>
+        <translation>Mi₁</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1063"/>
+        <location filename="../../mscore/editpitch.ui" line="1068"/>
         <source>F 1</source>
-        <translation>Fa 1</translation>
+        <translation>Fa₁</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1071"/>
+        <location filename="../../mscore/editpitch.ui" line="1076"/>
         <source>F♯ 1</source>
-        <translation>Fa♯ 1</translation>
+        <translation>Fa♯₁</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1079"/>
+        <location filename="../../mscore/editpitch.ui" line="1084"/>
         <source>G 1</source>
-        <translation>Sol 1</translation>
+        <translation>Sol₁</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1087"/>
-        <source>A♭ 1</source>
-        <translation>La♭ 1</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="1095"/>
+        <location filename="../../mscore/editpitch.ui" line="1100"/>
         <source>A 1</source>
-        <translation>La 1</translation>
+        <translation>La₁</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1103"/>
-        <source>B♭ 1</source>
-        <translation>Si♭ 1</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="1111"/>
+        <location filename="../../mscore/editpitch.ui" line="1116"/>
         <source>B 1</source>
-        <translation>Si 1</translation>
+        <translation>Si₁</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1127"/>
-        <location filename="../../mscore/editpitch.ui" line="1339"/>
+        <location filename="../../mscore/editpitch.ui" line="1132"/>
+        <location filename="../../mscore/editpitch.ui" line="1344"/>
         <source>C 0</source>
-        <translation>Do 0</translation>
+        <translation>Do₂</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1141"/>
+        <location filename="../../mscore/editpitch.ui" line="1146"/>
         <source>C♯ 0</source>
-        <translation>Do♯ 0</translation>
+        <translation>Do♯₂</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1149"/>
+        <location filename="../../mscore/editpitch.ui" line="1154"/>
         <source>D 0</source>
-        <translation>Re 0</translation>
+        <translation>Re₂</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1157"/>
-        <source>E♭ 0</source>
-        <translation>Mi♭ 0</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="1165"/>
+        <location filename="../../mscore/editpitch.ui" line="1170"/>
         <source>E 0</source>
-        <translation>Mi 0</translation>
+        <translation>Mi₂</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1173"/>
+        <location filename="../../mscore/editpitch.ui" line="1178"/>
         <source>F 0</source>
-        <translation>Fa 0</translation>
+        <translation>Fa₂</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1181"/>
+        <location filename="../../mscore/editpitch.ui" line="1186"/>
         <source>F♯ 0</source>
-        <translation>Fa♯ 0</translation>
+        <translation>Fa♯₂</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1189"/>
+        <location filename="../../mscore/editpitch.ui" line="1194"/>
         <source>G 0</source>
-        <translation>Sol 0</translation>
+        <translation>Sol₂</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1197"/>
-        <source>A♭ 0</source>
-        <translation>La♭ 0</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="1205"/>
+        <location filename="../../mscore/editpitch.ui" line="1210"/>
         <source>A 0</source>
-        <translation>La 0</translation>
+        <translation>La₂</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1213"/>
-        <source>B♭ 0</source>
-        <translation>Si♭ 0</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="1221"/>
+        <location filename="../../mscore/editpitch.ui" line="1226"/>
         <source>B 0</source>
-        <translation>Si 0</translation>
+        <translation>Si₂</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1237"/>
+        <location filename="../../mscore/editpitch.ui" line="1242"/>
         <source>C -1</source>
-        <translation>Do -1</translation>
+        <translation>Do₃</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1251"/>
+        <location filename="../../mscore/editpitch.ui" line="1256"/>
         <source>C♯ -1</source>
-        <translation>Do♯ -1</translation>
+        <translation>Do♯₃</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1259"/>
+        <location filename="../../mscore/editpitch.ui" line="1264"/>
         <source>D -1</source>
-        <translation>Re -1</translation>
+        <translation>Re₃</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1267"/>
-        <source>E♭ -1</source>
-        <translation>Mi♭ -1</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="1275"/>
+        <location filename="../../mscore/editpitch.ui" line="1280"/>
         <source>E -1</source>
-        <translation>Mi -1</translation>
+        <translation>Mi₃</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1283"/>
+        <location filename="../../mscore/editpitch.ui" line="1288"/>
         <source>F -1</source>
-        <translation>Fa -1</translation>
+        <translation>Fa₃</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1291"/>
+        <location filename="../../mscore/editpitch.ui" line="1296"/>
         <source>F♯ -1</source>
-        <translation>Fa♯ -1</translation>
+        <translation>Fa♯₃</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1299"/>
+        <location filename="../../mscore/editpitch.ui" line="1304"/>
         <source>G -1</source>
-        <translation>Sol -1</translation>
+        <translation>Sol₃</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1307"/>
-        <source>A♭ -1</source>
-        <translation>La♭ -1</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="1315"/>
+        <location filename="../../mscore/editpitch.ui" line="1320"/>
         <source>A -1</source>
-        <translation>La -1</translation>
+        <translation>La₃</translation>
     </message>
     <message>
-        <location filename="../../mscore/editpitch.ui" line="1323"/>
-        <source>B♭ -1</source>
-        <translation>Si♭ -1</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/editpitch.ui" line="1331"/>
+        <location filename="../../mscore/editpitch.ui" line="1336"/>
         <source>B -1</source>
-        <translation>Si -1</translation>
+        <translation>Si₃</translation>
     </message>
 </context>
 <context>
@@ -5764,7 +5764,7 @@ By default, they will be placed such as that their right end are at the same lev
 <context>
     <name>GreendotButton</name>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5904"/>
+        <location filename="../../mscore/musescore.cpp" line="5909"/>
         <source>Record</source>
         <translation>înregistrază</translation>
     </message>
@@ -11709,7 +11709,7 @@ Doriți să localizați %2 acum?</translation>
     <message>
         <location filename="../../mscore/masterpalette.cpp" line="196"/>
         <location filename="../../mscore/masterpalette.cpp" line="229"/>
-        <location filename="../../mscore/musescore.cpp" line="6328"/>
+        <location filename="../../mscore/musescore.cpp" line="6333"/>
         <source>Symbols</source>
         <translation>Simboluri</translation>
     </message>
@@ -13832,82 +13832,82 @@ Sound: %5</source>
     <name>Ms::MuseScore</name>
     <message>
         <location filename="../../mscore/exportaudio.cpp" line="343"/>
-        <location filename="../../mscore/musescore.cpp" line="7240"/>
+        <location filename="../../mscore/musescore.cpp" line="7245"/>
         <source>Cancel</source>
         <translation>Renunţă</translation>
     </message>
     <message>
         <location filename="../../mscore/exportaudio.cpp" line="344"/>
-        <location filename="../../mscore/musescore.cpp" line="7241"/>
+        <location filename="../../mscore/musescore.cpp" line="7246"/>
         <source>Exporting…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7162"/>
-        <location filename="../../mscore/musescore.cpp" line="7174"/>
+        <location filename="../../mscore/musescore.cpp" line="7167"/>
+        <location filename="../../mscore/musescore.cpp" line="7179"/>
         <source>Error Opening LAME library</source>
         <translation>Eroare în deschiderea librăriei LAME</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7163"/>
+        <location filename="../../mscore/musescore.cpp" line="7168"/>
         <source>Could not open MP3 encoding library!</source>
         <translation>Nu se poate deschide librăria de codificare MP3!</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7175"/>
+        <location filename="../../mscore/musescore.cpp" line="7180"/>
         <source>Not a valid or supported MP3 encoding library!</source>
         <translation>Librărie de encodare MP3 invalidă sau nesuportată! </translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7123"/>
-        <location filename="../../mscore/musescore.cpp" line="7199"/>
-        <location filename="../../mscore/musescore.cpp" line="7350"/>
+        <location filename="../../mscore/musescore.cpp" line="7128"/>
+        <location filename="../../mscore/musescore.cpp" line="7204"/>
+        <location filename="../../mscore/musescore.cpp" line="7355"/>
         <source>Encoding Error</source>
         <translation>Eroare de encodare</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4494"/>
+        <location filename="../../mscore/musescore.cpp" line="4497"/>
         <source>Insert mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4518"/>
+        <location filename="../../mscore/musescore.cpp" line="4521"/>
         <source>Drumset input mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="6051"/>
+        <location filename="../../mscore/musescore.cpp" line="6056"/>
         <source>Invalid Command</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="6052"/>
+        <location filename="../../mscore/musescore.cpp" line="6057"/>
         <source>Command %1 not valid in current state</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="6943"/>
+        <location filename="../../mscore/musescore.cpp" line="6948"/>
         <source>Find / Go to:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7200"/>
+        <location filename="../../mscore/musescore.cpp" line="7205"/>
         <source>Unable to initialize MP3 stream</source>
         <translation>Nu se poate inițializa stream-ul MP3</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7124"/>
+        <location filename="../../mscore/musescore.cpp" line="7129"/>
         <source>Unable to open target file for writing</source>
         <translation>Nu s-a putut deschide fișierul destinație pentru scriere</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7351"/>
+        <location filename="../../mscore/musescore.cpp" line="7356"/>
         <source>Error %1 returned from MP3 encoder</source>
         <translation>Eroare %1 returnată de encoder-ul de MP3</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="252"/>
-        <location filename="../../mscore/musescore.cpp" line="5368"/>
+        <location filename="../../mscore/musescore.cpp" line="5373"/>
         <location filename="../../mscore/plugin/mscorePlugins.cpp" line="444"/>
         <source>MuseScore</source>
         <translation>MuseScore</translation>
@@ -14028,7 +14028,7 @@ before closing?</source>
     <message>
         <location filename="../../mscore/file.cpp" line="1240"/>
         <location filename="../../mscore/file.cpp" line="1267"/>
-        <location filename="../../mscore/musescore.cpp" line="6480"/>
+        <location filename="../../mscore/musescore.cpp" line="6485"/>
         <source>Load Style</source>
         <translation>Încarcă Stil</translation>
     </message>
@@ -14041,7 +14041,7 @@ before closing?</source>
         <location filename="../../mscore/file.cpp" line="1247"/>
         <location filename="../../mscore/file.cpp" line="1284"/>
         <location filename="../../mscore/file.cpp" line="1367"/>
-        <location filename="../../mscore/musescore.cpp" line="6471"/>
+        <location filename="../../mscore/musescore.cpp" line="6476"/>
         <source>Save Style</source>
         <translation>Salvează Stil</translation>
     </message>
@@ -14609,95 +14609,95 @@ Are you sure you want to proceed?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4211"/>
+        <location filename="../../mscore/musescore.cpp" line="4214"/>
         <source>System</source>
         <extracomment>The default language of the operating system. NOT a music system.</extracomment>
         <translation>Sistem</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4219"/>
+        <location filename="../../mscore/musescore.cpp" line="4222"/>
         <source>Error reading language file %s at line %d column %d: %s
 </source>
         <translation>Eroare la citirea fișierului de traducere %s la linia %d coloana %d: %s
 </translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4460"/>
+        <location filename="../../mscore/musescore.cpp" line="4463"/>
         <source>No score</source>
         <translation>Lipsă partitură</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4466"/>
+        <location filename="../../mscore/musescore.cpp" line="4469"/>
         <source>Normal mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4474"/>
+        <location filename="../../mscore/musescore.cpp" line="4477"/>
         <source>Repitch input mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4479"/>
+        <location filename="../../mscore/musescore.cpp" line="4482"/>
         <source>Rhythm input mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4484"/>
+        <location filename="../../mscore/musescore.cpp" line="4487"/>
         <source>Realtime (automatic) note input mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4489"/>
+        <location filename="../../mscore/musescore.cpp" line="4492"/>
         <source>Realtime (manual) note input mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4499"/>
+        <location filename="../../mscore/musescore.cpp" line="4502"/>
         <source>Steptime note input mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4540"/>
+        <location filename="../../mscore/musescore.cpp" line="4543"/>
         <source>TAB input mode</source>
         <translation>Mod introducere TAB</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4543"/>
+        <location filename="../../mscore/musescore.cpp" line="4546"/>
         <source>Edit mode</source>
         <translation>mod editare</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4546"/>
+        <location filename="../../mscore/musescore.cpp" line="4549"/>
         <source>Text edit mode</source>
         <translation>Mod editare text</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4549"/>
+        <location filename="../../mscore/musescore.cpp" line="4552"/>
         <source>Lyrics edit mode</source>
         <translation>Mod editare versuri</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4552"/>
+        <location filename="../../mscore/musescore.cpp" line="4555"/>
         <source>Chord symbol/figured bass edit mode</source>
         <translation>Mod editare Simbol Acord/Bass cifrat</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4555"/>
+        <location filename="../../mscore/musescore.cpp" line="4558"/>
         <source>Play</source>
         <translation>Redare</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4558"/>
+        <location filename="../../mscore/musescore.cpp" line="4561"/>
         <source>Image capture mode</source>
         <translation>Mod Captură Imagine</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4562"/>
+        <location filename="../../mscore/musescore.cpp" line="4565"/>
         <source>Score locked</source>
         <translation>Partitură blocată</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5369"/>
+        <location filename="../../mscore/musescore.cpp" line="5374"/>
         <source>The previous session quit unexpectedly.
 
 Restore session?</source>
@@ -14706,87 +14706,87 @@ Restore session?</source>
 Restaurez sesiunea?</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5996"/>
+        <location filename="../../mscore/musescore.cpp" line="6001"/>
         <source>Invalid selection. Cannot realize chord symbol</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="6012"/>
+        <location filename="../../mscore/musescore.cpp" line="6017"/>
         <source>No chord symbol selected. Cannot realize chord symbol</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="6481"/>
+        <location filename="../../mscore/musescore.cpp" line="6486"/>
         <source>MuseScore may not be able to load this style file: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="6784"/>
+        <location filename="../../mscore/musescore.cpp" line="6789"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="6785"/>
+        <location filename="../../mscore/musescore.cpp" line="6790"/>
         <source>Cannot create tuplet: Note value is too short</source>
         <translation>Nu se poate crea diviziunea excepțională: Durata notei este prea scurtă</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8117"/>
+        <location filename="../../mscore/musescore.cpp" line="8122"/>
         <source>Initializing sequencer and audio driver…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8126"/>
+        <location filename="../../mscore/musescore.cpp" line="8131"/>
         <source>Loading SoundFonts…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8169"/>
+        <location filename="../../mscore/musescore.cpp" line="8174"/>
         <source>Initializing workspace…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8173"/>
+        <location filename="../../mscore/musescore.cpp" line="8178"/>
         <source>Creating main window…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8190"/>
+        <location filename="../../mscore/musescore.cpp" line="8195"/>
         <source>Reading translations…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8197"/>
+        <location filename="../../mscore/musescore.cpp" line="8202"/>
         <source>Initializing startup wizard…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8213"/>
+        <location filename="../../mscore/musescore.cpp" line="8218"/>
         <source>Initializing preferences…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8254"/>
+        <location filename="../../mscore/musescore.cpp" line="8259"/>
         <source>Initializing main window…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8278"/>
+        <location filename="../../mscore/musescore.cpp" line="8283"/>
         <source>Restoring session…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8309"/>
+        <location filename="../../mscore/musescore.cpp" line="8314"/>
         <source>Loading scores…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8320"/>
+        <location filename="../../mscore/musescore.cpp" line="8325"/>
         <source>Initializing start center…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8342"/>
+        <location filename="../../mscore/musescore.cpp" line="8347"/>
         <source>Initializing tours…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -14850,22 +14850,22 @@ This plugin requires an open score to run.</source>
 <context>
     <name>Ms::MuseScoreApplication</name>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7798"/>
+        <location filename="../../mscore/musescore.cpp" line="7803"/>
         <source>Must specify at least one score to save online.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7859"/>
+        <location filename="../../mscore/musescore.cpp" line="7864"/>
         <source>--run-test-script is incompatible with --diff and --raw-diff</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7894"/>
+        <location filename="../../mscore/musescore.cpp" line="7899"/>
         <source>Only two scores are needed for performing a comparison</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7899"/>
+        <location filename="../../mscore/musescore.cpp" line="7904"/>
         <source>Please specify scripts to execute</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15199,7 +15199,7 @@ connection enabled</source>
 <context>
     <name>Ms::PianoTools</name>
     <message>
-        <location filename="../../mscore/pianotools.cpp" line="468"/>
+        <location filename="../../mscore/pianotools.cpp" line="470"/>
         <source>Piano Keyboard</source>
         <translation>Claviatură Pian</translation>
     </message>
@@ -17602,7 +17602,7 @@ alegeți un nume diferit:</translation>
     <message>
         <location filename="../../mscore/masterpalette.cpp" line="227"/>
         <location filename="../../mscore/menus.cpp" line="549"/>
-        <location filename="../../mscore/musescore.cpp" line="6324"/>
+        <location filename="../../mscore/musescore.cpp" line="6329"/>
         <source>Key Signatures</source>
         <translation>Armuri</translation>
     </message>
@@ -18188,7 +18188,7 @@ alegeți un nume diferit:</translation>
     <message>
         <location filename="../../mscore/masterpalette.cpp" line="228"/>
         <location filename="../../mscore/menus.cpp" line="1769"/>
-        <location filename="../../mscore/musescore.cpp" line="6326"/>
+        <location filename="../../mscore/musescore.cpp" line="6331"/>
         <source>Time Signatures</source>
         <translation>Metru</translation>
     </message>
@@ -21077,8 +21077,8 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
         <location filename="../../libmscore/barline.cpp" line="1771"/>
         <location filename="../../libmscore/chordrest.cpp" line="1216"/>
         <location filename="../../libmscore/chordrest.cpp" line="1226"/>
-        <location filename="../../libmscore/note.cpp" line="3189"/>
-        <location filename="../../libmscore/note.cpp" line="3198"/>
+        <location filename="../../libmscore/note.cpp" line="3192"/>
+        <location filename="../../libmscore/note.cpp" line="3201"/>
         <source>%1 Start of %2</source>
         <translation>%1 Început de %2</translation>
     </message>
@@ -21086,8 +21086,8 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
         <location filename="../../libmscore/barline.cpp" line="1773"/>
         <location filename="../../libmscore/chordrest.cpp" line="1218"/>
         <location filename="../../libmscore/chordrest.cpp" line="1228"/>
-        <location filename="../../libmscore/note.cpp" line="3192"/>
-        <location filename="../../libmscore/note.cpp" line="3205"/>
+        <location filename="../../libmscore/note.cpp" line="3195"/>
+        <location filename="../../libmscore/note.cpp" line="3208"/>
         <source>%1 End of %2</source>
         <translation>%1 Sfârșit de %2</translation>
     </message>
@@ -21211,81 +21211,81 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="862"/>
+        <location filename="../../libmscore/note.cpp" line="865"/>
         <source>%1 (sounding as %2%3)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="2313"/>
+        <location filename="../../libmscore/note.cpp" line="2316"/>
         <source>Acciaccatura</source>
         <translation>Apogiatură scurtă</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="2315"/>
+        <location filename="../../libmscore/note.cpp" line="2318"/>
         <source>Appoggiatura</source>
         <translation>Apogiatură</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="2319"/>
+        <location filename="../../libmscore/note.cpp" line="2322"/>
         <source>Grace note after</source>
         <translation>Apogiatură După</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="2323"/>
+        <location filename="../../libmscore/note.cpp" line="2326"/>
         <source>Grace note before</source>
         <translation>Apogiatură Înainte</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="2325"/>
+        <location filename="../../libmscore/note.cpp" line="2328"/>
         <source>Note</source>
         <translation>Notă</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="3126"/>
-        <location filename="../../libmscore/note.cpp" line="3156"/>
+        <location filename="../../libmscore/note.cpp" line="3129"/>
+        <location filename="../../libmscore/note.cpp" line="3159"/>
         <location filename="../../libmscore/rest.cpp" line="896"/>
         <location filename="../../libmscore/rest.cpp" line="908"/>
         <source>Voice: %1</source>
         <translation>Vocea: %1</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="3133"/>
+        <location filename="../../libmscore/note.cpp" line="3136"/>
         <source> (on %1‰ off %2‰)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="3137"/>
+        <location filename="../../libmscore/note.cpp" line="3140"/>
         <source>Beat slash</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="3137"/>
+        <location filename="../../libmscore/note.cpp" line="3140"/>
         <source>Rhythm slash</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="3141"/>
-        <location filename="../../libmscore/note.cpp" line="3164"/>
+        <location filename="../../libmscore/note.cpp" line="3144"/>
+        <location filename="../../libmscore/note.cpp" line="3167"/>
         <source>%1; String: %2; Fret: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="3144"/>
+        <location filename="../../libmscore/note.cpp" line="3147"/>
         <source>%1; Pitch: %2; Duration: %3%4%5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="3160"/>
+        <location filename="../../libmscore/note.cpp" line="3163"/>
         <source>Beat Slash</source>
         <translation>Slash Bătaie</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="3160"/>
+        <location filename="../../libmscore/note.cpp" line="3163"/>
         <source>Rhythm Slash</source>
         <translation>Slash Ritm</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="3168"/>
+        <location filename="../../libmscore/note.cpp" line="3171"/>
         <source>%1 head %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21898,7 +21898,7 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
         <location filename="../../importexport/capella/capella.cpp" line="2786"/>
         <location filename="../../importexport/midiimport/importmidi.cpp" line="1206"/>
         <location filename="../../mscore/instrdialog.cpp" line="169"/>
-        <location filename="../../mscore/musescore.cpp" line="4224"/>
+        <location filename="../../mscore/musescore.cpp" line="4227"/>
         <source>Quit</source>
         <translation>Închide programul</translation>
     </message>
@@ -22008,7 +22008,7 @@ Doriți să-l suprascrieți?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4222"/>
+        <location filename="../../mscore/musescore.cpp" line="4225"/>
         <source>Load Languages Failed:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22103,7 +22103,7 @@ Doriți să-l suprascrieți?</translation>
 <context>
     <name>RecordButton</name>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5893"/>
+        <location filename="../../mscore/musescore.cpp" line="5898"/>
         <source>Record</source>
         <translation>înregistrază</translation>
     </message>
