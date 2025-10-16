@@ -1828,7 +1828,6 @@ void MuseScore::printFile()
       printerDev.setFullPage(true);
       if (!printerDev.setPageMargins(QMarginsF()))
             qDebug("unable to clear printer margins");
-      printerDev.setColorMode(QPrinter::Color);
       if (cs->isMaster())
             printerDev.setDocName(cs->masterScore()->fileInfo()->completeBaseName());
       else

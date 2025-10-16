@@ -1795,7 +1795,6 @@ void PreferenceDialog::printShortcutsClicked()
 
       printer.setCreator("MuseScore Version: " VERSION);
       printer.setFullPage(true);
-      printer.setColorMode(QPrinter::Color);
       printer.setDocName(tr("MuseScore Shortcuts"));
       printer.setOutputFormat(QPrinter::NativeFormat);
 
