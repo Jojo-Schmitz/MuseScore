@@ -794,7 +794,7 @@
     <message>
         <location filename="../../mscore/editpitch.ui" line="14"/>
         <source>Note Selection</source>
-        <translation>Zaznaczona nuta</translation>
+        <translation>Zaznaczenie nuty</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="20"/>
@@ -804,57 +804,57 @@
     <message>
         <location filename="../../mscore/editpitch.ui" line="54"/>
         <source>Octave 9</source>
-        <translation>Oktawa 9</translation>
+        <translation>Okt. sześciokreślna</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="59"/>
         <source>Octave 8</source>
-        <translation>Oktawa 8</translation>
+        <translation>Okt. pięciokreślna</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="64"/>
         <source>Octave 7</source>
-        <translation>Oktawa 7</translation>
+        <translation>Okt. czterokreślna</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="69"/>
         <source>Octave 6</source>
-        <translation>Oktawa 6</translation>
+        <translation>Okt. trzykreślna</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="74"/>
         <source>Octave 5</source>
-        <translation>Oktawa 5</translation>
+        <translation>Okt. dwukreślna</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="79"/>
         <source>Octave 4</source>
-        <translation>Oktawa 4</translation>
+        <translation>Okt. razkreślna</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="84"/>
         <source>Octave 3</source>
-        <translation>Oktawa 3</translation>
+        <translation>Okt. mała</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="89"/>
         <source>Octave 2</source>
-        <translation>Oktawa 2</translation>
+        <translation>Okt. wielka</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="94"/>
         <source>Octave 1</source>
-        <translation>Oktawa 1</translation>
+        <translation>Okt. kontra</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="99"/>
         <source>Octave 0</source>
-        <translation>Oktawa 0</translation>
+        <translation>Okt. subkontra</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="104"/>
         <source>Octave -1</source>
-        <translation>Oktawa -1</translation>
+        <translation>Okt. subsubkontra</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="109"/>
@@ -889,157 +889,157 @@
     <message>
         <location filename="../../mscore/editpitch.ui" line="194"/>
         <source>D♯ 9</source>
-        <translation>Dis 9</translation>
+        <translation>dis⁶</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="274"/>
         <source>D♯ 8</source>
-        <translation>Dis 8</translation>
+        <translation>dis⁵</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="314"/>
         <source>G♯ 8</source>
-        <translation>Gis 8</translation>
+        <translation>gis⁵</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="330"/>
         <source>A♯ 8</source>
-        <translation>Ais 8</translation>
+        <translation>ais⁵</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="384"/>
         <source>D♯ 7</source>
-        <translation>Dis 7</translation>
+        <translation>dis⁴</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="424"/>
         <source>G♯ 7</source>
-        <translation>Gis 7</translation>
+        <translation>gis⁴</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="440"/>
         <source>A♯ 7</source>
-        <translation>Ais 7</translation>
+        <translation>ais⁴</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="494"/>
         <source>D♯ 6</source>
-        <translation>Dis 6</translation>
+        <translation>dis³</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="534"/>
         <source>G♯ 6</source>
-        <translation>Gis 6</translation>
+        <translation>gis³</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="550"/>
         <source>A♯ 6</source>
-        <translation>Ais 6</translation>
+        <translation>ais³</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="604"/>
         <source>D♯ 5</source>
-        <translation>Dis 5</translation>
+        <translation>dis²</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="644"/>
         <source>G♯ 5</source>
-        <translation>Gis 5</translation>
+        <translation>gis²</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="660"/>
         <source>A♯ 5</source>
-        <translation>Ais 5</translation>
+        <translation>ais²</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="714"/>
         <source>D♯ 4</source>
-        <translation>Dis 4</translation>
+        <translation>dis¹</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="758"/>
         <source>G♯ 4</source>
-        <translation>Gis 4</translation>
+        <translation>gis¹</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="774"/>
         <source>A♯ 4</source>
-        <translation>Ais 4</translation>
+        <translation>ais¹</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="828"/>
         <source>D♯ 3</source>
-        <translation>Dis 3</translation>
+        <translation>dis</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="872"/>
         <source>G♯ 3</source>
-        <translation>Gis 3</translation>
+        <translation>gis</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="888"/>
         <source>A♯ 3</source>
-        <translation>Ais 3</translation>
+        <translation>ais</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="942"/>
         <source>D♯ 2</source>
-        <translation>Dis 2</translation>
+        <translation>Dis</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="982"/>
         <source>G♯ 2</source>
-        <translation>Gis 2</translation>
+        <translation>Gis</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="998"/>
         <source>A♯ 2</source>
-        <translation>Ais 2</translation>
+        <translation>Ais</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1052"/>
         <source>D♯ 1</source>
-        <translation>Dis 1</translation>
+        <translation>Dis₁</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1092"/>
         <source>G♯ 1</source>
-        <translation>Gis 1</translation>
+        <translation>Gis₁</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1108"/>
         <source>A♯ 1</source>
-        <translation>Ais 1</translation>
+        <translation>Ais₁</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1162"/>
         <source>D♯ 0</source>
-        <translation>Dis 0</translation>
+        <translation>Dis₂</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1202"/>
         <source>G♯ 0</source>
-        <translation>Gis 0</translation>
+        <translation>Gis₂</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1218"/>
         <source>A♯ 0</source>
-        <translation>Ais 0</translation>
+        <translation>Ais₂</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1272"/>
         <source>D♯ -1</source>
-        <translation>Dis -1</translation>
+        <translation>Dis₃</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1312"/>
         <source>G♯ -1</source>
-        <translation>Gis -1</translation>
+        <translation>Gis₃</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1328"/>
         <source>A♯ -1</source>
-        <translation>Ais -1</translation>
+        <translation>Ais₃</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="129"/>
@@ -1080,496 +1080,496 @@
         <location filename="../../mscore/editpitch.ui" line="174"/>
         <location filename="../../mscore/editpitch.ui" line="346"/>
         <source>C 9</source>
-        <translation>C 9</translation>
+        <translation>c⁶</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="184"/>
         <source>C♯ 9</source>
-        <translation>Cis 9</translation>
+        <translation>cis⁶</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="189"/>
         <source>D 9</source>
-        <translation>D 9</translation>
+        <translation>d⁶</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="199"/>
         <source>E 9</source>
-        <translation>E 9</translation>
+        <translation>e⁶</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="204"/>
         <source>F 9</source>
-        <translation>F 9</translation>
+        <translation>f⁶</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="209"/>
         <source>F♯ 9</source>
-        <translation>Fis 9</translation>
+        <translation>fis⁶</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="214"/>
         <source>G 9</source>
-        <translation>G 9</translation>
+        <translation>g⁶</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="244"/>
         <location filename="../../mscore/editpitch.ui" line="456"/>
         <source>C 8</source>
-        <translation>C 8</translation>
+        <translation>c⁵</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="258"/>
         <source>C♯ 8</source>
-        <translation>Cis 8</translation>
+        <translation>cis⁵</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="266"/>
         <source>D 8</source>
-        <translation>D 8</translation>
+        <translation>d⁵</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="282"/>
         <source>E 8</source>
-        <translation>E 8</translation>
+        <translation>e⁵</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="290"/>
         <source>F 8</source>
-        <translation>F 8</translation>
+        <translation>f⁵</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="298"/>
         <source>F♯ 8</source>
-        <translation>Fis 8</translation>
+        <translation>fis⁵</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="306"/>
         <source>G 8</source>
-        <translation>G 8</translation>
+        <translation>g⁵</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="322"/>
         <source>A 8</source>
-        <translation>A 8</translation>
+        <translation>a⁵</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="338"/>
         <source>B 8</source>
-        <translation>H 8</translation>
+        <translation>h⁵</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="354"/>
         <location filename="../../mscore/editpitch.ui" line="566"/>
         <source>C 7</source>
-        <translation>C 7</translation>
+        <translation>c⁴</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="368"/>
         <source>C♯ 7</source>
-        <translation>Cis 7</translation>
+        <translation>cis⁴</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="376"/>
         <source>D 7</source>
-        <translation>D 7</translation>
+        <translation>d⁴</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="392"/>
         <source>E 7</source>
-        <translation>E 7</translation>
+        <translation>e⁴</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="400"/>
         <source>F 7</source>
-        <translation>F 7</translation>
+        <translation>f⁴</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="408"/>
         <source>F♯ 7</source>
-        <translation>Fis 7</translation>
+        <translation>fis⁴</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="416"/>
         <source>G 7</source>
-        <translation>G 7</translation>
+        <translation>g⁴</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="432"/>
         <source>A 7</source>
-        <translation>A 7</translation>
+        <translation>a⁴</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="448"/>
         <source>B 7</source>
-        <translation>H 7</translation>
+        <translation>h⁴</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="464"/>
         <location filename="../../mscore/editpitch.ui" line="676"/>
         <source>C 6</source>
-        <translation>C 6</translation>
+        <translation>c³</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="478"/>
         <source>C♯ 6</source>
-        <translation>Cis 6</translation>
+        <translation>cis³</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="486"/>
         <source>D 6</source>
-        <translation>D 6</translation>
+        <translation>d³</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="502"/>
         <source>E 6</source>
-        <translation>E 6</translation>
+        <translation>e³</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="510"/>
         <source>F 6</source>
-        <translation>F 6</translation>
+        <translation>f³</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="518"/>
         <source>F♯ 6</source>
-        <translation>Fis 6</translation>
+        <translation>fis³</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="526"/>
         <source>G 6</source>
-        <translation>G 6</translation>
+        <translation>g³</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="542"/>
         <source>A 6</source>
-        <translation>A 6</translation>
+        <translation>a³</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="558"/>
         <source>B 6</source>
-        <translation>H 6</translation>
+        <translation>h³</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="574"/>
         <location filename="../../mscore/editpitch.ui" line="790"/>
         <source>C 5</source>
-        <translation>C 5</translation>
+        <translation>c²</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="588"/>
         <source>C♯ 5</source>
-        <translation>Cis 5</translation>
+        <translation>cis²</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="596"/>
         <source>D 5</source>
-        <translation>D 5</translation>
+        <translation>d²</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="612"/>
         <source>E 5</source>
-        <translation>E 5</translation>
+        <translation>e²</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="620"/>
         <source>F 5</source>
-        <translation>F 5</translation>
+        <translation>f²</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="628"/>
         <source>F♯ 5</source>
-        <translation>Fis 5</translation>
+        <translation>fis²</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="636"/>
         <source>G 5</source>
-        <translation>G 5</translation>
+        <translation>g²</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="652"/>
         <source>A 5</source>
-        <translation>A 5</translation>
+        <translation>a²</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="668"/>
         <source>B 5</source>
-        <translation>H 5</translation>
+        <translation>h²</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="684"/>
         <location filename="../../mscore/editpitch.ui" line="904"/>
         <source>C 4</source>
-        <translation>C 4</translation>
+        <translation>c¹</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="698"/>
         <source>C♯ 4</source>
-        <translation>Cis 4</translation>
+        <translation>cis¹</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="706"/>
         <source>D 4</source>
-        <translation>D 4</translation>
+        <translation>d¹</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="722"/>
         <source>E 4</source>
-        <translation>E 4</translation>
+        <translation>e¹</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="730"/>
         <source>F 4</source>
-        <translation>F 4</translation>
+        <translation>f¹</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="738"/>
         <source>F♯ 4</source>
-        <translation>Fis 4</translation>
+        <translation>fis¹</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="746"/>
         <source>G 4</source>
-        <translation>G 4</translation>
+        <translation>g¹</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="766"/>
         <source>A 4</source>
-        <translation>A 4</translation>
+        <translation>a¹</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="782"/>
         <source>B 4</source>
-        <translation>H 4</translation>
+        <translation>h¹</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="798"/>
         <location filename="../../mscore/editpitch.ui" line="1014"/>
         <source>C 3</source>
-        <translation>C 3</translation>
+        <translation>c</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="812"/>
         <source>C♯ 3</source>
-        <translation>Cis 3</translation>
+        <translation>cis</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="820"/>
         <source>D 3</source>
-        <translation>D 3</translation>
+        <translation>d</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="836"/>
         <source>E 3</source>
-        <translation>E 3</translation>
+        <translation>e</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="844"/>
         <source>F 3</source>
-        <translation>F 3</translation>
+        <translation>f</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="856"/>
         <source>F♯ 3</source>
-        <translation>Fis 3</translation>
+        <translation>fis</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="864"/>
         <source>G 3</source>
-        <translation>G 3</translation>
+        <translation>g</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="880"/>
         <source>A 3</source>
-        <translation>A 3</translation>
+        <translation>a</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="896"/>
         <source>B 3</source>
-        <translation>H 3</translation>
+        <translation>h</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="912"/>
         <location filename="../../mscore/editpitch.ui" line="1124"/>
         <source>C 2</source>
-        <translation>C 2</translation>
+        <translation>C</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="926"/>
         <source>C♯ 2</source>
-        <translation>Cis 2</translation>
+        <translation>Cis</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="934"/>
         <source>D 2</source>
-        <translation>D 2</translation>
+        <translation>D</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="950"/>
         <source>E 2</source>
-        <translation>E 2</translation>
+        <translation>E</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="958"/>
         <source>F 2</source>
-        <translation>F 2</translation>
+        <translation>F</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="966"/>
         <source>F♯ 2</source>
-        <translation>Fis 2</translation>
+        <translation>Fis</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="974"/>
         <source>G 2</source>
-        <translation>G 2</translation>
+        <translation>G</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="990"/>
         <source>A 2</source>
-        <translation>A 2</translation>
+        <translation>A</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1006"/>
         <source>B 2</source>
-        <translation>H 2</translation>
+        <translation>H</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1022"/>
         <location filename="../../mscore/editpitch.ui" line="1234"/>
         <source>C 1</source>
-        <translation>C 1</translation>
+        <translation>C₁</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1036"/>
         <source>C♯ 1</source>
-        <translation>Cis 1</translation>
+        <translation>Cis₁</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1044"/>
         <source>D 1</source>
-        <translation>D 1</translation>
+        <translation>D₁</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1060"/>
         <source>E 1</source>
-        <translation>E 1</translation>
+        <translation>E₁</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1068"/>
         <source>F 1</source>
-        <translation>F 1</translation>
+        <translation>F₁</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1076"/>
         <source>F♯ 1</source>
-        <translation>Fis 1</translation>
+        <translation>Fis₁</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1084"/>
         <source>G 1</source>
-        <translation>G 1</translation>
+        <translation>G₁</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1100"/>
         <source>A 1</source>
-        <translation>A 1</translation>
+        <translation>A₁</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1116"/>
         <source>B 1</source>
-        <translation>H 1</translation>
+        <translation>H₁</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1132"/>
         <location filename="../../mscore/editpitch.ui" line="1344"/>
         <source>C 0</source>
-        <translation>C 0</translation>
+        <translation>C₂</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1146"/>
         <source>C♯ 0</source>
-        <translation>Cis 0</translation>
+        <translation>Cis₂</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1154"/>
         <source>D 0</source>
-        <translation>D 0</translation>
+        <translation>D₂</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1170"/>
         <source>E 0</source>
-        <translation>E 0</translation>
+        <translation>E₂</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1178"/>
         <source>F 0</source>
-        <translation>F 0</translation>
+        <translation>F₂</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1186"/>
         <source>F♯ 0</source>
-        <translation>Fis 0</translation>
+        <translation>Fis₂</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1194"/>
         <source>G 0</source>
-        <translation>G 0</translation>
+        <translation>G₂</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1210"/>
         <source>A 0</source>
-        <translation>A 0</translation>
+        <translation>A₂</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1226"/>
         <source>B 0</source>
-        <translation>H 0</translation>
+        <translation>H₂</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1242"/>
         <source>C -1</source>
-        <translation>C -1</translation>
+        <translation>C₃</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1256"/>
         <source>C♯ -1</source>
-        <translation>Cis -1</translation>
+        <translation>Cis₃</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1264"/>
         <source>D -1</source>
-        <translation>D -1</translation>
+        <translation>D₃</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1280"/>
         <source>E -1</source>
-        <translation>E -1</translation>
+        <translation>E₃</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1288"/>
         <source>F -1</source>
-        <translation>F -1</translation>
+        <translation>F₃</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1296"/>
         <source>F♯ -1</source>
-        <translation>Fis -1</translation>
+        <translation>Fis₃</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1304"/>
         <source>G -1</source>
-        <translation>G -1</translation>
+        <translation>G₃</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1320"/>
         <source>A -1</source>
-        <translation>A -1</translation>
+        <translation>A₃</translation>
     </message>
     <message>
         <location filename="../../mscore/editpitch.ui" line="1336"/>
         <source>B -1</source>
-        <translation>H -1</translation>
+        <translation>H₃</translation>
     </message>
 </context>
 <context>
