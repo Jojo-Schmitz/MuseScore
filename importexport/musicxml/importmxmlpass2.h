@@ -230,7 +230,7 @@ class MusicXMLParserNotations {
 public:
       MusicXMLParserNotations(QXmlStreamReader& e, Score* score, MxmlLogger* logger, MusicXMLParserPass1& pass1);
       void parse();
-      void addToScore(ChordRest* const cr, Note* const note, const int tick, SlurStack& slurs,
+      void addToScore(ChordRest* const cr, Note* const note, const Fraction& tick, SlurStack& slurs,
                       Glissando* glissandi[MAX_NUMBER_LEVEL][2], MusicXmlSpannerMap& spanners, TrillStack& trills,
                       MusicXMLTieMap& ties, std::vector<Note*>& unstartedTieNotes, std::vector<Note*>& unendedTieNotes);
       QString errors() const { return _errors; }

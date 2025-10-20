@@ -6688,7 +6688,7 @@ Note* MusicXMLParserPass2::note(const QString& partId,
 
       // handle notations
       if (cr) {
-            notations.addToScore(cr, note, noteStartTime.ticks(), _slurs, _glissandi, _spanners, _trills, _ties, _unstartedTieNotes, _unendedTieNotes);
+            notations.addToScore(cr, note, noteStartTime, _slurs, _glissandi, _spanners, _trills, _ties, _unstartedTieNotes, _unendedTieNotes);
 
             // if no tie added yet, convert the "tie" into "tied" and add it.
             if (note && !note->tieFor() && !tieType.isEmpty()) {
@@ -7619,7 +7619,7 @@ void MusicXMLParserNotations::slur()
 //   addSlur
 //---------------------------------------------------------
 
-static void addSlur(const Notation& notation, SlurStack& slurs, ChordRest* cr, const int tick,
+static void addSlur(const Notation& notation, SlurStack& slurs, ChordRest* cr, const Fraction& tick,
                     MxmlLogger* logger, const QXmlStreamReader* const xmlreader)
       {
       int slurNo = notation.attribute("number").toInt();
@@ -7643,9 +7643,9 @@ static void addSlur(const Notation& notation, SlurStack& slurs, ChordRest* cr, c
             else if (slurs[slurNo].isStop()) {
                   // slur start when slur already stopped: wrap up
                   Slur* newSlur = slurs[slurNo].slur();
-                  newSlur->setTick(Fraction::fromTicks(tick));
-                  newSlur->setStartElement(cr);
                   slurs[slurNo] = SlurDesc();
+                  newSlur->setTick(tick);
+                  newSlur->setStartElement(cr);
                   }
             else {
                   // slur start for new slur: init
@@ -7661,7 +7661,7 @@ static void addSlur(const Notation& notation, SlurStack& slurs, ChordRest* cr, c
                         newSlur->setLineType(0);
                   newSlur->setVisible(notation.visible());
                   colorItem(newSlur, notation.attribute("color"));
-                  newSlur->setTick(Fraction::fromTicks(tick));
+                  newSlur->setTick(tick);
                   newSlur->setStartElement(cr);
                   if (preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTLAYOUT)) {
                         const QString orientation = notation.attribute("orientation");
@@ -7686,12 +7686,12 @@ static void addSlur(const Notation& notation, SlurStack& slurs, ChordRest* cr, c
             if (slurs[slurNo].isStart()) {
                   // slur stop when slur already started: wrap up
                   Slur* newSlur = slurs[slurNo].slur();
+                  slurs[slurNo] = SlurDesc();
                   if (!(cr->isGrace())) {
-                        newSlur->setTick2(Fraction::fromTicks(tick));
+                        newSlur->setTick2(tick);
                         newSlur->setTrack2(track);
                         }
                   newSlur->setEndElement(cr);
-                  slurs[slurNo] = SlurDesc();
                   }
             else if (slurs[slurNo].isStop())
                   // slur stop when slur already stopped: report error
@@ -7700,7 +7700,7 @@ static void addSlur(const Notation& notation, SlurStack& slurs, ChordRest* cr, c
                   // slur stop for new slur: init
                   Slur* newSlur = new Slur(score);
                   if (!(cr->isGrace())) {
-                        newSlur->setTick2(Fraction::fromTicks(tick));
+                        newSlur->setTick2(tick);
                         newSlur->setTrack2(track);
                         }
                   newSlur->setEndElement(cr);
@@ -8709,13 +8709,13 @@ void MusicXMLParserNotations::addNotation(const Notation& notation, ChordRest* c
  as in that case note is a nullptr.
  */
 
-void MusicXMLParserNotations::addToScore(ChordRest* const cr, Note* const note, const int tick, SlurStack& slurs,
+void MusicXMLParserNotations::addToScore(ChordRest* const cr, Note* const note, const Fraction& tick, SlurStack& slurs,
                                          Glissando* glissandi[MAX_NUMBER_LEVEL][2], MusicXmlSpannerMap& spanners,
                                          TrillStack& trills, MusicXMLTieMap& ties, std::vector<Note*>& unstartedTieNotes,
                                          std::vector<Note*>& unendedTieNotes)
       {
       addArpeggio(cr, _arpeggioType, _arpeggioColor);
-      addWavyLine(cr, Fraction::fromTicks(tick), _wavyLineNo, _wavyLineType, spanners, trills, _logger, &_e);
+      addWavyLine(cr, tick, _wavyLineNo, _wavyLineType, spanners, trills, _logger, &_e);
 
       for (const Notation& notation : _notations) {
             if (notation.symId() != SymId::noSym) {
@@ -8746,7 +8746,7 @@ void MusicXMLParserNotations::addToScore(ChordRest* const cr, Note* const note, 
             dynamic->setDynamicType(d);
 //TODO:ws            if (hasYoffset) dyn->textStyle().setYoff(yoffset);
             colorItem(dynamic, _dynamicsColor);
-            addElemOffset(dynamic, cr->track(), _dynamicsPlacement, cr->measure(), Fraction::fromTicks(tick));
+            addElemOffset(dynamic, cr->track(), _dynamicsPlacement, cr->measure(), tick);
             }
       }
 
