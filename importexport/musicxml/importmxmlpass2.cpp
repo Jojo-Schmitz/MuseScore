@@ -7644,13 +7644,17 @@ static void addSlur(const Notation& notation, SlurStack& slurs, ChordRest* cr, c
                   // slur start when slur already stopped: wrap up
                   Slur* newSlur = slurs[slurNo].slur();
                   slurs[slurNo] = SlurDesc();
-                  newSlur->setTick(tick);
-                  newSlur->setStartElement(cr);
-                  if (newSlur->ticks().negative()) {
+
+                  const Fraction tick2 = newSlur->endElement()->tick();
+                  if (tick2 < tick) {
                         logger->logError(QString("slur end is before slur start"), xmlreader);
                         delete newSlur;
                         return;
                         }
+                  newSlur->setTrack(track);
+                  newSlur->setTick(tick);
+                  newSlur->setStartElement(cr);
+                  newSlur->setTick2(tick2);
                   }
             else {
                   // slur start for new slur: init
