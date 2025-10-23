@@ -3860,6 +3860,8 @@ bool  MStyle::readProperties460(XmlReader& e, int mscVersion)
             if (pedalFontSize != 12)                                // Changed from 4.6+ default
                   set(Sid::pedalFontSize, pedalFontSize);
             }
+      else if (tag == "harmonyHarmonyDistance")                     // Mu4.6+ only, let's skip
+            e.skipCurrentElement();
       else if (tag == "pedalPosition")                              // Mu4.6+ only, let's skip
             e.skipCurrentElement();
       else if (tag == "harmonyHarmonyDistance")                     // Mu4.6.3+ only, let's skip
@@ -3883,6 +3885,8 @@ bool  MStyle::readProperties460(XmlReader& e, int mscVersion)
             if (!qFuzzyCompare(barreLineWidth, 1))                  // Changed from 4.6+ default
                   set(Sid::barreLineWidth, barreLineWidth);
             }
+      else if (tag == "measureNumberPlacementMode")                 // Mu4.6+ only, let's skip
+            e.skipCurrentElement();
       else if (tag == "barlineBeforeSigChange"
             || tag == "doubleBarlineBeforeKeySig"
             || tag == "doubleBarlineBeforeTimeSig")                 // Mu4.6+ only, let's skip
@@ -3898,7 +3902,7 @@ bool  MStyle::readProperties460(XmlReader& e, int mscVersion)
                   }
             }
       else if (tag == "verticallyStackModifiers"
-            || tag == "chordStackedModiferMag"
+            || tag == "chordStackedModifierMag"
             || tag == "chordBassNoteStagger"
             || tag == "chordBassNoteScale"
             || tag == "polychordDividerThickness"

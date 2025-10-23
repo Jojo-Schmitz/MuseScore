@@ -315,9 +315,11 @@ void Harmony::read(XmlReader& e)
       {
       while (e.readNextStartElement()) {
             const QStringRef& tag(e.name());
-            if (tag == "base")
+            if (tag == "base"
+             || tag == "bass") // Mu4.6+ compatibility
                   setBaseTpc(e.readInt());
-            else if (tag == "baseCase")
+            else if (tag == "baseCase"
+                  || tag == "bassCase") // Mu4.6+ compatibility
                   _baseCase = static_cast<NoteCaseType>(e.readInt());
             else if (tag == "extension")
                   setId(e.readInt());
@@ -379,6 +381,8 @@ void Harmony::read(XmlReader& e)
                   ;
             else if (readProperty(tag, e, Pid::HARMONY_DURATION))
                   ;
+            else if (tag == "harmonyInfo") // Mu 4.6+ copmpatibility
+                  Harmony::read(e); // recur into this method here, to read bass, extension, name and root
             else if (!TextBase::readProperties(e))
                   e.unknown();
             }
