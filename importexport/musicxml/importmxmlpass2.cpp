@@ -4734,7 +4734,7 @@ void MusicXMLParserDirection::dashes(const QString& type, const int number,
       {
       const MusicXmlExtendedSpannerDesc& spdesc = _pass2.getSpanner({ ElementType::HAIRPIN, number });
       if (type == "start") {
-            TextLine* b = spdesc._isStopped ? toTextLine(spdesc._sp) : new TextLine(_score);
+            TextLine* b = spdesc._isStopped && spdesc._sp->isTextLine() ? toTextLine(spdesc._sp) : new TextLine(_score);
             // if (placement.isEmpty()) placement = "above";  // TODO ? set default
 
             // hack: combine with a previous words element
@@ -4753,7 +4753,7 @@ void MusicXMLParserDirection::dashes(const QString& type, const int number,
             starts.append(MusicXmlSpannerDesc(b, ElementType::TEXTLINE, number));
             }
       else if (type == "stop") {
-            TextLine* b = spdesc._isStarted ? toTextLine(spdesc._sp) : new TextLine(_score);
+            TextLine* b = spdesc._isStarted && spdesc._sp->isTextLine() ? toTextLine(spdesc._sp) : new TextLine(_score);
             stops.append(MusicXmlSpannerDesc(b, ElementType::TEXTLINE, number));
             }
       _e.skipCurrentElement();
