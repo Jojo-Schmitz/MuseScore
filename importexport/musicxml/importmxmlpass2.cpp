@@ -2680,6 +2680,14 @@ static void addGraceChordsAfter(Chord* c, GraceChordList& gcl, int& gac)
             if (gcl.size() > 0) {
                   Chord* graceChord = gcl.first();
                   gcl.removeFirst();
+                  std::vector<Element*> el = graceChord->el(); // copy, because modified during loop
+                  for (Element* e : graceChord->el()) {
+                        if (e->isFermata()) {
+                              e->setParent(c->segment());
+                              c->segment()->add(e);
+                              graceChord->el().remove(e);
+                              }
+                        }
                   graceChord->toGraceAfter();
                   c->add(graceChord);        // TODO check if same voice ?
                   coerceGraceCue(c, graceChord);
@@ -2702,11 +2710,12 @@ static void addGraceChordsBefore(Chord* c, GraceChordList& gcl)
       {
       for (int i = gcl.size() - 1; i >= 0; i--) {
             Chord* gc = gcl.at(i);
-            for (Element* e : gc->el()) {
+            std::vector<Element*> el = gc->el(); // copy, because modified during loop
+            for (Element* e : el) {
                   if (e->isFermata()) {
+                        e->setParent(c->segment());
                         c->segment()->add(e);
                         gc->el().remove(e);
-                        break;                  // out of the door, line on the left, one cross each
                         }
                   }
             c->add(gc);        // TODO check if same voice ?
@@ -4745,13 +4754,13 @@ void MusicXMLParserDirection::dashes(const QString& type, const int number,
       {
       const MusicXmlExtendedSpannerDesc& spdesc = _pass2.getSpanner({ ElementType::HAIRPIN, number });
       if (type == "start") {
-            TextLine* b = spdesc._isStopped ? toTextLine(spdesc._sp) : new TextLine(_score);
+            TextLineBase* b = spdesc._isStopped ? toTextLineBase(spdesc._sp) : new TextLine(_score);
             // if (placement.isEmpty()) placement = "above";  // TODO ? set default
 
             // hack: combine with a previous words element
             if (!_wordsText.isEmpty()) {
                   // TextLine supports only limited formatting, remove all (compatible with 1.3)
-                  b->setBeginText(MScoreTextToMXML::toPlainText(_wordsText));
+                  b->setBeginText(MScoreTextToMXML::toPlainText(_wordsText).simplified());
                   _wordsText.clear();
                   }
 
@@ -4764,7 +4773,7 @@ void MusicXMLParserDirection::dashes(const QString& type, const int number,
             starts.append(MusicXmlSpannerDesc(b, ElementType::TEXTLINE, number));
             }
       else if (type == "stop") {
-            TextLine* b = spdesc._isStarted ? toTextLine(spdesc._sp) : new TextLine(_score);
+            TextLineBase* b = spdesc._isStarted ? toTextLineBase(spdesc._sp) : new TextLine(_score);
             stops.append(MusicXmlSpannerDesc(b, ElementType::TEXTLINE, number));
             }
       _e.skipCurrentElement();
