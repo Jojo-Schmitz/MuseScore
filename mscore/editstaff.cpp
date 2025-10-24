@@ -17,6 +17,8 @@
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //=============================================================================
 
+#include "log.h"
+
 #include "editpitch.h"
 #include "editstaff.h"
 #include "editstafftype.h"
@@ -216,24 +218,24 @@ void EditStaff::updateInstrument()
 
 void EditStaff::updateInterval(const Interval& iv)
       {
-      int diatonic  = iv.diatonic;
-      int chromatic = iv.chromatic;
+      bool upFlag = !(iv.chromatic < 0 || iv.diatonic < 0);
 
+      int chromatic = std::abs(iv.chromatic);
+      int diatonic = std::abs(iv.diatonic);
       int oct = chromatic / 12;
-      if (oct < 0)
-            oct = -oct;
 
-      bool upFlag = true;
-      if (chromatic < 0 || diatonic < 0) {
-            upFlag    = false;
-            chromatic = -chromatic;
-            diatonic  = -diatonic;
-            }
       chromatic %= 12;
       diatonic  %= 7;
 
+      if (diatonic == 0 && chromatic == 11)
+            diatonic = 7;
+      else if (chromatic == 0 && diatonic == 6) {
+            chromatic = 12;
+            --oct;
+            }
+
       int interval = searchInterval(diatonic, chromatic);
-      if (interval == -1) {
+      IF_ASSERT_FAILED (interval != -1) {
             qDebug("EditStaff: unknown interval %d %d", diatonic, chromatic);
             interval = 0;
             }
