@@ -2025,7 +2025,6 @@ void ScoreView::normalSwap()
                         _score->selection().dump();
                   if (!checkCopyOrCut())
                         return;
-                  ms = QApplication::clipboard()->mimeData();
                   }
             }
       QByteArray d(_score->selection().mimeData());
@@ -5067,18 +5066,31 @@ void ScoreView::cmdRepeatSelection()
 
       if (noteEntryMode() && selection.isSingle()) {
             Element* el = _score->selection().element();
-            while (el && el->type() != ElementType::NOTE)
-                   el = el->prevSegmentElement();
-            if (el && el->type() == ElementType::NOTE && !_score->inputState().endOfScore()) {
-                  _score->startCmd();
-                  bool addTo = false;
-                  Chord* c = toNote(el)->chord();
-                  for (Note* note : c->notes()) {
-                        NoteVal nval = note->noteVal();
-                        _score->addPitch(nval, addTo);
-                        addTo = true;
+            if (el && !_score->inputState().endOfScore()) {
+                  Chord* c = nullptr;
+                  if (el->type() == ElementType::NOTE)
+                        c = toNote(el)->chord();
+                  else if (el->type() == ElementType::REST) {
+                        Segment* prevSegment = toRest(el)->segment()->prev1WithElemsOnTrack(el->track());
+
+                        // Looking for the previous Chord
+                        while (prevSegment) {
+                              if (prevSegment->elementAt(el->track())->isChord()) {
+                                    c = toChord(prevSegment->elementAt(el->track()));
+                                    break;
+                                    }
+                              else
+                                    prevSegment = prevSegment->prev1WithElemsOnTrack(el->track());
+                              }
                         }
-                  _score->endCmd();
+                  if (c) {
+                        _score->startCmd();
+                        for (Note* note : c->notes()) {
+                              NoteVal nval = note->noteVal();
+                              _score->addPitch(nval, note != c->notes()[0]);
+                              }
+                        _score->endCmd();
+                        }
                   }
             return;
             }
@@ -5123,9 +5135,11 @@ void ScoreView::cmdRepeatSelection()
                   _score->pasteStaff(xml, cr->segment(), cr->staffIdx());
                   _score->endCmd();
                   }
-            else qDebug("cmdRepeatSelection: cannot paste: endSegment: %p dStaff %d", endSegment, dStaff);
+            else
+                  qDebug("cmdRepeatSelection: cannot paste: endSegment: %p dStaff %d", endSegment, dStaff);
             }
-      else qDebug() << "cmdRepeatSelection: no end segment";
+      else
+            qDebug() << "cmdRepeatSelection: no end segment";
       }
 
 //---------------------------------------------------------

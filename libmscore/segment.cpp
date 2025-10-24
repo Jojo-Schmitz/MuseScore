@@ -334,6 +334,28 @@ Segment* Segment::prev1() const
       return m ? m->last() : 0;
       }
 
+Segment* Segment::prev1WithElemsOnStaff(int staffIdx, SegmentType segType) const
+      {
+      Segment* prev = prev1(segType);
+
+      int startTrack = staffIdx * VOICES;
+      int  endTrack = startTrack + VOICES - 1;
+      while (prev && !prev->hasElements(startTrack, endTrack))
+            prev = prev->prev1(segType);
+
+      return prev;
+      }
+
+Segment* Segment::prev1WithElemsOnTrack(int  trackIdx, SegmentType segType) const
+      {
+      Segment* prev = prev1(segType);
+
+      while (prev && !prev->hasElements(trackIdx, trackIdx))
+            prev = prev->prev1(segType);
+
+      return prev;
+      }
+
 Segment* Segment::prev1enabled() const
       {
       Segment* s = prev1();
@@ -947,7 +969,7 @@ bool Segment::setProperty(Pid propertyId, const QVariant& v)
 qreal Segment::widthInStaff(int staffIdx, SegmentType t) const
       {
       const qreal segX = x();
-      qreal nextSegX = segX;
+      qreal nextSegX;
 
       Segment* nextSeg = nextInStaff(staffIdx, t);
       if (nextSeg)
@@ -1425,40 +1447,40 @@ Element* Segment::nextElementOfSegment(Segment* s, Element* e, int activeStaff)
             if (s->element(track) == 0)
                   continue;
              Element* el = s->element(track);
-             if (el == e) {
-                 Element* next = s->element(track+1);
-                 while (track < score()->nstaves() * VOICES - 1 &&
-                        (!next || next->staffIdx() != activeStaff)) {
-                       next = s->element(++track);
-                       }
-                 if (!next || next->staffIdx() != activeStaff)
-                       return nullptr;
-                 if (next->isChord())
-                       return toChord(next)->notes().back();
-                 else
-                       return next;
-             }
-             if (el->type() == ElementType::CHORD) {
-                   std::vector<Note*> notes = toChord(el)->notes();
-                   auto i = std::find(notes.begin(), notes.end(), e);
-                   if (i == notes.end())
-                         continue;
-                   if (i!= notes.begin()) {
-                         return *(i-1);
-                         }
-                   else {
-                         Element* nextEl = s->element(++track);
-                         while (track < score()->nstaves() * VOICES - 1 &&
-                                (!nextEl || nextEl->staffIdx() != activeStaff)) {
-                               nextEl = s->element(++track);
-                               }
-                         if (!nextEl || nextEl->staffIdx() != activeStaff)
-                               return nullptr;
-                         if (nextEl->isChord())
-                               return toChord(nextEl)->notes().back();
-                         return nextEl;
-                         }
-                   }
+            if (el == e) {
+                  Element* next = s->element(track+1);
+                  while (track < score()->nstaves() * VOICES - 1 &&
+                         (!next || next->staffIdx() != activeStaff)) {
+                        next = s->element(++track);
+                        }
+                  if (!next || next->staffIdx() != activeStaff)
+                        return nullptr;
+                  if (next->isChord())
+                        return toChord(next)->notes().back();
+                  else
+                        return next;
+                  }
+            if (el->type() == ElementType::CHORD) {
+                  std::vector<Note*> notes = toChord(el)->notes();
+                  auto i = std::find(notes.begin(), notes.end(), e);
+                  if (i == notes.end())
+                        continue;
+                  if (i!= notes.begin()) {
+                        return *(i-1);
+                        }
+                  else {
+                        Element* nextEl = s->element(++track);
+                        while (track < score()->nstaves() * VOICES - 1 &&
+                               (!nextEl || nextEl->staffIdx() != activeStaff)) {
+                              nextEl = s->element(++track);
+                              }
+                        if (!nextEl || nextEl->staffIdx() != activeStaff)
+                              return nullptr;
+                        if (nextEl->isChord())
+                              return toChord(nextEl)->notes().back();
+                        return nextEl;
+                        }
+                  }
             }
       return nullptr;
       }
@@ -1473,47 +1495,47 @@ Element* Segment::prevElementOfSegment(Segment* s, Element* e, int activeStaff)
       for (int track = score()->nstaves() * VOICES - 1; track > 0; --track) {
             if (s->element(track) == 0)
                   continue;
-             Element* el = s->element(track);
-             if (el == e) {
-                 Element* prev = s->element(track-1);
-                 while (track > 0 &&
-                        (!prev || prev->staffIdx() != activeStaff)) {
-                       prev = s->element(--track);
-                       }
-                 if (!prev)
-                       return nullptr;
-                 if (prev->staffIdx() == e->staffIdx()) {
-                 if (prev->isChord())
-                       return toChord(prev)->notes().front();
-                 else
-                       return prev;
-                       }
-                 return nullptr;
-             }
-             if (el->isChord()) {
-                   std::vector<Note*> notes = toChord(el)->notes();
-                   auto i = std::find(notes.begin(), notes.end(), e);
-                   if (i == notes.end())
-                         continue;
-                   if (i!= --notes.end()) {
-                         return *(i+1);
-                         }
-                   else {
-                         Element* prevEl = s->element(--track);
-                         while (track > 0 &&
-                                (!prevEl || prevEl->staffIdx() != activeStaff)) {
-                               prevEl = s->element(--track);
-                               }
-                         if (!prevEl)
-                               return nullptr;
-                         if (prevEl->staffIdx() == e->staffIdx()) {
-                         if (prevEl->isChord())
-                               return toChord(prevEl)->notes().front();
-                         return prevEl;
-                               }
-                         return nullptr;
-                         }
-                   }
+            Element* el = s->element(track);
+            if (el == e) {
+                  Element* prev = s->element(track-1);
+                  while (track > 0 &&
+                         (!prev || prev->staffIdx() != activeStaff)) {
+                        prev = s->element(--track);
+                        }
+                  if (!prev || !e)
+                        return nullptr;
+                  if (prev->staffIdx() == e->staffIdx()) {
+                        if (prev->isChord())
+                             return toChord(prev)->notes().front();
+                        else
+                             return prev;
+                        }
+                  return nullptr;
+                  }
+            if (el->isChord()) {
+                  std::vector<Note*> notes = toChord(el)->notes();
+                  auto i = std::find(notes.begin(), notes.end(), e);
+                  if (i == notes.end())
+                        continue;
+                  if (i!= --notes.end()) {
+                        return *(i+1);
+                        }
+                  else {
+                        Element* prevEl = s->element(--track);
+                        while (track > 0 &&
+                               (!prevEl || prevEl->staffIdx() != activeStaff)) {
+                              prevEl = s->element(--track);
+                              }
+                        if (!prevEl)
+                              return nullptr;
+                        if (prevEl->staffIdx() == e->staffIdx()) {
+                              if (prevEl->isChord())
+                                    return toChord(prevEl)->notes().front();
+                              return prevEl;
+                              }
+                        return nullptr;
+                        }
+                  }
             }
       return nullptr;
       }
@@ -1529,7 +1551,7 @@ Element* Segment::lastElementOfSegment(Segment* s, int activeStaff)
       for (auto i = --elements.end(); i != elements.begin(); --i) {
             if (*i && (*i)->staffIdx() == activeStaff) {
                   if ((*i)->isChord())
-                      return toChord(*i)->notes().front();
+                        return toChord(*i)->notes().front();
                   else
                         return *i;
                   }

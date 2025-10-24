@@ -103,6 +103,8 @@ class Segment final : public Element {
       Segment* next1MM(SegmentType) const;
 
       Segment* prev1() const;
+      Segment* prev1WithElemsOnStaff(int staffIdx, SegmentType segType = SegmentType::ChordRest) const;
+      Segment* prev1WithElemsOnTrack(int trackIdx, SegmentType segType = SegmentType::ChordRest) const;
       Segment* prev1enabled() const;
       Segment* prev1MM() const;
       Segment* prev1MMenabled() const;
