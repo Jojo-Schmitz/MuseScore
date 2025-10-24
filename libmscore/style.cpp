@@ -3745,7 +3745,7 @@ bool MStyle::readProperties440(XmlReader& e, int mscVersion)
 
 bool  MStyle::readProperties450(XmlReader& e, int mscVersion)
       {
-      if (/*mscVersion >= 460 && */readProperties460(e, mscVersion))
+      if (mscVersion >= 460 && readProperties460(e, mscVersion))
             return true;
 
       const QStringRef& tag(e.name());
@@ -3820,8 +3820,8 @@ bool  MStyle::readProperties450(XmlReader& e, int mscVersion)
 
 bool  MStyle::readProperties460(XmlReader& e, int mscVersion)
       {
-      if (mscVersion > 460)
-            qDebug("Yet unknown version detected");
+      if (/*mscVersion >= 470 && */readProperties470(e, mscVersion))
+            return true;
 
       const QStringRef& tag(e.name());
 
@@ -3845,12 +3845,12 @@ bool  MStyle::readProperties460(XmlReader& e, int mscVersion)
             e.skipCurrentElement();
       else if (tag == "accidentalDistance") {                       // 0.25 -> 0.22
             qreal accidentalDistance = e.readDouble();
-            if (!qFuzzyCompare(accidentalDistance, 0.22))           // Changed from 4.6+ default
+            if (!qFuzzyCompare(accidentalDistance, 0.22))           // Changed from 4.6.3+ default
                   set(Sid::accidentalDistance, accidentalDistance);
             }
       else if (tag == "articulationAnchorLuteFingering") {          // 1 -> 4
             int articulationAnchorLuteFingering = e.readInt();
-            if (articulationAnchorLuteFingering != 4)               // Changed from 4.6+ default
+            if (articulationAnchorLuteFingering != 4)               // Changed from 4.6.3+ default
                   set(Sid::articulationAnchorLuteFingering, articulationAnchorLuteFingering);
             }
       else if (tag == "hairpinPosition")                            // Mu4.6+ only, let's skip
@@ -3861,6 +3861,8 @@ bool  MStyle::readProperties460(XmlReader& e, int mscVersion)
                   set(Sid::pedalFontSize, pedalFontSize);
             }
       else if (tag == "pedalPosition")                              // Mu4.6+ only, let's skip
+            e.skipCurrentElement();
+      else if (tag == "harmonyHarmonyDistance")                     // Mu4.6.3+ only, let's skip
             e.skipCurrentElement();
       //else if (tag == "chordSymbolAAlign")                        // left,baseline -> center,baseline ToDo/Let's pass
       //      return false;
@@ -4105,6 +4107,32 @@ bool  MStyle::readProperties460(XmlReader& e, int mscVersion)
             return false;
       return true;
       }
+
+bool  MStyle::readProperties470(XmlReader& e, int mscVersion)
+      {
+      if (mscVersion > 470)
+            qDebug("Yet unknown version detected");
+
+      const QStringRef& tag(e.name());
+
+      if (tag == "hairpinOffset")                                   // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
+      else if (tag == "pedalOffset")                                // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
+      else if (tag == "displayCapoChords")                          // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
+      else if (tag == "keysigShowNaturalsChangingSharpsFlats")      // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
+      else if (tag == "showFretOnFullBendRelease")                  // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
+      else if (tag == "letRingOffset")                              // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
+      else if (tag == "palmMuteOffset")                             // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
+      else // still no match
+            return false;
+      return true;
+}
 // end 4.x compat
 
 void MStyle::applyNewDefaults(const MStyle& other, const int defaultsVersion)
