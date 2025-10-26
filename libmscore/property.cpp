@@ -59,7 +59,7 @@ static constexpr PropertyMetaData propertyList[] = {
       { Pid::VISIBLE,                 false, "visible",               P_TYPE::BOOL,                DUMMY_QT_TRANSLATE_NOOP("propertyName", "visible")          },
       { Pid::Z,                       false, "z",                     P_TYPE::INT,                 DUMMY_QT_TRANSLATE_NOOP("propertyName", "z")                },
       { Pid::SMALL,                   false, "small",                 P_TYPE::BOOL,                DUMMY_QT_TRANSLATE_NOOP("propertyName", "small")            },
-      { Pid::SHOW_COURTESY,           false, "showCourtesySig",       P_TYPE::INT,                 DUMMY_QT_TRANSLATE_NOOP("propertyName", "show courtesy")    },
+      { Pid::SHOW_COURTESY,           false, "showCourtesySig",       P_TYPE::BOOL,                DUMMY_QT_TRANSLATE_NOOP("propertyName", "show courtesy")    },
       { Pid::KEYSIG_MODE,             false, "keysig_mode",           P_TYPE::KEYMODE,             DUMMY_QT_TRANSLATE_NOOP("propertyName", "show courtesy")    },
       { Pid::LINE_TYPE,               false, "lineType",              P_TYPE::INT,                 DUMMY_QT_TRANSLATE_NOOP("propertyName", "line type")        },
       { Pid::PITCH,                   true,  "pitch",                 P_TYPE::INT,                 DUMMY_QT_TRANSLATE_NOOP("propertyName", "pitch")            },
@@ -77,7 +77,7 @@ static constexpr PropertyMetaData propertyList[] = {
 
       { Pid::DIRECTION,               false, "direction",             P_TYPE::DIRECTION,           DUMMY_QT_TRANSLATE_NOOP("propertyName", "direction")        },
       { Pid::STEM_DIRECTION,          false, "StemDirection",         P_TYPE::DIRECTION,           DUMMY_QT_TRANSLATE_NOOP("propertyName", "stem direction")   },
-      { Pid::NO_STEM,                 false, "noStem",                P_TYPE::INT,                 DUMMY_QT_TRANSLATE_NOOP("propertyName", "no stem")          },
+      { Pid::NO_STEM,                 false, "noStem",                P_TYPE::BOOL,                DUMMY_QT_TRANSLATE_NOOP("propertyName", "no stem")          },
       { Pid::SLUR_DIRECTION,          false, "up",                    P_TYPE::DIRECTION,           DUMMY_QT_TRANSLATE_NOOP("propertyName", "up")               },
       { Pid::LEADING_SPACE,           false, "leadingSpace",          P_TYPE::SPATIUM,             DUMMY_QT_TRANSLATE_NOOP("propertyName", "leading space")    },
       { Pid::DISTRIBUTE,              false, "distribute",            P_TYPE::BOOL,                DUMMY_QT_TRANSLATE_NOOP("propertyName", "distributed")      },

@@ -2822,7 +2822,6 @@ QVariant Chord::getProperty(Pid propertyId) const
       {
       switch (propertyId) {
             case Pid::NO_STEM:        return noStem();
-            case Pid::SMALL:          return isSmall();
             case Pid::STEM_DIRECTION: return QVariant::fromValue<Direction>(stemDirection());
             default:
                   return ChordRest::getProperty(propertyId);
@@ -2837,7 +2836,6 @@ QVariant Chord::propertyDefault(Pid propertyId) const
       {
       switch (propertyId) {
             case Pid::NO_STEM:        return false;
-            case Pid::SMALL:          return false;
             case Pid::STEM_DIRECTION: return QVariant::fromValue<Direction>(Direction::AUTO);
             default:
                   return ChordRest::propertyDefault(propertyId);
@@ -2853,9 +2851,6 @@ bool Chord::setProperty(Pid propertyId, const QVariant& v)
       switch (propertyId) {
             case Pid::NO_STEM:
                   setNoStem(v.toBool());
-                  break;
-            case Pid::SMALL:
-                  setSmall(v.toBool());
                   break;
             case Pid::STEM_DIRECTION:
                   setStemDirection(v.value<Direction>());

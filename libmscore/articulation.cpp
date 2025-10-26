@@ -313,7 +313,7 @@ QVariant Articulation::getProperty(Pid propertyId) const
             case Pid::DIRECTION:           return QVariant::fromValue<Direction>(direction());
             case Pid::ARTICULATION_ANCHOR: return int(anchor());
             case Pid::ORNAMENT_STYLE:      return int(ornamentStyle());
-            case Pid::PLAY:                return bool(playArticulation());
+            case Pid::PLAY:                return playArticulation();
             default:
                   return Element::getProperty(propertyId);
             }

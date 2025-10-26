@@ -336,7 +336,7 @@ QVariant Bend::getProperty(Pid id) const
             case Pid::FONT_STYLE:
                   return int(_fontStyle);
             case Pid::PLAY:
-                  return bool(playBend());
+                  return playBend();
             case Pid::LINE_WIDTH:
                   return _lineWidth;
             default:
