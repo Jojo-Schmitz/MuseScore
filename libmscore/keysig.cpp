@@ -596,7 +596,7 @@ QVariant KeySig::getProperty(Pid propertyId) const
             case Pid::KEY:
                   return int(key());
             case Pid::SHOW_COURTESY:
-                  return int(showCourtesy());
+                  return showCourtesy();
             case Pid::KEYSIG_MODE:
                   return int(mode());
             default:

@@ -1619,7 +1619,7 @@ void Score::cmdFlip()
                || e->isBreath()) {
                   e->undoChangeProperty(Pid::AUTOPLACE, true);
                   // getProperty() delegates call from spannerSegment to Spanner
-                  Placement p = Placement(e->getProperty(Pid::PLACEMENT).toInt());
+                  Placement p = e->getProperty(Pid::PLACEMENT).value<Placement>();
                   p = (p == Placement::ABOVE) ? Placement::BELOW : Placement::ABOVE;
                   // TODO: undoChangeProperty() should probably do this directly
                   // see https://musescore.org/en/node/281432

@@ -206,7 +206,7 @@ bool Jump::setProperty(Pid propertyId, const QVariant& v)
                   setContinueAt(v.toString());
                   break;
             case Pid::PLAY_REPEATS:
-                  setPlayRepeats(v.toInt());
+                  setPlayRepeats(v.toBool());
                   break;
             default:
                   if (!TextBase::setProperty(propertyId, v))

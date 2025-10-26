@@ -328,7 +328,7 @@ void Dynamic::endEdit(EditData& ed)
       auto text = xmlText();
       auto it = std::find_if(std::begin(dynList), std::end(dynList), [text](const Ms::Dyn& d) { return text == QString::fromUtf8(d.text); });
       _dynamicType = it == std::end(dynList) ? Type::OTHER : static_cast<Type>(it - std::begin(dynList));
-      for (auto* e : this->linkList())
+      for (auto*& e : this->linkList())
             toDynamic(e)->_dynamicType = _dynamicType;
       }
 
@@ -436,8 +436,6 @@ QVariant Dynamic::getProperty(Pid propertyId) const
                   return int(_dynRange);
             case Pid::VELOCITY:
                   return velocity();
-            case Pid::SUBTYPE:
-                  return int(_dynamicType);
             case Pid::VELO_CHANGE:
                   return changeInVelocity();
             case Pid::VELO_CHANGE_SPEED:
@@ -462,9 +460,6 @@ bool Dynamic::setProperty(Pid propertyId, const QVariant& v)
                   break;
             case Pid::VELOCITY:
                   _velocity = v.toInt();
-                  break;
-            case Pid::SUBTYPE:
-                  _dynamicType = Type(v.toInt());
                   break;
             case Pid::VELO_CHANGE:
                   setChangeInVelocity(v.toInt());

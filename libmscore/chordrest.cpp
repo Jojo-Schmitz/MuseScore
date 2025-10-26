@@ -263,7 +263,7 @@ bool ChordRest::readProperties(XmlReader& e)
             add(atr);
             }
       else if (tag == "leadingSpace" || tag == "trailingSpace") {
-            qDebug("ChordRest: %s obsolete", tag.toLocal8Bit().data());
+            qDebug("ChordRest: %s obsolete", tag.toLocal8Bit().constData());
             e.skipCurrentElement();
             }
       else if (tag == "small")
@@ -330,12 +330,12 @@ void ChordRest::readAddConnector(ConnectorInfoReader* info, bool pasteMode)
                         spanner->setStartElement(this);
                         if (pasteMode) {
                               score()->undoAddElement(spanner);
-                              for (ScoreElement* linkedSpanner : spanner->linkList()) {
+                              for (ScoreElement*& linkedSpanner : spanner->linkList()) {
                                     if (linkedSpanner == spanner)
                                           continue;
                                     Spanner* ls = toSpanner(linkedSpanner);
                                     ls->setTick(spanner->tick());
-                                    for (ScoreElement* linkedCR : linkList()) {
+                                    for (ScoreElement*& linkedCR : linkList()) {
                                           ChordRest* cr = toChordRest(linkedCR);
                                           if (cr->score() == linkedSpanner->score() && cr->staffIdx() == ls->staffIdx()) {
                                                 ls->setTrack(cr->track());
@@ -354,12 +354,12 @@ void ChordRest::readAddConnector(ConnectorInfoReader* info, bool pasteMode)
                         spanner->setTick2(tick());
                         spanner->setEndElement(this);
                         if (pasteMode) {
-                              for (ScoreElement* linkedSpanner : spanner->linkList()) {
+                              for (ScoreElement*& linkedSpanner : spanner->linkList()) {
                                     if (linkedSpanner == spanner)
                                           continue;
                                     Spanner* ls = static_cast<Spanner*>(linkedSpanner);
                                     ls->setTick2(spanner->tick2());
-                                    for (ScoreElement* linkedCR : linkList()) {
+                                    for (ScoreElement*& linkedCR : linkList()) {
                                           ChordRest* cr = toChordRest(linkedCR);
                                           if (cr->score() == linkedSpanner->score() && cr->staffIdx() == ls->staffIdx()) {
                                                 ls->setTrack2(cr->track());
@@ -439,7 +439,7 @@ Element* ChordRest::drop(EditData& data)
                               return m->drop(data);
 
                         BarLine* obl = 0;
-                        for (Staff* st  : staff()->staffList()) {
+                        for (Staff*& st  : staff()->staffList()) {
                               Score* score = st->score();
                               Measure* measure = score->tick2measure(m->tick());
                               Segment* seg = measure->undoGetSegmentR(SegmentType::BarLine, rtick());
@@ -850,7 +850,7 @@ void ChordRest::localSpatiumChanged(qreal oldValue, qreal newValue)
 QVariant ChordRest::getProperty(Pid propertyId) const
       {
       switch (propertyId) {
-            case Pid::SMALL:      return QVariant(isSmall());
+            case Pid::SMALL:      return QVariant::fromValue(isSmall());
             case Pid::BEAM_MODE:  return int(beamMode());
             case Pid::STAFF_MOVE: return staffMove();
             case Pid::DURATION_TYPE: return QVariant::fromValue(actualDurationType());
@@ -1095,6 +1095,8 @@ Element* ChordRest::nextElement()
       Element* e = score()->selection().element();
       if (!e && !score()->selection().elements().isEmpty())
             e = score()->selection().elements().first();
+      if (!e)
+            return nullptr;
       switch (e->type()) {
             case ElementType::ARTICULATION:
             case ElementType::LYRICS: {
@@ -1126,6 +1128,8 @@ Element* ChordRest::prevElement()
       Element* e = score()->selection().element();
       if (!e && !score()->selection().elements().isEmpty())
             e = score()->selection().elements().last();
+      if (!e)
+            return nullptr;
       switch (e->type()) {
             case ElementType::ARTICULATION:
             case ElementType::LYRICS: {

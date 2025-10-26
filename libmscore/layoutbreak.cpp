@@ -38,7 +38,7 @@ LayoutBreak::LayoutBreak(Score* score)
       _startWithMeasureOne = false;
       _firstSystemIndentation = false;
       _showCourtesy = false;
-      _layoutBreakType = Type(propertyDefault(Pid::LAYOUT_BREAK).toInt());
+      _layoutBreakType = LayoutBreak::Type::PAGE;
 
       initElementStyle(&sectionBreakStyle);
 

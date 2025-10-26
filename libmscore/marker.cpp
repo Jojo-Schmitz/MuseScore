@@ -230,7 +230,7 @@ void Marker::undoSetLabel(const QString& s)
 //   undoSetMarkerType
 //---------------------------------------------------------
 
-void Marker::undoSetMarkerType(Type t)
+void Marker::undoSetMarkerType(const Type t)
       {
       undoChangeProperty(Pid::MARKER_TYPE, int(t));
       }
@@ -263,7 +263,7 @@ bool Marker::setProperty(Pid propertyId, const QVariant& v)
                   setLabel(v.toString());
                   break;
             case Pid::MARKER_TYPE:
-                  setMarkerType(Type(v.toInt()));
+                  setMarkerType(v.value<Marker::Type>());
                   break;
             default:
                   if (!TextBase::setProperty(propertyId, v))

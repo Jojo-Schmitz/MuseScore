@@ -383,7 +383,7 @@ QVariant Stem::propertyDefault(Pid id) const
       {
       switch (id) {
             case Pid::USER_LEN:
-                  return 0.0;
+                  return Spatium(0.0);
 //            case Pid::LINE_WIDTH:
 //                  return score()->styleP(Sid::stemWidth);
             case Pid::STEM_DIRECTION:

@@ -259,7 +259,7 @@ void Lyrics::layout()
       QString trailing;
 
       if (score()->styleB(Sid::lyricsAlignVerseNumber)) {
-            QRegularExpression punctuationPattern("(^[\\d\\W]*)([^\\d\\W].*?)([\\d\\W]*$)", QRegularExpression::UseUnicodePropertiesOption);
+            static const QRegularExpression punctuationPattern("(^[\\d\\W]*)([^\\d\\W].*?)([\\d\\W]*$)", QRegularExpression::UseUnicodePropertiesOption);
             QRegularExpressionMatch punctuationMatch = punctuationPattern.match(text);
             if (punctuationMatch.hasMatch()) {
                   // leading and trailing punctuation
@@ -647,7 +647,7 @@ void Lyrics::undoChangeProperty(Pid id, const QVariant& v, PropertyFlags ps)
                   if (l->no() == v.toInt()) {
                         // verse already exists, swap
                         l->TextBase::undoChangeProperty(id, no(), ps);
-                        Placement p = l->placement();
+                        const Placement p = l->placement();
                         l->TextBase::undoChangeProperty(Pid::PLACEMENT, int(placement()), ps);
                         TextBase::undoChangeProperty(Pid::PLACEMENT, int(p), ps);
                         break;

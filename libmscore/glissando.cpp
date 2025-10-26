@@ -672,7 +672,7 @@ bool Glissando::setProperty(Pid propertyId, const QVariant& v)
       {
       switch (propertyId) {
             case Pid::GLISS_TYPE:
-                  setGlissandoType(GlissandoType(v.toInt()));
+                  setGlissandoType(v.value<GlissandoType>());
                   break;
             case Pid::GLISS_TEXT:
                   setText(v.toString());
@@ -681,7 +681,7 @@ bool Glissando::setProperty(Pid propertyId, const QVariant& v)
                   setShowText(v.toBool());
                   break;
             case Pid::GLISS_STYLE:
-                  setGlissandoStyle(GlissandoStyle(v.toInt()));
+                  setGlissandoStyle(v.value<GlissandoStyle>());
                   break;
             case Pid::GLISS_EASEIN:
                   setEaseIn(v.toInt());
