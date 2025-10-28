@@ -4123,6 +4123,8 @@ bool  MStyle::readProperties470(XmlReader& e, int mscVersion)
             e.skipCurrentElement();
       else if (tag == "keysigShowNaturalsChangingSharpsFlats")      // Mu4.7+ only, let's skip
             e.skipCurrentElement();
+      else if (tag == "systemTextLineLineSpacing")                  // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
       else if (tag == "showFretOnFullBendRelease")                  // Mu4.7+ only, let's skip
             e.skipCurrentElement();
       else if (tag == "letRingOffset")                              // Mu4.7+ only, let's skip
