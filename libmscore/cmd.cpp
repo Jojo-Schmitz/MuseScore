@@ -2780,7 +2780,7 @@ void Score::cmdIncDecDuration(int nSteps, bool stepDotted)
             for (auto cr : getSelectedChordRests()) {
                   changeCRlen(cr, newDuration);
                   }
-            for (auto cr : crs) {
+            for (auto cr : qAsConst(crs)) {
                   Element* e = cr;
                   if (cr->isChord())
                         e = toChord(cr)->upNote();

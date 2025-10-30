@@ -13,8 +13,7 @@
 #ifndef __INSPECTOR_PARTRANGE_H__
 #define __INSPECTOR_PARTRANGE_H__
 
-#include "inspector.h"
-#include "inspectorBase.h"
+#include "inspectorElementBase.h"
 #include "ui_inspector_ambitus.h"
 #include "ui_inspector_segment.h"
 

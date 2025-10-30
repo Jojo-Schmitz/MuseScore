@@ -27,7 +27,7 @@ enum class ClefType : signed char;
 //   Key
 //---------------------------------------------------------
 
-enum class Key {
+enum class Key : signed char {
       C_B = -7,
       G_B,
       D_B,
@@ -54,7 +54,7 @@ enum class Key {
 //   KeyMode
 //---------------------------------------------------------
 
-enum class KeyMode {
+enum class KeyMode : signed char {
       UNKNOWN = -1,
       NONE,
       MAJOR,

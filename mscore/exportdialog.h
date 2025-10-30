@@ -23,7 +23,6 @@
 #include "ui_exportdialog.h"
 #include "abstractdialog.h"
 #include "libmscore/excerpt.h"
-#include "libmscore/mscore.h"
 #include "libmscore/score.h"
 
 namespace Ms {

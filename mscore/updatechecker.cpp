@@ -99,10 +99,7 @@ void UpdateChecker::onRequestFinished(QNetworkReply* reply)
             qDebug() << reader.error() << reader.errorString();
 
       QString message = tr("An update for MuseScore is available: %1MuseScore %2 r.%3%4")
-                  .arg("<a href=\"" + downloadUrl + "\">")
-                  .arg(version)
-                  .arg(upgradeRevision)
-                  .arg("</a>");
+                  .arg("<a href=\"" + downloadUrl + "\">", version, upgradeRevision, "</a>");
 //    qDebug("revision %s", revision.toLatin1().constData());
       if (!version.isEmpty() &&  version > _currentVersion ) {
             QMessageBox msgBox;
@@ -153,7 +150,7 @@ void UpdateChecker::check(QString currentVersion, bool m)
             release = "nightly";
             QString buildNumber = QString("%1").arg(BUILD_NUMBER);
             if (!buildNumber.isEmpty())
-                  _currentVersion = QString("%1.%2").arg(currentVersion).arg(BUILD_NUMBER);
+                  _currentVersion = QString("%1.%2").arg(currentVersion, BUILD_NUMBER);
             else {
                   _currentVersion = currentVersion;
                   check = false;
@@ -223,7 +220,7 @@ void ExtensionsUpdateChecker::check()
             }
 
       QStringList extensions = result.object().keys();
-      for (QString key : extensions) {
+      for (QString& key : extensions) {
             if (!result.object().value(key).isObject())
                   continue;
             QJsonObject value = result.object().value(key).toObject();

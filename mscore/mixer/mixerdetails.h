@@ -20,12 +20,12 @@
 #ifndef __MIXERDETAILS_H__
 #define __MIXERDETAILS_H__
 
-#include "ui_mixerdetails.h"
-#include "libmscore/instrument.h"
-#include "mixertrackitem.h"
-
-#include <functional>
 #include <QPushButton>
+
+#include "ui_mixerdetails.h"
+#include "mixertrackitem.h"
+#include "libmscore/instrument.h"
+
 
 namespace Ms {
 

@@ -224,7 +224,7 @@ QFileInfoList Zerberus::sfzFiles()
       QFileInfoList l;
 
       QStringList pl = Ms::preferences.getString(PREF_APP_PATHS_MYSOUNDFONTS).split(";");
-      pl.prepend(QFileInfo(QString("%1%2").arg(Ms::mscoreGlobalShare).arg("sound")).absoluteFilePath());
+      pl.prepend(QFileInfo(QString("%1%2").arg(Ms::mscoreGlobalShare, "sound")).absoluteFilePath());
 
       // append extensions directory
       QStringList extensionsDir = Ms::Extension::getDirectoriesByType(Ms::Extension::sfzsDir);
@@ -285,12 +285,12 @@ void ZerberusGui::soundFontAddClicked()
       QFileInfoList l = Zerberus::sfzFiles();
 
       SfzListDialog ld(this);
-      for (const QFileInfo& fi : l)
+      for (QFileInfo& fi : l)
             ld.add(fi.fileName(), fi.absoluteFilePath());
       if (!ld.exec())
             return;
 
-      for (auto item : ld.getNamePaths()) {
+      for (auto& item : ld.getNamePaths()) {
             _sfzToLoad.push_back(item);
             }
       loadSfz();
@@ -382,7 +382,7 @@ void ZerberusGui::synthesizerChanged()
       {
       files->clear();
       QStringList sfonts = zerberus()->soundFonts();
-      for (QString path : sfonts) {
+      for (QString& path : sfonts) {
             QListWidgetItem* item = new QListWidgetItem;
             item->setText(QFileInfo(path).fileName());
             item->setData(Qt::UserRole, path);

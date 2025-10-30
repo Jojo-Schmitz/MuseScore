@@ -13,7 +13,7 @@ namespace Ms {
 
 namespace MidiOperations {
 
-enum class QuantValue {
+enum class QuantValue : signed char{
       Q_4 = 0,
       Q_8,
       Q_16,
@@ -26,20 +26,20 @@ enum class QuantValue {
       Q_INVALID = -1
       };
 
-enum class VoiceCount {
+enum class VoiceCount : char {
       V_1 = 0,
       V_2,
       V_3,
       V_4
       };
 
-enum class Swing {
+enum class Swing : char {
       NONE = 0,
       SWING,
       SHUFFLE
       };
 
-enum class TimeSigNumerator {
+enum class TimeSigNumerator : char{
       _2 = 0,
       _3,
       _4,
@@ -52,7 +52,7 @@ enum class TimeSigNumerator {
       _21
       };
 
-enum class TimeSigDenominator {
+enum class TimeSigDenominator : char {
       _2 = 0,
       _4,
       _8,

@@ -51,7 +51,7 @@ class MetaEditDialog : public QDialog, public Ui::MetaEditDialog {
       void newClicked();
       void setDirty(const bool dirty = true);
       void openFileLocation();
-      virtual void accept();
+      virtual void accept() override;
 
    private slots:
       void buttonBoxClicked(QAbstractButton*);

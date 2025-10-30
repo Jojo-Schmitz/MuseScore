@@ -10,56 +10,48 @@
 //  the file LICENSE.GPL
 //=============================================================================
 
-#include "scoreview.h"
-#include "musescore.h"
-#include "libmscore/undo.h"
-
-#include "libmscore/score.h"
-#include "libmscore/element.h"
-#include "seq.h"
-#include "libmscore/mscore.h"
 
 #include "articulationprop.h"
-#include "timesigproperties.h"
-#include "stafftextproperties.h"
-#include "selinstrument.h"
-#include "pianoroll/pianoroll.h"
-#include "editstyle.h"
 #include "editstaff.h"
+#include "editstyle.h"
 #include "measureproperties.h"
+#include "musescore.h"
+#include "scoreview.h"
+#include "selinstrument.h"
+#include "seq.h"
+#include "stafftextproperties.h"
+#include "timesigproperties.h"
 
-#include "libmscore/staff.h"
-#include "libmscore/segment.h"
-#include "libmscore/bend.h"
-#include "libmscore/box.h"
-#include "libmscore/text.h"
-#include "libmscore/articulation.h"
-#include "libmscore/volta.h"
-#include "libmscore/timesig.h"
 #include "libmscore/accidental.h"
+#include "libmscore/articulation.h"
+#include "libmscore/box.h"
+#include "libmscore/chord.h"
 #include "libmscore/clef.h"
 #include "libmscore/dynamic.h"
-#include "libmscore/tempotext.h"
-#include "libmscore/keysig.h"
-#include "libmscore/stafftext.h"
-#include "libmscore/staffstate.h"
-#include "libmscore/note.h"
-#include "libmscore/layoutbreak.h"
-#include "libmscore/image.h"
-#include "libmscore/hairpin.h"
-#include "libmscore/chord.h"
-#include "libmscore/rest.h"
-#include "libmscore/harmony.h"
-#include "libmscore/glissando.h"
+#include "libmscore/element.h"
 #include "libmscore/fret.h"
+#include "libmscore/glissando.h"
+#include "libmscore/hairpin.h"
+#include "libmscore/iname.h"
 #include "libmscore/instrchange.h"
 #include "libmscore/instrtemplate.h"
-#include "libmscore/slur.h"
-#include "libmscore/jump.h"
-#include "libmscore/marker.h"
+#include "libmscore/keysig.h"
 #include "libmscore/measure.h"
-#include "libmscore/iname.h"
+#include "libmscore/mscore.h"
+#include "libmscore/note.h"
+#include "libmscore/rest.h"
+#include "libmscore/score.h"
+#include "libmscore/segment.h"
+#include "libmscore/staff.h"
+#include "libmscore/staffstate.h"
+#include "libmscore/stafftextbase.h"
 #include "libmscore/system.h"
+#include "libmscore/text.h"
+#include "libmscore/timesig.h"
+#include "libmscore/undo.h"
+#include "libmscore/volta.h"
+
+#include "pianoroll/pianoroll.h"
 
 namespace Ms {
 
@@ -227,7 +219,7 @@ void ScoreView::createElementPropertyMenu(Element* e, QMenu* popup)
             genPropertyMenu1(e, popup);
             }
       else if (e->isRest()) {
-            QAction* b = popup->actions()[0];
+            QAction* b = popup->actions().at(0);
             QAction* a = popup->insertSeparator(b);
             a->setText(tr("Staff"));
             a = new QAction(tr("Staff/Part Properties…"), 0);
@@ -245,7 +237,7 @@ void ScoreView::createElementPropertyMenu(Element* e, QMenu* popup)
             genPropertyMenu1(e, popup);
             }
       else if (e->isNote()) {
-            QAction* b = popup->actions()[0];
+            QAction* b = popup->actions().at(0);
             QAction* a = popup->insertSeparator(b);
             a->setText(tr("Staff"));
             a = new QAction(tr("Staff/Part Properties…"), 0);
@@ -463,7 +455,7 @@ void ScoreView::elementPropertyAction(const QString& cmd, Element* e)
                   score()->endCmd();
             }
       else if (cmd.startsWith("layer-")) {
-            int n = cmd.mid(6).toInt();
+            int n = cmd.midRef(6).toInt();
             uint mask = 1 << n;
             e->setTag(mask);
             }

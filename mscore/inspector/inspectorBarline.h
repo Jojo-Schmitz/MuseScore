@@ -13,7 +13,6 @@
 #ifndef __INSPECTOR_BARLINE_H__
 #define __INSPECTOR_BARLINE_H__
 
-#include "inspectorBase.h"
 #include "inspectorElementBase.h"
 #include "ui_inspector_barline.h"
 #include "ui_inspector_segment.h"

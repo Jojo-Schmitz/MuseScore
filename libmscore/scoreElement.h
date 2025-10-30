@@ -135,7 +135,7 @@ class MMRestRange;
 
 class StaffTextBase;
 
-enum class Pid : int;
+enum class Pid : short;
 enum class PropertyFlags : char;
 
 //---------------------------------------------------------

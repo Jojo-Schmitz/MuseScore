@@ -611,7 +611,7 @@ void TextPalette::populateSmufl()
       QStringList smuflNames = (*smuflRanges())[key];
 
       pSmufl->clear();
-      for (QString name : smuflNames) {
+      for (const QString& name : smuflNames) {
             Symbol* s = new Symbol(gscore);
             s->setSym(Sym::name2id(name), gscore->scoreFont());
             pSmufl->append(s, Sym::id2userName(Sym::name2id(name)));

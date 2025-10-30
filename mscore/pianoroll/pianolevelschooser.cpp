@@ -87,7 +87,7 @@ void PianoLevelsChooser::setEventDataPressed()
 
       score->startCmd();
 
-      for (Note* note: noteList) {
+      for (Note*& note: noteList) {
             if (!note->selected())
                   continue;
 

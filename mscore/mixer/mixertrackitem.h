@@ -20,8 +20,9 @@
 #ifndef __MIXERTRACKITEM_H__
 #define __MIXERTRACKITEM_H__
 
-#include "libmscore/instrument.h"
 #include <memory>
+
+#include "libmscore/instrument.h"
 
 namespace Ms {
 
@@ -41,7 +42,7 @@ typedef std::shared_ptr<MixerTrackItem> MixerTrackItemPtr;
 class MixerTrackItem
       {
 public:
-      enum class TrackType { PART, CHANNEL };
+      enum class TrackType : char { PART, CHANNEL };
 
 private:
       TrackType _trackType;

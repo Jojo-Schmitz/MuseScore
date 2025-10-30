@@ -1,14 +1,13 @@
 #ifndef IMPORTMIDI_INNER_H
 #define IMPORTMIDI_INNER_H
 
+#include <vector>
+#include <utility>
+
 #include "importmidi_chord.h"
 #include "importmidi_fraction.h"
-#include "importmidi_tuplet.h"
 #include "importmidi_operation.h"
-
-#include <vector>
-#include <cstddef>
-#include <utility>
+#include "importmidi_tuplet.h"
 
 // ---------------------------------------------------------------------------------------
 // These inner classes definitions are used in cpp files only
@@ -18,7 +17,7 @@
 
 namespace Ms {
 
-enum class Key;
+enum class Key : signed char;
 struct MidiTimeSig;
 
 namespace Meter {

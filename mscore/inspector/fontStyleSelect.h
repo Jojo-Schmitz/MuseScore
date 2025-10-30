@@ -31,7 +31,7 @@ class FontStyleSelect : public QWidget, public Ui::FontStyleSelect {
       void _fontStyleChanged();
 
    signals:
-      void fontStyleChanged(FontStyle);
+      void fontStyleChanged(Ms::FontStyle);
 
    public:
       FontStyleSelect(QWidget* parent);

@@ -2761,8 +2761,8 @@ Score::FileError importGTP(MasterScore* score, const QString& name)
                   qDebug("unknown gtp format <%s>", ss);
                   return Score::FileError::FILE_BAD_FORMAT;
                   }
-            int a = s.left(1).toInt();
-            int b = s.mid(2).toInt();
+            int a = s.leftRef(1).toInt();
+            int b = s.midRef(2).toInt();
             int version = a * 100 + b;
             if (a == 1)
                   gp = new GuitarPro1(score, version);

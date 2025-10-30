@@ -238,7 +238,7 @@ void KeyCanvas::dragMoveEvent(QDragMoveEvent* event)
 
 void KeyCanvas::dropEvent(QDropEvent*)
       {
-      for (Accidental* a : accidentals)
+      for (Accidental*& a : accidentals)
             a->setSelected(false);
       dragElement->setSelected(true);
       accidentals.append(dragElement);

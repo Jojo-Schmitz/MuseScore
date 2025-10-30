@@ -10,28 +10,28 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "libmscore/mscore.h"
 #include "bb.h"
-#include "libmscore/score.h"
-#include "libmscore/part.h"
-#include "libmscore/staff.h"
-#include "libmscore/text.h"
+
 #include "libmscore/box.h"
-#include "libmscore/slur.h"
-#include "libmscore/tie.h"
+#include "libmscore/chordlist.h"
+#include "libmscore/drumset.h"
+#include "libmscore/harmony.h"
+#include "libmscore/key.h"
+#include "libmscore/keysig.h"
+#include "libmscore/layoutbreak.h"
+#include "libmscore/measure.h"
+#include "libmscore/mscore.h"
 #include "libmscore/note.h"
 #include "libmscore/chord.h"
-#include "libmscore/rest.h"
-#include "libmscore/drumset.h"
-#include "libmscore/utils.h"
-#include "libmscore/chordlist.h"
-#include "libmscore/harmony.h"
-#include "libmscore/layoutbreak.h"
-#include "libmscore/key.h"
+#include "libmscore/part.h"
 #include "libmscore/pitchspelling.h"
-#include "libmscore/measure.h"
+#include "libmscore/rest.h"
+#include "libmscore/score.h"
 #include "libmscore/segment.h"
-#include "libmscore/keysig.h"
+#include "libmscore/staff.h"
+#include "libmscore/text.h"
+#include "libmscore/tie.h"
+#include "libmscore/utils.h"
 
 namespace Ms {
 
@@ -325,7 +325,7 @@ bool BBFile::read(const QString& name)
                   if (type == 0x90) {
                         int channel = a[idx + 7];
                         BBTrack* track = 0;
-                        for (BBTrack* t : _tracks) {
+                        for (BBTrack*& t : _tracks) {
                               if (t->outChannel() == channel) {
                                     track = t;
                                     break;
@@ -878,7 +878,7 @@ void BBTrack::cleanup()
       // quantize
       //
       int lastTick = 0;
-      for (const Event& e : _events) {
+      for (Event& e : _events) {
             if (e.type() != ME_NOTE)
                   continue;
             int offtime  = e.offtime();

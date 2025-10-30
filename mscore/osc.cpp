@@ -302,7 +302,7 @@ void MuseScore::oscVolChannel(double val)
             return;
       PathObject* po = (PathObject*) sender();
 
-      int i = po->path().mid(4).toInt() - 1;
+      int i = po->path().midRef(4).toInt() - 1;
       auto& mms = cs->masterScore()->midiMapping();
       if( i >= 0 && i < int(mms.size())) {
             MidiMapping& mm = mms[i];
@@ -325,7 +325,7 @@ void MuseScore::oscPanChannel(double val)
             return;
       PathObject* po = (PathObject*) sender();
 
-      int i = po->path().mid(4).toInt() - 1;
+      int i = po->path().midRef(4).toInt() - 1;
       auto& mms = cs->masterScore()->midiMapping();
       if (i >= 0 && i < int(mms.size())) {
             MidiMapping& mm = mms[i];
@@ -348,7 +348,7 @@ void MuseScore::oscMuteChannel(double val)
             return;
       PathObject* po = (PathObject*) sender();
 
-      int i = po->path().mid(5).toInt() - 1;
+      int i = po->path().midRef(5).toInt() - 1;
       auto& mms = cs->masterScore()->midiMapping();
       if (i >= 0 && i < int(mms.size())) {
             MidiMapping& mm = mms[i];

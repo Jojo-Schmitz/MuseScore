@@ -85,7 +85,7 @@ void StaffItem::setData(int column, int role, const QVariant& value)
       if (unchecked == VOICES)
             setCheckState(column, Qt::Checked);
 
-      for (auto si : _linked)
+      for (auto& si : _linked)
             si->setData(column, role, value);
       }
 

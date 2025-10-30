@@ -20,8 +20,6 @@
 #ifndef __WORKSPACE_H__
 #define __WORKSPACE_H__
 
-#include <unordered_map>
-
 namespace Ms {
 
 struct PaletteTree;

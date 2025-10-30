@@ -60,7 +60,7 @@ class Articulation;
 #define CONTROL_MODIFIER Qt::ControlModifier
 #endif
 
-enum class Grip : int;
+enum class Grip : signed char;
 enum class POS : char;
 enum class ZoomIndex : char;
 
@@ -340,7 +340,7 @@ class ScoreView : public QWidget, public MuseScoreView {
       Element* getDropTarget(EditData&);
 
    private slots:
-      void posChanged(POS pos, unsigned tick);
+      void posChanged(Ms::POS pos, unsigned tick);
       void loopToggled(bool);
       void triggerCmdRealtimeAdvance();
       void cmdRealtimeAdvance();
@@ -361,17 +361,17 @@ class ScoreView : public QWidget, public MuseScoreView {
       void normalCut();
       void normalCopy();
       void fotoModeCopy(bool includeLink = false);
-      bool normalPaste(Fraction scale = Fraction(1, 1));
+      bool normalPaste(Ms::Fraction scale = Ms::Fraction(1, 1));
       bool clonePaste();
       void normalSwap();
 
       void setControlCursorVisible(bool v);
 
-      void cloneElement(Element* e);
+      void cloneElement(Ms::Element* e);
       void doFotoDragEdit(QMouseEvent* ev);
 
       void updateContinuousPanel();
-      void ticksTab(const Fraction& ticks);     // helper function
+      void ticksTab(const Ms::Fraction& ticks);     // helper function
 
    signals:
       void viewRectChanged();

@@ -17,22 +17,19 @@
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //=============================================================================
 
-#include "tupletdialog.h"
-#include "libmscore/tuplet.h"
-#include "libmscore/score.h"
-#include "libmscore/chord.h"
-#include "libmscore/note.h"
-#include "libmscore/xml.h"
-#include "preferences.h"
-#include "libmscore/style.h"
-#include "libmscore/text.h"
-#include "libmscore/element.h"
-#include "libmscore/utils.h"
-#include "libmscore/measure.h"
-#include "libmscore/undo.h"
-#include "libmscore/stem.h"
 #include "musescore.h"
 #include "scoreview.h"
+#include "tupletdialog.h"
+
+#include "libmscore/element.h"
+#include "libmscore/measure.h"
+#include "libmscore/note.h"
+#include "libmscore/score.h"
+#include "libmscore/style.h"
+#include "libmscore/tuplet.h"
+#include "libmscore/undo.h"
+#include "libmscore/utils.h"
+#include "libmscore/xml.h"
 
 namespace Ms {
 
@@ -151,7 +148,7 @@ Tuplet* MuseScore::tupletDialog()
       if (tuplet->baseLen() == TDuration::DurationType::V_INVALID) {
             QMessageBox::warning(0,
                tr("Tuplet Error"),
-               tr("Cannot create tuplet with ratio %1 for duration %2").arg(tuplet->ratio().print()).arg(f1.print()));
+               tr("Cannot create tuplet with ratio %1 for duration %2").arg(tuplet->ratio().print(), f1.print()));
             delete tuplet;
             return 0;
             }

@@ -21,11 +21,12 @@
 #define __TRANSPOSEDIALOG_H__
 
 #include "ui_transposedialog.h"
+
 #include "libmscore/mscore.h"
 
 namespace Ms {
 
-enum class Key;
+enum class Key : signed char;
 
 //---------------------------------------------------------
 //   TransposeDialog

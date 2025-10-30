@@ -22,7 +22,7 @@
 
 #include "ui_articulation.h"
 
-class Articulation;
+#include "libmscore/articulation.h"
 
 namespace Ms {
 

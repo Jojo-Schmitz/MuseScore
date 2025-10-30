@@ -26,19 +26,13 @@
 #include "templateBrowser.h"
 #include "extension.h"
 #include "icons.h"
-#include "scoreaccessibility.h"
 
-#include "libmscore/instrtemplate.h"
 #include "libmscore/score.h"
 #include "libmscore/staff.h"
-#include "libmscore/clef.h"
 #include "libmscore/part.h"
-#include "libmscore/drumset.h"
 #include "libmscore/keysig.h"
 #include "libmscore/measure.h"
-#include "libmscore/stafftype.h"
 #include "libmscore/timesig.h"
-#include "libmscore/sym.h"
 
 namespace Ms {
 
@@ -330,7 +324,7 @@ void NewWizardTemplatePage::buildTemplatesList()
 
       // append templates directories from extensions
       QStringList extensionsDir = Extension::getDirectoriesByType(Extension::templatesDir);
-      for (QString extDir : extensionsDir) {
+      for (const QString& extDir : qAsConst(extensionsDir)) {
             QDir extTemplateDir(extDir);
             fil.append(extTemplateDir.entryInfoList(QDir::NoDotAndDotDot | QDir::Readable | QDir::Dirs | QDir::Files, QDir::Name));
             }

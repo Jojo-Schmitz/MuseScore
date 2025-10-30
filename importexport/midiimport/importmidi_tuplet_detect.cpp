@@ -5,7 +5,6 @@
 #include "importmidi_quant.h"
 #include "importmidi_inner.h"
 #include "importmidi_operations.h"
-#include "mscore/preferences.h"
 
 #include <set>
 
@@ -26,7 +25,7 @@ bool isTupletAllowed(const TupletInfo &tupletInfo)
                         && tupletInfo.firstChordIndex == 0) {
                   const auto &chordEventIt = tupletInfo.chords.begin()->second;
                   const auto tupletNoteLen = tupletInfo.len / num;
-                  for (const auto &note: chordEventIt->second.notes) {
+                  for (auto &note: chordEventIt->second.notes) {
                         if ((note.offTime - chordEventIt->first - tupletNoteLen).absValue()
                                     > tupletNoteLen / 2)
                               return false;
@@ -54,7 +53,7 @@ bool isTupletAllowed(const TupletInfo &tupletInfo)
                   // at least one note has to have len >= (half tuplet note len)
       const auto tupletNoteLen = tupletInfo.len / tupletInfo.tupletNumber;
       for (const auto &tupletChord: tupletInfo.chords) {
-            for (const auto &note: tupletChord.second->second.notes) {
+            for (auto &note: tupletChord.second->second.notes) {
                   if (note.offTime - tupletChord.first >= tupletNoteLen / 2)
                         return true;
                   }

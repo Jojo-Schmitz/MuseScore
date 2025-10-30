@@ -13,9 +13,8 @@
 #ifndef __INSPECTOR_BEAM_H__
 #define __INSPECTOR_BEAM_H__
 
-#include "inspector.h"
+#include "inspectorElementBase.h"
 #include "ui_inspector_beam.h"
-#include "libmscore/property.h"
 
 namespace Ms {
 

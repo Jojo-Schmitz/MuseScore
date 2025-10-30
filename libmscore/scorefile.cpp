@@ -840,7 +840,7 @@ Score::FileError MasterScore::loadCompressedMsc(QIODevice* io, bool ignoreVersio
       // load images
       //
       if (!MScore::noImages) {
-            for (const QString& s : images) {
+            for (QString& s : images) {
                   QByteArray dbuf = uz.fileData(s);
                   imageStore.add(s, dbuf);
                   }
@@ -849,7 +849,7 @@ Score::FileError MasterScore::loadCompressedMsc(QIODevice* io, bool ignoreVersio
       QByteArray dbuf = uz.fileData(rootfile);
       if (dbuf.isEmpty()) {
             QVector<MQZipReader::FileInfo> fil = uz.fileInfoList();
-            for (const MQZipReader::FileInfo& fi : fil) {
+            for (MQZipReader::FileInfo& fi : fil) {
                   if (fi.filePath.endsWith(".mscx")) {
                         dbuf = uz.fileData(fi.filePath);
                         break;

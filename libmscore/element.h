@@ -35,14 +35,14 @@ namespace Ms {
 
 class XmlReader;
 class XmlWriter;
-enum class Pid;
+enum class Pid : short;
 class StaffType;
 
 //---------------------------------------------------------
 //   Grip
 //---------------------------------------------------------
 
-enum class Grip {
+enum class Grip : signed char{
       NO_GRIP = -1,
       START = 0, END = 1,                         // arpeggio etc.
           MIDDLE = 2, APERTURE = 3,               // Line
@@ -55,7 +55,7 @@ enum class Grip {
 //   OffsetChange
 //---------------------------------------------------------
 
-enum class OffsetChange {
+enum class OffsetChange : signed char {
       RELATIVE_OFFSET   = -1,
       NONE              =  0,
       ABSOLUTE_OFFSET   =  1
@@ -175,7 +175,7 @@ class Element : public ScoreElement {
       uint _tag;                  ///< tag bitmask
 
    public:
-      enum class EditBehavior {
+      enum class EditBehavior : char {
             SelectOnly,
             Edit,
             };

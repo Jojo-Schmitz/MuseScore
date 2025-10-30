@@ -20,8 +20,6 @@
 #ifndef __LOGINMANAGER_P_H__
 #define __LOGINMANAGER_P_H__
 
-#include "config.h"
-
 namespace Ms {
 
 //---------------------------------------------------------
@@ -102,7 +100,7 @@ class ApiRequest : public QObject
       QNetworkRequest buildRequest() const;
 
    signals:
-      void replyFinished(ApiRequest*);
+      void replyFinished(Ms::ApiRequest*);
 
    public:
       ApiRequest(QObject* parent = nullptr)

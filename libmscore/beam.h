@@ -26,7 +26,7 @@ class System;
 class Skyline;
 
 enum class IconType : signed char;
-enum class SpannerSegmentType;
+enum class SpannerSegmentType : char;
 
 struct BeamFragment;
 
@@ -104,7 +104,7 @@ class Beam final : public Element {
 
       void layout1();
       void layoutGraceNotes();
-      void layout();
+      void layout() override;
 
       const QVector<ChordRest*>& elements() { return _elements;  }
       void clear()                        { _elements.clear(); }

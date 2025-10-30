@@ -11,7 +11,6 @@
 //=============================================================================
 
 #include "fluidgui.h"
-#include "mscore/preferences.h"
 #include "mscore/icons.h"
 
 using namespace Ms;
@@ -159,7 +158,7 @@ void FluidGui::synthesizerChanged()
 void FluidGui::moveSoundfontInTheList(int currentIdx, int targetIdx)
       {
       QStringList sfonts = fluid()->soundFonts();
-      for (auto sfName : sfonts)
+      for (auto& sfName : sfonts)
             fluid()->removeSoundFont(sfName);
 
       sfonts.move(currentIdx, targetIdx);
@@ -269,12 +268,12 @@ void FluidGui::soundFontAddClicked()
       QFileInfoList l = FluidS::Fluid::sfFiles();
 
       SfListDialog ld(this);
-      for (const QFileInfo& fi : l)
+      for (QFileInfo& fi : l)
             ld.add(fi.fileName(), fi.absoluteFilePath());
       if (!ld.exec())
             return;
 
-      for (auto item : ld.getNamePaths()) {
+      for (const auto& item : ld.getNamePaths()) {
             _sfToLoad.push_back(item);
             }
       loadSf();

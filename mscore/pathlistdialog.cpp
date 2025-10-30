@@ -50,7 +50,7 @@ void PathListDialog::addClicked()
 #if defined(WIN_PORTABLE)
       QString dir = QDir::cleanPath(QString("%1/../../../Data/%2").arg(QCoreApplication::applicationDirPath()).arg(QCoreApplication::applicationName()));
 #else
-      QString dir = QString("%1/%2").arg(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)).arg(QCoreApplication::applicationName());
+      QString dir = QString("%1/%2").arg(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation), QCoreApplication::applicationName());
 #endif
 
       QString newPath = QFileDialog::getExistingDirectory(

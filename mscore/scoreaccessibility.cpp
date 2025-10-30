@@ -1,22 +1,26 @@
 #include <QMainWindow>
 #include <QWidget>
-#include "scoreaccessibility.h"
-#include "musescore.h"
-#include "libmscore/segment.h"
-#include "libmscore/timesig.h"
-#include "libmscore/score.h"
-#include "libmscore/measure.h"
-#include "libmscore/spanner.h"
-#include "libmscore/sig.h"
-#include "libmscore/staff.h"
-#include "libmscore/part.h"
-#include "libmscore/sym.h"
-#include "inspector/inspector.h"
-#include "selectionwindow.h"
-#include "playpanel.h"
-#include "synthcontrol.h"
-#include "mixer/mixer.h"
+
 #include "drumroll.h"
+#include "musescore.h"
+#include "playpanel.h"
+#include "scoreaccessibility.h"
+#include "selectionwindow.h"
+#include "synthcontrol.h"
+
+#include "inspector/inspector.h"
+
+#include "libmscore/measure.h"
+#include "libmscore/part.h"
+#include "libmscore/score.h"
+#include "libmscore/segment.h"
+#include "libmscore/spanner.h"
+#include "libmscore/staff.h"
+#include "libmscore/sym.h"
+#include "libmscore/timesig.h"
+
+#include "mixer/mixer.h"
+
 #include "pianoroll/pianoroll.h"
 
 namespace Ms{
@@ -99,7 +103,7 @@ QString AccessibleScoreView::text(QAccessible::Text t) const
                   s->score()->setAccessibleMessage(""); // clear the message
                   if (info.isEmpty())
                         return msg;
-                  return tr("%1, %2").arg(msg).arg(info);
+                  return tr("%1, %2").arg(msg, info);
                   }
             default:
                   return QString();
@@ -245,7 +249,7 @@ void ScoreAccessibility::currentInfoChanged()
             if (el->isSpanner()) {
                   Spanner* s = static_cast<Spanner*>(el);
                   std::pair<int, float> bar_beat = s->startSegment()->barbeat();
-                  barsAndBeats += " " + tr("Start Measure: %1; Start Beat: %2").arg(QString::number(bar_beat.first)).arg(QString::number(bar_beat.second));
+                  barsAndBeats += " " + tr("Start Measure: %1; Start Beat: %2").arg(QString::number(bar_beat.first), QString::number(bar_beat.second));
                   Segment* seg = s->endSegment();
                   if(!seg)
                         seg = score->lastSegment()->prev1MM(SegmentType::ChordRest);
@@ -256,7 +260,7 @@ void ScoreAccessibility::currentInfoChanged()
                         seg = seg->prev1MM(SegmentType::ChordRest);
 
                   bar_beat = seg->barbeat();
-                  barsAndBeats += "; " + tr("End Measure: %1; End Beat: %2").arg(QString::number(bar_beat.first)).arg(QString::number(bar_beat.second));
+                  barsAndBeats += "; " + tr("End Measure: %1; End Beat: %2").arg(QString::number(bar_beat.first), QString::number(bar_beat.second));
                   optimizedBarsAndBeats = barsAndBeats;
                   }
             else {
@@ -290,13 +294,13 @@ void ScoreAccessibility::currentInfoChanged()
                         staffName = e->staff()->partName();
                   if (staffName.isEmpty()) {
                         staffName = tr("Unnamed");    // for screenreader only
-                        rez = QString("%1; %2").arg(rez).arg(staff);
+                        rez = QString("%1; %2").arg(rez, staff);
                         }
                   else {
-                        rez = QString("%1; %2 (%3)").arg(rez).arg(staff).arg(staffName);
+                        rez = QString("%1; %2 (%3)").arg(rez, staff, staffName);
                         }
                   if (e->staffIdx() != oldStaff)
-                        optimizedStaff = QString("%1 (%2)").arg(staff).arg(staffName);
+                        optimizedStaff = QString("%1 (%2)").arg(staff, staffName);
                   }
 
             statusBarLabel->setText(rez.simplified()); // no linebreaks in statusbar
@@ -313,7 +317,7 @@ void ScoreAccessibility::currentInfoChanged()
                   // status has changed since last call, or there is no existing screenreader info
                   //
                   // build new screenreader info
-                  screenReaderRez = QString("%1%2 %3 %4").arg(newScreenReaderInfo).arg(optimizedBarsAndBeats).arg(optimizedStaff).arg(e->accessibleExtraInfo());
+                  screenReaderRez = QString("%1%2 %3 %4").arg(newScreenReaderInfo, optimizedBarsAndBeats, optimizedStaff, e->accessibleExtraInfo());
                   makeReadable(screenReaderRez);
                   }
             else {
@@ -333,7 +337,7 @@ void ScoreAccessibility::currentInfoChanged()
             std::pair<int, float> bar_beat;
 
             bar_beat = score->selection().startSegment()->barbeat();
-            barsAndBeats += " " + tr("Start Measure: %1; Start Beat: %2").arg(QString::number(bar_beat.first)).arg(QString::number(bar_beat.second));
+            barsAndBeats += " " + tr("Start Measure: %1; Start Beat: %2").arg(QString::number(bar_beat.first), QString::number(bar_beat.second));
             Segment* endSegment = score->selection().endSegment();
 
             if (!endSegment)
@@ -342,7 +346,7 @@ void ScoreAccessibility::currentInfoChanged()
                   endSegment = endSegment->prev1MM();
 
             bar_beat = endSegment->barbeat();
-            barsAndBeats += " " + tr("End Measure: %1; End Beat: %2").arg(QString::number(bar_beat.first)).arg(QString::number(bar_beat.second));
+            barsAndBeats += " " + tr("End Measure: %1; End Beat: %2").arg(QString::number(bar_beat.first), QString::number(bar_beat.second));
             statusBarLabel->setText(tr("Range Selection") + barsAndBeats);
             score->setAccessibleInfo(tr("Range Selection") + barsAndBeats);
             }

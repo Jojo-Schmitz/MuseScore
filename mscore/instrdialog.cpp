@@ -22,15 +22,12 @@
 #include "preferences.h"
 #include "scoreview.h"
 #include "seq.h"
-#include "libmscore/barline.h"
 #include "libmscore/clef.h"
 #include "libmscore/excerpt.h"
 #include "libmscore/instrtemplate.h"
 #include "libmscore/measure.h"
 #include "libmscore/part.h"
 #include "libmscore/score.h"
-#include "libmscore/segment.h"
-#include "libmscore/slur.h"
 #include "libmscore/staff.h"
 #include "libmscore/stafftype.h"
 #include "libmscore/undo.h"
@@ -133,9 +130,9 @@ void InstrumentsDialog::on_saveButton_clicked()
       XmlWriter xml(0, &f);
       xml.header();
       xml.stag("museScore version=\"" MSC_VERSION "\"");
-      for (InstrumentGroup* g : instrumentGroups) {
+      for (InstrumentGroup*& g : instrumentGroups) {
             xml.stag(QString("InstrumentGroup name=\"%1\" extended=\"%2\"").arg(g->name).arg(g->extended));
-            for (InstrumentTemplate* t : g->instrumentTemplates)
+            for (InstrumentTemplate*& t : g->instrumentTemplates)
                   t->write(xml);
             xml.etag();
             }

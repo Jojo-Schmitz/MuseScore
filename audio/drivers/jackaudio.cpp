@@ -40,6 +40,7 @@
 
 #include "libmscore/mscore.h"
 #include "libmscore/repeatlist.h"
+#include "libmscore/tempo.h"
 #include "libmscore/score.h"
 #include "libmscore/sig.h"
 

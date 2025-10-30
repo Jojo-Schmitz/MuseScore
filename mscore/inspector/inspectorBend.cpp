@@ -10,6 +10,7 @@
 //  the file LICENSE.GPL
 //=============================================================================
 
+#include "inspector.h"
 #include "inspectorBend.h"
 #include "bendcanvas.h"
 #include "libmscore/bend.h"

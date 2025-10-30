@@ -68,7 +68,7 @@ class DrumrollEditor : public QMainWindow {
       void cmd(QAction*);
 
    public slots:
-      void changeSelection(SelState);
+      void changeSelection(Ms::SelState);
 
    public:
       DrumrollEditor(QWidget* parent = 0);

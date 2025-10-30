@@ -174,8 +174,7 @@ void UploadScoreDialog::displaySuccess()
       QMessageBox::information(this,
                tr("Success"),
                tr("Finished! %1Go to my score%2.")
-                               .arg("<a href=\"" + _url + "\">")
-                               .arg("</a>"),
+                               .arg("<a href=\"" + _url + "\">", "</a>"),
                QMessageBox::Ok, QMessageBox::NoButton);
       }
 

@@ -21,7 +21,7 @@
 #define __MEASUREPROPERTIES_H__
 
 #include "ui_measureproperties.h"
-#include "libmscore/sig.h"
+#include "libmscore/fraction.h"
 
 namespace Ms {
 

@@ -14,7 +14,6 @@
 #define __TEMPLATEBROWSER_H__
 
 #include "ui_templateBrowser.h"
-#include "scoreInfo.h"
 
 class QTreeWidgetItem;
 

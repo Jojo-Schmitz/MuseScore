@@ -40,7 +40,7 @@ enum class OffMode : char {
       FAST, NORMAL
       };
 
-enum class FilterType {
+enum class FilterType : char {
       lpf_2p, //default, double-pole low-pass filter
       lpf_1p, //single-pole low-pass filter
       hpf_2p, //double-pole high-pass filter

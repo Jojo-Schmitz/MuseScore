@@ -47,7 +47,7 @@ class KeyEditor : public QWidget, Ui::KeyEdit {
       void setDirty() { _dirty = true; }
 
    signals:
-      void keySigAdded(const KeySig*);
+      void keySigAdded(const Ms::KeySig*);
 
    public:
       KeyEditor(QWidget* parent = 0);
