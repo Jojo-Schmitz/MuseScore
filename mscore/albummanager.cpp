@@ -88,7 +88,7 @@ void AlbumManager::addClicked()
          tr("MuseScore Files") + " (*.mscz *.mscx);;", tr("Load Score")
          );
       QList<MasterScore*> scores;
-      for (const QString& fn : files) {
+      for (QString& fn : files) {
             MasterScore* score = mscore->readScore(fn);
             Movements* m = score->movements();
             for (MasterScore* ms : *m) {

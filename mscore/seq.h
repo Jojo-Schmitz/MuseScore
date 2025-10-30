@@ -24,7 +24,6 @@
 #include "libmscore/sequencer.h"
 #include "libmscore/fraction.h"
 #include "libmscore/fifo.h"
-#include "libmscore/tempo.h"
 
 #include "audio/midi/event.h"
 #include "audio/drivers/driver.h"
@@ -219,7 +218,7 @@ class Seq : public QObject, public Sequencer {
       void stopNotes(int channel = -1, bool realTime = false);
       void start();
       void stop();
-      void setPos(POS, unsigned);
+      void setPos(Ms::POS, unsigned);
       void setMetronomeGain(float val) { metronomeVolume = val; }
 
    signals:
@@ -263,7 +262,7 @@ class Seq : public QObject, public Sequencer {
       void sendMessage(SeqMsg&) const;
 
       void setController(int, int, int);
-      virtual void sendEvent(const NPlayEvent&);
+      virtual void sendEvent(const NPlayEvent&) override;
       void setScoreView(ScoreView*);
       MasterScore* score() const   { return cs; }
       ScoreView* viewer() const { return cv; }

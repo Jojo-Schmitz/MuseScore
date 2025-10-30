@@ -22,7 +22,7 @@ class Note;
 class Page;
 class ChordRest;
 
-enum class Grip : int;
+enum class Grip : signed char;
 enum class HairpinType : signed char;
 
 //---------------------------------------------------------

@@ -13,20 +13,20 @@
 #ifndef __SCOREDIFF_H__
 #define __SCOREDIFF_H__
 
-#include "score.h"
-
 #include <vector>
+
+#include "score.h"
 
 namespace Ms {
 
-enum class Pid;
+enum class Pid : short;
 class ScoreElement;
 
 //---------------------------------------------------------
 //   ItemType
 //---------------------------------------------------------
 
-enum class ItemType {
+enum class ItemType : char {
       ELEMENT,
       PROPERTY,
       MARKUP,
@@ -37,7 +37,7 @@ enum class ItemType {
 //   DiffType
 //---------------------------------------------------------
 #undef DELETE
-enum class DiffType {
+enum class DiffType : char {
       EQUAL,
       INSERT,
       DELETE,

@@ -480,7 +480,7 @@ void Mixer::expandToggled(Part* part, bool expanded)
 
 void Mixer::notifyTrackSelected(MixerTrack* track)
       {
-      for (MixerTrack *mt: trackList) {
+      for (MixerTrack* mt: qAsConst(trackList)) {
             if (!(mt->mti()->part() == track->mti()->part() &&
                   mt->mti()->chan() == track->mti()->chan() &&
                   mt->mti()->trackType() == track->mti()->trackType())) {

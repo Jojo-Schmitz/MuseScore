@@ -25,9 +25,7 @@
 #include <QScrollArea>
 #include <QList>
 
-#include "ui_parteditbase.h"
 #include "ui_mixer.h"
-#include "libmscore/instrument.h"
 #include "enableplayforwidget.h"
 #include "mixertrackgroup.h"
 

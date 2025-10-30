@@ -23,11 +23,7 @@
 #include "libmscore/score.h"
 #include "libmscore/staff.h"
 #include "libmscore/chord.h"
-#include "libmscore/rest.h"
 #include "libmscore/note.h"
-#include "libmscore/slur.h"
-#include "libmscore/tie.h"
-#include "libmscore/tuplet.h"
 #include "libmscore/noteevent.h"
 #include "libmscore/undo.h"
 
@@ -79,7 +75,7 @@ void NoteTweakerDialog::setNoteOffTime()
 
       score->startCmd();
 
-      for (Note* note: noteList) {
+      for (Note*& note: noteList) {
             if (!note->selected())
                   continue;
 

@@ -289,7 +289,7 @@ void RepeatList::flatten()
 //          - d.s. al fine
 //          - d.s. al coda
 //---------------------------------------------------------
-enum class RepeatListElementType {
+enum class RepeatListElementType : char {
       SECTION_BREAK,
       VOLTA_START,
       VOLTA_END,

@@ -41,8 +41,8 @@ class NoteGroups : public QGroupBox, Ui::NoteGroups {
 
    private slots:
       void resetClicked();
-      void noteClicked(Note*);
-      void beamPropertyDropped(Chord*, Icon*);
+      void noteClicked(Ms::Note*);
+      void beamPropertyDropped(Ms::Chord*, Ms::Icon*);
 
    public:
       NoteGroups(QWidget* parent);

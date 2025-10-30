@@ -10,10 +10,7 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include <stdio.h>
-
 #include "zerberus.h"
-#include "zerberusgui.h"
 #include "voice.h"
 #include "channel.h"
 #include "instrument.h"
@@ -21,8 +18,6 @@
 
 #include "midi/event.h"
 #include "midi/midipatch.h"
-
-#include "mscore/preferences.h"
 
 bool Zerberus::initialized = false;
 // instruments can be shared between several zerberus instances
@@ -308,7 +303,7 @@ bool Zerberus::loadSoundFonts(const QStringList& sl)
 
 bool Zerberus::removeSoundFonts(const QStringList& fileNames)
       {
-      for (auto fileName : fileNames) {
+      for (const auto& fileName : fileNames) {
             if (!removeSoundFont(QFileInfo(fileName).absoluteFilePath()))
                   return false;
             }

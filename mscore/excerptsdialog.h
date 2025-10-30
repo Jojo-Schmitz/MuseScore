@@ -144,9 +144,9 @@ class ExcerptsDialog : public QDialog, private Ui::ExcerptsDialog {
       void instrumentChanged(QListWidgetItem* cur, QListWidgetItem* prev);
       void partChanged(QTreeWidgetItem* cur, QTreeWidgetItem* prev);
       void partDoubleClicked(QTreeWidgetItem*, int);
-      void createNewExcerpt(ExcerptItem*);
+      void createNewExcerpt(Ms::ExcerptItem*);
       void titleChanged(const QString&);
-      ExcerptItem* getExcerptItem(Excerpt* e);
+      Ms::ExcerptItem* getExcerptItem(Ms::Excerpt* e);
 
       void doubleClickedInstrument(QTreeWidgetItem*);
       void addButtonClicked();

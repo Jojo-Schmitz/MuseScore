@@ -29,7 +29,7 @@ namespace PluginAPI {
 ///   libmscore objects.
 //---------------------------------------------------------
 
-enum class Ownership {
+enum class Ownership : char {
       PLUGIN,
       SCORE,
       };

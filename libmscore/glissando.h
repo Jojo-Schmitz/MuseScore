@@ -24,7 +24,7 @@ static const qreal      GLISS_STARTOFSYSTEM_WIDTH = 4;      // in sp
 
 class Glissando;
 class Note;
-enum class GlissandoType;
+enum class GlissandoType : char;
 
 //---------------------------------------------------------
 //   @@ GlissandoSegment

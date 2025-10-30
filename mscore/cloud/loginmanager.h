@@ -13,8 +13,6 @@
 #ifndef __LOGINMANAGER_H__
 #define __LOGINMANAGER_H__
 
-#include "config.h"
-
 namespace Ms {
 
 class ApiRequest;
@@ -28,7 +26,7 @@ class LoginManager : public QObject
       {
       Q_OBJECT
 
-      enum class RequestType
+      enum class RequestType : char
             {
             LOGIN,
             LOGIN_REFRESH,

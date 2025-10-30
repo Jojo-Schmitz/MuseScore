@@ -835,8 +835,8 @@ InstrumentIndex searchTemplateIndexForId(const QString& id)
       {
       int instIndex = 0;
       int grpIndex = 0;
-      for (InstrumentGroup* g : instrumentGroups) {
-            for (InstrumentTemplate* it : g->instrumentTemplates) {
+      for (InstrumentGroup*& g : instrumentGroups) {
+            for (InstrumentTemplate*& it : g->instrumentTemplates) {
                   if (it->id == id)
                         return InstrumentIndex(grpIndex, instIndex, it);
                   ++instIndex;

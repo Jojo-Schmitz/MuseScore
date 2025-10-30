@@ -481,7 +481,7 @@ void Debugger::updateList(Score* s)
                   for (SpannerSegment* ss : system->spannerSegments())
                         new ElementItem(si, ss);
                   for (SysStaff* ss : *system->staves()) {
-                        for (InstrumentName* in : ss->instrumentNames)
+                        for (InstrumentName*& in : ss->instrumentNames)
                               new ElementItem(si, in);
                         }
 

@@ -44,7 +44,7 @@ class Ottava;
 class BracketItem;
 class Note;
 
-enum class Key;
+enum class Key : signed char;
 
 //---------------------------------------------------------
 //   SwingParameters
@@ -62,7 +62,7 @@ struct SwingParameters {
 
 class Staff final : public ScoreElement {
    public:
-      enum class HideMode { AUTO, ALWAYS, NEVER, INSTRUMENT };
+      enum class HideMode : char { AUTO, ALWAYS, NEVER, INSTRUMENT };
 
    private:
       Part* _part       { 0 };

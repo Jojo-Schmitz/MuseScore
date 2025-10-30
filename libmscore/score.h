@@ -20,13 +20,13 @@
 
 #include "input.h"
 #include "instrument.h"
-#include "select.h"
-#include "synthesizerstate.h"
-#include "mscoreview.h"
-#include "spannermap.h"
 #include "layoutbreak.h"
+#include "mscoreview.h"
 #include "property.h"
+#include "select.h"
+#include "spannermap.h"
 #include "sym.h"
+#include "synthesizerstate.h"
 
 namespace Ms {
 
@@ -93,12 +93,12 @@ struct Interval;
 struct TEvent;
 struct LayoutContext;
 
-enum class Tid;
+enum class Tid : short;
 enum class ClefType : signed char;
 enum class BeatType : char;
-enum class Key;
+enum class Key : signed char;
 enum class HairpinType : signed char;
-enum class SegmentType;
+enum class SegmentType : short;
 enum class OttavaType : char;
 enum class Voicing : signed char;
 enum class HDuration : signed char;
@@ -580,7 +580,7 @@ class Score : public QObject, public ScoreElement {
       inline virtual const Movements* movements() const;
 
    signals:
-      void posChanged(POS, unsigned);
+      void posChanged(Ms::POS, unsigned);
       void playlistChanged();
 
    public:

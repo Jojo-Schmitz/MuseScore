@@ -13,8 +13,7 @@
 #ifndef __INSPECTOR_FRET_H__
 #define __INSPECTOR_FRET_H__
 
-#include "inspector.h"
-#include "inspectorBase.h"
+#include "inspectorElementBase.h"
 #include "ui_inspector_fret.h"
 
 namespace Ms {

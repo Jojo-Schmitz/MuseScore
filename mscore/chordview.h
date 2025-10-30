@@ -13,8 +13,6 @@
 #ifndef __CHORDVIEW_H__
 #define __CHORDVIEW_H__
 
-#include "libmscore/pos.h"
-
 namespace Ms {
 
 class Staff;

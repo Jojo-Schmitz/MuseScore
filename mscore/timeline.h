@@ -20,9 +20,11 @@
 #ifndef __TIMELINE_H__
 #define __TIMELINE_H__
 
-#include "libmscore/select.h"
-#include "scoreview.h"
 #include <vector>
+
+#include "scoreview.h"
+
+#include "libmscore/select.h"
 
 namespace Ms {
 
@@ -61,7 +63,7 @@ class TRowLabels : public QGraphicsView {
       Q_OBJECT
 
    public:
-      enum class MouseOverValue {
+      enum class MouseOverValue : char {
             NONE,
             MOVE_UP_ARROW,
             MOVE_DOWN_ARROW,
@@ -84,12 +86,12 @@ class TRowLabels : public QGraphicsView {
       std::map<MouseOverValue, QPixmap*> _mouseoverMap;
       std::tuple<QGraphicsPixmapItem*, MouseOverValue, unsigned> _oldItemInfo;
 
-      virtual void resizeEvent(QResizeEvent*);
-      virtual void mousePressEvent(QMouseEvent* event);
-      virtual void mouseMoveEvent(QMouseEvent* event);
-      virtual void mouseReleaseEvent(QMouseEvent* event);
+      virtual void resizeEvent(QResizeEvent*) override;
+      virtual void mousePressEvent(QMouseEvent* event) override;
+      virtual void mouseMoveEvent(QMouseEvent* event) override;
+      virtual void mouseReleaseEvent(QMouseEvent* event) override;
       virtual void contextMenuEvent(QContextMenuEvent*) override;
-      virtual void leaveEvent(QEvent*);
+      virtual void leaveEvent(QEvent*) override;
 
    private slots:
       void restrictScroll(int value);
@@ -126,7 +128,7 @@ class Timeline : public QGraphicsView {
       Q_OBJECT
 
    public:
-      enum class ItemType {
+      enum class ItemType : char {
             TYPE_UNKNOWN = 0,
             TYPE_MEASURE,
             TYPE_META,
@@ -193,13 +195,13 @@ class Timeline : public QGraphicsView {
       bool _metaValue = false;
       ViewState state = ViewState::NORMAL;
 
-      virtual void mousePressEvent(QMouseEvent* event);
-      virtual void mouseMoveEvent(QMouseEvent* event);
-      virtual void mouseReleaseEvent(QMouseEvent*);
-      virtual void wheelEvent(QWheelEvent *event);
-      virtual void leaveEvent(QEvent*);
+      virtual void mousePressEvent(QMouseEvent* event) override;
+      virtual void mouseMoveEvent(QMouseEvent* event) override;
+      virtual void mouseReleaseEvent(QMouseEvent*) override;
+      virtual void wheelEvent(QWheelEvent *event) override;
+      virtual void leaveEvent(QEvent*) override;
       void showEvent(QShowEvent*) override;
-      virtual void changeEvent(QEvent*);
+      virtual void changeEvent(QEvent*) override;
 
       unsigned correctMetaRow(unsigned row);
       int correctStave(int stave);
@@ -217,7 +219,7 @@ class Timeline : public QGraphicsView {
       void objectDestroyed(QObject*);
 
    public slots:
-      void changeSelection(SelState);
+      void changeSelection(Ms::SelState);
       void mouseOver(QPointF pos);
       void swapMeta(unsigned row, bool switchUp);
       virtual void contextMenuEvent(QContextMenuEvent* event) override;

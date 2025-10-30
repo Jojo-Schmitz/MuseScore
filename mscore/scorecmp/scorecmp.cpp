@@ -144,8 +144,7 @@ void ScoreComparisonTool::updateDiffTitle()
       if (_diff)
             _ui->diffWidgetBox->setTitle(
                tr("Comparison of \"%1\" and \"%2\"")
-                  .arg(_diff->score1()->title())
-                  .arg(_diff->score2()->title())
+                  .arg(_diff->score1()->title(), _diff->score2()->title())
                );
       else
             _ui->diffWidgetBox->setTitle(tr("Comparison"));
@@ -255,7 +254,7 @@ Score* ScoreComparisonTool::openScoreVersion(const ScoreVersion& ver)
 
             QTemporaryFile* tmp = mscore->getTemporaryScoreFileCopy(
                ver.fileInfo,
-               QString("[%1] %2.XXXXXX").arg(ver.name).arg(baseName)
+               QString("[%1] %2.XXXXXX").arg(ver.name, baseName)
                );
             if (tmp) {
                   s = mscore->openScore(tmp->fileName(), /* switchTab */ false);
@@ -263,6 +262,8 @@ Score* ScoreComparisonTool::openScoreVersion(const ScoreVersion& ver)
                         s->masterScore()->setReadOnly(true);
                   delete tmp;
                   // let the score know about the temporary file deletion
+                  if (!s)
+                        return s;
                   s->masterScore()->fileInfo()->refresh();
                   updateScoreVersions(s);
                   }

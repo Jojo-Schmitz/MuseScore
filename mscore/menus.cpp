@@ -2003,13 +2003,13 @@ QMap<QString, QStringList>* smuflRanges()
                   qDebug("Json parse error in <%s>(offset: %d): %s", qPrintable(fi.fileName()),
                      error.offset, qPrintable(error.errorString()));
 
-            for (auto s : o.keys()) {
+            for (const auto& s : o.keys()) {
                   QJsonObject range = o.value(s).toObject();
                   QString desc      = range.value("description").toString();
                   QJsonArray glyphs = range.value("glyphs").toArray();
                   if (glyphs.size() > 0) {
                         QStringList glyphNames;
-                        for (QJsonValue g : glyphs)
+                        for (const QJsonValue& g : qAsConst(glyphs))
                               glyphNames.append(g.toString());
                         ranges.insert(desc, glyphNames);
                         allSymbols << glyphNames;

@@ -21,7 +21,6 @@
 #define __PREFSDIALOG_H__
 
 #include "ui_prefsdialog.h"
-#include "preferences.h"
 #include "abstractdialog.h"
 #include "preferenceslistwidget.h"
 

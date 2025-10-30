@@ -13,9 +13,8 @@
 #ifndef __INSPECTOR_BEND_H__
 #define __INSPECTOR_BEND_H__
 
-#include "inspector.h"
+#include "inspectorElementBase.h"
 #include "ui_inspector_bend.h"
-#include "libmscore/pitchvalue.h"
 
 namespace Ms {
 

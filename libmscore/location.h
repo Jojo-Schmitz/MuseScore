@@ -13,9 +13,9 @@
 #ifndef __POINT_H__
 #define __POINT_H__
 
-#include "fraction.h"
-
 #include <climits>
+
+#include "fraction.h"
 
 namespace Ms {
 
@@ -23,7 +23,7 @@ class Element;
 class XmlReader;
 class XmlWriter;
 
-enum class Pid;
+enum class Pid : short;
 
 //---------------------------------------------------------
 //   Location

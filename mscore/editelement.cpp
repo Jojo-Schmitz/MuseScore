@@ -10,21 +10,15 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "globals.h"
 #include "scoreview.h"
-#include "preferences.h"
 #include "musescore.h"
 #include "textpalette.h"
 #include "texttools.h"
 #include "inspector/inspector.h"
 
-#include "libmscore/barline.h"
 #include "libmscore/utils.h"
-#include "libmscore/segment.h"
 #include "libmscore/score.h"
 #include "libmscore/undo.h"
-#include "libmscore/text.h"
-#include "libmscore/spanner.h"
 #include "libmscore/measure.h"
 #include "libmscore/textframe.h"
 
@@ -44,7 +38,7 @@ void ScoreView::updateGrips()
       double dx = 1.5 / _matrix.m11();
       double dy = 1.5 / _matrix.m22();
 
-      for (const QRectF& r : editData.grip)
+      for (QRectF& r : editData.grip)
             score()->addRefresh(r.adjusted(-dx, -dy, dx, dy));
 
       qreal w   = 8.0 / _matrix.m11();

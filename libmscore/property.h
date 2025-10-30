@@ -58,7 +58,7 @@ enum class PropertyFlags : char {
 //   Element Properties
 //------------------------------------------------------------------------
 
-enum class Pid {
+enum class Pid : short {
       SUBTYPE,
       SELECTED,
       GENERATED,

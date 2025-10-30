@@ -18,7 +18,7 @@
 
 namespace Ms {
 
-enum class Pid : int;
+enum class Pid : short;
 class XmlWriter;
 struct ChordDescription;
 class Element;
@@ -47,7 +47,7 @@ using Name = MSQE_##Name::Name;
 //---------------------------------------------------------
 
 BEGIN_QT_REGISTERED_ENUM(Sid)
-enum class Sid {
+enum class Sid : short {
       ///.\{
       NOSTYLE = -1,
 

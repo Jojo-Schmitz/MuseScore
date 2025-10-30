@@ -22,11 +22,13 @@
 
 #include "config.h"
 #include "globals.h"
-#include "singleapp/src/QtSingleApplication"
+#include "sessionstatusobserver.h"
 #include "updatechecker.h"
+
 #include "libmscore/musescoreCore.h"
 #include "libmscore/score.h"
-#include "sessionstatusobserver.h"
+
+#include "singleapp/src/QtSingleApplication"
 
 namespace Ms {
 
@@ -163,7 +165,7 @@ struct LanguageItem {
 //   SaveReplacePolicy
 //---------------------------------------------------------
 
-enum class SaveReplacePolicy {
+enum class SaveReplacePolicy : char {
       NO_CHOICE,
       SKIP_ALL,
       REPLACE_ALL
@@ -432,11 +434,11 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
 
       //---------------------
 
-      virtual void closeEvent(QCloseEvent*);
-      virtual void dragEnterEvent(QDragEnterEvent*);
-      virtual void dropEvent(QDropEvent*);
-      virtual void changeEvent(QEvent *e);
-      virtual void showEvent(QShowEvent *event);
+      virtual void closeEvent(QCloseEvent*) override;
+      virtual void dragEnterEvent(QDragEnterEvent*) override;
+      virtual void dropEvent(QDropEvent*) override;
+      virtual void changeEvent(QEvent *e) override;
+      virtual void showEvent(QShowEvent *event) override;
 
       void retranslate();
       void setMenuTitles();
@@ -479,7 +481,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void showLayerManager();
       void updateUndoRedo();
       void changeScore(int);
-      virtual void resizeEvent(QResizeEvent*);
+      virtual void resizeEvent(QResizeEvent*) override;
       void showModeText(const QString& s, bool informScreenReader = true);
       void addRecentScore(const QString& scorePath);
 
@@ -511,7 +513,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void windowSplit(bool);
       void musescoreWindowWasShown();
       void workspacesChanged();
-      void scoreStateChanged(ScoreState state);
+      void scoreStateChanged(Ms::ScoreState state);
 
    private slots:
       void cmd(QAction* a, const QString& cmd);
@@ -532,7 +534,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void seqStopped();
       void cmdAppendMeasures();
       void cmdInsertMeasures();
-      void zoomBoxChanged(const ZoomIndex, const qreal);
+      void zoomBoxChanged(const Ms::ZoomIndex, const qreal);
       void showPageSettings();
       void removeTab(int);
       void removeTab();
@@ -577,13 +579,13 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
 
       virtual QMenu* createPopupMenu() override;
 
-      QByteArray exportMsczAsJSON(Score*);
-      QByteArray exportPdfAsJSON(Score*);
+      QByteArray exportMsczAsJSON(Ms::Score*);
+      QByteArray exportPdfAsJSON(Ms::Score*);
 
    public slots:
-      virtual void cmd(QAction* a);
-      void dirtyChanged(Score*);
-      void setPos(const Fraction& tick);
+      virtual void cmd(QAction* a) override;
+      void dirtyChanged(Ms::Score*);
+      void setPos(const Ms::Fraction& tick);
       QString pluginPathFromIdx(int idx);
       void pluginTriggered(int);
       void pluginTriggered(QString path);
@@ -592,9 +594,9 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void oscControlPlugin(QString pluginPath, QStringList methodPath, QVariant arg);
 #endif
       void handleMessage(const QString& message);
-      void setCurrentScoreView(ScoreView*);
+      void setCurrentScoreView(Ms::ScoreView*);
       void setCurrentScoreView(int);
-      void setCurrentScores(Score* s1, Score* s2 = nullptr);
+      void setCurrentScores(Ms::Score* s1, Ms::Score* s2 = nullptr);
       void setNormalState()    { changeState(STATE_NORMAL); }
       void setPlayState()      { changeState(STATE_PLAY); }
       void setNoteEntryState() { changeState(STATE_NOTE_ENTRY); }
@@ -604,10 +606,10 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void midiNoteReceived(int pitch, bool ctrl, int velo);
       void instrumentChanged();
       void showMasterPalette(const QString& = 0);
-      void selectionChanged(SelState);
+      void selectionChanged(Ms::SelState);
       void createNewWorkspace();
       void editWorkspace();
-      void changeWorkspace(Workspace* p, bool first=false);
+      void changeWorkspace(Ms::Workspace* p, bool first=false);
       void mixerPreferencesChanged(bool showMidiControls);
       void checkForUpdates();
       void restartAudioEngine();
@@ -620,7 +622,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       PlayPanel* getPlayPanel() const { return playPanel; }
       Mixer* getMixer() const { return mixer; }
       QMenu* genCreateMenu(QWidget* parent = 0);
-      virtual int appendScore(MasterScore*);
+      virtual int appendScore(MasterScore*) override;
       void midiCtrlReceived(int controller, int value);
       void showElementContext(Element* el);
       void cmdAppendMeasures(int);
@@ -672,7 +674,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       bool restoreSession(bool);
       bool splitScreen() const { return _splitScreen; }
       void setSplitScreen(bool val);
-      virtual void setCurrentView(int tabIdx, int idx);
+      virtual void setCurrentView(int tabIdx, int idx) override;
       void loadPlugins();
       void unloadPlugins();
 #ifdef SCRIPT_INTERFACE
@@ -704,7 +706,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       bool hasToCheckForUpdate();
       bool hasToCheckForExtensionsUpdate();
       static bool unstable();
-      bool eventFilter(QObject *, QEvent *);
+      bool eventFilter(QObject *, QEvent *) override;
       void setMidiRecordId(int id) { _midiRecordId = id; }
       int midiRecordId() const { return _midiRecordId; }
       void setDefaultPalette();
@@ -750,7 +752,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void endCmd(bool undoRedo);
       void endCmd() override { endCmd(false); };
       void printFile();
-      virtual bool saveAs(Score*, bool saveCopy, const QString& path, const QString& ext, SaveReplacePolicy* replacePolicy = nullptr);
+      virtual bool saveAs(Score*, bool saveCopy, const QString& path, const QString& ext, SaveReplacePolicy* replacePolicy = nullptr) override;
       QString saveFilename(QString fn);
       bool savePdf(const QString& saveName);
       bool savePdf(Score* cs, const QString& saveName);
@@ -795,7 +797,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
 
       void scoreUnrolled(MasterScore* original);
       
-      virtual void closeScore(Score* score);
+      virtual void closeScore(Score* score) override;
 
       void addTempo();
       void addMetronome();

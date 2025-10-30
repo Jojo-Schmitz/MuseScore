@@ -14,11 +14,12 @@
 #define __CHORDREST_H__
 
 #include <functional>
-#include "symbol.h"
-#include "duration.h"
+
 #include "beam.h"
-#include "shape.h"
+#include "duration.h"
 #include "measure.h"
+#include "shape.h"
+#include "symbol.h"
 
 namespace Ms {
 
@@ -38,7 +39,7 @@ class Articulation;
 class Lyrics;
 class TabDurationSymbol;
 class Spanner;
-enum class SegmentType;
+enum class SegmentType : short;
 
 //-------------------------------------------------------------------
 //   ChordRest
@@ -73,16 +74,16 @@ class ChordRest : public DurationElement {
       ChordRest &operator=(const ChordRest&) = delete;
       ~ChordRest();
 
-      virtual ElementType type() const = 0;
+      virtual ElementType type() const override = 0;
 
       virtual Element* drop(EditData&) override;
       virtual void undoUnlink() override;
 
       virtual Segment* segment() const  { return (Segment*)parent(); }
-      virtual Measure* measure() const = 0;
+      virtual Measure* measure() const override = 0;
 
-      virtual void writeProperties(XmlWriter& xml) const;
-      virtual bool readProperties(XmlReader&);
+      virtual void writeProperties(XmlWriter& xml) const override;
+      virtual bool readProperties(XmlReader&) override;
       virtual void readAddConnector(ConnectorInfoReader* info, bool pasteMode) override;
       virtual void scanElements(void* data, void (*func)(void*, Element*), bool all=true) override;
 
@@ -142,8 +143,8 @@ class ChordRest : public DurationElement {
       bool isMelismaEnd() const;
       void setMelismaEnd(bool v);
 
-      virtual void add(Element*);
-      virtual void remove(Element*);
+      virtual void add(Element*) override;
+      virtual void remove(Element*) override;
       void removeDeleteBeam(bool beamed);
       void replaceBeam(Beam* newBeam);
 

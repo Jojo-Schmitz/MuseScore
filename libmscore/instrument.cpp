@@ -1609,8 +1609,8 @@ void Instrument::updateInstrumentId()
       const int val32ref = (idxref < 0) ? -1 : channel(idxref)->bank();
       QString fallback;
 
-      for (InstrumentGroup* g : instrumentGroups) {
-            for (InstrumentTemplate* it : g->instrumentTemplates) {
+      for (InstrumentGroup*& g : instrumentGroups) {
+            for (InstrumentTemplate*& it : g->instrumentTemplates) {
                   if (it->musicXMLid == instrumentId()) {
                         if (groupHack) {
                               if (fallback.isEmpty())
@@ -1618,7 +1618,7 @@ void Instrument::updateInstrumentId()
                                     // if no "strings.group" instrument with requested bank
                                     // is found, assume "Strings".
                                     fallback = it->id;
-                              for (const Channel& chan : it->channel) {
+                              for (Channel& chan : it->channel) {
                                     if ((chan.name() == arco) && (chan.bank() == val32ref)) {
                                           _id = it->id;
                                           return;

@@ -16,7 +16,6 @@
 #include "musescore.h"
 #include "qmlplugin.h"
 #include "icons.h"
-#include "helpBrowser.h"
 #include "preferences.h"
 #include "libmscore/score.h"
 
@@ -301,7 +300,7 @@ void PluginCreator::runClicked()
       QObject* obj = component.create();
       if (obj == 0) {
             msg(tr("Creating component failed\n"));
-            for (QQmlError e : component.errors())
+            for (const QQmlError& e : component.errors())
                   msg("   " + tr("line %1: %2\n").arg(e.line()).arg(e.description()));
             stop->setEnabled(false);
             return;

@@ -22,6 +22,7 @@
 
 namespace Ms {
 
+class MasterScore;
 class MuseScore;
 class ScoreView;
 class Score;
@@ -73,7 +74,7 @@ class ScoreTab : public QWidget {
       std::map<int, ScoreViewState> scoreViewsToInit;
 
    signals:
-      void currentScoreViewChanged(ScoreView*);
+      void currentScoreViewChanged(Ms::ScoreView*);
       void tabCloseRequested(int);
       void actionTriggered(QAction*);
       void tabInserted(int);

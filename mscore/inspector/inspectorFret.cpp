@@ -10,7 +10,10 @@
 //  the file LICENSE.GPL
 //=============================================================================
 
+#include "inspector.h"
+#include "inspectorBase.h"
 #include "inspectorFret.h"
+
 #include "libmscore/fret.h"
 #include "libmscore/score.h"
 

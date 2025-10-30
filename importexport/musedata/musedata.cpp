@@ -91,7 +91,7 @@ void MuseData::musicalAttribute(QString s, Part* part)
                         col = 3;
                         }
                   staffIdx -= 1;
-                  int clefCode = item.mid(col).toInt();
+                  int clefCode = item.midRef(col).toInt();
                   ClefType clefType = ClefType::G;
                   switch (clefCode) {
                         // G clef

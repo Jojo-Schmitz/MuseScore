@@ -191,7 +191,7 @@ const int STAFF_GROUP_MAX = int(StaffGroup::TAB) + 1;      // out of enum to avo
 //   BarLineType
 //---------------------------------------------------------
 
-enum class BarLineType {
+enum class BarLineType : short {
       NORMAL           = 1,
       SINGLE           = BarLineType::NORMAL,
       DOUBLE           = 2,

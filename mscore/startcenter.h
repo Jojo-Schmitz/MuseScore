@@ -13,7 +13,6 @@
 #ifndef __STARTCENTER_H__
 #define __STARTCENTER_H__
 
-#include "config.h"
 #include "abstractdialog.h"
 #include "ui_startcenter.h"
 
@@ -25,7 +24,7 @@ namespace Ms {
 
 class Startcenter : public AbstractDialog, public Ui::Startcenter {
       Q_OBJECT
-      virtual void closeEvent(QCloseEvent*);
+      virtual void closeEvent(QCloseEvent*) override;
 
     private slots:
       void loadScore(QString);
@@ -33,7 +32,7 @@ class Startcenter : public AbstractDialog, public Ui::Startcenter {
       void openScoreClicked();
 
     protected:
-      virtual void retranslate() { retranslateUi(this); }
+      virtual void retranslate() override { retranslateUi(this); }
 
     signals:
       void closed(bool);

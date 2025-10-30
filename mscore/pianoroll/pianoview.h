@@ -13,8 +13,9 @@
 #ifndef __PIANOVIEW_H__
 #define __PIANOVIEW_H__
 
-#include "libmscore/pos.h"
 #include "pianorolledittool.h"
+
+#include "libmscore/pos.h"
 
 namespace Ms {
 
@@ -29,7 +30,7 @@ class NoteEvent;
 class PianoView;
 class NoteTweakerDialog;
 
-enum class NoteSelectType {
+enum class NoteSelectType : char {
       REPLACE = 0,
       XOR,
       ADD,
@@ -37,7 +38,7 @@ enum class NoteSelectType {
       FIRST
       };
 
-enum class DragStyle {
+enum class DragStyle : char {
       NONE = 0,
       CANCELLED,
       SELECTION_RECT,
@@ -146,7 +147,7 @@ private:
 
       float _noteRectRoundedRadius = 3;
 
-      virtual void drawBackground(QPainter* painter, const QRectF& rect);
+      virtual void drawBackground(QPainter* painter, const QRectF& rect) override;
       void drawNoteBlock(QPainter* p, PianoItem* block);
       QRect boundingRect(Note* note, bool applyEvents);
       QRect boundingRect(Note* note, NoteEvent* evt, bool applyEvents);
@@ -199,7 +200,7 @@ private:
       void barPatternChanged(int);
       void noteHeightChanged(int);
       void pitchChanged(int);
-      void trackingPosChanged(const Pos&);
+      void trackingPosChanged(const Ms::Pos&);
       void selectionChanged();
       void showNoteTweakerRequest();
 
@@ -215,9 +216,9 @@ private:
       void setNotesToVoice(int voice);
 
       QString serializeSelectedNotes();
-      QVector<Note*> pasteNotes(const QString& copiedNotes, Fraction pasteStartTick, Fraction lengthOffset, int pitchOffset, bool xIsOffset = false);
+      QVector<Note*> pasteNotes(const QString& copiedNotes, Ms::Fraction pasteStartTick, Ms::Fraction lengthOffset, int pitchOffset, bool xIsOffset = false);
       void drawDraggedNotes(QPainter* painter);
-      void drawDraggedNote(QPainter* painter, Fraction startTick, Fraction frac, int pitch, int track, QColor color);
+      void drawDraggedNote(QPainter* painter, Ms::Fraction startTick, Ms::Fraction frac, int pitch, int track, QColor color);
 
       void cutNotes();
       void copyNotes();

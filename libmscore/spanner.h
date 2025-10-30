@@ -23,7 +23,7 @@ class Spanner;
 //   SpannerSegmentType
 //---------------------------------------------------------
 
-enum class SpannerSegmentType {
+enum class SpannerSegmentType : char {
       SINGLE, BEGIN, MIDDLE, END
       };
 
@@ -123,7 +123,7 @@ class SpannerSegment : public Element {
 class Spanner : public Element {
       Q_GADGET
    public:
-      enum class Anchor {
+      enum class Anchor : char {
             SEGMENT, MEASURE, CHORD, NOTE
             };
       Q_ENUM(Anchor);

@@ -35,7 +35,7 @@ class AlignSelect : public QWidget, public Ui::AlignSelect {
       void _alignChanged();
 
    signals:
-      void alignChanged(Align);
+      void alignChanged(Ms::Align);
 
    public:
       AlignSelect(QWidget* parent);

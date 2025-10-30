@@ -194,7 +194,7 @@ void PluginManager::updatePluginList(bool forceRefresh)
             engine->clearComponentCache(); //TODO: Check this doesn't have unwanted side effects.
             }
 
-      for (QString _pluginPath : pluginPathList) {
+      for (const QString& _pluginPath : pluginPathList) {
             Ms::updatePluginList(pluginPathList, _pluginPath, _pluginList);
             }
       //remove non existing files

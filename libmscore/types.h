@@ -31,7 +31,7 @@ Q_NAMESPACE
 ///   Note: keep in sync with array elementNames[] in scoreElement.cpp
 //-------------------------------------------------------------------
 
-enum class ElementType {
+enum class ElementType : char {
       ///.\{
       INVALID = 0,
       BRACKET_ITEM,
@@ -149,7 +149,7 @@ enum class ElementType {
 //---------------------------------------------------------
 // NOTE: keep this in sync with with accList array in accidentals.cpp
 
-enum class AccidentalType {
+enum class AccidentalType : unsigned char{
       ///.\{
       NONE,
       FLAT,
@@ -332,7 +332,7 @@ enum class AccidentalType {
 //   NoteType
 //---------------------------------------------------------
 
-enum class NoteType {
+enum class NoteType : unsigned char {
       ///.\{
       NORMAL        = 0,
       ACCIACCATURA  = 0x1,
@@ -359,7 +359,7 @@ constexpr bool operator& (NoteType t1, NoteType t2) {
 //   Direction
 //---------------------------------------------------------
 
-enum class Direction {
+enum class Direction : char {
       ///.\{
       AUTO, UP, DOWN
       ///\}
@@ -369,7 +369,7 @@ enum class Direction {
 //   GlissandoType
 //---------------------------------------------------------
 
-enum class GlissandoType {
+enum class GlissandoType : char {
       ///.\{
       STRAIGHT, WAVY
       ///\}
@@ -379,7 +379,7 @@ enum class GlissandoType {
 //   GlissandoStyle
 //---------------------------------------------------------
 
-enum class GlissandoStyle {
+enum class GlissandoStyle : char {
       ///.\{
       CHROMATIC, WHITE_KEYS, BLACK_KEYS, DIATONIC, PORTAMENTO
       ///\}
@@ -389,7 +389,7 @@ enum class GlissandoStyle {
 //   HarmonyType
 //---------------------------------------------------------
 
-enum class HarmonyType {
+enum class HarmonyType :char {
       ///.\{
       STANDARD,
       ROMAN,
@@ -401,7 +401,7 @@ enum class HarmonyType {
 //   Placement
 //---------------------------------------------------------
 
-enum class Placement {
+enum class Placement : char {
       ///.\{
       ABOVE, BELOW
       ///\}
@@ -411,7 +411,7 @@ enum class Placement {
 //   HPlacement
 //---------------------------------------------------------
 
-enum class HPlacement {
+enum class HPlacement : char {
       ///.\{
       LEFT, CENTER, RIGHT
       ///\}
@@ -421,7 +421,7 @@ enum class HPlacement {
 //   MMRestRangeBracketType
 //---------------------------------------------------------
 
-enum class MMRestRangeBracketType {
+enum class MMRestRangeBracketType : char {
       ///.\{
       BRACKETS, PARENTHESES, NONE
       ///\}
@@ -443,7 +443,7 @@ enum class OffsetType : char {
 //    Type values determine the order of segments for a given tick
 //-------------------------------------------------------------------
 
-enum class SegmentType {
+enum class SegmentType : short {
       ///.\{
       Invalid            = 0x0,
       BeginBarLine       = 0x1,
@@ -481,7 +481,7 @@ constexpr bool operator& (const SegmentType t1, const SegmentType t2) {
 ///   Must be in sync with textStyles array (in style.cpp)
 //-------------------------------------------------------------------
 
-enum class Tid {
+enum class Tid : short {
       ///.\{
       DEFAULT,
       TITLE,

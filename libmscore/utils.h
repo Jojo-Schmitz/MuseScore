@@ -20,7 +20,7 @@ namespace Ms {
 
 class KeySig;
 
-enum class Key;
+enum class Key : signed char;
 
 //---------------------------------------------------------
 //   cycles

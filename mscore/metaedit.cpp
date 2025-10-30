@@ -179,7 +179,7 @@ void MetaEditDialog::setDirty(const bool dirty)
             return;
 
       buttonBox->button(QDialogButtonBox::Save)->setEnabled(dirty);
-      setWindowTitle(tr("Score properties: %1%2").arg(m_score->title()).arg((dirty ? "*" : "")));
+      setWindowTitle(tr("Score properties: %1%2").arg(m_score->title(), dirty ? "*" : ""));
 
       m_dirty = dirty;
       }

@@ -48,7 +48,7 @@ ToolButtonMenu::ToolButtonMenu(QString name,
 
       if (!swapAction) {
             // select first alternative action and use its icon for the default action
-            QAction* a = _alternativeActions->actions().first();
+            QAction* a = _alternativeActions->actions().constFirst();
             a->setChecked(true);
             switchIcon(a);
             }

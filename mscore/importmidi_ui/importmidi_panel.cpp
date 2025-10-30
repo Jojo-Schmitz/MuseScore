@@ -150,7 +150,7 @@ void ImportMidiPanel::fillCharsetList()
       std::sort(charsets.begin(), charsets.end());
       int idx = 0;
       int maxWidth = 0;
-      for (const auto &charset: charsets) {
+      for (auto& charset: charsets) {
             _ui->comboBoxCharset->addItem(charset);
             if (charset == MidiCharset::defaultCharset())
                   _ui->comboBoxCharset->setCurrentIndex(idx);

@@ -427,7 +427,7 @@ void Workspace::write()
 
       if (preferences.getUseLocalPreferences()) {
             xml.stag("Preferences");
-            for (QString pref : preferences.getLocalPreferences().keys()) {
+            for (const QString& pref : preferences.getLocalPreferences().keys()) {
                   QVariant prefValue = preferences.getLocalPreferences().value(pref);
                   if (prefValue.isValid())
                         xml.tag("Preference name=\"" + pref + "\"", preferences.getLocalPreferences().value(pref));
@@ -658,7 +658,7 @@ void WorkspacesManager::readWorkspaceFile(const QString& path, std::function<voi
       //
       // load images
       //
-      for (const QString& s : images)
+      for (QString& s : images)
             imageStore.add(s, f.fileData(s));
 
       if (rootfile.isEmpty()) {
@@ -1156,11 +1156,11 @@ static QStringList findWorkspaceFiles()
 
       QStringList workspaces;
 
-      for (const QString& s : path) {
+      for (QString& s : path) {
             QDir dir(s);
             QStringList pl = dir.entryList(nameFilters, QDir::Files, QDir::Name);
 
-            for (const QString& entry : pl) {
+            for (QString& entry : pl) {
                   const QString workspacePath(s + "/" + entry);
                   workspaces << workspacePath;
                   }
@@ -1187,7 +1187,7 @@ void WorkspacesManager::initWorkspaces()
 
             const bool translate = isDefault || isEditedDefault;
 
-            for (Workspace* w : m_workspaces) {
+            for (Workspace*& w : m_workspaces) {
                   if (w->name() == name || (translate && w->translatableName() == name)) {
                         p = w;
                         break;
@@ -1321,7 +1321,7 @@ Workspace* WorkspacesManager::createNewWorkspace(const QString& name)
 void WorkspacesManager::clearWorkspaces()
       {
       m_currentWorkspace = nullptr;
-      for (Workspace* w : m_workspaces)
+      for (Workspace*& w : m_workspaces)
             w->deleteLater();
       m_workspaces.clear();
       m_visibleWorkspaces.clear();
@@ -1380,7 +1380,7 @@ void Workspace::addRemainingFromMenu(QMenu* menu)
 
 QAction* Workspace::findActionFromString(QString string)
       {
-      for (auto pair : actionToStringList) {
+      for (auto& pair : actionToStringList) {
             if (pair.second == string)
                   return pair.first;
             }
@@ -1393,7 +1393,7 @@ QAction* Workspace::findActionFromString(QString string)
 
 QString Workspace::findStringFromAction(QAction* action)
       {
-      for (auto pair : actionToStringList) {
+      for (auto& pair : actionToStringList) {
             if (pair.first == action)
                   return pair.second;
             }
@@ -1418,7 +1418,7 @@ void Workspace::addMenuAndString(QMenu* menu, QString string)
 
 QMenu* Workspace::findMenuFromString(QString string)
       {
-      for (auto pair : menuToStringList) {
+      for (auto& pair : menuToStringList) {
             if (pair.second == string)
                   return pair.first;
             }
@@ -1431,7 +1431,7 @@ QMenu* Workspace::findMenuFromString(QString string)
 
 QString Workspace::findStringFromMenu(QMenu* menu)
       {
-      for (auto pair : menuToStringList) {
+      for (auto& pair : menuToStringList) {
             if (pair.first == menu)
                   return pair.second;
             }

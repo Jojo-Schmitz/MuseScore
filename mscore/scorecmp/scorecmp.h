@@ -88,7 +88,7 @@ class ScoreComparisonTool : public QDockWidget {
       void slotWindowSplit(bool);
       void invalidateDiff();
       void updateDiff();
-      void updateScoreVersions(const Score*);
+      void updateScoreVersions(const Ms::Score*);
       };
 
 }     // namespace Ms

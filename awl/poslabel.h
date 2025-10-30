@@ -40,7 +40,7 @@ class PosLabel : public QLabel {
       QSize sizeHint() const;
 
    public slots:
-      void setValue(const Pos&);
+      void setValue(const Ms::Pos&);
 
    public:
       PosLabel(QWidget* parent = 0);

@@ -431,7 +431,7 @@ enum class BarLineType : char {
       Null         //0x06
       } ;
 
-enum class NoteDuration {
+enum class NoteDuration : short {
       D_256 = 15,
       D_128 = NoteDuration::D_256 * 2,           // 30
       D_64 = NoteDuration::D_128 * 2,            // 60

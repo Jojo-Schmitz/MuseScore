@@ -42,7 +42,7 @@ namespace Ms {
 //---------------------------------------------------------
 
 BEGIN_QT_REGISTERED_ENUM(SymId)
-enum class SymId {
+enum class SymId : short {
       ///.\{
       noSym,
 

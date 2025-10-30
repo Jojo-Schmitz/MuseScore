@@ -4521,7 +4521,7 @@ void Shortcut::write(XmlWriter& xml) const
       xml.tag("key", _key.data());
       if (_standardKey != QKeySequence::UnknownKey)
             xml.tag("std", QString("%1").arg(_standardKey));
-      for (QKeySequence ks : _keys)
+      for (const QKeySequence& ks : _keys)
             xml.tag("seq", Shortcut::keySeqToString(ks, QKeySequence::PortableText, true));
       xml.etag();
       }

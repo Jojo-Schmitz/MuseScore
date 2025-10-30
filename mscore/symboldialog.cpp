@@ -52,7 +52,7 @@ void SymbolDialog::createSymbols()
       // init the font if not done yet
       ScoreFont::fontFactory(f->name());
       sp->clear();
-      for (auto name : (*smuflRanges())[range]) {
+      for (const auto& name : (*smuflRanges())[range]) {
             SymId id     = Sym::name2id(name);
             if (search->text().isEmpty()
                || Sym::id2userName(id).contains(search->text(), Qt::CaseInsensitive)) {

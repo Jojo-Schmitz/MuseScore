@@ -182,7 +182,7 @@ ScoreOrder::~ScoreOrder()
 ScoreOrder* ScoreOrder::clone()
       {
       ScoreOrder* order = new ScoreOrder(_id, _name);
-      for (ScoreGroup* sg : groups)
+      for (ScoreGroup*& sg : groups)
             {
             ScoreGroup* sgc = sg->clone();
             if (sg->isSoloists())
@@ -209,7 +209,7 @@ void ScoreOrder::init()
       _groupMultiplier = 1;
       _customized = false;
       if (!isCustom()) {
-            for (auto ig : instrumentGroups)
+            for (auto& ig : instrumentGroups)
                   _groupMultiplier += ig->instrumentTemplates.size();
             }
 
@@ -289,7 +289,7 @@ void ScoreOrder::readUnsorted(XmlReader& e, const QString section, bool br, bool
       {
       QString group { e.attribute("group", QString("")) };
       e.skipCurrentElement();
-      for (auto sg : groups) {
+      for (auto& sg : groups) {
             if (sg->isUnsorted(group))
                   return;
             };
@@ -310,7 +310,7 @@ void ScoreOrder::readUnsorted(XmlReader& e, const QString section, bool br, bool
 void ScoreOrder::readFamily(XmlReader& e, const QString section, bool br, bool ssm, bool bls, bool tbr)
       {
       const QString id { e.readElementText().toUtf8().data() };
-      for (auto sg : groups) {
+      for (auto& sg : groups) {
             if (sg->id() == id)
                   return;
             }
@@ -789,7 +789,7 @@ ScoreOrder* ScoreOrderList::getById(const QString& id)
 ScoreOrder* ScoreOrderList::findByName(const QString& name, bool customized)
       {
       ScoreOrder* customizedOrder { nullptr };
-      for (ScoreOrder* order : _orders) {
+      for (ScoreOrder*& order : _orders) {
             if (order->getName() == name) {
                   if (customized)
                         {

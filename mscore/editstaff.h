@@ -21,7 +21,6 @@
 #define __EDITSTAFF_H__
 
 #include "ui_editstaff.h"
-#include "ui_selectinstr.h"
 #include "libmscore/instrument.h"
 #include "libmscore/stafftype.h"
 

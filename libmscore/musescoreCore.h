@@ -17,7 +17,7 @@ namespace Ms {
 
 class MasterScore;
 class Score;
-enum class SaveReplacePolicy;
+enum class SaveReplacePolicy : char;
 
 //---------------------------------------------------------
 //   class MuseScoreCore
