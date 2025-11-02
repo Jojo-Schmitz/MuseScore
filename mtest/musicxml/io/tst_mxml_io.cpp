@@ -264,6 +264,10 @@ private slots:
       void numerals() { mxmlIoTest("testNumerals"); }
       void ornaments() { mxmlIoTest("testOrnaments"); }
       void overlappingSpanners() { mxmlIoTest("testOverlappingSpanners"); }
+      void pageNumbers1() { mxmlMscxExportTestRefBreaks("testPageNumbers1"); }
+      void pageNumbers2() { mxmlMscxExportTestRefBreaks("testPageNumbers2"); }
+      void pageNumbers3() { mxmlMscxExportTestRefBreaks("testPageNumbers3"); }
+      void pageNumbers4() { mxmlMscxExportTestRefBreaks("testPageNumbers4"); }
       void partNames() { mxmlImportTestRef("testPartNames"); }
       void partNames2() { mxmlIoTest("testPartNames2"); }
       void pedalChanges() { mxmlIoTest("testPedalChanges"); }
