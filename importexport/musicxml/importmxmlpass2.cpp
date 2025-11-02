@@ -3718,7 +3718,7 @@ void MusicXMLParserDirection::directionType(QList<MusicXmlSpannerDesc>& starts,
             _hasDefaultY |= hasDefaultYCandidate;
             _hasRelativeY |= hasRelativeYCandidate;
             _isBold &= _e.attributes().value("font-weight").toString() == "bold";
-            _visible = _e.attributes().value("print-object").toString() != "no";
+            _visible = _e.attributes().value("print-object").toString() != "no"; // only available for "metronome" and "other-direction"
             const QString number = _e.attributes().value("number").toString();
             int n = 0;
             if (!number.isEmpty()) {
@@ -6342,6 +6342,7 @@ Note* MusicXMLParserPass2::note(const QString& partId,
       int velocity = round(_e.attributes().value("dynamics").toDouble() * 0.9);
       bool graceSlash = false;
       bool printObject = _e.attributes().value("print-object") != "no";
+      bool printLyric = (printObject && _e.attributes().value("print-lyric") != "no") ||_e.attributes().value("print-lyric") == "yes";
       Beam::Mode bm;
       QMap<int, QString> beamTypes;
       QString instrumentId;
@@ -6386,7 +6387,7 @@ Note* MusicXMLParserPass2::note(const QString& partId,
             else if (_e.name() == "lyric") {
                   // lyrics on grace notes not (yet) supported by MuseScore
                   // add to main note instead
-                  lyric.parse();
+                  lyric.parse(printLyric);
                   }
             else if (_e.name() == "notations") {
                   notations.parse();
@@ -7491,7 +7492,7 @@ void MusicXMLParserLyric::readElision(QString& formattedText)
 //   parse
 //---------------------------------------------------------
 
-void MusicXMLParserLyric::parse()
+void MusicXMLParserLyric::parse(bool visibility)
       {
       std::unique_ptr<Lyrics> lyric { new Lyrics(_score) };
       // TODO in addlyrics: l->setTrack(trk);
@@ -7499,7 +7500,7 @@ void MusicXMLParserLyric::parse()
       bool hasExtend = false;
       const QString lyricNumber = _e.attributes().value("number").toString();
       const QColor lyricColor = _e.attributes().value("color").toString();
-      const bool printLyric = _e.attributes().value("print-object") != "no";
+      const bool printLyric = visibility ? _e.attributes().value("print-object") != "no" : _e.attributes().value("print-object") == "yes";
       _placement = _e.attributes().value("placement").toString();
       qreal relX = _e.attributes().value("relative-x").toDouble() / 10 * DPMM;
       _relativeY = _e.attributes().value("relative-y").toDouble() / 10 * DPMM;

@@ -135,7 +135,7 @@ public:
                           QXmlStreamReader& e, Score* score, MxmlLogger* logger);
       QSet<Lyrics*> extendedLyrics() const { return _extendedLyrics; }
       QMap<int, Lyrics*> numberedLyrics() const { return _numberedLyrics; }
-      void parse();
+      void parse(bool visibility = true);
 private:
       void skipLogCurrElem();
       void readElision(QString& formattedText);

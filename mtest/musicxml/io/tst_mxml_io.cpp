@@ -227,6 +227,7 @@ private slots:
       void lyrics1() { mxmlIoTestRef("testLyrics1"); }
       void lyricsVoice2a() { mxmlIoTest("testLyricsVoice2a"); }
       void lyricsVoice2b() { mxmlIoTestRef("testLyricsVoice2b"); }
+      void lyricVisibility() { mxmlImportTestRef("testLyricVisibility"); }
       void maxNumberLevel() { mxmlMscxExportTestRef("testMaxNumberLevel"); }
       void measureLength() { mxmlIoTestRef("testMeasureLength"); }
       void measureNumbers() { mxmlIoTest("testMeasureNumbers"); }
