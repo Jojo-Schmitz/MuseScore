@@ -63,7 +63,7 @@ on:
         required: true
 
 env:
-  DEVELOPER_DIR: /Applications/Xcode_15.2.app/Contents/Developer
+  DEVELOPER_DIR: /Applications/Xcode.app/Contents/Developer
 
 jobs:
   plan:
@@ -150,7 +150,7 @@ jobs:
     if: contains(needs.plan.outputs.platforms, 'macos_apple')
     needs:
       - plan
-    runs-on: macos-13
+    runs-on: macos-15
     steps:
     - name: Cancel Previous Runs
       uses: styfle/cancel-workflow-action@0.12.1
@@ -239,7 +239,7 @@ jobs:
     if: contains(needs.plan.outputs.platforms, 'macos_intel')
     needs:
       - plan
-    runs-on: macos-13
+    runs-on: macos-15-intel
     steps:
     - name: Cancel Previous Runs
       uses: styfle/cancel-workflow-action@0.12.1

@@ -12,7 +12,7 @@ on:
         default: 'on'
 jobs:
   lupdate:
-    runs-on: macos-11
+    runs-on: macos-15
     steps:
     - name: Clone repository
       uses: actions/checkout@v5
