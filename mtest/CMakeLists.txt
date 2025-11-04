@@ -109,14 +109,9 @@ add_executable(
 
 target_link_libraries(
       mtest
+      freetype
       ${QT_LIBRARIES}
       )
-
-if (USE_SYSTEM_FREETYPE)
-      target_link_libraries(mtest freetype)
-else (USE_SYSTEM_FREETYPE)
-      target_link_libraries(mtest mscore_freetype)
-endif (USE_SYSTEM_FREETYPE)
 
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 
