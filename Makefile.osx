@@ -28,10 +28,10 @@ CPUS = `sysctl -n hw.logicalcpu`
 XCODEPROJ = mscore.xcodeproj
 
 # Use xcpretty if installed
-ifneq ($(strip $(shell which xcpretty)),)
-  FORMATTER_START = set -o pipefail &&
-  FORMATTER_END = | xcpretty
-endif
+#ifneq ($(strip $(shell which xcpretty)),)
+#  FORMATTER_START = set -o pipefail &&
+#  FORMATTER_END = | xcpretty
+#endif
 
 release:
 	@echo "Make release"; \
