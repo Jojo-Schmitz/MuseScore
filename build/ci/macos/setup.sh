@@ -3,7 +3,6 @@
 echo "Setup MacOS build environment"
 
 trap 'echo Setup failed; exit 1' ERR
-SKIP_ERR_FLAG=true
 
 BUILD_ARCH=Apple
 
@@ -19,22 +18,24 @@ export MACOSX_DEPLOYMENT_TARGET=10.13
 
 if [ "$BUILD_ARCH" == "Apple" ]
 then
-    curl -LO https://github.com/macports/macports-base/releases/download/v2.10.7/MacPorts-2.10.7-13-Ventura.pkg
-    sudo installer -verbose -pkg MacPorts-2.10.7-13-Ventura.pkg -target /
-    rm MacPorts-2.10.7-13-Ventura.pkg
+    export MACOSX_DEPLOYMENT_TARGET=11.0
+
+    curl -LO https://github.com/macports/macports-base/releases/download/v2.11.6/MacPorts-2.11.6-15-Sequoia.pkg
+    sudo installer -verbose -pkg MacPorts-2.11.6-15-Sequoia.pkg -target /
+    rm MacPorts-2.11.6-15-Sequoia.pkg
     export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
     echo -e "universal_target ${MACOSX_DEPLOYMENT_TARGET}\nmacosx_deployment_target ${MACOSX_DEPLOYMENT_TARGET}\nmacosx_sdk_version ${MACOSX_DEPLOYMENT_TARGET}" | sudo tee -a /opt/local/etc/macports/macports.conf
-    sudo port install git pkgconfig cmake
+    sudo port install pkgconfig
     sudo port install flac libogg libvorbis libopus mpg123 lame libsndfile portaudio jack
 else # Intel
+    export MACOSX_DEPLOYMENT_TARGET=10.13
+
     # install dependencies
     wget -c --no-check-certificate -nv -O bottles.zip https://musescore.org/sites/musescore.org/files/2020-02/bottles-MuseScore-3.0-yosemite.zip
     unzip bottles.zip
     #
     # we don't use freetype
-    rm bottles/freetype* | $SKIP_ERR_FLAG
-    #
-    brew update >/dev/null | $SKIP_ERR_FLAG
+    rm bottles/freetype* || true
     #
     # fixing install python 3.11 error (it is a dependency for JACK)
     rm '/usr/local/bin/2to3'

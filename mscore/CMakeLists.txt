@@ -302,10 +302,6 @@ if (BUILD_TELEMETRY_MODULE)
 endif (BUILD_TELEMETRY_MODULE)
 add_dependencies(mscoreapp workspaces)
 
-if (USE_SYSTEM_FREETYPE)
-      target_link_libraries(mscoreapp ${FREETYPE_LIBRARIES})
-endif (USE_SYSTEM_FREETYPE)
-
 if (AEOLUS)
       target_link_libraries(mscoreapp aeolus)
 endif (AEOLUS)
@@ -354,7 +350,6 @@ if (MINGW)
       portaudiodll
       portmidi
       winmm
-      mscore_freetype
       z
       )
 
@@ -377,12 +372,6 @@ else (MINGW)
          ${CMAKE_DL_LIBS}
          pthread
          )
-
-       if (USE_SYSTEM_FREETYPE)
-            target_link_libraries(mscoreapp freetype)
-       else (USE_SYSTEM_FREETYPE)
-            target_link_libraries(mscoreapp mscore_freetype)
-       endif (USE_SYSTEM_FREETYPE)
 
        if (USE_PORTAUDIO)
          target_link_libraries(mscoreapp ${PORTAUDIO_LIB})
@@ -469,7 +458,6 @@ else (MINGW)
          portaudiodll
          portmidi
          winmm
-         mscore_freetype
          zlibstat
          )
 
