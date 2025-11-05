@@ -18,6 +18,8 @@ export MACOSX_DEPLOYMENT_TARGET=10.13
 
 if [ "$BUILD_ARCH" == "Apple" ]
 then
+    export MACOSX_DEPLOYMENT_TARGET=11.0
+
     curl -LO https://github.com/macports/macports-base/releases/download/v2.11.6/MacPorts-2.11.6-15-Sequoia.pkg
     sudo installer -verbose -pkg MacPorts-2.11.6-15-Sequoia.pkg -target /
     rm MacPorts-2.11.6-15-Sequoia.pkg
@@ -26,6 +28,8 @@ then
     sudo port install pkgconfig
     sudo port install flac libogg libvorbis libopus mpg123 lame libsndfile portaudio jack
 else # Intel
+    export MACOSX_DEPLOYMENT_TARGET=10.13
+
     # install dependencies
     wget -c --no-check-certificate -nv -O bottles.zip https://musescore.org/sites/musescore.org/files/2020-02/bottles-MuseScore-3.0-yosemite.zip
     unzip bottles.zip
