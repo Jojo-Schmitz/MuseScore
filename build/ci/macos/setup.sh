@@ -37,8 +37,6 @@ else # Intel
     # we don't use freetype
     rm bottles/freetype* || true
     #
-    brew update >/dev/null || true
-    #
     # fixing install python 3.11 error (it is a dependency for JACK)
     rm '/usr/local/bin/2to3'
     rm '/usr/local/bin/2to3-3.11'
