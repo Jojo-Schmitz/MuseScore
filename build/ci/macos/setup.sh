@@ -23,7 +23,7 @@ then
     rm MacPorts-2.11.6-15-Sequoia.pkg
     export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
     echo -e "universal_target ${MACOSX_DEPLOYMENT_TARGET}\nmacosx_deployment_target ${MACOSX_DEPLOYMENT_TARGET}\nmacosx_sdk_version ${MACOSX_DEPLOYMENT_TARGET}" | sudo tee -a /opt/local/etc/macports/macports.conf
-    sudo port install git pkgconfig cmake
+    sudo port install pkgconfig
     sudo port install flac libogg libvorbis libopus mpg123 lame libsndfile portaudio jack
 else # Intel
     # install dependencies
