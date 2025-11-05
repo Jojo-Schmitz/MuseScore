@@ -25,12 +25,6 @@ include_directories(
       ${PROJECT_SOURCE_DIR}/thirdparty
       )
 
-if (USE_SYSTEM_FREETYPE)
-      include_directories(${FREETYPE_INCLUDE_DIRS})
-else (USE_SYSTEM_FREETYPE)
-      include_directories(${PROJECT_SOURCE_DIR}/thirdparty/freetype/include)
-endif (USE_SYSTEM_FREETYPE)
-
 if (OMR)
 set(OMR_SRC ${PROJECT_SOURCE_DIR}/omr/importpdf.cpp)
 endif (OMR)

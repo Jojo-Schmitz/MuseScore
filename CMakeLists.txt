@@ -394,7 +394,9 @@ if (USE_SYSTEM_FREETYPE)
       else (APPLE)
             find_package(Freetype REQUIRED)
       endif (APPLE)
-endif (USE_SYSTEM_FREETYPE)
+else()
+      add_subdirectory(thirdparty/freetype)
+endif()
 
 ##
 ## ALSA >= 1.0.0
@@ -744,6 +746,7 @@ include_directories(
    ${VORBIS_INCDIR}
    ${SNDFILE_INCDIR}
    ${LAME_INCLUDE_DIR}
+   ${FREETYPE_INCLUDE_DIRS}
 )
 
 if (MSVC)
@@ -755,12 +758,6 @@ if (MSVC)
    include_directories(${PORTAUDIO_INCLUDE_DIR})
    include_directories(${OGG_INCLUDE_DIR})
 endif (MSVC)
-
-if (USE_SYSTEM_FREETYPE)
-      include_directories(${FREETYPE_INCLUDE_DIRS})
-else (USE_SYSTEM_FREETYPE)
-      include_directories(${PROJECT_SOURCE_DIR}/thirdparty/freetype/include)
-endif (USE_SYSTEM_FREETYPE)
 
 if (OMR)
  if (NOT USE_SYSTEM_POPPLER)
@@ -849,10 +846,6 @@ endif (OMR)
 if (OSC)
       add_subdirectory(thirdparty/ofqf)
 endif (OSC)
-
-if (NOT USE_SYSTEM_FREETYPE)
-      add_subdirectory(thirdparty/freetype)
-endif (NOT USE_SYSTEM_FREETYPE)
 
 ##
 ##  Include packaging

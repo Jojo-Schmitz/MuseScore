@@ -291,7 +291,6 @@ target_link_libraries(mscoreapp
       qzip
       importexport
       ${COCOABRIDGE}
-      ${FREETYPE_LIBRARIES}
       )
 
 if (BUILD_CRASH_REPORTER)

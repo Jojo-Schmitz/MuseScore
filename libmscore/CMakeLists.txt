@@ -86,6 +86,8 @@ target_include_directories(libmscore
       ${PROJECT_SOURCE_DIR}/global
    )
 
+target_link_libraries(libmscore ${FREETYPE_LIBRARIES})
+
 if (AVSOMR)
     target_link_libraries(libmscore avsomr)
 endif (AVSOMR)
@@ -112,4 +114,3 @@ if (APPLE)
     COMPILE_FLAGS "-Wno-shorten-64-to-32"
   )
 endif (APPLE)
-

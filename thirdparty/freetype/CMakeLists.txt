@@ -30,9 +30,5 @@ set(SKIP_INSTALL_ALL TRUE)
 
 add_subdirectory(${FREETYPE_DIR})
 
-# Fix include path
-target_include_directories(freetype PUBLIC ${FREETYPE_DIR}/include)
-
 # Export variables
 set(FREETYPE_LIBRARIES freetype PARENT_SCOPE)
-set(FREETYPE_INCLUDE_DIRS ${FREETYPE_DIR}/include PARENT_SCOPE)
