@@ -3,7 +3,6 @@
 echo "Setup MacOS build environment"
 
 trap 'echo Setup failed; exit 1' ERR
-SKIP_ERR_FLAG=true
 
 BUILD_ARCH=Apple
 
@@ -32,9 +31,9 @@ else # Intel
     unzip bottles.zip
     #
     # we don't use freetype
-    rm bottles/freetype* | $SKIP_ERR_FLAG
+    rm bottles/freetype* || true
     #
-    brew update >/dev/null | $SKIP_ERR_FLAG
+    brew update >/dev/null || true
     #
     # fixing install python 3.11 error (it is a dependency for JACK)
     rm '/usr/local/bin/2to3'

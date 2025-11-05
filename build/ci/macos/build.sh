@@ -37,14 +37,24 @@ echo "TELEMETRY_TRACK_ID: $TELEMETRY_TRACK_ID"
 
 MUSESCORE_REVISION=$(git rev-parse --short=7 HEAD)
 
-make -f Makefile.osx \
-    MUSESCORE_BUILD_CONFIG=$MUSESCORE_BUILD_CONFIG \
-    MUSESCORE_REVISION=$MUSESCORE_REVISION \
-    BUILD_NUMBER=$BUILD_NUMBER \
-    BUILD_AUTOUPDATE=$BUILD_AUTOUPDATE \
-    TELEMETRY_TRACK_ID=$TELEMETRY_TRACK_ID \
-    ci
+mkdir build.release
+pushd build.release
 
+echo === Configure ===
+cmake .. -G Xcode \
+    -DCMAKE_INSTALL_PREFIX=../applebuild \
+	-DCMAKE_BUILD_TYPE=RELEASE \
+	-DCMAKE_BUILD_NUMBER=$BUILD_NUMBER \
+	-DBUILD_AUTOUPDATE=$BUILD_AUTOUPDATE \
+	-DMUSESCORE_BUILD_CONFIG=$MUSESCORE_BUILD_CONFIG \
+	-DMUSESCORE_REVISION=$MUSESCORE_REVISION \
+	-DTELEMETRY_TRACK_ID=$TELEMETRY_TRACK_ID
+
+echo === Build ===
+xcodebuild -project mscore.xcodeproj -target lrelease
+xcodebuild -project mscore.xcodeproj -target install -configuration Release
+
+popd
 
 bash ./build/ci/tools/make_release_channel_env.sh -c $MUSESCORE_BUILD_CONFIG
 bash ./build/ci/tools/make_version_env.sh $BUILD_NUMBER

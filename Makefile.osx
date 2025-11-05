@@ -28,10 +28,10 @@ CPUS = `sysctl -n hw.logicalcpu`
 XCODEPROJ = mscore.xcodeproj
 
 # Use xcpretty if installed
-#ifneq ($(strip $(shell which xcpretty)),)
-#  FORMATTER_START = set -o pipefail &&
-#  FORMATTER_END = | xcpretty
-#endif
+ifneq ($(strip $(shell which xcpretty)),)
+  FORMATTER_START = set -o pipefail &&
+  FORMATTER_END = | xcpretty
+endif
 
 release:
 	@echo "Make release"; \
@@ -87,21 +87,6 @@ installdebug:
 
 package:
 	build/package_mac;
-
-ci:
-	@echo "Make ci"; \
-	mkdir build.release; \
-	cd build.release; \
-	cmake -DCMAKE_INSTALL_PREFIX="${PREFIX}" \
-	      -DCMAKE_BUILD_TYPE=RELEASE \
-	      -DCMAKE_BUILD_NUMBER="${BUILD_NUMBER}" \
-          -DBUILD_AUTOUPDATE=${BUILD_AUTOUPDATE} \
-	      -DMUSESCORE_BUILD_CONFIG="${MUSESCORE_BUILD_CONFIG}" \
-	      -DMUSESCORE_REVISION="${MUSESCORE_REVISION}" \
-	      -DTELEMETRY_TRACK_ID="${TELEMETRY_TRACK_ID}" \
-	      .. -G Xcode; \
-	xcodebuild -project ${XCODEPROJ} -target lrelease; \
-	$(FORMATTER_START) xcodebuild -project ${XCODEPROJ} -configuration Release -target install $(FORMATTER_END);
 
 #
 # clean out of source build
