@@ -219,7 +219,7 @@ class Timeline : public QGraphicsView {
       void objectDestroyed(QObject*);
 
    public slots:
-      void changeSelection(Ms::SelState);
+      void changeSelection(SelState);
       void mouseOver(QPointF pos);
       void swapMeta(unsigned row, bool switchUp);
       virtual void contextMenuEvent(QContextMenuEvent* event) override;

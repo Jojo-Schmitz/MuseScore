@@ -47,7 +47,7 @@ class FractionWrapper : public QObject {
 
       /// \cond MS_INTERNAL
    public slots:
-      void setFraction(Ms::Fraction _f) { f = _f; }
+      void setFraction(Fraction _f) { f = _f; }
 
    public:
       FractionWrapper() = default;

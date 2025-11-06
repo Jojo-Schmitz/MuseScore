@@ -56,8 +56,8 @@ class ExampleView : public QFrame, public MuseScoreView {
       virtual QSize sizeHint() const override;
 
    signals:
-      void noteClicked(Ms::Note*);
-      void beamPropertyDropped(Ms::Chord*, Ms::Icon*);
+      void noteClicked(Note*);
+      void beamPropertyDropped(Chord*, Icon*);
 
    public:
       ExampleView(QWidget* parent = 0);

@@ -90,7 +90,7 @@ class ScoreVersionListModel : public QAbstractListModel {
 
    public slots:
       void update();
-      void setScore(Ms::MasterScore* s);
+      void setScore(MasterScore* s);
       };
 
 }     // namespace Ms

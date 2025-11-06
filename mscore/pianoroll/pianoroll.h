@@ -84,18 +84,18 @@ class PianorollEditor : public QMainWindow, public MuseScoreView {
       void velocityChanged(int);
       void keyPressed(int);
       void keyReleased(int);
-      void moveLocator(int, const Ms::Pos&);
+      void moveLocator(int, const Pos&);
       void cmd(QAction*);
       void rangeChanged(int min, int max);
       void setXpos(int x);
       void showWaveView(bool);
-      void posChanged(Ms::POS pos, unsigned tick);
+      void posChanged(POS pos, unsigned tick);
       void tickLenChanged(int);
       void onTimeChanged(int val);
       void playlistChanged();
 
    public slots:
-      void changeSelection(Ms::SelState);
+      void changeSelection(SelState);
       void handleAction(QAction*);
       void showNoteTweaker();
 

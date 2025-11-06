@@ -46,7 +46,7 @@ class TimeDialog : public QWidget, Ui::TimeDialogBase {
       void setDirty() { _dirty = true; }
 
    signals:
-      void timeSigAdded(const Ms::TimeSig*);
+      void timeSigAdded(const TimeSig*);
 
    public:
       TimeDialog(QWidget* parent = 0);

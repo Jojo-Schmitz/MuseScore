@@ -93,11 +93,11 @@ class PianoLevels : public QWidget
       void adjustLevel(Note* note, NoteEvent* noteEvt, int value);
 
 signals:
-      void posChanged(const Ms::Pos&);
+      void posChanged(const Pos&);
       void tupletChanged(int);
       void subdivChanged(int);
       void levelsIndexChanged(int);
-      void locatorMoved(int idx, const Ms::Pos&);
+      void locatorMoved(int idx, const Pos&);
       void noteLevelsChanged();
 
 public slots:
@@ -105,7 +105,7 @@ public slots:
       void setTuplet(int);
       void setSubdiv(int);
       void setXZoom(qreal);
-      void setPos(const Ms::Pos&);
+      void setPos(const Pos&);
       void setLevelsIndex(int index);
 
 public:

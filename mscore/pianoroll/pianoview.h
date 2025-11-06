@@ -200,7 +200,7 @@ private:
       void barPatternChanged(int);
       void noteHeightChanged(int);
       void pitchChanged(int);
-      void trackingPosChanged(const Ms::Pos&);
+      void trackingPosChanged(const Pos&);
       void selectionChanged();
       void showNoteTweakerRequest();
 
@@ -216,9 +216,9 @@ private:
       void setNotesToVoice(int voice);
 
       QString serializeSelectedNotes();
-      QVector<Note*> pasteNotes(const QString& copiedNotes, Ms::Fraction pasteStartTick, Ms::Fraction lengthOffset, int pitchOffset, bool xIsOffset = false);
+      QVector<Note*> pasteNotes(const QString& copiedNotes, Fraction pasteStartTick, Fraction lengthOffset, int pitchOffset, bool xIsOffset = false);
       void drawDraggedNotes(QPainter* painter);
-      void drawDraggedNote(QPainter* painter, Ms::Fraction startTick, Ms::Fraction frac, int pitch, int track, QColor color);
+      void drawDraggedNote(QPainter* painter, Fraction startTick, Fraction frac, int pitch, int track, QColor color);
 
       void cutNotes();
       void copyNotes();

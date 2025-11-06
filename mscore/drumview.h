@@ -71,7 +71,7 @@ class DrumView : public QGraphicsView {
       void magChanged(double, double);
       void xposChanged(int);
       void pitchChanged(int);
-      void posChanged(const Ms::Pos&);
+      void posChanged(const Pos&);
 
    public slots:
       void moveLocator(int);

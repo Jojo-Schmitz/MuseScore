@@ -340,7 +340,7 @@ class ScoreView : public QWidget, public MuseScoreView {
       Element* getDropTarget(EditData&);
 
    private slots:
-      void posChanged(Ms::POS pos, unsigned tick);
+      void posChanged(POS pos, unsigned tick);
       void loopToggled(bool);
       void triggerCmdRealtimeAdvance();
       void cmdRealtimeAdvance();
@@ -361,17 +361,17 @@ class ScoreView : public QWidget, public MuseScoreView {
       void normalCut();
       void normalCopy();
       void fotoModeCopy(bool includeLink = false);
-      bool normalPaste(Ms::Fraction scale = Ms::Fraction(1, 1));
+      bool normalPaste(Fraction scale = Fraction(1, 1));
       bool clonePaste();
       void normalSwap();
 
       void setControlCursorVisible(bool v);
 
-      void cloneElement(Ms::Element* e);
+      void cloneElement(Element* e);
       void doFotoDragEdit(QMouseEvent* ev);
 
       void updateContinuousPanel();
-      void ticksTab(const Ms::Fraction& ticks);     // helper function
+      void ticksTab(const Fraction& ticks);     // helper function
 
    signals:
       void viewRectChanged();

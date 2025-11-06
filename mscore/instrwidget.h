@@ -187,7 +187,7 @@ class InstrumentsWidget : public QWidget, public Ui::InstrumentsWidget {
       void on_removeButton_clicked();
       void on_upButton_clicked();
       void on_downButton_clicked();
-      Ms::StaffListItem* on_addStaffButton_clicked();
+      StaffListItem* on_addStaffButton_clicked();
       void on_addLinkedStaffButton_clicked();
       void on_makeSoloistButton_clicked();
       void on_scoreOrderComboBox_activated(int index);

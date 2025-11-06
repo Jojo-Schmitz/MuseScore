@@ -74,7 +74,7 @@ class ScoreTab : public QWidget {
       std::map<int, ScoreViewState> scoreViewsToInit;
 
    signals:
-      void currentScoreViewChanged(Ms::ScoreView*);
+      void currentScoreViewChanged(ScoreView*);
       void tabCloseRequested(int);
       void actionTriggered(QAction*);
       void tabInserted(int);

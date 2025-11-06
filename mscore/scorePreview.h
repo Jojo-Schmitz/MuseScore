@@ -33,7 +33,7 @@ class ScorePreview : public QWidget, public Ui::ScorePreview
 
    public slots:
       void setScore(const QString&);
-      void setScore(const Ms::ScoreInfo&);
+      void setScore(const ScoreInfo&);
       void unsetScore();
 
    signals:

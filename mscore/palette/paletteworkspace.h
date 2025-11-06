@@ -43,7 +43,7 @@ class PaletteElementEditor : public QObject {
       Q_PROPERTY(QString actionName READ actionName CONSTANT) // TODO: make NOTIFY instead of CONSTANT for retranslations
 
    private slots:
-      void onElementAdded(const Ms::Element*);
+      void onElementAdded(const Element*);
 
    public:
       PaletteElementEditor(QObject* parent = nullptr) : QObject(parent) {}

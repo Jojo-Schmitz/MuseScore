@@ -218,7 +218,7 @@ class Seq : public QObject, public Sequencer {
       void stopNotes(int channel = -1, bool realTime = false);
       void start();
       void stop();
-      void setPos(Ms::POS, unsigned);
+      void setPos(POS, unsigned);
       void setMetronomeGain(float val) { metronomeVolume = val; }
 
    signals:
