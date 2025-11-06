@@ -57,13 +57,13 @@ class Ruler : public QWidget {
       void moveLocator(QMouseEvent*);
 
    signals:
-      void posChanged(const Ms::Pos&);
-      void locatorMoved(int idx, const Ms::Pos&);
+      void posChanged(const Pos&);
+      void locatorMoved(int idx, const Pos&);
 
    public slots:
       void setXpos(int);
       void setMag(double xmag, double ymag);
-      void setPos(const Ms::Pos&);
+      void setPos(const Pos&);
 
    public:
       Ruler(QWidget* parent = 0);

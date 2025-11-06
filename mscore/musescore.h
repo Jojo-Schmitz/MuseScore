@@ -513,7 +513,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void windowSplit(bool);
       void musescoreWindowWasShown();
       void workspacesChanged();
-      void scoreStateChanged(Ms::ScoreState state);
+      void scoreStateChanged(ScoreState state);
 
    private slots:
       void cmd(QAction* a, const QString& cmd);
@@ -534,7 +534,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void seqStopped();
       void cmdAppendMeasures();
       void cmdInsertMeasures();
-      void zoomBoxChanged(const Ms::ZoomIndex, const qreal);
+      void zoomBoxChanged(const ZoomIndex, const qreal);
       void showPageSettings();
       void removeTab(int);
       void removeTab();
@@ -579,13 +579,13 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
 
       virtual QMenu* createPopupMenu() override;
 
-      QByteArray exportMsczAsJSON(Ms::Score*);
-      QByteArray exportPdfAsJSON(Ms::Score*);
+      QByteArray exportMsczAsJSON(Score*);
+      QByteArray exportPdfAsJSON(Score*);
 
    public slots:
+      void dirtyChanged(Score*);
+      void setPos(const Fraction& tick);
       virtual void cmd(QAction* a) override;
-      void dirtyChanged(Ms::Score*);
-      void setPos(const Ms::Fraction& tick);
       QString pluginPathFromIdx(int idx);
       void pluginTriggered(int);
       void pluginTriggered(QString path);
@@ -594,9 +594,9 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void oscControlPlugin(QString pluginPath, QStringList methodPath, QVariant arg);
 #endif
       void handleMessage(const QString& message);
-      void setCurrentScoreView(Ms::ScoreView*);
+      void setCurrentScoreView(ScoreView*);
       void setCurrentScoreView(int);
-      void setCurrentScores(Ms::Score* s1, Ms::Score* s2 = nullptr);
+      void setCurrentScores(Score* s1, Score* s2 = nullptr);
       void setNormalState()    { changeState(STATE_NORMAL); }
       void setPlayState()      { changeState(STATE_PLAY); }
       void setNoteEntryState() { changeState(STATE_NOTE_ENTRY); }
@@ -606,10 +606,10 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void midiNoteReceived(int pitch, bool ctrl, int velo);
       void instrumentChanged();
       void showMasterPalette(const QString& = 0);
-      void selectionChanged(Ms::SelState);
+      void selectionChanged(SelState);
       void createNewWorkspace();
       void editWorkspace();
-      void changeWorkspace(Ms::Workspace* p, bool first=false);
+      void changeWorkspace(Workspace* p, bool first=false);
       void mixerPreferencesChanged(bool showMidiControls);
       void checkForUpdates();
       void restartAudioEngine();

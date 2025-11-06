@@ -108,7 +108,7 @@ class Debugger : public AbstractDialog, public Ui::DebuggerBase {
       void layout();
 
    public slots:
-      void setElement(Ms::Element*);
+      void setElement(Element*);
       void reloadClicked();
 
    public:
@@ -159,7 +159,7 @@ class ShowElementBase : public QWidget {
       QVBoxLayout* layout;
 
    signals:
-      void elementChanged(Ms::Element*);
+      void elementChanged(Element*);
 
    public:
       ShowElementBase();
@@ -417,7 +417,7 @@ class TupletView : public ShowElementBase {
       Ui::TupletBase tb;
 
    signals:
-      void itemClicked(Ms::Element*);
+      void itemClicked(Element*);
       void scoreChanged();
 
    private slots:

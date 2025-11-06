@@ -580,7 +580,7 @@ class Score : public QObject, public ScoreElement {
       inline virtual const Movements* movements() const;
 
    signals:
-      void posChanged(Ms::POS, unsigned);
+      void posChanged(POS, unsigned);
       void playlistChanged();
 
    public:

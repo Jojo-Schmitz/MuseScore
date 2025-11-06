@@ -100,7 +100,7 @@ class ApiRequest : public QObject
       QNetworkRequest buildRequest() const;
 
    signals:
-      void replyFinished(Ms::ApiRequest*);
+      void replyFinished(ApiRequest*);
 
    public:
       ApiRequest(QObject* parent = nullptr)

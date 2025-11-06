@@ -84,7 +84,7 @@ class EditStyle : public AbstractDialog, private Ui::EditStyleBase {
    private slots:
       void selectChordDescriptionFile();
       void setChordStyle(bool);
-      void enableStyleWidget(const Ms::MSQE_Sid::Sid idx, bool enable);
+      void enableStyleWidget(const Sid idx, bool enable);
       void enableVerticalSpreadClicked(bool);
       void disableVerticalSpreadClicked(bool);
       void toggleHeaderOddEven(bool);
@@ -99,8 +99,8 @@ class EditStyle : public AbstractDialog, private Ui::EditStyleBase {
       void resetStyleValue(int);
       void valueChanged(int);
       void textStyleChanged(int);
-      void resetTextStyle(Ms::Pid);
-      void textStyleValueChanged(Ms::Pid, QVariant);
+      void resetTextStyle(Pid);
+      void textStyleValueChanged(Pid, QVariant);
       void on_comboFBFont_currentIndexChanged(int index);
       void on_buttonTogglePagelist_clicked();
       void on_resetStylesButton_clicked();

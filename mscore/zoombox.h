@@ -100,7 +100,7 @@ class ZoomBox : public QComboBox {
       void textChanged();
 
    signals:
-      void zoomChanged(const Ms::ZoomIndex zoomIndex, const qreal logicalFreeZoomLevel = 0.0);
+      void zoomChanged(const ZoomIndex zoomIndex, const qreal logicalFreeZoomLevel = 0.0);
 
    public:
       ZoomBox(QWidget* parent = 0);
