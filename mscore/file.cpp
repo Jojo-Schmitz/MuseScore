@@ -746,7 +746,7 @@ MasterScore* MuseScore::getNewFile()
             if (i == 0)
                   tick = Fraction(0,1);
             QList<Rest*> puRests;
-            for (Score* _score : score->scoreList()) {
+            for (Score*& _score : score->scoreList()) {
                   Rest* rest = 0;
                   Measure* measure = new Measure(_score);
                   measure->setTimesig(timesig);
@@ -2412,7 +2412,7 @@ Score::FileError readScore(MasterScore* score, QString name, bool ignoreVersionE
             }
       score->rebuildMidiMapping();
       score->setSoloMute();
-      for (Score* s : score->scoreList()) {
+      for (Score*& s : score->scoreList()) {
             s->setPlaylistDirty();
             s->addLayoutFlags(LayoutFlag::FIX_PITCH_VELO);
             s->setLayoutAll();
@@ -3060,7 +3060,7 @@ bool MuseScore::saveSvg(Score* score, QIODevice* device, int pageNumber, bool dr
 
       int lastNoteIndex = -1;
       for (int i = 0; i < pageNumber; ++i) {
-            for (const Element* element : score->pages()[i]->elements()) {
+            for (Element*& element : score->pages()[i]->elements()) {
                   if (element->type() == ElementType::NOTE) {
                         lastNoteIndex++;
                         }
