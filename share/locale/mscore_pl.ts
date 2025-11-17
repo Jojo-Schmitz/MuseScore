@@ -14005,7 +14005,7 @@ przed zamknięciem?</translation>
     <message>
         <location filename="../../mscore/file.cpp" line="297"/>
         <source>MuseScore Backup Files</source>
-        <translation>Pliki kopii zapasowej MuseScore&apos;a</translation>
+        <translation>Pliki kopii zapasowych MuseScore&apos;a</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="314"/>
@@ -29459,23 +29459,23 @@ zakończone niepowodzeniem.</translation>
         <location filename="../../mscore/shortcut.cpp" line="3863"/>
         <location filename="../../mscore/shortcut.cpp" line="3864"/>
         <source>Explode</source>
-        <translation>Zwiększ zawartość</translation>
+        <translation>Podziel głosy</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3865"/>
         <source>Explode contents of top selected staff into staves below</source>
-        <translation>Zwiększ zawartość zaznaczonej górnej pięciolinii do pięciolinii poniżej</translation>
+        <translation>Podziel głosy zaznaczonej górnej pięciolinii do pięciolinii poniżej</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3883"/>
         <location filename="../../mscore/shortcut.cpp" line="3884"/>
         <source>Implode</source>
-        <translation>Zmniejsz zawartość</translation>
+        <translation>Połącz głosy</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3885"/>
         <source>Implode contents of selected staves into top selected staff</source>
-        <translation>Zmniejsz zawartość zaznaczonych pięciolinii do zaznaczonej górnej pięciolinii</translation>
+        <translation>Połącz głosy zaznaczonych pięciolinii do zaznaczonej górnej pięciolinii</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3893"/>
