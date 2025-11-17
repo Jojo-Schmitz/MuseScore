@@ -472,8 +472,14 @@ class ScoreView : public QWidget, public MuseScoreView {
       QRectF canvasViewport() const { return toLogical(geometry()); }
 
       bool searchMeasure(int i);
+#if 0 // TODO
+      bool searchMeasureLogical(int i);
+#endif
       bool searchPage(int i);
       bool searchRehearsalMark(const QString& s);
+#if 0 // TODO
+      bool searchSection(int i);
+#endif
       void gotoMeasure(Measure*);
       void setFocusRect();
       void changeVoice(int voice);
