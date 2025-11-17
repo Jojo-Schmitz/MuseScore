@@ -360,6 +360,7 @@ class ExportMusicXml {
       void wavyLineStartStop(const ChordRest* const cr, Notations& notations, Ornaments& ornaments,
                              TrillHash& trillStart, TrillHash& trillStop);
       void print(const Measure* const m, const int partNr, const int firstStaffOfPart, const int nrStavesInPart, const MeasurePrintContext& mpc);
+      void measureLayout(const double distance);
       void findAndExportClef(const Measure* const m, const int staves, const int strack, const int etrack);
       void exportDefaultClef(const Part* const part, const Measure* const m);
       void writeElement(Element* el, const Measure* m, int sstaff, bool useDrumset);
@@ -6682,12 +6683,31 @@ void ExportMusicXml::print(const Measure* const m, const int partNr, const int f
                               _hiddenStaves.push_back(staffIdx);
                         }
 
+                  // Measure layout elements.
+                  if (m->prev() && m->prev()->isHBox())
+                        measureLayout(m->prev()->width());
+
                   _xml.etag();
                   }
-            else if (!newSystemOrPage.isEmpty()) {
+            else if (!newSystemOrPage.isEmpty())
                   _xml.tagE(QString("print%1").arg(newSystemOrPage));
-                  }
             }
+      else if (m->prev() && m->prev()->isHBox()) {
+            _xml.stag("print");
+            measureLayout(m->prev()->width());
+            _xml.etag();
+            }
+      }
+
+//---------------------------------------------------------
+//  measureLayout
+//---------------------------------------------------------
+
+void ExportMusicXml::measureLayout(const double distance)
+      {
+      _xml.stag("measure-layout");
+      _xml.tag("measure-distance", QString::number(getTenthsFromDots(distance), 'f', 2));
+      _xml.etag();
       }
 
 //---------------------------------------------------------
