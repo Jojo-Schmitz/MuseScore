@@ -17514,7 +17514,7 @@ Wybierz inną nazwę:</translation>
     <message>
         <location filename="../../mscore/omrpanel.ui" line="59"/>
         <source>Process</source>
-        <translation>Przetwórz</translation>
+        <translation>Przetwarzaj</translation>
     </message>
     <message>
         <location filename="../../mscore/omrpanel.ui" line="66"/>
@@ -21037,7 +21037,7 @@ Odwiedź %1stronę internetową MuseScore&apos;a%2, aby pozyskać najnowszą wer
     <message>
         <location filename="../../mscore/file.cpp" line="200"/>
         <source>File &quot;%1&quot; is critically corrupted and cannot be processed.</source>
-        <translation>Plik &quot;%1&quot; jest krytycznie uszkodzony i nie można go przetworzyć.</translation>
+        <translation>Plik &quot;%1&quot; jest krytycznie uszkodzony i nie można go przetwarzać.</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="204"/>
