@@ -738,7 +738,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="435"/>
         <source>Free Reed</source>
-        <translation>Instrumente mit durchschlagender Zunge</translation>
+        <translation>Durchschlagzungeninstrumente</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="436"/>
