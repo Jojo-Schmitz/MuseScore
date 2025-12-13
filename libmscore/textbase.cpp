@@ -1710,6 +1710,12 @@ void TextBase::createLayout()
                               }
                         else if (token == "/u")
                               cursor.format()->setUnderline(false);
+                        else if (token == "s") {
+                              cursor.format()->setStrike(true);
+                              unstyleFontStyle = true;
+                              }
+                        else if (token == "/s")
+                              cursor.format()->setStrike(false);
                         else if (token == "sub")
                               cursor.format()->setValign(VerticalAlignment::AlignSubScript);
                         else if (token == "/sub")
