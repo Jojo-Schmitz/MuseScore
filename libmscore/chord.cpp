@@ -1137,7 +1137,7 @@ bool Chord::readProperties(XmlReader& e)
             _arpeggio->read(e);
             _arpeggio->setParent(this);
             }
-      else if (tag == "Tremolo" || tag == "TremoloSingleChord") { // Mu4.4+ compatibility
+      else if (tag == "Tremolo" || tag == "TremoloSingleChord" || tag == "TremoloTwoChord") { // Mu4.4+ compatibility
             _tremolo = new Tremolo(score());
             _tremolo->setTrack(track());
             _tremolo->read(e);
