@@ -84,7 +84,7 @@ jobs:
         ./gen_compare
     - name: Upload artifact
       if: contains( env.found, '1') && contains( env.VTEST_DIFF_FOUND, 'true')
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: compare
         path: ./vtest/compare
