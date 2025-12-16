@@ -6693,7 +6693,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1363"/>
         <source>Hrp.</source>
         <comment>Harp</comment>
-        <translation>Ar.</translation>
+        <translation>A.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1364"/>
@@ -6973,7 +6973,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1490"/>
         <source>St.</source>
         <comment>Strings</comment>
-        <translation>Ar.</translation>
+        <translation>A.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1494"/>
