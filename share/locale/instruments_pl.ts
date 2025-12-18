@@ -2642,7 +2642,7 @@
         <location filename="../instruments/instrumentsxml.h" line="238"/>
         <source>Lph.</source>
         <comment>Lupophone</comment>
-        <translation>L.</translation>
+        <translation>Lup.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="240"/>
@@ -2732,31 +2732,31 @@
         <location filename="../instruments/instrumentsxml.h" line="268"/>
         <source>Cm.</source>
         <comment>Cornamuse</comment>
-        <translation>C-musa</translation>
+        <translation>C-sa</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="270"/>
         <source>S. Cm.</source>
         <comment>Soprano Cornamuse</comment>
-        <translation>C-musa s.</translation>
+        <translation>C-sa s.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="272"/>
         <source>A. Cm.</source>
         <comment>Alto Cornamuse</comment>
-        <translation>C-musa c-a.</translation>
+        <translation>C-sa c-a.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="274"/>
         <source>T. Cm.</source>
         <comment>Tenor Cornamuse</comment>
-        <translation>C-musa t.</translation>
+        <translation>C-sa t.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="276"/>
         <source>B. Cm.</source>
         <comment>Bass Cornamuse</comment>
-        <translation>C-musa b.</translation>
+        <translation>C-sa b.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="278"/>
@@ -3255,7 +3255,7 @@
         <location filename="../instruments/instrumentsxml.h" line="432"/>
         <source>Bagp.</source>
         <comment>Bagpipe</comment>
-        <translation>C-musa</translation>
+        <translation>C-sa</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="433"/>
@@ -4068,7 +4068,7 @@
         <location filename="../instruments/instrumentsxml.h" line="751"/>
         <source>A. Sack.</source>
         <comment>Alto Sackbut</comment>
-        <translation>Sack. c-a.</translation>
+        <translation>S. c-a.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="752"/>
@@ -4079,7 +4079,7 @@
         <location filename="../instruments/instrumentsxml.h" line="753"/>
         <source>T. Sack.</source>
         <comment>Tenor Sackbut</comment>
-        <translation>Sack. t.</translation>
+        <translation>S. t.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="754"/>
@@ -4090,7 +4090,7 @@
         <location filename="../instruments/instrumentsxml.h" line="755"/>
         <source>B. Sack.</source>
         <comment>Bass Sackbut</comment>
-        <translation>Sack. b.</translation>
+        <translation>S. b.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="757"/>
@@ -5431,7 +5431,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1169"/>
         <source>Synth.</source>
         <comment>Effect Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>Eff. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1170"/>
@@ -5482,7 +5482,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1179"/>
         <source>Synth.</source>
         <comment>Atmosphere Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>Atm. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1180"/>
@@ -5493,7 +5493,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1181"/>
         <source>Synth.</source>
         <comment>Brightness Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>Br. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1182"/>
@@ -5504,7 +5504,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1183"/>
         <source>Synth.</source>
         <comment>Crystal Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>Cr. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1184"/>
@@ -5515,7 +5515,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1185"/>
         <source>Synth.</source>
         <comment>Echoes Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>Ech. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1186"/>
@@ -5526,7 +5526,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1187"/>
         <source>Synth.</source>
         <comment>Goblins Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>G. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1188"/>
@@ -5537,7 +5537,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1189"/>
         <source>Synth.</source>
         <comment>Rain Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>R. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1190"/>
@@ -5548,7 +5548,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1191"/>
         <source>Synth.</source>
         <comment>Sci-fi Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>Sci-Fi Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1192"/>
@@ -5559,7 +5559,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1193"/>
         <source>Synth.</source>
         <comment>Soundtrack Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>S. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1194"/>
@@ -5570,7 +5570,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1195"/>
         <source>Synth.</source>
         <comment>Pad Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>P. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1196"/>
@@ -5621,7 +5621,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1205"/>
         <source>Synth.</source>
         <comment>New Age Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>N. A. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1206"/>
@@ -5632,7 +5632,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1207"/>
         <source>Synth.</source>
         <comment>Warm Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>W. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1208"/>
@@ -5643,7 +5643,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1209"/>
         <source>Synth.</source>
         <comment>Poly Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>P. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1210"/>
@@ -5654,7 +5654,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1211"/>
         <source>Synth.</source>
         <comment>Choir Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>Ch. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1212"/>
@@ -5665,7 +5665,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1213"/>
         <source>Synth.</source>
         <comment>Bowed Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>Bow. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1214"/>
@@ -5676,7 +5676,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1215"/>
         <source>Synth.</source>
         <comment>Metallic Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>Met. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1216"/>
@@ -5687,7 +5687,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1217"/>
         <source>Synth.</source>
         <comment>Halo Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>H. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1218"/>
@@ -5698,7 +5698,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1219"/>
         <source>Synth.</source>
         <comment>Sweep Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>Sw. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1220"/>
@@ -5709,7 +5709,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1221"/>
         <source>Synth.</source>
         <comment>Saw Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>S. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1222"/>
@@ -5720,7 +5720,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1223"/>
         <source>Synth.</source>
         <comment>Sine Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>S. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1224"/>
@@ -5731,7 +5731,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1225"/>
         <source>Synth.</source>
         <comment>Square Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>Sq. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1226"/>
@@ -6015,7 +6015,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1495"/>
         <source>Eh.</source>
         <comment>Erhu</comment>
-        <translation>Er.</translation>
+        <translation>E.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1504"/>
@@ -6148,7 +6148,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1231"/>
         <source>Synth.</source>
         <comment>Bass Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>B. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1232"/>
@@ -6169,7 +6169,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1235"/>
         <source>Synth.</source>
         <comment>Brass Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>Br. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1236"/>
@@ -6190,7 +6190,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1239"/>
         <source>Synth.</source>
         <comment>String Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>Str. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1240"/>
@@ -6221,13 +6221,13 @@
         <location filename="../instruments/instrumentsxml.h" line="1227"/>
         <source>O.M.</source>
         <comment>Ondes Martenot</comment>
-        <translation>O.M.</translation>
+        <translation>O. M.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1229"/>
         <source>Mal. Syn.</source>
         <comment>Mallet Synthesizer</comment>
-        <translation>Synth.</translation>
+        <translation>Mall. Synth.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1243"/>
