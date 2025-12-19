@@ -825,7 +825,7 @@ void PowerTab::addToScore(ptSection& sec)
       if (!sec.partName.empty() && lastPart != sec.partMarker) {
             lastPart = sec.partMarker;
             RehearsalMark* t = new RehearsalMark(score);
-            t->setFrameType(FrameType::SQUARE);
+            t->setFrameType(FrameType::RECTANGLE);
             t->setPlainText(QString(sec.partMarker));
             t->setTrack(0);
             auto seg = measure->getSegment(SegmentType::ChordRest, measure->tick());
@@ -1265,7 +1265,7 @@ Score::FileError PowerTab::read()
 
 //      static const char* tune[] = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
       int id = 0;
-      for (Part* part : score->parts()) {
+      for (Part*& part : score->parts()) {
             QMultiMap<int, int> tracks;
             Score* pscore = new Score(score);
 
