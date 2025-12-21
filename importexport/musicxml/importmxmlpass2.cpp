@@ -3123,12 +3123,12 @@ void MusicXMLParserPass2::staffDetails(const QString& partId, Measure* measure)
                   }
             else {
                   // this doesn't apply to a measure, so we'll assume the entire staff has to be hidden.
-                  _score->staff(staffIdx)->setInvisible(Fraction(0,1), true);
+                  _score->staff(staffIdx)->setInvisible(Fraction(0, 1), true);
                   }
             }
       else if (visible == "yes" || visible.isEmpty()) {
             if (measure) {
-                  _score->staff(staffIdx)->setInvisible(Fraction(0,1), false);
+                  _score->staff(staffIdx)->setInvisible(Fraction(0, 1), false);
                   measure->setStaffVisible(staffIdx, true);
                   }
             }
@@ -3145,6 +3145,14 @@ void MusicXMLParserPass2::staffDetails(const QString& partId, Measure* measure)
                         stringData.stringList() = QVector<instrString>(staffLines).toList();
                   else
                         _logger->logError(QString("illegal staff-lines %1").arg(staffLines), &_e);
+                  }
+            else if (_e.name() == "line-detail") {
+                  const QColor color = _e.attributes().value("color").toString();
+                  if (color.isValid())
+                        _score->staff(staffIdx)->staffType(Fraction(0, 1))->setColor(color);
+                  if (_e.attributes().value("print-object") == "no")
+                        _score->staff(staffIdx)->staffType(Fraction(0, 1))->setInvisible(true);
+                  _e.skipCurrentElement();
                   }
             else if (_e.name() == "staff-tuning")
                   staffTuning(&stringData);
