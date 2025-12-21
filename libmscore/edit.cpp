@@ -3375,7 +3375,7 @@ void Score::localTimeDelete()
       MeasureBase* ie;
 
       if (endSegment)
-            ie = endSegment->prev(SegmentType::ChordRest) ? endSegment->measure() : endSegment->measure()->prev();
+            ie = endSegment->prev(SegmentType::ChordRest) ? endSegment->measure() : endSegment->measure()->prevMeasure();
       else
             ie = lastMeasure();
 
