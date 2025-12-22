@@ -39,8 +39,10 @@ class Rest : public ChordRest {
       qreal upPos() const override;
       qreal downPos() const override;
       void setOffset(const QPointF& o) override;
-      Sid getPropertyStyle(Pid pid) const override;
+      virtual QRectF numberRect() const { return QRectF(); } // TODO: add style to show number over 1-measure rests
 
+   protected:
+      Sid getPropertyStyle(Pid pid) const override;
 
    public:
       Rest(Score* s = 0);
@@ -57,7 +59,7 @@ class Rest : public ChordRest {
       qreal mag() const override;
       void draw(QPainter*) const override;
       void scanElements(void* data, void (*func)(void*, Element*), bool all = true) override;
-      void setTrack(int val);
+      void setTrack(int val) override;
 
       bool acceptDrop(EditData&) const override;
       Element* drop(EditData&) override;
@@ -66,8 +68,8 @@ class Rest : public ChordRest {
       bool isGap() const               { return _gap;     }
       virtual void setGap(bool v)      { _gap = v;        }
 
-      virtual void add(Element*);
-      virtual void remove(Element*);
+      virtual void add(Element*) override;
+      virtual void remove(Element*) override;
 
       void read(XmlReader&) override;
       void write(XmlWriter& xml) const override;
@@ -87,17 +89,17 @@ class Rest : public ChordRest {
       void setAccent(bool flag);
       int computeLineOffset(int lines);
 
-      virtual int upLine() const;
-      virtual int downLine() const;
-      virtual QPointF stemPos() const;
-      virtual qreal stemPosX() const;
-      virtual QPointF stemPosBeam() const;
+      virtual int upLine() const override;
+      virtual int downLine() const override;
+      virtual QPointF stemPos() const override;
+      virtual qreal stemPosX() const override;
+      virtual QPointF stemPosBeam() const override;
       virtual qreal rightEdge() const override;
       qreal centerX() const;
 
       void localSpatiumChanged(qreal oldValue, qreal newValue) override;
       QVariant propertyDefault(Pid) const override;
-      void resetProperty(Pid id);
+      void resetProperty(Pid id) override;
       bool setProperty(Pid propertyId, const QVariant& v) override;
       QVariant getProperty(Pid propertyId) const override;
       void undoChangeDotsVisible(bool v);
@@ -108,6 +110,8 @@ class Rest : public ChordRest {
       QString screenReaderInfo() const override;
       Shape shape() const override;
       void editDrag(EditData& editData) override;
+
+      bool shouldNotBeDrawn() const;
       };
 
 }     // namespace Ms

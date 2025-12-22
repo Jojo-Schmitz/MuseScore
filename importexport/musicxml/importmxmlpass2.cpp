@@ -3235,6 +3235,21 @@ void MusicXMLParserPass2::staffTuning(StringData* t)
 
 void MusicXMLParserPass2::measureStyle(Measure* measure)
       {
+      QStringRef staffNumberString = _e.attributes().value("number");
+
+      // by default, apply to all staves in part
+      int startStaff = 0;
+      int endStaff = _nstaves - 1;
+
+      // but if a staff number was specified in the measure-style tag, use that instead
+      if (!staffNumberString.isEmpty()) {
+            int staffNumber = staffNumberString.toInt();
+            if (staffNumber < 1 || staffNumber > _nstaves)
+                  _logger->logError(QString("measure-style staff number can only be int from 1 to _nstaves."));
+            --staffNumber; // convert to 0-based
+            endStaff = startStaff = staffNumber;
+            }
+
       while (_e.readNextStartElement()) {
             if (_e.name() == "multiple-rest") {
                   int multipleRest = _e.readElementText().toInt();
@@ -3251,6 +3266,23 @@ void MusicXMLParserPass2::measureStyle(Measure* measure)
                   QString stems = _e.attributes().value("use-stems").toString();
                   _measureStyleSlash = type == "start" ? (stems == "yes" ? MusicXmlSlash::RHYTHM : MusicXmlSlash::SLASH) : MusicXmlSlash::NONE;
                   _e.skipCurrentElement();
+                  }
+            else if (_e.name() == "measure-repeat") {
+                  QString startStop = _e.attributes().value("type").toString();
+                  // note: possible "slashes" attribute is either redundant with numMeasures or not supported by MuseScore, so ignored either way
+                  if (startStop == "start") {
+                        int numMeasures = _e.readElementText().toInt();
+                        for (int i = startStaff; i <= endStaff; i++) {
+                              _measureRepeatNumMeasures[i] = numMeasures;
+                              _measureRepeatCount[i] = numMeasures;   // measure repeat(s) haven't actually started yet in current measure, so this is a lie,
+                              // but if we pretend it's true then everything is set for the next measure to restart
+                              }
+                        }
+                  else { // "stop"
+                        for (int i = startStaff; i <= endStaff; i++)
+                              _measureRepeatNumMeasures[i] = 0;
+                        _e.skipCurrentElement(); // since not reading any text inside stop tag, we are done with this element
+                        }
                   }
             else
                   skipLogCurrElem();

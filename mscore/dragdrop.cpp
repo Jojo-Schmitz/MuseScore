@@ -10,8 +10,8 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "musescore.h"
 #include "continuouspanel.h"
+#include "musescore.h"
 #include "scoreview.h"
 #include "tourhandler.h"
 
@@ -384,7 +384,7 @@ void ScoreView::dragMoveEvent(QDragMoveEvent* event)
             case ElementType::INSTRUMENT_CHANGE:
             case ElementType::REHEARSAL_MARK:
             case ElementType::JUMP:
-            case ElementType::REPEAT_MEASURE:
+            case ElementType::MEASURE_REPEAT:
             case ElementType::ICON:
             case ElementType::CHORD:
             case ElementType::SPACER:
@@ -531,7 +531,7 @@ void ScoreView::dropEvent(QDropEvent* event)
                   case ElementType::INSTRUMENT_CHANGE:
                   case ElementType::REHEARSAL_MARK:
                   case ElementType::JUMP:
-                  case ElementType::REPEAT_MEASURE:
+                  case ElementType::MEASURE_REPEAT:
                   case ElementType::ICON:
                   case ElementType::NOTE:
                   case ElementType::CHORD:

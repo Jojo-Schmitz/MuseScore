@@ -55,12 +55,12 @@
 #include "libmscore/marker.h"
 #include "libmscore/measure.h"
 #include "libmscore/measurenumber.h"
+#include "libmscore/measurerepeat.h"
 #include "libmscore/note.h"
 #include "libmscore/ottava.h"
 #include "libmscore/palmmute.h"
 #include "libmscore/pedal.h"
 #include "libmscore/rehearsalmark.h"
-#include "libmscore/repeat.h"
 #include "libmscore/score.h"
 #include "libmscore/segment.h"
 #include "libmscore/select.h"
@@ -686,8 +686,15 @@ PalettePanel* MuseScore::newRepeatsPalettePanel()
       sp->setGrid(75, 28);
       sp->setDrawGrid(true);
 
-      RepeatMeasure* rm = new RepeatMeasure(gscore);
-      sp->append(rm, qApp->translate("symUserNames", Sym::symUserNames[int(SymId::repeat1Bar)]));
+      MeasureRepeat* mr1 = new MeasureRepeat(gscore);
+      mr1->setNumMeasures(1);
+      sp->append(mr1, qApp->translate("symUserNames", Sym::symUserNames[int(SymId::repeat1Bar)]));
+      MeasureRepeat* mr2 = new MeasureRepeat(gscore);
+      mr2->setNumMeasures(2);
+      sp->append(mr2, qApp->translate("symUserNames", Sym::symUserNames[int(SymId::repeat2Bars)]));
+      MeasureRepeat* mr4 = new MeasureRepeat(gscore);
+      mr4->setNumMeasures(4);
+      sp->append(mr4, qApp->translate("symUserNames", Sym::symUserNames[int(SymId::repeat4Bars)]));
 
       for (int i = 0; i < markerTypeTableSize(); i++) {
             if (markerTypeTable[i].type == Marker::Type::CODETTA) // not in SMuFL
@@ -758,12 +765,10 @@ PalettePanel* MuseScore::newBreaksPalettePanel()
       cell = sp->append(lb, QT_TRANSLATE_NOOP("Palette", "Section break"));
       cell->mag = 1.2;
 
-#if 0
       lb = new LayoutBreak(gscore);
       lb->setLayoutBreakType(LayoutBreak::Type::NOBREAK);
-      cell = sp->append(lb, QT_TRANSLATE_NOOP("Palette", "Don't break"));
+      cell = sp->append(lb, QT_TRANSLATE_NOOP("Palette", "Group measures"));
       cell->mag = 1.2;
-#endif
 
       Spacer* spacer = new Spacer(gscore);
       spacer->setSpacerType(SpacerType::DOWN);
@@ -1972,7 +1977,7 @@ void MuseScore::addTempo()
       Measure* m = tt->findMeasure();
       if (m && m->hasMMRest() && tt->links()) {
             Measure* mmRest = m->mmRest();
-            for (ScoreElement* se : *tt->links()) {
+            for (ScoreElement*& se : *tt->links()) {
                   TempoText* tt1 = toTempoText(se);
                   if (tt != tt1 && tt1->findMeasure() == mmRest) {
                         tt = tt1;
