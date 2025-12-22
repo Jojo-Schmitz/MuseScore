@@ -136,13 +136,13 @@ void MeasureBase::add(Element* e)
                         setLineBreak(true);
                         setSectionBreak(false);
                         setNoBreak(false);
-                        if (b->startWithMeasureOne())
-                              triggerLayoutToEnd();
                         break;
                   case LayoutBreak::SECTION:
                         setLineBreak(false);
                         setSectionBreak(true);
                         setNoBreak(false);
+                        if (b->startWithMeasureOne())
+                              triggerLayoutToEnd();
                         break;
                   case LayoutBreak::NOBREAK:
                         setPageBreak(false);
