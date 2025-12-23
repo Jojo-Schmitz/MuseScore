@@ -554,16 +554,16 @@ QString TimeSig::accessibleInfo() const
       QString timeSigString;
       switch (timeSigType()) {
             case TimeSigType::FOUR_FOUR:
-                  timeSigString = qApp->translate("symUserNames", "Common time");
+                  timeSigString = qApp->translate("symUserNames", Sym::id2userName(SymId::timeSigCommon).toUtf8());
                   break;
             case TimeSigType::ALLA_BREVE:
-                  timeSigString = qApp->translate("symUserNames", "Cut time");
+                  timeSigString = qApp->translate("symUserNames", Sym::id2userName(SymId::timeSigCutCommon).toUtf8());
                   break;
             case TimeSigType::CUT_BACH:
-                  timeSigString = qApp->translate("symUserNames", "Cut time (Bach)");
+                  timeSigString = qApp->translate("symUserNames", Sym::id2userName(SymId::timeSigCut2).toUtf8());
                   break;
             case TimeSigType::CUT_TRIPLE:
-                  timeSigString = qApp->translate("symUserNames", "Cut triple time (9/8)");
+                  timeSigString = qApp->translate("symUserNames", Sym::id2userName(SymId::timeSigCut3).toUtf8());
                   break;
             default:
                   timeSigString = QObject::tr("%1/%2 time").arg(QString::number(numerator()), QString::number(denominator()));
