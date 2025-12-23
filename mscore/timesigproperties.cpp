@@ -40,7 +40,13 @@ TimeSigProperties::TimeSigProperties(TimeSig* t, QWidget* parent)
       setObjectName("TimeSigProperties");
       setupUi(this);
       fourfourButton->setIcon(*icons[int(Icons::timesig_common_ICON)]);
+      fourfourButton->setToolTip(qApp->translate("symUserNames", Sym::id2userName(SymId::timeSigCommon).toUtf8()));
       allaBreveButton->setIcon(*icons[int(Icons::timesig_allabreve_ICON)]);
+      allaBreveButton->setToolTip(qApp->translate("symUserNames", Sym::id2userName(SymId::timeSigCutCommon).toUtf8()));
+      //cutBachButton->setIcon(*icons[int(Icons::timesig_cuttimebach_ICON)]);
+      //cutBachButton->setToolTip(qApp->translate("symUserNames", Sym::id2userName(SymId::timeSigCut2).toUtf8()));
+      //cutTripleButton->setIcon(*icons[int(Icons::timesig_cuttriple_ICON)]);
+      //cutTripleButton->setToolTip(qApp->translate("symUserNames", Sym::id2userName(SymId::timeSigCut3).toUtf8()));
 
       setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
       timesig = t;
@@ -99,10 +105,10 @@ TimeSigProperties::TimeSigProperties(TimeSig* t, QWidget* parent)
             { SymId::mensuralProlation3,  Icons::timesig_prolatio03_ICON },  // Tempus perfectum cum prolatione imperfecta diminution 1 (3/8)
             { SymId::mensuralProlation4,  Icons::timesig_prolatio04_ICON },  // Tempus perfectum cum prolatione perfecta diminution 2 (9/16)
             { SymId::mensuralProlation5,  Icons::timesig_prolatio05_ICON },  // Tempus imperfectum cum prolatione perfecta (6/8)
-            //{ SymId::mensuralProlation6,  Icons::timesig_prolatio06_ICON },  // Tempus imperfectum cum prolatione imperfecta (2/4)
+            { SymId::mensuralProlation6,  Icons::timesig_prolatio06_ICON },  // Tempus imperfectum cum prolatione imperfecta (2/4)
             { SymId::mensuralProlation7,  Icons::timesig_prolatio07_ICON },  // Tempus imperfectum cum prolatione imperfecta diminution 1 (2/2)
             { SymId::mensuralProlation8,  Icons::timesig_prolatio08_ICON },  // Tempus imperfectum cum prolatione imperfecta diminution 2 (6/16)
-            //{ SymId::mensuralProlation9,  Icons::timesig_prolatio09_ICON },  // Tempus imperfectum cum prolatione imperfecta diminution 3 (2/2)
+            { SymId::mensuralProlation9,  Icons::timesig_prolatio09_ICON },  // Tempus imperfectum cum prolatione imperfecta diminution 3 (2/2)
             { SymId::mensuralProlation10, Icons::timesig_prolatio10_ICON },  // Tempus imperfectum cum prolatione imperfecta diminution 4
             { SymId::mensuralProlation11, Icons::timesig_prolatio11_ICON },  // Tempus imperfectum cum prolatione imperfecta diminution 5
             };
@@ -113,7 +119,7 @@ TimeSigProperties::TimeSigProperties(TimeSig* t, QWidget* parent)
       for (ProlatioTable pt : prolatioList) {
             const QString& str = scoreFont->toString(pt.id);
             if (str.size() > 0) {
-                  otherCombo->addItem(*icons[int(pt.icon)],"", int(pt.id));
+                  otherCombo->addItem(*icons[int(pt.icon)], qApp->translate("symUserNames", Sym::id2userName(pt.id).toUtf8()), int(pt.id));
                   // if time sig matches this symbol string, set as selected
                   if (timesig->timeSigType() == TimeSigType::NORMAL && timesig->denominatorString().isEmpty()
                      && timesig->numeratorString() == str) {
