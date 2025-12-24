@@ -30573,32 +30573,32 @@ fehlgeschlagen</translation>
     <message>
         <location filename="../../libmscore/clef.cpp" line="52"/>
         <source>Soprano clef (French, 18th century)</source>
-        <translation>Sopranschlüssel (Französisch, 18. Jahrhundert)</translation>
+        <translation>Sopranschlüssel (französisch, 18. Jahrhundert)</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="53"/>
         <source>Alto clef (French, 18th century)</source>
-        <translation>Altschlüssel (Frankreich, 18. Jahrhundert)</translation>
+        <translation>Altschlüssel (französisch, 18. Jahrhundert)</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="54"/>
         <source>Tenor clef (French, 18th century)</source>
-        <translation>Tenorschlüssel (Frankreich, 18. Jahrhundert)</translation>
+        <translation>Tenorschlüssel (französisch, 18. Jahrhundert)</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="55"/>
         <source>Soprano clef (French, 20th century)</source>
-        <translation>Sopranschlüssel (Französisch, 20. Jahrhundert)</translation>
+        <translation>Sopranschlüssel (französisch, 20. Jahrhundert)</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="56"/>
         <source>Alto clef (French, 20th century)</source>
-        <translation>Altschlüssel (Frankreich, 20. Jahrhundert)</translation>
+        <translation>Altschlüssel (französisch, 20. Jahrhundert)</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="57"/>
         <source>Tenor clef (French, 20th century)</source>
-        <translation>Tenorschlüssel (Frankreich, 20. Jahrhundert)</translation>
+        <translation>Tenorschlüssel (französisch, 20. Jahrhundert)</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="58"/>
@@ -30638,7 +30638,7 @@ fehlgeschlagen</translation>
     <message>
         <location filename="../../libmscore/clef.cpp" line="65"/>
         <source>F clef (French, 18th century)</source>
-        <translation>F-Schlüssel (Frankreich, 18. Jahrhundert)</translation>
+        <translation>F-Schlüssel (französisch, 18. Jahrhundert)</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="66"/>
