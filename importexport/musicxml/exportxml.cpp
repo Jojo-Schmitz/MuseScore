@@ -3665,19 +3665,29 @@ static QString instrId(int partNr, int instrNr)
 static void writeNotehead(XmlWriter& xml, const Note* const note)
       {
       QString noteheadTagname = QString("notehead");
-      noteheadTagname += color2xml(note);
+      QString noteheadValue;
+      if (!color2xml(note).isEmpty()) {
+            noteheadTagname += color2xml(note);
+            noteheadValue = "normal";
+            }
       bool leftParenthesis = false, rightParenthesis = false;
       for (Element* elem : note->el()) {
             if (elem->isSymbol()) {
                   Symbol* s = static_cast<Symbol*>(elem);
-                  if (s->sym() == SymId::noteheadParenthesisLeft)
+                  if (s->sym() == SymId::noteheadParenthesisLeft) {
                         leftParenthesis = true;
-                  else if (s->sym() == SymId::noteheadParenthesisRight)
+                        noteheadValue = "normal";
+                        }
+                  else if (s->sym() == SymId::noteheadParenthesisRight) {
                         rightParenthesis = true;
+                        noteheadValue = "normal";
+                        }
                   }
             }
-      if (rightParenthesis && leftParenthesis)
+      if (rightParenthesis && leftParenthesis) {
             noteheadTagname += " parentheses=\"yes\"";
+            noteheadValue = "normal";
+            }
       if (note->headType() == NoteHead::Type::HEAD_QUARTER)
             noteheadTagname += " filled=\"yes\"";
       else if ((note->headType() == NoteHead::Type::HEAD_HALF) || (note->headType() == NoteHead::Type::HEAD_WHOLE))
@@ -3685,55 +3695,101 @@ static void writeNotehead(XmlWriter& xml, const Note* const note)
       if (!note->visible()) {
             // The notehead is invisible but other parts of the note might
             // still be visible so don't export <note print-object="no">.
-            xml.tag(noteheadTagname, "none");
+            noteheadValue = "none";
+            }
+      else if(note->headScheme() == NoteHead::Scheme::HEAD_SHAPE_NOTE_4) {
+            const int degree = tpc2degree(note->tpc(), note->staff()->key(note->tick()));
+            switch (degree) {
+                  case 0:
+                  case 3:
+                        note->chord()->up() ? noteheadValue = "fa up" : noteheadValue = "fa";
+                        break;
+                  case 1:
+                  case 4:
+                        noteheadValue = "so";
+                        break;
+                  case 2:
+                  case 5:
+                        noteheadValue = "la";
+                        break;
+                  case 6:
+                        noteheadValue = "mi";
+                        break;
+                  }
+            }
+      else if(note->headScheme() == NoteHead::Scheme::HEAD_SHAPE_NOTE_7_AIKIN
+              || note->headScheme() == NoteHead::Scheme::HEAD_SHAPE_NOTE_7_FUNK
+              || note->headScheme() == NoteHead::Scheme::HEAD_SHAPE_NOTE_7_WALKER) {
+            const int degree = tpc2degree(note->tpc(), note->staff()->key(note->tick()));
+            switch (degree) {
+                  case 0:
+                        noteheadValue = "do";
+                        break;
+                  case 1:
+                        noteheadValue = "re";
+                        break;
+                  case 2:
+                        noteheadValue = "mi";
+                        break;
+                  case 3:
+                        note->chord()->up() ? noteheadValue = "fa up" : noteheadValue = "fa";
+                        break;
+                  case 4:
+                        noteheadValue = "so";
+                        break;
+                  case 5:
+                        noteheadValue = "la";
+                        break;
+                  case 6:
+                        noteheadValue = "ti";
+                        break;
+                  }
             }
       else if (note->headGroup() == NoteHead::Group::HEAD_SLASH)
-            xml.tag(noteheadTagname, "slash");
+            noteheadValue = "slash";
       else if (note->headGroup() == NoteHead::Group::HEAD_TRIANGLE_UP)
-            xml.tag(noteheadTagname, "triangle");
+            noteheadValue = "triangle";
       else if (note->headGroup() == NoteHead::Group::HEAD_DIAMOND)
-            xml.tag(noteheadTagname, "diamond");
+            noteheadValue = "diamond";
       else if (note->headGroup() == NoteHead::Group::HEAD_PLUS)
-            xml.tag(noteheadTagname, "cross");
+            noteheadValue = "cross";
       else if (note->headGroup() == NoteHead::Group::HEAD_CROSS)
-            xml.tag(noteheadTagname, "x");
+            noteheadValue = "x";
       else if (note->headGroup() == NoteHead::Group::HEAD_CIRCLED)
-            xml.tag(noteheadTagname, "circled");
+            noteheadValue = "circled";
       else if (note->headGroup() == NoteHead::Group::HEAD_XCIRCLE)
-            xml.tag(noteheadTagname, "circle-x");
+            noteheadValue = "circle-x";
       else if (note->headGroup() == NoteHead::Group::HEAD_TRIANGLE_DOWN)
-            xml.tag(noteheadTagname, "inverted triangle");
+            noteheadValue = "inverted triangle";
       else if (note->headGroup() == NoteHead::Group::HEAD_SLASHED1)
-            xml.tag(noteheadTagname, "slashed");
+            noteheadValue = "slashed";
       else if (note->headGroup() == NoteHead::Group::HEAD_SLASHED2)
-            xml.tag(noteheadTagname, "back slashed");
+            noteheadValue = "back slashed";
       else if (note->headGroup() == NoteHead::Group::HEAD_DO)
-            xml.tag(noteheadTagname, "do");
+            noteheadValue = "do";
       else if (note->headGroup() == NoteHead::Group::HEAD_RE)
-            xml.tag(noteheadTagname, "re");
+            noteheadValue = "re";
       else if (note->headGroup() == NoteHead::Group::HEAD_MI)
-            xml.tag(noteheadTagname, "mi");
+            noteheadValue = "mi";
       else if (note->headGroup() == NoteHead::Group::HEAD_FA && !note->chord()->up())
-            xml.tag(noteheadTagname, "fa");
+            noteheadValue = "fa";
       else if (note->headGroup() == NoteHead::Group::HEAD_FA && note->chord()->up())
-            xml.tag(noteheadTagname, "fa up");
+            noteheadValue = "fa up";
       else if (note->headGroup() == NoteHead::Group::HEAD_LA)
-            xml.tag(noteheadTagname, "la");
+            noteheadValue = "la";
       else if (note->headGroup() == NoteHead::Group::HEAD_TI)
-            xml.tag(noteheadTagname, "ti");
+            noteheadValue = "ti";
       else if (note->headGroup() == NoteHead::Group::HEAD_SOL)
-            xml.tag(noteheadTagname, "so");
-      else if (note->color() != MScore::defaultColor)
-            xml.tag(noteheadTagname, "normal");
-      else if (rightParenthesis && leftParenthesis)
-            xml.tag(noteheadTagname, "normal");
-      else if (note->headType() != NoteHead::Type::HEAD_AUTO)
-            xml.tag(noteheadTagname, "normal");
+            noteheadValue = "so";
       else if (note->headGroup() != NoteHead::Group::HEAD_NORMAL) {
             const char* noteheadName = Sym::id2name(note->noteHead());
             noteheadTagname += QString(" smufl=\"%1\"").arg(noteheadName);
-            xml.tag(noteheadTagname, "other");
+            noteheadValue = "other";
             }
+      else if (note->headType() != NoteHead::Type::HEAD_AUTO)
+            noteheadValue = "normal";
+      if (!noteheadValue.isEmpty())
+            xml.tag(noteheadTagname, noteheadValue);
 
       if (note->headScheme() == NoteHead::Scheme::HEAD_PITCHNAME // [A-G]
           || note->headScheme() == NoteHead::Scheme::HEAD_PITCHNAME_GERMAN // + H
