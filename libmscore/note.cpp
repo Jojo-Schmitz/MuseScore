@@ -106,11 +106,20 @@ static const SymId noteHeads[2][int(NoteHead::Group::HEAD_GROUPS) - 1][int(NoteH
       { SymId::noteShapeTriangleRoundLeftWhite, SymId::noteShapeTriangleRoundLeftWhite, SymId::noteShapeTriangleRoundLeftBlack, SymId::noteShapeTriangleRoundLeftDoubleWhole   },
 
       { SymId::noteDoWhole,  SymId::noteDoHalf,  SymId::noteDoBlack,  SymId::noSym            },
+      { SymId::noteDiWhole,  SymId::noteDiHalf,  SymId::noteDiBlack,  SymId::noSym            },
+      { SymId::noteRaWhole,  SymId::noteRaHalf,  SymId::noteRaBlack,  SymId::noSym            },
       { SymId::noteReWhole,  SymId::noteReHalf,  SymId::noteReBlack,  SymId::noSym            },
+      { SymId::noteRiWhole,  SymId::noteRiHalf,  SymId::noteRiBlack,  SymId::noSym            },
+      { SymId::noteMeWhole,  SymId::noteMeHalf,  SymId::noteMeBlack,  SymId::noSym            },
       { SymId::noteMiWhole,  SymId::noteMiHalf,  SymId::noteMiBlack,  SymId::noSym            },
       { SymId::noteFaWhole,  SymId::noteFaHalf,  SymId::noteFaBlack,  SymId::noSym            },
+      { SymId::noteFiWhole,  SymId::noteFiHalf,  SymId::noteFiBlack,  SymId::noSym            },
+      { SymId::noteSeWhole,  SymId::noteSeHalf,  SymId::noteSeBlack,  SymId::noSym            },
       { SymId::noteSoWhole,  SymId::noteSoHalf,  SymId::noteSoBlack,  SymId::noSym            },
+      { SymId::noteLeWhole,  SymId::noteLeHalf,  SymId::noteLeBlack,  SymId::noSym            },
       { SymId::noteLaWhole,  SymId::noteLaHalf,  SymId::noteLaBlack,  SymId::noSym            },
+      { SymId::noteLiWhole,  SymId::noteLiHalf,  SymId::noteLiBlack,  SymId::noSym            },
+      { SymId::noteTeWhole,  SymId::noteTeHalf,  SymId::noteTeBlack,  SymId::noSym            },
       { SymId::noteTiWhole,  SymId::noteTiHalf,  SymId::noteTiBlack,  SymId::noSym            },
       { SymId::noteSiWhole,  SymId::noteSiHalf,  SymId::noteSiBlack,  SymId::noSym            },
 
@@ -182,11 +191,20 @@ static const SymId noteHeads[2][int(NoteHead::Group::HEAD_GROUPS) - 1][int(NoteH
       { SymId::noteShapeTriangleRoundLeftWhite, SymId::noteShapeTriangleRoundLeftWhite, SymId::noteShapeTriangleRoundLeftBlack, SymId::noteShapeTriangleRoundLeftDoubleWhole },
 
       { SymId::noteDoWhole,  SymId::noteDoHalf,  SymId::noteDoBlack,  SymId::noSym            },
+      { SymId::noteDiWhole,  SymId::noteDiHalf,  SymId::noteDiBlack,  SymId::noSym            },
+      { SymId::noteRaWhole,  SymId::noteRaHalf,  SymId::noteRaBlack,  SymId::noSym            },
       { SymId::noteReWhole,  SymId::noteReHalf,  SymId::noteReBlack,  SymId::noSym            },
+      { SymId::noteRiWhole,  SymId::noteRiHalf,  SymId::noteRiBlack,  SymId::noSym            },
+      { SymId::noteMeWhole,  SymId::noteMeHalf,  SymId::noteMeBlack,  SymId::noSym            },
       { SymId::noteMiWhole,  SymId::noteMiHalf,  SymId::noteMiBlack,  SymId::noSym            },
       { SymId::noteFaWhole,  SymId::noteFaHalf,  SymId::noteFaBlack,  SymId::noSym            },
+      { SymId::noteFiWhole,  SymId::noteFiHalf,  SymId::noteFiBlack,  SymId::noSym            },
+      { SymId::noteSeWhole,  SymId::noteSeHalf,  SymId::noteSeBlack,  SymId::noSym            },
       { SymId::noteSoWhole,  SymId::noteSoHalf,  SymId::noteSoBlack,  SymId::noSym            },
+      { SymId::noteLeWhole,  SymId::noteLeHalf,  SymId::noteLeBlack,  SymId::noSym            },
       { SymId::noteLaWhole,  SymId::noteLaHalf,  SymId::noteLaBlack,  SymId::noSym            },
+      { SymId::noteLiWhole,  SymId::noteLiHalf,  SymId::noteLiBlack,  SymId::noSym            },
+      { SymId::noteTeWhole,  SymId::noteTeHalf,  SymId::noteTeBlack,  SymId::noSym            },
       { SymId::noteTiWhole,  SymId::noteTiHalf,  SymId::noteTiBlack,  SymId::noSym            },
       { SymId::noteSiWhole,  SymId::noteSiHalf,  SymId::noteSiBlack,  SymId::noSym            },
 
@@ -281,11 +299,20 @@ static NoteHeadName noteHeadGroupNames[] = {
 
       // note name
       {"do-name",  QT_TRANSLATE_NOOP("noteheadnames",  "Do (Name)") },
+      {"di-name",  QT_TRANSLATE_NOOP("noteheadnames",  "Di (Name)") },
+      {"ra-name",  QT_TRANSLATE_NOOP("noteheadnames",  "Ra (Name)") },
       {"re-name",  QT_TRANSLATE_NOOP("noteheadnames",  "Re (Name)") },
+      {"ri-name",  QT_TRANSLATE_NOOP("noteheadnames",  "Ro (Name)") },
+      {"me-name",  QT_TRANSLATE_NOOP("noteheadnames",  "Me (Name)") },
       {"mi-name",  QT_TRANSLATE_NOOP("noteheadnames",  "Mi (Name)") },
       {"fa-name",  QT_TRANSLATE_NOOP("noteheadnames",  "Fa (Name)") },
+      {"fi-name",  QT_TRANSLATE_NOOP("noteheadnames",  "Fi (Name)") },
+      {"se-name",  QT_TRANSLATE_NOOP("noteheadnames",  "Se (Name)") },
       {"sol-name", QT_TRANSLATE_NOOP("noteheadnames",  "Sol (Name)") },
+      {"le-name",  QT_TRANSLATE_NOOP("noteheadnames",  "Le (Name)") },
       {"la-name",  QT_TRANSLATE_NOOP("noteheadnames",  "La (Name)") },
+      {"li-name",  QT_TRANSLATE_NOOP("noteheadnames",  "Li (Name)") },
+      {"te-name",  QT_TRANSLATE_NOOP("noteheadnames",  "Te (Name)") },
       {"ti-name",  QT_TRANSLATE_NOOP("noteheadnames",  "Ti (Name)") },
       {"si-name",  QT_TRANSLATE_NOOP("noteheadnames",  "Si (Name)") },
 
@@ -549,22 +576,41 @@ SymId Note::noteHead(int direction, NoteHead::Group group, NoteHead::Type t, int
             }
       else if (scheme == NoteHead::Scheme::HEAD_SOLFEGE) {
             int degree = tpc2degree(tpc, key);
-            switch (degree) {
-                  case 0:
-                        group = NoteHead::Group::HEAD_DO_NAME; break;
-                  case 1:
-                        group = NoteHead::Group::HEAD_RE_NAME; break;
-                  case 2:
-                        group = NoteHead::Group::HEAD_MI_NAME; break;
-                  case 3:
-                        group = NoteHead::Group::HEAD_FA_NAME; break;
-                  case 4:
-                        group = NoteHead::Group::HEAD_SOL_NAME; break;
-                  case 5:
-                        group = NoteHead::Group::HEAD_LA_NAME; break;
-                  case 6:
-                        group = NoteHead::Group::HEAD_TI_NAME; break;
-                  }
+            int alteration = tpc2alterByKey(tpc, key);
+            if (degree == 0 && alteration == 0)
+                group = NoteHead::Group::HEAD_DO_NAME;
+            else if (degree == 0 && alteration == 1)
+                group = NoteHead::Group::HEAD_DI_NAME;
+            else if (degree == 1 && alteration == -1)
+                group = NoteHead::Group::HEAD_RA_NAME;
+            else if (degree == 1 && alteration == 0)
+                group = NoteHead::Group::HEAD_RE_NAME;
+            else if (degree == 1 && alteration == 1)
+                group = NoteHead::Group::HEAD_RI_NAME;
+            else if (degree == 2 && alteration == -1)
+                group = NoteHead::Group::HEAD_ME_NAME;
+            else if (degree == 2 && alteration == 0)
+                group = NoteHead::Group::HEAD_MI_NAME;
+            else if (degree == 3 && alteration == 0)
+                group = NoteHead::Group::HEAD_FA_NAME;
+            else if (degree == 3 && alteration == 1)
+                group = NoteHead::Group::HEAD_FI_NAME;
+            else if (degree == 4 && alteration == -1)
+                group = NoteHead::Group::HEAD_SE_NAME;
+            else if (degree == 4 && alteration == 0)
+                group = NoteHead::Group::HEAD_SOL_NAME;
+            else if (degree == 4 && alteration == 1)
+                group = NoteHead::Group::HEAD_SI_NAME;
+            else if (degree == 5 && alteration == -1)
+                group = NoteHead::Group::HEAD_LE_NAME;
+            else if (degree == 5 && alteration == 0)
+                group = NoteHead::Group::HEAD_LA_NAME;
+            else if (degree == 5 && alteration == 1)
+                group = NoteHead::Group::HEAD_LI_NAME;
+            else if (degree == 6 && alteration == -1)
+                group = NoteHead::Group::HEAD_TE_NAME;
+            else if (degree == 6 && alteration == 0)
+                group = NoteHead::Group::HEAD_TI_NAME;
             }
       else if (scheme == NoteHead::Scheme::HEAD_SOLFEGE_FIXED) {
             QString stepName = tpc2stepName(tpc);
