@@ -6435,10 +6435,15 @@ Note* MusicXMLParserPass2::note(const QString& partId,
                         else
                               skipLogCurrElem();
                         }
-                  if (noteheadText.size() == 1)
-                        headScheme = (noteheadText == "H") ? NoteHead::Scheme::HEAD_PITCHNAME_GERMAN : NoteHead::Scheme::HEAD_PITCHNAME;
-                  else
-                        headScheme = NoteHead::Scheme::HEAD_SOLFEGE_FIXED;
+                  if (noteheadText.size() == 1) {
+                        const bool isGerman = noteheadText == "H" || (noteheadText == "B" && mnp.alter());
+                        headScheme = isGerman ? NoteHead::Scheme::HEAD_PITCHNAME_GERMAN : NoteHead::Scheme::HEAD_PITCHNAME;
+                        }
+                  else {
+                        const QVector<QString> names = { "Do", "Re", "Mi", "Fa", "Sol", "La", "Si" };
+                        const bool isFixed = names.at(mnp.step()) == noteheadText;
+                        headScheme = isFixed ? NoteHead::Scheme::HEAD_SOLFEGE_FIXED : NoteHead::Scheme::HEAD_SOLFEGE;
+                        }
                   }
             else if (_e.name() == "rest") {
                   rest = true;
