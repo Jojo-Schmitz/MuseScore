@@ -6559,7 +6559,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_barline.ui" line="191"/>
         <source>Span presets:</source>
-        <translation>Ustawienia połączenia:</translation>
+        <translation>Presety połączenia:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_barline.ui" line="255"/>
