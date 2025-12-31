@@ -32319,7 +32319,7 @@ Ta partytura ma już partie. Zmiana lokalnych oznaczeń metrycznych, gdy obecne 
     <message>
         <location filename="../../libmscore/note.cpp" line="312"/>
         <source>Le (Name)</source>
-        <translation></translation>
+        <translation>Le (Nazwa)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="313"/>
