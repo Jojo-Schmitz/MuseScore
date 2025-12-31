@@ -51,7 +51,7 @@ void PluginManager::init()
       //
       qDeleteAll(localShortcuts);
       localShortcuts.clear();
-      foreach(const Shortcut* s, Shortcut::shortcuts())
+      for (const Shortcut* s : Shortcut::shortcuts())
             localShortcuts[s->key()] = new Shortcut(*s);
       shortcutsChanged = false;
       loadList(false);
@@ -124,7 +124,7 @@ void PluginManager::writePluginList()
       XmlWriter xml(0, &f);
       xml.header();
       xml.stag("museScore version=\"" MSC_VERSION "\"");
-      foreach(const PluginDescription& d, _pluginList) {
+      for (const PluginDescription& d : _pluginList) {
             xml.stag("Plugin");
             xml.tag("path", d.path);
             xml.tag("load", d.load);
@@ -157,7 +157,7 @@ static void updatePluginList(QList<QString>& pluginPathList, const QString& plug
             if (fi.isFile()) {
                   if (path.endsWith(".qml")) {
                         bool alreadyInList = false;
-                        foreach (const PluginDescription& p, pluginList) {
+                        for (const PluginDescription& p : pluginList) {
                               if (p.path == path) {
                                     alreadyInList = true;
                                     break;
@@ -258,7 +258,7 @@ void PluginManager::accept()
       {
       if (shortcutsChanged) {
             shortcutsChanged = false;
-            foreach(const Shortcut* s, localShortcuts) {
+            for (const Shortcut* s : localShortcuts) {
                   Shortcut* os = Shortcut::getShortcut(s->key());
                   if (os) {
                         if (!os->compareKeys(*s))

@@ -22,7 +22,6 @@
 #include "globals.h"
 #include "musescore.h"
 #include "palette.h"
-#include "preferences.h"
 #include "shortcut.h"
 
 #include "libmscore/articulation.h"
@@ -285,8 +284,8 @@ bool PaletteCell::read(XmlReader& e)
                   else {
                         element->read(e);
                         element->styleChanged();
-                        if (element->type() == ElementType::ICON) {
-                              Icon* icon = static_cast<Icon*>(element.get());
+                        if (element->isIcon()) {
+                              Icon* icon = toIcon(element.get());
                               QAction* ac = getAction(icon->action());
                               if (ac) {
                                     QIcon qicon(ac->icon());
@@ -495,7 +494,7 @@ bool PalettePanel::writeToFile(const QString& p) const
       QSet<ImageStoreItem*> images;
       size_t n = cells.size();
       for (size_t i = 0; i < n; ++i) {
-            if (cells[i] == 0 || cells[i]->element == 0 || cells[i]->element->type() != ElementType::IMAGE)
+            if (cells[i] == 0 || cells[i]->element == 0 || !cells[i]->element->isImage())
                   continue;
             images.insert(toImage(cells[i]->element.get())->storeItem());
             }
@@ -524,7 +523,7 @@ bool PalettePanel::writeToFile(const QString& p) const
       xml.stag("rootfiles");
       xml.stag(QString("rootfile full-path=\"%1\"").arg(XmlWriter::xmlString("palette.xml")));
       xml.etag();
-      foreach (ImageStoreItem* ip, images) {
+      for (ImageStoreItem* ip : images) {
             QString ipath = QString("Pictures/") + ip->hashName();
             xml.tag("file", ipath);
             }
@@ -536,7 +535,7 @@ bool PalettePanel::writeToFile(const QString& p) const
       f.addFile("META-INF/container.xml", cbuf.data());
 
       // save images
-      foreach(ImageStoreItem* ip, images) {
+      for (ImageStoreItem* ip : images) {
             QString ipath = QString("Pictures/") + ip->hashName();
             f.addFile(ipath, ip->buffer());
             }
@@ -610,7 +609,7 @@ bool PalettePanel::readFromFile(const QString& p)
       //
       // load images
       //
-      foreach(const QString& s, images)
+      for (const QString& s : images)
             imageStore.add(s, f.fileData(s));
 
       if (rootfile.isEmpty()) {

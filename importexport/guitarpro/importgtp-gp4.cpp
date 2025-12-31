@@ -484,7 +484,7 @@ bool GuitarPro4::readNote(int string, int staffIdx, Note* note)
                   if (e) {
                         if (e->isChord()) {
                               Chord* chord2 = toChord(e);
-                              foreach (Note* note2, chord2->notes()) {
+                              for (Note* note2 : chord2->notes()) {
                                     if (note2->string() == string) {
                                           if (chords.empty()) {
                                                 Tie* tie = new Tie(score);
@@ -1019,7 +1019,7 @@ bool GuitarPro4::read(QFile* fp)
                                     while ((seg = seg->prev()) || (mes = mes->prevMeasure())) {
                                           if (!seg)
                                                 break;//seg = mes->last();
-                                          if (seg->segmentType() == SegmentType::ChordRest
+                                          if (seg->isChordRestType()
                                               && seg->cr(chord->track())->isChord()) {
                                                 bool br = false;
                                                 Chord* cr1 = toChord(seg->cr(chord->track()));

@@ -31,7 +31,7 @@ namespace MidiTie {
 bool isTied(const Segment *seg, int strack, int voice,
             Ms::Tie*(Note::*tieFunc)() const)
       {
-      ChordRest *cr = static_cast<ChordRest *>(seg->element(strack + voice));
+      ChordRest *cr = toChordRest(seg->element(strack + voice));
       if (cr && cr->isChord()) {
             Chord *chord = toChord(cr);
             const auto &notes = chord->notes();
@@ -58,7 +58,7 @@ void TieStateMachine::addSeg(const Segment *seg, int strack)
       {
       bool isChord = false;
       for (int voice = 0; voice < VOICES; ++voice) {
-            ChordRest *cr = static_cast<ChordRest *>(seg->element(strack + voice));
+            ChordRest *cr = toChordRest(seg->element(strack + voice));
             if (!cr || !cr->isChord())
                   continue;
             if (!isChord)
@@ -108,8 +108,8 @@ bool areTiesConsistent(const Staff *staff)
       for (int voice = 0; voice < VOICES; ++voice) {
             bool isTie = false;
             for (Segment *seg = staff->score()->firstSegment(SegmentType::All); seg; seg = seg->next1()) {
-                  if (seg->segmentType() == SegmentType::ChordRest) {
-                        ChordRest *cr = static_cast<ChordRest *>(seg->element(strack + voice));
+                  if (seg->isChordRestType()) {
+                        ChordRest *cr = toChordRest(seg->element(strack + voice));
 
                         if (cr && cr->isRest() && isTie) {
                               printInconsistentTieLocation(seg->measure()->no(), staff->idx());
