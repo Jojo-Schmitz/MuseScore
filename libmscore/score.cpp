@@ -3793,6 +3793,10 @@ void Score::selectSimilarInRange(Element* e)
                   pattern.subtype = e->subtype();
             pattern.subtypeValid = true;
             }
+      else if (type == ElementType::HARMONY) {
+            pattern.subtype = e->subtype();
+            pattern.subtypeValid = true;
+            }
       pattern.staffStart = selection().staffStart();
       pattern.staffEnd = selection().staffEnd();
       pattern.voice = -1;
