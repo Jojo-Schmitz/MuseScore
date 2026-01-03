@@ -175,6 +175,8 @@ class Harmony final : public TextBase {
       HarmonyType harmonyType() const          { return _harmonyType;  }
       void setHarmonyType(HarmonyType val);
 
+      int subtype() const override { return static_cast<int>(harmonyType()); }
+
       void write(XmlWriter& xml) const override;
       void read(XmlReader&) override;
       QString harmonyName() const;
