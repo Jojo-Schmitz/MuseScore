@@ -16,7 +16,7 @@ MuseScore is an open source and free music notation software. For support, contr
 - MuseData import
 - MIDI input for note entry
 - Integrated sequencer and software synthesizer to play the score
-- Print or create pdf files
+- Print or create PDF files
 
 ## More info
 - [MuseScore Homepage](https://musescore.org)
@@ -41,7 +41,7 @@ MuseScore is licensed under GPL version 2.0. See [LICENSE.GPL](https://github.co
 
 - **fluid:** Clone of [FluidSynth@sourceforge](https://sourceforge.net/projects/fluidsynth), ported to C++ and customized. Code now at [fluidsynth@github](https://github.com/FluidSynth/fluidsynth).
 
-- **fonts:** Contains fontforge source (sfd) + ttf/otf fonts. MuseScore includes the "Emmentaler" font from the Lilypond project.
+- **fonts:** Contains fontforge source (sfd) + ttf/otf fonts. MuseScore includes the "Emmentaler" font from the LilyPond project.
 
 - **libmscore:** Data model of MuseScore.
 
@@ -129,4 +129,4 @@ See [mtest/README.md](/mtest/README.md) or [the developer handbook](https://muse
 The new [script testing facility](https://musescore.org/node/278278) is also available to create your own automated tests. Please try it out!
 
 ### Getting ready-made packages for MuseScore 3.7 Evolution and instructions how to 'install'
-See the [Wiki](https://github.com/Jojo-Schmitz/MuseScore/wiki)
+See the [Wiki](https://github.com/Jojo-Schmitz/MuseScore/wiki).
