@@ -41,7 +41,7 @@ MuseScore is licensed under GPL version 2.0. See [LICENSE.GPL](https://github.co
 
 - **fluid:** Clone of [FluidSynth@sourceforge](https://sourceforge.net/projects/fluidsynth), ported to C++ and customized. Code now at [fluidsynth@github](https://github.com/FluidSynth/fluidsynth).
 
-- **fonts:** Contains fontforge source (sfd) + ttf/otf fonts. MuseScore includes the "Emmentaler" font from the LilyPond project.
+- **fonts:** Contains FontForge source (sfd) + ttf/otf fonts. MuseScore includes the "Emmentaler" font from the LilyPond project.
 
 - **libmscore:** Data model of MuseScore.
 
