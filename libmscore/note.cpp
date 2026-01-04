@@ -2860,10 +2860,18 @@ void Note::setNval(const NoteVal& nval, Fraction tick)
             tick = chord()->tick();
       Interval v = part()->instrument(tick)->transpose();
       if (nval.tpc1 == Tpc::TPC_INVALID) {
-            Key key = staff()->key(tick);
-            if (!concertPitch() && !v.isZero())
-                  key = transposeKey(key, v);
-            _tpc[0] = pitch2tpc(nval.pitch, key, Prefer::NEAREST);
+            if (nval.tpc2 == Tpc::TPC_INVALID) {
+                  Key key = staff()->key(tick);
+                  if (!concertPitch() && !v.isZero())
+                        key = transposeKey(key, v);
+                  _tpc[0] = pitch2tpc(nval.pitch, key, Prefer::NEAREST);
+                  }
+            else {
+                  if (v.isZero())
+                        _tpc[0] = _tpc[1];
+                  else
+                        _tpc[0] = Ms::transposeTpc(_tpc[1], v, true);
+                  }
             }
       if (nval.tpc2 == Tpc::TPC_INVALID) {
             if (v.isZero())
