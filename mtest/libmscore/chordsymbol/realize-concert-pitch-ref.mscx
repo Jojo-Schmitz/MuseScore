@@ -316,7 +316,7 @@
                 <subtype>accidentalSharp</subtype>
                 </Accidental>
               <pitch>71</pitch>
-              <tpc>7</tpc>
+              <tpc>19</tpc>
               <tpc2>21</tpc2>
               </Note>
             </Chord>
@@ -359,7 +359,7 @@
                 <subtype>accidentalSharp</subtype>
                 </Accidental>
               <pitch>71</pitch>
-              <tpc>7</tpc>
+              <tpc>19</tpc>
               <tpc2>21</tpc2>
               </Note>
             </Chord>
@@ -396,7 +396,7 @@
                 <subtype>accidentalSharp</subtype>
                 </Accidental>
               <pitch>68</pitch>
-              <tpc>10</tpc>
+              <tpc>22</tpc>
               <tpc2>24</tpc2>
               </Note>
             </Chord>
@@ -660,7 +660,7 @@
                 <subtype>accidentalSharp</subtype>
                 </Accidental>
               <pitch>66</pitch>
-              <tpc>8</tpc>
+              <tpc>20</tpc>
               <tpc2>22</tpc2>
               </Note>
             <Note>
@@ -725,7 +725,7 @@
                   </next>
                 </Spanner>
               <pitch>66</pitch>
-              <tpc>8</tpc>
+              <tpc>20</tpc>
               <tpc2>22</tpc2>
               </Note>
             <Note>
@@ -756,7 +756,7 @@
                   </next>
                 </Spanner>
               <pitch>71</pitch>
-              <tpc>7</tpc>
+              <tpc>19</tpc>
               <tpc2>21</tpc2>
               </Note>
             </Chord>
@@ -799,7 +799,7 @@
                   </prev>
                 </Spanner>
               <pitch>66</pitch>
-              <tpc>8</tpc>
+              <tpc>20</tpc>
               <tpc2>22</tpc2>
               </Note>
             <Note>
@@ -823,7 +823,7 @@
                   </prev>
                 </Spanner>
               <pitch>71</pitch>
-              <tpc>7</tpc>
+              <tpc>19</tpc>
               <tpc2>21</tpc2>
               </Note>
             </Chord>
@@ -862,7 +862,7 @@
                 <subtype>accidentalDoubleSharp</subtype>
                 </Accidental>
               <pitch>67</pitch>
-              <tpc>15</tpc>
+              <tpc>27</tpc>
               <tpc2>29</tpc2>
               </Note>
             <Note>
@@ -870,7 +870,7 @@
                 <subtype>accidentalSharp</subtype>
                 </Accidental>
               <pitch>68</pitch>
-              <tpc>10</tpc>
+              <tpc>22</tpc>
               <tpc2>24</tpc2>
               </Note>
             <Note>
@@ -878,7 +878,7 @@
                 <subtype>accidentalSharp</subtype>
                 </Accidental>
               <pitch>71</pitch>
-              <tpc>7</tpc>
+              <tpc>19</tpc>
               <tpc2>21</tpc2>
               </Note>
             </Chord>
@@ -963,7 +963,7 @@
                 <subtype>accidentalSharp</subtype>
                 </Accidental>
               <pitch>66</pitch>
-              <tpc>8</tpc>
+              <tpc>20</tpc>
               <tpc2>22</tpc2>
               </Note>
             <Note>
@@ -1030,7 +1030,7 @@
                   </next>
                 </Spanner>
               <pitch>66</pitch>
-              <tpc>8</tpc>
+              <tpc>20</tpc>
               <tpc2>22</tpc2>
               </Note>
             <Note>
@@ -1061,7 +1061,7 @@
                   </next>
                 </Spanner>
               <pitch>71</pitch>
-              <tpc>7</tpc>
+              <tpc>19</tpc>
               <tpc2>21</tpc2>
               </Note>
             </Chord>
@@ -1104,7 +1104,7 @@
                   </prev>
                 </Spanner>
               <pitch>66</pitch>
-              <tpc>8</tpc>
+              <tpc>20</tpc>
               <tpc2>22</tpc2>
               </Note>
             <Note>
@@ -1128,7 +1128,7 @@
                   </prev>
                 </Spanner>
               <pitch>71</pitch>
-              <tpc>7</tpc>
+              <tpc>19</tpc>
               <tpc2>21</tpc2>
               </Note>
             </Chord>
@@ -1147,7 +1147,7 @@
                 <subtype>accidentalSharp</subtype>
                 </Accidental>
               <pitch>42</pitch>
-              <tpc>8</tpc>
+              <tpc>20</tpc>
               <tpc2>22</tpc2>
               </Note>
             <Note>
@@ -1168,7 +1168,7 @@
                 <subtype>accidentalSharp</subtype>
                 </Accidental>
               <pitch>66</pitch>
-              <tpc>8</tpc>
+              <tpc>20</tpc>
               <tpc2>22</tpc2>
               </Note>
             <Note>
@@ -1195,7 +1195,7 @@
                 <subtype>accidentalSharp</subtype>
                 </Accidental>
               <pitch>47</pitch>
-              <tpc>7</tpc>
+              <tpc>19</tpc>
               <tpc2>21</tpc2>
               </Note>
             <Note>
@@ -1203,7 +1203,7 @@
                 <subtype>accidentalSharp</subtype>
                 </Accidental>
               <pitch>63</pitch>
-              <tpc>11</tpc>
+              <tpc>23</tpc>
               <tpc2>25</tpc2>
               </Note>
             <Note>
@@ -1211,7 +1211,7 @@
                 <subtype>accidentalSharp</subtype>
                 </Accidental>
               <pitch>66</pitch>
-              <tpc>8</tpc>
+              <tpc>20</tpc>
               <tpc2>22</tpc2>
               </Note>
             <Note>
@@ -1227,7 +1227,7 @@
                 <subtype>accidentalSharp</subtype>
                 </Accidental>
               <pitch>71</pitch>
-              <tpc>7</tpc>
+              <tpc>19</tpc>
               <tpc2>21</tpc2>
               </Note>
             </Chord>
@@ -1254,7 +1254,7 @@
                 <subtype>accidentalSharp</subtype>
                 </Accidental>
               <pitch>63</pitch>
-              <tpc>11</tpc>
+              <tpc>23</tpc>
               <tpc2>25</tpc2>
               </Note>
             <Note>
@@ -1270,7 +1270,7 @@
                 <subtype>accidentalSharp</subtype>
                 </Accidental>
               <pitch>68</pitch>
-              <tpc>10</tpc>
+              <tpc>22</tpc>
               <tpc2>24</tpc2>
               </Note>
             <Note>
@@ -1278,7 +1278,7 @@
                 <subtype>accidentalSharp</subtype>
                 </Accidental>
               <pitch>71</pitch>
-              <tpc>7</tpc>
+              <tpc>19</tpc>
               <tpc2>21</tpc2>
               </Note>
             </Chord>
@@ -1315,7 +1315,7 @@
                 <subtype>accidentalSharp</subtype>
                 </Accidental>
               <pitch>68</pitch>
-              <tpc>10</tpc>
+              <tpc>22</tpc>
               <tpc2>24</tpc2>
               </Note>
             <Note>
