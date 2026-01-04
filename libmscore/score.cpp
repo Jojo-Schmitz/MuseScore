@@ -5078,7 +5078,7 @@ void Score::changeVoice(int voice)
                               if (voice && !dstCR) {
                                     expandVoice(s, /*m->first(SegmentType::ChordRest,*/ dstTrack);
                                     }
-                              makeGapVoice(s, dstTrack, chord->actualTicks(), s->tick());
+                              makeGapVoice(s, dstTrack, chord->ticks(), s->tick());
                               }
 
                         // move note to destination chord
