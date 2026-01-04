@@ -440,8 +440,7 @@
                   </next>
                 </Spanner>
               <pitch>63</pitch>
-              <tpc>11</tpc>
-              <tpc2>23</tpc2>
+              <tpc>23</tpc>
               </Note>
             <Note>
               <Accidental>
@@ -513,8 +512,7 @@
                   </prev>
                 </Spanner>
               <pitch>63</pitch>
-              <tpc>11</tpc>
-              <tpc2>23</tpc2>
+              <tpc>23</tpc>
               </Note>
             <Note>
               <Spanner type="Tie">
@@ -600,8 +598,7 @@
                   </prev>
                 </Spanner>
               <pitch>63</pitch>
-              <tpc>11</tpc>
-              <tpc2>23</tpc2>
+              <tpc>23</tpc>
               </Note>
             <Note>
               <Spanner type="Tie">
@@ -692,8 +689,7 @@
                   </prev>
                 </Spanner>
               <pitch>63</pitch>
-              <tpc>11</tpc>
-              <tpc2>23</tpc2>
+              <tpc>23</tpc>
               </Note>
             <Note>
               <Spanner type="Tie">
@@ -773,8 +769,7 @@
                   </prev>
                 </Spanner>
               <pitch>63</pitch>
-              <tpc>11</tpc>
-              <tpc2>23</tpc2>
+              <tpc>23</tpc>
               </Note>
             <Note>
               <Spanner type="Tie">
