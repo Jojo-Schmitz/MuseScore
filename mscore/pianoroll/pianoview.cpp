@@ -1944,7 +1944,7 @@ void PianoView::setStaff(Staff* s, Pos* l)
       QRectF boundingRectSel;
       bool brsInit = false;
 
-      foreach (PianoItem* item, _noteList) {
+      for (PianoItem*& item : _noteList) {
             if (!brInit) {
                   boundingRect = item->boundingRect();
                   brInit = true;

@@ -270,7 +270,7 @@ class FiguredBass final : public TextBase {
 //                                                }
 //      QDeclarativeListProperty<FiguredBassItem> qmlItems()
 //                                                {     QList<FiguredBassItem*> list;
-//                                                      foreach(FiguredBassItem item, _items)
+//                                                      for (FiguredBassItem item : _items)
 //                                                            list.append(&item);
 //                                                      return QDeclarativeListProperty<FiguredBassItem>(this, &_items, qmlItemsAppend);
 //                                                }

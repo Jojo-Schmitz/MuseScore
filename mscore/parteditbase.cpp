@@ -312,7 +312,7 @@ void PartEdit::soloToggled(bool val, bool syncControls)
                         }
                   }
             if (!found){
-                  foreach(Part* p, part->score()->parts()) {
+                  for (Part* p : part->score()->parts()) {
                         const InstrumentList* il = p->instruments();
                         for (auto i = il->begin(); i != il->end(); ++i) {
                               const Instrument* instr = i->second;
@@ -537,7 +537,7 @@ void PartEdit::midiChannelChanged(int)
             }
       else {
             // Initializing an instrument with new channel
-            foreach(const MidiCoreEvent& e, channel->initList()) {
+            for (const MidiCoreEvent& e : channel->initList()) {
                   if (e.type() == ME_INVALID)
                         continue;
                   NPlayEvent event(e.type(), channel->channel(), e.dataA(), e.dataB());

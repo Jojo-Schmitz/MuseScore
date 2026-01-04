@@ -801,7 +801,7 @@ MasterScore* MuseScore::getNewFile()
                               if (!dList.empty()) {
                                     Fraction ltick = tick;
                                     int k = 0;
-                                    foreach (TDuration d, dList) {
+                                    for (TDuration d : dList) {
                                           if (k < puRests.count())
                                                 rest = static_cast<Rest*>(puRests[k]->linkedClone());
                                           else {
@@ -839,7 +839,7 @@ MasterScore* MuseScore::getNewFile()
       //
       Measure* m = score->firstMeasure();
       for (Segment* s = m->first(); s; s = s->next()) {
-            if (s->segmentType() == SegmentType::ChordRest) {
+            if (s->isChordRestType()) {
                   if (s->element(0)) {
                         score->select(s->element(0), SelectType::SINGLE, 0);
                         break;
@@ -855,7 +855,7 @@ MasterScore* MuseScore::getNewFile()
 
       if (!title.isEmpty() || !subtitle.isEmpty() || !composer.isEmpty() || !poet.isEmpty()) {
             MeasureBase* measure = score->measures()->first();
-            if (measure->type() != ElementType::VBOX) {
+            if (!measure->isVBox()) {
                   MeasureBase* nm = nvb ? nvb : new VBox(score);
                   nm->setTick(Fraction(0,1));
                   nm->setNext(measure);
@@ -3061,7 +3061,7 @@ bool MuseScore::saveSvg(Score* score, QIODevice* device, int pageNumber, bool dr
       int lastNoteIndex = -1;
       for (int i = 0; i < pageNumber; ++i) {
             for (const Element* element : score->pages()[i]->elements()) {
-                  if (element->type() == ElementType::NOTE) {
+                  if (element->isNote()) {
                         lastNoteIndex++;
                         }
                   }
@@ -3075,7 +3075,7 @@ bool MuseScore::saveSvg(Score* score, QIODevice* device, int pageNumber, bool dr
             // Always exclude invisible elements
             if (!e->visible())
                   continue;
-            if (e->type() == ElementType::STAFF_LINES) {
+            if (e->isStaffLines()) {
                   currentMeasure = e->findMeasure();
                   currentSystem = currentMeasure->system();
 
@@ -3144,7 +3144,7 @@ bool MuseScore::saveSvg(Score* score, QIODevice* device, int pageNumber, bool dr
             printer.setElement(e);
 
             // Paint it
-            if (e->type() == ElementType::NOTE && !notesColors.isEmpty()) {
+            if (e->isNote() && !notesColors.isEmpty()) {
                   QColor color = e->color();
                   int currentNoteIndex = (++lastNoteIndex);
 
@@ -3152,7 +3152,7 @@ bool MuseScore::saveSvg(Score* score, QIODevice* device, int pageNumber, bool dr
                         color = notesColors[currentNoteIndex];
                         }
 
-                  Element *note = dynamic_cast<const Note*>(e)->clone();
+                  Element *note = toNote(e)->clone();
                   note->setColor(color);
                   paintElement(p, note);
                   delete note;

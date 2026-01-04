@@ -159,7 +159,7 @@ void TestBarline::barline02()
             snprintf(msg, sizeof msg, "No SegEndBarLine in measure %d.", msrNo);
             QVERIFY2(seg != nullptr, msg);
 
-            BarLine* bar = static_cast<BarLine*>(seg->element(0));
+            BarLine* bar = toBarLine(seg->element(0));
             snprintf(msg, sizeof msg, "No barline in measure %d.", msrNo);
             QVERIFY2(bar != nullptr, msg);
 
@@ -237,7 +237,7 @@ void TestBarline::barline04()
       Segment* seg = msr->findSegment(SegmentType::StartRepeatBarLine, msr->tick());
       QVERIFY2(seg != nullptr, "No SegStartRepeatBarLine segment in measure 5.");
 
-      BarLine* bar = static_cast<BarLine*>(seg->element(0));
+      BarLine* bar = toBarLine(seg->element(0));
       QVERIFY2(bar != nullptr, "No start-repeat barline in measure 5.");
 
       bar->undoChangeProperty(Pid::BARLINE_SPAN, 2);
@@ -284,7 +284,7 @@ void TestBarline::barline05()
       // check an end-repeat bar line has been created at the end of this measure and it is generated
       Segment* seg = msr->findSegment(SegmentType::EndBarLine, msr->tick()+msr->ticks());
       QVERIFY2(seg != nullptr, "No SegEndBarLine segment in measure 4.");
-      BarLine* bar = static_cast<BarLine*>(seg->element(0));
+      BarLine* bar = toBarLine(seg->element(0));
       QVERIFY2(bar != nullptr, "No end-repeat barline in measure 4.");
       QVERIFY2(bar->barLineType() == BarLineType::END_REPEAT, "Barline at measure 4 is not END-REPEAT");
       QVERIFY2(bar->generated(), "End-repeat barline in measure 4 is non-generated.");
@@ -294,7 +294,7 @@ void TestBarline::barline05()
       msr = msr->nextMeasure();
       seg = msr->findSegment(SegmentType::StartRepeatBarLine, msr->tick());
       QVERIFY2(seg != nullptr, "No SegStartRepeatBarLine segment in measure 5.");
-      bar = static_cast<BarLine*>(seg->element(0));
+      bar = toBarLine(seg->element(0));
       QVERIFY2(bar != nullptr, "No start-repeat barline in measure 5.");
       QVERIFY2(bar->generated(), "Start-reapeat barline in measure 5 is not generated.");
 
@@ -332,7 +332,7 @@ void TestBarline::barline06()
 
             // check only i-th staff has custom bar line type
             for (int j=0; j < 3; j++) {
-                  BarLine* bar = static_cast<BarLine*>(seg->element(j*VOICES));
+                  BarLine* bar = toBarLine(seg->element(j*VOICES));
                   // if not the i-th staff, bar should be normal and not custom
                   if (j != i) {
                         snprintf(msg, sizeof msg, "barline type NOT NORMAL or CUSTOM TYPE in staff %d of measure %d.", j+1, msrNo);

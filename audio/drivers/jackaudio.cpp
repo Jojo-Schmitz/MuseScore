@@ -382,11 +382,11 @@ int JackAudio::processAudio(jack_nframes_t frames, void* p)
             r = 0;
             }
       if (preferences.getBool(PREF_IO_JACK_USEJACKMIDI)) {
-            foreach(jack_port_t* port, audio->midiOutputPorts) {
+            for (jack_port_t* port : audio->midiOutputPorts) {
                   void* portBuffer = jack_port_get_buffer(port, frames);
                   jack_midi_clear_buffer(portBuffer);
                   }
-            foreach(jack_port_t* port, audio->midiInputPorts) {
+            for (jack_port_t* port : audio->midiInputPorts) {
                   void* portBuffer = jack_port_get_buffer(port, frames);
                   if (portBuffer) {
                         jack_nframes_t n = jack_midi_get_event_count(portBuffer);
@@ -781,7 +781,7 @@ void JackAudio::rememberAudioConnections()
       settings.setValue(QString("audio-0-connections"), 0);
       settings.setValue(QString("audio-1-connections"), 0);
       int port = 0;
-      foreach(jack_port_t* mp, ports) {
+      for (jack_port_t* mp : ports) {
             const char** cc = jack_port_get_connections(mp);
             const char** c = cc;
             int idx = 0;
@@ -859,7 +859,7 @@ void JackAudio::rememberMidiConnections()
             qDebug("Saving midi connections...");
       QSettings settings;
       int port = 0;
-      foreach(jack_port_t* mp, midiOutputPorts) {
+      for (jack_port_t* mp : midiOutputPorts) {
             const char** cc = jack_port_get_connections(mp);
             const char** c = cc;
             int idx = 0;
@@ -876,7 +876,7 @@ void JackAudio::rememberMidiConnections()
             }
 
       port = 0;
-      foreach(jack_port_t* mp, midiInputPorts) {
+      for (jack_port_t* mp : midiInputPorts) {
             const char** cc = jack_port_get_connections(mp);
             const char** c = cc;
             int idx = 0;
@@ -959,7 +959,7 @@ void JackAudio::hotPlug()
                   }
             }
       else if (!preferences.getBool(PREF_IO_JACK_USEJACKAUDIO)) {
-            foreach(jack_port_t* p, ports) {
+            for (jack_port_t* p : ports) {
                   unregisterPort(p);
                   ports.removeOne(p);
                   }

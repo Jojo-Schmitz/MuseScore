@@ -153,7 +153,7 @@ void Excerpt::createExcerpt(Excerpt* excerpt)
             }
       score->setCurrentLayer(oscore->currentLayer());
       score->layer().clear();
-      foreach (const Layer& l, oscore->layer())
+      for (const Layer& l : oscore->layer())
             score->layer().append(l);
 
       score->setPageNumberOffset(oscore->pageNumberOffset());
@@ -562,7 +562,7 @@ void Excerpt::cloneStaves(Score* oscore, Score* score, const QList<int>& map, QM
 
                                     Element* oe = oseg->element(srcTrack);
                                     int adjustedBarlineSpan = 0;
-                                    if (srcTrack % VOICES == 0 && oseg->segmentType() == SegmentType::BarLine) {
+                                    if (srcTrack % VOICES == 0 && oseg->isBarLineType()) {
                                           // mid-measure barline segment
                                           // may need to clone barline from a previous staff and/or adjust span
                                           int oIdx = srcTrack / VOICES;
@@ -913,7 +913,7 @@ void Excerpt::cloneStaff(Staff* srcStaff, Staff* dstStaff)
 
                               // remove lyrics from chord
                               // since only one set of lyrics is used with linked staves
-                              foreach (Lyrics* l, ncr->lyrics()) {
+                              for (Lyrics* l : ncr->lyrics()) {
                                     if (l)
                                           l->unlink();
                                     }

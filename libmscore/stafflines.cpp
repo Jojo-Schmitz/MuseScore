@@ -62,7 +62,7 @@ QPointF StaffLines::canvasPos() const
       QPointF p(pagePos());
       Element* e = parent();
       while (e) {
-            if (e->type() == ElementType::PAGE) {
+            if (e->isPage()) {
                   p += e->pos();
                   break;
                   }

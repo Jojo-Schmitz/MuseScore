@@ -46,7 +46,7 @@ static void undoChangeBarLineType(BarLine* bl, BarLineType barType, bool allStav
 
       bool keepStartRepeat = false;
 
-      if (barType == BarLineType::START_REPEAT && bl->segment()->segmentType() != SegmentType::BeginBarLine) {
+      if (barType == BarLineType::START_REPEAT && !bl->segment()->isBeginBarLineType()) {
             m = m->nextMeasure();
             if (!m) // we were in last measure
                   return;
@@ -92,8 +92,7 @@ static void undoChangeBarLineType(BarLine* bl, BarLineType barType, bool allStav
                         keepStartRepeat = true;
 
                   Segment* segment = bl->segment();
-                  SegmentType segmentType = segment->segmentType();
-                  if (segmentType == SegmentType::EndBarLine) {
+                  if (segment->isEndBarLineType()) {
                         bool generated = false;
                         if (bl->barLineType() == barType)
                               generated = bl->generated();  // no change: keep current status
@@ -172,7 +171,7 @@ static void undoChangeBarLineType(BarLine* bl, BarLineType barType, bool allStav
                                     }
                               }
                         }
-                  else if (segmentType == SegmentType::BeginBarLine) {
+                  else if (segment->isBeginBarLineType()) {
                         for (Score*& lscore : m2->score()->scoreList()) {
                               Measure* lmeasure = lscore->tick2measure(m2->tick());
                               Segment* segment1 = lmeasure->undoGetSegmentR(SegmentType::BeginBarLine, Fraction(0, 1));
@@ -1390,8 +1389,8 @@ void BarLine::layout()
       setPos(QPointF());
       // barlines hidden on this staff
       if (staff() && segment()) {
-            if ((!staff()->staffTypeForElement(this)->showBarlines() && segment()->segmentType() == SegmentType::EndBarLine)
-                || (staff()->hideSystemBarLine() && segment()->segmentType() == SegmentType::BeginBarLine)) {
+            if ((!staff()->staffTypeForElement(this)->showBarlines() && segment()->isEndBarLineType())
+                || (staff()->hideSystemBarLine() && segment()->isBeginBarLineType())) {
                   setbbox(QRectF());
                   return;
                   }
@@ -1458,8 +1457,8 @@ void BarLine::layout2()
       {
       // barlines hidden on this staff
       if (staff() && segment()) {
-            if ((!staff()->staffTypeForElement(this)->showBarlines() && segment()->segmentType() == SegmentType::EndBarLine)
-                || (staff()->hideSystemBarLine() && segment()->segmentType() == SegmentType::BeginBarLine)) {
+            if ((!staff()->staffTypeForElement(this)->showBarlines() && segment()->isEndBarLineType())
+                || (staff()->hideSystemBarLine() && segment()->isBeginBarLineType())) {
                   setbbox(QRectF());
                   return;
                   }
@@ -1752,9 +1751,9 @@ QString BarLine::accessibleExtraInfo() const
             //jumps
             for (const Element* e : m->el()) {
                   if (!score()->selectionFilter().canSelect(e)) continue;
-                  if (e->type() == ElementType::JUMP)
+                  if (e->isJump())
                         rez= QString("%1 %2").arg(rez, e->screenReaderInfo());
-                  if (e->type() == ElementType::MARKER) {
+                  if (e->isMarker()) {
                         const Marker* m1 = toMarker(e);
                         if (m1->markerType() == Marker::Type::FINE)
                               rez = QString("%1 %2").arg(rez, e->screenReaderInfo());
@@ -1783,7 +1782,7 @@ QString BarLine::accessibleExtraInfo() const
             Spanner* s = interval.value;
             if (!score()->selectionFilter().canSelect(s))
                   continue;
-            if (s->type() == ElementType::VOLTA) {
+            if (s->isVolta()) {
                   if (s->tick() == tick)
                         rez = QObject::tr("%1 Start of %2").arg(rez, s->screenReaderInfo());
                   if (s->tick2() == tick)

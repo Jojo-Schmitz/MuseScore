@@ -1720,7 +1720,7 @@ void Beam::layout2(std::vector<ChordRest*>crl, SpannerSegmentType, int frag)
                   ChordRest* cr1 = crl[i];
                   int l1 = cr1->durationType().hooks() - 1;
 
-                  if ((cr1->type() == ElementType::REST && i) || l1 < beamLevel) {
+                  if ((cr1->isRest() && i) || l1 < beamLevel) {
                         ++i;
                         continue;
                         }
@@ -1740,7 +1740,7 @@ void Beam::layout2(std::vector<ChordRest*>crl, SpannerSegmentType, int frag)
                         b64 = (beamLevel >= 2) && (bm == Mode::BEGIN64);
 
                         if ((l >= beamLevel && (b32 || b64)) || (l < beamLevel)) {
-                              if (i > 1 && crl[i-1]->type() == ElementType::REST) {
+                              if (i > 1 && crl[i-1]->isRest()) {
                                     --i;
                                     }
                               break;
@@ -1818,7 +1818,7 @@ void Beam::layout2(std::vector<ChordRest*>crl, SpannerSegmentType, int frag)
                         }
                   else {
                         // create broken segment / fractional beams
-                        if (cr1->type() == ElementType::REST)
+                        if (cr1->isRest())
                               continue;
 
                         size_t sizeChordRests = crl.size();
@@ -2289,7 +2289,7 @@ void Beam::triggerLayout() const
 
 bool Beam::acceptDrop(EditData& data) const
       {
-      return (data.dropElement->type() == ElementType::ICON)
+      return (data.dropElement->isIcon())
          && ((toIcon(data.dropElement)->iconType() == IconType::FBEAM1)
          || (toIcon(data.dropElement)->iconType() == IconType::FBEAM2));
       }

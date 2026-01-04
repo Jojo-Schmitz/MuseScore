@@ -80,11 +80,11 @@ EditStaffType::EditStaffType(QWidget* parent, Staff* st)
 
       // tab page configuration
       QList<QString> fontNames = StaffType::fontNames(false);
-      foreach (const QString& fn, fontNames)   // fill fret font name combo
+      for (QString& fn : fontNames)   // fill fret font name combo
             fretFontName->addItem(fn);
       fretFontName->setCurrentIndex(0);
       fontNames = StaffType::fontNames(true);
-      foreach(const QString& fn, fontNames)   // fill duration font name combo
+      for (QString& fn : fontNames)   // fill duration font name combo
             durFontName->addItem(fn);
       durFontName->setCurrentIndex(0);
 

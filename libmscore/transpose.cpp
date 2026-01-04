@@ -305,7 +305,7 @@ bool Score::transpose(TransposeMode mode, TransposeDirection direction, Key trKe
             }
 
       if (_selection.isList()) {
-            foreach (Element* e, _selection.uniqueElements()) {
+            for (Element* e : _selection.uniqueElements()) {
                   if (!e->staff() || e->staff()->staffType(e->tick())->group() == StaffGroup::PERCUSSION)
                         continue;
                   if (e->isNote()) {
@@ -459,8 +459,8 @@ bool Score::transpose(TransposeMode mode, TransposeDirection direction, Key trKe
                         }
                   }
             if (transposeChordNames) {
-                  foreach (Element* e, segment->annotations()) {
-                        if ((e->type() != ElementType::HARMONY) || (!tracks.contains(e->track())))
+                  for (Element* e : segment->annotations()) {
+                        if (!e->isHarmony() || (!tracks.contains(e->track())))
                               continue;
                         Harmony* hh  = toHarmony(e);
                         int rootTpc, baseTpc;
@@ -771,7 +771,7 @@ void Score::transpositionChanged(Part* part, Interval oldV, Fraction tickStart, 
                               }
                         // find chord symbols
                         for (Element* element : s->annotations()) {
-                              if (element->track() != track || element->type() != ElementType::HARMONY)
+                              if (element->track() != track || !element->isHarmony())
                                     continue;
                               Harmony* h  = toHarmony(element);
                               int rootTpc = transposeTpc(h->rootTpc(), diffV, false);
