@@ -50,6 +50,7 @@
 #include "libmscore/lasso.h"
 #include "libmscore/lyrics.h"
 #include "libmscore/measure.h"
+#include "libmscore/measurerepeat.h"
 #include "libmscore/navigate.h"
 #include "libmscore/notedot.h"
 #include "libmscore/note.h"
@@ -74,8 +75,8 @@
 #include "libmscore/sym.h"
 #include "libmscore/system.h"
 #include "libmscore/systemtext.h"
-#include "libmscore/textframe.h"
 #include "libmscore/text.h"
+#include "libmscore/textframe.h"
 #include "libmscore/textline.h"
 #include "libmscore/timesig.h"
 #include "libmscore/tuplet.h"
@@ -1532,7 +1533,7 @@ void ScoreView::paint(const QRect& r, QPainter& p)
                                     if (!score()->staff(i)->show())
                                           continue;
                                     ChordRest* cr = static_cast<ChordRest*>(fs->element(i * VOICES));
-                                    if (cr && (cr->type() == ElementType::REPEAT_MEASURE || cr->durationType() == TDuration::DurationType::V_MEASURE)) {
+                                    if (cr && (cr->type() == ElementType::MEASURE_REPEAT || cr->durationType() == TDuration::DurationType::V_MEASURE)) {
                                           x2 = s->measure()->abbox().right() - _spatium * 0.5;
                                           break;
                                           }
@@ -1916,7 +1917,7 @@ bool ScoreView::checkCopyOrCut()
       {
       if (!_score->selection().canCopy()) {
             QMessageBox::information(0, "MuseScore",
-               tr("Please select the complete tuplet/tremolo and retry the command"),
+               tr("Please select the complete tuplet, tremolo, or measure repeat group and retry the command"),
                QMessageBox::Ok, QMessageBox::NoButton);
             return false;
             }
@@ -2205,7 +2206,7 @@ void ScoreView::cmd(const char* s)
             bool isRange = selection.isRange();
             std::vector<Element*> notes;
 
-            if (el && (el->isNote() || el->isRest())) {
+            if (el && (el->isNote() || el->isRestFamily())) {
                   cv->cmdGotoElement(score.moveAlt(el, dir));
                   }
             else for (auto e : selection.elements()) {
@@ -4567,7 +4568,7 @@ void ScoreView::changeVoice(int voice)
 
       if (is->noteEntryMode()) {
             is->setTrack(track);
-            if (is->segment()) { // can be null for eg repeatMeasure
+            if (is->segment()) { // can be null for eg MeasureRepeat
                   is->setSegment(is->segment()->measure()->first(SegmentType::ChordRest));
                   moveCursor();
                   score()->setUpdateAll();
@@ -5064,6 +5065,9 @@ void ScoreView::cmdRepeatSelection()
       {
       const Selection& selection = _score->selection();
 
+      //
+      // repeat note currently under cursor during note input
+      //
       if (noteEntryMode() && selection.isSingle()) {
             Element* el = _score->selection().element();
             if (el && !_score->inputState().endOfScore()) {
@@ -5094,6 +5098,10 @@ void ScoreView::cmdRepeatSelection()
                   }
             return;
             }
+
+      //
+      // repeat range selection in normal mode
+      //
       if (!selection.isRange()) {
             ChordRest* cr = _score->getSelectedChordRest();
             if (!cr)
@@ -5132,6 +5140,10 @@ void ScoreView::cmdRepeatSelection()
             if (e) {
                   auto cr = toChordRest(e);
                   _score->startCmd();
+                  if (cr->measure()->isMeasureRepeatGroup(dStaff)) {
+                        MeasureRepeat* mr = cr->measure()->measureRepeatElement(dStaff);
+                        _score->deleteItem(mr); // resets any measures related to mr
+                        }
                   _score->pasteStaff(xml, cr->segment(), cr->staffIdx());
                   _score->endCmd();
                   }
