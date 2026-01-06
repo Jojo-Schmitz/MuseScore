@@ -1217,6 +1217,26 @@ PalettePanel* MuseScore::newArpeggioPalettePanel()
       cl->setStraight(true);
       sp->append(cl, QT_TRANSLATE_NOOP("Ms", "Slide in below"));
 
+      cl = new ChordLine(gscore);
+      cl->setChordLineType(ChordLineType::FALL);
+      cl->setWavy(true);
+      sp->append(cl, QT_TRANSLATE_NOOP("Ms", "Slide out down (rough)"));
+
+      cl = new ChordLine(gscore);
+      cl->setChordLineType(ChordLineType::DOIT);
+      cl->setWavy(true);
+      sp->append(cl, QT_TRANSLATE_NOOP("Ms", "Slide out up (rough)"));
+
+      cl = new ChordLine(gscore);
+      cl->setChordLineType(ChordLineType::PLOP);
+      cl->setWavy(true);
+      sp->append(cl, QT_TRANSLATE_NOOP("Ms", "Slide in above (rough)"));
+
+      cl = new ChordLine(gscore);
+      cl->setChordLineType(ChordLineType::SCOOP);
+      cl->setWavy(true);
+      sp->append(cl, QT_TRANSLATE_NOOP("Ms", "Slide in below (rough)"));
+
       return sp;
       }
 

@@ -10,14 +10,15 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "chordline.h"
-#include "xml.h"
 #include "chord.h"
+#include "chordline.h"
 #include "measure.h"
-#include "system.h"
 #include "note.h"
+#include "score.h"
+#include "xml.h"
 
 namespace Ms {
+static const std::vector<SymId> s_waveSymbols = { SymId::wiggleVIbratoMediumSlower, SymId::wiggleVIbratoMediumSlower };
 
 const char* scorelineNames[] = {
       QT_TRANSLATE_NOOP("Ms", "Fall"),
@@ -33,11 +34,6 @@ const char* scorelineNames[] = {
 ChordLine::ChordLine(Score* s)
    : Element(s, ElementFlag::MOVABLE)
       {
-      modified = false;
-      _chordLineType = ChordLineType::NOTYPE;
-      _straight = false;
-      _lengthX = 0.0;
-      _lengthY = 0.0;
       }
 
 ChordLine::ChordLine(const ChordLine& cl)
@@ -47,6 +43,7 @@ ChordLine::ChordLine(const ChordLine& cl)
       modified = cl.modified;
       _chordLineType = cl._chordLineType;
       _straight = cl._straight;
+      _wavy = cl._wavy;
       _lengthX = cl._lengthX;
       _lengthY = cl._lengthY;
       }
@@ -69,38 +66,18 @@ void ChordLine::layout()
       if (!modified) {
             qreal x2 = 0;
             qreal y2 = 0;
-            switch(_chordLineType) {
-                  case ChordLineType::NOTYPE:
-                        break;
-                  case ChordLineType::FALL:
-                        x2 = _initialLength;
-                        y2 = _initialLength;
-                        break;
-                  case ChordLineType::PLOP:
-                        x2 = -_initialLength;
-                        y2 = -_initialLength;
-                        break;
-                  case ChordLineType::SCOOP:
-                        x2 = -_initialLength;
-                        y2 = _initialLength;
-                        break;
-                  default:
-                  case ChordLineType::DOIT:
-                        x2 = _initialLength;
-                        y2 = -_initialLength;
-                        break;
-                  }
-            if (_chordLineType != ChordLineType::NOTYPE) {
+            double horBaseLength = 1.2 * _baseLength; // let the symbols extend a bit more horizontally
+            x2 += isToTheLeft() ? -horBaseLength : horBaseLength;
+            y2 += isBelow() ? _baseLength : -_baseLength;
+            if (_chordLineType != ChordLineType::NOTYPE && !_wavy) {
                   path = QPainterPath();
-                  // chordlines to the right of the note
-                  if (_chordLineType == ChordLineType::FALL || _chordLineType == ChordLineType::DOIT) {
+                  if (!isToTheLeft()) {
                         if (_straight)
                               path.lineTo(x2, y2);
                         else
                               path.cubicTo(x2/2, 0.0, x2, y2/2, x2, y2);
                         }
-                  // chordlines to the left of the note
-                  else if (_chordLineType == ChordLineType::PLOP || _chordLineType == ChordLineType::SCOOP) {
+                  else {
                         if (_straight)
                               path.lineTo(x2, y2);
                         else
@@ -126,14 +103,29 @@ void ChordLine::layout()
             }
       else
             setPos(0.0, 0.0);
-      QRectF r(path.boundingRect());
-      int x1, y1, width, height = 0;
+      if (!_wavy) {
+            QRectF r = path.boundingRect();
+            int x1 = 0, y1 = 0, width = 0, height = 0;
 
-      x1 = r.x() * _spatium;
-      y1 = r.y() * _spatium;
-      width = r.width() * _spatium;
-      height = r.height() * _spatium;
-      bbox().setRect(x1, y1, width, height);
+            x1 = r.x() * _spatium;
+            y1 = r.y() * _spatium;
+            width = r.width() * _spatium;
+            height = r.height() * _spatium;
+            bbox().setRect(x1, y1, width, height);
+            }
+      else {
+            ScoreFont* f = score()->scoreFont();
+            QRectF r(f->bbox(s_waveSymbols, magS()));
+            qreal angle = _waveAngle * M_PI / 180;
+
+            r.setHeight(r.height() + r.width() * sin(angle));
+
+            /// TODO: calculate properly the rect for wavy type
+            if (_chordLineType == ChordLineType::DOIT)
+                  r.setY(y() - r.height() * (onTabStaff() ? 1.25 : 1));
+
+            setbbox(r);
+            }
       }
 
 //---------------------------------------------------------
@@ -191,6 +183,8 @@ void ChordLine::read(XmlReader& e)
                   setChordLineType(ChordLineType(e.readInt()));
              else if (tag == "straight")
                   setStraight(e.readInt());
+            else if (tag == "wavy")
+                 setWavy(e.readInt());
              else if (tag == "lengthX")
                   setLengthX(e.readInt());
              else if (tag == "lengthY")
@@ -210,6 +204,7 @@ void ChordLine::write(XmlWriter& xml) const
       xml.stag(this);
       writeProperty(xml, Pid::CHORD_LINE_TYPE);
       writeProperty(xml, Pid::CHORD_LINE_STRAIGHT);
+      writeProperty(xml, Pid::CHORD_LINE_WAVY);
       xml.tag("lengthX", _lengthX, 0.0);
       xml.tag("lengthY", _lengthY, 0.0);
       Element::writeProperties(xml);
@@ -413,6 +408,8 @@ QVariant ChordLine::getProperty(Pid propertyId) const
                   return int(_chordLineType);
             case Pid::CHORD_LINE_STRAIGHT:
                   return _straight;
+            case Pid::CHORD_LINE_WAVY:
+                  return _wavy;
             default:
                   break;
             }
@@ -435,6 +432,9 @@ bool ChordLine::setProperty(Pid propertyId, const QVariant& val)
             case Pid::CHORD_LINE_STRAIGHT:
                   setStraight(val.toBool());
                   break;
+            case Pid::CHORD_LINE_WAVY:
+                  setWavy(val.toBool());
+                  break;
             default:
                   return Element::setProperty(propertyId, val);
             }
@@ -451,6 +451,8 @@ QVariant ChordLine::propertyDefault(Pid pid) const
       switch (pid) {
             case Pid::CHORD_LINE_STRAIGHT:
                   return false;
+            case Pid::CHORD_LINE_WAVY:
+                  return false;
             default:
                   break;
             }
@@ -466,6 +468,8 @@ Pid ChordLine::propertyId(const QStringRef& name) const
       if (name == "subtype")
             return Pid::CHORD_LINE_TYPE;
       else if (name == "straight")
+            return Pid::CHORD_LINE_STRAIGHT;
+      else if (name == "wavy")
             return Pid::CHORD_LINE_STRAIGHT;
       return Element::propertyId(name);
       }
