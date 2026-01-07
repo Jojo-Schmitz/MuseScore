@@ -12340,9 +12340,9 @@ Ottieni %2aiuto%3 per il programma o %4contribuisci%5 al suo sviluppo.</translat
     </message>
     <message>
         <location filename="../../mscore/musescoredialogs.cpp" line="184"/>
-        <source>Copyright &amp;copy; 1999-2025 MuseScore BVBA and others.
+        <source>Copyright &amp;copy; 1999-2026 MuseScore Limited and others.
 Published under the %1GNU General Public License version 2%2.</source>
-        <translation>Copyright &amp;copy; 1999-2025 MuseScore BVBA e altri.
+        <translation>Copyright &amp;copy; 1999-2026 MuseScore Limited e altri.
 Pubblicato sotto la %1GNU General Public License version 2%2.</translation>
     </message>
 </context>

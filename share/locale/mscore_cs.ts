@@ -12343,9 +12343,9 @@ Get %2help%3 with the program or %4contribute%5 to its development.</source>
     </message>
     <message>
         <location filename="../../mscore/musescoredialogs.cpp" line="184"/>
-        <source>Copyright &amp;copy; 1999-2025 MuseScore BVBA and others.
+        <source>Copyright &amp;copy; 1999-2026 MuseScore Limited and others.
 Published under the %1GNU General Public License version 2%2.</source>
-        <translation>Kopírovací práva &amp;copy; 1999-2025 Werner Schweer a ostatní.
+        <translation>Kopírovací práva &amp;copy; 1999-2026 Werner Schweer a ostatní.
 Vydáno pod licencí %1GNU General Public License version 2%2.</translation>
     </message>
 </context>

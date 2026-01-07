@@ -12340,9 +12340,9 @@ Uzyskaj %2pomoc%3 do programu lub %4przyczyń się%5 do jego rozwoju.</translati
     </message>
     <message>
         <location filename="../../mscore/musescoredialogs.cpp" line="184"/>
-        <source>Copyright &amp;copy; 1999-2025 MuseScore BVBA and others.
+        <source>Copyright &amp;copy; 1999-2026 MuseScore Limited and others.
 Published under the %1GNU General Public License version 2%2.</source>
-        <translation>Prawa autorskie &amp;copy; 1999-2025 MuseScore BVBA i inni.
+        <translation>Prawa autorskie &amp;copy; 1999-2026 MuseScore Limited i inni.
 Opublikowano na licencji %1GNU General Public License wersja 2%2.
 Polskie tłumaczenie MuseScore&apos;a: Grzegorz Pruchniakowski.</translation>
     </message>
