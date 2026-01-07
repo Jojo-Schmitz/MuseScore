@@ -3820,7 +3820,7 @@ bool  MStyle::readProperties450(XmlReader& e, int mscVersion)
 
 bool  MStyle::readProperties460(XmlReader& e, int mscVersion)
       {
-      if (/*mscVersion >= 470 && */readProperties470(e, mscVersion))
+      if (mscVersion >= 470 && readProperties470(e, mscVersion))
             return true;
 
       const QStringRef& tag(e.name());
