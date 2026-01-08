@@ -514,6 +514,7 @@ void HPiano::wheelEvent(QWheelEvent* event)
                   }
             setScale(mag);
             }
+      updateAllKeys();
       }
 
 //---------------------------------------------------------
