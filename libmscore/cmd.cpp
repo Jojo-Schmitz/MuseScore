@@ -1285,7 +1285,7 @@ QList<Fraction> Score::splitGapToMeasureBoundaries(ChordRest* cr, Fraction gap)
 void Score::changeCRlen(ChordRest* cr, const TDuration& d)
       {
       Fraction dstF;
-      if (d.type() == TDuration::DurationType::V_MEASURE)
+      if (d.isMeasure())
             dstF = cr->measure()->stretchedLen(cr->staff());
       else
             dstF = d.fraction();
@@ -2764,7 +2764,7 @@ void Score::cmdIncDecDuration(int nSteps, bool stepDotted)
                   // if measure rest is selected as input, then the correct initialDuration will be the
                   // duration of the measure's time signature, else is just the ChordRest's duration
                   TDuration initialDuration = cr->durationType();
-                  if (initialDuration == TDuration::DurationType::V_MEASURE) {
+                  if (initialDuration.isMeasure()) {
                         initialDuration = TDuration(cr->measure()->timesig(), true);
 
                         if (initialDuration.fraction() < cr->measure()->timesig() && nSteps > 0)
@@ -3255,7 +3255,7 @@ void Score::cmdSlashFill()
                               else if (cr->type() == ElementType::CHORD)
                                     continue;
                               // full measure rest == OK to use voice
-                              else if (cr->durationType() == TDuration::DurationType::V_MEASURE)
+                              else if (cr->durationType().isMeasure())
                                     break;
                               // no chordrest or ordinary rest == OK to use voice
                               // if there are nothing but rests for duration of measure / selection

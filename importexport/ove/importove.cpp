@@ -1506,7 +1506,7 @@ void OveToMScore::convertNotes(Measure* measure, int part, int staff, int track)
                               TDuration duration = OveNoteType_To_Duration(container->getNoteType());
                               duration.setDots(container->getDot());
 
-                              if (duration.type() == TDuration::DurationType::V_INVALID)
+                              if (!duration.isValid())
                                     duration.setType(TDuration::DurationType::V_QUARTER);
                               cr->setDurationType(duration);
                               // append grace notes before

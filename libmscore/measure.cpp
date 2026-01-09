@@ -1899,7 +1899,7 @@ void Measure::adjustToLen(Fraction nf, bool appendRestsIfNecessary)
                                     Element* e = segment->element(trk);
                                     if (e && e->isChordRest()) {
                                           ChordRest* cr = toChordRest(e);
-                                          if (cr->durationType() == TDuration::DurationType::V_MEASURE) {
+                                          if (cr->durationType().isMeasure()) {
                                                 Fraction actualTicks = cr->actualTicks();
                                                 n += actualTicks;
                                                 cr->setDurationType(TDuration(actualTicks));
@@ -3004,7 +3004,7 @@ bool Measure::isFullMeasureRest() const
                   if (!e->isRest())
                         return false;
                   Rest* rest = toRest(e);
-                  if (rest->durationType().type() != TDuration::DurationType::V_MEASURE)
+                  if (!rest->durationType().isMeasure())
                         return false;
                   }
             }

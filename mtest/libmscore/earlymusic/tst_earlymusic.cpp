@@ -64,7 +64,7 @@ void TestEarlymusic::earlymusic01()
       QVERIFY(chord && chord->type() == ElementType::CHORD);
       QVERIFY(chord->crossMeasure() == CrossMeasure::UNKNOWN);
       TDuration cmDur   = chord->crossMeasureDurationType();
-//      QVERIFY(cmDur.type() == TDuration::DurationType::V_INVALID);    // irrelevant if crossMeasure() == UNKNOWN
+//      QVERIFY(!cmDur.isValid());    // irrelevant if crossMeasure() == UNKNOWN
       TDuration acDur   = chord->actualDurationType();
       QVERIFY(acDur.type() == TDuration::DurationType::V_BREVE);
       TDuration dur     = chord->durationType();

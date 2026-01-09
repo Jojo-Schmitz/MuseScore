@@ -210,7 +210,7 @@ bool ChordRest::readProperties(XmlReader& e)
 
       if (tag == "durationType") {
             setDurationType(e.readElementText());
-            if (actualDurationType().type() != TDuration::DurationType::V_MEASURE) {
+            if (!actualDurationType().isMeasure()) {
                   if (score()->mscVersion() < 112 && (type() == ElementType::REST) &&
                               // for backward compatibility, convert V_WHOLE rests to V_MEASURE
                               // if long enough to fill a measure.

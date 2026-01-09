@@ -1578,7 +1578,7 @@ void MusicXMLParserPass2::addError(const QString& error)
 
 static void setChordRestDuration(ChordRest* cr, TDuration duration, const Fraction dura)
       {
-      if (duration.type() == TDuration::DurationType::V_MEASURE) {
+      if (duration.isMeasure()) {
             cr->setDurationType(duration);
             cr->setTicks(dura);
             }

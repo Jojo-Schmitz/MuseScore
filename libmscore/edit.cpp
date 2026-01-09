@@ -165,7 +165,7 @@ Rest* Score::addRest(const Fraction& tick, int track, TDuration d, Tuplet* tuple
       {
       Measure* measure = tick2measure(tick);
       Rest* rest       = new Rest(this, d);
-      if (d.type() == TDuration::DurationType::V_MEASURE)
+      if (d.isMeasure())
             rest->setTicks(measure->stretchedLen(staff(track/VOICES)));
       else
             rest->setTicks(d.fraction());
@@ -182,7 +182,7 @@ Rest* Score::addRest(const Fraction& tick, int track, TDuration d, Tuplet* tuple
 Rest* Score::addRest(Segment* s, int track, TDuration d, Tuplet* tuplet)
       {
       Rest* rest = new Rest(this, d);
-      if (d.type() == TDuration::DurationType::V_MEASURE)
+      if (d.isMeasure())
             rest->setTicks(s->measure()->stretchedLen(staff(track/VOICES)));
       else
             rest->setTicks(d.fraction());
@@ -437,7 +437,7 @@ bool Score::rewriteMeasures(Measure* fm, Measure* lm, const Fraction& ns, int st
                               ChordRest* cr = toChordRest(s->element(track));
                               if (!cr)
                                     continue;
-                              if (cr->isRest() && cr->durationType() == TDuration::DurationType::V_MEASURE)
+                              if (cr->isRest() && cr->durationType().isMeasure())
                                     cr->undoChangeProperty(Pid::DURATION, QVariant::fromValue(ns));
                               else
                                     return false;
@@ -631,7 +631,7 @@ bool Score::rewriteMeasures(Measure* fm, const Fraction& ns, int staffIdx)
                               Fraction fr(staff(staffIdx)->timeSig(fm->tick())->sig());
                               for (Measure* m = fm1; m; m = m->nextMeasure()) {
                                     ChordRest* cr = m->findChordRest(m->tick(), staffIdx * VOICES);
-                                    if (cr && cr->isRest() && cr->durationType() == TDuration::DurationType::V_MEASURE)
+                                    if (cr && cr->isRest() && cr->durationType().isMeasure())
                                           cr->undoChangeProperty(Pid::DURATION, QVariant::fromValue(fr));
                                     else
                                           break;
@@ -966,7 +966,7 @@ void Score::cmdRemoveTimeSig(TimeSig* ts)
                                     break;
                               // fix measure rest duration
                               ChordRest* cr = nm->findChordRest(nm->tick(), i * VOICES);
-                              if (cr && cr->isRest() && cr->durationType() == TDuration::DurationType::V_MEASURE)
+                              if (cr && cr->isRest() && cr->durationType().isMeasure())
                                     cr->undoChangeProperty(Pid::DURATION, QVariant::fromValue(nm->stretchedLen(staff(i))));
                                     //cr->setTicks(nm->stretchedLen(staff(i)));
                               }

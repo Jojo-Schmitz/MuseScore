@@ -358,7 +358,7 @@ void MsScWriter::note(const QString pitch, const QVector<Bww::BeamType> beamList
             sd = Ms::Direction::UP;
             }
       else {
-            if (durationType.type() == Ms::TDuration::DurationType::V_INVALID)
+            if (!durationType.isValid())
                   durationType.setType(Ms::TDuration::DurationType::V_QUARTER);
             cr->setDurationType(durationType);
             sd = Ms::Direction::DOWN;

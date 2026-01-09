@@ -3724,7 +3724,7 @@ void Score::collectNoteMatch(void* data, Element* e)
             return;
       if (p->notehead != NoteHead::Group::HEAD_INVALID && p->notehead != n->headGroup())
             return;
-      if (p->durationType.type() != TDuration::DurationType::V_INVALID && p->durationType != n->chord()->actualDurationType())
+      if (p->durationType.isValid() && p->durationType != n->chord()->actualDurationType())
             return;
       if (p->durationTicks != Fraction(-1,1) && p->durationTicks != n->chord()->actualTicks())
             return;

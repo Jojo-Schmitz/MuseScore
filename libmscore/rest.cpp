@@ -171,7 +171,7 @@ void Rest::setOffset(const QPointF& o)
 QRectF Rest::drag(EditData& ed)
       {
       // don't allow drag for Measure Rests, because they can't be easily laid out in correct position while dragging
-      if (measure() && durationType().type() == TDuration::DurationType::V_MEASURE)
+      if (measure() && durationType().isMeasure())
             return QRectF();
 
       QPointF s(ed.delta);
@@ -222,7 +222,7 @@ bool Rest::acceptDrop(EditData& data) const
          || (type == ElementType::TREMOLOBAR)
          || (type == ElementType::IMAGE)
          || (type == ElementType::SYMBOL)
-         || (type == ElementType::REPEAT_MEASURE && durationType().type() == TDuration::DurationType::V_MEASURE)
+         || (type == ElementType::REPEAT_MEASURE && durationType().isMeasure())
          ) {
             return true;
             }
@@ -270,7 +270,7 @@ Element* Rest::drop(EditData& data)
                   break;
             case ElementType::REPEAT_MEASURE:
                   delete e;
-                  if (durationType().type() == TDuration::DurationType::V_MEASURE) {
+                  if (durationType().isMeasure()) {
                         measure()->cmdInsertRepeatMeasure(staffIdx());
                         }
                   break;
@@ -589,7 +589,7 @@ int Rest::computeLineOffset(int lines)
             if (qFuzzyIsNull(offset().y()) && autoplace()) {
                   int firstTrack = staffIdx() * 4;
                   int extraOffsetForFewLines = lines < 5 ? 2 : 0;
-                  bool isMeasureRest = durationType().type() == TDuration::DurationType::V_MEASURE;
+                  bool isMeasureRest = durationType().isMeasure();
                   Segment* seg = isMeasureRest ? measure()->first() : s;
                   while (seg) {
                         for (const int& track : { firstTrack + upOffset, firstTrack + 2 + upOffset }) {
@@ -1102,7 +1102,7 @@ bool Rest::setProperty(Pid propertyId, const QVariant& v)
                   setOffset(v.toPointF());
                   layout();
                   score()->addRefresh(canvasBoundingRect());
-                  if (measure() && durationType().type() == TDuration::DurationType::V_MEASURE)
+                  if (measure() && durationType().isMeasure())
                          measure()->triggerLayout();
                   triggerLayout();
                   break;

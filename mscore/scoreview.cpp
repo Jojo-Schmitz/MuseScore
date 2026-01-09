@@ -1532,7 +1532,7 @@ void ScoreView::paint(const QRect& r, QPainter& p)
                                     if (!score()->staff(i)->show())
                                           continue;
                                     ChordRest* cr = static_cast<ChordRest*>(fs->element(i * VOICES));
-                                    if (cr && (cr->type() == ElementType::REPEAT_MEASURE || cr->durationType() == TDuration::DurationType::V_MEASURE)) {
+                                    if (cr && (cr->type() == ElementType::REPEAT_MEASURE || cr->durationType().isMeasure())) {
                                           x2 = s->measure()->abbox().right() - _spatium * 0.5;
                                           break;
                                           }
@@ -3358,7 +3358,7 @@ void ScoreView::startNoteEntry()
             el = note;
             }
       TDuration d(is.duration());
-      if (!d.isValid() || d.isZero() || d.type() == TDuration::DurationType::V_MEASURE)
+      if (!d.isValid() || d.isZero() || d.isMeasure())
             is.setDuration(TDuration(TDuration::DurationType::V_QUARTER));
       is.setAccidentalType(AccidentalType::NONE);
 
@@ -4486,7 +4486,7 @@ void ScoreView::setControlCursorVisible(bool v)
 
 void ScoreView::cmdTuplet(int n, ChordRest* cr)
       {
-      if (cr->durationType() != TDuration(TDuration::DurationType::V_MEASURE) &&
+      if (!cr->durationType().isMeasure() &&
           ((cr->durationType() < TDuration(TDuration::DurationType::V_512TH)) ||
            (cr->durationType() < TDuration(TDuration::DurationType::V_256TH) && n > 3) ||
            (cr->durationType() < TDuration(TDuration::DurationType::V_128TH) && n > 7))
