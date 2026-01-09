@@ -475,6 +475,14 @@ void Bracket::undoChangeProperty(Pid id, const QVariant& v, PropertyFlags ps)
       bi->undoChangeProperty(id, v, ps);
       }
 
+Fraction Bracket::tick() const
+      {
+      if (measure()) {
+            return measure()->tick();
+            }
+      return Element::tick();
+      }
+
 //---------------------------------------------------------
 //   setSelected
 //---------------------------------------------------------
