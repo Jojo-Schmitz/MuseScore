@@ -220,8 +220,8 @@ void Clef::draw(QPainter* painter) const
 
 bool Clef::acceptDrop(EditData& data) const
       {
-      return (data.dropElement->type() == ElementType::CLEF
-         || (/*!generated() &&*/ data.dropElement->type() == ElementType::AMBITUS) );
+      return (data.dropElement->isClef()
+         || (/*!generated() &&*/ data.dropElement->isAmbitus()) );
       }
 
 //---------------------------------------------------------

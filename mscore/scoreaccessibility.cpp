@@ -255,8 +255,7 @@ void ScoreAccessibility::currentInfoChanged()
                         seg = score->lastSegment()->prev1MM(SegmentType::ChordRest);
 
                   if (seg->tick() != score->lastSegment()->prev1MM(SegmentType::ChordRest)->tick() &&
-                      s->type() != ElementType::SLUR                                               &&
-                      s->type() != ElementType::TIE                                                )
+                      !s->isSlur() &&  !s->isTie())
                         seg = seg->prev1MM(SegmentType::ChordRest);
 
                   bar_beat = seg->barbeat();

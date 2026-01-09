@@ -255,12 +255,12 @@ void Cursor::add(Element* wrapped)
 
       if (s->isChordRest())
             s->score()->undoAddCR(toChordRest(s), _segment->measure(), _segment->tick());
-      else if (s->type() == ElementType::KEYSIG) {
+      else if (s->isKeySig()) {
             Ms::Segment* ns = _segment->measure()->undoGetSegment(SegmentType::KeySig, _segment->tick());
             s->setParent(ns);
             _score->undoAddElement(s);
             }
-      else if (s->type() == ElementType::TIMESIG) {
+      else if (s->isTimeSig()) {
             Ms::Measure* m = _segment->measure();
             Fraction tick = m->tick();
             _score->cmdAddTimeSig(m, _track, toTimeSig(s), false);

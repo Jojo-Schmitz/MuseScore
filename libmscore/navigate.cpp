@@ -164,7 +164,7 @@ ChordRest* prevChordRest(ChordRest* cr, bool skipGrace)
       for (Segment* seg = cr->segment()->prev1MM(st); seg; seg = seg->prev1MM(st)) {
             ChordRest* e = toChordRest(seg->element(track));
             if (e) {
-                  if (e->type() == ElementType::CHORD && !skipGrace) {
+                  if (e->isChord() && !skipGrace) {
                         QVector<Chord*> cl = toChord(e)->graceNotesAfter();
                         if (!cl.empty())
                               return cl.last();
@@ -640,7 +640,7 @@ Element* Score::nextElement()
                   case ElementType::KEYSIG:
                   case ElementType::TIMESIG:
                   case ElementType::BAR_LINE: {
-                       for (; e && e->type() != ElementType::SEGMENT; e = e->parent()) {
+                       for (; e && !e->isSegment(); e = e->parent()) {
                              ;
                              }
                        Segment* s = toSegment(e);
@@ -765,7 +765,7 @@ Element* Score::prevElement()
                   case ElementType::KEYSIG:
                   case ElementType::TIMESIG:
                   case ElementType::BAR_LINE: {
-                        for (; e && e->type() != ElementType::SEGMENT; e = e->parent()) {
+                        for (; e && !e->isSegment(); e = e->parent()) {
                               ;
                               }
                         Segment* s = toSegment(e);
@@ -803,8 +803,7 @@ Element* Score::prevElement()
                                           return last;
                                     }
                               Element* el = startSeg->lastElementOfSegment(startSeg, staffId);
-                              if (stEl->type() == ElementType::CHORD || stEl->type() == ElementType::REST
-                                       || stEl->type() == ElementType::REPEAT_MEASURE || stEl->type() == ElementType::NOTE) {
+                              if (stEl->isChord() || stEl->isRest() || stEl->isRepeatMeasure() || stEl->isNote()) {
                                     ChordRest* cr = startSeg->cr(stEl->track());
                                     if (cr) {
                                           Element* elCr = cr->lastElementBeforeSegment();
@@ -829,7 +828,7 @@ Element* Score::prevElement()
                         SpannerSegment* s = toSpannerSegment(e);
                         Spanner* sp = s->spanner();
                         Element* elSt = sp->startElement();
-                        Q_ASSERT(elSt->type() == ElementType::NOTE);
+                        Q_ASSERT(elSt->isNote());
                         Note* n = toNote(elSt);
                         Element* prev =  n->prevElement();
                         if(prev)

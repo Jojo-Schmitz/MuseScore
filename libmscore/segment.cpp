@@ -1425,7 +1425,7 @@ Element* Segment::firstElementOfSegment(Segment* s, int activeStaff)
                         if (tuplet && de == tuplet->elements().front())
                               return tuplet;
                         }
-                  if (i->type() == ElementType::CHORD) {
+                  if (i->isChord()) {
                         Chord* chord = toChord(i);
                         return chord->firstGraceOrNote();
                         }
@@ -1460,7 +1460,7 @@ Element* Segment::nextElementOfSegment(Segment* s, Element* e, int activeStaff)
                   else
                         return next;
                   }
-            if (el->type() == ElementType::CHORD) {
+            if (el->isChord()) {
                   std::vector<Note*> notes = toChord(el)->notes();
                   auto i = std::find(notes.begin(), notes.end(), e);
                   if (i == notes.end())
@@ -1558,7 +1558,7 @@ Element* Segment::lastElementOfSegment(Segment* s, int activeStaff)
             }
       auto i = elements.begin();
       if (*i && (*i)->staffIdx() == activeStaff) {
-            if ((*i)->type() == ElementType::CHORD)
+            if ((*i)->isChord())
                   return toChord(*i)->notes().front();
             else
                   return *i;
@@ -1745,7 +1745,7 @@ Element* Segment::nextElement(int activeStaff)
                               p = pp;
                         }
                   Element* el = p;
-                  for (; p && p->type() != ElementType::SEGMENT; p = p->parent()) {
+                  for (; p && !p->isSegment(); p = p->parent()) {
                         ;
                        }
                   Segment* seg = toSegment(p);
@@ -1844,8 +1844,7 @@ Element* Segment::prevElement(int activeStaff)
                          }
                    if (el->staffIdx() != activeStaff)
                          return nullptr;
-                   if (el->type() == ElementType::CHORD || el->type() == ElementType::REST
-                            || el->type() == ElementType::REPEAT_MEASURE) {
+                   if (el->isChordRest()) {
                          ChordRest* cr = this->cr(el->track());
                          if (cr) {
                                Element* elCr = cr->lastElementBeforeSegment();
@@ -1854,10 +1853,10 @@ Element* Segment::prevElement(int activeStaff)
                                      }
                                }
                           }
-                   if (el->type() == ElementType::CHORD) {
+                   if (el->isChord()) {
                          return toChord(el)->lastElementBeforeSegment();
                          }
-                   else if (el->type() == ElementType::NOTE) {
+                   else if (el->isNote()) {
                          Chord* c = toNote(el)->chord();
                          return c->lastElementBeforeSegment();
                          }
@@ -1868,14 +1867,13 @@ Element* Segment::prevElement(int activeStaff)
             case ElementType::ARPEGGIO:
             case ElementType::TREMOLO: {
                   Element* el = this->element(e->track());
-                  Q_ASSERT(el->type() == ElementType::CHORD);
+                  Q_ASSERT(el->isChord());
                   return toChord(el)->prevElement();
                   }
             default: {
                   Element* el = e;
                   Segment* seg = this;
-                  if (e->type() == ElementType::TIE_SEGMENT ||
-                      e->type() == ElementType::GLISSANDO_SEGMENT) {
+                  if (e->isTieSegment() || e->isGlissandoSegment()) {
                         SpannerSegment* s = toSpannerSegment(e);
                         Spanner* sp = s->spanner();
                         el = sp->startElement();
@@ -1889,8 +1887,7 @@ Element* Segment::prevElement(int activeStaff)
 
                  Element* prev = seg->prevElementOfSegment(seg, el, activeStaff);
                   if (prev) {
-                        if (prev->type() == ElementType::CHORD || prev->type() == ElementType::REST
-                               || prev->type() == ElementType::REPEAT_MEASURE) {
+                        if (prev->isChordRest()) {
                               ChordRest* cr = seg->cr(prev->track());
                               if (cr) {
                                     Element* elCr = cr->lastElementBeforeSegment();
@@ -1899,10 +1896,10 @@ Element* Segment::prevElement(int activeStaff)
                                           }
                                     }
                               }
-                        if (prev->type() == ElementType::CHORD) {
+                        if (prev->isChord()) {
                               return toChord(prev)->lastElementBeforeSegment();
                               }
-                        else if (prev->type() == ElementType::NOTE) {
+                        else if (prev->isNote()) {
                               Chord* c = toNote(prev)->chord();
                               return c->lastElementBeforeSegment();
                               }
@@ -1951,8 +1948,7 @@ Element* Segment::prevElement(int activeStaff)
                          if (next)
                                return next;
                          }
-                   if (prev->type() == ElementType::CHORD || prev->type() == ElementType::REST
-                            || prev->type() == ElementType::REPEAT_MEASURE || prev->type() == ElementType::NOTE) {
+                   if (prev->isChordRest() || prev->isNote()) {
                          ChordRest* cr = prevSeg->cr(prev->track());
                          if (cr) {
                                Element* elCr = cr->lastElementBeforeSegment();
@@ -1961,10 +1957,10 @@ Element* Segment::prevElement(int activeStaff)
                                      }
                                }
                          }
-                   if (prev->type() == ElementType::CHORD) {
+                   if (prev->isChord()) {
                          return toChord(prev)->lastElementBeforeSegment();
                          }
-                   else if (prev->type() == ElementType::NOTE) {
+                   else if (prev->isNote()) {
                          Chord* c = toNote(prev)->chord();
                          return c->lastElementBeforeSegment();
                          }

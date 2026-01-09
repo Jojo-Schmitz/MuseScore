@@ -216,7 +216,7 @@ QVector<QLineF> BSymbol::dragAnchorLines() const
 
 QPointF BSymbol::pagePos() const
       {
-      if (parent() && (parent()->type() == ElementType::SEGMENT)) {
+      if (parent() && parent()->isSegment()) {
             QPointF p(pos());
             System* system = segment()->measure()->system();
             if (system) {
@@ -235,7 +235,7 @@ QPointF BSymbol::pagePos() const
 
 QPointF BSymbol::canvasPos() const
       {
-      if (parent() && (parent()->type() == ElementType::SEGMENT)) {
+      if (parent() && parent()->isSegment()) {
             QPointF p(pos());
             Segment* s = toSegment(parent());
 

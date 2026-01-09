@@ -717,7 +717,7 @@ void OveToMScore::convertTrackElements(int track) {
 
 void OveToMScore::convertLineBreak(){
       for (MeasureBase* mb = score_->measures()->first(); mb; mb = mb->next()) {
-            if (mb->type() != ElementType::MEASURE)
+            if (!mb->isMeasure())
                   continue;
             Measure* measure = static_cast<Measure*> (mb);
 

@@ -257,7 +257,7 @@ QPointF PalmMute::linePos(Grip grip, System** sys) const
             else if (c) {
                   s = c->segment()->system();
                   x = c->pos().x() + c->segment()->pos().x() + c->segment()->measure()->pos().x();
-                  if (c->type() == ElementType::REST && c->durationType().isMeasure())
+                  if (c->isRest() && c->durationType().isMeasure())
                         x -= c->x();
                   }
             if (!s) {

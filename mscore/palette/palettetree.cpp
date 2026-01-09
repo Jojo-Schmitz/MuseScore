@@ -285,7 +285,7 @@ bool PaletteCell::read(XmlReader& e)
                   else {
                         element->read(e);
                         element->styleChanged();
-                        if (element->type() == ElementType::ICON) {
+                        if (element->isIcon()) {
                               Icon* icon = static_cast<Icon*>(element.get());
                               QAction* ac = getAction(icon->action());
                               if (ac) {
@@ -495,7 +495,7 @@ bool PalettePanel::writeToFile(const QString& p) const
       QSet<ImageStoreItem*> images;
       size_t n = cells.size();
       for (size_t i = 0; i < n; ++i) {
-            if (cells[i] == 0 || cells[i]->element == 0 || cells[i]->element->type() != ElementType::IMAGE)
+            if (cells[i] == 0 || cells[i]->element == 0 || !cells[i]->element->isImage())
                   continue;
             images.insert(toImage(cells[i]->element.get())->storeItem());
             }

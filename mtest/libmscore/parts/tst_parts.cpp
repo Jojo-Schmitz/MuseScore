@@ -618,7 +618,7 @@ MasterScore* TestParts::doRemoveFingering()
       Note* note   = chord->upNote();
       Element* fingering = 0;
       foreach(Element* e, note->el()) {
-            if (e->type() == ElementType::FINGERING) {
+            if (e->isFingering()) {
                   fingering = e;
                   break;
                   }
@@ -741,7 +741,7 @@ MasterScore* TestParts::doRemoveSymbol()
       Note* note   = chord->upNote();
       Element* se = 0;
       foreach(Element* e, note->el()) {
-            if (e->type() == ElementType::SYMBOL) {
+            if (e->isSymbol()) {
                   se = e;
                   break;
                   }
@@ -864,7 +864,7 @@ MasterScore* TestParts::doRemoveChordline()
 
       Element* se = 0;
       foreach(Element* e, chord->el()) {
-            if (e->type() == ElementType::CHORDLINE) {
+            if (e->isChordLine()) {
                   se = e;
                   break;
                   }
@@ -987,7 +987,7 @@ MasterScore* TestParts::doRemoveImage()
       Note* note   = chord->upNote();
       Element* fingering = 0;
       foreach(Element* e, note->el()) {
-            if (e->type() == IMAGE) {
+            if (e->isImage()) {
                   fingering = e;
                   break;
                   }

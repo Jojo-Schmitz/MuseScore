@@ -2616,18 +2616,18 @@ std::pair<int, float> Element::barbeat() const
       TimeSigMap* tsm = this->score()->sigmap();
       const Element* p = this;
       int ticksB = ticks_beat(tsm->timesig(0).timesig().denominator());
-      while(p && p->type() != ElementType::SEGMENT && p->type() != ElementType::MEASURE)
+      while(p && !p->isSegment() && !p->isMeasure())
             p = p->parent();
 
       if (!p) {
             return std::pair<int, float>(0, 0.0F);
             }
-      else if (p->type() == ElementType::SEGMENT) {
+      else if (p->isSegment()) {
             const Segment* seg = static_cast<const Segment*>(p);
             tsm->tickValues(seg->tick().ticks(), &bar, &beat, &ticks);
             ticksB = ticks_beat(tsm->timesig(seg->tick().ticks()).timesig().denominator());
             }
-      else if (p->type() == ElementType::MEASURE) {
+      else if (p->isMeasure()) {
             const Measure* m = static_cast<const Measure*>(p);
             bar = m->no();
             beat = -1;

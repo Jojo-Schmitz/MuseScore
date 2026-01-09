@@ -781,7 +781,7 @@ QPointF SLine::linePos(Grip grip, System** sys) const
                   ChordRest* cr;
                   if (grip == Grip::START) {
                         cr = toChordRest(startElement());
-                        if (cr && type() == ElementType::OTTAVA) {
+                        if (cr && isOttava()) {
                               // some sources say to center the text over the notehead
                               // others say to start the text just to left of notehead
                               // some say to include accidental, others don't
@@ -871,7 +871,7 @@ QPointF SLine::linePos(Grip grip, System** sys) const
                               // (for LYRICSLINE, this is hyphen; melisma line is handled above)
                               // lay out to just before next chordrest on this staff, or barline
                               // tick2 actually tells us the right chordrest to look for
-                              if (cr && endElement()->parent() && endElement()->parent()->type() == ElementType::SEGMENT) {
+                              if (cr && endElement()->parent() && endElement()->parent()->isSegment()) {
                                     qreal x2 = cr->x() /* TODO + cr->space().rw() */;
                                     Segment* currentSeg = toSegment(endElement()->parent());
                                     Segment* seg = score()->tick2segmentMM(tick2(), false, SegmentType::ChordRest);
@@ -892,7 +892,7 @@ QPointF SLine::linePos(Grip grip, System** sys) const
                                                 seg = currentSeg->measure()->last();
                                           // allow lyrics hyphen to extend to barline
                                           // other lines stop 1sp short
-                                          qreal gap = (type() == ElementType::LYRICSLINE) ? 0.0 : sp;
+                                          qreal gap = isLyricsLine() ? 0.0 : sp;
                                           qreal x3 = seg->enabled() ? seg->x() : seg->measure()->width();
                                           x2 = qMax(x2, x3 - gap);
                                           }
@@ -966,7 +966,7 @@ QPointF SLine::linePos(Grip grip, System** sys) const
                         // align to barline
                         if (seg && (seg->segmentType() & SegmentType::BarLineType)) {
                               Element* e = seg->element(0);
-                              if (e && e->type() == ElementType::BAR_LINE) {
+                              if (e && e->isBarLine()) {
                                     BarLineType blt = toBarLine(e)->barLineType();
                                     switch (blt) {
                                           case BarLineType::END_REPEAT:
@@ -1179,7 +1179,7 @@ void SLine::layout()
                   qreal len = p2.x() - p1.x();
                   // enforcing a minimum length would be possible but inadvisable
                   // the line length calculations are tuned well enough that this should not be needed
-                  //if (anchor() == Anchor::SEGMENT && type() != ElementType::PEDAL)
+                  //if (anchor() == Anchor::SEGMENT && !isPedal())
                   //      len = qMax(1.0 * spatium(), len);
                   lineSegm->setPos(p1);
                   lineSegm->setPos2(QPointF(len, p2.y() - p1.y()));

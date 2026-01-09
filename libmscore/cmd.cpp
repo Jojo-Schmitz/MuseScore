@@ -362,7 +362,7 @@ void Score::cmdAddSpanner(Spanner* spanner, const QPointF& pos, bool firstStaffO
       if (firstStaffOnly)
             staffIdx = 0;
       // ignore if we do not have a measure
-      if (mb == 0 || mb->type() != ElementType::MEASURE) {
+      if (mb == 0 || !mb->isMeasure()) {
             qDebug("cmdAddSpanner: cannot put object here");
             delete spanner;
             return;
@@ -885,7 +885,7 @@ Segment* Score::setNoteRest(Segment* segment, int track, NoteVal nval, Fraction 
       if (tie)
             connectTies();
       if (nr) {
-            if (is.slur() && nr->type() == ElementType::NOTE) {
+            if (is.slur() && nr->isNote()) {
                   // If the start element was the same as the end element when the slur was created,
                   // the end grip of the front slur segment was given an x-offset of 3.0 * spatium().
                   // Now that the slur is about to be given a new end element, this should be reset.
@@ -1159,7 +1159,7 @@ bool Score::makeGapVoice(Segment* seg, int track, Fraction len, const Fraction& 
             if (n > 1) {
                   Fraction crtick = cr1->tick() + cr1->actualTicks();
                   Measure* measure = tick2measure(crtick);
-                  if (cr1->type() == ElementType::CHORD) {
+                  if (cr1->isChord()) {
                         // split Chord
                         Chord* c = toChord(cr1);
                         for (size_t i = 1; i < n; ++i) {
@@ -2116,11 +2116,11 @@ void Score::cmdResetBeamMode()
                   ChordRest* cr = toChordRest(seg->element(track));
                   if (!cr)
                         continue;
-                  if (cr->type() == ElementType::CHORD) {
+                  if (cr->isChord()) {
                         if (cr->beamMode() != Beam::Mode::AUTO)
                               cr->undoChangeProperty(Pid::BEAM_MODE, int(Beam::Mode::AUTO));
                         }
-                  else if (cr->type() == ElementType::REST) {
+                  else if (cr->isRest()) {
                         if (cr->beamMode() != Beam::Mode::NONE)
                               cr->undoChangeProperty(Pid::BEAM_MODE, int(Beam::Mode::NONE));
                         }
@@ -2434,7 +2434,7 @@ Element* Score::move(const QString& cmd)
             // if something found and command is forward, the element found is the destination
             if (trg && cmd == "next-chord") {
                   // if chord, go to topmost note
-                  if (trg->type() == ElementType::CHORD)
+                  if (trg->isChord())
                         trg = toChord(trg)->upNote();
                   setPlayNote(true);
                   select(trg, SelectType::SINGLE, 0);
@@ -2599,7 +2599,7 @@ Element* Score::move(const QString& cmd)
             }
 
       if (el) {
-            if (el->type() == ElementType::CHORD)
+            if (el->isChord())
                   el = toChord(el)->upNote();       // originally downNote
             setPlayNote(true);
             if (noteEntryMode()) {
@@ -2798,7 +2798,7 @@ void Score::cmdIncDecDuration(int nSteps, bool stepDotted)
 void Score::cmdAddBracket()
       {
       for (Element* el : selection().elements()) {
-            if (el->type() == ElementType::ACCIDENTAL) {
+            if (el->isAccidental()) {
                   Accidental* acc = toAccidental(el);
                   acc->undoChangeProperty(Pid::ACCIDENTAL_BRACKET, int(AccidentalBracket::BRACKET));
                   }
@@ -2812,21 +2812,21 @@ void Score::cmdAddBracket()
 void Score::cmdAddParentheses()
       {
       for (Element* el : selection().elements()) {
-            if (el->type() == ElementType::NOTE) {
+            if (el->isNote()) {
                   Note* n = toNote(el);
                   n->addParentheses();
                   }
-            else if (el->type() == ElementType::ACCIDENTAL) {
+            else if (el->isAccidental()) {
                   Accidental* acc = toAccidental(el);
                   acc->undoChangeProperty(Pid::ACCIDENTAL_BRACKET, int(AccidentalBracket::PARENTHESIS));
                   }
-            else if (el->type() == ElementType::HARMONY) {
+            else if (el->isHarmony()) {
                   Harmony* h = toHarmony(el);
                   h->setLeftParen(true);
                   h->setRightParen(true);
                   h->render();
                   }
-            else if (el->type() == ElementType::TIMESIG) {
+            else if (el->isTimeSig()) {
                   TimeSig* ts = toTimeSig(el);
                   ts->setLargeParentheses(true);
                   }
@@ -2840,7 +2840,7 @@ void Score::cmdAddParentheses()
 void Score::cmdAddBraces()
       {
       for (Element* el : selection().elements()) {
-            if (el->type() == ElementType::ACCIDENTAL) {
+            if (el->isAccidental()) {
                   Accidental* acc = toAccidental(el);
                   acc->undoChangeProperty(Pid::ACCIDENTAL_BRACKET, int(AccidentalBracket::BRACE));
                   }
@@ -2902,7 +2902,7 @@ void Score::cmdAddGrace (NoteType graceType, int duration)
       {
       const QList<Element*> copyOfElements = selection().elements();
       for (Element* e : copyOfElements) {
-            if (e->type() == ElementType::NOTE) {
+            if (e->isNote()) {
                   Note* n = toNote(e);
                   setGraceNote(n->chord(), n->pitch(), graceType, duration);
                   }
@@ -2958,7 +2958,7 @@ void Score::cmdExplode()
                   int n = 0;
                   for (Segment* s = startSegment; s && s != endSegment; s = s->next1()) {
                         Element* e = s->element(srcTrack);
-                        if (e && e->type() == ElementType::CHORD) {
+                        if (e && e->isChord()) {
                               Chord* c = toChord(e);
                               n = qMax(n, int(c->notes().size()));
                               for (Chord*& graceChord : c->graceNotes())
@@ -3001,7 +3001,7 @@ void Score::cmdExplode()
                   int track = (srcStaff + i) * VOICES;
                   for (Segment* s = startSegment; s && s != endSegment; s = s->next1()) {
                         Element* e = s->element(track);
-                        if (e && e->type() == ElementType::CHORD) {
+                        if (e && e->isChord()) {
                               Chord* c = toChord(e); //chord, laststaff, srcstaff
                               doExplode(c, lastStaff, srcStaff, i);
                               for (Chord*& graceChord : c->graceNotes())
@@ -3252,7 +3252,7 @@ void Score::cmdSlashFill()
                               if (!cr)
                                     needGap[voice] = true;
                               // chord == keep looking for an available voice
-                              else if (cr->type() == ElementType::CHORD)
+                              else if (cr->isChord())
                                     continue;
                               // full measure rest == OK to use voice
                               else if (cr->durationType().isMeasure())
@@ -3262,7 +3262,7 @@ void Score::cmdSlashFill()
                               bool ok = true;
                               for (Segment* ns = s->next(SegmentType::ChordRest); ns && ns != endSegment; ns = ns->next(SegmentType::ChordRest)) {
                                     ChordRest* ncr = toChordRest(ns->element(track + voice));
-                                    if (ncr && ncr->type() == ElementType::CHORD) {
+                                    if (ncr && ncr->isChord()) {
                                           ok = false;
                                           break;
                                           }
@@ -3606,7 +3606,7 @@ void Score::cmdResequenceRehearsalMarks()
       RehearsalMark* last = 0;
       for (Segment* s = selection().startSegment(); s && s != selection().endSegment(); s = s->next1()) {
             for (Element* e : s->annotations()) {
-                  if (e->type() == ElementType::REHEARSAL_MARK) {
+                  if (e->isRehearsalMark()) {
                         RehearsalMark* rm = toRehearsalMark(e);
                         if (last) {
                               QString rmText = nextRehearsalMarkText(last, rm);

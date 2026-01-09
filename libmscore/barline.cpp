@@ -1752,9 +1752,9 @@ QString BarLine::accessibleExtraInfo() const
             //jumps
             for (const Element* e : m->el()) {
                   if (!score()->selectionFilter().canSelect(e)) continue;
-                  if (e->type() == ElementType::JUMP)
+                  if (e->isJump())
                         rez= QString("%1 %2").arg(rez, e->screenReaderInfo());
-                  if (e->type() == ElementType::MARKER) {
+                  if (e->isMarker()) {
                         const Marker* m1 = toMarker(e);
                         if (m1->markerType() == Marker::Type::FINE)
                               rez = QString("%1 %2").arg(rez, e->screenReaderInfo());
@@ -1783,7 +1783,7 @@ QString BarLine::accessibleExtraInfo() const
             Spanner* s = interval.value;
             if (!score()->selectionFilter().canSelect(s))
                   continue;
-            if (s->type() == ElementType::VOLTA) {
+            if (s->isVolta()) {
                   if (s->tick() == tick)
                         rez = QObject::tr("%1 Start of %2").arg(rez, s->screenReaderInfo());
                   if (s->tick2() == tick)

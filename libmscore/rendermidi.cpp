@@ -206,7 +206,7 @@ void Score::updateChannel()
                         if (!s->element(track))
                               continue;
                         Element* e = s->element(track);
-                        if (e->type() != ElementType::CHORD)
+                        if (!e->isChord())
                               continue;
                         Chord* c = toChord(e);
                         int channel = st->channel(c->tick(), c->voice());
@@ -241,7 +241,7 @@ int toMilliseconds(float tempo, float midiTime) {
 //---------------------------------------------------------
 bool isGlissandoFor(const Note* note) {
       for (Spanner* spanner : note->spannerFor())
-            if (spanner->type() == ElementType::GLISSANDO)
+            if (spanner->isGlissando())
                   return true;
       return false;
       }
@@ -264,7 +264,7 @@ static void playNote(EventMap* events, const Note* note, int channel, int pitch,
       events->insert(std::pair<int, NPlayEvent>(onTime, ev));
       // adds portamento for continuous glissando
       for (Spanner* spanner : note->spannerFor()) {
-            if (spanner->type() == ElementType::GLISSANDO) {
+            if (spanner->isGlissando()) {
                   Glissando *glissando = toGlissando(spanner);
                   if (glissando->glissandoStyle() == GlissandoStyle::PORTAMENTO) {
                         Note* nextNote = toNote(spanner->endElement());
@@ -465,7 +465,7 @@ static void collectNote(EventMap* events, int channel, const Note* note, qreal v
 
       // Bends
       for (Element* e : note->el()) {
-            if (e == 0 || e->type() != ElementType::BEND)
+            if (e == 0 || !e->isBend())
                   continue;
             Bend* bend = toBend(e);
             if (!bend->playBend())
@@ -726,7 +726,7 @@ void MidiRenderer::collectMeasureEventsSimple(EventMap* events, Measure const * 
                         continue;
                         }
                   Element* cr = seg->element(track);
-                  if (cr == 0 || cr->type() != ElementType::CHORD)
+                  if (cr == 0 || !cr->isChord())
                         continue;
 
                   Chord* chord = toChord(cr);
@@ -948,7 +948,7 @@ void Score::updateVelo()
                   for (const Element* e : s->annotations()) {
                         if (e->staffIdx() != staffIdx)
                               continue;
-                        if (e->type() != ElementType::DYNAMIC)
+                        if (!e->isDynamic())
                               continue;
                         const Dynamic* d = toDynamic(e);
                         int v            = d->velocity();
@@ -1035,7 +1035,7 @@ void Score::updateVelo()
                   }
             for (const auto& sp : _spanner.map()) {
                   Spanner* s = sp.second;
-                  if (s->type() != ElementType::HAIRPIN || sp.second->staffIdx() != staffIdx)
+                  if (!s->isHairpin() || sp.second->staffIdx() != staffIdx)
                         continue;
                   Hairpin* h = toHairpin(s);
                   updateHairpin(h);
@@ -1296,7 +1296,7 @@ void renderTremolo(Chord* chord, QList<NoteEventList>& ell)
                   return;
 
             Chord* c2 = toChord(s2El);
-            if (c2->type() == ElementType::CHORD) {
+            if (c2->isChord()) {
                   int notes2 = int(c2->notes().size());
                   int tnotes = qMax(notes, notes2);
                   int tticks = chord->ticks().ticks() * 2; // use twice the size
@@ -1485,7 +1485,7 @@ int articulationExcursion(Note *noteL, Note *noteR, int deltastep)
       bool done = false;
       for (int track = startTrack; track < endTrack; ++track) {
             Element *e = segment->element(track);
-            if (!e || e->type() != ElementType::CHORD)
+            if (!e || !e->isChord())
                   continue;
             Chord* chord = toChord(e);
             if (chord->vStaffIdx() != chordL->vStaffIdx())
@@ -1686,7 +1686,7 @@ bool renderNoteArticulation(NoteEventList* events, Note* note, bool chromatic, i
             bool isGlissando = false;
             QList<int> onTimes;
             for (Spanner* spanner : note->spannerFor()) {
-                  if (spanner->type() == ElementType::GLISSANDO) {
+                  if (spanner->isGlissando()) {
                         Glissando* glissando = toGlissando(spanner);
                         EaseInOut easeInOut(static_cast<qreal>(glissando->easeIn())/100.0,
                               static_cast<qreal>(glissando->easeOut())/100.0);
@@ -1855,7 +1855,7 @@ bool renderNoteArticulation(NoteEventList* events, Note * note, bool chromatic, 
 bool noteHasGlissando(Note *note)
       {
       for (Spanner* spanner : note->spannerFor()) {
-            if ((spanner->type() == ElementType::GLISSANDO)
+            if ((spanner->isGlissando())
                && spanner->endElement()
                && (ElementType::NOTE == spanner->endElement()->type()))
                   return true;
@@ -1922,7 +1922,7 @@ void renderGlissando(NoteEventList* events, Note *notestart)
       std::vector<int> empty = {};
       std::vector<int> body;
       for (Spanner* spanner : notestart->spannerFor()) {
-            if (spanner->type() == ElementType::GLISSANDO
+            if (spanner->isGlissando()
             && toGlissando(spanner)->playGlissando()
             && glissandoPitchOffsets(spanner, body))
                   renderNoteArticulation(events, notestart, true, MScore::division, empty, body, false, true, empty, 16, 0);
@@ -1942,7 +1942,7 @@ Trill* findFirstTrill(Chord *chord)
       auto spanners = chord->score()->spannerMap().findOverlapping(1+chord->tick().ticks(),
          chord->tick().ticks() + chord->actualTicks().ticks() - 1);
       for (auto i : spanners) {
-            if (i.value->type() != ElementType::TRILL)
+            if (!i.value->isTrill())
                   continue;
             if (i.value->track() != chord->track())
                   continue;

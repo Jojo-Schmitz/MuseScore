@@ -554,7 +554,7 @@ int Rest::computeLineOffset(int lines)
                   Element* e = s->element(baseTrack + v);
                   // try to find match in any other voice
                   if (e) {
-                        if (e->type() == ElementType::REST) {
+                        if (e->isRest()) {
                               Rest* r = toRest(e);
                               if (r->globalTicks() == globalTicks()) {
                                     matchFound = true;

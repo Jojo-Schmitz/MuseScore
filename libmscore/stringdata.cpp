@@ -171,7 +171,7 @@ void StringData::fretChords(Chord * chord) const
       int pitchOffset = -transp + chord->staff()->pitchOffset(chord->segment()->tick());
       // if chord parent is not a segment, the chord is special (usually a grace chord):
       // fret it by itself, ignoring the segment
-      if (chord->parent()->type() != ElementType::SEGMENT)
+      if (!chord->parent()->isSegment())
             sortChordNotes(sortedNotes, chord, pitchOffset, &count);
       else {
             // scan each chord of seg from same staff as 'chord', inserting each of its notes in sortedNotes
@@ -181,7 +181,7 @@ void StringData::fretChords(Chord * chord) const
             int trkTo   = trkFrom + VOICES;
             for(trk = trkFrom; trk < trkTo; ++trk) {
                   Element* ch = seg->elist().at(trk);
-                  if (ch && ch->type() == ElementType::CHORD)
+                  if (ch && ch->isChord())
                         sortChordNotes(sortedNotes, toChord(ch), pitchOffset, &count);
                   }
             }

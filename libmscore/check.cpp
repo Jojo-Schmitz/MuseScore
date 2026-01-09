@@ -33,7 +33,7 @@ void Score::checkSlurs()
       {
 #if 0 //TODO1
       foreach(Element* e, _gel) {
-            if (e->type() != SLUR)
+            if (!e->isSlur())
                   continue;
             Slur* s = (Slur*)e;
             Element* n1 = s->startElement();

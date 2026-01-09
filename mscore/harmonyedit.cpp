@@ -277,7 +277,7 @@ void HarmonyCanvas::paintEvent(QPaintEvent* event)
             p.drawText(ts->x, ts->y, ts->text);
             }
 
-      if (dragElement && dragElement->type() == ElementType::FSYMBOL) {
+      if (dragElement && dragElement->isFSymbol()) {
             FSymbol* sb = static_cast<FSymbol*>(dragElement);
 
 //TODO:ws             double _spatium = 2.0 * PALETTE_SPATIUM / extraMag;
@@ -471,7 +471,7 @@ void HarmonyCanvas::setChordDescription(ChordDescription* sd, ChordList* sl)
 void HarmonyCanvas::dropEvent(QDropEvent* /*event*/)
       {
 #if 0       // TODO:ws
-      if (dragElement && dragElement->type() == ElementType::FSYMBOL) {
+      if (dragElement && dragElement->isFSymbol()) {
             FSymbol* sb = static_cast<FSymbol*>(dragElement);
 
             double _spatium = 2.0 * PALETTE_SPATIUM / extraMag;
@@ -543,7 +543,7 @@ void HarmonyCanvas::dragLeaveEvent(QDragLeaveEvent*)
 void HarmonyCanvas::dragMoveEvent(QDragMoveEvent* event)
       {
       event->acceptProposedAction();
-      if (dragElement && dragElement->type() == ElementType::FSYMBOL) {
+      if (dragElement && dragElement->isFSymbol()) {
             dragElement->setPos(imatrix.map(event->pos()));
             update();
             }
@@ -567,7 +567,7 @@ void HarmonyCanvas::deleteAction()
 
 static void updateHarmony(void*, Element* e)
       {
-      if (e->type() == ElementType::HARMONY)
+      if (e->isHarmony())
             static_cast<Harmony*>(e)->render();
       }
 

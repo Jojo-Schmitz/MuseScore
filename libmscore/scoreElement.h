@@ -423,23 +423,19 @@ class ScoreElement {
 //---------------------------------------------------
 
 static inline ChordRest* toChordRest(ScoreElement* e) {
-      Q_ASSERT(e == 0 || e->type() == ElementType::CHORD || e->type() == ElementType::REST
-         || e->type() == ElementType::REPEAT_MEASURE);
+      Q_ASSERT(e == 0 || e->isChordRest());
       return (ChordRest*)e;
       }
 static inline const ChordRest* toChordRest(const ScoreElement* e) {
-      Q_ASSERT(e == 0 || e->type() == ElementType::CHORD || e->type() == ElementType::REST
-         || e->type() == ElementType::REPEAT_MEASURE);
+      Q_ASSERT(e == 0 || e->isChordRest());
       return (const ChordRest*)e;
       }
 static inline DurationElement* toDurationElement(ScoreElement* e) {
-      Q_ASSERT(e == 0 || e->type() == ElementType::CHORD || e->type() == ElementType::REST
-         || e->type() == ElementType::REPEAT_MEASURE || e->type() == ElementType::TUPLET);
+      Q_ASSERT(e == 0 || e->isChordRest() || e->isTuplet());
       return (DurationElement*)e;
       }
 static inline const DurationElement* toDurationElement(const ScoreElement* e) {
-      Q_ASSERT(e == 0 || e->type() == ElementType::CHORD || e->type() == ElementType::REST
-         || e->type() == ElementType::REPEAT_MEASURE || e->type() == ElementType::TUPLET);
+      Q_ASSERT(e == 0 || e->isChordRest() || e->isTuplet());
       return (const DurationElement*)e;
       }
 static inline Rest* toRest(ScoreElement* e) {
@@ -451,11 +447,11 @@ static inline const Rest* toRest(const ScoreElement* e) {
       return (const Rest*)e;
       }
 static inline SlurTieSegment* toSlurTieSegment(ScoreElement* e) {
-      Q_ASSERT(e == 0 || e->type() == ElementType::SLUR_SEGMENT || e->type() == ElementType::TIE_SEGMENT);
+      Q_ASSERT(e == 0 || e->isSlurTieSegment());
       return (SlurTieSegment*)e;
       }
 static inline const SlurTieSegment* toSlurTieSegment(const ScoreElement* e) {
-      Q_ASSERT(e == 0 || e->type() == ElementType::SLUR_SEGMENT || e->type() == ElementType::TIE_SEGMENT);
+      Q_ASSERT(e == 0 || e->isSlurTieSegment());
       return (const SlurTieSegment*)e;
       }
 static inline MeasureBase* toMeasureBase(ScoreElement* e) {

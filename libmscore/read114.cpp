@@ -1587,7 +1587,7 @@ static void readMeasure(Measure* m, int staffIdx, XmlReader& e)
                                     Chord* pch = 0;       // previous chord
                                     if (ss) {
                                           ChordRest* cr = toChordRest(ss->element(track));
-                                          if (cr && cr->type() == ElementType::CHORD)
+                                          if (cr && cr->isChord())
                                                 pch = toChord(cr);
                                           }
                                     if (pch) {
@@ -1921,7 +1921,7 @@ static void readMeasure(Measure* m, int staffIdx, XmlReader& e)
                   Element* el = Element::name2Element(tag, m->score());
                   // hack - needed because tick tags are unreliable in 1.3 scores
                   // for symbols attached to anything but a measure
-                  if (el->type() == ElementType::SYMBOL)
+                  if (el->isSymbol())
                         el->setParent(m);    // this will get reset when adding to segment
                   el->setTrack(e.track());
                   el->read(e);

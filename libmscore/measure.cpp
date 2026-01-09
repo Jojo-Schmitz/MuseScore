@@ -3616,7 +3616,7 @@ Element* Measure::nextElementStaff(int staff)
                   }
             }
 
-      for (; e && e->type() != ElementType::SEGMENT; e = e->parent()) {
+      for (; e && !e->isSegment(); e = e->parent()) {
             ;
       }
       Segment* seg = toSegment(e);
