@@ -1070,7 +1070,7 @@ void Tie::setStartNote(Note* note)
 
 Note* Tie::startNote() const
       {
-      Q_ASSERT(!startElement() || startElement()->type() == ElementType::NOTE);
+      Q_ASSERT(!startElement() || startElement()->isNote());
       return toNote(startElement());
       }
 

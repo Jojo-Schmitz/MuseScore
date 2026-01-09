@@ -979,7 +979,7 @@ QFileInfoList Fluid::sfFiles()
       QStringList extensionsDir = Ms::Extension::getDirectoriesByType(Ms::Extension::soundfontsDir);
       pl.append(extensionsDir);
 
-      foreach (const QString& s, pl) {
+      for (const QString& s : pl) {
             QString ss(s);
             if (!s.isEmpty() && s[0] == '~')
                   ss = QDir::homePath() + s.mid(1);

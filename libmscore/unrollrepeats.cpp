@@ -74,7 +74,7 @@ static void removeRepeatMarkings(Score* score)
       // set the last bar line to end symbol
       score->lastMeasure()->setEndBarLineType(BarLineType::END, false);
       Segment* last = score->lastMeasure()->segments().last();
-      if (last->segmentType() == SegmentType::EndBarLine) {
+      if (last->isEndBarLineType()) {
             auto els = last->elist();
             for (uint i = 0; i < els.size(); i++) {
                   if (!els[i]) continue;

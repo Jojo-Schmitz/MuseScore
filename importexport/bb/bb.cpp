@@ -244,7 +244,7 @@ bool BBFile::read(const QString& name)
 
 #if 0
       qDebug("================chords=======================");
-      foreach(BBChord c, _chords) {
+      for (BBChord c : _chords) {
             qDebug("chord beat %3d bass %d root %d extension %d",
                c.beat, c.bass, c.root, c.extension);
             }
@@ -428,7 +428,7 @@ Score::FileError importBB(MasterScore* score, const QString& name)
 
       if (tracks->isEmpty()) {
             for (MeasureBase* mb = score->first(); mb; mb = mb->next()) {
-                  if (mb->type() != ElementType::MEASURE)
+                  if (!mb->isMeasure())
                         continue;
                   Measure* measure = toMeasure(mb);
                   Rest* rest = new Rest(score, TDuration::DurationType::V_MEASURE);
@@ -445,7 +445,7 @@ Score::FileError importBB(MasterScore* score, const QString& name)
             }
 
       for (MeasureBase* mb = score->first(); mb; mb = mb->next()) {
-            if (mb->type() != ElementType::MEASURE)
+            if (!mb->isMeasure())
                   continue;
             Measure* measure = toMeasure(mb);
             Segment* s = measure->findSegment(SegmentType::ChordRest, measure->tick());
@@ -468,7 +468,7 @@ Score::FileError importBB(MasterScore* score, const QString& name)
       text->setPlainText(bb.title());
 
       MeasureBase* measureB = score->first();
-      if (measureB->type() != ElementType::VBOX) {
+      if (!measureB->isVBox()) {
             measureB = new VBox(score);
             measureB->setTick(Fraction(0,1));
             measureB->setNext(score->first());
@@ -516,9 +516,9 @@ Score::FileError importBB(MasterScore* score, const QString& name)
 
       int n = 0;
       for (MeasureBase* mb = score->first(); mb; mb = mb->next()) {
-            if (mb->type() != ElementType::MEASURE)
+            if (!mb->isMeasure())
                   continue;
-            Measure* measure = (Measure*)mb;
+            Measure* measure = toMeasure(mb);
             if (n && (n % 4) == 0) {
                   LayoutBreak* lb = new LayoutBreak(score);
                   lb->setLayoutBreakType(LayoutBreak::Type::LINE);

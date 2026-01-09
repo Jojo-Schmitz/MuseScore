@@ -89,7 +89,7 @@ void QOscServer::readyRead()
                   i++; //move one byte more!
         			    if ( ! args.isEmpty() ) {
         				        QList<QVariant> list1;
-        				        foreach( QChar type, args ) {
+                          for ( QChar type : args ) {
         					            while ( i%4 != 0 ) ++i;
         					            //qDebug() << i << "\ttrying to convert to" << type;
         
@@ -131,13 +131,13 @@ void QOscServer::readyRead()
               		replacements[ "*" ] = ".*";
               		replacements[ "?" ] = ".";
               
-              		foreach( QString rep, replacements.keys() )
+                  for ( QString rep : replacements.keys() )
               			path.replace( rep, replacements[ rep ] );
               
               		//qDebug() << " after transformation to OSC-RegExp path is" << path;
               
               		QRegExp exp( path );
-              		foreach( PathObject* obj, paths ) {
+                  for ( PathObject* obj : paths ) {
               		      if ( exp.exactMatch( obj->_path ) )
               				        obj->signalData( arguments );
               		      else if ( QRegExp( obj->_path ).exactMatch( path ) )

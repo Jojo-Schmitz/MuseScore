@@ -2402,7 +2402,7 @@ std::vector<ChordRest*> Score::deleteRange(Segment* s1, Segment* s2, int track1,
                         if (!s->isChordRestType()) {
                               // do not delete TimeSig/KeySig,
                               // it doesn't make sense to do it, except on full system
-                              if (s->segmentType() != SegmentType::TimeSig && s->segmentType() != SegmentType::KeySig) {
+                              if (!s->isTimeSigType() && !s->isKeySigType()) {
                                     if (!(e->isBarLine()))
                                           undoRemoveElement(e);
                                     }
@@ -2630,12 +2630,12 @@ void Score::cmdFullMeasureRest()
             stick1 = selection().tickStart();
             stick2 = selection().tickEnd();
             Segment* ss1 = s1;
-            if (ss1 && ss1->segmentType() != SegmentType::ChordRest)
+            if (ss1 && !ss1->isChordRestType())
                   ss1 = ss1->next1(SegmentType::ChordRest);
             bool fullMeasure = ss1 && (ss1->measure()->first(SegmentType::ChordRest) == ss1)
-                  && (s2 == 0 || (s2->segmentType() == SegmentType::EndBarLine)
-                        || (s2->segmentType() == SegmentType::TimeSigAnnounce)
-                        || (s2->segmentType() == SegmentType::KeySigAnnounce));
+                  && (s2 == 0 || (s2->isEndBarLineType())
+                        || (s2->isTimeSigAnnounceType())
+                        || (s2->isKeySigAnnounceType()));
             if (!fullMeasure) {
                   return;
                   }
@@ -2665,7 +2665,7 @@ void Score::cmdFullMeasureRest()
             for (Segment* s = s1; s != s2; s = s->next1()) {
                   if (!(s->measure()->isOnlyRests(track))) // Don't remove anything from measures that contain notes
                         continue;
-                  if (s->segmentType() != SegmentType::ChordRest || !s->element(track))
+                  if (!s->isChordRestType() || !s->element(track))
                         continue;
                   ChordRest* cr = toChordRest(s->element(track));
                   // keep first rest of measure as placeholder (replaced in second pass)
@@ -2806,7 +2806,7 @@ void Score::cmdCreateTuplet(ChordRest* ocr, Tuplet* tuplet)
       ChordRest* cr;
       if (ocr->isChord()) {
             cr = new Chord(this);
-            foreach (Note* oldNote, toChord(ocr)->notes()) {
+            for (Note* oldNote : toChord(ocr)->notes()) {
                   Note* note = new Note(this);
                   note->setPitch(oldNote->pitch());
                   note->setTpc1(oldNote->tpc1());
@@ -2978,7 +2978,7 @@ void Score::removeChordRest(ChordRest* cr, bool clearSegment)
 
 void Score::cmdDeleteTuplet(Tuplet* tuplet, bool replaceWithRest)
       {
-      foreach(DurationElement* de, tuplet->elements()) {
+      for (DurationElement* de : tuplet->elements()) {
             if (de->isChordRest())
                   removeChordRest(toChordRest(de), true);
             else {
@@ -4768,7 +4768,7 @@ void Score::undoAddElement(Element* element)
                         Segment* segment = element->parent()->isFretDiagram() ? toSegment(element->parent()->parent()) : toSegment(element->parent());
                         Fraction tick    = segment->tick();
                         Measure* m       = score->tick2measure(tick);
-                        if ((segment->segmentType() & (SegmentType::EndBarLine | SegmentType::Clef)) && (m->tick() == tick) && m->prevMeasure())
+                        if ((segment->isType(SegmentType::EndBarLine | SegmentType::Clef)) && (m->tick() == tick) && m->prevMeasure())
                               m = m->prevMeasure();
                         Segment* seg     = m->undoGetSegment(segment->segmentType(), tick);
                         ne->setTrack(ntrack);

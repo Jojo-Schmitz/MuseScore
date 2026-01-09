@@ -244,7 +244,7 @@ QPointF PalmMute::linePos(Grip grip, System** sys) const
                                     if (crFound)
                                           break;
                                     }
-                              else if (seg->segmentType() == SegmentType::EndBarLine) {
+                              else if (seg->isEndBarLineType()) {
                                     break;
                                     }
                               }
@@ -257,7 +257,7 @@ QPointF PalmMute::linePos(Grip grip, System** sys) const
             else if (c) {
                   s = c->segment()->system();
                   x = c->pos().x() + c->segment()->pos().x() + c->segment()->measure()->pos().x();
-                  if (c->type() == ElementType::REST && c->durationType() == TDuration::DurationType::V_MEASURE)
+                  if (c->isRest() && c->durationType() == TDuration::DurationType::V_MEASURE)
                         x -= c->x();
                   }
             if (!s) {

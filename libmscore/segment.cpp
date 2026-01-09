@@ -254,7 +254,7 @@ Segment* Segment::next1MM() const
 Segment* Segment::next1(SegmentType types) const
       {
       for (Segment* s = next1(); s; s = s->next1()) {
-            if (s->segmentType() & types)
+            if (s->isType(types))
                   return s;
             }
       return 0;
@@ -263,7 +263,7 @@ Segment* Segment::next1(SegmentType types) const
 Segment* Segment::next1MM(SegmentType types) const
       {
       for (Segment* s = next1MM(); s; s = s->next1MM()) {
-            if (s->segmentType() & types)
+            if (s->isType(types))
                   return s;
             }
       return 0;
@@ -285,7 +285,7 @@ Segment* Segment::next1MMenabled() const
 Segment* Segment::next(SegmentType types) const
       {
       for (Segment* s = next(); s; s = s->next()) {
-            if (s->segmentType() & types)
+            if (s->isType(types))
                   return s;
             }
       return 0;
@@ -314,7 +314,7 @@ Segment* Segment::nextInStaff(int staffIdx, SegmentType type) const
 Segment* Segment::prev(SegmentType types) const
       {
       for (Segment* s = prev(); s; s = s->prev()) {
-            if (s->segmentType() & types)
+            if (s->isType(types))
                   return s;
             }
       return 0;
@@ -383,7 +383,7 @@ Segment* Segment::prev1MMenabled() const
 Segment* Segment::prev1(SegmentType types) const
       {
       for (Segment* s = prev1(); s; s = s->prev1()) {
-            if (s->segmentType() & types)
+            if (s->isType(types))
                   return s;
             }
       return 0;
@@ -392,7 +392,7 @@ Segment* Segment::prev1(SegmentType types) const
 Segment* Segment::prev1MM(SegmentType types) const
       {
       for (Segment* s = prev1MM(); s; s = s->prev1MM()) {
-            if (s->segmentType() & types)
+            if (s->isType(types))
                   return s;
             }
       return 0;
@@ -586,7 +586,7 @@ void Segment::add(Element* el)
                   break;
 
             case ElementType::TIMESIG:
-                  Q_ASSERT(segmentType() == SegmentType::TimeSig || segmentType() == SegmentType::TimeSigAnnounce);
+                  Q_ASSERT(_segmentType == SegmentType::TimeSig || _segmentType == SegmentType::TimeSigAnnounce);
                   checkElement(el, track);
                   _elist[track] = el;
                   el->staff()->addTimeSig(toTimeSig(el));
@@ -976,7 +976,7 @@ qreal Segment::widthInStaff(int staffIdx, SegmentType t) const
             nextSegX = nextSeg->x();
       else {
             Segment* lastSeg = measure()->lastEnabled();
-            if (lastSeg->segmentType() & t)
+            if (lastSeg->isType(t))
                   nextSegX = lastSeg->x() + lastSeg->width();
             else
                   nextSegX = lastSeg->x();
@@ -1254,7 +1254,7 @@ Element* Segment::firstElementForNavigation(int staff)
 
 Element* Segment::lastElementForNavigation(int staff)
       {
-      if (segmentType() == SegmentType::ChordRest) {
+      if (isChordRestType()) {
             for (int voice = staff * VOICES + (VOICES - 1); voice/VOICES == staff; voice--) {
                   Element* el = element(voice);
                   if (!el) {      //there is no chord or rest on this voice
@@ -1287,10 +1287,10 @@ Element* Segment::lastElementForNavigation(int staff)
 Element* Segment::getElement(int staff)
       {
       segmentType();
-      if (segmentType() == SegmentType::ChordRest) {
+      if (isChordRestType()) {
             return firstElementForNavigation(staff);
       }
-      else if (segmentType() & (SegmentType::EndBarLine | SegmentType::BarLine | SegmentType::StartRepeatBarLine)) {
+      else if (isType(SegmentType::EndBarLine | SegmentType::BarLine | SegmentType::StartRepeatBarLine)) {
             for (int i = staff; i >= 0; i--) {
                   if (!element(i * VOICES))
                         continue;
@@ -1425,7 +1425,7 @@ Element* Segment::firstElementOfSegment(Segment* s, int activeStaff)
                         if (tuplet && de == tuplet->elements().front())
                               return tuplet;
                         }
-                  if (i->type() == ElementType::CHORD) {
+                  if (i->isChord()) {
                         Chord* chord = toChord(i);
                         return chord->firstGraceOrNote();
                         }
@@ -1460,7 +1460,7 @@ Element* Segment::nextElementOfSegment(Segment* s, Element* e, int activeStaff)
                   else
                         return next;
                   }
-            if (el->type() == ElementType::CHORD) {
+            if (el->isChord()) {
                   std::vector<Note*> notes = toChord(el)->notes();
                   auto i = std::find(notes.begin(), notes.end(), e);
                   if (i == notes.end())
@@ -1558,7 +1558,7 @@ Element* Segment::lastElementOfSegment(Segment* s, int activeStaff)
             }
       auto i = elements.begin();
       if (*i && (*i)->staffIdx() == activeStaff) {
-            if ((*i)->type() == ElementType::CHORD)
+            if ((*i)->isChord())
                   return toChord(*i)->notes().front();
             else
                   return *i;
@@ -1646,15 +1646,15 @@ Spanner* Segment::lastSpanner(int activeStaff)
 
 bool Segment::notChordRestType(Segment* s)
       {
-      if (s->segmentType() == SegmentType::KeySig ||
-          s->segmentType() == SegmentType::TimeSig ||
-          s->segmentType() == SegmentType::Clef ||
-          s->segmentType() == SegmentType::HeaderClef ||
-          s->segmentType() == SegmentType::BeginBarLine ||
-          s->segmentType() == SegmentType::EndBarLine ||
-          s->segmentType() == SegmentType::BarLine ||
-          s->segmentType() == SegmentType::KeySigAnnounce ||
-          s->segmentType() == SegmentType::TimeSigAnnounce) {
+      if (s->isKeySigType() ||
+          s->isTimeSigType() ||
+          s->isClefType() ||
+          s->isHeaderClefType() ||
+          s->isBeginBarLineType() ||
+          s->isEndBarLineType() ||
+          s->isBarLineType() ||
+          s->isKeySigAnnounceType() ||
+          s->isTimeSigAnnounceType()) {
             return true;
             }
       else {
@@ -1745,7 +1745,7 @@ Element* Segment::nextElement(int activeStaff)
                               p = pp;
                         }
                   Element* el = p;
-                  for (; p && p->type() != ElementType::SEGMENT; p = p->parent()) {
+                  for (; p && !p->isSegment(); p = p->parent()) {
                         ;
                        }
                   Segment* seg = toSegment(p);
@@ -1844,8 +1844,8 @@ Element* Segment::prevElement(int activeStaff)
                          }
                    if (el->staffIdx() != activeStaff)
                          return nullptr;
-                   if (el->type() == ElementType::CHORD || el->type() == ElementType::REST
-                            || el->type() == ElementType::REPEAT_MEASURE) {
+                   if (el->isChord() || el->isRest()
+                            || el->isRepeatMeasure()) {
                          ChordRest* cr = this->cr(el->track());
                          if (cr) {
                                Element* elCr = cr->lastElementBeforeSegment();
@@ -1854,10 +1854,10 @@ Element* Segment::prevElement(int activeStaff)
                                      }
                                }
                           }
-                   if (el->type() == ElementType::CHORD) {
+                   if (el->isChord()) {
                          return toChord(el)->lastElementBeforeSegment();
                          }
-                   else if (el->type() == ElementType::NOTE) {
+                   else if (el->isNote()) {
                          Chord* c = toNote(el)->chord();
                          return c->lastElementBeforeSegment();
                          }
@@ -1868,14 +1868,14 @@ Element* Segment::prevElement(int activeStaff)
             case ElementType::ARPEGGIO:
             case ElementType::TREMOLO: {
                   Element* el = this->element(e->track());
-                  Q_ASSERT(el->type() == ElementType::CHORD);
+                  Q_ASSERT(el->isChord());
                   return toChord(el)->prevElement();
                   }
             default: {
                   Element* el = e;
                   Segment* seg = this;
-                  if (e->type() == ElementType::TIE_SEGMENT ||
-                      e->type() == ElementType::GLISSANDO_SEGMENT) {
+                  if (e->isTieSegment() ||
+                      e->isGlissandoSegment()) {
                         SpannerSegment* s = toSpannerSegment(e);
                         Spanner* sp = s->spanner();
                         el = sp->startElement();
@@ -1889,8 +1889,8 @@ Element* Segment::prevElement(int activeStaff)
 
                  Element* prev = seg->prevElementOfSegment(seg, el, activeStaff);
                   if (prev) {
-                        if (prev->type() == ElementType::CHORD || prev->type() == ElementType::REST
-                               || prev->type() == ElementType::REPEAT_MEASURE) {
+                        if (prev->isChord() || prev->isRest()
+                               || prev->isRepeatMeasure()) {
                               ChordRest* cr = seg->cr(prev->track());
                               if (cr) {
                                     Element* elCr = cr->lastElementBeforeSegment();
@@ -1899,10 +1899,10 @@ Element* Segment::prevElement(int activeStaff)
                                           }
                                     }
                               }
-                        if (prev->type() == ElementType::CHORD) {
+                        if (prev->isChord()) {
                               return toChord(prev)->lastElementBeforeSegment();
                               }
-                        else if (prev->type() == ElementType::NOTE) {
+                        else if (prev->isNote()) {
                               Chord* c = toNote(prev)->chord();
                               return c->lastElementBeforeSegment();
                               }
@@ -1951,8 +1951,8 @@ Element* Segment::prevElement(int activeStaff)
                          if (next)
                                return next;
                          }
-                   if (prev->type() == ElementType::CHORD || prev->type() == ElementType::REST
-                            || prev->type() == ElementType::REPEAT_MEASURE || prev->type() == ElementType::NOTE) {
+                   if (prev->isChord() || prev->isRest()
+                            || prev->isRepeatMeasure() || prev->isNote()) {
                          ChordRest* cr = prevSeg->cr(prev->track());
                          if (cr) {
                                Element* elCr = cr->lastElementBeforeSegment();
@@ -1961,10 +1961,10 @@ Element* Segment::prevElement(int activeStaff)
                                      }
                                }
                          }
-                   if (prev->type() == ElementType::CHORD) {
+                   if (prev->isChord()) {
                          return toChord(prev)->lastElementBeforeSegment();
                          }
-                   else if (prev->type() == ElementType::NOTE) {
+                   else if (prev->isNote()) {
                          Chord* c = toNote(prev)->chord();
                          return c->lastElementBeforeSegment();
                          }
@@ -2018,7 +2018,7 @@ Element* Segment::lastInPrevSegments(int activeStaff)
             re = 0;
             seg = score()->lastSegmentMM();
             while (true) {
-                  //if (seg->segmentType() == SegmentType::EndBarLine)
+                  //if (seg->isEndBarLineType() == SegmentType::EndBarLine)
                   //      score()->inputState().setTrack((activeStaff - 1) * VOICES ); //correction
 
                   if ((re = seg->firstElementForNavigation(activeStaff - 1)) != 0)
@@ -2061,9 +2061,9 @@ QString Segment::accessibleExtraInfo() const
       for (auto interval : spanners) {
             Spanner* s = interval.value;
             if (!score()->selectionFilter().canSelect(s)) continue;
-            if (segmentType() == SegmentType::EndBarLine       ||
-               segmentType() == SegmentType::BarLine           ||
-               segmentType() == SegmentType::StartRepeatBarLine) {
+            if (isEndBarLineType()       ||
+               isBarLineType()           ||
+               isStartRepeatBarLineType()) {
                   if (s->isVolta())
                         continue;
                   }
@@ -2112,7 +2112,7 @@ void Segment::createShape(int staffIdx)
       Shape& s = _shapes[staffIdx];
       s.clear();
 
-      if (segmentType() & (SegmentType::BarLine | SegmentType::EndBarLine | SegmentType::StartRepeatBarLine | SegmentType::BeginBarLine)) {
+      if (isType(SegmentType::BarLine | SegmentType::EndBarLine | SegmentType::StartRepeatBarLine | SegmentType::BeginBarLine)) {
             setVisible(true);
             BarLine* bl = toBarLine(element(staffIdx * VOICES));
             if (bl) {

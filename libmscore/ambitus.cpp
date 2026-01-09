@@ -631,7 +631,7 @@ void Ambitus::updateRange()
 
 void Ambitus::remove(Element* e)
       {
-      if (e->type() == ElementType::ACCIDENTAL) {
+      if (e->isAccidental()) {
             //! NOTE Do nothing (removing _topAccid or _bottomAccid)
             return;
             }

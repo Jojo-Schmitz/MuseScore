@@ -268,8 +268,8 @@ void MuseScore::oscColorNote(QVariantList list)
             Element* e = s->element(i);
             if (e && e->isChordRest()) {
                   ChordRest* cr = static_cast<ChordRest*>(e);
-                  if (cr->type() == ElementType::CHORD) {
-                        Chord* chord = static_cast<Chord*>(cr);
+                  if (cr->isChord()) {
+                        Chord* chord = toChord(cr);
                         for (Note* note : chord->notes()) {
                               if (note->pitch() == pitch) {
                                     cs->startCmd();

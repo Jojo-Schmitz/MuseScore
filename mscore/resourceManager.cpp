@@ -332,7 +332,7 @@ void ResourceManager::downloadLanguage()
             QString destinationDir(zfi.absolutePath());
             QVector<MQZipReader::FileInfo> allFiles = zipFile.fileInfoList();
             bool success = true;
-            foreach (MQZipReader::FileInfo fi, allFiles) {
+            for (MQZipReader::FileInfo fi : allFiles) {
                   const QString absPath = destinationDir + "/" + fi.filePath;
                   if (fi.isFile) {
                         QFile f(absPath);

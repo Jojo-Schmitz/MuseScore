@@ -322,7 +322,7 @@ void Chord::undoUnlink()
             _tremolo->undoUnlink();
 
       for (Element* e : el()) {
-            if (e->type() == ElementType::CHORDLINE)
+            if (e->isChordLine())
                   e->undoUnlink();
             }
       }
@@ -1699,7 +1699,7 @@ void Chord::layout2()
             qreal xOff =  s ? (s->pos().x() - s->staffShape(last->vStaffIdx()).left()) - (segment()->pos().x() + pos().x()) : _spaceRw;
             // final distance: if near to another chord, leave minNoteDist at right of last grace
             // else leave note-to-barline distance;
-            xOff -= (s != nullptr && s->segmentType() != SegmentType::ChordRest)
+            xOff -= (s != nullptr && !s->isChordRestType())
                   ? score()->styleP(Sid::noteBarDistance) * mag
                   : minNoteDist;
             // scan grace note list from the end
@@ -2129,10 +2129,10 @@ void Chord::layoutPitched()
            }
 
       for (Element* e : el()) {
-            if (e->type() == ElementType::SLUR)     // we cannot at this time as chordpositions are not fixed
+            if (e->isSlur())     // we cannot at this time as chordpositions are not fixed
                   continue;
             e->layout();
-            if (e->type() == ElementType::CHORDLINE) {
+            if (e->isChordLine()) {
                   QRectF tbbox = e->bbox().translated(e->pos());
                   qreal lx = tbbox.left() + chordX;
                   qreal rx = tbbox.right() + chordX;
@@ -2376,7 +2376,7 @@ void Chord::layoutTablature()
                         || prevCR->durationType().type() != durationType().type()
                         || prevCR->dots() != dots()
                         || prevCR->tuplet() != tuplet()
-                        || prevCR->type() == ElementType::REST)
+                        || prevCR->isRest())
                         needTabDur = true;
                   else if (tab->symRepeat() == TablatureSymbolRepeat::ALWAYS
                         || ((tab->symRepeat() == TablatureSymbolRepeat::MEASURE ||
@@ -2515,7 +2515,7 @@ void Chord::layoutTablature()
            }
       for (Element* e : el()) {
             e->layout();
-            if (e->type() == ElementType::CHORDLINE) {
+            if (e->isChordLine()) {
                   QRectF tbbox = e->bbox().translated(e->pos());
                   qreal lx = tbbox.left();
                   qreal rx = tbbox.right();
@@ -2589,7 +2589,7 @@ void Chord::layoutArpeggio2()
 
       Element* element = segment()->element(btrack);
       ChordRest* bchord = element ? toChordRest(element) : nullptr;
-      Note* dnote       = (bchord && bchord->type() == ElementType::CHORD) ? toChord(bchord)->downNote() : downNote();
+      Note* dnote       = (bchord && bchord->isChord()) ? toChord(bchord)->downNote() : downNote();
 
       qreal h = dnote->pagePos().y() + dnote->headHeight() * .5 - y;
       _arpeggio->setHeight(h);
@@ -2607,8 +2607,8 @@ void Chord::layoutArpeggio2()
 
       for (int i = 1; i < span; ++i) {
             ChordRest* c = toChordRest(segment()->element(track() + i * VOICES));
-            if (c && c->type() == CHORD) {
-                  QList<Note*> nl = toChord(c)->notes();
+            if (c && c->isChord()) {
+                  std::vector<Note*> nl = toChord(c)->notes();
                   int n = nl.size();
                   for (int j = n - 1; j >= 0; --j) {
                         Note* note = nl[j];
@@ -2990,7 +2990,7 @@ void Chord::updateEndsGlissando()
       // scan all chord notes for glissandi ending on this chord
       for (Note* note : notes()) {
             for (Spanner* sp : note->spannerBack())
-                  if (sp->type() == ElementType::GLISSANDO) {
+                  if (sp->isGlissando()) {
                         _endsGlissando = true;
                         return;
                         }
@@ -3053,7 +3053,7 @@ qreal Chord::mag() const
 Segment* Chord::segment() const
       {
       Element* e = parent();
-      for (; e && e->type() != ElementType::SEGMENT; e = e->parent())
+      for (; e && !e->isSegment(); e = e->parent())
             ;
       return toSegment(e);
       }
@@ -3065,7 +3065,7 @@ Segment* Chord::segment() const
 Measure* Chord::measure() const
       {
       Element* e = parent();
-      for (; e && e->type() != ElementType::MEASURE; e = e->parent())
+      for (; e && !e->isMeasure(); e = e->parent())
             ;
       return toMeasure(e);
       }
@@ -3247,7 +3247,7 @@ Element* Chord::nextElement()
                   SpannerSegment* s = toSpannerSegment(e);
                   Spanner* sp = s->spanner();
                   Element* elSt = sp->startElement();
-                  Q_ASSERT(elSt->type() == ElementType::NOTE);
+                  Q_ASSERT(elSt->isNote());
                   Note* n = toNote(elSt);
                   Q_ASSERT(n != NULL);
                   if (n == _notes.front()) {
@@ -3375,7 +3375,7 @@ Element* Chord::nextSegmentElement()
       for (int v = track() + 1; staffIdx() == v/VOICES; ++v) {
             Element* e = segment()->element(v);
             if (e) {
-                  if (e->type() == ElementType::CHORD)
+                  if (e->isChord())
                         return toChord(e)->notes().back();
 
                   return e;
@@ -3435,7 +3435,7 @@ QString Chord::accessibleExtraInfo() const
       if (tremolo() && score()->selectionFilter().canSelect(tremolo()))
             rez = QString("%1 %2").arg(rez, tremolo()->screenReaderInfo());
 
-      foreach (Element* e, el()) {
+      for (Element* e : el()) {
             if (!score()->selectionFilter().canSelect(e))
                   continue;
             rez = QString("%1 %2").arg(rez, e->screenReaderInfo());

@@ -87,7 +87,7 @@ void updateNoteLines(Segment* segment, int track)
       if (staff->isDrumStaff(segment->tick()) || staff->isTabStaff(segment->tick()))
             return;
       for (Segment* s = segment->next1(); s; s = s->next1()) {
-            if ((s->segmentType() & (SegmentType::Clef | SegmentType::HeaderClef)) && s->element(track) && !s->element(track)->generated())
+            if (s->isType(SegmentType::Clef | SegmentType::HeaderClef) && s->element(track) && !s->element(track)->generated())
                   break;
             if (!s->isChordRestType())
                   continue;
@@ -1851,7 +1851,7 @@ void InsertRemoveMeasures::insertMeasures()
             fs = toMeasure(fm)->first();
             ls = toMeasure(lm)->last();
             for (Segment* s = fs; s && s != ls; s = s->next1()) {
-                  if (!s->enabled() || !(s->segmentType() & (SegmentType::Clef | SegmentType::HeaderClef | SegmentType::KeySig)))
+                  if (!s->enabled() || !s->isType(SegmentType::Clef | SegmentType::HeaderClef | SegmentType::KeySig))
                         continue;
                   for (int track = 0; track < score->ntracks(); track += VOICES) {
                         Element* e = s->element(track);
@@ -1902,7 +1902,7 @@ void InsertRemoveMeasures::insertMeasures()
                   if (e == 0 || !e->isChord())
                         continue;
                   Chord* chord = toChord(e);
-                  foreach (Note* n, chord->notes()) {
+                  for (Note* n : chord->notes()) {
                         Tie* tie = n->tieFor();
                         if (!tie)
                               continue;

@@ -120,7 +120,7 @@ void BSymbol::remove(Element* e)
 void BSymbol::scanElements(void* data, void (*func)(void*, Element*), bool all)
       {
       func(data, this);
-      foreach (Element* e, _leafs)
+      for (Element* e : _leafs)
             e->scanElements(data, func, all);
       }
 
@@ -175,7 +175,7 @@ void BSymbol::layout()
 QRectF BSymbol::drag(EditData& ed)
       {
       QRectF r(canvasBoundingRect());
-      foreach(const Element* e, _leafs)
+      for (const Element* e : _leafs)
             r |= e->canvasBoundingRect();
 
       qreal x = ed.delta.x();
@@ -196,7 +196,7 @@ QRectF BSymbol::drag(EditData& ed)
       setOffset(QPointF(x, y));
 
       r |= canvasBoundingRect();
-      foreach(const Element* e, _leafs)
+      for (const Element* e : _leafs)
             r |= e->canvasBoundingRect();
       return r;
       }
@@ -216,7 +216,7 @@ QVector<QLineF> BSymbol::dragAnchorLines() const
 
 QPointF BSymbol::pagePos() const
       {
-      if (parent() && (parent()->type() == ElementType::SEGMENT)) {
+      if (parent() && parent()->isSegment()) {
             QPointF p(pos());
             System* system = segment()->measure()->system();
             if (system) {
@@ -235,7 +235,7 @@ QPointF BSymbol::pagePos() const
 
 QPointF BSymbol::canvasPos() const
       {
-      if (parent() && (parent()->type() == ElementType::SEGMENT)) {
+      if (parent() && parent()->isSegment()) {
             QPointF p(pos());
             Segment* s = toSegment(parent());
 

@@ -458,7 +458,7 @@ void MuseScore::seqStopped()
 
 void Seq::unmarkNotes()
       {
-      foreach(const Note* n, markedNotes) {
+      for (const Note* n : markedNotes) {
             n->setMark(false);
             cs->addRefresh(n->canvasBoundingRect());
             }

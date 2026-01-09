@@ -11,17 +11,13 @@
 //=============================================================================
 
 #include "lyrics.h"
-
-#include "chord.h"
-#include "score.h"
-#include "sym.h"
-#include "system.h"
-#include "xml.h"
-#include "staff.h"
-#include "segment.h"
-#include "undo.h"
-#include "textedit.h"
 #include "measure.h"
+#include "score.h"
+#include "segment.h"
+#include "staff.h"
+#include "system.h"
+#include "undo.h"
+#include "xml.h"
 
 namespace Ms {
 
@@ -113,7 +109,7 @@ void LyricsLine::layout()
                   }
             Element* se = s->element(lyricsTrack);
             // everything is OK if we have reached a chord at right tick on right track
-            if (s->tick() == lyricsEndTick && se && se->type() == ElementType::CHORD) {
+            if (s->tick() == lyricsEndTick && se && se->isChord()) {
                   // advance to next CR, or last segment if no next CR
                   s = s->nextCR(lyricsTrack, true);
                   if (!s)
@@ -130,7 +126,7 @@ void LyricsLine::layout()
                   while (ps && ps != lyricsSegment) {
                         Element* pe = ps->element(lyricsTrack);
                         // we're looking for an actual chord on this track
-                        if (pe && pe->type() == ElementType::CHORD)
+                        if (pe && pe->isChord())
                               break;
                         s = ps;
                         ps = ps->prev1(SegmentType::ChordRest);
@@ -141,7 +137,7 @@ void LyricsLine::layout()
                         s = ps->nextCR(lyricsTrack, true);
                         Element* e = s ? s->element(lyricsTrack) : nullptr;
                         // check to make sure we have a chord
-                        if (!e || e->type() != ElementType::CHORD) {
+                        if (!e || !e->isChord()) {
                               // nothing to do but set ticks to 0
                               // this will result in melisma being deleted later
                               lyrics()->undoChangeProperty(Pid::LYRIC_TICKS, 0);
@@ -290,7 +286,7 @@ bool LyricsLine::setProperty(Pid propertyId, const QVariant& v)
             case Pid::SPANNER_TICKS:
                   {
                   // if parent lyrics has a melisma, change its length too
-                  if (parent() && parent()->type() == ElementType::LYRICS
+                  if (parent() && parent()->isLyrics()
                               && isEndMelisma()) {
                         Fraction newTicks   = toLyrics(parent())->ticks() + v.value<Fraction>() - ticks();
                         parent()->undoChangeProperty(Pid::LYRIC_TICKS, newTicks);

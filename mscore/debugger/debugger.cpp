@@ -254,8 +254,8 @@ static void addSymbol(ElementItem* parent, BSymbol* bs)
       const QList<Element*>el = bs->leafs();
       ElementItem* i = new ElementItem(parent, bs);
       if (!el.isEmpty()) {
-            foreach(Element* g, el)
-                  addSymbol(i, static_cast<BSymbol*>(g));
+            for (Element* g : el)
+                  addSymbol(i, toBSymbol(g));
             }
       }
 
@@ -265,10 +265,10 @@ static void addSymbol(ElementItem* parent, BSymbol* bs)
 
 static void addMeasureBaseToList(ElementItem* mi, MeasureBase* mb)
       {
-      foreach(Element* e, mb->el()) {
+      for (Element* e : mb->el()) {
             ElementItem* mmi = new ElementItem(mi, e);
-            if (e->type() == ElementType::HBOX || e->type() == ElementType::VBOX)
-                  addMeasureBaseToList(mmi, static_cast<MeasureBase*>(e));
+            if (e->isHBox() || e->isVBox())
+                  addMeasureBaseToList(mmi, toMeasureBase(e));
             }
       }
 
@@ -288,8 +288,8 @@ void Debugger::showEvent(QShowEvent*)
 static void addBSymbol(ElementItem* item, BSymbol* e)
       {
       ElementItem* si = new ElementItem(item, e);
-      foreach(Element* ee, e->leafs())
-            addBSymbol(si, static_cast<BSymbol*>(ee));
+      for (Element* ee : e->leafs())
+            addBSymbol(si, toBSymbol(ee));
       }
 
 //---------------------------------------------------------
@@ -321,8 +321,8 @@ static void addChord(ElementItem* sei, Chord* chord)
                   new ElementItem(ni, note->accidental());
                   }
             for (Element* f : note->el()) {
-                  if (f->type() == ElementType::SYMBOL || f->type() == ElementType::IMAGE) {
-                        BSymbol* bs = static_cast<BSymbol*>(f);
+                  if (f->isSymbol() || f->isImage()) {
+                        BSymbol* bs = toBSymbol(f);
                         addSymbol(ni, bs);
                         }
                   else
@@ -345,8 +345,8 @@ static void addChord(ElementItem* sei, Chord* chord)
             }
       for (Element* e : chord->el()) {
             ElementItem* ei = new ElementItem(sei, e);
-            if (e->type() == ElementType::SLUR) {
-                  Slur* gs = static_cast<Slur*>(e);
+            if (e->isSlur()) {
+                  Slur* gs = toSlur(e);
                   for (SpannerSegment* sp : gs->spannerSegments())
                         new ElementItem(ei, sp);
                   }
@@ -413,12 +413,12 @@ void Debugger::addMeasure(ElementItem* mi, Measure* measure)
                         }
                   }
 
-            foreach(Element* s, segment->annotations()) {
-                  if (s->type() == ElementType::SYMBOL || s->type() == ElementType::IMAGE)
-                        addBSymbol(segItem, static_cast<BSymbol*>(s));
-                  else if (s->type() == ElementType::FRET_DIAGRAM) {
+            for (Element* s : segment->annotations()) {
+                  if (s->isSymbol() || s->isImage())
+                        addBSymbol(segItem, toBSymbol(s));
+                  else if (s->isFretDiagram()) {
                         ElementItem* fdi = new ElementItem(segItem, s);
-                        FretDiagram* fd = static_cast<FretDiagram*>(s);
+                        FretDiagram* fd = toFretDiagram(s);
                         if (fd->harmony())
                               new ElementItem(fdi, fd->harmony());
                         }
@@ -460,14 +460,14 @@ void Debugger::updateList(Score* s)
       li->setText(0, "Global");
       for (auto i : s->spanner()) {
             ElementItem* it = new ElementItem(li, i.second);
-            if (i.second->type() == ElementType::TRILL) {
-                  Trill* trill = static_cast<Trill*>(i.second);
+            if (i.second->isTrill()) {
+                  Trill* trill = toTrill(i.second);
                   if (trill->accidental())
                         new ElementItem(it, trill->accidental());
                   }
             }
 
-      foreach (Page* pg, cs->pages()) {
+      for (Page* pg : cs->pages()) {
             ElementItem* pi = new ElementItem(list, pg);
 
             for (System* system : pg->systems()) {
@@ -489,9 +489,9 @@ void Debugger::updateList(Score* s)
                         ElementItem* mi = new ElementItem(si, mb);
                         addMeasureBaseToList(mi, mb);
 
-                        if (mb->type() != ElementType::MEASURE)
+                        if (!mb->isMeasure())
                               continue;
-                        Measure* measure = (Measure*) mb;
+                        Measure* measure = toMeasure(mb);
                         if (cs->styleB(Sid::concertPitch)) {
                               if (measure->mmRest()) {
                                     ElementItem* mmi = new ElementItem(mi, measure->mmRest());
@@ -886,7 +886,7 @@ void SegmentView::setElement(Element* e)
       for (int i = 0; i < cs->nstaves(); ++i) {
             const LyricsList* ll = s->lyrics(i);
             if (ll) {
-                  foreach(Lyrics* l, *ll) {
+                  for (Lyrics* l: *ll) {
                         QString s;
                         s.setNum(qptrdiff(l), 16);
                         QListWidgetItem* item = new QListWidgetItem(s, 0, long(l));
@@ -898,7 +898,7 @@ void SegmentView::setElement(Element* e)
       sb.spannerFor->clear();
       sb.spannerBack->clear();
       sb.annotations->clear();
-      foreach(Element* sp, s->annotations()) {
+      for (Element* sp : s->annotations()) {
             QListWidgetItem* item = new QListWidgetItem(QString("%1 %2").arg(qptrdiff(sp), 8, 16).arg(sp->name()));
             item->setData(Qt::UserRole, QVariant::fromValue<void*>((void*)sp));
             sb.annotations->addItem(item);
@@ -985,7 +985,7 @@ void ChordDebug::setElement(Element* e)
       cb.stemDirection->setCurrentIndex(int(chord->stemDirection()));
 
       crb.attributes->clear();
-      foreach(Articulation* a, chord->articulations()) {
+      for (Articulation* a : chord->articulations()) {
             QString s;
             s.setNum(qptrdiff(a), 16);
             QListWidgetItem* item = new QListWidgetItem(s);
@@ -1001,7 +1001,7 @@ void ChordDebug::setElement(Element* e)
             crb.lyrics->addItem(item);
             }
       cb.notes->clear();
-      foreach(Element* n, chord->notes()) {
+      for (Element* n : chord->notes()) {
             QString s;
             s.setNum(qptrdiff(n), 16);
             QListWidgetItem* item = new QListWidgetItem(s);
@@ -2324,7 +2324,7 @@ void BeamView::setElement(Element* e)
 
       bb.up->setValue(b->up());
       bb.elements->clear();
-      foreach (ChordRest* cr, b->elements()) {
+      for (ChordRest* cr : b->elements()) {
             QTreeWidgetItem* item = new QTreeWidgetItem;
             item->setText(0, QString("%1").arg((quintptr)cr, 8, 16));
             item->setData(0, Qt::UserRole, QVariant::fromValue<void*>((void*)cr));

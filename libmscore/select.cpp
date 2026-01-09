@@ -390,27 +390,27 @@ bool SelectionFilter::canSelect(const Element* e) const
             return isFiltered(SelectionFilterType::ARTICULATION);
       if ((e->isArticulation() && toArticulation(e)->isOrnament()) || e->isTrill())
             return isFiltered(SelectionFilterType::ORNAMENT);
-      if (e->type() == ElementType::LYRICS)
+      if (e->isLyrics())
             return isFiltered(SelectionFilterType::LYRICS);
-      if (e->type() == ElementType::FINGERING)
+      if (e->isFingering())
             return isFiltered(SelectionFilterType::FINGERING);
-      if (e->type() == ElementType::HARMONY)
+      if (e->isHarmony())
             return isFiltered(SelectionFilterType::CHORD_SYMBOL);
-      if (e->type() == ElementType::SLUR)
+      if (e->isSlur())
             return isFiltered(SelectionFilterType::SLUR);
-      if (e->type() == ElementType::FIGURED_BASS)
+      if (e->isFiguredBass())
             return isFiltered(SelectionFilterType::FIGURED_BASS);
-      if (e->type() == ElementType::OTTAVA)
+      if (e->isOttava())
             return isFiltered(SelectionFilterType::OTTAVA);
-      if (e->type() == ElementType::PEDAL)
+      if (e->isPedal())
             return isFiltered(SelectionFilterType::PEDAL_LINE);
-      if (e->type() == ElementType::ARPEGGIO)
+      if (e->isArpeggio())
             return isFiltered(SelectionFilterType::ARPEGGIO);
-      if (e->type() == ElementType::GLISSANDO)
+      if (e->isGlissando())
             return isFiltered(SelectionFilterType::GLISSANDO);
-      if (e->type() == ElementType::FRET_DIAGRAM)
+      if (e->isFretDiagram())
             return isFiltered(SelectionFilterType::FRET_DIAGRAM);
-      if (e->type() == ElementType::BREATH)
+      if (e->isBreath())
             return isFiltered(SelectionFilterType::BREATH);
       if (e->isTextBase()) // only TEXT, INSTRCHANGE and STAFFTEXT are caught here, rest are system thus not in selection
             return isFiltered(SelectionFilterType::OTHER_TEXT);
@@ -1074,7 +1074,7 @@ Enabling copying of more element types requires enabling pasting in Score::paste
             numSegs = 0;
             // with figured bass, we need to look for the proper segment
             // not only according to ChordRest elements, but also annotations
-            if (iter->second.e->type() == ElementType::FIGURED_BASS) {
+            if (iter->second.e->isFiguredBass()) {
                   bool done = false;
                   for ( ; seg; seg = seg->next1()) {
                         if (seg->isChordRestType()) {
@@ -1087,7 +1087,7 @@ Enabling copying of more element types requires enabling pasting in Score::paste
                                                 break;
                                                 }
                                           // do annotations include any f.b.?
-                                          if (el->type() == ElementType::FIGURED_BASS && el->track() == track) {
+                                          if (el->isFiguredBass() && el->track() == track) {
                                                 numSegs++;  //yes: it counts as a step
                                                 break;
                                                 }
@@ -1138,13 +1138,13 @@ std::vector<Note*> Selection::noteList(int selTrack) const
                   int startTrack = staffIdx * VOICES;
                   int endTrack   = startTrack + VOICES;
                   for (Segment* seg = _startSegment; seg && seg != _endSegment; seg = seg->next1()) {
-                        if (!(seg->segmentType() & (SegmentType::ChordRest)))
+                        if (!seg->isType(SegmentType::ChordRest))
                               continue;
                         for (int track = startTrack; track < endTrack; ++track) {
                               if (!canSelectVoice(track))
                                   continue;
                               Element* e = seg->element(track);
-                              if (e == 0 || e->type() != ElementType::CHORD
+                              if (e == 0 || !e->isChord()
                                  || (selTrack != -1 && selTrack != track))
                                     continue;
                               Chord* c = toChord(e);
@@ -1181,7 +1181,7 @@ static bool checkStart(Element* e)
                   tuplet = tuplet->tuplet();
                   }
             }
-      else if (cr->type() == ElementType::CHORD) {
+      else if (cr->isChord()) {
             rv = false;
             Chord* chord = toChord(cr);
             if (chord->tremolo() && chord->tremolo()->twoNotes())
@@ -1216,7 +1216,7 @@ static bool checkEnd(Element* e, const Fraction& endTick)
             if (tuplet->elements().front()->tick() + tuplet->actualTicks() > endTick)
                   return true;
             }
-      else if (cr->type() == ElementType::CHORD) {
+      else if (cr->isChord()) {
             rv = false;
             Chord* chord = toChord(cr);
             if (chord->tremolo() && chord->tremolo()->twoNotes())
