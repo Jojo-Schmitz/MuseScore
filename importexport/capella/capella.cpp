@@ -289,7 +289,7 @@ static void processBasicDrawObj(QList<BasicDrawObj*> objects, Segment* s, int tr
                                                       {
                                                       Arpeggio* a = new Arpeggio(score);
                                                       a->setArpeggioType(ArpeggioType::NORMAL);
-                                                      if ((static_cast<Chord*>(cr))->arpeggio()) { // there can be only one
+                                                      if (toChord(cr)->arpeggio()) { // there can be only one
                                                             delete a;
                                                             a = 0;
                                                             }
@@ -301,7 +301,7 @@ static void processBasicDrawObj(QList<BasicDrawObj*> objects, Segment* s, int tr
                                                       {
                                                       Arpeggio* a = new Arpeggio(score);
                                                       a->setArpeggioType(ArpeggioType::UP);
-                                                      if ((static_cast<Chord*>(cr))->arpeggio()) { // there can be only one
+                                                      if (toChord(cr)->arpeggio()) { // there can be only one
                                                             delete a;
                                                             a = 0;
                                                             }
@@ -313,7 +313,7 @@ static void processBasicDrawObj(QList<BasicDrawObj*> objects, Segment* s, int tr
                                                       {
                                                       Arpeggio* a = new Arpeggio(score);
                                                       a->setArpeggioType(ArpeggioType::DOWN);
-                                                      if ((static_cast<Chord*>(cr))->arpeggio()) { // there can be only one
+                                                      if (toChord(cr)->arpeggio()) { // there can be only one
                                                             delete a;
                                                             a = 0;
                                                             }
@@ -1322,7 +1322,7 @@ void convertCapella(Score* score, Capella* cap, bool capxMode)
             VBox* mb = 0;
             MeasureBaseList* mbl = score->measures();
             if (mbl->size() && mbl->first()->isVBox())
-                  mb = static_cast<VBox*>(mbl->first());
+                  mb = toVBox(mbl->first());
             else {
                   VBox* vb = new VBox(score);
                   vb->setTick(Fraction(0,1));

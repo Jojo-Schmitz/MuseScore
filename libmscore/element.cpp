@@ -410,7 +410,7 @@ QColor Element::curColor(bool isVisible, QColor normalColor) const
             return MScore::dropColor;
       bool marked = false;
       if (isNote()) {
-            //const Note* note = static_cast<const Note*>(this);
+            //const Note* note = toNote(this);
             marked = toNote(this)->mark();
             }
       if (selected() || marked ) {
@@ -588,7 +588,7 @@ void Element::writeProperties(XmlWriter& xml) const
       if (_links && (_links->size() > 1) && !xml.clipboardmode()) {
             if (MScore::debugMode)
                   xml.tag("lid", _links->lid());
-            Element* me = static_cast<Element*>(_links->mainElement());
+            Element* me = toElement(_links->mainElement());
             Q_ASSERT(type() == me->type());
             Staff* s = staff();
             if (!s) {
@@ -2623,12 +2623,12 @@ std::pair<int, float> Element::barbeat() const
             return std::pair<int, float>(0, 0.0F);
             }
       else if (p->isSegment()) {
-            const Segment* seg = static_cast<const Segment*>(p);
+            const Segment* seg = toSegment(p);
             tsm->tickValues(seg->tick().ticks(), &bar, &beat, &ticks);
             ticksB = ticks_beat(tsm->timesig(seg->tick().ticks()).timesig().denominator());
             }
       else if (p->isMeasure()) {
-            const Measure* m = static_cast<const Measure*>(p);
+            const Measure* m = toMeasure(p);
             bar = m->no();
             beat = -1;
             ticks = 0;

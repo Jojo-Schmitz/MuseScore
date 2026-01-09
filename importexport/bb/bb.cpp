@@ -518,7 +518,7 @@ Score::FileError importBB(MasterScore* score, const QString& name)
       for (MeasureBase* mb = score->first(); mb; mb = mb->next()) {
             if (!mb->isMeasure())
                   continue;
-            Measure* measure = (Measure*)mb;
+            Measure* measure = toMeasure(mb);
             if (n && (n % 4) == 0) {
                   LayoutBreak* lb = new LayoutBreak(score);
                   lb->setLayoutBreakType(LayoutBreak::Type::LINE);

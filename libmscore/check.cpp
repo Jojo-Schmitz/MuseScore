@@ -35,7 +35,7 @@ void Score::checkSlurs()
       foreach(Element* e, _gel) {
             if (!e->isSlur())
                   continue;
-            Slur* s = (Slur*)e;
+            Slur* s = toSlur(e);
             Element* n1 = s->startElement();
             Element* n2 = s->endElement();
             if (n1 == 0 || n2 == 0 || n1 == n2) {

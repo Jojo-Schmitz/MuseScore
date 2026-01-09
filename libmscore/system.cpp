@@ -1652,7 +1652,7 @@ qreal System::firstNoteRestSegmentX(bool leading)
       qreal margin = score()->spatium();
       for (const MeasureBase* mb : measures()) {
             if (mb->isMeasure()) {
-                  const Measure* measure = static_cast<const Measure*>(mb);
+                  const Measure* measure = toMeasure(mb);
                   for (const Segment* seg = measure->first(); seg; seg = seg->next()) {
                         if (seg->isChordRestType()) {
                               qreal noteRestPos = seg->measure()->pos().x() + seg->pos().x();
@@ -1699,7 +1699,7 @@ qreal System::lastNoteRestSegmentX(bool trailing)
       //for (const MeasureBase* mb : measures()) {
       for (auto measureBaseIter = measures().rbegin(); measureBaseIter != measures().rend(); measureBaseIter++) {
             if ((*measureBaseIter)->isMeasure()) {
-                  const Measure* measure = static_cast<const Measure*>(*measureBaseIter);
+                  const Measure* measure = toMeasure(*measureBaseIter);
                   for (const Segment* seg = measure->last(); seg; seg = seg->prev()) {
                         if (seg->isChordRestType()) {
                               qreal noteRestPos = seg->measure()->pos().x() + seg->pos().x();

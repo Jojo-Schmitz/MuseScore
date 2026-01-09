@@ -286,7 +286,7 @@ bool PaletteCell::read(XmlReader& e)
                         element->read(e);
                         element->styleChanged();
                         if (element->isIcon()) {
-                              Icon* icon = static_cast<Icon*>(element.get());
+                              Icon* icon = toIcon(element.get());
                               QAction* ac = getAction(icon->action());
                               if (ac) {
                                     QIcon qicon(ac->icon());

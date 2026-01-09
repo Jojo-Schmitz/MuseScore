@@ -529,7 +529,7 @@ Measure* MuseData::createMeasure()
       for (MeasureBase* mb = score->first(); mb; mb = mb->next()) {
             if (!mb->isMeasure())
                   continue;
-            Measure* m = (Measure*)mb;
+            Measure* m = toMeasure(mb);
             Fraction st = m->tick();
             Fraction l  = m->ticks();
             if (curTick == st)

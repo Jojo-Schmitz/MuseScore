@@ -1176,7 +1176,7 @@ void Score::regroupNotesAndRests(const Fraction& startTick, const Fraction& endT
                                     for (ScoreElement*& e : _is.slur()->linkList()) {
                                           Slur* slur = toSlur(e);
                                           for (ScoreElement*& ee : nchord->linkList()) {
-                                                Element* e1 = static_cast<Element*>(ee);
+                                                Element* e1 = toElement(ee);
                                                 if (e1->score() == slur->score() && e1->track() == slur->track2()) {
                                                       slur->score()->undo(new ChangeSpannerElements(slur, slur->startElement(), e1));
                                                       break;
@@ -2058,7 +2058,7 @@ void Score::deleteItem(Element* el)
 
             case ElementType::INSTRUMENT_CHANGE:
                   {
-                  InstrumentChange* ic = static_cast<InstrumentChange*>(el);
+                  InstrumentChange* ic = toInstrumentChange(el);
                   Fraction tickStart = ic->segment()->tick();
                   Part* part = ic->part();
                   Interval oldV = part->instrument(tickStart)->transpose();
@@ -4505,7 +4505,7 @@ void Score::undoAddElement(Element* element)
                   return;
                   }
             for (ScoreElement* ee : *links) {
-                  Element* e = static_cast<Element*>(ee);
+                  Element* e = toElement(ee);
                   Element* ne;
                   if (e == parent)
                         ne = element;
@@ -4847,7 +4847,7 @@ void Score::undoAddElement(Element* element)
                               if (sp->startElement()) {
                                     QList<ScoreElement*> sel = sp->startElement()->linkList();
                                     for (ScoreElement* ee : qAsConst(sel)) {
-                                          Element* e = static_cast<Element*>(ee);
+                                          Element* e = toElement(ee);
                                           if (e->score() == nsp->score() && e->track() == nsp->track()) {
                                                 nsp->setStartElement(e);
                                                 break;
@@ -4857,7 +4857,7 @@ void Score::undoAddElement(Element* element)
                               if (sp->endElement()) {
                                     QList<ScoreElement*> eel = sp->endElement()->linkList();
                                     for (ScoreElement* ee : qAsConst(eel)) {
-                                          Element* e = static_cast<Element*>(ee);
+                                          Element* e = toElement(ee);
                                           if (e->score() == nsp->score() && e->track() == nsp->track2()) {
                                                 nsp->setEndElement(e);
                                                 break;
@@ -5128,7 +5128,7 @@ void Score::undoRemoveElement(Element* element)
             return;
       QList<Segment*> segments;
       for (ScoreElement*& ee : element->linkList()) {
-            Element* e = static_cast<Element*>(ee);
+            Element* e = toElement(ee);
             undo(new RemoveElement(e));
             if (e->parent() && (e->parent()->isSegment())) {
                   Segment* s = toSegment(e->parent());

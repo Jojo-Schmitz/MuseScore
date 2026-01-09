@@ -789,16 +789,16 @@ static const ChordRest* findFirstChordRest(const Slur* s)
             }
 
       if (e1->tick() < e2->tick())
-            return static_cast<const ChordRest*>(e1);
+            return toChordRest(e1);
       else if (e1->tick() > e2->tick())
-            return static_cast<const ChordRest*>(e2);
+            return toChordRest(e2);
 
       if (e1->isRest() || e2->isRest()) {
             return nullptr;
             }
 
-      const Chord* c1 = static_cast<const Chord*>(e1);
-      const Chord* c2 = static_cast<const Chord*>(e2);
+      const Chord* c1 = toChord(e1);
+      const Chord* c2 = toChord(e2);
 
       // c1->tick() == c2->tick()
       if (!c1->isGrace() && !c2->isGrace()) {
@@ -840,7 +840,7 @@ void SlurHandler::doSlurs(const ChordRest* chordRest, Notations& notations, XmlW
                   if (sp->generated() || !sp->isSlur())
                         continue;
                   if (chordRest == sp->startElement() || chordRest == sp->endElement()) {
-                        const Slur* s = static_cast<const Slur*>(sp);
+                        const Slur* s = toSlur(sp);
                         const ChordRest* firstChordRest = findFirstChordRest(s);
                         if (firstChordRest) {
                               if (i == 0) {
@@ -3163,7 +3163,7 @@ static void writeChordLines(const Chord* const chord, XmlWriter& xml, Notations&
       for (Element* e : chord->el()) {
             qDebug("writeChordLines: el %p type %d (%s)", e, int(e->type()), e->name());
             if (e->isChordLine()) {
-                  ChordLine const* const cl = static_cast<ChordLine*>(e);
+                  ChordLine const* const cl = toChordLine(e);
                   QString subtype;
                   switch (cl->chordLineType()) {
                         case ChordLineType::FALL:
@@ -3673,7 +3673,7 @@ static void writeNotehead(XmlWriter& xml, const Note* const note)
       bool leftParenthesis = false, rightParenthesis = false;
       for (Element* elem : note->el()) {
             if (elem->isSymbol()) {
-                  Symbol* s = static_cast<Symbol*>(elem);
+                  Symbol* s = toSymbol(elem);
                   if (s->sym() == SymId::noteheadParenthesisLeft) {
                         leftParenthesis = true;
                         noteheadValue = "normal";
@@ -4221,11 +4221,11 @@ void ExportMusicXml::chord(Chord* chord, int staff, const std::vector<Lyrics*>* 
                   }
             for (Spanner* spanner : note->spannerFor())
                   if (spanner->isGlissando()) {
-                        gh.doGlissandoStart(static_cast<Glissando*>(spanner), notations, _xml);
+                        gh.doGlissandoStart(toGlissando(spanner), notations, _xml);
                         }
             for (Spanner* spanner : note->spannerBack())
                   if (spanner->isGlissando()) {
-                        gh.doGlissandoStop(static_cast<Glissando*>(spanner), notations, _xml);
+                        gh.doGlissandoStop(toGlissando(spanner), notations, _xml);
                         }
             // write glissando (only for last note)
             /*
@@ -6336,7 +6336,7 @@ void ExportMusicXml::keysigTimesig(const Measure* m, const Part* p)
                         //qDebug(" found keysig %p track %d", el, el->track());
                         int st = (t - strack) / VOICES;
                         if (!el->generated())
-                              keysigs[st] = static_cast<KeySig*>(el);
+                              keysigs[st] = toKeySig(el);
                         }
                   }
             }
@@ -6949,7 +6949,7 @@ static void findPitchesUsed(const Part* part, pitchSet& set)
       for (const MeasureBase* mb = part->score()->measures()->first(); mb; mb = mb->next()) {
             if (!mb->isMeasure())
                   continue;
-            const Measure* m = static_cast<const Measure*>(mb);
+            const Measure* m = toMeasure(mb);
             for (int st = strack; st < etrack; ++st) {
                   for (Segment* seg = m->first(); seg; seg = seg->next()) {
                         const Element* el = seg->element(st);
@@ -6958,7 +6958,7 @@ static void findPitchesUsed(const Part* part, pitchSet& set)
                         if (el->isChord())
                               {
                               // add grace and non-grace note pitches to the result set
-                              const Chord* c = static_cast<const Chord*>(el);
+                              const Chord* c = toChord(el);
                               if (c) {
                                     for (Chord*& g : c->graceNotesBefore()) {
                                           addChordPitchesToSet(g, set);
@@ -7649,7 +7649,7 @@ void ExportMusicXml::writeMeasureTracks(const Measure* const m,
                               }
                         harmonies(this, track, seg);
                         annotations(this, strack, etrack, track, sstaff, seg);
-                        figuredBass(_xml, strack, etrack, track, static_cast<const ChordRest*>(el), fbMap, div);
+                        figuredBass(_xml, strack, etrack, track, toChordRest(el), fbMap, div);
                         spannerStart(this, strack, etrack, track, sstaff, seg);
                         }
 

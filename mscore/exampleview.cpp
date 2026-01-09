@@ -331,8 +331,8 @@ void ExampleView::dropEvent(QDropEvent* event)
             }
       foreach (Element* e, elementsAt(pos)) {
             if (e->isNote()) {
-                  Icon* icon = static_cast<Icon*>(dragElement);
-                  Chord* chord = static_cast<Note*>(e)->chord();
+                  Icon* icon = toIcon(dragElement);
+                  Chord* chord = toNote(e)->chord();
                   emit beamPropertyDropped(chord, icon);
                   switch (icon->iconType()) {
                         case IconType::SBEAM:
@@ -371,7 +371,7 @@ void ExampleView::mousePressEvent(QMouseEvent* event)
 
       foreach (Element* e, elementsAt(pos)) {
             if (e->isNote()) {
-                  emit noteClicked(static_cast<Note*>(e));
+                  emit noteClicked(toNote(e));
                   break;
                   }
             }

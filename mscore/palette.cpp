@@ -643,7 +643,7 @@ bool Palette::applyPaletteElement(Element* element, Qt::KeyboardModifiers modifi
                         }
                   }
             else if (element->isLayoutBreak()) {
-                  LayoutBreak* breakElement = static_cast<LayoutBreak*>(element);
+                  LayoutBreak* breakElement = toLayoutBreak(element);
                   score->cmdToggleLayoutBreak(breakElement->layoutBreakType());
                   }
             else if (element->isClef() || element->isKeySig() || element->isTimeSig()) {
@@ -664,16 +664,16 @@ bool Palette::applyPaletteElement(Element* element, Qt::KeyboardModifiers modifi
                         // use mid-measure clef changes as appropriate
                         if (element->isClef()) {
                               if (sel.startSegment()->isChordRestType() && sel.startSegment()->rtick().isNotZero()) {
-                                    ChordRest* cr = static_cast<ChordRest*>(sel.startSegment()->nextChordRest(i * VOICES));
+                                    ChordRest* cr = toChordRest(sel.startSegment()->nextChordRest(i * VOICES));
                                     if (cr && cr->isChord())
-                                          e1 = static_cast<Chord*>(cr)->upNote();
+                                          e1 = toChord(cr)->upNote();
                                     else
                                           e1 = cr;
                                     }
                               if (sel.endSegment() && sel.endSegment()->segmentType() == SegmentType::ChordRest) {
-                                    ChordRest* cr = static_cast<ChordRest*>(sel.endSegment()->nextChordRest(i * VOICES));
+                                    ChordRest* cr = toChordRest(sel.endSegment()->nextChordRest(i * VOICES));
                                     if (cr && cr->isChord())
-                                          e2 = static_cast<Chord*>(cr)->upNote();
+                                          e2 = toChord(cr)->upNote();
                                     else
                                           e2 = cr;
                                     }
@@ -1549,7 +1549,7 @@ void Palette::write(const QString& p)
       for (int i = 0; i < n; ++i) {
             if (cells[i] == 0 || cells[i]->element == 0 || !cells[i]->element->isImage())
                   continue;
-            images.insert(static_cast<Image*>(cells[i]->element.get())->storeItem());
+            images.insert(toImage(cells[i]->element.get())->storeItem());
             }
 
       QString path(p);
@@ -1657,7 +1657,7 @@ void Palette::read(XmlReader& e)
                                     cell->element->read(e);
                                     cell->element->styleChanged();
                                     if (cell->element->isIcon()) {
-                                          Icon* icon = static_cast<Icon*>(cell->element.get());
+                                          Icon* icon = toIcon(cell->element.get());
                                           QAction* ac = getAction(icon->action());
                                           if (ac) {
                                                 QIcon qicon(ac->icon());
@@ -1760,7 +1760,7 @@ void Palette::actionToggled(bool /*val*/)
       for (int n = 0; n < nn; ++n) {
             const Element* e = cellAt(n)->element.get();
             if (e && e->isIcon()) {
-                  QAction* a = getAction(static_cast<const Icon*>(e)->action());
+                  QAction* a = getAction(toIcon(e)->action());
                   if (a->isChecked()) {
                         selectedIdx = n;
                         break;

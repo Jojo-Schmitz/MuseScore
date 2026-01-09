@@ -278,7 +278,7 @@ void HarmonyCanvas::paintEvent(QPaintEvent* event)
             }
 
       if (dragElement && dragElement->isFSymbol()) {
-            FSymbol* sb = static_cast<FSymbol*>(dragElement);
+            FSymbol* sb = toFSymbol(dragElement);
 
 //TODO:ws             double _spatium = 2.0 * PALETTE_SPATIUM / extraMag;
 //            const TextStyle* st = &gscore->textStyle(TextStyleType::HARMONY);
@@ -472,7 +472,7 @@ void HarmonyCanvas::dropEvent(QDropEvent* /*event*/)
       {
 #if 0       // TODO:ws
       if (dragElement && dragElement->isFSymbol()) {
-            FSymbol* sb = static_cast<FSymbol*>(dragElement);
+            FSymbol* sb = toFSymbol(dragElement);
 
             double _spatium = 2.0 * PALETTE_SPATIUM / extraMag;
             const TextStyle* st = &gscore->textStyle(TextStyleType::HARMONY);
@@ -568,7 +568,7 @@ void HarmonyCanvas::deleteAction()
 static void updateHarmony(void*, Element* e)
       {
       if (e->isHarmony())
-            static_cast<Harmony*>(e)->render();
+            toHarmony(e)->render();
       }
 
 //---------------------------------------------------------

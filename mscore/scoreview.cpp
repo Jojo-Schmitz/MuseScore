@@ -868,7 +868,7 @@ void ScoreView::moveCursor()
                         if (scr && scr->track() == t && scr != e)
                               e = scr;
                         // search notes looking for one on current string
-                        for (Note* n : static_cast<Chord*>(e)->notes())
+                        for (Note* n : toChord(e)->notes())
                               // if note found on this string, make it current
                               if (n->string() == strg) {
                                     if (!n->selected()) {
@@ -1380,7 +1380,7 @@ void ScoreView::paint(const QRect& r, QPainter& p)
                               for (const System* system : qAsConst(page->systems())) {
                                     for (const MeasureBase* mb : system->measures()) {
                                           if (mb->isMeasure()) {
-                                                const Measure* m = static_cast<const Measure*>(mb);
+                                                const Measure* m = toMeasure(mb);
                                                 p.setBrush(Qt::NoBrush);
                                                 p.setPen(QPen(QBrush(Qt::darkYellow), 0.5));
                                                 for (const Segment* s = m->first(); s; s = s->next()) {
@@ -1419,7 +1419,7 @@ void ScoreView::paint(const QRect& r, QPainter& p)
                               for (const System* system : qAsConst(page->systems())) {
                                     for (const MeasureBase* mb : system->measures()) {
                                           if (mb->isMeasure()) {
-                                                const Measure* m = static_cast<const Measure*>(mb);
+                                                const Measure* m = toMeasure(mb);
                                                 for (int staffIdx = 0; staffIdx < m->score()->nstaves(); staffIdx++) {
                                                       if (m->corrupted(staffIdx)) {
                                                             p.drawRect(m->staffabbox(staffIdx).adjusted(0, -_spatium, 0, _spatium));
@@ -2527,9 +2527,9 @@ void ScoreView::cmd(const char* s)
                   for (Element* e : el) {
                         ChordRest* cr = nullptr;
                         if (e->isNote())
-                              cr = static_cast<Note*>(e)->chord();
+                              cr = toNote(e)->chord();
                         else if (e->isRest())
-                              cr = static_cast<Rest*>(e);
+                              cr = toRest(e);
                         if (cr)
                               cv->score()->moveUp(cr);
                         }
@@ -2539,9 +2539,9 @@ void ScoreView::cmd(const char* s)
                   for (Element* e : el) {
                         ChordRest* cr = nullptr;
                         if (e->isNote())
-                              cr = static_cast<Note*>(e)->chord();
+                              cr = toNote(e)->chord();
                         else if (e->isRest())
-                              cr = static_cast<Rest*>(e);
+                              cr = toRest(e);
                         if (cr)
                               cv->score()->moveDown(cr);
                         }
@@ -2555,12 +2555,12 @@ void ScoreView::cmd(const char* s)
             {{"top-chord"}, [](ScoreView* cv, const QByteArray&) {
                   Element* el = cv->score()->selection().element();
                   if (el && el->isNote())
-                        cv->cmdGotoElement(cv->score()->upAltCtrl(static_cast<Note*>(el)));
+                        cv->cmdGotoElement(cv->score()->upAltCtrl(toNote(el)));
                   }},
             {{"bottom-chord"}, [](ScoreView* cv, const QByteArray&) {
                   Element* el = cv->score()->selection().element();
                   if (el && el->isNote())
-                        cv->cmdGotoElement(cv->score()->downAltCtrl(static_cast<Note*>(el)));
+                        cv->cmdGotoElement(cv->score()->downAltCtrl(toNote(el)));
                   }},
             {{"next-segment-element"}, [](ScoreView* cv, const QByteArray&) {
                   Element* el = cv->score()->selection().element();
@@ -2856,11 +2856,11 @@ void ScoreView::cmd(const char* s)
             {{"append-textframe"}, [](ScoreView* cv, const QByteArray&) {
                   MeasureBase* mb = cv->appendMeasure(ElementType::TBOX);
                   if (mb) {
-                        TBox* tf = static_cast<TBox*>(mb);
+                        TBox* tf = toTBox(mb);
                         Text* text = 0;
                         foreach(Element* e, tf->el()) {
                               if (e->isText()) {
-                                    text = static_cast<Text*>(e);
+                                    text = toText(e);
                                     break;
                                     }
                               }
@@ -3351,7 +3351,7 @@ void ScoreView::startNoteEntry()
       if (!el)
             return;
       if (el->isChord()) {
-            Chord* c = static_cast<Chord*>(el);
+            Chord* c = toChord(el);
             note = c->selectedNote();
             if (note == 0)
                   note = c->upNote();
@@ -3390,7 +3390,7 @@ void ScoreView::startNoteEntry()
                   // if entering note entry with a note selected and the note has a string
                   // set InputState::_string to note physical string
                   if (el->isNote()) {
-                        strg = (static_cast<Note*>(el))->string();
+                        strg = (toNote(el))->string();
                         }
                   is.setString(strg);
                   break;
@@ -3808,9 +3808,9 @@ void ScoreView::adjustCanvasPosition(const Element* el, bool playBack, int staff
             /* Not used, because impossible to get panel width beforehand
             const MeasureBase* m = 0;
             if (el->isMeasure())
-                  m = static_cast<const MeasureBase*>(el);
+                  m = toMeasureBase(el);
             else
-                  m = static_cast<const Measure*>(el->parent()->findMeasure());
+                  m = toMeasure(el->parent()->findMeasure());
             */
 
             qreal xo = 0.0;  // new x offset
@@ -3880,28 +3880,28 @@ void ScoreView::adjustCanvasPosition(const Element* el, bool playBack, int staff
       if (!el)
             return;
       else if (el->isNote())
-            m = static_cast<const Note*>(el)->chord()->measure();
+            m = toNote(el)->chord()->measure();
       else if (el->isRest())
-            m = static_cast<const Rest*>(el)->measure();
+            m = toRest(el)->measure();
       else if (el->isChord())
-            m = static_cast<const Chord*>(el)->measure();
+            m = toChord(el)->measure();
       else if (el->isSegment())
-            m = static_cast<const Segment*>(el)->measure();
+            m = toSegment(el)->measure();
       else if (el->isLyrics())
-            m = static_cast<const Lyrics*>(el)->measure();
+            m = toLyrics(el)->measure();
       else if ( (el->isHarmony() || el->isFiguredBass()) && el->parent()->isSegment())
-            m = static_cast<const Segment*>(el->parent())->measure();
+            m = toSegment(el->parent())->measure();
       else if (el->isHarmony() && el->parent()->isFretDiagram() && el->parent()->parent()->isSegment())
-            m = static_cast<const Segment*>(el->parent()->parent())->measure();
+            m = toSegment(el->parent()->parent())->measure();
       else if (el->isMeasureBase())
-            m = static_cast<const MeasureBase*>(el);
+            m = toMeasureBase(el);
       else if (el->isSpannerSegment()) {
-            Element* se = static_cast<const SpannerSegment*>(el)->spanner()->startElement();
-            m = static_cast<Measure*>(se->findMeasure());
+            Element* se = toSpannerSegment(el)->spanner()->startElement();
+            m = toMeasure(se->findMeasure());
             }
       else if (el->isSpanner()) {
-            Element* se = static_cast<const Spanner*>(el)->startElement();
-            m = static_cast<Measure*>(se->findMeasure());
+            Element* se = toSpanner(el)->startElement();
+            m = toMeasure(se->findMeasure());
             }
       else {
             // attempt to find measure
@@ -5016,7 +5016,7 @@ void ScoreView::cmdInsertMeasure(ElementType type)
       _score->insertMeasure(type, mb);
       mb = mb->prev();
       if (mb->isTBox()) {
-            TBox* tbox = static_cast<TBox*>(mb);
+            TBox* tbox = toTBox(mb);
             Text* s = tbox->text();
             _score->select(s, SelectType::SINGLE, 0);
             _score->endCmd();
@@ -5047,7 +5047,7 @@ MeasureBase* ScoreView::checkSelectionStateForInsertMeasure()
       Element* e = _score->selection().element();
       if (e) {
             if (e->isVBox() || e->isTBox() || e->isHBox())
-                  return static_cast<MeasureBase*>(e);
+                  return toMeasureBase(e);
             }
       QMessageBox::warning(0, "MuseScore",
             tr("No measure selected:\n" "Please select a measure and try again"));
@@ -5206,7 +5206,7 @@ bool ScoreView::searchRehearsalMark(const QString& s)
       for (Segment* seg = score()->firstSegment(SegmentType::ChordRest); seg; seg = seg->next1(SegmentType::ChordRest)) {
             for (Element* e : seg->annotations()){
                   if (e->isRehearsalMark()) {
-                        RehearsalMark* rm = static_cast<RehearsalMark*>(e);
+                        RehearsalMark* rm = toRehearsalMark(e);
                         QString rms = rm->plainText().toLower();
                         if (rms.startsWith(ss)) {
                               gotoMeasure(seg->measure());
@@ -5234,11 +5234,11 @@ void ScoreView::gotoMeasure(Measure* measure)
                   continue;
             int track;
             for (track = 0; track < tracks; ++track) {
-                  ChordRest* cr = static_cast<ChordRest*>(segment->element(track));
+                  ChordRest* cr = toChordRest(segment->element(track));
                   if (cr) {
                         Element* e;
                         if (cr->isChord())
-                              e =  static_cast<Chord*>(cr)->upNote();
+                              e =  toChord(cr)->upNote();
                         else //REST
                               e = cr;
 
@@ -5286,16 +5286,16 @@ static bool elementLower(const Element* e1, const Element* e2)
             // same stacking order, prefer non-hidden elements
             if (e1->type() == e2->type()) {
                   if (e1->isNoteDot()) {
-                        const NoteDot* n1 = static_cast<const NoteDot*>(e1);
-                        const NoteDot* n2 = static_cast<const NoteDot*>(e2);
+                        const NoteDot* n1 = toNoteDot(e1);
+                        const NoteDot* n2 = toNoteDot(e2);
                         if (n1->note() && n1->note()->hidden())
                               return false;
                         else if (n2->note() && n2->note()->hidden())
                               return true;
                         }
                   else if (e1->isNote()) {
-                        const Note* n1 = static_cast<const Note*>(e1);
-                        const Note* n2 = static_cast<const Note*>(e2);
+                        const Note* n1 = toNote(e1);
+                        const Note* n2 = toNote(e2);
                         if (n1->hidden())
                               return false;
                         else if (n2->hidden())
@@ -5441,7 +5441,7 @@ void ScoreView::cmdMoveCR(bool left)
             bool cmdActive = false;
             for (ChordRest* cr1 : crl) {
                   if (cr1->isRest()) {
-                        Rest* r = static_cast<Rest*>(cr1);
+                        Rest* r = toRest(cr1);
                         if (r->measure() && r->measure()->isMMRest())
                               break;
                         }

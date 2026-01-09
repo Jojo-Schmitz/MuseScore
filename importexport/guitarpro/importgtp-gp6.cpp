@@ -802,7 +802,7 @@ void GuitarPro6::makeTie(Note* note)
             Element* e = segment->element(track);
             if (e) {
                   if (e->isChord()) {
-                        Chord* chord2 = static_cast<Chord*>(e);
+                        Chord* chord2 = toChord(e);
                         foreach(Note* note2, chord2->notes()) {
                               if (note2->string() == note->string()) {
                                     Tie* tie = new Tie(score);
@@ -1488,7 +1488,7 @@ Fraction GuitarPro6::readBeats(QString beats, GPPartInfo* partInfo, Measure* mea
                                                 int etrack = staffIdx * VOICES + VOICES;
                                                 for (const Element* e : segment->annotations()) {
                                                       if (e->isStaffText() && e->track() >= strack && e->track() < etrack) {
-                                                            const StaffText* st = static_cast<const StaffText*>(e);
+                                                            const StaffText* st = toStaffText(e);
                                                             if (!st->xmlText().compare(text)) {
                                                                   t = true;
                                                                   break;
@@ -1981,7 +1981,7 @@ bool checkForHold(Segment* segment, QList<PitchValue> points)
             return false;
       foreach (Element* e, prevSeg->annotations()) {
             if (e->isTremoloBar()) {
-                  QList<PitchValue> prevPoints = ((TremoloBar*)e)->points();
+                  QList<PitchValue> prevPoints = (toTremoloBar(e))->points();
                   if (prevPoints.length() != points.length())
                         break;
 
@@ -2049,7 +2049,7 @@ void GuitarPro6::addTremoloBar(Segment* segment, int track, int whammyOrigin, in
                   return;
             foreach (Element* e, prevSeg->annotations()) {
                   if (e->isTremoloBar()) {
-                        QList<PitchValue> prevPoints = ((TremoloBar*)e)->points();
+                        QList<PitchValue> prevPoints = (toTremoloBar(e))->points();
                         QList<PitchValue> points;
                         points.append(PitchValue(0, prevPoints[prevPoints.length() - 1].pitch, false));
                         points.append(PitchValue(50, whammyOrigin, false));
@@ -2390,7 +2390,7 @@ void GuitarPro6::readMasterBars(GPPartInfo* partInfo)
                                                 for (const Segment* seg = measure->prevMeasure()->last(); seg; seg = seg->prev1()) {
                                                       Element* el = seg->element(i);
                                                       if (el && el->isChord()) {
-                                                            c = static_cast<Chord*>(el);
+                                                            c = toChord(el);
                                                             break;
                                                             }
                                                       }
@@ -2496,7 +2496,7 @@ void GuitarPro6::readGpif(QByteArray* data)
                   for (const Segment* seg = score->lastSegment(); seg; seg = seg->prev1()) {
                         Element* el = seg->element(i);
                         if (el && el->isChord()) {
-                              c = static_cast<Chord*>(el);
+                              c = toChord(el);
                               break;
                               }
                         }

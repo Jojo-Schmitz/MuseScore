@@ -774,7 +774,7 @@ void GuitarPro::createSlide(int sl, ChordRest* cr, int staffIdx, Note* /*note*/)
             Element* prevElem = prevSeg->element(staffIdx);
             if (prevElem) {
                   if (prevElem->isChord()) {
-                        Chord* prevChord = static_cast<Chord*>(prevElem);
+                        Chord* prevChord = toChord(prevElem);
                         /** TODO we should not just take the top note here
                         * but the /correct/ note need to check whether GP
                         * supports multi-note gliss. I think it can in modern
@@ -2474,7 +2474,7 @@ bool GuitarPro3::read(QFile* fp)
                                     note->setTpcFromPitch();
                                     }
                               }
-                        if (cr && cr->isChord() && static_cast<Chord*>(cr)->notes().empty()) {
+                        if (cr && cr->isChord() && toChord(cr)->notes().empty()) {
                               if (segment->cr(track))
                                     segment->remove(cr);
                               delete cr;
@@ -2497,7 +2497,7 @@ bool GuitarPro3::read(QFile* fp)
                                           }
                                     }
 
-                              applyBeatEffects(static_cast<Chord*>(cr), beatEffects);
+                              applyBeatEffects(toChord(cr), beatEffects);
                               if (slide > 0)
                                     createSlide(slide, cr, staffIdx);
                               }
@@ -2524,7 +2524,7 @@ bool GuitarPro3::read(QFile* fp)
                                     }
                               else if (cr) {
                                     ++counter;
-                                    lastRest = static_cast<Rest*>(cr);
+                                    lastRest = toRest(cr);
                                     }
                               }
                         }
@@ -2571,7 +2571,7 @@ bool GuitarPro3::read(QFile* fp)
                         continue;
                   if (crest->isRest())
                         break;
-                  auto cr = static_cast<Chord*>(crest);
+                  auto cr = toChord(crest);
                   if (!cr)
                         continue;
                   if (cr->graceNotes().size())

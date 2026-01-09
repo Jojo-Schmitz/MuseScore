@@ -109,7 +109,7 @@ void SymbolDialog::systemFlagChanged(int state)
       for (int i = 0; i < sp->size(); ++i) {
             Element* e = sp->element(i);
             if (e && e->isSymbol())
-                  static_cast<Symbol*>(e)->setSystemFlag(sysFlag);
+                  toSymbol(e)->setSystemFlag(sysFlag);
             }
       }
 

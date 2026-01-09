@@ -2582,7 +2582,7 @@ bool Measure::stemless(int staffIdx) const
 
 LayoutBreak* Measure::nextSectionBreak() const
       {
-      const MeasureBase* mb = static_cast<const MeasureBase*>(this);
+      const MeasureBase* mb = toMeasureBase(this);
 
       do {
             if (LayoutBreak* sectionBreak = mb->sectionBreakElement())

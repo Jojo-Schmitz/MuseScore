@@ -203,7 +203,7 @@ void DrumTools::drumNoteSelected(int val)
       {
       Element* element = drumPalette->element(val);
       if (element && element->isChord()) {
-            Chord* ch        = static_cast<Chord*>(element);
+            Chord* ch        = toChord(element);
             Note* note       = ch->downNote();
             int ticks        = MScore::defaultPlayDuration;
             int pitch        = note->pitch();
@@ -230,7 +230,7 @@ int DrumTools::selectedDrumNote()
             return -1;
       Element* element = drumPalette->element(idx);
       if (element && element->isChord()) {
-            Chord* ch  = static_cast<Chord*>(element);
+            Chord* ch  = toChord(element);
             Note* note = ch->downNote();
             auto pitchCell = drumPalette->cellAt(idx);
             pitchName->setText(pitchCell->name);
