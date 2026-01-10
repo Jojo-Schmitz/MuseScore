@@ -1477,7 +1477,7 @@ bool GuitarPro5::readNote(int string, Note* note)
                   if (e) {
                         if (e->isChord()) {
                               Chord* chord2 = toChord(e);
-                              foreach (Note* note2, chord2->notes()) {
+                              for (Note* note2 : chord2->notes()) {
                                     if (note2->string() == string) {
 					            if (chords.empty()) {
                                                 Tie* tie = new Tie(score);

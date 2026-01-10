@@ -1526,7 +1526,7 @@ bool FiguredBass::readConfigFile(const QString& fileName)
 QList<QString> FiguredBass::fontNames()
       {
       QList<QString> names;
-      foreach(const FiguredBassFont& f, g_FBFonts)
+      for (const FiguredBassFont& f : g_FBFonts)
             names.append(f.displayName);
       return names;
       }

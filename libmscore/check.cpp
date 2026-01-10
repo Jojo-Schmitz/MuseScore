@@ -32,7 +32,7 @@ namespace Ms {
 void Score::checkSlurs()
       {
 #if 0 //TODO1
-      foreach(Element* e, _gel) {
+      for (Element* e : _gel) {
             if (!e->isSlur())
                   continue;
             Slur* s = toSlur(e);
@@ -74,7 +74,7 @@ void Score::checkScore()
 
             if (s->isType(SegmentType::ChordRest)) {
                   bool empty = true;
-                  foreach(Element* e, s->elist()) {
+                  for (Element* e : s->elist()) {
                         if (e) {
                               empty = false;
                               break;

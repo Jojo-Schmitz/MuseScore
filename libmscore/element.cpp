@@ -860,7 +860,7 @@ Compound::Compound(const Compound& c)
    : Element(c)
       {
       elements.clear();
-      foreach(Element* e, c.elements)
+      for (Element* e : c.elements)
             elements.append(e->clone());
       }
 
@@ -870,7 +870,7 @@ Compound::Compound(const Compound& c)
 
 void Compound::draw(QPainter* painter) const
       {
-      foreach(Element* e, elements) {
+      for (Element* e : elements) {
             QPointF pt(e->pos());
             painter->translate(pt);
             e->draw(painter);
@@ -935,7 +935,7 @@ void Compound::setVisible(bool f)
 
 void Compound::clear()
       {
-      foreach(Element* e, elements) {
+      for (Element* e : elements) {
             if (e->selected())
                   score()->deselect(e);
             delete e;

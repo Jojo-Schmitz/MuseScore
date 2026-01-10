@@ -43,7 +43,7 @@ StringData::StringData(int numFrets, QList<instrString>& strings)
       _frets = numFrets;
 
       stringTable.clear();
-      foreach(instrString i, strings)
+      for (instrString i : strings)
             stringTable.append(i);
       }
 
@@ -87,7 +87,7 @@ void StringData::write(XmlWriter& xml) const
       {
       xml.stag("StringData");
       xml.tag("frets", _frets);
-      foreach(instrString strg, stringTable) {
+      for (instrString strg : stringTable) {
             if (strg.open)
                   xml.tag("string open=\"1\"", strg.pitch);
             else
@@ -188,7 +188,7 @@ void StringData::fretChords(Chord * chord) const
       // determine used range of frets
       minFret = INT32_MAX;
       maxFret = INT32_MIN;
-      foreach(Note* note, sortedNotes) {
+      for (Note* note : sortedNotes) {
             if (note->string() != INVALID_STRING_INDEX)
                   bUsed[note->string()]++;
             if (note->fret() != INVALID_FRET_INDEX && note->fret() < minFret)
@@ -198,7 +198,7 @@ void StringData::fretChords(Chord * chord) const
       }
 
       // scan chord notes from highest, matching with strings from the highest
-      foreach(Note * note, sortedNotes) {
+      for (Note * note : sortedNotes) {
             nString     = nNewString    = note->string();
             nFret       = nNewFret      = note->fret();
             note->setFretConflict(false);       // assume no conflicts on this note

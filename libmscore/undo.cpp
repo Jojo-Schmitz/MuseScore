@@ -1902,7 +1902,7 @@ void InsertRemoveMeasures::insertMeasures()
                   if (e == 0 || !e->isChord())
                         continue;
                   Chord* chord = toChord(e);
-                  foreach (Note* n, chord->notes()) {
+                  for (Note* n : chord->notes()) {
                         Tie* tie = n->tieFor();
                         if (!tie)
                               continue;

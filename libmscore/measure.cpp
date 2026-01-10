@@ -1177,7 +1177,7 @@ void Measure::cmdRemoveStaves(int sStaff, int eStaff)
                         score()->undo(new RemoveElement(el));
                         }
                   }
-            foreach (Element* e, s->annotations()) {
+            for (Element* e : s->annotations()) {
                   int staffIdx = e->staffIdx();
                   if ((staffIdx >= sStaff) && (staffIdx < eStaff) && !e->systemFlag()) {
                         e->undoUnlink();

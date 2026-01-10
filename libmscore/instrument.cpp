@@ -491,12 +491,12 @@ NamedEventList* Instrument::midiAction(const QString& s, int channelIdx) const
       {
       // first look in channel list
 
-      foreach(const NamedEventList& a, _channel[channelIdx]->midiActions) {
+      for (const NamedEventList& a : _channel[channelIdx]->midiActions) {
             if (s == a.name)
                   return const_cast<NamedEventList*>(&a);
             }
 
-      foreach(const NamedEventList& a, _midiActions) {
+      for (const NamedEventList& a : _midiActions) {
             if (s == a.name)
                   return const_cast<NamedEventList*>(&a);
             }

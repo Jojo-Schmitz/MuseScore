@@ -244,7 +244,7 @@ bool BBFile::read(const QString& name)
 
 #if 0
       qDebug("================chords=======================");
-      foreach(BBChord c, _chords) {
+      for (BBChord c : _chords) {
             qDebug("chord beat %3d bass %d root %d extension %d",
                c.beat, c.bass, c.root, c.extension);
             }

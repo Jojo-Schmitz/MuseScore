@@ -3435,7 +3435,7 @@ QString Chord::accessibleExtraInfo() const
       if (tremolo() && score()->selectionFilter().canSelect(tremolo()))
             rez = QString("%1 %2").arg(rez, tremolo()->screenReaderInfo());
 
-      foreach (Element* e, el()) {
+      for  (Element* e : el()) {
             if (!score()->selectionFilter().canSelect(e))
                   continue;
             rez = QString("%1 %2").arg(rez, e->screenReaderInfo());

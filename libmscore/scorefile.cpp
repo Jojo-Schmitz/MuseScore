@@ -1132,7 +1132,7 @@ QByteArray MasterScore::readCompressedToBuffer()
       //
       // load images
       //
-      foreach(const QString& s, images) {
+      for (const QString& s : images) {
             QByteArray dbuf = uz.fileData(s);
             imageStore.add(s, dbuf);
             }

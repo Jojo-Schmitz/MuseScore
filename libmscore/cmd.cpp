@@ -1327,7 +1327,7 @@ void Score::changeCRlen(ChordRest* cr, const Fraction& dstF, bool fillWithRest)
                         if (tremolo->twoNotes())
                               undoRemoveElement(tremolo);
                         }
-                  foreach (Note* n, c->notes()) {
+                  for (Note* n : c->notes()) {
                         if (n->tieFor())
                               undoRemoveElement(n->tieFor());
                         }
@@ -1819,7 +1819,7 @@ void Score::toggleAccidental(AccidentalType at, const EditData& ed)
 
 void Score::changeAccidental(AccidentalType idx)
       {
-      foreach(Note* note, selection().noteList())
+      for (Note* note : selection().noteList())
             changeAccidental(note, idx);
       }
 
@@ -3336,7 +3336,7 @@ void Score::cmdSlashRhythm()
       {
       QList<Chord*> chords;
       // loop through all notes in selection
-      foreach (Element* e, selection().elements()) {
+      for  (Element* e : selection().elements()) {
             if (e->voice() >= 2 && e->isRest()) {
                   Rest* r = toRest(e);
                   if (r->links()) {

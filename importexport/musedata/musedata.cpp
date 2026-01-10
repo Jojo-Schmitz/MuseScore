@@ -52,7 +52,7 @@ void MuseData::musicalAttribute(QString s, Part* part)
 #else
       QStringList al = s.mid(3).split(" ", QString::SkipEmptyParts);
 #endif
-      foreach(QString item, al) {
+      for (QString item : al) {
             if (item.startsWith("K:")) {
                   int key = item.midRef(2).toInt();
                   KeySigEvent ke;
@@ -424,7 +424,7 @@ void MuseData::readNote(Part* part, const QString& s)
       if (!txt.isEmpty()) {
             QStringList sl = txt.split("|");
             int no = 0;
-            foreach(QString w, sl) {
+            for (QString w : sl) {
                   w = diacritical(w);
                   Lyrics* l = new Lyrics(score);
                   l->setPlainText(w);
@@ -552,7 +552,7 @@ Measure* MuseData::createMeasure()
       mes->setTick(curTick);
 
 #if 0
-      foreach(Staff* s, score->staves()) {
+      for (Staff* s : score->staves()) {
             if (s->isTop()) {
                   BarLine* barLine = new BarLine(score);
                   barLine->setStaff(s);

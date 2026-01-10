@@ -2804,7 +2804,7 @@ void Score::cmdCreateTuplet(ChordRest* ocr, Tuplet* tuplet)
       ChordRest* cr;
       if (ocr->isChord()) {
             cr = new Chord(this);
-            foreach (Note* oldNote, toChord(ocr)->notes()) {
+            for (Note* oldNote : toChord(ocr)->notes()) {
                   Note* note = new Note(this);
                   note->setPitch(oldNote->pitch());
                   note->setTpc1(oldNote->tpc1());
@@ -2976,7 +2976,7 @@ void Score::removeChordRest(ChordRest* cr, bool clearSegment)
 
 void Score::cmdDeleteTuplet(Tuplet* tuplet, bool replaceWithRest)
       {
-      foreach(DurationElement* de, tuplet->elements()) {
+      for (DurationElement* de : tuplet->elements()) {
             if (de->isChordRest())
                   removeChordRest(toChordRest(de), true);
             else {

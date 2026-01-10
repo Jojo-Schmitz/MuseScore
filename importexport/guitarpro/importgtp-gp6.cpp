@@ -803,7 +803,7 @@ void GuitarPro6::makeTie(Note* note)
             if (e) {
                   if (e->isChord()) {
                         Chord* chord2 = toChord(e);
-                        foreach(Note* note2, chord2->notes()) {
+                        for (Note* note2 : chord2->notes()) {
                               if (note2->string() == note->string()) {
                                     Tie* tie = new Tie(score);
                                     tie->setEndNote(note);
@@ -1979,7 +1979,7 @@ bool checkForHold(Segment* segment, QList<PitchValue> points)
       Segment* prevSeg = segment->prev1(SegmentType::ChordRest);
       if (!prevSeg)
             return false;
-      foreach (Element* e, prevSeg->annotations()) {
+      for (Element* e : prevSeg->annotations()) {
             if (e->isTremoloBar()) {
                   QList<PitchValue> prevPoints = (toTremoloBar(e))->points();
                   if (prevPoints.length() != points.length())
@@ -2047,7 +2047,7 @@ void GuitarPro6::addTremoloBar(Segment* segment, int track, int whammyOrigin, in
             Segment* prevSeg = segment->prev1(SegmentType::ChordRest);
             if (!prevSeg)
                   return;
-            foreach (Element* e, prevSeg->annotations()) {
+            for  (Element* e : prevSeg->annotations()) {
                   if (e->isTremoloBar()) {
                         QList<PitchValue> prevPoints = (toTremoloBar(e))->points();
                         QList<PitchValue> points;

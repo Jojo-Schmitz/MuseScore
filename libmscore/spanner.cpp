@@ -496,7 +496,7 @@ void Spanner::scanElements(void* data, void (*func)(void*, Element*), bool all)
 void Spanner::setScore(Score* s)
       {
       Element::setScore(s);
-      foreach(SpannerSegment* seg, segments)
+      for (SpannerSegment* seg : segments)
             seg->setScore(s);
       }
 

@@ -305,7 +305,7 @@ bool Score::transpose(TransposeMode mode, TransposeDirection direction, Key trKe
             }
 
       if (_selection.isList()) {
-            foreach (Element* e, _selection.uniqueElements()) {
+            for  (Element* e : _selection.uniqueElements()) {
                   if (!e->staff() || e->staff()->staffType(e->tick())->group() == StaffGroup::PERCUSSION)
                         continue;
                   if (e->isNote()) {
@@ -459,7 +459,7 @@ bool Score::transpose(TransposeMode mode, TransposeDirection direction, Key trKe
                         }
                   }
             if (transposeChordNames) {
-                  foreach (Element* e, segment->annotations()) {
+                  for  (Element* e : segment->annotations()) {
                         if (!e->isHarmony() || (!tracks.contains(e->track())))
                               continue;
                         Harmony* hh  = toHarmony(e);

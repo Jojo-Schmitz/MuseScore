@@ -43,7 +43,7 @@ void ExportMidi::writeHeader(MidiTrack& tempoTrack)
 #if 0 // TODO
       MeasureBase* measure  = cs->first();
 
-      foreach (const Element* e, *measure->el()) {
+      for  (const Element* e : *measure->el()) {
             if (e->isText()) {
                   const Text* text = toText(e);
                   QString str = text->getText();
