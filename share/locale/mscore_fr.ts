@@ -32185,7 +32185,7 @@ Cette partition contient des parties. La modification des indications de mesure 
     <message>
         <location filename="../../libmscore/note.cpp" line="271"/>
         <source>Diamond (Old)</source>
-        <translation>Diamant (ancien)</translation>
+        <translation>Diamant (Ancien)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="272"/>
@@ -32260,127 +32260,127 @@ Cette partition contient des parties. La modification des indications de mesure 
     <message>
         <location filename="../../libmscore/note.cpp" line="301"/>
         <source>Do (Name)</source>
-        <translation>Do (nom)</translation>
+        <translation>Do (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="302"/>
         <source>Di (Name)</source>
-        <translation type="unfinished"></translation>
+        <translation>Di (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="303"/>
         <source>Ra (Name)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ra (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="304"/>
         <source>Re (Name)</source>
-        <translation>Ré (nom)</translation>
+        <translation>Ré (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="305"/>
         <source>Ro (Name)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ro (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="306"/>
         <source>Me (Name)</source>
-        <translation type="unfinished"></translation>
+        <translation>Me (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="307"/>
         <source>Mi (Name)</source>
-        <translation>Mi (nom)</translation>
+        <translation>Mi (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="308"/>
         <source>Fa (Name)</source>
-        <translation>Fa (nom)</translation>
+        <translation>Fa (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="309"/>
         <source>Fi (Name)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fi (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="310"/>
         <source>Se (Name)</source>
-        <translation type="unfinished"></translation>
+        <translation>Se (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="311"/>
         <source>Sol (Name)</source>
-        <translation>Sol (nom)</translation>
+        <translation>Sol (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="312"/>
         <source>Le (Name)</source>
-        <translation type="unfinished"></translation>
+        <translation>Le (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="313"/>
         <source>La (Name)</source>
-        <translation>La (nom)</translation>
+        <translation>La (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="314"/>
         <source>Li (Name)</source>
-        <translation type="unfinished"></translation>
+        <translation>Li (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="315"/>
         <source>Te (Name)</source>
-        <translation type="unfinished"></translation>
+        <translation>Te (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="316"/>
         <source>Ti (Name)</source>
-        <translation>Ti (nom)</translation>
+        <translation>Ti (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="317"/>
         <source>Si (Name)</source>
-        <translation>Si (nom)</translation>
+        <translation>Si (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="320"/>
         <source>A♯ (Name)</source>
-        <translation>La♯ (nom)</translation>
+        <translation>La♯ (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="321"/>
         <source>A (Name)</source>
-        <translation>La (nom)</translation>
+        <translation>La (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="322"/>
         <source>A♭ (Name)</source>
-        <translation>La♭ (nom)</translation>
+        <translation>La♭ (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="323"/>
         <source>B♯ (Name)</source>
-        <translation>Si♯ (nom)</translation>
+        <translation>Si♯ (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="324"/>
         <source>B (Name)</source>
-        <translation>Si (nom)</translation>
+        <translation>Si (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="325"/>
         <source>B♭ (Name)</source>
-        <translation>Si♭ (nom)</translation>
+        <translation>Si♭ (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="326"/>
         <source>C♯ (Name)</source>
-        <translation>Do♯ (nom)</translation>
+        <translation>Do♯ (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="327"/>
         <source>C (Name)</source>
-        <translation>Do (nom)</translation>
+        <translation>Do (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="328"/>
@@ -32390,72 +32390,72 @@ Cette partition contient des parties. La modification des indications de mesure 
     <message>
         <location filename="../../libmscore/note.cpp" line="329"/>
         <source>D♯ (Name)</source>
-        <translation>Ré# (nom)</translation>
+        <translation>Ré# (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="330"/>
         <source>D (Name)</source>
-        <translation>Ré (nom)</translation>
+        <translation>Ré (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="331"/>
         <source>D♭ (Name)</source>
-        <translation>Ré♭ (nom)</translation>
+        <translation>Ré♭ (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="332"/>
         <source>E♯ (Name)</source>
-        <translation>Mi♯ (nom)</translation>
+        <translation>Mi♯ (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="333"/>
         <source>E (Name)</source>
-        <translation>Mi (nom)</translation>
+        <translation>Mi (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="334"/>
         <source>E♭ (Name)</source>
-        <translation>Mi♭ (nom)</translation>
+        <translation>Mi♭ (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="335"/>
         <source>F♯ (Name)</source>
-        <translation>Fa♯ (nom)</translation>
+        <translation>Fa♯ (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="336"/>
         <source>F (Name)</source>
-        <translation>Fa (nom)</translation>
+        <translation>Fa (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="337"/>
         <source>F♭ (Name)</source>
-        <translation>Fa♭ (nom)</translation>
+        <translation>Fa♭ (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="338"/>
         <source>G♯ (Name)</source>
-        <translation>Sol♯ (nom)</translation>
+        <translation>Sol♯ (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="339"/>
         <source>G (Name)</source>
-        <translation>Sol (nom)</translation>
+        <translation>Sol (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="340"/>
         <source>G♭ (Name)</source>
-        <translation>Sol♭ (nom)</translation>
+        <translation>Sol♭ (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="341"/>
         <source>H (Name)</source>
-        <translation>Si (nom)</translation>
+        <translation>H (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="342"/>
         <source>H♯ (Name)</source>
-        <translation>Si♯ (nom)</translation>
+        <translation>H♯ (Nom)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="345"/>
@@ -32510,7 +32510,7 @@ Cette partition contient des parties. La modification des indications de mesure 
     <message>
         <location filename="../../libmscore/note.cpp" line="287"/>
         <source>Ti</source>
-        <translation>Si</translation>
+        <translation>Ti</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="281"/>
