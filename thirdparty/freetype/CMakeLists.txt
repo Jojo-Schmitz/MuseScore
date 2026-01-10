@@ -32,3 +32,9 @@ add_subdirectory(${FREETYPE_DIR})
 
 # Export variables
 set(FREETYPE_LIBRARIES freetype PARENT_SCOPE)
+
+if (MSVC)
+  set_target_properties( freetype PROPERTIES
+    COMPILE_FLAGS "/wd4244 /wd4267"
+  )
+endif ()
