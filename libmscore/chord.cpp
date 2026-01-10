@@ -1699,7 +1699,7 @@ void Chord::layout2()
             qreal xOff =  s ? (s->pos().x() - s->staffShape(last->vStaffIdx()).left()) - (segment()->pos().x() + pos().x()) : _spaceRw;
             // final distance: if near to another chord, leave minNoteDist at right of last grace
             // else leave note-to-barline distance;
-            xOff -= (s != nullptr && s->segmentType() != SegmentType::ChordRest)
+            xOff -= (s != nullptr && !s->isChordRestType())
                   ? score()->styleP(Sid::noteBarDistance) * mag
                   : minNoteDist;
             // scan grace note list from the end

@@ -1383,7 +1383,7 @@ Element* System::prevSegmentElement()
                   if (!seg)
                         return score()->firstElement();
 
-                  if (seg->segmentType() == SegmentType::EndBarLine)
+                  if (seg->isEndBarLineType())
                         score()->inputState().setTrack((score()->staves().size() - 1) * VOICES); //correction
 
                   re = seg->lastElementForNavigation(score()->staves().size() - 1);

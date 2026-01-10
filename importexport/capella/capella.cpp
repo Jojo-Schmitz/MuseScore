@@ -493,7 +493,7 @@ static bool findChordRests(BasicDrawObj const* const o, Score* score, const int 
       // Now we have the tick (tick) and the level of grace note (graceNumber1, if "no" is a grace note) for the first ChordRest
       // and the tick (tick2) and the level of grace note (graceNumber, if the target is a grace note) for the 2nd ChordRest
       for (Segment* seg = score->tick2segment(tick); seg; seg = seg->next1()) {
-            if (seg->segmentType() != SegmentType::ChordRest)
+            if (!seg->isChordRestType())
                   continue;
             ChordRest* cr = toChordRest(seg->element(track));
             if (cr) {
@@ -510,7 +510,7 @@ static bool findChordRests(BasicDrawObj const* const o, Score* score, const int 
                   }
             }
       for (Segment* seg = score->tick2segment(tick2); seg; seg = seg->next1()) {
-            if (seg->segmentType() != SegmentType::ChordRest)
+            if (!seg->isChordRestType())
                   continue;
             ChordRest* cr = toChordRest(seg->element(track));
             if (cr) {

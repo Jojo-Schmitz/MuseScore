@@ -1019,8 +1019,7 @@ bool GuitarPro4::read(QFile* fp)
                                     while ((seg = seg->prev()) || (mes = mes->prevMeasure())) {
                                           if (!seg)
                                                 break;//seg = mes->last();
-                                          if (seg->segmentType() == SegmentType::ChordRest
-                                              && seg->cr(chord->track())->isChord()) {
+                                          if (seg->isChordRestType() && seg->cr(chord->track())->isChord()) {
                                                 bool br = false;
                                                 Chord* cr1 = toChord(seg->cr(chord->track()));
                                                 if (cr1) {

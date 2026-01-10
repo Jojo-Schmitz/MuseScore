@@ -427,7 +427,7 @@ Clef* Clef::otherClef()
       Segment* otherSegm = nullptr;
       Fraction segmTick  = segm->tick();
       SegmentType type = SegmentType::Clef;
-      if (segmTick == meas->tick() && segm->segmentType() == SegmentType::HeaderClef) // if clef segm is measure-initial
+      if (segmTick == meas->tick() && segm->isHeaderClefType()) // if clef segm is measure-initial
             otherMeas = meas->prevMeasure();                                          // look for a previous measure
       else if (segmTick == meas->tick() + meas->ticks()) {                            // if clef segm is measure-final
             otherMeas = meas->nextMeasure();                                          // look for a next measure

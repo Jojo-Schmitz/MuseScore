@@ -164,7 +164,7 @@ void Cursor::rewindToTick(int tick)
       // better to search not precisely if possible
       Ms::Fraction fTick = Ms::Fraction::fromTicks(tick + 1);
       Ms::Segment* seg = _score->tick2leftSegment(fTick);
-      if (!(seg->segmentType() & _filter)) {
+      if (!seg->isType(_filter)) {
             // we need another segment type, search by known tick
             seg = _score->tick2segment(seg->tick(), /* first */ true, _filter);
             }

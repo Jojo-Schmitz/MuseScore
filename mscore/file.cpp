@@ -839,7 +839,7 @@ MasterScore* MuseScore::getNewFile()
       //
       Measure* m = score->firstMeasure();
       for (Segment* s = m->first(); s; s = s->next()) {
-            if (s->segmentType() == SegmentType::ChordRest) {
+            if (s->isChordRestType()) {
                   if (s->element(0)) {
                         score->select(s->element(0), SelectType::SINGLE, 0);
                         break;

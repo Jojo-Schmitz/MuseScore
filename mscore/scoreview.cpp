@@ -5122,7 +5122,7 @@ void ScoreView::cmdRepeatSelection()
             auto eTrack = selection.elements().front()->track();
             auto staffTrack   = staff2track(dStaff);
             bool filtered = score()->selection().hasTemporaryFilter();
-            if (endSegment->segmentType() != SegmentType::ChordRest)
+            if (!endSegment->isChordRestType())
                   endSegment = endSegment->next1(SegmentType::ChordRest);
             if (!endSegment)
                   return;
@@ -5230,7 +5230,7 @@ void ScoreView::gotoMeasure(Measure* measure)
       adjustCanvasPosition(measure, state != ViewState::NORMAL);
       int tracks = _score->nstaves() * VOICES;
       for (Segment* segment = measure->first(); segment; segment = segment->next()) {
-            if (segment->segmentType() != SegmentType::ChordRest)
+            if (!segment->isChordRestType())
                   continue;
             int track;
             for (track = 0; track < tracks; ++track) {

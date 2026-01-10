@@ -2872,11 +2872,10 @@ static void readMeasure(Measure* m, int staffIdx, XmlReader& e)
                         bool firstSegment = false;
                         // the first clef may be missing and is added later in layout
                         for (Segment* s = m->segments().first(); s && s->tick() == e.tick(); s = s->next()) {
-                              if (s->segmentType() == SegmentType::Clef
+                              if (s->isClefType()
                                     // hack: there may be other segment types which should
                                     // generate a clef at current position
-                                 || s->segmentType() == SegmentType::StartRepeatBarLine
-                                 ) {
+                                 || s->isStartRepeatBarLineType()) {
                                     firstSegment = true;
                                     break;
                                     }
@@ -2890,7 +2889,7 @@ static void readMeasure(Measure* m, int staffIdx, XmlReader& e)
                                     }
                               segment = 0;
                               for (Segment* s = ns; s && s->tick() == e.tick(); s = s->next()) {
-                                    if (s->segmentType() == SegmentType::Clef) {
+                                    if (s->isClefType()) {
                                           segment = s;
                                           break;
                                           }

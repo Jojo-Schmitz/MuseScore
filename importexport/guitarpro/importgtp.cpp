@@ -2514,7 +2514,7 @@ bool GuitarPro3::read(QFile* fp)
                   Rest* lastRest = nullptr;
                   for (auto seg = measure->first(); seg; seg = seg->next())
                         {
-                        if (seg->segmentType() == SegmentType::ChordRest)
+                        if (seg->isChordRestType())
                               {
                               auto cr = seg->cr(track);
                               if (cr && cr->isChord())
@@ -2541,7 +2541,7 @@ bool GuitarPro3::read(QFile* fp)
                         auto seg = measure->first();
                         while (seg && seg != measure->last())
                               {
-                              if (seg->segmentType() == SegmentType::ChordRest)
+                              if (seg->isChordRestType())
                                     {
                                     auto cr = seg->cr(track);
                                     if (cr) {

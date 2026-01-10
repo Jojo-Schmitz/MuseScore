@@ -799,7 +799,7 @@ Note* prevNote(Note* n)
       int startTrack = staff * VOICES + n->voice() - 1;
       int endTrack   = 0;
       while (seg) {
-            if (seg->segmentType() == SegmentType::ChordRest) {
+            if (seg->isChordRestType()) {
                   for (int track = startTrack; track >= endTrack; --track) {
                         Element* e = seg->element(track);
                         if (e && e->isChord())
@@ -831,7 +831,7 @@ static Note* nextNote(Note* n)
       int startTrack = staff * VOICES + n->voice() + 1;
       int endTrack   = staff * VOICES + VOICES;
       while (seg) {
-            if (seg->segmentType() == SegmentType::ChordRest) {
+            if (seg->isChordRestType()) {
                   for (int track = startTrack; track < endTrack; ++track) {
                         Element* e = seg->element(track);
                         if (e && e->isChord()) {
@@ -981,7 +981,7 @@ static Segment* getNextValidInputSegment(Segment* s, int track, int voice)
       {
       if (s == 0)
             return 0;
-      Q_ASSERT(s->segmentType() == SegmentType::ChordRest);
+      Q_ASSERT(s->isChordRestType());
       // Segment* s1 = s;
       ChordRest* cr1 = nullptr;
       for (Segment* s1 = s; s1; s1 = s1->prev(SegmentType::ChordRest)) {
@@ -1721,7 +1721,7 @@ Segment* Score::firstSegment(SegmentType segType) const
             seg = 0;
       else {
             seg = m->first();
-            if (seg && !(seg->segmentType() & segType))
+            if (seg && !seg->isType(segType))
                   seg = seg->next1(segType);
             }
 
@@ -5026,7 +5026,7 @@ void Score::changeVoice(int voice)
                               Chord* cBefore = nullptr;
                               Chord* cAfterStart = nullptr;
                               for (Segment* s2 = m->first(SegmentType::ChordRest); s2; s2 = s2->next()) {
-                                    if (s2->segmentType() != SegmentType::ChordRest)
+                                    if (!s2->isChordRestType())
                                           continue;
                                     ChordRest* cr2 = toChordRest(s2->element(dstTrack));
                                     if (!cr2)

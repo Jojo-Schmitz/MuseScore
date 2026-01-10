@@ -760,7 +760,7 @@ void Score::createCRSequence(const Fraction& f, ChordRest* cr, const Fraction& t
 
 Segment* Score::setNoteRest(Segment* segment, int track, NoteVal nval, Fraction sd, Direction stemDirection, bool forceAccidental, bool rhythmic, InputState* externalInputState)
       {
-      Q_ASSERT(segment->segmentType() == SegmentType::ChordRest);
+      Q_ASSERT(segment->isChordRestType());
       InputState& is = externalInputState ? (*externalInputState) : _is;
 
       bool isRest   = nval.pitch == -1;
@@ -3232,7 +3232,7 @@ void Score::cmdSlashFill()
             int voice = -1;
             // loop through segments adding slashes on each beat
             for (Segment* s = startSegment; s && s->tick() < endTick; s = s->next1()) {
-                  if (s->segmentType() != SegmentType::ChordRest)
+                  if (!s->isChordRestType())
                         continue;
                   // determine beat type based on time signature
                   int d = s->measure()->timesig().denominator();
@@ -3437,7 +3437,7 @@ void Score::cmdRealizeChordSymbols(bool literal, Voicing voicing, HDuration dura
 //---------------------------------------------------------
 Segment* Score::setChord(Segment* segment, int track, Chord* chordTemplate, Fraction dur, Direction stemDirection)
       {
-      Q_ASSERT(segment->segmentType() == SegmentType::ChordRest);
+      Q_ASSERT(segment->isChordRestType());
 
       Fraction tick = segment->tick();
       Chord* nr     = 0; //current added chord used so we can select the last added chord and so we can apply ties
@@ -3459,7 +3459,7 @@ Segment* Score::setChord(Segment* segment, int track, Chord* chordTemplate, Frac
             //we need to get a correct subduration so that makeGap can function properly
             //since makeGap() takes "normal" duration rather than actual length
             while (seg) {
-                  if (seg->segmentType() == SegmentType::ChordRest) {
+                  if (seg->isChordRestType()) {
                         //design choice made to keep multiple notes across a tuplet as tied single notes rather than combining them
                         //since it's arguably more readable, but the other code is still here (commented)
                         ChordRest* testCr = toChordRest(seg->element(track));

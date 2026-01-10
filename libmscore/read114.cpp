@@ -1563,7 +1563,7 @@ static void readMeasure(Measure* m, int staffIdx, XmlReader& e)
                         }
                   else {
                         segment->add(chord);
-                        Q_ASSERT(segment->segmentType() == SegmentType::ChordRest);
+                        Q_ASSERT(segment->isChordRestType());
 
                         for (int i = 0; i < graceNotes.size(); ++i) {
                               Chord* gc = graceNotes[i];
@@ -3126,7 +3126,7 @@ Score::FileError MasterScore::read114(XmlReader& e)
             bool first = true;
             for (int track = 0; track < tracks; ++track) {
                   for (Segment* s = m->first(); s; s = s->next()) {
-                        if (s->segmentType() != SegmentType::ChordRest)
+                        if (!s->isChordRestType())
                               continue;
                         ChordRest* cr = toChordRest(s->element(track));
                         if (cr) {

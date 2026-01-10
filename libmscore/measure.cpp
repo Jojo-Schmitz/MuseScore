@@ -357,7 +357,7 @@ AccidentalVal Measure::findAccidental(Note* note) const
                         continue;
                   tversatz.init(vStaff->keySigEvent(segment->tick()), chord->staff()->clef(segment->tick()));
                   }
-            else if (segment->segmentType() == SegmentType::ChordRest) {
+            else if (segment->isChordRestType()) {
                   int endTrack   = startTrack + VOICES;
                   for (int track = startTrack; track < endTrack; ++track) {
                         Element* e = segment->element(track);
@@ -750,7 +750,7 @@ Segment* Measure::tick2segment(const Fraction& _t, SegmentType st)
       Fraction t = _t - tick();
       for (Segment& s : _segments) {
             if (s.rtick() == t) {
-                  if (s.segmentType() & st)
+                  if (s.isType(st))
                         return &s;
                   }
             if (s.rtick() > t)
@@ -781,7 +781,7 @@ Segment* Measure::findSegmentR(SegmentType st, const Fraction& t) const
                   ;
             }
       for (; s && s->rtick() == t; s = s->next()) {
-            if (s->segmentType() & st)
+            if (s->isType(st))
                   return s;
             }
       return 0;
@@ -1095,7 +1095,7 @@ void Measure::moveTicks(const Fraction& diff)
       std::set<Tuplet*> tuplets;
       setTick(tick() + diff);
       for (Segment* segment = last(); segment; segment = segment->prev()) {
-            if (segment->segmentType() & (SegmentType::EndBarLine | SegmentType::TimeSigAnnounce))
+            if (segment->isType(SegmentType::EndBarLine | SegmentType::TimeSigAnnounce))
                   segment->setRtick(ticks());
             else if (segment->isChordRestType()) {
                   // Tuplet ticks are stored as absolute ticks, so they must be adjusted.
@@ -1767,7 +1767,7 @@ RepeatMeasure* Measure::cmdInsertRepeatMeasure(int staffIdx)
       //
       score()->select(0, SelectType::SINGLE, 0);
       for (Segment* s = first(); s; s = s->next()) {
-            if (s->segmentType() & SegmentType::ChordRest) {
+            if (s->isType(SegmentType::ChordRest)) {
                   int strack = staffIdx * VOICES;
                   int etrack = strack + VOICES;
                   for (int track = strack; track < etrack; ++track) {
@@ -1819,7 +1819,7 @@ void Measure::adjustToLen(Fraction nf, bool appendRestsIfNecessary)
             if (nl > ol) {
                   // move EndBarLine, TimeSigAnnounce, KeySigAnnounce
                   for (Segment* seg = m->first(); seg; seg = seg->next()) {
-                        if (seg->segmentType() & (SegmentType::EndBarLine|SegmentType::TimeSigAnnounce|SegmentType::KeySigAnnounce)) {
+                        if (seg->isType(SegmentType::EndBarLine|SegmentType::TimeSigAnnounce|SegmentType::KeySigAnnounce)) {
                               seg->setRtick(nl);
                               }
                         }
@@ -1892,7 +1892,7 @@ void Measure::adjustToLen(Fraction nf, bool appendRestsIfNecessary)
                   if (n < Fraction(0,1))  {
                         for (Segment* segment = m->last(); segment;) {
                               Segment* pseg = segment->prev();
-                              if (segment->segmentType() == SegmentType::ChordRest) {
+                              if (segment->isChordRestType()) {
                                     for (Element* a : segment->annotations())
                                           if (a->track() == trk)
                                                 s->undoRemoveElement(a);
@@ -1911,7 +1911,7 @@ void Measure::adjustToLen(Fraction nf, bool appendRestsIfNecessary)
                                                 break;
                                           }
                                     }
-                              else if (segment->segmentType() == SegmentType::Breath) {
+                              else if (segment->isBreathType()) {
                                     Element* e = segment->element(trk);
                                     if (e)
                                           s->undoRemoveElement(e);
@@ -2732,7 +2732,7 @@ void Measure::connectTremolo()
 void Measure::createVoice(int track)
       {
       for (Segment* s = first(); s; s = s->next()) {
-            if (s->segmentType() != SegmentType::ChordRest)
+            if (!s->isChordRestType())
                   continue;
             if (s->element(track) == 0)
                   score()->setRest(s->tick(), track, ticks(), true, 0);
@@ -2883,7 +2883,7 @@ bool Measure::hasVoice(int track) const
       if (track >= score()->ntracks())
             return false;
       for (Segment* s = first(); s; s = s->next()) {
-            if (s->segmentType() != SegmentType::ChordRest)
+            if (!s->isChordRestType())
                   continue;
             if (s->element(track))
                   return true;
@@ -2969,7 +2969,7 @@ bool Measure::isCutawayClef(int staffIdx) const
       // find segment before EndBarLine
       Segment* s = nullptr;
       for (Segment* ls = last(); ls; ls = ls->prev()) {
-            if (ls->segmentType() ==  SegmentType::EndBarLine) {
+            if (ls->isEndBarLineType()) {
                   s = ls->prev();
                   break;
                   }
@@ -3815,7 +3815,7 @@ void Measure::stretchMeasure(qreal targetWidth)
                   else if (t == ElementType::BAR_LINE) {
                         e->rypos() = 0.0;
                         // for end barlines, x position was set in createEndBarLines
-                        if (s.segmentType() != SegmentType::EndBarLine)
+                        if (!s.isEndBarLineType())
                               e->rxpos() = 0.0;
                         }
                   }

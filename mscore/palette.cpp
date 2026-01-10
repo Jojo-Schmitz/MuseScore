@@ -670,7 +670,7 @@ bool Palette::applyPaletteElement(Element* element, Qt::KeyboardModifiers modifi
                                     else
                                           e1 = cr;
                                     }
-                              if (sel.endSegment() && sel.endSegment()->segmentType() == SegmentType::ChordRest) {
+                              if (sel.endSegment() && sel.endSegment()->isChordRestType()) {
                                     ChordRest* cr = toChordRest(sel.endSegment()->nextChordRest(i * VOICES));
                                     if (cr && cr->isChord())
                                           e2 = toChord(cr)->upNote();

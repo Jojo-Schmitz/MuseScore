@@ -1138,7 +1138,7 @@ std::vector<Note*> Selection::noteList(int selTrack) const
                   int startTrack = staffIdx * VOICES;
                   int endTrack   = startTrack + VOICES;
                   for (Segment* seg = _startSegment; seg && seg != _endSegment; seg = seg->next1()) {
-                        if (!(seg->segmentType() & (SegmentType::ChordRest)))
+                        if (!seg->isType(SegmentType::ChordRest))
                               continue;
                         for (int track = startTrack; track < endTrack; ++track) {
                               if (!canSelectVoice(track))

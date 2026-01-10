@@ -244,7 +244,7 @@ QPointF PalmMute::linePos(Grip grip, System** sys) const
                                     if (crFound)
                                           break;
                                     }
-                              else if (seg->segmentType() == SegmentType::EndBarLine) {
+                              else if (seg->isEndBarLineType()) {
                                     break;
                                     }
                               }

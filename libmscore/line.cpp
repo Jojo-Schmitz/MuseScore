@@ -953,7 +953,7 @@ QPointF SLine::linePos(Grip grip, System** sys) const
 
                         // back up to barline (skip courtesy elements)
                         Segment* seg = m->last();
-                        while (seg && seg->segmentType() != SegmentType::EndBarLine)
+                        while (seg && !seg->isEndBarLineType())
                               seg = seg->prev();
                         if (!seg || !seg->enabled()) {
                               // no end bar line; look for BeginBarLine or StartRepeatBarLine of next measure
@@ -964,7 +964,7 @@ QPointF SLine::linePos(Grip grip, System** sys) const
                         qreal mwidth = seg && seg->measure() == m ? seg->x() : m->bbox().right();
                         x = m->pos().x() + mwidth;
                         // align to barline
-                        if (seg && (seg->segmentType() & SegmentType::BarLineType)) {
+                        if (seg && seg->isType(SegmentType::BarLineType)) {
                               Element* e = seg->element(0);
                               if (e && e->isBarLine()) {
                                     BarLineType blt = toBarLine(e)->barLineType();
