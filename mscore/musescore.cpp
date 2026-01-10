@@ -3097,10 +3097,10 @@ void MuseScore::createPlayPanel()
             playPanel->setScore(cs);
             addDockWidget(Qt::RightDockWidgetArea, playPanel);
 
-            QSettings settings;
+            QSettings settingsMainWindow;
             settings.beginGroup("MainWindow");
-            bool floatPanel = settings.value("floatPlayPanel").toBool();
-            settings.endGroup();
+            bool floatPanel = settingsMainWindow.value("floatPlayPanel").toBool();
+            settingsMainWindow.endGroup();
 
             playPanel->setFloating(floatPanel);
             restoreGeometry(playPanel);
