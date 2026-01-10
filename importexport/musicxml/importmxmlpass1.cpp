@@ -250,7 +250,7 @@ bool MusicXMLParserPass1::determineMeasureLength(QVector<Fraction>& ml) const
 
       // determine number of measures: max number of measures in any part
       int nMeasures = 0;
-      foreach (const MusicXmlPart &part, _parts) {
+      for  (const MusicXmlPart &part : _parts) {
             if (part.nMeasures() > nMeasures)
                   nMeasures = part.nMeasures();
             }
@@ -258,7 +258,7 @@ bool MusicXMLParserPass1::determineMeasureLength(QVector<Fraction>& ml) const
       // determine max length of a specific measure in all parts
       for (int i = 0; i < nMeasures; ++i) {
             Fraction maxMeasDur;
-            foreach (const MusicXmlPart &part, _parts) {
+            for  (const MusicXmlPart &part : _parts) {
                   if (i < part.nMeasures()) {
                         Fraction measDurPartJ = part.measureDuration(i);
                         if (measDurPartJ > maxMeasDur)
@@ -2983,7 +2983,7 @@ void MusicXMLParserPass1::direction(const QString& partId, const Fraction cTime)
             }
 
       // handle the stops first
-      foreach (auto desc, stops) {
+      for (auto desc : stops) {
             if (_octaveShifts.contains(desc.num)) {
                   MxmlOctaveShiftDesc prevDesc = _octaveShifts.value(desc.num);
                   if (prevDesc.tp == MxmlOctaveShiftDesc::Type::UP
@@ -3001,7 +3001,7 @@ void MusicXMLParserPass1::direction(const QString& partId, const Fraction cTime)
             }
 
       // then handle the starts
-      foreach (auto desc, starts) {
+      for  (auto desc : starts) {
             if (_octaveShifts.contains(desc.num)) {
                   MxmlOctaveShiftDesc prevDesc = _octaveShifts.value(desc.num);
                   if (prevDesc.tp == MxmlOctaveShiftDesc::Type::STOP) {

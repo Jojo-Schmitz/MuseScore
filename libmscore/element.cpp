@@ -410,7 +410,7 @@ QColor Element::curColor(bool isVisible, QColor normalColor) const
             return MScore::dropColor;
       bool marked = false;
       if (isNote()) {
-            //const Note* note = static_cast<const Note*>(this);
+            //const Note* note = toNote(this);
             marked = toNote(this)->mark();
             }
       if (selected() || marked ) {
@@ -588,7 +588,7 @@ void Element::writeProperties(XmlWriter& xml) const
       if (_links && (_links->size() > 1) && !xml.clipboardmode()) {
             if (MScore::debugMode)
                   xml.tag("lid", _links->lid());
-            Element* me = static_cast<Element*>(_links->mainElement());
+            Element* me = toElement(_links->mainElement());
             Q_ASSERT(type() == me->type());
             Staff* s = staff();
             if (!s) {
@@ -860,7 +860,7 @@ Compound::Compound(const Compound& c)
    : Element(c)
       {
       elements.clear();
-      foreach(Element* e, c.elements)
+      for (Element* e : c.elements)
             elements.append(e->clone());
       }
 
@@ -870,7 +870,7 @@ Compound::Compound(const Compound& c)
 
 void Compound::draw(QPainter* painter) const
       {
-      foreach(Element* e, elements) {
+      for (Element* e : elements) {
             QPointF pt(e->pos());
             painter->translate(pt);
             e->draw(painter);
@@ -935,7 +935,7 @@ void Compound::setVisible(bool f)
 
 void Compound::clear()
       {
-      foreach(Element* e, elements) {
+      for (Element* e : elements) {
             if (e->selected())
                   score()->deselect(e);
             delete e;
@@ -2616,19 +2616,19 @@ std::pair<int, float> Element::barbeat() const
       TimeSigMap* tsm = this->score()->sigmap();
       const Element* p = this;
       int ticksB = ticks_beat(tsm->timesig(0).timesig().denominator());
-      while(p && p->type() != ElementType::SEGMENT && p->type() != ElementType::MEASURE)
+      while(p && !p->isSegment() && !p->isMeasure())
             p = p->parent();
 
       if (!p) {
             return std::pair<int, float>(0, 0.0F);
             }
-      else if (p->type() == ElementType::SEGMENT) {
-            const Segment* seg = static_cast<const Segment*>(p);
+      else if (p->isSegment()) {
+            const Segment* seg = toSegment(p);
             tsm->tickValues(seg->tick().ticks(), &bar, &beat, &ticks);
             ticksB = ticks_beat(tsm->timesig(seg->tick().ticks()).timesig().denominator());
             }
-      else if (p->type() == ElementType::MEASURE) {
-            const Measure* m = static_cast<const Measure*>(p);
+      else if (p->isMeasure()) {
+            const Measure* m = toMeasure(p);
             bar = m->no();
             beat = -1;
             ticks = 0;
