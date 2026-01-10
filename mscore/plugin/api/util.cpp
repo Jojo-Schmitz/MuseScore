@@ -183,7 +183,7 @@ void ScoreView::paint(QPainter* p)
             }
       page->scanElements(&el, collectElements, false);
 
-      foreach(const Element* e, el) {
+      for (const Element* e : el) {
             QPointF pos(e->pagePos());
             p->translate(pos);
             e->draw(p);

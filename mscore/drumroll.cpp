@@ -265,7 +265,7 @@ void DrumrollEditor::selectionChanged()
             }
       else {
             _score->select(0, SelectType::SINGLE, 0);
-            foreach(QGraphicsItem* item, items) {
+            for (QGraphicsItem* item : items) {
                   Note* note = static_cast<Note*>(item->data(0).value<void*>());
                   if (note)
                         _score->select(note, SelectType::ADD, 0);
@@ -285,7 +285,7 @@ void DrumrollEditor::changeSelection(SelState)
       gv->scene()->blockSignals(true);
       gv->scene()->clearSelection();
       QList<QGraphicsItem*> il = gv->scene()->items();
-      foreach(QGraphicsItem* item, il) {
+      for (QGraphicsItem* item : il) {
             Note* note = static_cast<Note*>(item->data(0).value<void*>());
             if (note)
                   item->setSelected(note->selected());
@@ -416,7 +416,7 @@ void DrumrollEditor::cmd(QAction* a)
       score()->startCmd();
       if (a->data() == "delete") {
             QList<QGraphicsItem*> items = gv->items();
-            foreach(QGraphicsItem* item, items) {
+            for (QGraphicsItem* item : items) {
                   Note* note = static_cast<Note*>(item->data(0).value<void*>());
                   if (note) {
                         score()->deleteItem(note);

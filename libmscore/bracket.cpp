@@ -386,7 +386,7 @@ void Bracket::endEditDrag(EditData&)
 
 bool Bracket::acceptDrop(EditData& data) const
       {
-      return data.dropElement->type() == ElementType::BRACKET;
+      return data.dropElement->isBracket();
       }
 
 //---------------------------------------------------------

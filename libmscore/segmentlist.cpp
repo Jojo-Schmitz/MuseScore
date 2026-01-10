@@ -204,7 +204,7 @@ Segment* SegmentList::firstCRSegment() const
 Segment* SegmentList::first(SegmentType types) const
       {
       for (Segment* s = _first; s; s = s->next()) {
-            if (s->segmentType() & types)
+            if (s->isType(types))
                   return s;
             }
       return 0;
