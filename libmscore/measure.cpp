@@ -4445,7 +4445,7 @@ void Measure::addSystemTrailer(Measure* nm)
                         if (ts)
                               break;
                         }
-                  if (ts && ts->showCourtesySig()) {
+                  if (ts && ts->showCourtesySig() && ts->visible()) {
                         showCourtesySig = true;
                         // if due, create a new courtesy time signature for each staff
                         if (!s) {
