@@ -3766,7 +3766,7 @@ void Score::selectSimilar(Element* e, bool sameStaff)
             else
                   pattern.subtype = e->subtype();
             }
-      else if (type == ElementType::HARMONY) {
+      else if (e->isHairpinSegment() || type == ElementType::HARMONY) {
             pattern.subtype = e->subtype();
             pattern.subtypeValid = true;
             }
@@ -3801,7 +3801,7 @@ void Score::selectSimilarInRange(Element* e)
                   pattern.subtype = e->subtype();
             pattern.subtypeValid = true;
             }
-      else if (type == ElementType::HARMONY) {
+      else if (e->isHairpinSegment() || type == ElementType::HARMONY) {
             pattern.subtype = e->subtype();
             pattern.subtypeValid = true;
             }

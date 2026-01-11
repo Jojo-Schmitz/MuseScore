@@ -57,8 +57,9 @@ class HairpinSegment final : public TextLineBaseSegment {
 
       HairpinSegment* clone() const override { return new HairpinSegment(*this);    }
       ElementType type() const override      { return ElementType::HAIRPIN_SEGMENT; }
+      int subtype() const override           { return static_cast<int>(HairpinType()); }
 
-      Hairpin* hairpin() const                       { return (Hairpin*)spanner();          }
+      Hairpin* hairpin() const               { return (Hairpin*)spanner();          }
 
       Element* propertyDelegate(Pid) override;
 
