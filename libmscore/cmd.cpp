@@ -810,7 +810,6 @@ Segment* Score::setNoteRest(Segment* segment, int track, NoteVal nval, Fraction 
 
                         if (tie) {
                               tie->setEndNote(note);
-                              tie->setTick2(tie->endNote()->tick());
                               note->setTieBack(tie);
                               addTie = tie;
                               }

@@ -197,7 +197,6 @@ p, li { white-space: pre-wrap; }
             </Arpeggio>
           </Chord>
         <endSpanner id="4"/>
-        <endSpanner id="5"/>
         <Rest>
           <durationType>whole</durationType>
           </Rest>
@@ -310,6 +309,7 @@ p, li { white-space: pre-wrap; }
             <tpc>15</tpc>
             </Note>
           </Chord>
+        <endSpanner id="5"/>
         <Chord>
           <durationType>quarter</durationType>
           <Note>
