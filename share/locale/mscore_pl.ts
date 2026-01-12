@@ -439,7 +439,7 @@
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="88"/>
         <source>Release</source>
-        <translation>Opadanie</translation>
+        <translation>Zanikanie</translation>
     </message>
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="103"/>
@@ -475,12 +475,12 @@
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="202"/>
         <source>Release time (ms)</source>
-        <translation>Czas opadania od poziomu podtrzymania do zera (ms)</translation>
+        <translation>Czas zanikania od poziomu podtrzymania do zera (ms)</translation>
     </message>
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="205"/>
         <source>The release time in milliseconds.</source>
-        <translation>Czas opadania w milisekundach.</translation>
+        <translation>Czas zanikania w milisekundach.</translation>
     </message>
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="312"/>
