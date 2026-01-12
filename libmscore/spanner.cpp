@@ -13,6 +13,7 @@
 #include "chord.h"
 #include "chordrest.h"
 #include "connector.h"
+#include "log.h"
 #include "lyrics.h"
 #include "measure.h"
 #include "musescoreCore.h"
@@ -1117,7 +1118,11 @@ void Spanner::setTick2(const Fraction& f)
 
 void Spanner::setTicks(const Fraction& f)
       {
-      _ticks = f;
+      IF_ASSERT_FAILED(f.positive())
+            _ticks = -f;
+      else
+            _ticks = f;
+
       if (score())
             score()->spannerMap().setDirty();
       }

@@ -83,6 +83,7 @@ class Fraction {
       constexpr bool isZero() const        { return _numerator == 0;      }
       constexpr bool isNotZero() const     { return _numerator != 0;      }
       constexpr bool negative() const      { return _numerator < 0;       }
+      constexpr bool positive() const      { return _numerator >= 0;      }
 
       constexpr bool isValid() const       { return _denominator != 0;    }
 
