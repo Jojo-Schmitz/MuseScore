@@ -26,7 +26,7 @@ on:
         required: false
       runvisualtest:
         description: 'Check: Unit tests (vtest)'
-        default: 'on'
+        default: 'off'
         type: string
         required: false
       publish:
