@@ -713,6 +713,12 @@ bool Ambitus::setProperty(Pid propertyId, const QVariant& v)
             case Pid::FBPARENTHESIS4:        // recycled property = octave of _bottomPitch
                   setBottomPitch(bottomPitch() % 12 + (v.toInt() + 1) * 12);
                   break;
+            case Pid::COLOR:
+            case Pid::VISIBLE:
+                  _topAccid.setProperty(propertyId, v);
+                  _bottomAccid.setProperty(propertyId, v);
+                  Element::setProperty(propertyId, v);
+                  break;
             default:
                   return Element::setProperty(propertyId, v);
             }
