@@ -411,7 +411,7 @@ QString GAnalytics::Private::getSystemInfo()
 QList<QString> GAnalytics::Private::persistMessageQueue()
 {
     QList<QString> dataList;
-    foreach (QueryBuffer buffer, messageQueue)
+    for (QueryBuffer buffer : messageQueue)
     {
         dataList << buffer.postQuery.toString();
         dataList << buffer.time.toString(dateTimeFormat);

@@ -5730,7 +5730,7 @@ static void directionMarker(XmlWriter& xml, const Marker* const m, const std::ve
 
 static int findTrackForAnnotations(int track, Segment* seg)
       {
-      if (seg->segmentType() != SegmentType::ChordRest)
+      if (!seg->isChordRestType())
             return -1;
 
       if (seg->element(track))
@@ -6137,7 +6137,7 @@ static void writeMusicXML(const FiguredBass* item, XmlWriter& xml, bool isOrigin
 static void figuredBass(XmlWriter& xml, int strack, int etrack, int track, const ChordRest* cr, FigBassMap& fbMap, int divisions)
       {
       Segment* seg = cr->segment();
-      if (seg->segmentType() == SegmentType::ChordRest) {
+      if (seg->isChordRestType()) {
             for (const Element* e : seg->annotations()) {
                   int wtrack = -1; // track to write annotation
 
@@ -6211,7 +6211,7 @@ static void figuredBass(XmlWriter& xml, int strack, int etrack, int track, const
 
 static void spannerStart(ExportMusicXml* exp, int strack, int etrack, int track, int sstaff, Segment* seg)
       {
-      if (seg->segmentType() == SegmentType::ChordRest) {
+      if (seg->isChordRestType()) {
             Fraction stick = seg->tick();
             for (auto it = exp->score()->spanner().lower_bound(stick.ticks()); it != exp->score()->spanner().upper_bound(stick.ticks()); ++it) {
                   Spanner* e = it->second;
@@ -6907,7 +6907,7 @@ void ExportMusicXml::findAndExportClef(const Measure* const m, const int staves,
                         clefDebug("exportxml: clef at start measure ti=%d ct=%d gen=%d", tick, int(cle->clefType()), cle->generated());
                         // output only clef changes, not generated clefs at line beginning
                         // exception: at tick=0, export clef anyway
-                        if ((tick.isZero() || !cle->generated()) && ((seg->measure() != m) || ((seg->segmentType() == SegmentType::HeaderClef) && !cle->otherClef()))) {
+                        if ((tick.isZero() || !cle->generated()) && ((seg->measure() != m) || ((seg->isHeaderClefType()) && !cle->otherClef()))) {
                               clefDebug("exportxml: clef exported");
                               QString clefAttr = color2xml(cle);
                               if (!cle->visible())
@@ -7170,7 +7170,7 @@ void ExportMusicXml::writeElement(Element* el, const Measure* m, int sstaff, boo
                   }
             else if (!el->generated() && tickIsInMiddleOfMeasure(ti, m))
                   clef(sstaff, cle->clefType(), color2xml(cle) + visible);
-            else if (!el->generated() && (ti == m->tick()) && (cle->segment()->segmentType() != SegmentType::HeaderClef))
+            else if (!el->generated() && (ti == m->tick()) && !cle->segment()->isHeaderClefType())
                   clef(sstaff, cle->clefType(), color2xml(cle) + visible + QString(" after-barline=\"yes\""));
             else
                   clefDebug("exportxml: clef not exported");
@@ -7393,7 +7393,7 @@ void ExportMusicXml::writeInstrumentDetails(const Instrument* instrument, const 
 static void annotationsWithoutNote(ExportMusicXml* exp, const int strack, const int staves, const Measure* const measure)
       {
       for (Segment* segment = measure->first(); segment; segment = segment->next()) {
-            if (segment->segmentType() == SegmentType::ChordRest) {
+            if (segment->isChordRestType()) {
                   for (const Element* element : segment->annotations()) {
                         if (!element->isFiguredBass() && !element->isHarmony()) {       // handled elsewhere
                               const int wtrack = findTrackForAnnotations(element->track(), segment); // track to write annotation

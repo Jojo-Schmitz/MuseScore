@@ -714,7 +714,7 @@ void ExcerptsDialog::accept()
       score->startCmd();
 
       // first pass : see if actual parts needs to be deleted or renamed
-      foreach (Excerpt* e, score->excerpts()) {
+      for (Excerpt* e : score->excerpts()) {
             Score* partScore  = e->partScore();
             ExcerptItem* ei = getExcerptItem(e);
             if (!getExcerptItem(e) && partScore)      // Delete it because not in the list anymore
@@ -756,7 +756,7 @@ void ExcerptsDialog::accept()
             bool found = false;
 
             // Looks for the excerpt and its position.
-            foreach(Excerpt* e, score->excerpts()) {
+            for (Excerpt* e : score->excerpts()) {
                   if (ei->excerpt() == e) {
                         found = true;
                         break;

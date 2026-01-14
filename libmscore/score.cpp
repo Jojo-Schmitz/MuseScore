@@ -234,8 +234,8 @@ void MeasureBaseList::change(MeasureBase* ob, MeasureBase* nb)
             _last = nb;
       if (ob == _first)
             _first = nb;
-      if (nb->type() == ElementType::HBOX || nb->type() == ElementType::VBOX
-         || nb->type() == ElementType::TBOX || nb->type() == ElementType::FBOX)
+      if (nb->isHBox() || nb->isVBox()
+         || nb->isTBox() || nb->isFBox())
             nb->setSystem(ob->system());
       for (Element* e : nb->el())
             e->setParent(nb);
@@ -429,7 +429,7 @@ void Score::fixTicks()
             }
 
       for (MeasureBase* mb = first(); mb; mb = mb->next()) {
-            if (mb->type() != ElementType::MEASURE) {
+            if (!mb->isMeasure()) {
                   mb->setTick(tick);
                   continue;
                   }
@@ -756,7 +756,7 @@ void Score::spell()
                   int etrack = strack + VOICES;
                   for (int track = strack; track < etrack; ++track) {
                         Element* e = s->element(track);
-                        if (e && e->type() == ElementType::CHORD)
+                        if (e && e->isChord())
                               std::copy_if(toChord(e)->notes().begin(), toChord(e)->notes().end(),
                                            std::back_inserter(notes), [this](Element* ce) { return selection().isNone() || ce->selected(); });
                         }
@@ -774,7 +774,7 @@ void Score::spell(int startStaff, int endStaff, Segment* startSegment, Segment* 
                   int etrack = strack + VOICES;
                   for (int track = strack; track < etrack; ++track) {
                         Element* e = s->element(track);
-                        if (e && e->type() == ElementType::CHORD)
+                        if (e && e->isChord())
                               notes.insert(notes.end(),
                                  toChord(e)->notes().begin(),
                                  toChord(e)->notes().end());
@@ -800,10 +800,10 @@ Note* prevNote(Note* n)
       int startTrack = staff * VOICES + n->voice() - 1;
       int endTrack   = 0;
       while (seg) {
-            if (seg->segmentType() == SegmentType::ChordRest) {
+            if (seg->isChordRestType()) {
                   for (int track = startTrack; track >= endTrack; --track) {
                         Element* e = seg->element(track);
-                        if (e && e->type() == ElementType::CHORD)
+                        if (e && e->isChord())
                               return toChord(e)->upNote();
                         }
                   }
@@ -832,11 +832,11 @@ static Note* nextNote(Note* n)
       int startTrack = staff * VOICES + n->voice() + 1;
       int endTrack   = staff * VOICES + VOICES;
       while (seg) {
-            if (seg->segmentType() == SegmentType::ChordRest) {
+            if (seg->isChordRestType()) {
                   for (int track = startTrack; track < endTrack; ++track) {
                         Element* e = seg->element(track);
-                        if (e && e->type() == ElementType::CHORD) {
-                              return ((Chord*)e)->downNote();
+                        if (e && e->isChord()) {
+                              return toChord(e)->downNote();
                               }
                         }
                   }
@@ -982,7 +982,7 @@ static Segment* getNextValidInputSegment(Segment* s, int track, int voice)
       {
       if (s == 0)
             return 0;
-      Q_ASSERT(s->segmentType() == SegmentType::ChordRest);
+      Q_ASSERT(s->isChordRestType());
       // Segment* s1 = s;
       ChordRest* cr1 = nullptr;
       for (Segment* s1 = s; s1; s1 = s1->prev(SegmentType::ChordRest)) {
@@ -1611,7 +1611,7 @@ void Score::removeElement(Element* element)
 Measure* Score::firstMeasure() const
       {
       MeasureBase* mb = _measures.first();
-      while (mb && mb->type() != ElementType::MEASURE)
+      while (mb && !mb->isMeasure())
             mb = mb->next();
 
       return toMeasure(mb);
@@ -1637,7 +1637,7 @@ MeasureBase* Score::firstMM() const
       {
       MeasureBase* m = _measures.first();
       if (m
-         && m->type() == ElementType::MEASURE
+         && m->isMeasure()
          && styleB(Sid::createMultiMeasureRests)
          && toMeasure(m)->hasMMRest()) {
             return toMeasure(m)->mmRest();
@@ -1685,7 +1685,7 @@ Measure* Score::crMeasure(int idx) const
 Measure* Score::lastMeasure() const
       {
       MeasureBase* mb = _measures.last();
-      while (mb && mb->type() != ElementType::MEASURE)
+      while (mb && !mb->isMeasure())
             mb = mb->prev();
       return toMeasure(mb);
       }
@@ -1722,7 +1722,7 @@ Segment* Score::firstSegment(SegmentType segType) const
             seg = 0;
       else {
             seg = m->first();
-            if (seg && !(seg->segmentType() & segType))
+            if (seg && !(seg->isType(segType)))
                   seg = seg->next1(segType);
             }
 
@@ -1843,7 +1843,7 @@ void Score::scanElements(void* data, void (*func)(void*, Element*), bool all)
       {
       for (MeasureBase* mb = first(); mb; mb = mb->next()) {
             mb->scanElements(data, func, all);
-            if (mb->type() == ElementType::MEASURE) {
+            if (mb->isMeasure()) {
                   Measure* m = toMeasure(mb);
                   Measure* mmr = m->mmRest();
                   if (mmr)
@@ -2674,7 +2674,7 @@ void Score::splitStaff(int staffIdx, int splitPoint)
                               if (chord->notes().empty()) {
                                     for (auto sp : spanner()) {
                                           Slur* slur = toSlur(sp.second);
-                                          if (slur->type() != ElementType::SLUR)
+                                          if (!slur->isSlur())
                                                 continue;
                                           if (slur->startCR() == chord) {
                                                 slur->undoChangeProperty(Pid::TRACK, slur->track()+VOICES);
@@ -3419,7 +3419,7 @@ void Score::selectSingle(Element* e, int staffIdx)
             _selection.add(e);
             _is.setTrack(e->track());
             selState = SelState::LIST;
-            if (e->type() == ElementType::NOTE) {
+            if (e->isNote()) {
                   e = e->parent();
                   }
             if (e->isChordRest()) {
@@ -3669,7 +3669,7 @@ void Score::collectMatch(void* data, Element* e)
       if (p->system) {
             Element* ee = e;
             do {
-                  if (ee->type() == ElementType::SYSTEM) {
+                  if (ee->isSystem()) {
                         if (p->system != ee)
                               return;
                         break;
@@ -3858,7 +3858,7 @@ void Score::lassoSelect(const QRectF& bbox)
             for (int i = 0; i < el.size(); ++i) {
                   Element* e = el.at(i);
                   if (frr.contains(e->abbox())) {
-                        if (e->type() != ElementType::MEASURE && e->selectable())
+                        if (!e->isMeasure() && e->selectable())
                               select(e, SelectType::ADD, 0);
                         }
                   }
@@ -3886,17 +3886,17 @@ void Score::lassoSelectEnd()
       _selection.setState(SelState::LIST);
 
       for (const Element* e : _selection.elements()) {
-            if (e->type() != ElementType::NOTE && e->type() != ElementType::REST)
+            if (!e->isNote() && !e->isRest())
                   continue;
             ++noteRestCount;
-            if (e->type() == ElementType::NOTE)
+            if (e->isRest())
                   e = e->parent();
-            Segment* seg = static_cast<const ChordRest*>(e)->segment();
+            Segment* seg = toChordRest(e)->segment();
             if ((startSegment == 0) || (*seg < *startSegment))
                   startSegment = seg;
             if ((endSegment == 0) || (*seg > *endSegment)) {
                   endSegment = seg;
-                  endCR = static_cast<const ChordRest*>(e);
+                  endCR = toChordRest(e);
                   }
             int idx = e->staffIdx();
             if (idx < startStaff)
@@ -4083,9 +4083,9 @@ void Score::cmdSelectSection()
                   break;
             em = em->next();
             }
-      while (sm && sm->type() != ElementType::MEASURE)
+      while (sm && !sm->isMeasure())
             sm = sm->next();
-      while (em && em->type() != ElementType::MEASURE)
+      while (em && !em->isMeasure())
             em = em->next();
       if (sm == 0 || em == 0)
             return;
@@ -4694,7 +4694,7 @@ bool Score::hasHarmonies()
       SegmentType st = SegmentType::ChordRest;
       for (Segment* seg = firstMeasure()->first(st); seg; seg = seg->next1(st)) {
             for (Element* e : seg->annotations()) {
-                  if (e->type() == ElementType::HARMONY)
+                  if (e->isHarmony())
                         return true;
                   }
             }
@@ -4729,7 +4729,7 @@ int Score::harmonyCount()
       SegmentType st = SegmentType::ChordRest;
       for (Segment* seg = firstMeasure()->first(st); seg; seg = seg->next1(st)) {
             for (Element* e : seg->annotations()) {
-                  if (e->type() == ElementType::HARMONY)
+                  if (e->isHarmony())
                         count++;
                   }
             }
@@ -4870,7 +4870,7 @@ QString Score::createRehearsalMarkText(RehearsalMark* current) const
       RehearsalMark* after = 0;
       for (Segment* s = firstSegment(SegmentType::All); s; s = s->next1()) {
             for (Element* e : s->annotations()) {
-                  if (e && e->type() == ElementType::REHEARSAL_MARK) {
+                  if (e && e->isRehearsalMark()) {
                         if (s->tick() < tick)
                               before = toRehearsalMark(e);
                         else if (s->tick() > tick) {
@@ -4979,7 +4979,7 @@ void Score::changeVoice(int voice)
       QList<Element*> el;
       QList<Element*> oel = selection().elements();     // make copy
       for (Element* e : oel) {
-            if (e->type() == ElementType::NOTE) {
+            if (e->isNote()) {
                   Note* note   = toNote(e);
                   Chord* chord = note->chord();
 
@@ -5000,13 +5000,13 @@ void Score::changeVoice(int voice)
 
                         // set up destination chord
 
-                        if (dstCR && dstCR->type() == ElementType::CHORD && dstCR->globalTicks() == chord->globalTicks()) {
+                        if (dstCR && dstCR->isChord() && dstCR->globalTicks() == chord->globalTicks()) {
                               // existing chord in destination with correct duration;
                               //   can simply move note in
                               dstChord = toChord(dstCR);
                               }
 
-                        else if (dstCR && dstCR->type() == ElementType::REST && dstCR->globalTicks() == chord->globalTicks()) {
+                        else if (dstCR && dstCR->isRest() && dstCR->globalTicks() == chord->globalTicks()) {
                               // existing rest in destination with correct duration;
                               //   replace with chord, then move note in
                               //   this case allows for tuplets, unlike the more general case below
@@ -5027,7 +5027,7 @@ void Score::changeVoice(int voice)
                               Chord* cBefore = nullptr;
                               Chord* cAfterStart = nullptr;
                               for (Segment* s2 = m->first(SegmentType::ChordRest); s2; s2 = s2->next()) {
-                                    if (s2->segmentType() != SegmentType::ChordRest)
+                                    if (!s2->isChordRestType())
                                           continue;
                                     ChordRest* cr2 = toChordRest(s2->element(dstTrack));
                                     if (!cr2)

@@ -231,7 +231,7 @@ static void processBasicDrawObj(QList<BasicDrawObj*> objects, Segment* s, int tr
                                           default:
                                                 break;
                                           }
-                                    if (cr && cr->type() == ElementType::CHORD)
+                                    if (cr && cr->isChord())
                                           switch (code) {
 #if 0 // TODO-ws
                                                 case 't':   //  trill
@@ -493,7 +493,7 @@ static bool findChordRests(BasicDrawObj const* const o, Score* score, const int 
       // Now we have the tick (tick) and the level of grace note (graceNumber1, if "no" is a grace note) for the first ChordRest
       // and the tick (tick2) and the level of grace note (graceNumber, if the target is a grace note) for the 2nd ChordRest
       for (Segment* seg = score->tick2segment(tick); seg; seg = seg->next1()) {
-            if (seg->segmentType() != SegmentType::ChordRest)
+            if (!seg->isChordRestType())
                   continue;
             ChordRest* cr = toChordRest(seg->element(track));
             if (cr) {
@@ -510,7 +510,7 @@ static bool findChordRests(BasicDrawObj const* const o, Score* score, const int 
                   }
             }
       for (Segment* seg = score->tick2segment(tick2); seg; seg = seg->next1()) {
-            if (seg->segmentType() != SegmentType::ChordRest)
+            if (!seg->isChordRestType())
                   continue;
             ChordRest* cr = toChordRest(seg->element(track));
             if (cr) {
@@ -1033,7 +1033,7 @@ static Fraction readCapVoice(Score* score, CapVoice* cvoice, int staffIdx, const
                               //    to->relPos.x(), to->relPos.y(), to->width, to->yxRatio, qPrintable(ss));
                               s->setXmlText(ss);
                               MeasureBase* measure = score->measures()->first();
-                              if (measure->type() != ElementType::VBOX) {
+                              if (!measure->isVBox()) {
                                     MeasureBase* mb = new VBox(score);
                                     mb->setTick(Fraction(0, 1));
                                     score->addMeasure(mb, measure);
@@ -1321,8 +1321,8 @@ void convertCapella(Score* score, Capella* cap, bool capxMode)
       if (cap->topDist) {
             VBox* mb = 0;
             MeasureBaseList* mbl = score->measures();
-            if (mbl->size() && mbl->first()->type() == ElementType::VBOX)
-                  mb = static_cast<VBox*>(mbl->first());
+            if (mbl->size() && mbl->first()->isVBox())
+                  mb = toVBox(mbl->first());
             else {
                   VBox* vb = new VBox(score);
                   vb->setTick(Fraction(0,1));

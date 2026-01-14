@@ -134,7 +134,7 @@ void ChordStyleEditor::loadChordDescriptionFile(const QString& s)
 void ChordStyleEditor::setChordList(ChordList* cl)
       {
       harmonyList->clear();
-      foreach (const ChordDescription& d, *cl) {
+      for (const ChordDescription& d : *cl) {
             QTreeWidgetItem* item = new QTreeWidgetItem;
             item->setData(0, Qt::UserRole, QVariant::fromValue<void*>((void*)&d));
             item->setText(0, QString("%1").arg(d.id));
@@ -147,7 +147,7 @@ void ChordStyleEditor::setChordList(ChordList* cl)
       canvas->setChordDescription(0, 0);
 
       paletteTab->clear();
-      foreach(const ChordFont& f, chordList->fonts) {
+      for (const ChordFont& f : chordList->fonts) {
             // create symbol palette
             Palette* p = new Palette();
             PaletteScrollArea* accPalette = new PaletteScrollArea(p);
@@ -270,15 +270,15 @@ void HarmonyCanvas::paintEvent(QPaintEvent* event)
       p.drawLine(f.x(), 0.0, f.width(), 0.0);
       p.drawLine(0.0, f.y(), 0.0, f.height());
 
-      foreach(const TextSegment* ts, textList) {
+      for (const TextSegment* ts: textList) {
             p.setFont(ts->font);
             QPen pen(ts->select ? Qt::blue : palette().color(QPalette::Text));
             p.setPen(pen);
             p.drawText(ts->x, ts->y, ts->text);
             }
 
-      if (dragElement && dragElement->type() == ElementType::FSYMBOL) {
-            FSymbol* sb = static_cast<FSymbol*>(dragElement);
+      if (dragElement && dragElement->isFSymbol()) {
+            FSymbol* sb = toFSymbol(dragElement);
 
 //TODO:ws             double _spatium = 2.0 * PALETTE_SPATIUM / extraMag;
 //            const TextStyle* st = &gscore->textStyle(TextStyleType::HARMONY);
@@ -315,7 +315,7 @@ void HarmonyCanvas::render(const QList<RenderAction>& /*renderList*/, double& /*
       QList<QFont> fontList;              // temp values used in render()
       const TextStyle* st = &gscore->textStyle(TextStyleType::HARMONY);
 
-      foreach(ChordFont cf, chordList->fonts) {
+      for (ChordFont cf : chordList->fonts) {
             if (cf.family.isEmpty() || cf.family == "default")
                   fontList.append(st->font(_spatium * cf.mag * MScore::pixelRatio));
             else {
@@ -327,7 +327,7 @@ void HarmonyCanvas::render(const QList<RenderAction>& /*renderList*/, double& /*
       if (fontList.isEmpty())
             fontList.append(st->font(_spatium * MScore::pixelRatio));
 
-      foreach(const RenderAction& a, renderList) {
+      for(const RenderAction& a : renderList) {
             if (a.type == RenderAction::RenderActionType::SET) {
                   TextSegment* ts = new TextSegment(fontList[fontIdx], x, y);
                   ChordSymbol cs = chordList->symbol(a.text);
@@ -402,7 +402,7 @@ void HarmonyCanvas::mousePressEvent(QMouseEvent* event)
       {
       startMove = imatrix.map(QPointF(event->pos()));
       moveElement = 0;
-      foreach(TextSegment* ts, textList) {
+      for (TextSegment* ts : textList) {
             QRectF r = ts->boundingRect().translated(ts->x, ts->y);
             ts->select = r.contains(startMove);
             if (ts->select)
@@ -444,7 +444,7 @@ void HarmonyCanvas::setChordDescription(ChordDescription* sd, ChordList* sl)
       chordDescription = sd;
       chordList = sl;
 
-      foreach(TextSegment* s, textList)
+      for (TextSegment* s : textList)
             delete s;
       textList.clear();
 
@@ -471,7 +471,7 @@ void HarmonyCanvas::setChordDescription(ChordDescription* sd, ChordList* sl)
 void HarmonyCanvas::dropEvent(QDropEvent* /*event*/)
       {
 #if 0       // TODO:ws
-      if (dragElement && dragElement->type() == ElementType::FSYMBOL) {
+      if (dragElement && dragElement->isFSymbol()) {
             FSymbol* sb = static_cast<FSymbol*>(dragElement);
 
             double _spatium = 2.0 * PALETTE_SPATIUM / extraMag;
@@ -543,7 +543,7 @@ void HarmonyCanvas::dragLeaveEvent(QDragLeaveEvent*)
 void HarmonyCanvas::dragMoveEvent(QDragMoveEvent* event)
       {
       event->acceptProposedAction();
-      if (dragElement && dragElement->type() == ElementType::FSYMBOL) {
+      if (dragElement && dragElement->isFSymbol()) {
             dragElement->setPos(imatrix.map(event->pos()));
             update();
             }
@@ -567,8 +567,8 @@ void HarmonyCanvas::deleteAction()
 
 static void updateHarmony(void*, Element* e)
       {
-      if (e->type() == ElementType::HARMONY)
-            static_cast<Harmony*>(e)->render();
+      if (e->isHarmony())
+            toHarmony(e)->render();
       }
 
 //---------------------------------------------------------
@@ -598,7 +598,7 @@ void HarmonyCanvas::updateChordDescription()
 
       int idx = 0;
       double x  = 0, y = 0;
-      foreach(const TextSegment* ts, textList) {
+      for (const TextSegment* ts : textList) {
             ++idx;
             if (idx == 1) {     // don’t save base
                   x = ts->x + ts->width();

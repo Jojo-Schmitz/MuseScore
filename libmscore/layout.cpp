@@ -4406,14 +4406,14 @@ void Score::layoutSystemElements(System* system, LayoutContext& lc)
                         if (!s.enabled())
                               continue;
                         QPointF p(s.pos() + m->pos());
-                        if (s.segmentType() & (SegmentType::BarLine | SegmentType::EndBarLine | SegmentType::StartRepeatBarLine | SegmentType::BeginBarLine)) {
+                        if (s.isType(SegmentType::BarLineType)) {
                               BarLine* bl = toBarLine(s.element(staffIdx * VOICES));
                               if (bl && bl->addToSkyline()) {
                                     QRectF r = bl->layoutRect();
                                     skyline.add(r.translated(bl->pos() + p));
                                     }
                               }
-                        else if (s.segmentType() & SegmentType::TimeSig) {
+                        else if (s.isType(SegmentType::TimeSig)) {
                               TimeSig* ts = toTimeSig(s.element(staffIdx * VOICES));
                               if (ts && ts->addToSkyline()) {
                                     skyline.add(ts->shape().translated(ts->pos() + p));

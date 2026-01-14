@@ -243,11 +243,11 @@ void ScoreAccessibility::currentInfoChanged()
             if (!e) {
                   return;
                   }
-            Element* el = e->isSpannerSegment() ? static_cast<SpannerSegment*>(e)->spanner() : e;
+            Element* el = e->isSpannerSegment() ? toSpannerSegment(e)->spanner() : e;
             QString barsAndBeats = "";
             QString optimizedBarsAndBeats = "";
             if (el->isSpanner()) {
-                  Spanner* s = static_cast<Spanner*>(el);
+                  Spanner* s = toSpanner(el);
                   std::pair<int, float> bar_beat = s->startSegment()->barbeat();
                   barsAndBeats += " " + tr("Start Measure: %1; Start Beat: %2").arg(QString::number(bar_beat.first), QString::number(bar_beat.second));
                   Segment* seg = s->endSegment();
@@ -255,8 +255,7 @@ void ScoreAccessibility::currentInfoChanged()
                         seg = score->lastSegment()->prev1MM(SegmentType::ChordRest);
 
                   if (seg->tick() != score->lastSegment()->prev1MM(SegmentType::ChordRest)->tick() &&
-                      s->type() != ElementType::SLUR                                               &&
-                      s->type() != ElementType::TIE                                                )
+                      !s->isSlur() && !s->isTie())
                         seg = seg->prev1MM(SegmentType::ChordRest);
 
                   bar_beat = seg->barbeat();

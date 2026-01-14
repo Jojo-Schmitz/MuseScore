@@ -164,7 +164,7 @@ void Cursor::rewindToTick(int tick)
       // better to search not precisely if possible
       Ms::Fraction fTick = Ms::Fraction::fromTicks(tick + 1);
       Ms::Segment* seg = _score->tick2leftSegment(fTick);
-      if (!(seg->segmentType() & _filter)) {
+      if (!seg->isType(_filter)) {
             // we need another segment type, search by known tick
             seg = _score->tick2segment(seg->tick(), /* first */ true, _filter);
             }
@@ -255,12 +255,12 @@ void Cursor::add(Element* wrapped)
 
       if (s->isChordRest())
             s->score()->undoAddCR(toChordRest(s), _segment->measure(), _segment->tick());
-      else if (s->type() == ElementType::KEYSIG) {
+      else if (s->isKeySig()) {
             Ms::Segment* ns = _segment->measure()->undoGetSegment(SegmentType::KeySig, _segment->tick());
             s->setParent(ns);
             _score->undoAddElement(s);
             }
-      else if (s->type() == ElementType::TIMESIG) {
+      else if (s->isTimeSig()) {
             Ms::Measure* m = _segment->measure();
             Fraction tick = m->tick();
             _score->cmdAddTimeSig(m, _track, toTimeSig(s), false);

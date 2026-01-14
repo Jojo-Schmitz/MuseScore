@@ -906,7 +906,7 @@ void System::setInstrumentNames(bool longName, Fraction tick)
       if (!score()->showInstrumentNames()
               || (score()->styleB(Sid::hideInstrumentNameIfOneInstrument) && score()->parts().size() == 1)) {
             for (SysStaff* staff : qAsConst(_staves)) {
-                  foreach (InstrumentName* t, staff->instrumentNames)
+                  for (InstrumentName* t : staff->instrumentNames)
                         score()->removeElement(t);
                   }
             return;
@@ -966,7 +966,7 @@ int System::y2staff(qreal y) const
       y -= pos().y();
       int idx = 0;
       qreal margin = spatium() * 2;
-      foreach (SysStaff* s, _staves) {
+      for (SysStaff* s : _staves) {
             qreal y1 = s->bbox().top()    - margin;
             qreal y2 = s->bbox().bottom() + margin;
             if (y >= y1 && y < y2)
@@ -1383,7 +1383,7 @@ Element* System::prevSegmentElement()
                   if (!seg)
                         return score()->firstElement();
 
-                  if (seg->segmentType() == SegmentType::EndBarLine)
+                  if (seg->isEndBarLineType())
                         score()->inputState().setTrack((score()->staves().size() - 1) * VOICES); //correction
 
                   re = seg->lastElementForNavigation(score()->staves().size() - 1);

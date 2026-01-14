@@ -191,8 +191,8 @@ int TimeDialog::denominator() const
 
 void TimeDialog::paletteChanged(int idx)
       {
-      TimeSig* e = static_cast<TimeSig*>(sp->element(idx));
-      if (!e || e->type() != ElementType::TIMESIG) {
+      TimeSig* e = toTimeSig(sp->element(idx));
+      if (!e || !e->isTimeSig()) {
             zNominal->setEnabled(false);
             nNominal->setEnabled(false);
             zText->setEnabled(false);

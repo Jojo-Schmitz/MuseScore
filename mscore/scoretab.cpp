@@ -528,7 +528,7 @@ void ScoreTab::removeTab(int idx, bool noCurrentChangedSignal)
                   break;
                   }
             }
-      foreach (Excerpt* excerpt, score->excerpts()) {
+      for (Excerpt* excerpt : score->excerpts()) {
             Score* sc = excerpt->partScore();
             for (int i = 0; i < stack->count(); ++i) {
                   QSplitter* vs = static_cast<QSplitter*>(stack->widget(i));

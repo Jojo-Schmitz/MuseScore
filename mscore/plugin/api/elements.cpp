@@ -268,7 +268,7 @@ void Chord::remove(Ms::PluginAPI::Element* wrapped)
             qWarning("PluginAPI::Chord::remove: Unable to retrieve element. %s", qPrintable(wrapped->name()));
       else if (s->parent() != chord())
             qWarning("PluginAPI::Chord::remove: The element is not a child of this chord. Use removeElement() instead.");
-      else if (chord()->notes().size() <= 1 && s->type() == ElementType::NOTE)
+      else if (chord()->notes().size() <= 1 && s->isNote())
             qWarning("PluginAPI::Chord::remove: Removal of final note is not allowed.");
       else
             chord()->score()->deleteItem(s); // Create undo op and remove the element.

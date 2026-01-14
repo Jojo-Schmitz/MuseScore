@@ -497,7 +497,7 @@ void Spanner::scanElements(void* data, void (*func)(void*, Element*), bool all)
 void Spanner::setScore(Score* s)
       {
       Element::setScore(s);
-      foreach(SpannerSegment* seg, segments)
+      for (SpannerSegment* seg : segments)
             seg->setScore(s);
       }
 
@@ -811,7 +811,7 @@ Chord* Spanner::endChord()
       {
       Q_ASSERT(_anchor == Anchor::CHORD);
 
-      if (!_endElement && type() == ElementType::SLUR) {
+      if (!_endElement && isSlur()) {
             Segment* s = score()->tick2segmentMM(tick2(), false, SegmentType::ChordRest);
             _endElement = s ? toChordRest(s->element(track2())) : nullptr;
             if (_endElement && !_endElement->isChord())
@@ -953,7 +953,7 @@ void Spanner::setStartElement(Element* e)
       {
 #ifndef NDEBUG
       if (_anchor == Anchor::NOTE)
-            Q_ASSERT(!e || e->type() == ElementType::NOTE);
+            Q_ASSERT(!e || e->isNote());
 #endif
       _startElement = e;
       }
@@ -966,7 +966,7 @@ void Spanner::setEndElement(Element* e)
       {
 #ifndef NDEBUG
       if (_anchor == Anchor::NOTE)
-            Q_ASSERT(!e || e->type() == ElementType::NOTE);
+            Q_ASSERT(!e || e->isNote());
 #endif
       _endElement = e;
       if (e && ticks() == Fraction() && _tick >= Fraction())

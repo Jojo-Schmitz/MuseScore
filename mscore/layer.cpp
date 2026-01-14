@@ -45,7 +45,7 @@ LayerManager::LayerManager(Score* s, QWidget* parent)
 
       layers->setRowCount(score->layer().size());
       int row = 0;
-      foreach(const Layer& l, score->layer()) {
+      for (const Layer& l : score->layer()) {
             QTableWidgetItem* item = new QTableWidgetItem(l.name);
             layers->setItem(row, 0, item);
             QString tagString;
@@ -199,7 +199,7 @@ void LayerManager:: accept()
             l.tags           = 1;
             QString ts       = layers->item(i, 1)->text();
             QStringList tgs  = ts.split(",");
-            foreach (QString tag, tgs) {
+            for (QString tag : tgs) {
                   for (int idx = 0; idx < 32; ++idx) {
                         if (tag == score->layerTags()[idx]) {
                               l.tags |= 1 << idx;

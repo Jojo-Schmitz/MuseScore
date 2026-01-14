@@ -36,7 +36,7 @@ namespace Ms {
 static void initChannelCombo(QComboBox* cb, StaffTextBase* st)
       {
       Part* part = st->staff()->part();
-      Fraction tick = static_cast<Segment*>(st->parent())->tick();
+      Fraction tick = toSegment(st->parent())->tick();
       for (const Channel* a : part->instrument(tick)->channel()) {
             QString name = a->name();
             if (a->name().isEmpty())
@@ -70,7 +70,7 @@ StaffTextProperties::StaffTextProperties(const StaffTextBase* st, QWidget* paren
             //if (!enableExperimental) tabWidget->removeTab(tabWidget->indexOf(tabMIDIAction));
             }
       setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
-      _staffText = static_cast<StaffTextBase*>(st->clone());
+      _staffText = toStaffTextBase(st->clone());
 
       vb[0][0] = voice1_1;
       vb[0][1] = voice1_2;
@@ -105,7 +105,7 @@ StaffTextProperties::StaffTextProperties(const StaffTextBase* st, QWidget* paren
             initChannelCombo(channelCombo[i], _staffText);
 
       Part* part = _staffText->staff()->part();
-      Fraction tick = static_cast<Segment*>(st->parent())->tick();
+      Fraction tick = toSegment(st->parent())->tick();
       int n = part->instrument(tick)->channel().size();
       int rows = 0;
       for (int voice = 0; voice < VOICES; ++voice) {
@@ -382,7 +382,7 @@ void StaffTextProperties::channelItemChanged(QTreeWidgetItem* item, QTreeWidgetI
       Part* part = _staffText->staff()->part();
 
       int channelIdx      = item->data(0, Qt::UserRole).toInt();
-      Fraction tick = static_cast<Segment*>(_staffText->parent())->tick();
+      Fraction tick       = toSegment(_staffText->parent())->tick();
       Channel* channel    = part->instrument(tick)->channel(channelIdx);
       QString channelName = channel->name();
 
@@ -433,8 +433,8 @@ void StaffTextProperties::saveValues()
             _staffText->setChannelName(voice, QString());
             for (int row = 0; row < VOICES; ++row) {
                   if (vb[voice][row]->isChecked()) {
-                        int idx     = channelCombo[row]->currentIndex();
-                        Fraction instrId = static_cast<Segment*>(_staffText->parent())->tick();
+                        int idx = channelCombo[row]->currentIndex();
+                        Fraction instrId = toSegment(_staffText->parent())->tick();
                         _staffText->setChannelName(voice, part->instrument(instrId)->channel(idx)->name());
                         break;
                         }
