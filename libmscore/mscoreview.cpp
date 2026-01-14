@@ -55,7 +55,7 @@ Page* MuseScoreView::point2page(const QPointF& p)
       {
       if (score()->layoutMode() == LayoutMode::LINE)
             return score()->pages().isEmpty() ? 0 : score()->pages().front();
-      foreach(Page* page, score()->pages()) {
+      for (Page* page : score()->pages()) {
             if (page->bbox().translated(page->pos()).contains(p))
                   return page;
             }

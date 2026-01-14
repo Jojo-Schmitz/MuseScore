@@ -538,7 +538,7 @@ bool Page::isOdd() const
 void Page::write(XmlWriter& xml) const
       {
       xml.stag(this);
-      foreach(System* system, _systems) {
+      for (System* system : _systems) {
             system->write(xml);
             }
       xml.etag();

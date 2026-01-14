@@ -318,7 +318,7 @@ void KeySig::draw(QPainter* p) const
 
 bool KeySig::acceptDrop(EditData& data) const
       {
-      return data.dropElement->type() == ElementType::KEYSIG;
+      return data.dropElement->isKeySig();
       }
 
 //---------------------------------------------------------
@@ -328,7 +328,7 @@ bool KeySig::acceptDrop(EditData& data) const
 Element* KeySig::drop(EditData& data)
       {
       KeySig* ks = toKeySig(data.dropElement);
-      if (ks->type() != ElementType::KEYSIG) {
+      if (!ks->isKeySig()) {
             delete ks;
             return 0;
             }
@@ -341,7 +341,7 @@ Element* KeySig::drop(EditData& data)
             }
       else {
             // apply to all staves:
-            foreach(Staff* s, score()->masterScore()->staves())
+            for (Staff* s : score()->masterScore()->staves())
                   score()->undoChangeKeySig(s, tick(), k);
             }
       return this;
@@ -551,7 +551,7 @@ bool KeySig::isChange() const
       {
       if (!staff())
             return false;
-      if (!segment() || segment()->segmentType() != SegmentType::KeySig)
+      if (!segment() || !segment()->isKeySigType())
             return false;
       Fraction keyTick = tick();
       return staff()->currentKeyTick(keyTick) == keyTick;
