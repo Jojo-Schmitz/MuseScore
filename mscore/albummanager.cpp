@@ -308,6 +308,10 @@ void AlbumManager::tabMoved(int from, int to)
 
 void AlbumManager::updateAlbumTitle(const QString& text)
 {
+      if (!m_album) {
+            qDebug() << "You must load/create an Album before changing title";
+            return;
+            }
       m_album->setAlbumTitle(text);
       }
 
