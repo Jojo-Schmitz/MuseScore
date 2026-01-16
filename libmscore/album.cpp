@@ -23,6 +23,7 @@
 #include "layoutbreak.h"
 #include "score.h"
 #include "system.h"
+#include "text.h"
 #include "page.h"
 #include "box.h"
 #include "xml.h"
