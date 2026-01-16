@@ -69,6 +69,11 @@
       <footerFontSize>11.9365</footerFontSize>
       <instrumentChangeFontSize>11.9365</instrumentChangeFontSize>
       <stickingFontSize>11.9365</stickingFontSize>
+      <albumFrontTitleFontSize>11.9365</albumFrontTitleFontSize>
+      <albumFrontComposerFontSize>11.9365</albumFrontComposerFontSize>
+      <albumFrontLyricistFontSize>11.9365</albumFrontLyricistFontSize>
+      <albumContentsTitleFontSize>11.9365</albumContentsTitleFontSize>
+      <albumContentsTextFontSize>11.9365</albumContentsTextFontSize>
       <user1FontSize>11.9365</user1FontSize>
       <user2FontSize>11.9365</user2FontSize>
       <user3FontSize>11.9365</user3FontSize>
