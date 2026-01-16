@@ -1151,7 +1151,16 @@ void Album::updateFrontCover()
         return;
     }
 
-    VBox* box = toVBox(getCombinedScore()->measures()->first());
+    if (getCombinedScore()->pages().isEmpty()) {
+        return;
+    }
+
+    MeasureBase* coverMeasure = getCombinedScore()->measures()->first();
+    if (!coverMeasure || !coverMeasure->isVBox()) {
+        return;
+    }
+
+    VBox* box = toVBox(coverMeasure);
     qreal pageHeight = getCombinedScore()->pages().at(0)->height();
     qreal scoreSpatium = getCombinedScore()->spatium();
 
@@ -1165,7 +1174,7 @@ void Album::updateFrontCover()
     }
 
     // make sure that we have these 3 text fields
-    MeasureBase* measure = getCombinedScore()->measures()->first();
+    MeasureBase* measure = coverMeasure;
     measure->clearElements();
     Text* s = new Text(getCombinedScore(), Tid::ALBUM_FRONT_TITLE);
     s->setPlainText("");
