@@ -19,14 +19,4 @@
 
 set(TARGET tst_albums)
 
-set(MTEST_LINK_MSCOREAPP TRUE)
-
-include(${PROJECT_SOURCE_DIR}/mtest/cmake.inc)
-
-if (MSVC)
-      install(DIRECTORY
-            ${CMAKE_INSTALL_PREFIX}/albums
-            USE_SOURCE_PERMISSIONS
-            DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
-            )
-endif (MSVC)
+include(${PROJECT_SOURCE_DIR}/mtest/CreateMtestTarget.cmake)
