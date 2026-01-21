@@ -80,7 +80,9 @@ qreal Bracket::width() const
       qreal w;
       switch (bracketType()) {
             case BracketType::BRACE:
-                  if (score()->styleSt(Sid::musicalSymbolFont) == "Emmentaler" || score()->styleSt(Sid::musicalSymbolFont) == "Gonville")
+                  if (score()->styleSt(Sid::musicalSymbolFont) == "Emmentaler" ||    // prevent fallback to Bravura
+                      score()->styleSt(Sid::musicalSymbolFont) == "Gonville" ||      // prevent fallback to Bravura
+                      score()->styleSt(Sid::musicalSymbolFont).startsWith("Finale")) // just like Finale itself, don't use Finale's glyphs
                         w = score()->styleP(Sid::akkoladeWidth) + score()->styleP(Sid::akkoladeBarDistance);
                   else
                         w = (symWidth(_braceSymbol) * _magx) + score()->styleP(Sid::akkoladeBarDistance);
@@ -112,8 +114,9 @@ void Bracket::setStaffSpan(int a, int b)
       _lastStaff = b;
 
       if (bracketType() == BracketType::BRACE &&
-         score()->styleSt(Sid::musicalSymbolFont) != "Emmentaler" && score()->styleSt(Sid::musicalSymbolFont) != "Gonville")
-            {
+          score()->styleSt(Sid::musicalSymbolFont) != "Emmentaler" &&       // prevent fallback to Bravura
+          score()->styleSt(Sid::musicalSymbolFont) != "Gonville" &&         // prevent fallback to Bravura
+          !score()->styleSt(Sid::musicalSymbolFont).startsWith("Finale")) { // just like Finale itself, don't use Finale's glyphs
             int v = _lastStaff - _firstStaff + 1;
 
             // if staves inner staves are hidden, decrease span
@@ -152,7 +155,9 @@ void Bracket::layout()
       _shape.clear();
       switch (bracketType()) {
             case BracketType::BRACE: {
-                  if (score()->styleSt(Sid::musicalSymbolFont) == "Emmentaler" || score()->styleSt(Sid::musicalSymbolFont) == "Gonville") {
+                  if (score()->styleSt(Sid::musicalSymbolFont) == "Emmentaler" ||      // prevent fallback to Bravura
+                      score()->styleSt(Sid::musicalSymbolFont) == "Gonville" ||        // prevent fallback to Bravura
+                      score()->styleSt(Sid::musicalSymbolFont).startsWith("Finale")) { // just like Finale itself, don't use Finale's glyphs
                         _braceSymbol = SymId::noSym;
                         qreal w = score()->styleP(Sid::akkoladeWidth);
 
