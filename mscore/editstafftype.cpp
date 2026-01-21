@@ -220,6 +220,7 @@ void EditStaffType::setValues()
                         idx = 0;          // if name not found, use first name
                   fretFontName->setCurrentIndex(idx);
                   fretFontSize->setValue(staffType.fretFontSize());
+                  fretFontBold->setChecked(staffType.fretFontBold());
                   fretY->setValue(staffType.fretFontUserY());
 
                   numbersRadio->setChecked(staffType.useNumbers());
@@ -235,6 +236,7 @@ void EditStaffType::setValues()
                         idx = 0;          // if name not found, use first name
                   durFontName->setCurrentIndex(idx);
                   durFontSize->setValue(staffType.durationFontSize());
+                  durFontBold->setChecked(staffType.durationFontBold());
                   durY->setValue(staffType.durationFontUserY());
                   // convert combined values of genDurations and slashStyle/stemless into noteValuesx radio buttons
                   // Sbove/Below, Beside/Through and minim are only used if stems-and-beams
@@ -314,8 +316,10 @@ void EditStaffType::nameEdited(const QString& /*s*/)
 void EditStaffType::durFontNameChanged(int idx)
       {
       qreal size, yOff;
-      if (StaffType::fontData(true, idx, 0, 0, &size, &yOff)) {
+      QFont::Weight weight;
+      if (StaffType::fontData(true, idx, 0, &weight, 0, &size, &yOff)) {
             durFontSize->setValue(size);
+            durFontBold->setChecked(weight == QFont::Bold);
             durY->setValue(yOff);
             }
       updatePreview();
@@ -324,8 +328,10 @@ void EditStaffType::durFontNameChanged(int idx)
 void EditStaffType::fretFontNameChanged(int idx)
       {
       qreal size, yOff;
-      if (StaffType::fontData(false, idx, 0, 0, &size, &yOff)) {
+      QFont::Weight weight;
+      if (StaffType::fontData(false, idx, 0, &weight, 0, &size, &yOff)) {
             fretFontSize->setValue(size);
+            fretFontBold->setChecked(weight == QFont::Bold);
             fretY->setValue(yOff);
             }
       updatePreview();
