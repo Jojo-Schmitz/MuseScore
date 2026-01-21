@@ -342,6 +342,7 @@ void MScore::init()
             ":/fonts/edwin/Edwin-Italic.otf",
             ":/fonts/edwin/Edwin-BdIta.otf",
             ":/fonts/FreeSans.ttf",
+            ":/fonts/FreeSansTabBold.ttf",
             ":/fonts/FreeSerif.ttf",
             ":/fonts/FreeSerifBold.ttf",
             ":/fonts/FreeSerifItalic.ttf",
