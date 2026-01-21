@@ -2359,8 +2359,8 @@ Element* Score::move(const QString& cmd)
             cr = selection().cr();
             if (cr && (cr->isGrace() || cmd == "next-chord" || cmd == "prev-chord"))
                   ;
-            else
-                  cr = inputState().cr();
+            else cr = inputState().cr() ? inputState().cr() : cr;
+
             }
       else if (selection().activeCR())
             cr = selection().activeCR();
@@ -2501,8 +2501,9 @@ Element* Score::move(const QString& cmd)
             // selection "cursor"
             // find previous chordrest, which might be a grace note
             // this may override note input cursor
-            el = noteEntryPos ? el : prevChordRest(cr);
-
+            if (auto pcr = prevChordRest(cr)) {
+                  el = (noteEntryPos && !pcr->isGrace()) ? el : pcr;
+                  }
             // Skip gap rests if we're not in note entry mode...
             while (!noteEntryMode() && el && el->isRest() && toRest(el)->isGap())
                   el = prevChordRest(toChordRest(el));
