@@ -41,6 +41,7 @@
 #include "note.h"
 #include "page.h"
 #include "part.h"
+#include "rehearsalmark.h"
 #include "repeat.h"
 #include "score.h"
 #include "segment.h"
@@ -3863,7 +3864,7 @@ void alignHarmonies(const System* system, const std::vector<Segment*>& sl, bool 
                               qreal shift = be->rypos();
                               be->rypos() = reference - be->ryoffset();
                               shift -= be->rypos();
-                              for (Element* e : qAsConst(elements[s])) {
+                              for (Element*& e : elements[s]) {
                                     if ((above && e->placeBelow()) || (!above && e->placeAbove()))
                                           continue;
                                     modified.append(e);
@@ -3881,7 +3882,7 @@ void alignHarmonies(const System* system, const std::vector<Segment*>& sl, bool 
 
             void addToSkyline(const System* system)
                   {
-                  for (Element* e : qAsConst(modified)) {
+                  for (Element*& e : modified) {
                         const Segment* s = toSegment(e->parent());
                         const MeasureBase* m = toMeasureBase(s->parent());
                         system->staff(e->staffIdx())->skyline().add(e->shape().translated(e->pos() + s->pos() + m->pos()));
@@ -4858,6 +4859,20 @@ void Score::layoutSystemElements(System* system, LayoutContext& lc)
             }
 
       //-------------------------------------------------------------
+      // RehearsalMark
+      //-------------------------------------------------------------
+      // Layout before tempo text but autoplace after
+      std::vector<RehearsalMark*> rehearsMarks;
+      for (const Segment* s : sl) {
+            for (Element* e : s->annotations()) {
+                  if (e->isRehearsalMark()) {
+                        e->layout();
+                        rehearsMarks.push_back(toRehearsalMark(e));
+                        }
+                  }
+            }
+
+      //-------------------------------------------------------------
       // TempoText
       //-------------------------------------------------------------
 
@@ -4867,6 +4882,9 @@ void Score::layoutSystemElements(System* system, LayoutContext& lc)
                         e->layout();
                   }
             }
+
+      for (RehearsalMark* rehearsMark : rehearsMarks)
+            rehearsMark->autoplaceSegmentElement();
 
       //-------------------------------------------------------------
       // Jump, Marker
@@ -4878,17 +4896,6 @@ void Score::layoutSystemElements(System* system, LayoutContext& lc)
             Measure* m = toMeasure(mb);
             for (Element* e : m->el()) {
                   if (e->isJump() || e->isMarker())
-                        e->layout();
-                  }
-            }
-
-      //-------------------------------------------------------------
-      // RehearsalMark
-      //-------------------------------------------------------------
-
-      for (const Segment* s : sl) {
-            for (Element* e : s->annotations()) {
-                  if (e->isRehearsalMark())
                         e->layout();
                   }
             }
