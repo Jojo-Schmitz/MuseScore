@@ -1319,7 +1319,9 @@ class MasterScore : public Score {
       void reorderMidiMapping();
       void rebuildExcerptsMidiMapping();
       void removeDeletedMidiMapping();
+
       int updateMidiMapping();
+      void doUpdateMidiMapping(int& maxport, Part* part, Channel* channel, bool useDrumset);
 
       QFileInfo _sessionStartBackupInfo;
       QFileInfo info;
