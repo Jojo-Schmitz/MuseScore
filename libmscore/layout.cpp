@@ -4802,6 +4802,20 @@ void Score::layoutSystemElements(System* system, LayoutContext& lc)
             //-------------------------------------------------------------
 
             layoutHarmonies(sl);
+#if 0
+            for (Harmony* harmony : elementsToLayout.harmonies) {
+                FretDiagram* fdParent = harmony->parent()->isFretDiagram() ? toFretDiagram(harmony->parent()) : nullptr;
+                if (fdParent && !fdParent->visible()) {
+                    harmony->mutldata()->moveY(-fdParent->pos().y());
+                }
+                Autoplace::autoplaceSegmentElement(harmony, harmony->mutldata());
+            }
+
+            if (ctx.conf().styleB(Sid::verticallyAlignChordSymbols)) {
+                std::vector<EngravingItem*> harmonyItems(elementsToLayout.harmonies.begin(), elementsToLayout.harmonies.end());
+                AlignmentLayout::alignItemsForSystem(harmonyItems, system);
+            }
+#endif
             alignHarmonies(system, sl, false, styleP(Sid::maxFretShiftAbove), styleP(Sid::maxFretShiftBelow));
             }
 
