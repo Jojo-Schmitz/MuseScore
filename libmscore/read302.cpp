@@ -226,6 +226,7 @@ bool Score::read(XmlReader& e)
             }
 
       connectTies();
+      relayoutForStyles(); // force relayout if certain style settings are enabled
 
       _fileDivision = MScore::division;
 

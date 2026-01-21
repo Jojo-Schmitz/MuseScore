@@ -20,47 +20,46 @@
 #ifndef __DEBUGGER_H__
 #define __DEBUGGER_H__
 
-#include "ui_debugger.h"
-#include "ui_element.h"
-#include "ui_note.h"
-#include "ui_page.h"
-#include "ui_text.h"
-#include "ui_measure.h"
-#include "ui_segment.h"
+#include "abstractdialog.h"
+
+#include "ui_accidental.h"
+#include "ui_articulationbase.h"
+#include "ui_barline.h"
+#include "ui_beam.h"
+#include "ui_box.h"
+#include "ui_bracket.h"
 #include "ui_chord.h"
 #include "ui_chordrest.h"
-#include "ui_hairpin.h"
-#include "ui_barline.h"
+#include "ui_clef.h"
+#include "ui_debugger.h"
 #include "ui_dynamic.h"
-#include "ui_tuplet.h"
-#include "ui_slurtie.h"
-#include "ui_tie.h"
+#include "ui_element.h"
+#include "ui_hairpin.h"
+#include "ui_harmony.h"
+#include "ui_keysig.h"
 #include "ui_line.h"
-#include "ui_textline.h"
 #include "ui_linesegment.h"
 #include "ui_lyrics.h"
-#include "ui_beam.h"
-#include "ui_tremolo.h"
-#include "ui_spanner.h"
-#include "ui_slursegment.h"
-#include "ui_tiesegment.h"
-#include "ui_accidental.h"
-#include "ui_clef.h"
-#include "ui_articulationbase.h"
-#include "ui_keysig.h"
+#include "ui_measure.h"
+#include "ui_measurerepeat.h"
+#include "ui_note.h"
+#include "ui_page.h"
 #include "ui_rest.h"
-#include "ui_stem.h"
-#include "ui_box.h"
-#include "ui_harmony.h"
+#include "ui_segment.h"
+#include "ui_slursegment.h"
+#include "ui_slurtie.h"
 #include "ui_spanner.h"
 #include "ui_system.h"
+#include "ui_stem.h"
+#include "ui_text.h"
+#include "ui_textline.h"
+#include "ui_tie.h"
+#include "ui_tiesegment.h"
 #include "ui_timesig.h"
-#include "ui_bracket.h"
+#include "ui_tremolo.h"
+#include "ui_tuplet.h"
 
-#include "globals.h"
 #include "libmscore/element.h"
-#include "libmscore/mscore.h"
-#include "abstractdialog.h"
 
 namespace Ms {
 
@@ -291,6 +290,25 @@ class RestView : public ShowElementBase {
 
    public:
       RestView();
+      virtual void setElement(Element*);
+      };
+
+//---------------------------------------------------------
+//   MeasureRepeatView
+//---------------------------------------------------------
+
+class MeasureRepeatView : public ShowElementBase
+      {
+      Q_OBJECT
+
+      Ui::ChordRestBase crb;
+      Ui::MeasureRepeat mrb;
+
+private slots:
+      void firstOfGroupClicked();
+
+public:
+      MeasureRepeatView();
       virtual void setElement(Element*);
       };
 

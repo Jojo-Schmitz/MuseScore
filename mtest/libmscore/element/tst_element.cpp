@@ -12,8 +12,8 @@
 
 #include <QtTest/QtTest>
 
-#include "libmscore/score.h"
 #include "libmscore/element.h"
+
 #include "mtest/testutils.h"
 
 using namespace Ms;
@@ -67,7 +67,7 @@ void TestElement::testIds()
             ElementType::LAYOUT_BREAK,
             ElementType::MARKER,
             ElementType::JUMP,
-            ElementType::REPEAT_MEASURE,
+            ElementType::MEASURE_REPEAT,
             ElementType::ICON,
             ElementType::NOTE,
             ElementType::SYMBOL,
@@ -106,5 +106,6 @@ void TestElement::testIds()
 
 QTEST_MAIN(TestElement)
 
+#if __has_include("tst_element.moc")
 #include "tst_element.moc"
-
+#endif
