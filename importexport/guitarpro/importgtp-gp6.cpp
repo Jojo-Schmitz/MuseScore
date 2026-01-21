@@ -2411,7 +2411,7 @@ void GuitarPro6::readMasterBars(GPPartInfo* partInfo)
                   Segment* s = measure->getSegment(SegmentType::ChordRest, measure->tick());
                   if (bars[measureCounter].section[0].length()) {
                         RehearsalMark* t = new RehearsalMark(score);
-                        t->setFrameType(FrameType::SQUARE);
+                        t->setFrameType(FrameType::RECTANGLE);
                         t->setPlainText(bars[measureCounter].section[0]);
                         t->setTrack(0);
                         s->add(t);
