@@ -4551,11 +4551,16 @@ void Score::layoutSystemElements(System* system, LayoutContext& lc)
       // layout tuplets
       //-------------------------------------------------------------
 
+      std::map<int, Fraction> skipTo;
       for (Segment* s : sl) {
             for (Element* e : s->elist()) {
                   if (!e || !e->isChordRest() || !score()->staff(e->staffIdx())->show())
                         continue;
+                  int track = e->track();
+                  if (skipTo.count(track) && e->tick() < skipTo[track])
+                        continue; // don't lay out tuplets for this voice that have already been done
                   ChordRest* cr = toChordRest(e);
+#if 0
                   if (!isTopTuplet(cr))
                         continue;
                   DurationElement* de = cr;
@@ -4564,6 +4569,19 @@ void Score::layoutSystemElements(System* system, LayoutContext& lc)
                         t->layout();
                         de = t;
                         }
+#else
+                  // find the top tuplet for this segment
+                  DurationElement* de = cr;
+                  if (!de->tuplet())
+                        continue;
+                  while (de->tuplet())
+                        de = de->tuplet();
+                  de->layout();
+#endif
+
+                  // don't layout any tuplets covered by this top level tuplet for this voice--
+                  // they've already been laid out by Tuplet::layout().
+                  skipTo[track] = de->tick() + de->actualTicks();
                   }
             }
 
