@@ -41,7 +41,8 @@ class ShortcutCaptureDialog : public QDialog, public Ui::ShortcutCaptureDialogBa
 
       Shortcut* s;
       void keyPress(QKeyEvent* e);
-      bool isShiftAllowed(int key);
+      bool isShiftAllowed(int key, const QString& keyStr);
+      bool isCtrlAltNeeded(int key, const QString& keyStr);
       virtual bool eventFilter(QObject* o, QEvent* e);
       QKeySequence key;
       QMap<QString, Shortcut*> localShortcuts;
