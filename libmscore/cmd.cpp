@@ -1357,6 +1357,7 @@ void Score::changeCRlen(ChordRest* cr, const Fraction& dstF, bool fillWithRest)
             return;
 
       deselectAll();
+      Element* elementToSelect = nullptr;
 
       Fraction tick  = cr->tick();
       Fraction f     = dstF;
@@ -1400,7 +1401,7 @@ void Score::changeCRlen(ChordRest* cr, const Fraction& dstF, bool fillWithRest)
                         r = setRest(tick, track, f2, false, tuplet);
                         }
                   if (first) {
-                        select(r, SelectType::SINGLE, 0);
+                        elementToSelect = r;
                         first = false;
                         }
                   tick += actualTicks(f2, tuplet, timeStretch);
@@ -1412,7 +1413,7 @@ void Score::changeCRlen(ChordRest* cr, const Fraction& dstF, bool fillWithRest)
 
                   if (((tick - etick).ticks() % dList[0].ticks().ticks()) == 0) {
                         for (TDuration du : dList) {
-                              Chord* cc;
+                              Chord* cc = nullptr;
                               if (oc) {
                                     cc = oc;
                                     oc = addChord(tick, du, cc, true, tuplet);
@@ -1423,10 +1424,7 @@ void Score::changeCRlen(ChordRest* cr, const Fraction& dstF, bool fillWithRest)
                                     oc = cc;
                                     }
                               if (oc && first) {
-                                    if (!selElement)
-                                          select(oc, SelectType::SINGLE, 0);
-                                    else
-                                          select(selElement, SelectType::SINGLE, 0);
+                                    elementToSelect = selElement ? selElement : oc;
                                     first = false;
                                     }
                               if (oc)
@@ -1446,9 +1444,7 @@ void Score::changeCRlen(ChordRest* cr, const Fraction& dstF, bool fillWithRest)
                                     oc = cc;
                                     }
                               if (first) {
-                                    // select(oc, SelectType::SINGLE, 0);
-                                    if (selElement)
-                                          select(selElement, SelectType::SINGLE, 0);
+                                    elementToSelect = selElement;
                                     first = false;
                                     }
                               tick += oc->actualTicks();
@@ -1465,6 +1461,11 @@ void Score::changeCRlen(ChordRest* cr, const Fraction& dstF, bool fillWithRest)
                   break;
             }
       connectTies();
+
+      if (elementToSelect) {
+            if (containsElement(elementToSelect))
+                  select(elementToSelect, SelectType::SINGLE, 0);
+            }
       }
 
 //---------------------------------------------------------
