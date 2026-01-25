@@ -5518,7 +5518,6 @@ static void directionJump(XmlWriter& xml, const Jump* const jp)
       {
       Jump::Type jtp = jp->jumpType();
       QString words;
-      QString type;
       QString sound;
       bool isDaCapo = false;
       bool isDalSegno = false;
@@ -5563,7 +5562,6 @@ static void directionJump(XmlWriter& xml, const Jump* const jp)
             }
       else {
             words = jp->xmlText();
-
             if (jp->jumpTo() == "start")
                   isDaCapo = true;
             else
@@ -5579,19 +5577,20 @@ static void directionJump(XmlWriter& xml, const Jump* const jp)
                   sound = "dalsegno=\"" + jp->jumpTo() + "\"";
             }
 
-      if (!sound.isEmpty()) {
+      if (ExportMusicXml::canWrite(jp) && !words.isEmpty()) {
             xml.stag(QString("direction" + placement2xml(jp)));
             xml.stag("direction-type");
             QString attrs = color2xml(jp);
             attrs += positioningAttributes(jp);
-            if (!type.isEmpty())
-                  xml.tagE(type + attrs);
-            if (!words.isEmpty())
-                  xml.tag("words" + attrs, words);
+            xml.tag("words" + attrs, words);
             xml.etag();
             if (!sound.isEmpty())
                   xml.tagE(QString("sound ") + sound);
             xml.etag();
+            }
+      else if (!sound.isEmpty()) {
+            if (!sound.isEmpty())
+                  xml.tagE(QString("sound ") + sound);
             }
       }
 
@@ -5681,7 +5680,7 @@ static void directionMarker(XmlWriter& xml, const Marker* const m, const std::ve
                         sound = "segno=\"" + m->label() + "\"";
                   break;
             case Marker::Type::FINE:
-                  words = "Fine";
+                  words = m->xmlText();
                   sound = "fine=\"yes\"";
                   break;
             case Marker::Type::TOCODA:
@@ -5702,7 +5701,7 @@ static void directionMarker(XmlWriter& xml, const Marker* const m, const std::ve
                   break;
             }
 
-      if (!sound.isEmpty()) {
+      if (ExportMusicXml::canWrite(m) && (!words.isEmpty() || !type.isEmpty())) {
             xml.stag(QString("direction" + placement2xml(m)));
             xml.stag("direction-type");
             QString attrs = color2xml(m);
@@ -5718,6 +5717,8 @@ static void directionMarker(XmlWriter& xml, const Marker* const m, const std::ve
                   xml.tagE(QString("sound ") + sound);
             xml.etag();
             }
+      else if (!sound.isEmpty())
+            xml.tagE(QString("sound ") + sound);
       }
 
 //---------------------------------------------------------
