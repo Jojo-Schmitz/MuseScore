@@ -183,7 +183,7 @@
           <Tempo>
             <tempo>4</tempo>
             <followText>1</followText>
-            <text><sym>metNoteHalfUp</sym> <sym>metAugmentationDot</sym> = 80</text>
+            <text><sym>metNoteHalfUp</sym><sym>space</sym><sym>metAugmentationDot</sym> = 80</text>
             </Tempo>
           <Chord>
             <durationType>quarter</durationType>
@@ -948,7 +948,7 @@
           <Tempo>
             <tempo>1</tempo>
             <followText>1</followText>
-            <text><sym>metNote8thUp</sym> <sym>metAugmentationDot</sym> = 80</text>
+            <text><sym>metNote8thUp</sym><sym>space</sym><sym>metAugmentationDot</sym> = 80</text>
             </Tempo>
           <Spanner type="Volta">
             <prev>

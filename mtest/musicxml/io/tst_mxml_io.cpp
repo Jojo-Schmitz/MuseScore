@@ -284,6 +284,7 @@ private slots:
       void restsNoType() { mxmlIoTestRef("testRestsNoType"); }
       void restsTypeWhole() { mxmlIoTestRef("testRestsTypeWhole"); }
       void secondVoiceMelismata() { mxmlImportTestRef("testSecondVoiceMelismata"); }
+      void sibMetronomeMarks() { mxmlImportTestRef("testSibMetronomeMarks"); }
       void sibOttavas() { mxmlImportTestRef("testSibOttavas"); }
       void slurs() { mxmlIoTest("testSlurs"); }
       void slurs2() { mxmlIoTest("testSlurs2"); }

@@ -31,6 +31,7 @@
 #include "libmscore/chordlist.h"
 #include "libmscore/chordrest.h"
 #include "libmscore/drumset.h"
+#include "libmscore/durationtype.h"
 #include "libmscore/dynamic.h"
 #include "libmscore/fermata.h"
 #include "libmscore/figuredbass.h"
@@ -3388,7 +3389,6 @@ void MusicXMLParserDirection::direction(const QString& partId,
             else
                   skipLogCurrElem();
             }
-
       handleRepeats(measure, track, tick + _offset);
       handleNmiCmi(measure, track, tick + _offset, delayedDirections);
       handleChordSym(track, tick + _offset, harmonyMap);
@@ -3755,14 +3755,17 @@ void MusicXMLParserDirection::directionType(QList<MusicXmlSpannerDesc>& starts,
             if  (_e.name() == "metronome")
                   _metroText = metronome(_tpoMetro);
             else if (_e.name() == "words") {
-                  _enclosure      = _e.attributes().value("enclosure").toString();
+                  _enclosure = _e.attributes().value("enclosure").toString();
+                  _fontFamily = _e.attributes().value("font-family").toString();
                   QString nextPart = nextPartOfFormattedString(_e);
+
                   textToDynamic(nextPart);
                   textToCrescLine(nextPart);
+                  handleTempo(nextPart);
                   _wordsText += nextPart;
                   }
             else if (_e.name() == "rehearsal") {
-                  _enclosure      = _e.attributes().value("enclosure").toString();
+                  _enclosure = _e.attributes().value("enclosure").toString();
                   if (_enclosure.isEmpty())
                         _enclosure = "square";  // note different default
                   _rehearsalText += nextPartOfFormattedString(_e);
@@ -4628,6 +4631,58 @@ void MusicXMLParserDirection::handleChordSym(const int track, const Fraction tic
       if (insert)
             harmonyMap.insert(std::pair<int, HarmonyDesc>(ticks, newHarmonyDesc));
       _wordsText.clear();
+      }
+
+void MusicXMLParserDirection::handleTempo(QString& wordsString)
+      {
+      // Pick up any tempo markings which may have been exported from Sibelius as <words>
+      // eg. andante (q = c. 90)
+      // Sibelius uses a symbol font with the characters 'yxeqhVwW' each drawn as a different duration
+      // which we need to map to SMuFL syms
+      QString plainWords = MScoreTextToMXML::toPlainText(_wordsText.simplified());
+
+      static const QRegExp tempo(".*([yxeqhVwW])(\\.?)\\s*=[^0-9]*([0-9]+).*");
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+      QStringList tempoMatches = plainWords.split(tempo, Qt::SkipEmptyParts);
+#else
+      QStringList tempoMatches = plainWords.split(tempo, QString::SkipEmptyParts);
+#endif
+
+      // Not a tempo
+      if (tempoMatches.size() < 2)
+            return;
+
+      const QString dur = tempoMatches.at(0);
+      const bool dot = tempoMatches.size() == 3;
+      const QString val = tempoMatches.at(dot ? 2 : 1);
+
+      const QString dotStr = dot ? "<sym>space</sym><sym>metAugmentationDot</sym>" : "";
+      // Map Sibelius' representation of note types to their SMuFL counterparts and duration types
+      static const QMap<QString, QPair<QString, TDuration::DurationType> > syms = {
+            { "y", { "<sym>metNote32ndUp</sym>", TDuration::DurationType::V_32ND } },
+            { "x", { "<sym>metNote16thUp</sym>", TDuration::DurationType::V_16TH } },
+            { "e", { "<sym>metNote8thUp</sym>", TDuration::DurationType::V_EIGHTH } },
+            { "q", { "<sym>metNoteQuarterUp</sym>", TDuration::DurationType::V_QUARTER } },
+            { "h", { "<sym>metNoteHalfUp</sym>", TDuration::DurationType::V_HALF } },
+            { "w", { "<sym>metNoteWhole</sym>", TDuration::DurationType::V_WHOLE } },
+            { "V", { "<sym>metNoteDoubleWholeSquare</sym>", TDuration::DurationType::V_BREVE } },
+            { "W", { "<sym>metNoteDoubleWhole</sym>", TDuration::DurationType::V_BREVE } }
+      };
+
+      static const QRegExp replace("(.*)[yxeqhVwW]\\.?(\\s*=[^0-9]*[0-9]+.*)");
+      const QString newStr = "$1" + syms[dur].first + dotStr + "$2";
+      plainWords.replace(replace, newStr);
+      _wordsText = plainWords;
+
+      if (!val.isEmpty() && !dur.isEmpty()) {
+            bool ok;
+            double d = val.toDouble(&ok);
+            TDuration duration = TDuration(syms[dur].second);
+            duration.setDots(dot);
+
+            if (ok && duration.isValid()) // convert fraction to beats per minute
+                  _tpoMetro = 4 * duration.fraction().numerator() * d / duration.fraction().denominator();
+            }
       }
 
 //---------------------------------------------------------
