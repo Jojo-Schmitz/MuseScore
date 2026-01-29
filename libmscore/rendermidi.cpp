@@ -1120,9 +1120,11 @@ void MidiRenderer::renderSpanners(const Chunk& chunk, EventMap* events)
                         }
                   if (s->tick2().ticks() >= tick1 && s->tick2().ticks() <= tick2) {
                         int t = s->tick2().ticks() + tickOffset + (2 - MScore::pedalEventsMinTicks);
-                        const RepeatSegment& lastRepeat = *score->repeatList().back();
-                        if (t > lastRepeat.utick + lastRepeat.len())
-                              t = lastRepeat.utick + lastRepeat.len();
+                        if (!score->repeatList().empty()) {
+                              const RepeatSegment& lastRepeat = *score->repeatList().back();
+                              if (t > lastRepeat.utick + lastRepeat.len())
+                                    t = lastRepeat.utick + lastRepeat.len();
+                              }
                         channelPedalEvents.at(channel).push_back(std::pair<int, std::pair<bool, int> >(t, std::pair<bool, int>(false, staff)));
                         }
                   }
