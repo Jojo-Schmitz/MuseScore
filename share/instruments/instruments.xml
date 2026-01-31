@@ -34,32 +34,131 @@
       <Genre id="classroom">
             <name>Classroom</name>
       </Genre>
+      <Family id="winds">
+            <name>Winds</name>
+      </Family>
       <Family id="flutes">
             <name>Flutes</name>
       </Family>
-      <Family id="oboes">
-            <name>Oboes</name>
+      <Family id="dizis">
+            <name>Dizis</name>
       </Family>
-      <Family id="clarinets">
-            <name>Clarinets</name>
+      <Family id="shakuhachis">
+            <name>Shakuhachis</name>
       </Family>
-      <Family id="bassoons">
-            <name>Bassoons</name>
+      <Family id="fifes">
+            <name>Fifes</name>
       </Family>
-      <Family id="saxophones">
-            <name>Saxophones</name>
+      <Family id="whistles">
+            <name>Whistles</name>
+      </Family>
+      <Family id="flageolets">
+            <name>Flageolets</name>
       </Family>
       <Family id="recorders">
             <name>Recorders</name>
       </Family>
+      <Family id="ocarinas">
+            <name>Ocarinas</name>
+      </Family>
+      <Family id="gemshorns">
+            <name>Gemshorns</name>
+      </Family>
+      <Family id="pan-flutes">
+            <name>Pan Flutes</name>
+      </Family>
+      <Family id="quenas">
+            <name>Quenas</name>
+      </Family>
+      <Family id="oboes">
+            <name>Oboes</name>
+      </Family>
+      <Family id="shawms">
+            <name>Shawms</name>
+      </Family>
+      <Family id="cromornes">
+            <name>Cromornes</name>
+      </Family>
+      <Family id="crumhorns">
+            <name>Crumhorns</name>
+      </Family>
+      <Family id="cornamuses">
+            <name>Cornamuses</name>
+      </Family>
+      <Family id="kelhorns">
+            <name>Kelhorns</name>
+      </Family>
+      <Family id="rauschpfeifes">
+            <name>Rauschpfeifes</name>
+      </Family>
+      <Family id="duduks">
+            <name>Duduks</name>
+      </Family>
+      <Family id="shenais">
+            <name>Shenais</name>
+      </Family>
+      <Family id="clarinets">
+            <name>Clarinets</name>
+      </Family>
+      <Family id="chalumeaus">
+            <name>Chalumeaus</name>
+      </Family>
+      <Family id="xaphoons">
+            <name>Xaphoons</name>
+      </Family>
+      <Family id="tarogatos">
+            <name>Tarogatos</name>
+      </Family>
+      <Family id="octavins">
+            <name>Octavins</name>
+      </Family>
+      <Family id="saxophones">
+            <name>Saxophones</name>
+      </Family>
+      <Family id="bassoons">
+            <name>Bassoons</name>
+      </Family>
+      <Family id="reed-contrabasses">
+            <name>Reed Contrabasses</name>
+      </Family>
+      <Family id="dulcians">
+            <name>Dulcians</name>
+      </Family>
+      <Family id="racketts">
+            <name>Racketts</name>
+      </Family>
+      <Family id="sarrusophones">
+            <name>Sarrusophones</name>
+      </Family>
+      <Family id="bagpipes">
+            <name>Bagpipes</name>
+      </Family>
+      <Family id="accordions">
+            <name>Accordions</name>
+      </Family>
+      <Family id="harmonicas">
+            <name>Harmonicas</name>
+      </Family>
+      <Family id="melodicas">
+            <name>Melodicas</name>
+      </Family>
+      <Family id="shengs">
+            <name>Shengs</name>
+      </Family>
+      <Family id="brass">
+            <name>Brass</name>
+      </Family>
       <Family id="horns">
             <name>Horns</name>
+      </Family>
+      <Family id="wagner-tubas">
+            <name>Wagner Tubas</name>
       </Family>
       <Family id="cornets">
             <name>Cornets</name>
       </Family>
-      <Family id="flugelhorns">
-            <name>Flugelhorns</name>
+      <Family id="saxhorns">
+            <name>Saxhorns</name>
       </Family>
       <Family id="alto-horns">
             <name>Alto Horns</name>
@@ -67,32 +166,104 @@
       <Family id="baritone-horns">
             <name>Baritone Horns</name>
       </Family>
-      <Family id="euphoniums">
-            <name>Euphoniums</name>
+      <Family id="posthorns">
+            <name>Posthorns</name>
       </Family>
       <Family id="trumpets">
             <name>Trumpets</name>
       </Family>
+      <Family id="baroque-trumpets">
+            <name>Baroque Trumpets</name>
+      </Family>
+      <Family id="bugles">
+            <name>Bugles</name>
+      </Family>
+      <Family id="flugelhorns">
+            <name>Flugelhorns</name>
+      </Family>
+      <Family id="ophicleides">
+            <name>Ophicleides</name>
+      </Family>
+      <Family id="cornetts">
+            <name>Cornetts</name>
+      </Family>
+      <Family id="serpents">
+            <name>Serpents</name>
+      </Family>
       <Family id="trombones">
             <name>Trombones</name>
+      </Family>
+      <Family id="cimbassos">
+            <name>Cimbassos</name>
+      </Family>
+      <Family id="sackbuts">
+            <name>Sackbuts</name>
+      </Family>
+      <Family id="euphoniums">
+            <name>Euphoniums</name>
       </Family>
       <Family id="tubas">
             <name>Tubas</name>
       </Family>
+      <Family id="sousaphones">
+            <name>Sousaphones</name>
+      </Family>
+      <Family id="conches">
+            <name>Conches</name>
+      </Family>
+      <Family id="alphorns">
+            <name>Alphorns</name>
+      </Family>
+      <Family id="rag-dungs">
+            <name>Rag Dungs</name>
+      </Family>
+      <Family id="didgeridoos">
+            <name>Didgeridoos</name>
+      </Family>
+      <Family id="shofars">
+            <name>Shofars</name>
+      </Family>
+      <Family id="vuvuzelas">
+            <name>Vuvuzelas</name>
+      </Family>
       <Family id="timpani">
             <name>Timpani</name>
+      </Family>
+      <Family id="roto-toms">
+            <name>Roto Toms</name>
+      </Family>
+      <Family id="tubaphones">
+            <name>Tubaphones</name>
+      </Family>
+      <Family id="steel-drums">
+            <name>Steel Drums</name>
       </Family>
       <Family id="keyboard-percussion">
             <name>Keyboard Percussion</name>
       </Family>
-      <Family id="harps">
-            <name>Harps</name>
+      <Family id="pitched-metal-percussion">
+            <name>Pitched Metal Percussion</name>
       </Family>
       <Family id="orff-percussion">
             <name>Orff Percussion</name>
       </Family>
-      <Family id="pitched-percussion">
-            <name>Pitched Percussion</name>
+      <Family id="flexatones">
+            <name>Flexatones</name>
+      </Family>
+      <Family id="musical-saws">
+            <name>Musical Saws</name>
+      </Family>
+      <Family id="glass-percussion">
+            <name>Glass Percussion</name>
+      </Family>
+      <Family id="klaxon-horns">
+            <name>Klaxon Horns</name>
+      </Family>
+      <Family id="kalimbas">
+            <name>Kalimbas</name>
+      </Family>
+      <Family id="drums">
+            <name>Drums</name>
       </Family>
       <Family id="unpitched-metal-percussion">
             <name>Unpitched Metal Percussion</name>
@@ -100,17 +271,23 @@
       <Family id="unpitched-wooden-percussion">
             <name>Unpitched Wooden Percussion</name>
       </Family>
-      <Family id="drums">
-            <name>Drums</name>
+      <Family id="other-percussion">
+            <name>Other Percussion</name>
       </Family>
       <Family id="batterie">
             <name>Batterie</name>
       </Family>
-      <Family id="other-percussion">
-            <name>Other Percussion</name>
+      <Family id="body-percussion">
+            <name>Body Percussion</name>
       </Family>
       <Family id="voices">
             <name>Voices</name>
+      </Family>
+      <Family id="voice-groups">
+            <name>Voice Groups</name>
+      </Family>
+      <Family id="kazoos">
+            <name>Kazoos</name>
       </Family>
       <Family id="keyboards">
             <name>Keyboards</name>
@@ -121,8 +298,8 @@
       <Family id="synths">
             <name>Synths</name>
       </Family>
-      <Family id="plucked-strings">
-            <name>Plucked Strings</name>
+      <Family id="harps">
+            <name>Harps</name>
       </Family>
       <Family id="guitars">
             <name>Guitars</name>
@@ -130,11 +307,68 @@
       <Family id="bass-guitars">
             <name>Bass Guitars</name>
       </Family>
+      <Family id="banjos">
+            <name>Banjos</name>
+      </Family>
+      <Family id="ukuleles">
+            <name>Ukuleles</name>
+      </Family>
+      <Family id="mandolins">
+            <name>Mandolins</name>
+      </Family>
+      <Family id="mtn-dulcimers">
+            <name>Mtn. Dulcimers</name>
+      </Family>
+      <Family id="lutes">
+            <name>Lutes</name>
+      </Family>
+      <Family id="balalaikas">
+            <name>Balalaikas</name>
+      </Family>
+      <Family id="bouzoukis">
+            <name>Bouzoukis</name>
+      </Family>
+      <Family id="guzhengs">
+            <name>Guzhengs</name>
+      </Family>
+      <Family id="kotos">
+            <name>Kotos</name>
+      </Family>
+      <Family id="ouds">
+            <name>Ouds</name>
+      </Family>
+      <Family id="shamisens">
+            <name>Shamisens</name>
+      </Family>
+      <Family id="sitars">
+            <name>Sitars</name>
+      </Family>
+      <Family id="tamburicas">
+            <name>Tamburicas</name>
+      </Family>
+      <Family id="bandurrias">
+            <name>Bandurrias</name>
+      </Family>
+      <Family id="lauds">
+            <name>Laúds</name>
+      </Family>
+      <Family id="strings">
+            <name>Strings</name>
+      </Family>
       <Family id="orchestral-strings">
             <name>Orchestral Strings</name>
       </Family>
       <Family id="viols">
             <name>Viols</name>
+      </Family>
+      <Family id="octobasses">
+            <name>Octobasses</name>
+      </Family>
+      <Family id="erhus">
+            <name>Erhus</name>
+      </Family>
+      <Family id="nyckelharpas">
+            <name>Nyckelharpas</name>
       </Family>
       <Articulation>
             <velocity>100</velocity>
@@ -178,7 +412,8 @@
       </Articulation>
       <InstrumentGroup id="woodwinds">
             <name>Woodwinds</name>
-            <Instrument id="Winds">
+            <Instrument id="winds">
+                  <family>winds</family>
                   <longName>Winds</longName>
                   <shortName>Wi.</shortName>
                   <description>Winds Section</description>
@@ -479,6 +714,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="d-dizi">
+                  <family>dizis</family>
                   <longName>Dizi</longName>
                   <shortName>Di.</shortName>
                   <description>Dizi</description>
@@ -494,6 +730,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="c-dizi">
+                  <family>dizis</family>
                   <longName>C Dizi</longName>
                   <shortName>C Di.</shortName>
                   <description>C Dizi</description>
@@ -509,6 +746,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="a-dizi">
+                  <family>dizis</family>
                   <longName>A Dizi</longName>
                   <shortName>A Di.</shortName>
                   <description>A Dizi</description>
@@ -524,6 +762,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="g-dizi">
+                  <family>dizis</family>
                   <longName>G Dizi</longName>
                   <shortName>G Di.</shortName>
                   <description>G Dizi</description>
@@ -539,6 +778,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="f-dizi">
+                  <family>dizis</family>
                   <longName>F Dizi</longName>
                   <shortName>F Di.</shortName>
                   <description>F Dizi</description>
@@ -554,6 +794,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="e-dizi">
+                  <family>dizis</family>
                   <longName>E Dizi</longName>
                   <shortName>E Di.</shortName>
                   <description>E Dizi</description>
@@ -569,6 +810,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="fife">
+                  <family>fifes</family>
                   <longName>B♭ Fife</longName>
                   <shortName>B♭ Fife</shortName>
                   <description>B♭ Fife (A♭ transposing instrument)</description>
@@ -585,6 +827,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="flageolet">
+                  <family>flageolets</family>
                   <longName>Flageolet</longName>
                   <shortName>Fla.</shortName>
                   <description>6 hole Flageolet</description>
@@ -599,6 +842,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="french-flageolet">
+                  <family>flageolets</family>
                   <longName>French Flageolet</longName>
                   <shortName>Fr. Fla.</shortName>
                   <description>4 hole Flageolet</description>
@@ -613,6 +857,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="english-flageolet">
+                  <family>flageolets</family>
                   <longName>English Flageolet</longName>
                   <shortName>Eng. Fla.</shortName>
                   <description>6 hole Flageolet</description>
@@ -627,6 +872,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="irish-flute">
+                  <family>flutes</family>
                   <longName>Irish Flute</longName>
                   <shortName>Ir. Fl.</shortName>
                   <description>6 hole tranverse flute</description>
@@ -642,6 +888,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="gemshorn">
+                  <family>gemshorns</family>
                   <longName>Gemshorn</longName>
                   <shortName>Gh.</shortName>
                   <description>Gemshorn</description>
@@ -657,6 +904,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="soprano-gemshorn">
+                  <family>gemshorns</family>
                   <longName>Soprano Gemshorn</longName>
                   <shortName>S. Gh.</shortName>
                   <description>Soprano Gemshorn</description>
@@ -672,6 +920,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="alto-gemshorn">
+                  <family>gemshorns</family>
                   <longName>Alto Gemshorn</longName>
                   <shortName>A. Gh.</shortName>
                   <description>Alto Gemshorn</description>
@@ -687,6 +936,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="tenor-gemshorn">
+                  <family>gemshorns</family>
                   <longName>Tenor Gemshorn</longName>
                   <shortName>T. Gh.</shortName>
                   <description>Tenor Gemshorn</description>
@@ -702,6 +952,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="bass-gemshorn">
+                  <family>gemshorns</family>
                   <longName>Bass Gemshorn</longName>
                   <shortName>B. Gh.</shortName>
                   <description>Bass Gemshorn</description>
@@ -717,6 +968,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="c-soprano-ocarina">
+                  <family>ocarinas</family>
                   <longName>C Soprano Ocarina</longName>
                   <shortName>C S. Oc.</shortName>
                   <description>C Soprano Ocarina</description>
@@ -732,6 +984,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="ocarina">
+                  <family>ocarinas</family>
                   <longName>Ocarina</longName>
                   <shortName>Oc.</shortName>
                   <description>C Soprano Ocarina</description>
@@ -747,6 +1000,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="bb-soprano-ocarina">
+                  <family>ocarinas</family>
                   <longName>B♭ Soprano Ocarina</longName>
                   <shortName>B♭ S. Oc.</shortName>
                   <description>B♭ Soprano Ocarina</description>
@@ -764,6 +1018,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="g-soprano-ocarina">
+                  <family>ocarinas</family>
                   <longName>G Soprano Ocarina</longName>
                   <shortName>G S. Oc.</shortName>
                   <description>G Soprano Ocarina</description>
@@ -781,6 +1036,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="f-soprano-ocarina">
+                  <family>ocarinas</family>
                   <longName>F Soprano Ocarina</longName>
                   <shortName>F S. Oc.</shortName>
                   <description>F Soprano Ocarina</description>
@@ -798,6 +1054,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="c-alto-ocarina">
+                  <family>ocarinas</family>
                   <longName>C Alto Ocarina</longName>
                   <shortName>C A. Oc.</shortName>
                   <description>C Alto/Ternor Ocarina</description>
@@ -813,6 +1070,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="bb-alto-ocarina">
+                  <family>ocarinas</family>
                   <longName>B♭ Alto Ocarina</longName>
                   <shortName>B♭ A. Oc.</shortName>
                   <description>B♭ Alto/Tenor Ocarina</description>
@@ -830,6 +1088,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="g-alto-ocarina">
+                  <family>ocarinas</family>
                   <longName>G Alto Ocarina</longName>
                   <shortName>G A. Oc.</shortName>
                   <description>G Alto/Tenor Ocarina</description>
@@ -847,6 +1106,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="f-alto-ocarina">
+                  <family>ocarinas</family>
                   <longName>F Alto Ocarina</longName>
                   <shortName>F A. Oc.</shortName>
                   <description>F Alto/Tenor Ocarina</description>
@@ -864,6 +1124,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="c-bass-ocarina">
+                  <family>ocarinas</family>
                   <longName>C Bass Ocarina</longName>
                   <shortName>C B. Oc.</shortName>
                   <description>C Bass Ocarina</description>
@@ -879,6 +1140,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="pan-flute">
+                  <family>pan-flutes</family>
                   <longName>Pan Flute</longName>
                   <shortName>Pn. Fl.</shortName>
                   <description>Pan Flute</description>
@@ -894,6 +1156,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="quena">
+                  <family>quenas</family>
                   <longName>Quena</longName>
                   <shortName>Qn.</shortName>
                   <description>Quena</description>
@@ -909,6 +1172,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="c-quena">
+                  <family>quenas</family>
                   <longName>C Quena</longName>
                   <shortName>C Qn.</shortName>
                   <description>C Quena</description>
@@ -924,6 +1188,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="g-quena">
+                  <family>quenas</family>
                   <longName>G Quena</longName>
                   <shortName>G Qn.</shortName>
                   <description>G Quena</description>
@@ -939,6 +1204,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="f-quena">
+                  <family>quenas</family>
                   <longName>F Quena</longName>
                   <shortName>F Qn.</shortName>
                   <description>F Quena</description>
@@ -954,6 +1220,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="d-quena">
+                  <family>quenas</family>
                   <longName>Quena</longName>
                   <shortName>Qn.</shortName>
                   <description>Quena</description>
@@ -1114,6 +1381,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="slide-whistle">
+                  <family>whistles</family>
                   <longName>Slide Whistle</longName>
                   <shortName>Sl. Wh.</shortName>
                   <description>Slide or Swanee Whistle</description>
@@ -1122,12 +1390,14 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>69-96</aPitchRange>
                   <pPitchRange>69-96</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 79; MS General: Ocarina-->
                         <program value="79"/> <!--Ocarina-->
                   </Channel>
             </Instrument>
             <Instrument id="bflat-tin-whistle">
+                  <family>whistles</family>
                   <longName>B♭ Tin Whistle</longName>
                   <shortName>B♭ Tin Wh.</shortName>
                   <description>same as 6 hole Flageolet but metal construction</description>
@@ -1142,6 +1412,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="c-tin-whistle">
+                  <family>whistles</family>
                   <longName>C Tin Whistle</longName>
                   <shortName>C Tin Wh.</shortName>
                   <description>same as 6 hole Flageolet but metal construction</description>
@@ -1157,6 +1428,7 @@
                   <genre>classroom</genre>
             </Instrument>
             <Instrument id="d-tin-whistle">
+                  <family>whistles</family>
                   <longName>D Tin Whistle</longName>
                   <shortName>D Tin Wh.</shortName>
                   <description>same as 6 hole Flageolet but metal construction</description>
@@ -1341,6 +1613,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="heckelphone-clarinet">
+                  <family>saxophones</family>
                   <longName>Heckelphone-clarinet</longName>
                   <shortName>Hph.-cl.</shortName>
                   <description>Heckelphone</description>
@@ -1355,6 +1628,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="sopranino-shawm">
+                  <family>shawms</family>
                   <longName>Sopranino Shawm</longName>
                   <shortName>Si. Sh.</shortName>
                   <description>Sopranino Shawm</description>
@@ -1370,6 +1644,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="soprano-shawm">
+                  <family>shawms</family>
                   <longName>Soprano Shawm</longName>
                   <shortName>S. Sh.</shortName>
                   <description>Shawm</description>
@@ -1385,6 +1660,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="alto-shawm">
+                  <family>shawms</family>
                   <longName>Alto Shawm</longName>
                   <shortName>A. Sh.</shortName>
                   <description>Alto Shawm</description>
@@ -1400,6 +1676,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="tenor-shawm">
+                  <family>shawms</family>
                   <longName>Tenor Shawm</longName>
                   <shortName>T. Sh.</shortName>
                   <description>Tenor Shawm</description>
@@ -1415,6 +1692,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="bass-shawm">
+                  <family>shawms</family>
                   <longName>Bass Shawm</longName>
                   <shortName>B. Sh.</shortName>
                   <description>Bass Shawm</description>
@@ -1430,6 +1708,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="great-bass-shawm">
+                  <family>shawms</family>
                   <longName>Great Bass Shawm</longName>
                   <shortName>G.B. Sh.</shortName>
                   <description>Great Bass Shawm</description>
@@ -1445,6 +1724,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="cromorne">
+                  <family>cromornes</family>
                   <longName>Cromorne</longName>
                   <shortName>Cr.</shortName>
                   <description>Cromorne probably same as crumhorn</description>
@@ -1460,6 +1740,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="crumhorn">
+                  <family>crumhorns</family>
                   <longName>Crumhorn</longName>
                   <shortName>Crh.</shortName>
                   <description>Crumhorn</description>
@@ -1475,6 +1756,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="soprano-crumhorn">
+                  <family>crumhorns</family>
                   <longName>Soprano Crumhorn</longName>
                   <shortName>S. Crh.</shortName>
                   <description>Soprano Crumhorn</description>
@@ -1490,6 +1772,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="alto-crumhorn">
+                  <family>crumhorns</family>
                   <longName>Alto Crumhorn</longName>
                   <shortName>A. Crh.</shortName>
                   <description>Alto Crumhorn</description>
@@ -1505,6 +1788,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="tenor-crumhorn">
+                  <family>crumhorns</family>
                   <longName>Tenor Crumhorn</longName>
                   <shortName>T. Crh.</shortName>
                   <description>Tenor Crumhorn</description>
@@ -1520,6 +1804,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="bass-crumhorn">
+                  <family>crumhorns</family>
                   <longName>Bass Crumhorn</longName>
                   <shortName>B. Crh.</shortName>
                   <description>Bass Crumhorn</description>
@@ -1535,6 +1820,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="greatbass-crumhorn">
+                  <family>crumhorns</family>
                   <longName>Greatbass Crumhorn</longName>
                   <shortName>Gb. Crh.</shortName>
                   <description>Greatbass Crumhorn</description>
@@ -1550,6 +1836,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="cornamuse">
+                  <family>cornamuses</family>
                   <longName>Cornamuse</longName>
                   <shortName>Cm.</shortName>
                   <description>Cornamuse</description>
@@ -1564,6 +1851,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="soprano-cornamuse">
+                  <family>cornamuses</family>
                   <longName>Soprano Cornamuse</longName>
                   <shortName>S. Cm.</shortName>
                   <description>Soprano Cornamuse</description>
@@ -1578,6 +1866,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="alto-cornamuse">
+                  <family>cornamuses</family>
                   <longName>Alto Cornamuse</longName>
                   <shortName>A. Cm.</shortName>
                   <description>Alto Cornamuse</description>
@@ -1592,6 +1881,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="tenor-cornamuse">
+                  <family>cornamuses</family>
                   <longName>Tenor Cornamuse</longName>
                   <shortName>T. Cm.</shortName>
                   <description>Tenor Cornamuse</description>
@@ -1606,6 +1896,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="bass-cornamuse">
+                  <family>cornamuses</family>
                   <longName>Bass Cornamuse</longName>
                   <shortName>B. Cm.</shortName>
                   <description>Bass Cornamuse</description>
@@ -1620,6 +1911,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="duduk">
+                  <family>duduks</family>
                   <longName>Duduk</longName>
                   <shortName>Du.</shortName>
                   <description>Duduk</description>
@@ -1635,6 +1927,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="f-duduk">
+                  <family>duduks</family>
                   <longName>F Duduk</longName>
                   <shortName>F Du.</shortName>
                   <description>F Duduk</description>
@@ -1650,6 +1943,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="e-duduk">
+                  <family>duduks</family>
                   <longName>E Duduk</longName>
                   <shortName>E Du.</shortName>
                   <description>E Duduk</description>
@@ -1665,6 +1959,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="d-duduk">
+                  <family>duduks</family>
                   <longName>Duduk</longName>
                   <shortName>Du.</shortName>
                   <description>Duduk</description>
@@ -1680,6 +1975,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="c-duduk">
+                  <family>duduks</family>
                   <longName>C Duduk</longName>
                   <shortName>C Du.</shortName>
                   <description>C Duduk</description>
@@ -1695,6 +1991,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="b-duduk">
+                  <family>duduks</family>
                   <longName>B Duduk</longName>
                   <shortName>B Du.</shortName>
                   <description>B Duduk</description>
@@ -1710,6 +2007,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="bb-duduk">
+                  <family>duduks</family>
                   <longName>B♭ Duduk</longName>
                   <shortName>B♭ Du.</shortName>
                   <description>B♭ Duduk</description>
@@ -1725,6 +2023,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="a-duduk">
+                  <family>duduks</family>
                   <longName>A Duduk</longName>
                   <shortName>A Du.</shortName>
                   <description>A Duduk</description>
@@ -1740,6 +2039,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="g-duduk">
+                  <family>duduks</family>
                   <longName>G Duduk</longName>
                   <shortName>G Du.</shortName>
                   <description>G Duduk</description>
@@ -1755,6 +2055,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="a-bass-duduk">
+                  <family>duduks</family>
                   <longName>A Bass Duduk</longName>
                   <shortName>A B. Du.</shortName>
                   <description>A Bass Duduk</description>
@@ -1770,6 +2071,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="soprano-kelhorn">
+                  <family>kelhorns</family>
                   <longName>Soprano Kelhorn</longName>
                   <shortName>S. Kh.</shortName>
                   <description>Soprano Kelhorn</description>
@@ -1784,6 +2086,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="alto-kelhorn">
+                  <family>kelhorns</family>
                   <longName>Alto Kelhorn</longName>
                   <shortName>A. Kh.</shortName>
                   <description>Alto Kelhorn</description>
@@ -1798,6 +2101,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="tenor-kelhorn">
+                  <family>kelhorns</family>
                   <longName>Tenor Kelhorn</longName>
                   <shortName>T. Kh.</shortName>
                   <description>Tenor Kelhorn</description>
@@ -1812,6 +2116,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="bass-kelhorn">
+                  <family>kelhorns</family>
                   <longName>Bass Kelhorn</longName>
                   <shortName>B. Kh.</shortName>
                   <description>Bass Kelhorn</description>
@@ -1826,6 +2131,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="greatbass-kelhorn">
+                  <family>kelhorns</family>
                   <longName>Greatbass Kelhorn</longName>
                   <shortName>Gb. Kh.</shortName>
                   <description>Greatbass Kelhorn</description>
@@ -1840,6 +2146,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="rauschpfeife">
+                  <family>rauschpfeifes</family>
                   <longName>Rauschpfeife</longName>
                   <shortName>Rpf.</shortName>
                   <description>Rauschpfeife</description>
@@ -1855,6 +2162,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="sopranino-rauschpfeife">
+                  <family>rauschpfeifes</family>
                   <longName>Sopranino Rauschpfeife</longName>
                   <shortName>Si. Rpf.</shortName>
                   <description>Sopranino Rauschpfeife</description>
@@ -1870,6 +2178,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="soprano-rauschpfeife">
+                  <family>rauschpfeifes</family>
                   <longName>Soprano Rauschpfeife</longName>
                   <shortName>S. Rpf.</shortName>
                   <description>Soprano Rauschpfeife</description>
@@ -1885,6 +2194,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="shenai">
+                  <family>shenais</family>
                   <longName>Shenai</longName>
                   <shortName>She.</shortName>
                   <description>Shenai</description>
@@ -2252,6 +2562,7 @@
                   <genre>concertband</genre>
             </Instrument>
             <Instrument id="xaphoon">
+                  <family>xaphoons</family>
                   <longName>Pocket Sax in C</longName>
                   <shortName>C Pkt. Sax</shortName>
                   <description>Xaphoon/Pocket Sax in C</description>
@@ -2269,6 +2580,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="bb-xaphoon">
+                  <family>xaphoons</family>
                   <longName>Pocket Sax in B♭</longName>
                   <shortName>B♭ Pkt. Sax</shortName>
                   <description>Xaphoon/Pocket Sax in B♭</description>
@@ -2288,6 +2600,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="d-xaphoon">
+                  <family>xaphoons</family>
                   <longName>Pocket Sax in D</longName>
                   <shortName>D Pkt. Sax</shortName>
                   <description>Xaphoon/Pocket Sax in D</description>
@@ -2307,6 +2620,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="g-xaphoon">
+                  <family>xaphoons</family>
                   <longName>Pocket Sax in G</longName>
                   <shortName>G Pkt. Sax</shortName>
                   <description>Xaphoon/Pocket Sax in G</description>
@@ -2326,6 +2640,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="chalumeau">
+                  <family>chalumeaus</family>
                   <longName>Chalumeau</longName>
                   <shortName>Cha.</shortName>
                   <description>Chalumeau</description>
@@ -2341,6 +2656,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="sopranino-chalumeau">
+                  <family>chalumeaus</family>
                   <longName>Sopranino Chalumeau</longName>
                   <shortName>Si. Cha.</shortName>
                   <description>Sopranino Chalumeau</description>
@@ -2356,6 +2672,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="soprano-chalumeau">
+                  <family>chalumeaus</family>
                   <longName>Soprano Chalumeau</longName>
                   <shortName>S. Cha.</shortName>
                   <description>Soprano Chalumeau</description>
@@ -2371,6 +2688,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="alto-chalumeau">
+                  <family>chalumeaus</family>
                   <longName>Alto Chalumeau</longName>
                   <shortName>A. Cha.</shortName>
                   <description>Alto Chalumeau</description>
@@ -2386,6 +2704,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="tenor-chalumeau">
+                  <family>chalumeaus</family>
                   <longName>Tenor Chalumeau</longName>
                   <shortName>T. Cha.</shortName>
                   <description>Tenor Chalumeau</description>
@@ -2401,6 +2720,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="bass-chalumeau">
+                  <family>chalumeaus</family>
                   <longName>Bass Chalumeau</longName>
                   <shortName>B. Cha.</shortName>
                   <description>Bass Chalumeau</description>
@@ -2416,6 +2736,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="tarogato">
+                  <family>tarogatos</family>
                   <longName>Tarogato</longName>
                   <shortName>Tar.</shortName>
                   <description>Tarogato</description>
@@ -2431,6 +2752,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="octavin">
+                  <family>octavins</family>
                   <longName>Octavin</longName>
                   <shortName>Oct.</shortName>
                   <description>Octavin</description>
@@ -2483,6 +2805,7 @@
                   <genre>concertband</genre>
             </Instrument>
             <Instrument id="reed-contrabass">
+                  <family>reed-contrabasses</family>
                   <longName>Reed Contrabass</longName>
                   <shortName>Rd. Cbs.</shortName>
                   <description>ReeContrabass</description>
@@ -2499,6 +2822,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="dulcian">
+                  <family>dulcians</family>
                   <longName>Dulcian</longName>
                   <shortName>Du.</shortName>
                   <description>Dulcian</description>
@@ -2514,6 +2838,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="rackett">
+                  <family>racketts</family>
                   <longName>Rackett</longName>
                   <shortName>Ra.</shortName>
                   <description>Rackett</description>
@@ -2529,6 +2854,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="sarrusophone">
+                  <family>sarrusophones</family>
                   <longName>Sarrusophone</longName>
                   <shortName>Sar.</shortName>
                   <description>Sarrusophone</description>
@@ -2545,6 +2871,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="sopranino-sarrusophone">
+                  <family>sarrusophones</family>
                   <longName>Sopranino Sarrusophone</longName>
                   <shortName>Si. Sar.</shortName>
                   <description>Sopranino Sarrusophone</description>
@@ -2561,6 +2888,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="soprano-sarrusophone">
+                  <family>sarrusophones</family>
                   <longName>Soprano Sarrusophone</longName>
                   <shortName>S. Sar.</shortName>
                   <description>Soprano Sarrusophone</description>
@@ -2577,6 +2905,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="alto-sarrusophone">
+                  <family>sarrusophones</family>
                   <longName>Alto Sarrusophone</longName>
                   <shortName>A. Sar.</shortName>
                   <description>Alto Sarrusophone</description>
@@ -2593,6 +2922,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="tenor-sarrusophone">
+                  <family>sarrusophones</family>
                   <longName>Tenor Sarrusophone</longName>
                   <shortName>T. Sar.</shortName>
                   <description>Tenor Sarrusophone</description>
@@ -2610,6 +2940,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="baritone-sarrusophone">
+                  <family>sarrusophones</family>
                   <longName>Baritone Sarrusophone</longName>
                   <shortName>Bar. Sar.</shortName>
                   <description>Baritone Sarrusophone</description>
@@ -2627,6 +2958,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="bass-sarrusophone">
+                  <family>sarrusophones</family>
                   <longName>Bass Sarrusophone</longName>
                   <shortName>B. Sar.</shortName>
                   <description>Bass Sarrusophone</description>
@@ -2644,6 +2976,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="contrabass-sarrusophone">
+                  <family>sarrusophones</family>
                   <longName>Contrabass Sarrusophone</longName>
                   <shortName>Cb. Sar.</shortName>
                   <description>Contrabass Sarrusophone</description>
@@ -2913,6 +3246,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="bagpipe">
+                  <family>bagpipes</family>
                   <longName>Bagpipe</longName>
                   <shortName>Bagp.</shortName>
                   <description>Bagpipe</description>
@@ -2930,6 +3264,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument>
+                  <family>shakuhachis</family>
                   <longName>Shakuhachi</longName>
                   <shortName>Shak.</shortName>
                   <description>Japanese Bamboo Flute</description>
@@ -2948,6 +3283,7 @@
       <InstrumentGroup id="free-reed">
             <name>Free Reed</name>
             <Instrument id="harmonica">
+                  <family>harmonicas</family>
                   <longName>Harmonica</longName>
                   <shortName>Harm.</shortName>
                   <description>Harmonica</description>
@@ -2965,6 +3301,7 @@
                   <genre>jazz</genre>
             </Instrument>
             <Instrument id="harmonica-c12c">
+                  <family>harmonicas</family>
                   <longName>12 Hole C Chromatic Harmonica</longName>
                   <shortName>Harm.</shortName>
                   <description>12 Hole Chromatic Harmonica in C</description>
@@ -2979,6 +3316,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="harmonica-c14c">
+                  <family>harmonicas</family>
                   <longName>14 Hole C Chromatic Harmonica</longName>
                   <shortName>Harm.</shortName>
                   <description>14 Hole Chromatic Harmonica in C</description>
@@ -2993,6 +3331,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="harmonica-c12g">
+                  <family>harmonicas</family>
                   <longName>12 Hole G Chromatic Harmonica</longName>
                   <shortName>Harm.</shortName>
                   <description>12 Hole Chromatic Harmonica in G</description>
@@ -3007,6 +3346,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="harmonica-c16c">
+                  <family>harmonicas</family>
                   <longName>16 Hole C Chromatic Harmonica</longName>
                   <shortName>Harm.</shortName>
                   <description>16 Hole Chromatic Harmonica in C</description>
@@ -3021,6 +3361,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="harmonica-c12tenor-c">
+                  <family>harmonicas</family>
                   <longName>12 Hole Tenor C Chromatic Harmonica</longName>
                   <shortName>Harm.</shortName>
                   <description>12 Hole Chromatic Harmonica in Tenor C</description>
@@ -3035,6 +3376,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="harmonica-d12high-g">
+                  <family>harmonicas</family>
                   <longName>10 Hole High G Diatonic Harmonica</longName>
                   <shortName>Harm.</shortName>
                   <description>10 Hole Diatonic Harmonica in High G</description>
@@ -3049,6 +3391,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="harmonica-d12f">
+                  <family>harmonicas</family>
                   <longName>10 Hole F Diatonic Harmonica</longName>
                   <shortName>Harm.</shortName>
                   <description>10 Hole Diatonic Harmonica in F</description>
@@ -3063,6 +3406,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="harmonica-d12d">
+                  <family>harmonicas</family>
                   <longName>10 Hole D Diatonic Harmonica</longName>
                   <shortName>Harm.</shortName>
                   <description>10 Hole Diatonic Harmonica in D</description>
@@ -3077,6 +3421,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="harmonica-d12c">
+                  <family>harmonicas</family>
                   <longName>10 Hole C Diatonic Harmonica</longName>
                   <shortName>Harm.</shortName>
                   <description>10 Hole Diatonic Harmonica in C</description>
@@ -3091,6 +3436,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="harmonica-d12a">
+                  <family>harmonicas</family>
                   <longName>10 Hole A Diatonic Harmonica</longName>
                   <shortName>Harm.</shortName>
                   <description>10 Hole Diatonic Harmonica in A</description>
@@ -3105,6 +3451,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="harmonica-d12-g">
+                  <family>harmonicas</family>
                   <longName>10 Hole G Diatonic Harmonica</longName>
                   <shortName>Harm.</shortName>
                   <description>10 Hole Diatonic Harmonica in G</description>
@@ -3119,6 +3466,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="harmonica-d10low-d">
+                  <family>harmonicas</family>
                   <longName>10 Hole Low D Diatonic Harmonica</longName>
                   <shortName>Harm.</shortName>
                   <description>10 Hole Diatonic Harmonica in Low D</description>
@@ -3133,6 +3481,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="harmonica-chordet">
+                  <family>harmonicas</family>
                   <longName>20 Hole Chordet Harmonica</longName>
                   <shortName>Harm.</shortName>
                   <description>20 Hole Huang Chordet Harmonica</description>
@@ -3147,6 +3496,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="bass-harmonica">
+                  <family>harmonicas</family>
                   <longName>Bass Harmonica</longName>
                   <shortName>Bs. Harm.</shortName>
                   <description>Bass Harmonica</description>
@@ -3161,6 +3511,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="bass-harmonica-hohner">
+                  <family>harmonicas</family>
                   <longName>Bass Hohner Harmonica</longName>
                   <shortName>Bs. Harm.</shortName>
                   <description>Bass 31 hole Hohner Harmonica</description>
@@ -3175,6 +3526,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="bass-harmonica-huang">
+                  <family>harmonicas</family>
                   <longName>Bass Huang Harmonica</longName>
                   <shortName>Bs. Harm.</shortName>
                   <description>Bass 30 hole Huang Harmonica</description>
@@ -3189,6 +3541,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="accordion">
+                  <family>accordions</family>
                   <longName>Accordion</longName>
                   <shortName>Acc.</shortName>
                   <description>Accordion</description>
@@ -3209,6 +3562,7 @@
                   <genre>jazz</genre>
             </Instrument>
             <Instrument id="bandoneon">
+                  <family>accordions</family>
                   <longName>Bandoneon</longName>
                   <shortName>Ban.</shortName>
                   <description>Bandoneon</description>
@@ -3228,6 +3582,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="concertina">
+                  <family>accordions</family>
                   <longName>Concertina</longName>
                   <shortName>Conc.</shortName>
                   <description>Concertina</description>
@@ -3246,6 +3601,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="melodica">
+                  <family>melodicas</family>
                   <longName>Melodica</longName>
                   <shortName>Mel.</shortName>
                   <description>Melodica</description>
@@ -3260,6 +3616,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="sheng">
+                  <family>shengs</family>
                   <longName>Sheng</longName>
                   <shortName>She.</shortName>
                   <description>Sheng (generic)</description>
@@ -3275,6 +3632,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="soprano-sheng">
+                  <family>shengs</family>
                   <longName>Soprano Sheng</longName>
                   <shortName>S She.</shortName>
                   <description>Soprano Sheng</description>
@@ -3290,6 +3648,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="alto-sheng">
+                  <family>shengs</family>
                   <longName>Alto Sheng</longName>
                   <shortName>A She.</shortName>
                   <description>Alto Sheng</description>
@@ -3305,6 +3664,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="tenor-sheng">
+                  <family>shengs</family>
                   <longName>Tenor Sheng</longName>
                   <shortName>T She.</shortName>
                   <description>Tenor Sheng</description>
@@ -3320,6 +3680,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="bass-sheng">
+                  <family>shengs</family>
                   <longName>Bass Sheng</longName>
                   <shortName>B She.</shortName>
                   <description>Bass Sheng</description>
@@ -3338,6 +3699,7 @@
       <InstrumentGroup id="brass">
             <name>Brass</name>
             <Instrument id="brass">
+                  <family>brass</family>
                   <longName>Brass</longName>
                   <shortName>Br.</shortName>
                   <description>Brass Section</description>
@@ -3717,6 +4079,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="saxhorn">
+                  <family>saxhorns</family>
                   <longName>Saxhorn</longName>
                   <shortName>Saxhorn</shortName>
                   <description>Saxhorn</description>
@@ -3872,6 +4235,7 @@
                   <genre>marching</genre>
             </Instrument>
             <Instrument id="posthorn">
+                  <family>post-horns</family>
                   <longName>Posthorn</longName>
                   <shortName>Psthn.</shortName>
                   <description>Posthorn</description>
@@ -3890,6 +4254,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="alphorn">
+                  <family>alphorns</family>
                   <longName>Alphorn</longName>
                   <shortName>AlpHn.</shortName>
                   <description>Alphorn</description>
@@ -4172,6 +4537,7 @@
                   <pPitchRange>52-85</pPitchRange>
                   <transposeDiatonic>1</transposeDiatonic>
                   <transposeChromatic>2</transposeChromatic>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="open">
                         <!--MIDI: Bank 0, Prog 56; MS General: Trumpet-->
                         <program value="56"/> <!--Trumpet-->
@@ -4292,7 +4658,7 @@
                   <genre>orchestra</genre>
             </Instrument>
             <Instrument id="baroque-trumpet">
-                  <family>trumpets</family>
+                  <family>baroque-trumpets</family>
                   <longName>Baroque Trumpet</longName>
                   <shortName>Bq. Tpt.</shortName>
                   <description>Baroque Trumpet in B♭ (generic)</description>
@@ -4314,7 +4680,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="f-baroque-trumpet">
-                  <family>trumpets</family>
+                  <family>baroque-trumpets</family>
                   <longName>Baroque Trumpet in F</longName>
                   <shortName>Bq. Tpt. F</shortName>
                   <description>Baroque Trumpet in F</description>
@@ -4336,7 +4702,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="eb-baroque-trumpet">
-                  <family>trumpets</family>
+                  <family>baroque-trumpets</family>
                   <longName>Baroque Trumpet in E♭</longName>
                   <shortName>Bq. Tpt. E♭</shortName>
                   <description>Baroque Trumpet in E♭</description>
@@ -4358,7 +4724,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="d-baroque-trumpet">
-                  <family>trumpets</family>
+                  <family>baroque-trumpets</family>
                   <longName>Baroque Trumpet in D</longName>
                   <shortName>Bq. Tpt. D</shortName>
                   <description>Baroque Trumpet in D</description>
@@ -4380,7 +4746,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="c-baroque-trumpet">
-                  <family>trumpets</family>
+                  <family>baroque-trumpets</family>
                   <longName>Baroque Trumpet in C</longName>
                   <shortName>Bq. Tpt. C</shortName>
                   <description>Baroque Trumpet in C</description>
@@ -4400,7 +4766,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="bb-baroque-trumpet">
-                  <family>trumpets</family>
+                  <family>baroque-trumpets</family>
                   <longName>Baroque Trumpet in B♭</longName>
                   <shortName>Bq. Tpt. B♭</shortName>
                   <description>Baroque Trumpet in B♭</description>
@@ -4422,6 +4788,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="rag-dung">
+                  <family>rag-dungs</family>
                   <longName>Rag Dung</longName>
                   <shortName>Rg. Dng.</shortName>
                   <description>Rag Dung (Tibetan Trumpet)</description>
@@ -4441,6 +4808,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="bugle">
+                  <family>bugles</family>
                   <longName>Bugle</longName>
                   <shortName>Bu.</shortName>
                   <description>Bugle</description>
@@ -4455,6 +4823,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="soprano-bugle">
+                  <family>bugles</family>
                   <longName>Soprano Bugle</longName>
                   <shortName>S. Bu.</shortName>
                   <description>Soprano Bugle</description>
@@ -4470,6 +4839,7 @@
                   <genre>marching</genre>
             </Instrument>
             <Instrument id="alto-bugle">
+                  <family>bugles</family>
                   <longName>Alto Bugle</longName>
                   <shortName>A. Bu.</shortName>
                   <description>Alto Bugle</description>
@@ -4485,6 +4855,7 @@
                   <genre>marching</genre>
             </Instrument>
             <Instrument id="baritone-bugle">
+                  <family>bugles</family>
                   <longName>Baritone Bugle</longName>
                   <shortName>Bar. Bu.</shortName>
                   <description>Bugle</description>
@@ -4526,6 +4897,7 @@
                   <genre>marching</genre>
             </Instrument>
             <Instrument id="fiscorn">
+                  <family>flugelhorns</family>
                   <longName>Fiscorn</longName>
                   <shortName>Fsc.</shortName>
                   <description>Fiscorn</description>
@@ -4546,6 +4918,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="kuhlohorn">
+                  <family>flugelhorns</family>
                   <longName>Kuhlohorn</longName>
                   <shortName>Klhn.</shortName>
                   <description>Kuhllohorn</description>
@@ -4566,6 +4939,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="euphonium-bugle">
+                  <family>bugles</family>
                   <longName>Euphonium Bugle</longName>
                   <shortName>Euph. Bu.</shortName>
                   <description>Euphonium Bugle</description>
@@ -4583,6 +4957,7 @@
                   <genre>marching</genre>
             </Instrument>
             <Instrument id="mellophon-bugle">
+                  <family>bugles</family>
                   <longName>Mellophone Bugle</longName>
                   <shortName>Mello. Bu.</shortName>
                   <description>Bugle</description>
@@ -4598,6 +4973,7 @@
                   <genre>marching</genre>
             </Instrument>
             <Instrument id="contrabass-bugle">
+                  <family>bugles</family>
                   <longName>Contrabass Bugle</longName>
                   <shortName>Cb. Bu.</shortName>
                   <description>Contrabass Bugle</description>
@@ -4615,6 +4991,7 @@
                   <genre>marching</genre>
             </Instrument>
             <Instrument id="mellophone">
+                  <family>bugles</family>
                   <longName>Mellophone</longName>
                   <shortName>Mello.</shortName>
                   <description>Mellophone</description>
@@ -4633,6 +5010,7 @@
                   <genre>marching</genre>
             </Instrument>
             <Instrument id="ophicleide">
+                  <family>ophicleides</family>
                   <longName>Ophicleide</longName>
                   <shortName>Oph.</shortName>
                   <description>C Bass Ophicleide (generic)</description>
@@ -4647,6 +5025,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="f-alto-ophicleide">
+                  <family>ophicleides</family>
                   <longName>F Alto Ophicleide</longName>
                   <shortName>F A. Oph.</shortName>
                   <description>F Alto Ophicleide</description>
@@ -4661,6 +5040,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="eb-alto-ophicleide">
+                  <family>ophicleides</family>
                   <longName>E♭ Alto Ophicleide</longName>
                   <shortName>E♭ A. Oph.</shortName>
                   <description>E♭ Alto Ophicleide</description>
@@ -4675,6 +5055,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="c-bass-ophicleide">
+                  <family>ophicleides</family>
                   <longName>C Bass Ophicleide</longName>
                   <shortName>C B. Oph.</shortName>
                   <description>C Bass Ophicleide</description>
@@ -4689,6 +5070,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="bb-bass-ophicleide">
+                  <family>ophicleides</family>
                   <longName>B♭ Bass Ophicleide</longName>
                   <shortName>B♭ B. Oph.</shortName>
                   <description>B♭ Bass Ophicleide</description>
@@ -4703,6 +5085,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="eb-contrabass-ophicleide">
+                  <family>ophicleides</family>
                   <longName>E♭ Contrabass Ophicleide</longName>
                   <shortName>E♭ Cb. Oph.</shortName>
                   <description>E♭ Contrabass Ophicleide</description>
@@ -4717,6 +5100,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="cornettino">
+                  <family>cornetts</family>
                   <longName>Cornettino</longName>
                   <shortName>Co.</shortName>
                   <description>Cornettino</description>
@@ -4732,6 +5116,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="cornett">
+                  <family>cornetts</family>
                   <longName>Cornett</longName>
                   <shortName>Co.</shortName>
                   <description>Soprano Cornett (generic)</description>
@@ -4747,6 +5132,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="soprano-cornett">
+                  <family>cornetts</family>
                   <longName>Soprano Cornett</longName>
                   <shortName>S. Co.</shortName>
                   <description>Soprano Cornett</description>
@@ -4762,6 +5148,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="alto-cornett">
+                  <family>cornetts</family>
                   <longName>Alto Cornett</longName>
                   <shortName>A. Co.</shortName>
                   <description>Alto Cornett</description>
@@ -4777,6 +5164,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="tenor-cornett">
+                  <family>cornetts</family>
                   <longName>Tenor Cornett</longName>
                   <shortName>T. Co.</shortName>
                   <description>Tenor Cornett</description>
@@ -4792,6 +5180,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="serpent">
+                  <family>serpents</family>
                   <longName>Serpent</longName>
                   <shortName>Spt.</shortName>
                   <description>Serpent</description>
@@ -4807,6 +5196,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="alto-sackbut">
+                  <family>sackbuts</family>
                   <longName>Alto Sackbut</longName>
                   <shortName>A. Sack.</shortName>
                   <description>Alto Sackbut</description>
@@ -4815,6 +5205,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>45-74</aPitchRange>
                   <pPitchRange>45-77</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 57; MS General: Trombone-->
                         <program value="57"/> <!--Trombone-->
@@ -4822,6 +5213,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="tenor-sackbut">
+                  <family>sackbuts</family>
                   <longName>Tenor Sackbut</longName>
                   <shortName>T. Sack.</shortName>
                   <description>Tenor Sackbut</description>
@@ -4830,6 +5222,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>40-70</aPitchRange>
                   <pPitchRange>40-74</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 57; MS General: Trombone-->
                         <program value="57"/> <!--Trombone-->
@@ -4837,6 +5230,7 @@
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="bass-sackbut">
+                  <family>sackbuts</family>
                   <longName>Bass Sackbut</longName>
                   <shortName>B. Sack.</shortName>
                   <description>Bass Sackbut</description>
@@ -4845,6 +5239,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>36-70</aPitchRange>
                   <pPitchRange>36-74</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 57; MS General: Trombone-->
                         <program value="57"/> <!--Trombone-->
@@ -4861,6 +5256,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>40-71</aPitchRange>
                   <pPitchRange>36-74</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="open">
                         <!--MIDI: Bank 0, Prog 57; MS General: Trombone-->
                         <program value="57"/> <!--Trombone-->
@@ -4890,6 +5286,7 @@
                   <pPitchRange>36-74</pPitchRange>
                   <transposeDiatonic>-8</transposeDiatonic>
                   <transposeChromatic>-14</transposeChromatic>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="open">
                         <!--MIDI: Bank 0, Prog 57; MS General: Trombone-->
                         <program value="57"/> <!--Trombone-->
@@ -4909,6 +5306,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>52-77</aPitchRange>
                   <pPitchRange>52-81</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="open">
                         <!--MIDI: Bank 0, Prog 57; MS General: Trombone-->
                         <program value="57"/> <!--Trombone-->
@@ -4928,6 +5326,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>45-74</aPitchRange>
                   <pPitchRange>45-77</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="open">
                         <!--MIDI: Bank 0, Prog 57; MS General: Trombone-->
                         <program value="57"/> <!--Trombone-->
@@ -4948,6 +5347,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>40-70</aPitchRange>
                   <pPitchRange>40-74</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="open">
                         <!--MIDI: Bank 0, Prog 57; MS General: Trombone-->
                         <program value="57"/> <!--Trombone-->
@@ -4967,6 +5367,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>32-65</aPitchRange>
                   <pPitchRange>21-77</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="open">
                         <!--MIDI: Bank 0, Prog 57; MS General: Trombone-->
                         <program value="57"/> <!--Trombone-->
@@ -4990,6 +5391,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>28-62</aPitchRange>
                   <pPitchRange>18-72</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="open">
                         <!--MIDI: Bank 0, Prog 57; MS General: Trombone-->
                         <program value="57"/> <!--Trombone-->
@@ -5001,7 +5403,7 @@
                   <genre>orchestra</genre>
             </Instrument>
             <Instrument id="cimbasso">
-                  <family>trombones</family>
+                  <family>cimbassos</family>
                   <longName>Cimbasso</longName>
                   <shortName>Cim.</shortName>
                   <description>Cimbasso</description>
@@ -5010,6 +5412,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>28-62</aPitchRange>
                   <pPitchRange>24-72</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 57; MS General: Trombone-->
                         <program value="57"/> <!--Trombone-->
@@ -5233,6 +5636,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="sousaphone">
+                  <family>sousaphones</family>
                   <longName>Sousaphone</longName>
                   <shortName>Sphn.</shortName>
                   <description>Sousaphone</description>
@@ -5249,6 +5653,7 @@
                   <genre>marching</genre>
             </Instrument>
             <Instrument id="bb-sousaphone">
+                  <family>sousaphones</family>
                   <longName>B♭ Sousaphone</longName>
                   <shortName>B♭ Sphn.</shortName>
                   <description>B♭ Sousaphone</description>
@@ -5267,6 +5672,7 @@
                   <genre>marching</genre>
             </Instrument>
             <Instrument id="bb-sousaphone-treble">
+                  <family>sousaphones</family>
                   <trackName>B♭ Sousaphone (Treble Clef)</trackName>
                   <longName>B♭ Sousaphone</longName>
                   <shortName>B♭ Sphn.</shortName>
@@ -5287,7 +5693,7 @@
                   <genre>marching</genre>
             </Instrument>
             <Instrument id="wagner-tuba">
-                  <family>horns</family>
+                  <family>wagner-tubas</family>
                   <longName>Wagner Tuba</longName>
                   <shortName>Wag. Tb.</shortName>
                   <description>F Wagner Tuba (generic)</description>
@@ -5304,7 +5710,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="bb-wagner-tuba">
-                  <family>horns</family>
+                  <family>wagner-tubas</family>
                   <longName>B♭ Wagner Tuba</longName>
                   <shortName>B♭ Wag. Tb.</shortName>
                   <description>B♭ Wagner Tuba</description>
@@ -5321,7 +5727,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="f-wagner-tuba">
-                  <family>horns</family>
+                  <family>wagner-tubas</family>
                   <longName>F Wagner Tuba</longName>
                   <shortName>F Wag. Tb.</shortName>
                   <description>F Wagner Tuba</description>
@@ -5338,6 +5744,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="conch">
+                  <family>conches</family>
                   <longName>Conch</longName>
                   <shortName>Cnch.</shortName>
                   <description>Conch Shell</description>
@@ -5353,6 +5760,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="didgeridoo">
+                  <family>didgeridoos</family>
                   <longName>Didgeridoo</longName>
                   <shortName>Doo.</shortName>
                   <description>Didgeridoo</description>
@@ -5368,6 +5776,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="horagai">
+                  <family>conches</family>
                   <longName>Horagai</longName>
                   <shortName>Hor.</shortName>
                   <description>Horagai Conch</description>
@@ -5383,6 +5792,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="shofar">
+                  <family>shofars</family>
                   <longName>Shofar</longName>
                   <shortName>Sho.</shortName>
                   <description>Shofar Ramshorn</description>
@@ -5398,6 +5808,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="vuvuzela">
+                  <family>vuvuzelas</family>
                   <longName>Vuvuzela</longName>
                   <shortName>Vuv.</shortName>
                   <description>Vuvuzela</description>
@@ -5426,6 +5837,7 @@
                   <aPitchRange>38-60</aPitchRange>
                   <pPitchRange>36-62</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 47; MS General: Timpani-->
                         <program value="47"/> <!--Timpani-->
@@ -5436,6 +5848,7 @@
                   <genre>marching</genre>
             </Instrument>
             <Instrument id="roto-toms">
+                  <family>roto-toms</family>
                   <longName>Roto-Toms</longName>
                   <shortName>Roto</shortName>
                   <description>Roto-Toms</description>
@@ -5510,7 +5923,7 @@
                   <genre>classroom</genre>
             </Instrument>
             <Instrument id="crotales">
-                  <family>pitched-percussion</family>
+                  <family>pitched-metal-percussion</family>
                   <longName>Crotales</longName>
                   <shortName>Crot.</shortName>
                   <description>Crotales</description>
@@ -5532,7 +5945,7 @@
                   <genre>marching</genre>
             </Instrument>
             <Instrument id="tubaphone">
-                  <family>pitched-percussion</family>
+                  <family>tubaphones</family>
                   <longName>Tubaphone</longName>
                   <shortName>Tph.</shortName>
                   <description>Tubaphone</description>
@@ -5547,6 +5960,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="almglocken">
+                  <family>pitched-metal-percussion</family>
                   <longName>Almglocken</longName>
                   <shortName>Almg.</shortName>
                   <description>Almglocken</description>
@@ -5655,7 +6069,7 @@
                   <genre>classroom</genre>
             </Instrument>
             <Instrument id="tubular-bells">
-                  <family>pitched-percussion</family>
+                  <family>pitched-metal-percussion</family>
                   <longName>Tubular Bells</longName>
                   <shortName>T. B.</shortName>
                   <description>Tubular Bells or Chimes</description>
@@ -5674,7 +6088,7 @@
                   <genre>concertband</genre>
             </Instrument>
             <Instrument id="steel-drums">
-                  <family>pitched-percussion</family>
+                  <family>steel-drums</family>
                   <longName>Steel Drums</longName>
                   <shortName>St. Dr.</shortName>
                   <description>Steel Drums (generic)</description>
@@ -5695,7 +6109,7 @@
                   <genre>jazz</genre>
             </Instrument>
             <Instrument id="soprano-steel-drums">
-                  <family>pitched-percussion</family>
+                  <family>steel-drums</family>
                   <longName>Soprano Steel Drums</longName>
                   <shortName>S. St. Dr.</shortName>
                   <description>Soprano Steel Drums</description>
@@ -5711,7 +6125,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="alto-steel-drums">
-                  <family>pitched-percussion</family>
+                  <family>steel-drums</family>
                   <longName>Alto Steel Drums</longName>
                   <shortName>A. St. Dr.</shortName>
                   <description>Alto Steel Drums</description>
@@ -5727,7 +6141,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="guitar-steel-drums">
-                  <family>pitched-percussion</family>
+                  <family>steel-drums</family>
                   <longName>Guitar Steel Drums</longName>
                   <shortName>Gtr. St. Dr.</shortName>
                   <description>Guitar Steel Drums</description>
@@ -5743,7 +6157,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="tenor-steel-drums">
-                  <family>pitched-percussion</family>
+                  <family>steel-drums</family>
                   <longName>Tenor Steel Drums</longName>
                   <shortName>T. St. Dr.</shortName>
                   <description>Tenor Steel Drums</description>
@@ -5759,7 +6173,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="cello-steel-drums">
-                  <family>pitched-percussion</family>
+                  <family>steel-drums</family>
                   <longName>Cello Steel Drums</longName>
                   <shortName>Ce. St. Dr.</shortName>
                   <description>Cello Steel Drums</description>
@@ -5775,7 +6189,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="bass-steel-drums">
-                  <family>pitched-percussion</family>
+                  <family>steel-drums</family>
                   <longName>Bass Steel Drums</longName>
                   <shortName>B. St. Dr.</shortName>
                   <description>Bass Steel Drums</description>
@@ -5791,7 +6205,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="hand-bells">
-                  <family>pitched-percussion</family>
+                  <family>pitched-metal-percussion</family>
                   <longName>Hand Bells</longName>
                   <shortName>Ha. Be.</shortName>
                   <description>Hand Bells</description>
@@ -5817,7 +6231,7 @@
                   <genre>choral</genre>
             </Instrument>
             <Instrument id="tuned-gongs">
-                  <family>pitched-percussion</family>
+                  <family>pitched-metal-percussion</family>
                   <longName>Tuned Gongs</longName>
                   <shortName>Td. Gon.</shortName>
                   <description>Tuned Gongs</description>
@@ -5833,7 +6247,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="flexatone">
-                  <family>pitched-percussion</family>
+                  <family>flexatoneS</family>
                   <longName>Flexatone</longName>
                   <shortName>Flt.</shortName>
                   <description>Flexatone</description>
@@ -5849,7 +6263,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="musical-saw">
-                  <family>pitched-percussion</family>
+                  <family>musical-saws</family>
                   <longName>Musical Saw</longName>
                   <shortName>Mu. Sw.</shortName>
                   <description>Musical Saw</description>
@@ -5864,7 +6278,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="musical-glasses">
-                  <family>pitched-percussion</family>
+                  <family>glass-percussion</family>
                   <longName>Musical Glasses</longName>
                   <shortName>Mu. Gla.</shortName>
                   <description>Musical Glasses</description>
@@ -5879,7 +6293,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="glass-harmonica">
-                  <family>pitched-percussion</family>
+                  <family>glass-percussion</family>
                   <longName>Glass Harmonica</longName>
                   <shortName>Gla. Har.</shortName>
                   <description>Glass Harmonica</description>
@@ -6117,7 +6531,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="tuned-klaxon-horns">
-                  <family>pitched-percussion</family>
+                  <family>klaxon-horns</family>
                   <longName>Tuned Klaxon Horns</longName>
                   <shortName>Tn. Klx. Hns.</shortName>
                   <description>Tuned Klaxon Horns</description>
@@ -6135,6 +6549,7 @@
                   </Channel>
             </Instrument>
             <Instrument id="kalimba">
+                  <family>kalimbas</family>
                   <longName>Kalimba</longName>
                   <shortName>Kal.</shortName>
                   <description>Kalimba (generic)</description>
@@ -6149,6 +6564,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="treble-kalimba">
+                  <family>kalimbas</family>
                   <longName>Treble Kalimba</longName>
                   <shortName>Tr. Kal.</shortName>
                   <description>Treble Kalimba</description>
@@ -6163,6 +6579,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="alto-kalimba">
+                  <family>kalimbas</family>
                   <longName>Alto Kalimba</longName>
                   <shortName>A. Kal.</shortName>
                   <description>Alto Kalimba</description>
@@ -6177,6 +6594,7 @@
                   <genre>world</genre>
             </Instrument>
             <Instrument id="carillon">
+                  <family>pitched-metal-percussion</family>
                   <longName>Carillon</longName>
                   <shortName>Car.</shortName>
                   <description>Carillon</description>
@@ -6941,7 +7359,7 @@
                   <genre>classroom</genre>
             </Instrument>
             <Instrument id="bell-plate">
-                  <family>pitched-percussion</family>
+                  <family>unpitched-metal-percussion</family>
                   <longName>Bell Plate</longName>
                   <shortName>Be. Pla.</shortName>
                   <description>Bell Plate</description>
@@ -8849,6 +9267,7 @@
       <InstrumentGroup id="body-percussion">
             <name>Percussion - Body</name>
             <Instrument id="finger-snap">
+               <family>body-percussion</family>
                   <longName>Finger Snap</longName>
                   <shortName>Fi. Sna.</shortName>
                   <description>Finger Snap</description>
@@ -8877,6 +9296,7 @@
                   <genre>classroom</genre>
             </Instrument>
             <Instrument id="hand-clap">
+                  <family>body-percussion</family>
                   <longName>Hand Clap</longName>
                   <shortName>Hd. Clp.</shortName>
                   <description>Hand Clap</description>
@@ -8905,6 +9325,7 @@
                   <genre>classroom</genre>
             </Instrument>
             <Instrument id="slap">
+                  <family>body-percussion</family>
                   <longName>Slap</longName>
                   <shortName>Sla.</shortName>
                   <description>Slap</description>
@@ -8933,6 +9354,7 @@
                   <genre>classroom</genre>
             </Instrument>
             <Instrument id="stamp">
+                  <family>body-percussion</family>
                   <longName>Stamp</longName>
                   <shortName>Sta.</shortName>
                   <description>Stamp</description>
@@ -8991,6 +9413,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>60-81</aPitchRange>
                   <pPitchRange>60-84</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 52; MS General: Choir Aahs-->
                         <program value="52"/> <!--Choir Aahs-->
@@ -9008,6 +9431,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>60-79</aPitchRange>
                   <pPitchRange>60-84</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 52; MS General: Choir Aahs-->
                         <program value="52"/> <!--Choir Aahs-->
@@ -9028,6 +9452,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>60-79</aPitchRange>
                   <pPitchRange>60-84</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 52; MS General: Choir Aahs-->
                         <program value="52"/> <!--Choir Aahs-->
@@ -9044,6 +9469,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>57-77</aPitchRange>
                   <pPitchRange>57-81</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 52; MS General: Choir Aahs-->
                         <program value="52"/> <!--Choir Aahs-->
@@ -9063,6 +9489,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>57-77</aPitchRange>
                   <pPitchRange>57-81</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 52; MS General: Choir Aahs-->
                         <program value="52"/> <!--Choir Aahs-->
@@ -9079,6 +9506,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>55-74</aPitchRange>
                   <pPitchRange>52-77</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 52; MS General: Choir Aahs-->
                         <program value="52"/> <!--Choir Aahs-->
@@ -9099,6 +9527,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>55-74</aPitchRange>
                   <pPitchRange>52-77</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 52; MS General: Choir Aahs-->
                         <program value="52"/> <!--Choir Aahs-->
@@ -9115,6 +9544,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>55-74</aPitchRange>
                   <pPitchRange>52-77</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 52; MS General: Choir Aahs-->
                         <program value="52"/> <!--Choir Aahs-->
@@ -9132,6 +9562,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>55-76</aPitchRange>
                   <pPitchRange>55-79</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 52; MS General: Choir Aahs-->
                         <program value="52"/> <!--Choir Aahs-->
@@ -9148,6 +9579,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>48-69</aPitchRange>
                   <pPitchRange>48-72</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 52; MS General: Choir Aahs-->
                         <program value="52"/> <!--Choir Aahs-->
@@ -9168,6 +9600,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>48-69</aPitchRange>
                   <pPitchRange>48-72</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 52; MS General: Choir Aahs-->
                         <program value="52"/> <!--Choir Aahs-->
@@ -9184,6 +9617,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>43-64</aPitchRange>
                   <pPitchRange>41-65</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 52; MS General: Choir Aahs-->
                         <program value="52"/> <!--Choir Aahs-->
@@ -9204,6 +9638,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>43-64</aPitchRange>
                   <pPitchRange>41-65</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 52; MS General: Choir Aahs-->
                         <program value="52"/> <!--Choir Aahs-->
@@ -9220,6 +9655,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>41-60</aPitchRange>
                   <pPitchRange>38-62</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 52; MS General: Choir Aahs-->
                         <program value="52"/> <!--Choir Aahs-->
@@ -9230,7 +9666,7 @@
                   <genre>orchestra</genre>
             </Instrument>
             <Instrument id="women">
-                  <family>voices</family>
+                  <family>voice-groups</family>
                   <longName>Women</longName>
                   <shortName>W.</shortName>
                   <description>Women</description>
@@ -9239,6 +9675,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>55-81</aPitchRange>
                   <pPitchRange>55-84</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="Soprano">
                         <!--MIDI: Bank 0, Prog 52; MS General: Choir Aahs-->
                         <program value="52"/> <!--Choir Aahs-->
@@ -9253,7 +9690,7 @@
                   <genre>orchestra</genre>
             </Instrument>
             <Instrument id="men">
-                  <family>voices</family>
+                  <family>voice-groups</family>
                   <longName>Men</longName>
                   <shortName>M.</shortName>
                   <description>Men</description>
@@ -9262,6 +9699,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>41-67</aPitchRange>
                   <pPitchRange>38-69</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="Tenor">
                         <!--MIDI: Bank 0, Prog 52; MS General: Choir Aahs-->
                         <program value="52"/> <!--Choir Aahs-->
@@ -9276,6 +9714,7 @@
                   <genre>orchestra</genre>
             </Instrument>
             <Instrument id="kazoo">
+                  <family>kazoos</family>
                   <longName>Kazoo</longName>
                   <shortName>Kaz.</shortName>
                   <description>Kazoo</description>
@@ -9284,6 +9723,7 @@
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>41-81</aPitchRange>
                   <pPitchRange>41-84</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 85; MS General: Solo Vox-->
                         <program value="85"/> <!--Lead 6 (voice)-->
@@ -10058,6 +10498,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="rain">
                         <!--MIDI: Bank 0, Prog 96; MS General: Ice Rain-->
                         <program value="96"/> <!--FX 1 (rain)-->
@@ -10108,6 +10549,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 99; MS General: Atmosphere-->
                         <program value="99"/> <!--FX 4 (atmosphere)-->
@@ -10130,6 +10572,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 100; MS General: Brightness-->
                         <program value="100"/> <!--FX 5 (brightness)-->
@@ -10152,6 +10595,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 98; MS General: Crystal-->
                         <program value="98"/> <!--FX 3 (crystal)-->
@@ -10174,6 +10618,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 102; MS General: Echo Drops-->
                         <program value="102"/> <!--FX 7 (echoes)-->
@@ -10196,6 +10641,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 101; MS General: Goblin-->
                         <program value="101"/> <!--FX 6 (goblins)-->
@@ -10218,6 +10664,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 96; MS General: Ice Rain-->
                         <program value="96"/> <!--FX 1 (rain)-->
@@ -10240,6 +10687,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 103; MS General: Star Theme-->
                         <program value="103"/> <!--FX 8 (sci-fi)-->
@@ -10262,6 +10710,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 97; MS General: SoundTrack-->
                         <program value="97"/> <!--FX 2 (soundtrack)-->
@@ -10284,6 +10733,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="new age">
                         <!--MIDI: Bank 0, Prog 88; MS General: Fantasia-->
                         <program value="88"/> <!--Pad 1 (new age)-->
@@ -10334,6 +10784,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 88; MS General: Fantasia-->
                         <program value="88"/> <!--Pad 1 (new age)-->
@@ -10356,6 +10807,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 89; MS General: Warm Pad-->
                         <program value="89"/> <!--Pad 2 (warm)-->
@@ -10378,6 +10830,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 90; MS General: Polysynth-->
                         <program value="90"/> <!--Pad 3 (polysynth)-->
@@ -10400,6 +10853,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 91; MS General: Space Voice-->
                         <program value="91"/> <!--Pad 4 (choir)-->
@@ -10422,6 +10876,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 92; MS General: Bowed Glass-->
                         <program value="92"/> <!--Pad 5 (bowed)-->
@@ -10444,6 +10899,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 93; MS General: Metal Pad-->
                         <program value="93"/> <!--Pad 6 (metallic)-->
@@ -10466,6 +10922,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 94; MS General: Halo Pad-->
                         <program value="94"/> <!--Pad 7 (halo)-->
@@ -10488,6 +10945,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 95; MS General: Sweep Pad-->
                         <program value="95"/> <!--Pad 8 (sweep)-->
@@ -10510,6 +10968,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 81; MS General: Saw Lead-->
                         <program value="81"/> <!--Lead 2 (sawtooth)-->
@@ -10532,6 +10991,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 79; MS General: Ocarina-->
                         <program value="79"/> <!--Ocarina-->
@@ -10554,6 +11014,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 80; MS General: Square Lead-->
                         <program value="80"/> <!--Lead 1 (square)-->
@@ -10574,6 +11035,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <bracketSpan>2</bracketSpan>
                   <barlineSpan>2</barlineSpan>
                   <clef staff="2">F</clef>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 79; MS General: Ocarina-->
                         <program value="79"/> <!--Ocarina-->
@@ -10594,6 +11056,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <bracketSpan>2</bracketSpan>
                   <barlineSpan>2</barlineSpan>
                   <clef staff="2">F</clef>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 80; MS General: Square Lead-->
                         <program value="80"/> <!--Lead 1 (square)-->
@@ -10616,6 +11079,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="synth-bass-1">
                         <!--MIDI: Bank 0, Prog 38; MS General: Synth Bass 1-->
                         <program value="38"/> <!--Synth Bass 1-->
@@ -10642,6 +11106,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="synth-brass-1">
                         <!--MIDI: Bank 0, Prog 62; MS General: Synth Brass 1-->
                         <program value="62"/> <!--Synth Brass 1-->
@@ -10668,6 +11133,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="synth-string-1">
                         <!--MIDI: Bank 0, Prog 50; MS General: Synth Strings 1-->
                         <program value="50"/> <!--Synth Strings 1-->
@@ -10694,6 +11160,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <clef staff="2">F</clef>
                   <aPitchRange>36-96</aPitchRange>
                   <pPitchRange>21-108</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 79; MS General: Ocarina-->
                         <program value="79"/> <!--Ocarina-->
@@ -10813,7 +11280,7 @@ Aeolus organ synthesizer, currently disabled -->
       <InstrumentGroup id="plucked-strings">
             <name>Strings - Plucked</name>
             <Instrument id="banjo">
-                  <family>plucked-strings</family>
+                  <family>banjos</family>
                   <longName>Banjo</longName>
                   <shortName>Bj.</shortName>
                   <description>5 string Banjo</description>
@@ -10831,6 +11298,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>48-87</aPitchRange>
                   <pPitchRange>48-87</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 105; MS General: Banjo-->
                         <program value="105"/> <!--Banjo-->
@@ -10840,7 +11308,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>jazz</genre>
             </Instrument>
             <Instrument id="banjo-tablature">
-                  <family>plucked-strings</family>
+                  <family>banjos</family>
                   <trackName>Banjo (Tablature)</trackName>
                   <init>banjo</init>
                   <description>Banjo (Tablature)</description>
@@ -10850,7 +11318,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>jazz</genre>
             </Instrument>
             <Instrument id="tenor-banjo">
-                  <family>plucked-strings</family>
+                  <family>banjos</family>
                   <longName>Tenor Banjo</longName>
                   <shortName>T. Bj.</shortName>
                   <description>4 string Tenor Banjo</description>
@@ -10867,13 +11335,14 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>48-83</aPitchRange>
                   <pPitchRange>48-83</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 105; MS General: Banjo-->
                         <program value="105"/> <!--Banjo-->
                   </Channel>
             </Instrument>
             <Instrument id="irish-tenor-banjo">
-                  <family>plucked-strings</family>
+                  <family>banjos</family>
                   <longName>Irish Tenor Banjo</longName>
                   <shortName>ITB</shortName>
                   <description>4 string Irish Tenor Banjo</description>
@@ -10890,6 +11359,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>43-69</aPitchRange>
                   <pPitchRange>43-76</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 105; MS General: Banjo-->
                         <program value="105"/> <!--Banjo-->
@@ -10897,7 +11367,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>world</genre>
             </Instrument>
             <Instrument id="irish-tenor-banjo-tablature">
-                  <family>plucked-strings</family>
+                  <family>banjos</family>
                   <trackName>Irish Tenor Banjo (Tablature)</trackName>
                   <init>irish-tenor-banjo</init>
                   <description>Irish Tenor Banjo (Tablature)</description>
@@ -10906,7 +11376,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>world</genre>
             </Instrument>
             <Instrument id="balalaika">
-                  <family>plucked-strings</family>
+                  <family>balalaikas</family>
                   <trackName>Balalaika</trackName>
                   <longName>Balalaika</longName>
                   <shortName>Bal.</shortName>
@@ -10923,6 +11393,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>64-86</aPitchRange>
                   <pPitchRange>64-86</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 107; MS General: Koto-->
                         <program value="107"/> <!--Koto-->
@@ -10930,7 +11401,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>world</genre>
             </Instrument>
             <Instrument id="balalaika-piccolo">
-                  <family>plucked-strings</family>
+                  <family>balalaikas</family>
                   <trackName>Piccolo Balalaika</trackName>
                   <longName>Piccolo Balalaika</longName>
                   <shortName>Pic. Bal.</shortName>
@@ -10947,13 +11418,14 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>71-98</aPitchRange>
                   <pPitchRange>71-98</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 107; MS General: Koto-->
                         <program value="107"/> <!--Koto-->
                   </Channel>
             </Instrument>
             <Instrument id="balalaika-prima">
-                  <family>plucked-strings</family>
+                  <family>balalaikas</family>
                   <trackName>Prima Balalaika</trackName>
                   <longName>Prima Balalaika</longName>
                   <shortName>Pr. Bal.</shortName>
@@ -10970,13 +11442,14 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>64-86</aPitchRange>
                   <pPitchRange>64-86</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 107; MS General: Koto-->
                         <program value="107"/> <!--Koto-->
                   </Channel>
             </Instrument>
             <Instrument id="balalaika-secunda">
-                  <family>plucked-strings</family>
+                  <family>balalaikas</family>
                   <trackName>Secunda Balalaika</trackName>
                   <longName>Secunda Balalaika</longName>
                   <shortName>Sec. Bal.</shortName>
@@ -10993,13 +11466,14 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>57-79</aPitchRange>
                   <pPitchRange>57-79</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 107; MS General: Koto-->
                         <program value="107"/> <!--Koto-->
                   </Channel>
             </Instrument>
             <Instrument id="balalaika-alto">
-                  <family>plucked-strings</family>
+                  <family>balalaikas</family>
                   <trackName>Alto Balalaika</trackName>
                   <longName>Alto Balalaika</longName>
                   <shortName>Al. Bal.</shortName>
@@ -11016,13 +11490,14 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>52-74</aPitchRange>
                   <pPitchRange>52-74</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 107; MS General: Koto-->
                         <program value="107"/> <!--Koto-->
                   </Channel>
             </Instrument>
             <Instrument id="balalaika-bass">
-                  <family>plucked-strings</family>
+                  <family>balalaikas</family>
                   <trackName>Bass Balalaika</trackName>
                   <longName>Bass Balalaika</longName>
                   <shortName>B. Bal.</shortName>
@@ -11039,13 +11514,14 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>40-67</aPitchRange>
                   <pPitchRange>40-67</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 107; MS General: Koto-->
                         <program value="107"/> <!--Koto-->
                   </Channel>
             </Instrument>
             <Instrument id="balalaika-contrabass">
-                  <family>plucked-strings</family>
+                  <family>balalaikas</family>
                   <trackName>Contrabass Balalaika</trackName>
                   <longName>Contrabass Balalaika</longName>
                   <shortName>Cb. Bal.</shortName>
@@ -11062,13 +11538,14 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>28-55</aPitchRange>
                   <pPitchRange>28-55</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 107; MS General: Koto-->
                         <program value="107"/> <!--Koto-->
                   </Channel>
             </Instrument>
             <Instrument id="bouzouki-3-course">
-                  <family>plucked-strings</family>
+                  <family>bouzoukis</family>
                   <trackName>Bouzouki (3-course)</trackName>
                   <longName>Bouzouki</longName>
                   <shortName>Bou.</shortName>
@@ -11085,6 +11562,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>50-89</aPitchRange>
                   <pPitchRange>50-90</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 8, Prog 25; MS General: 12-String Guitar-->
                         <controller ctrl="32" value="8"/> <!--Bank LSB-->
@@ -11093,7 +11571,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>world</genre>
             </Instrument>
             <Instrument id="bouzouki-4-course">
-                  <family>plucked-strings</family>
+                  <family>bouzoukis</family>
                   <trackName>Bouzouki (4-course)</trackName>
                   <longName>Bouzouki</longName>
                   <shortName>Bou.</shortName>
@@ -11111,6 +11589,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>48-88</aPitchRange>
                   <pPitchRange>48-90</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 8, Prog 25; MS General: 12-String Guitar-->
                         <controller ctrl="32" value="8"/> <!--Bank LSB-->
@@ -11138,6 +11617,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>52-93</aPitchRange>
                   <pPitchRange>52-93</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="open">
                         <!--MIDI: Bank 0, Prog 24; MS General: Nylon String Guitar-->
                         <program value="24"/> <!--Acoustic Guitar (nylon)-->
@@ -11196,6 +11676,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>40-83</aPitchRange>
                   <pPitchRange>40-83</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="open">
                         <!--MIDI: Bank 0, Prog 24; MS General: Nylon String Guitar-->
                         <program value="24"/> <!--Acoustic Guitar (nylon)-->
@@ -11231,6 +11712,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <singleNoteDynamics>0</singleNoteDynamics>
                   <transposeDiatonic>-7</transposeDiatonic>
                   <transposeChromatic>-12</transposeChromatic>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="open">
                         <!--MIDI: Bank 0, Prog 24; MS General: Nylon String Guitar-->
                         <program value="24"/> <!--Acoustic Guitar (nylon)-->
@@ -11270,6 +11752,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>35-83</aPitchRange>
                   <pPitchRange>35-83</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 24; MS General: Nylon String Guitar-->
                         <program value="24"/> <!--Acoustic Guitar (nylon)-->
@@ -11286,7 +11769,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>world</genre>
             </Instrument>
             <Instrument id="cavaquinho">
-                  <family>plucked-strings</family>
+                  <family>guitars</family>
                   <longName>Cavaquinho</longName>
                   <shortName>Cava.</shortName>
                   <description>Cavaquinho (4-string Guitar)</description>
@@ -11303,6 +11786,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>62-93</aPitchRange>
                   <pPitchRange>62-93</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 25; MS General: Steel String Guitar-->
                         <program value="25"/> <!--Acoustic Guitar (steel)-->
@@ -11310,7 +11794,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>world</genre>
             </Instrument>
             <Instrument id="cavaquinho-tablature">
-                  <family>plucked-strings</family>
+                  <family>guitars</family>
                   <trackName>Cavaquinho (Tablature)</trackName>
                   <init>cavaquinho</init>
                   <description>Cavaquinho (4-string Guitar) (Tablature)</description>
@@ -11338,6 +11822,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>35-78</aPitchRange>
                   <pPitchRange>35-78</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 24; MS General: Nylon String Guitar-->
                         <program value="24"/> <!--Acoustic Guitar (nylon)-->
@@ -11372,6 +11857,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>31-83</aPitchRange>
                   <pPitchRange>31-83</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="open">
                         <!--MIDI: Bank 0, Prog 24; MS General: Nylon String Guitar-->
                         <program value="24"/> <!--Acoustic Guitar (nylon)-->
@@ -11402,6 +11888,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>40-83</aPitchRange>
                   <pPitchRange>40-84</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="open">
                         <!--MIDI: Bank 0, Prog 25; MS General: Steel String Guitar-->
                         <program value="25"/> <!--Acoustic Guitar (steel)-->
@@ -11443,6 +11930,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <singleNoteDynamics>0</singleNoteDynamics>
                   <transposeDiatonic>-7</transposeDiatonic>
                   <transposeChromatic>-12</transposeChromatic>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 25; MS General: Steel String Guitar-->
                         <program value="25"/> <!--Acoustic Guitar (steel)-->
@@ -11487,6 +11975,8 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>34-86</aPitchRange>
                   <pPitchRange>34-86</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="open">
                         <!--MIDI: Bank 0, Prog 24; MS General: Nylon String Guitar-->
                         <program value="24"/> <!--Acoustic Guitar (nylon)-->
@@ -11515,6 +12005,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>40-83</aPitchRange>
                   <pPitchRange>40-85</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="open">
                         <!--MIDI: Bank 8, Prog 25; MS General: 12-String Guitar-->
                         <controller ctrl="32" value="8"/> <!--Bank LSB-->
@@ -11541,6 +12032,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>35-84</aPitchRange>
                   <pPitchRange>35-84</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="open">
                         <!--MIDI: Bank 0, Prog 25; MS General: Steel String Guitar-->
                         <program value="25"/> <!--Acoustic Guitar (steel)-->
@@ -11576,6 +12068,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>40-86</aPitchRange>
                   <pPitchRange>40-88</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="open">
                         <!--MIDI: Bank 0, Prog 27; MS General: Clean Guitar-->
                         <program value="27"/> <!--Electric Guitar (clean)-->
@@ -11629,6 +12122,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <singleNoteDynamics>0</singleNoteDynamics>
                   <transposeDiatonic>-7</transposeDiatonic>
                   <transposeChromatic>-12</transposeChromatic>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="open">
                         <!--MIDI: Bank 0, Prog 27; MS General: Clean Guitar-->
                         <program value="27"/> <!--Electric Guitar (clean)-->
@@ -11677,6 +12171,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>23-104</aPitchRange>
                   <pPitchRange>23-104</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>diatonic</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 46; MS General: Harp-->
                         <program value="46"/> <!--Orchestral Harp-->
@@ -11693,6 +12188,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>orchestra</genre>
             </Instrument>
             <Instrument id="guzheng">
+                  <family>guzhengs</family>
                   <longName>Guzheng</longName>
                   <shortName>Gz.</shortName>
                   <description>Chinese plucked half-tube zither.</description>
@@ -11709,6 +12205,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>world</genre>
             </Instrument>
             <Instrument id="koto">
+                  <family>kotos</family>
                   <longName>Koto</longName>
                   <shortName>Ko.</shortName>
                   <description>Koto</description>
@@ -11718,6 +12215,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>43-83</aPitchRange>
                   <pPitchRange>43-83</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 107; MS General: Koto-->
                         <program value="107"/> <!--Koto-->
@@ -11725,6 +12223,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>world</genre>
             </Instrument>
             <Instrument id="mtn-dulcimer-std">
+                  <family>mtn-dulcimers</family>
                   <longName>Mtn. Dulcimer</longName>
                   <shortName>Mtn. Dc.</shortName>
                   <description>Standard Mountain Dulcimer</description>
@@ -11740,6 +12239,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>50-90</aPitchRange>
                   <pPitchRange>50-90</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 25; MS General: Steel String Guitar-->
                         <program value="25"/> <!--Acoustic Guitar (steel)-->
@@ -11749,11 +12249,13 @@ Aeolus organ synthesizer, currently disabled -->
             <Instrument id="mtn-dulcimer-std-chrom-tab">
                   <trackName>Mtn. Dulcimer (Tablature)</trackName>
                   <init>mtn-dulcimer-std</init>
+                  <family>mtn-dulcimers</family>
                   <description>Mtn. Dulcimer (3-str. chromatic TAB)</description>
                   <stafftype staffTypePreset="tabDulcimer">tablature</stafftype>
                   <genre>world</genre>
             </Instrument>
             <Instrument id="mtn-dulcimer-baritone">
+                  <family>mtn-dulcimers</family>
                   <longName>Mtn. Dulcimer - Baritone</longName>
                   <shortName>Bar. M.D.</shortName>
                   <description>Baritone Mountain Dulcimer</description>
@@ -11769,6 +12271,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>45-80</aPitchRange>
                   <pPitchRange>45-80</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 25; MS General: Steel String Guitar-->
                         <program value="25"/> <!--Acoustic Guitar (steel)-->
@@ -11778,11 +12281,13 @@ Aeolus organ synthesizer, currently disabled -->
             <Instrument id="mtn-dulcimer-bartn-chrom-tab">
                   <trackName>Mtn. Dulcimer - Baritone (Tablature)</trackName>
                   <init>mtn-dulcimer-baritone</init>
+                  <family>mtn-dulcimers</family>
                   <description>Baritone Mtn. Dulcimer (3-str. chromatic TAB)</description>
                   <stafftype staffTypePreset="tabDulcimer">tablature</stafftype>
                   <genre>world</genre>
             </Instrument>
             <Instrument id="mtn-dulcimer-bass">
+                  <family>mtn-dulcimers</family>
                   <longName>Mtn. Dulcimer - Bass</longName>
                   <shortName>Bs. M.D.</shortName>
                   <description>Bass Mountain Dulcimer</description>
@@ -11798,6 +12303,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>38-78</aPitchRange>
                   <pPitchRange>38-78</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 25; MS General: Steel String Guitar-->
                         <program value="25"/> <!--Acoustic Guitar (steel)-->
@@ -11807,11 +12313,13 @@ Aeolus organ synthesizer, currently disabled -->
             <Instrument id="mtn-dulcimer-bass-chrom-tab">
                   <trackName>Mtn. Dulcimer - Bass (Tablature)</trackName>
                   <init>mtn-dulcimer-bass</init>
+                  <family>mtn-dulcimers</family>
                   <description>Bass Mtn. Dulcimer (3-str. chromatic TAB)</description>
                   <stafftype staffTypePreset="tabDulcimer">tablature</stafftype>
                   <genre>world</genre>
             </Instrument>
             <Instrument id="oud">
+                  <family>ouds</family>
                   <longName>Oud</longName>
                   <shortName>O.</shortName>
                   <description>Oud</description>
@@ -11833,6 +12341,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <singleNoteDynamics>0</singleNoteDynamics>
                   <transposeDiatonic>-7</transposeDiatonic>
                   <transposeChromatic>-12</transposeChromatic>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 8, Prog 25; MS General: 12-String Guitar-->
                         <controller ctrl="32" value="8"/> <!--Bank LSB-->
@@ -11842,6 +12351,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="lute">
+                  <family>lutes</family>
                   <longName>Lute</longName>
                   <shortName>Lt.</shortName>
                   <description>Lute</description>
@@ -11860,6 +12370,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>33-79</aPitchRange>
                   <pPitchRange>33-79</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 8, Prog 25; MS General: 12-String Guitar-->
                         <controller ctrl="32" value="8"/> <!--Bank LSB-->
@@ -11870,12 +12381,14 @@ Aeolus organ synthesizer, currently disabled -->
             <Instrument id="lute-tablature">
                   <trackName>Lute (Tablature)</trackName>
                   <init>lute</init>
+                  <family>lutes</family>
                   <description>Lute (Tablature)</description>
                   <musicXMLid>pluck.lute</musicXMLid>
                   <stafftype staffTypePreset="tab6StrFrench">tablature</stafftype>
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="ren.-tenor-lute-5-course">
+                  <family>lutes</family>
                   <trackName>Lute 5-course</trackName>
                   <longName>Lute</longName>
                   <shortName>Lt.</shortName>
@@ -11894,6 +12407,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>48-79</aPitchRange>
                   <pPitchRange>48-79</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 8, Prog 25; MS General: 12-String Guitar-->
                         <controller ctrl="32" value="8"/> <!--Bank LSB-->
@@ -11902,6 +12416,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="ren.-tenor-lute-6-course">
+                  <family>lutes</family>
                   <trackName>Lute 6-course</trackName>
                   <longName>Lute</longName>
                   <shortName>Lt.</shortName>
@@ -11921,6 +12436,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>43-79</aPitchRange>
                   <pPitchRange>43-79</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 8, Prog 25; MS General: 12-String Guitar-->
                         <controller ctrl="32" value="8"/> <!--Bank LSB-->
@@ -11929,6 +12445,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="ren.-tenor-lute-7-course">
+                  <family>lutes</family>
                   <trackName>Lute 7-course</trackName>
                   <longName>Lute</longName>
                   <shortName>Lt.</shortName>
@@ -11949,6 +12466,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>38-79</aPitchRange>
                   <pPitchRange>38-79</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 8, Prog 25; MS General: 12-String Guitar-->
                         <controller ctrl="32" value="8"/> <!--Bank LSB-->
@@ -11957,6 +12475,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="ren.-tenor-lute-8-course">
+                  <family>lutes</family>
                   <trackName>Lute 8-course</trackName>
                   <longName>Lute</longName>
                   <shortName>Lt.</shortName>
@@ -11978,6 +12497,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>38-79</aPitchRange>
                   <pPitchRange>38-79</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 8, Prog 25; MS General: 12-String Guitar-->
                         <controller ctrl="32" value="8"/> <!--Bank LSB-->
@@ -11986,6 +12506,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="ren.-tenor-lute-9-course">
+                  <family>lutes</family>
                   <trackName>Lute 9-course</trackName>
                   <longName>Lute</longName>
                   <shortName>Lt.</shortName>
@@ -12008,6 +12529,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>36-79</aPitchRange>
                   <pPitchRange>36-79</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 8, Prog 25; MS General: 12-String Guitar-->
                         <controller ctrl="32" value="8"/> <!--Bank LSB-->
@@ -12016,6 +12538,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="ren.-tenor-lute-10-course">
+                  <family>lutes</family>
                   <trackName>Lute 10-course</trackName>
                   <longName>Lute</longName>
                   <shortName>Lt.</shortName>
@@ -12039,6 +12562,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>36-79</aPitchRange>
                   <pPitchRange>36-79</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 8, Prog 25; MS General: 12-String Guitar-->
                         <controller ctrl="32" value="8"/> <!--Bank LSB-->
@@ -12047,6 +12571,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="baroque-lute-13-course">
+                  <family>lutes</family>
                   <trackName>Lute 13-course</trackName>
                   <longName>Lute</longName>
                   <shortName>Lt.</shortName>
@@ -12073,6 +12598,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>33-77</aPitchRange>
                   <pPitchRange>33-77</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 8, Prog 25; MS General: 12-String Guitar-->
                         <controller ctrl="32" value="8"/> <!--Bank LSB-->
@@ -12081,6 +12607,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="archlute-14-course">
+                  <family>lutes</family>
                   <longName>Archlute</longName>
                   <shortName>A. Lt.</shortName>
                   <description>Archlute (14-course)</description>
@@ -12107,6 +12634,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>29-77</aPitchRange>
                   <pPitchRange>29-77</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 8, Prog 25; MS General: 12-String Guitar-->
                         <controller ctrl="32" value="8"/> <!--Bank LSB-->
@@ -12115,6 +12643,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="theorbo-14-course">
+                  <family>lutes</family>
                   <longName>Theorbo</longName>
                   <shortName>Thb.</shortName>
                   <description>Theorbo (14-course)</description>
@@ -12141,6 +12670,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>31-71</aPitchRange>
                   <pPitchRange>31-71</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 8, Prog 25; MS General: 12-String Guitar-->
                         <controller ctrl="32" value="8"/> <!--Bank LSB-->
@@ -12149,7 +12679,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>earlymusic</genre>
             </Instrument>
             <Instrument id="mandolin">
-                  <family>plucked-strings</family>
+                  <family>mandolins</family>
                   <longName>Mandolin</longName>
                   <shortName>Mdn.</shortName>
                   <description>Mandolin</description>
@@ -12166,6 +12696,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>55-85</aPitchRange>
                   <pPitchRange>55-100</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 16, Prog 25; MS General: Mandolin-->
                         <controller ctrl="32" value="16"/> <!--Bank LSB-->
@@ -12174,7 +12705,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>popular</genre>
             </Instrument>
             <Instrument id="mandolin-tablature">
-                  <family>plucked-strings</family>
+                  <family>mandolins</family>
                   <trackName>Mandolin (Tablature)</trackName>
                   <init>mandolin</init>
                   <description>Mandolin (Tablature)</description>
@@ -12199,6 +12730,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>48-87</aPitchRange>
                   <pPitchRange>48-93</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 16, Prog 25; MS General: Mandolin-->
                         <controller ctrl="32" value="16"/> <!--Bank LSB-->
@@ -12206,7 +12738,7 @@ Aeolus organ synthesizer, currently disabled -->
                   </Channel>
             </Instrument>
             <Instrument id="alto-mandola">
-                  <family>plucked-strings</family>
+                  <family>mandolins</family>
                   <longName>Alto Mandola</longName>
                   <shortName>A. Mda.</shortName>
                   <description>Mandola Viola tuning</description>
@@ -12223,6 +12755,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>48-87</aPitchRange>
                   <pPitchRange>48-93</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 16, Prog 25; MS General: Mandolin-->
                         <controller ctrl="32" value="16"/> <!--Bank LSB-->
@@ -12230,6 +12763,7 @@ Aeolus organ synthesizer, currently disabled -->
                   </Channel>
             </Instrument>
             <Instrument id="tenor-mandola">
+                  <family>mandolins</family>
                   <longName>Tenor Mandola</longName>
                   <shortName>T. Mda.</shortName>
                   <description>Mandola 8va mandolin tuning</description>
@@ -12246,6 +12780,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>48-87</aPitchRange>
                   <pPitchRange>48-93</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 16, Prog 25; MS General: Mandolin-->
                         <controller ctrl="32" value="16"/> <!--Bank LSB-->
@@ -12253,6 +12788,7 @@ Aeolus organ synthesizer, currently disabled -->
                   </Channel>
             </Instrument>
             <Instrument id="mandocello">
+                  <family>mandolins</family>
                   <longName>Mandocello</longName>
                   <shortName>Mncl.</shortName>
                   <description>Mandocello</description>
@@ -12269,6 +12805,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>36-75</aPitchRange>
                   <pPitchRange>36-81</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 16, Prog 25; MS General: Mandolin-->
                         <controller ctrl="32" value="16"/> <!--Bank LSB-->
@@ -12276,6 +12813,7 @@ Aeolus organ synthesizer, currently disabled -->
                   </Channel>
             </Instrument>
             <Instrument id="octave-mandolin">
+                  <family>mandolins</family>
                   <longName>Octave Mandolin</longName>
                   <shortName>OM.</shortName>
                   <description>Octave Mandolin</description>
@@ -12292,6 +12830,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>43-73</aPitchRange>
                   <pPitchRange>36-88</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 16, Prog 25; MS General: Mandolin-->
                         <controller ctrl="32" value="16"/> <!--Bank LSB-->
@@ -12299,6 +12838,7 @@ Aeolus organ synthesizer, currently disabled -->
                   </Channel>
             </Instrument>
             <Instrument id="shamisen">
+                  <family>shamisens</family>
                   <longName>Shamisen</longName>
                   <shortName>Sh.</shortName>
                   <description>Shamisen</description>
@@ -12308,6 +12848,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>50-83</aPitchRange>
                   <pPitchRange>50-83</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 106; MS General: Shamisen-->
                         <program value="106"/> <!--Shamisen-->
@@ -12315,6 +12856,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>world</genre>
             </Instrument>
             <Instrument id="sitar">
+                  <family>sitars</family>
                   <longName>Sitar</longName>
                   <shortName>Si.</shortName>
                   <description>Sitar</description>
@@ -12324,6 +12866,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>36-84</aPitchRange>
                   <pPitchRange>36-84</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 104; MS General: Sitar-->
                         <program value="104"/> <!--Sitar-->
@@ -12331,7 +12874,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>world</genre>
             </Instrument>
             <Instrument id="ukulele">
-                  <family>plucked-strings</family>
+                  <family>ukuleles</family>
                   <longName>Ukulele</longName>
                   <shortName>Uk.</shortName>
                   <description>Ukulele</description>
@@ -12348,6 +12891,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>60-81</aPitchRange>
                   <pPitchRange>60-81</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 8, Prog 24; MS General: Ukulele-->
                         <controller ctrl="32" value="8"/> <!--Bank LSB-->
@@ -12358,7 +12902,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>classroom</genre>
             </Instrument>
             <Instrument id="ukulele-4-str-tab">
-                  <family>plucked-strings</family>
+                  <family>ukuleles</family>
                   <trackName>Ukulele (Tablature)</trackName>
                   <init>ukulele</init>
                   <description>Ukulele (4-str. TAB)</description>
@@ -12369,7 +12913,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>classroom</genre>
             </Instrument>
             <Instrument id="ukulele-low-g">
-                  <family>plucked-strings</family>
+                  <family>ukuleles</family>
                   <longName>Ukulele (Low G)</longName>
                   <shortName>Uk.</shortName>
                   <description>Ukulele (Low G)</description>
@@ -12386,6 +12930,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>55-81</aPitchRange>
                   <pPitchRange>55-81</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 8, Prog 24; MS General: Ukulele-->
                         <controller ctrl="32" value="8"/> <!--Bank LSB-->
@@ -12393,7 +12938,7 @@ Aeolus organ synthesizer, currently disabled -->
                   </Channel>
             </Instrument>
             <Instrument id="tenor-ukulele">
-                  <family>plucked-strings</family>
+                  <family>ukuleles</family>
                   <longName>Tenor Ukulele</longName>
                   <shortName>Ten. Uk.</shortName>
                   <description>Tenor Ukulele</description>
@@ -12410,6 +12955,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>60-81</aPitchRange>
                   <pPitchRange>60-81</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 8, Prog 24; MS General: Ukulele-->
                         <controller ctrl="32" value="8"/> <!--Bank LSB-->
@@ -12417,7 +12963,7 @@ Aeolus organ synthesizer, currently disabled -->
                   </Channel>
             </Instrument>
             <Instrument id="baritone-ukulele">
-                  <family>plucked-strings</family>
+                  <family>ukuleles</family>
                   <longName>Baritone Ukulele</longName>
                   <shortName>Bar. Uk.</shortName>
                   <description>Baritone Ukulele</description>
@@ -12434,6 +12980,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>50-76</aPitchRange>
                   <pPitchRange>50-76</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 8, Prog 24; MS General: Ukulele-->
                         <controller ctrl="32" value="8"/> <!--Bank LSB-->
@@ -12461,6 +13008,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <singleNoteDynamics>0</singleNoteDynamics>
                   <transposeDiatonic>-7</transposeDiatonic>
                   <transposeChromatic>-12</transposeChromatic>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 34; MS General: Picked Bass-->
                         <program value="34"/> <!--Electric Bass (pick)-->
@@ -12554,6 +13102,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <singleNoteDynamics>0</singleNoteDynamics>
                   <transposeDiatonic>-7</transposeDiatonic>
                   <transposeChromatic>-12</transposeChromatic>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 33; MS General: Fingered Bass-->
                         <program value="33"/> <!--Electric Bass (finger)-->
@@ -12601,6 +13150,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <singleNoteDynamics>0</singleNoteDynamics>
                   <transposeDiatonic>-7</transposeDiatonic>
                   <transposeChromatic>-12</transposeChromatic>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 35; MS General: Fretless Bass-->
                         <program value="35"/> <!--Fretless Bass-->
@@ -12638,6 +13188,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <singleNoteDynamics>0</singleNoteDynamics>
                   <transposeDiatonic>-7</transposeDiatonic>
                   <transposeChromatic>-12</transposeChromatic>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 33; MS General: Fingered Bass-->
                         <program value="33"/> <!--Electric Bass (finger)-->
@@ -12686,6 +13237,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <singleNoteDynamics>0</singleNoteDynamics>
                   <transposeDiatonic>-7</transposeDiatonic>
                   <transposeChromatic>-12</transposeChromatic>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 33; MS General: Fingered Bass-->
                         <program value="33"/> <!--Electric Bass (finger)-->
@@ -12731,6 +13283,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <singleNoteDynamics>0</singleNoteDynamics>
                   <transposeDiatonic>-7</transposeDiatonic>
                   <transposeChromatic>-12</transposeChromatic>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 33; MS General: Fingered Bass-->
                         <program value="33"/> <!--Electric Bass (finger)-->
@@ -12754,6 +13307,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>jazz</genre>
             </Instrument>
             <Instrument id="prim">
+                  <family>tamburicas</family>
                   <longName>Prim</longName>
                   <shortName>Pr.</shortName>
                   <description>Prim</description>
@@ -12772,6 +13326,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <singleNoteDynamics>0</singleNoteDynamics>
                   <transposeDiatonic>7</transposeDiatonic>
                   <transposeChromatic>12</transposeChromatic>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 24; MS General: Nylon String Guitar-->
                         <program value="24"/> <!--Acoustic Guitar (nylon)-->
@@ -12779,6 +13334,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>world</genre>
             </Instrument>
             <Instrument id="brac">
+                  <family>tamburicas</family>
                   <longName>Brač</longName>
                   <shortName>Br.</shortName>
                   <description>Brač</description>
@@ -12795,6 +13351,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>52-79</aPitchRange>
                   <pPitchRange>52-79</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 24; MS General: Nylon String Guitar-->
                         <program value="24"/> <!--Acoustic Guitar (nylon)-->
@@ -12802,6 +13359,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>world</genre>
             </Instrument>
             <Instrument id="celo">
+                  <family>tamburicas</family>
                   <longName>Čelo</longName>
                   <shortName>Č.</shortName>
                   <description>Čelo</description>
@@ -12820,6 +13378,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <singleNoteDynamics>0</singleNoteDynamics>
                   <transposeDiatonic>-14</transposeDiatonic>
                   <transposeChromatic>-24</transposeChromatic>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 24; MS General: Nylon String Guitar-->
                         <program value="24"/> <!--Acoustic Guitar (nylon)-->
@@ -12827,6 +13386,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>world</genre>
             </Instrument>
             <Instrument id="bugarija">
+                  <family>tamburicas</family>
                   <longName>Bugarija</longName>
                   <shortName>Bu.</shortName>
                   <description>Bugarija</description>
@@ -12845,6 +13405,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <singleNoteDynamics>0</singleNoteDynamics>
                   <transposeDiatonic>-7</transposeDiatonic>
                   <transposeChromatic>-12</transposeChromatic>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 0, Prog 24; MS General: Nylon String Guitar-->
                         <program value="24"/> <!--Acoustic Guitar (nylon)-->
@@ -12852,10 +13413,12 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>world</genre>
             </Instrument>
             <Instrument id="berda">
+                  <family>tamburicas</family>
                   <longName>Berda</longName>
                   <shortName>Be.</shortName>
                   <description>Berda</description>
                   <musicXMLid>pluck.tambura</musicXMLid>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <StringData>
                         <frets>15</frets>
                         <string>28</string>
@@ -12877,6 +13440,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>world</genre>
             </Instrument>
             <Instrument id="bandurria">
+                  <family>bandurrias</family>
                   <longName>Bandurria</longName>
                   <shortName>Band.</shortName>
                   <description>Spanish Bandurria</description>
@@ -12895,22 +13459,25 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>56-98</aPitchRange>
                   <pPitchRange>56-98</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 8, Prog 25; MS General: 12-String Guitar-->
                         <controller ctrl="32" value="8"/> <!--Bank LSB-->
-                        <program value="25"/>
+                        <program value="25"/> <!--Acoustic Guitar (steel)-->
                   </Channel>
                   <genre>popular</genre>
             </Instrument>
             <Instrument id="bandurria-tablature">
                   <trackName>Bandurria (Tablature)</trackName>
                   <init>bandurria</init>
+                  <family>bandurrias</family>
                   <description>Bandurria (Tablature)</description>
                   <musicXMLid>pluck.bandurria</musicXMLid>
                   <stafftype staffTypePreset="tab6StrCommon">tablature</stafftype>
                   <genre>popular</genre>
             </Instrument>
             <Instrument id="laud">
+                  <family>lauds</family>
                   <longName>Laúd</longName>
                   <shortName>Laúd</shortName>
                   <description>Spanish Laúd</description>
@@ -12929,16 +13496,18 @@ Aeolus organ synthesizer, currently disabled -->
                   <aPitchRange>44-91</aPitchRange>
                   <pPitchRange>44-91</pPitchRange>
                   <singleNoteDynamics>0</singleNoteDynamics>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel>
                         <!--MIDI: Bank 8, Prog 25; MS General: 12-String Guitar-->
                         <controller ctrl="32" value="8"/> <!--Bank LSB-->
-                        <program value="25"/>
+                        <program value="25"/> <!--Acoustic Guitar (steel)-->
                   </Channel>
                   <genre>popular</genre>
             </Instrument>
             <Instrument id="laud-tablature">
                   <trackName>Laúd (Tablature)</trackName>
                   <init>laud</init>
+                  <family>lauds</family>
                   <description>Spanish Laúd (Tablature)</description>
                   <musicXMLid>pluck.laud</musicXMLid>
                   <stafftype staffTypePreset="tab6StrCommon">tablature</stafftype>
@@ -12948,7 +13517,7 @@ Aeolus organ synthesizer, currently disabled -->
       <InstrumentGroup id="strings">
             <name>Strings - Bowed</name>
             <Instrument id="strings">
-                  <family>orchestral-strings</family>
+                  <family>strings</family>
                   <longName>Strings</longName>
                   <shortName>St.</shortName>
                   <description>String Section</description>
@@ -12972,6 +13541,7 @@ Aeolus organ synthesizer, currently disabled -->
                   </Channel>
             </Instrument>
             <Instrument id="erhu">
+                  <family>erhus</family>
                   <longName>Erhu</longName>
                   <shortName>Eh.</shortName>
                   <description>Erhu</description>
@@ -12985,6 +13555,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>62-93</aPitchRange>
                   <pPitchRange>62-105</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 0, Prog 110; MS General: Fiddle-->
                         <program value="110"/> <!--Fiddle-->
@@ -13000,6 +13571,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>world</genre>
             </Instrument>
             <Instrument id="fiddle">
+                  <family>strings</family>
                   <longName>Fiddle</longName>
                   <shortName>Fdl.</shortName>
                   <description>Fiddle</description>
@@ -13023,6 +13595,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <genre>world</genre>
             </Instrument>
             <Instrument id="nyckelharpa">
+                  <family>nyckelharpas</family>
                   <longName>Nyckelharpa</longName>
                   <shortName>Nyh.</shortName>
                   <description>Nyckelharpa</description>
@@ -13031,6 +13604,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>48-79</aPitchRange>
                   <pPitchRange>48-93</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 0, Prog 41; MS General: Viola-->
                         <program value="41"/> <!--Viola-->
@@ -13055,6 +13629,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>55-88</aPitchRange>
                   <pPitchRange>55-103</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 0, Prog 40; MS General: Violin-->
                         <program value="40"/> <!--Violin-->
@@ -13082,6 +13657,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>55-88</aPitchRange>
                   <pPitchRange>55-103</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 21, Prog 48; MS General: Violins Fast Expr.-->
                         <controller ctrl="32" value="21"/> <!--Bank LSB-->
@@ -13114,6 +13690,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>48-79</aPitchRange>
                   <pPitchRange>48-93</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 0, Prog 41; MS General: Viola-->
                         <program value="41"/> <!--Viola-->
@@ -13140,6 +13717,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>48-79</aPitchRange>
                   <pPitchRange>48-93</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 31, Prog 48; MS General: Violas Fast Expr.-->
                         <controller ctrl="32" value="31"/> <!--Bank LSB-->
@@ -13172,6 +13750,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>36-67</aPitchRange>
                   <pPitchRange>36-90</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 0, Prog 42; MS General: Cello-->
                         <program value="42"/> <!--Cello-->
@@ -13199,6 +13778,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>36-67</aPitchRange>
                   <pPitchRange>36-90</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 41, Prog 48; MS General: Celli Fast Expr.-->
                         <controller ctrl="32" value="41"/> <!--Bank LSB-->
@@ -13234,6 +13814,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <pPitchRange>24-67</pPitchRange>
                   <transposeDiatonic>-7</transposeDiatonic>
                   <transposeChromatic>-12</transposeChromatic>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 0, Prog 43; MS General: Contrabass-->
                         <program value="43"/> <!--Contrabass-->
@@ -13264,6 +13845,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <pPitchRange>24-67</pPitchRange>
                   <transposeDiatonic>-7</transposeDiatonic>
                   <transposeChromatic>-12</transposeChromatic>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 51, Prog 48; MS General: Basses Fast Expr.-->
                         <controller ctrl="32" value="51"/> <!--Bank LSB-->
@@ -13293,6 +13875,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <init>contrabass</init>
             </Instrument>
             <Instrument id="octobass">
+                  <family>octobasss</family>
                   <longName>Octobass</longName>
                   <shortName>Otb.</shortName>
                   <description>Octobass</description>
@@ -13304,6 +13887,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <pPitchRange>12-33</pPitchRange>
                   <transposeDiatonic>-14</transposeDiatonic>
                   <transposeChromatic>-24</transposeChromatic>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 0, Prog 43; MS General: Contrabass-->
                         <program value="43"/> <!--Contrabass-->
@@ -13327,6 +13911,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>55-91</aPitchRange>
                   <pPitchRange>43-96</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 0, Prog 40; MS General: Violin-->
                         <program value="40"/> <!--Violin-->
@@ -13360,6 +13945,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>50-86</aPitchRange>
                   <pPitchRange>50-91</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 0, Prog 40; MS General: Violin-->
                         <program value="40"/> <!--Violin-->
@@ -13393,6 +13979,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>45-81</aPitchRange>
                   <pPitchRange>45-86</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 0, Prog 41; MS General: Viola-->
                         <program value="41"/> <!--Viola-->
@@ -13426,6 +14013,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>43-79</aPitchRange>
                   <pPitchRange>43-84</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 0, Prog 41; MS General: Viola-->
                         <program value="41"/> <!--Viola-->
@@ -13459,6 +14047,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>33-74</aPitchRange>
                   <pPitchRange>33-79</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 0, Prog 42; MS General: Cello-->
                         <program value="42"/> <!--Cello-->
@@ -13501,6 +14090,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>33-74</aPitchRange>
                   <pPitchRange>33-79</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 0, Prog 42; MS General: Cello-->
                         <program value="42"/> <!--Cello-->
@@ -13533,6 +14123,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>31-60</aPitchRange>
                   <pPitchRange>31-64</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 0, Prog 43; MS General: Contrabass-->
                         <program value="43"/> <!--Contrabass-->
@@ -13565,6 +14156,7 @@ Aeolus organ synthesizer, currently disabled -->
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>26-55</aPitchRange>
                   <pPitchRange>26-59</pPitchRange>
+                  <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 0, Prog 43; MS General: Contrabass-->
                         <program value="43"/> <!--Contrabass-->
