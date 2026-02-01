@@ -8400,7 +8400,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="127"/>
         <source>Allow diagonal</source>
-        <translation>Dopuść diagonalną</translation>
+        <translation>Dopuść ukośną</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="140"/>
@@ -8451,7 +8451,7 @@ Domyślnie zostaną one umieszczone tak, aby ich prawy koniec znajdował się na
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="296"/>
         <source>Reset &apos;Allow diagonal&apos; value</source>
-        <translation>Resetuj wartość &quot;Dopuść diagonalną&quot;</translation>
+        <translation>Resetuj wartość &quot;Dopuść ukośną&quot;</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="309"/>
