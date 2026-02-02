@@ -4103,6 +4103,19 @@ void MusicXMLParserDirection::textToDynamic(QString& text) const
       if (!preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTINFERTEXTTYPE))
             return;
       QString simplifiedText = text.simplified();
+      // Correct finale's incorrect dynamic export
+      if (_pass1.exporterSoftware() == MusicXMLExporterSoftware::FINALE) {
+            static const std::map<QString,
+                                  QString> finaleDynamicSubs
+                = { { "π", "pp" }, { "P", "mp" }, { "F", "mf" }, { "ƒ", "ff" }, { "Ï", "fff" }, { "S", "sf" }, { "ß", "sfz" },
+                { "Z", "fz" },  { "Í", "fp" } };
+            for (const auto& sub : finaleDynamicSubs) {
+                  if (simplifiedText == sub.first) {
+                        simplifiedText = sub.second;
+                        break;
+                        }
+                  }
+            }
       for (auto dyn : dynList) {
             if (dyn.tag == simplifiedText) {
                   text = text.replace(simplifiedText, dyn.text);
