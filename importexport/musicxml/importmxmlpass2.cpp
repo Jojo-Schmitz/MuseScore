@@ -7720,9 +7720,7 @@ static void addSlur(const Notation& notation, SlurStack& slurs, ChordRest* cr, c
                               newSlur->setSlurDirection(Direction::UP);
                         else if (orientation == "under" || placement == "below")
                               newSlur->setSlurDirection(Direction::DOWN);
-                        else if (orientation.isEmpty() || placement.isEmpty())
-                              ; // ignore
-                        else
+                        else if (!orientation.isEmpty() || !placement.isEmpty())
                               logger->logError(QString("unknown slur orientation/placement: %1/%2").arg(orientation, placement), xmlreader);
                         }
 
@@ -8395,9 +8393,7 @@ static void addTie(const Notation& notation, Note* note, const int track, MusicX
                         currTie->setSlurDirection(Direction::UP);
                   else if (orientation == "under" || placement == "below")
                         currTie->setSlurDirection(Direction::DOWN);
-                  else if (orientation.isEmpty() || placement.isEmpty())
-                        ; // ignore
-                  else
+                  else if (!orientation.isEmpty() || !placement.isEmpty())
                         logger->logError(QString("unknown tied orientation/placement: %1/%2").arg(orientation, placement), xmlreader);
                   }
 
