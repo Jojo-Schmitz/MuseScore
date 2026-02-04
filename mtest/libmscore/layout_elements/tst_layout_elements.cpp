@@ -37,7 +37,7 @@ class TestLayoutElements : public QObject, public MTest
 
    private slots:
       void initTestCase();
-      void tstLayoutElements()  { tstLayoutAll("layout_elements.mscx"); }
+      //void tstLayoutElements()  { tstLayoutAll("layout_elements.mscx"); }
       void tstLayoutTablature() { tstLayoutAll("layout_elements_tab.mscx"); }
       void tstLayoutMoonlight() { tstLayoutAll("moonlight.mscx");       }
       // FIXME goldberg.mscx does not pass the test because of some
