@@ -781,12 +781,12 @@ QPointF SLine::linePos(Grip grip, System** sys) const
                   ChordRest* cr;
                   if (grip == Grip::START) {
                         cr = toChordRest(startElement());
-                        if (cr && type() == ElementType::OTTAVA) {
+                        if (cr && isOttava()) {
                               // some sources say to center the text over the notehead
                               // others say to start the text just to left of notehead
                               // some say to include accidental, others don't
                               // our compromise - left align, but account for accidental
-                              if (cr->durationType() == TDuration::DurationType::V_MEASURE && !cr->measure()->hasVoices(cr->staffIdx()))
+                              if (cr->durationType().isMeasure() && !cr->measure()->hasVoices(cr->staffIdx()))
                                     x = cr->x();            // center for measure rests
 //TODO                              else if (cr->spaceLw > 0.0)
 //                                    x = -cr->spaceLw;  // account for accidentals, etc
@@ -795,7 +795,7 @@ QPointF SLine::linePos(Grip grip, System** sys) const
                   else {
                         cr = toChordRest(endElement());
                         if (isOttava()) {
-                              if (cr && cr->durationType() == TDuration::DurationType::V_MEASURE) {
+                              if (cr && cr->durationType().isMeasure()) {
                                     x = cr->x() + cr->width() + sp;
                                     }
                               else if (cr) {
@@ -818,7 +818,7 @@ QPointF SLine::linePos(Grip grip, System** sys) const
                                                 for (Note* n : toChord(cr1)->notes())
                                                       width = qMax(width, n->shape().right() + n->pos().x() + cr1->pos().x());
                                                 }
-                                          else if (cr1->isRest() && (cr1->actualDurationType() != TDuration::DurationType::V_MEASURE))
+                                          else if (cr1->isRest() && !cr1->actualDurationType().isMeasure())
                                                 width = qMax(width, cr1->bbox().right() + cr1->pos().x());
                                           }
 
@@ -871,7 +871,7 @@ QPointF SLine::linePos(Grip grip, System** sys) const
                               // (for LYRICSLINE, this is hyphen; melisma line is handled above)
                               // lay out to just before next chordrest on this staff, or barline
                               // tick2 actually tells us the right chordrest to look for
-                              if (cr && endElement()->parent() && endElement()->parent()->type() == ElementType::SEGMENT) {
+                              if (cr && endElement()->parent() && endElement()->parent()->isSegment()) {
                                     qreal x2 = cr->x() /* TODO + cr->space().rw() */;
                                     Segment* currentSeg = toSegment(endElement()->parent());
                                     Segment* seg = score()->tick2segmentMM(tick2(), false, SegmentType::ChordRest);
@@ -892,7 +892,7 @@ QPointF SLine::linePos(Grip grip, System** sys) const
                                                 seg = currentSeg->measure()->last();
                                           // allow lyrics hyphen to extend to barline
                                           // other lines stop 1sp short
-                                          qreal gap = (type() == ElementType::LYRICSLINE) ? 0.0 : sp;
+                                          qreal gap = isLyricsLine() ? 0.0 : sp;
                                           qreal x3 = seg->enabled() ? seg->x() : seg->measure()->width();
                                           x2 = qMax(x2, x3 - gap);
                                           }
@@ -953,7 +953,7 @@ QPointF SLine::linePos(Grip grip, System** sys) const
 
                         // back up to barline (skip courtesy elements)
                         Segment* seg = m->last();
-                        while (seg && seg->segmentType() != SegmentType::EndBarLine)
+                        while (seg && !seg->isEndBarLineType())
                               seg = seg->prev();
                         if (!seg || !seg->enabled()) {
                               // no end bar line; look for BeginBarLine or StartRepeatBarLine of next measure
@@ -964,9 +964,9 @@ QPointF SLine::linePos(Grip grip, System** sys) const
                         qreal mwidth = seg && seg->measure() == m ? seg->x() : m->bbox().right();
                         x = m->pos().x() + mwidth;
                         // align to barline
-                        if (seg && (seg->segmentType() & SegmentType::BarLineType)) {
+                        if (seg && seg->isType(SegmentType::BarLineType)) {
                               Element* e = seg->element(0);
-                              if (e && e->type() == ElementType::BAR_LINE) {
+                              if (e && e->isBarLine()) {
                                     BarLineType blt = toBarLine(e)->barLineType();
                                     switch (blt) {
                                           case BarLineType::END_REPEAT:
@@ -1179,7 +1179,7 @@ void SLine::layout()
                   qreal len = p2.x() - p1.x();
                   // enforcing a minimum length would be possible but inadvisable
                   // the line length calculations are tuned well enough that this should not be needed
-                  //if (anchor() == Anchor::SEGMENT && type() != ElementType::PEDAL)
+                  //if (anchor() == Anchor::SEGMENT && !isPedal())
                   //      len = qMax(1.0 * spatium(), len);
                   lineSegm->setPos(p1);
                   lineSegm->setPos2(QPointF(len, p2.y() - p1.y()));

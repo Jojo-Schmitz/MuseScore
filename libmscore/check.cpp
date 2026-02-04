@@ -32,10 +32,10 @@ namespace Ms {
 void Score::checkSlurs()
       {
 #if 0 //TODO1
-      foreach(Element* e, _gel) {
-            if (e->type() != SLUR)
+      for (Element* e : _gel) {
+            if (!e->isSlur())
                   continue;
-            Slur* s = (Slur*)e;
+            Slur* s = toSlur(e);
             Element* n1 = s->startElement();
             Element* n2 = s->endElement();
             if (n1 == 0 || n2 == 0 || n1 == n2) {
@@ -72,9 +72,9 @@ void Score::checkScore()
       for (Segment* s = firstMeasure()->first(); s;) {
             Segment* ns = s->next1();
 
-            if (s->segmentType() & (SegmentType::ChordRest)) {
+            if (s->isType(SegmentType::ChordRest)) {
                   bool empty = true;
-                  foreach(Element* e, s->elist()) {
+                  for (Element* e : s->elist()) {
                         if (e) {
                               empty = false;
                               break;

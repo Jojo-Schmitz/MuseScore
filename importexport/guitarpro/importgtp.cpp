@@ -773,8 +773,8 @@ void GuitarPro::createSlide(int sl, ChordRest* cr, int staffIdx, Note* /*note*/)
             Segment* prevSeg = cr->segment()->prev1(SegmentType::ChordRest);
             Element* prevElem = prevSeg->element(staffIdx);
             if (prevElem) {
-                  if (prevElem->type() == ElementType::CHORD) {
-                        Chord* prevChord = static_cast<Chord*>(prevElem);
+                  if (prevElem->isChord()) {
+                        Chord* prevChord = toChord(prevElem);
                         /** TODO we should not just take the top note here
                         * but the /correct/ note need to check whether GP
                         * supports multi-note gliss. I think it can in modern
@@ -2007,7 +2007,7 @@ bool GuitarPro1::readNote(int string, Note* note)
                   if (e) {
                         if (e->isChord()) {
                               Chord* chord2 = toChord(e);
-                              foreach (Note* note2, chord2->notes()) {
+                              for  (Note* note2 : chord2->notes()) {
                                     if (note2->string() == string) {
                                           if (chords.empty()) {
                                                 Tie* tie = new Tie(score);
@@ -2443,7 +2443,7 @@ bool GuitarPro3::read(QFile* fp)
 
                         cr->setTicks(l);
 
-                        if (cr->type() == ElementType::REST && l >= measure->ticks()) {
+                        if (cr->isRest() && l >= measure->ticks()) {
                               cr->setDurationType(TDuration::DurationType::V_MEASURE);
                               cr->setTicks(measure->ticks());
                               }
@@ -2474,7 +2474,7 @@ bool GuitarPro3::read(QFile* fp)
                                     note->setTpcFromPitch();
                                     }
                               }
-                        if (cr && cr->type() == ElementType::CHORD && static_cast<Chord*>(cr)->notes().empty()) {
+                        if (cr && cr->isChord() && toChord(cr)->notes().empty()) {
                               if (segment->cr(track))
                                     segment->remove(cr);
                               delete cr;
@@ -2485,7 +2485,7 @@ bool GuitarPro3::read(QFile* fp)
                               segment->add(cr);
                               }
                         createSlur(hasSlur, staffIdx, cr);
-                        if (cr && (cr->isChord())) {
+                        if (cr && cr->isChord()) {
                               if (beatEffects >= 200) {
                                     beatEffects -= 200;
                                     Articulation* art = new Articulation(score);
@@ -2497,7 +2497,7 @@ bool GuitarPro3::read(QFile* fp)
                                           }
                                     }
 
-                              applyBeatEffects(static_cast<Chord*>(cr), beatEffects);
+                              applyBeatEffects(toChord(cr), beatEffects);
                               if (slide > 0)
                                     createSlide(slide, cr, staffIdx);
                               }
@@ -2514,17 +2514,17 @@ bool GuitarPro3::read(QFile* fp)
                   Rest* lastRest = nullptr;
                   for (auto seg = measure->first(); seg; seg = seg->next())
                         {
-                        if (seg->segmentType() == SegmentType::ChordRest)
+                        if (seg->isChordRestType())
                               {
                               auto cr = seg->cr(track);
-                              if (cr && cr->type() == ElementType::CHORD)
+                              if (cr && cr->isChord())
                                     {
                                     removeRests = false;
                                     break;
                                     }
                               else if (cr) {
                                     ++counter;
-                                    lastRest = static_cast<Rest*>(cr);
+                                    lastRest = toRest(cr);
                                     }
                               }
                         }
@@ -2541,7 +2541,7 @@ bool GuitarPro3::read(QFile* fp)
                         auto seg = measure->first();
                         while (seg && seg != measure->last())
                               {
-                              if (seg->segmentType() == SegmentType::ChordRest)
+                              if (seg->isChordRestType())
                                     {
                                     auto cr = seg->cr(track);
                                     if (cr) {
@@ -2569,9 +2569,9 @@ bool GuitarPro3::read(QFile* fp)
                   auto crest = segment->cr(n->track());
                   if (!crest)
                         continue;
-                  if (crest->type() == Ms::ElementType::REST)
+                  if (crest->isRest())
                         break;
-                  auto cr = static_cast<Chord*>(crest);
+                  auto cr = toChord(crest);
                   if (!cr)
                         continue;
                   if (cr->graceNotes().size())
@@ -2919,7 +2919,7 @@ Score::FileError importGTP(MasterScore* score, const QString& name)
             // create excerpt title
             //
             MeasureBase* measure = pscore->first();
-            if (!measure || (measure->type() != ElementType::VBOX)) {
+            if (!measure || !measure->isVBox()) {
                   MeasureBase* mb = new VBox(pscore);
                   mb->setTick(Fraction(0,1));
                   pscore->addMeasure(mb, measure);

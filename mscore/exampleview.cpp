@@ -266,14 +266,14 @@ void ExampleView::dragMoveEvent(QDragMoveEvent* event)
       {
       event->acceptProposedAction();
 
-      if (!dragElement || dragElement->type() != ElementType::ICON)
+      if (!dragElement || !dragElement->isIcon())
             return;
 
       QPointF pos(imatrix.map(QPointF(event->pos())));
       QList<Element*> el = elementsAt(pos);
       bool found = false;
       foreach(const Element* e, el) {
-            if (e->type() == ElementType::NOTE) {
+            if (e->isNote()) {
                   setDropTarget(const_cast<Element*>(e));
                   found = true;
                   break;
@@ -324,15 +324,15 @@ void ExampleView::dropEvent(QDropEvent* event)
 
       if (!dragElement)
            return;
-      if (dragElement->type() != ElementType::ICON) {
+      if (!dragElement->isIcon()) {
             delete dragElement;
             dragElement = 0;
             return;
             }
       foreach (Element* e, elementsAt(pos)) {
-            if (e->type() == ElementType::NOTE) {
-                  Icon* icon = static_cast<Icon*>(dragElement);
-                  Chord* chord = static_cast<Note*>(e)->chord();
+            if (e->isNote()) {
+                  Icon* icon = toIcon(dragElement);
+                  Chord* chord = toNote(e)->chord();
                   emit beamPropertyDropped(chord, icon);
                   switch (icon->iconType()) {
                         case IconType::SBEAM:
@@ -370,8 +370,8 @@ void ExampleView::mousePressEvent(QMouseEvent* event)
       QPointF pos(imatrix.map(QPointF(event->pos())));
 
       foreach (Element* e, elementsAt(pos)) {
-            if (e->type() == ElementType::NOTE) {
-                  emit noteClicked(static_cast<Note*>(e));
+            if (e->isNote()) {
+                  emit noteClicked(toNote(e));
                   break;
                   }
             }

@@ -150,7 +150,7 @@ static Fraction lastChordTicks(const Segment* s, const Fraction& tick, const int
       while (s && s->tick() < tick) {
             for (Element* el : s->elist()) {
                   if (el && el->isChordRest() && el->track() == track) {
-                        ChordRest* cr = static_cast<ChordRest*>(el);
+                        ChordRest* cr = toChordRest(el);
                         if (cr->tick() + cr->actualTicks() == tick)
                               return cr->actualTicks();
                         }
@@ -174,7 +174,7 @@ void MusicXmlLyricsExtend::setExtend(const int no, const int track, const Fracti
       for (Lyrics* l : qAsConst(_lyrics)) {
             Element* const el = l->parent();
             if (el->isChordRest()) {
-                  const ChordRest* par = static_cast<ChordRest*>(el);
+                  const ChordRest* par = toChordRest(el);
                   // no = -1: stop all extends on this track
                   // otherwise, stop all extends in the stave with the same no and placement
                   if ((no == -1 && par->track() == track)
@@ -957,7 +957,7 @@ static Fraction calculateTupletDuration(const Tuplet* const t)
 
       for (DurationElement* de : t->elements()) {
             if (de->isChordRest()) {
-                  const ChordRest* cr = static_cast<ChordRest*>(de);
+                  const ChordRest* cr = toChordRest(de);
                   const Fraction fraction = cr->ticks(); // TODO : take care of nested tuplets
                   if (fraction.isValid()) {
                         res += fraction;
@@ -1578,7 +1578,7 @@ void MusicXMLParserPass2::addError(const QString& error)
 
 static void setChordRestDuration(ChordRest* cr, TDuration duration, const Fraction dura)
       {
-      if (duration.type() == TDuration::DurationType::V_MEASURE) {
+      if (duration.isMeasure()) {
             cr->setDurationType(duration);
             cr->setTicks(dura);
             }
@@ -2602,7 +2602,7 @@ static void markUserAccidentals(const int firstStaff,
                   Element* e = segment->element(firstStaff * VOICES + track);
                   if (!e || !e->isChord())
                         continue;
-                  Chord* chord = static_cast<Chord*>(e);
+                  Chord* chord = toChord(e);
                   for (Note* nt : chord->notes()) {
                         if (alterMap.contains(nt)) {
                               int alter = alterMap.value(nt);
@@ -6194,7 +6194,7 @@ static void addTremolo(ChordRest* cr, const int tremoloNr, const QString& tremol
                         }
                   else if (tremoloType == "start") {
                         if (tremStart) logger->logError("MusicXML::import: double tremolo start", xmlreader);
-                        tremStart = static_cast<Chord*>(cr);
+                        tremStart = toChord(cr);
                         // timeMod takes into account also the factor 2 of a two-note tremolo
                         if (timeMod.isValid() && ((timeMod.denominator() % 2) == 0)) {
                               timeMod.setDenominator(timeMod.denominator() / 2);
@@ -6210,7 +6210,7 @@ static void addTremolo(ChordRest* cr, const int tremoloNr, const QString& tremol
                                     case 4: tremolo->setTremoloType(TremoloType::C64); break;
                                     }
                               colorItem(tremolo, color);
-                              tremolo->setChords(tremStart, static_cast<Chord*>(cr));
+                              tremolo->setChords(tremStart, toChord(cr));
                               // fixup chord duration and type
                               const Fraction tremDur = cr->ticks() * Fraction(1,2);
                               tremolo->chord1()->setDurationType(tremDur);
@@ -8345,7 +8345,7 @@ static void addArpeggio(ChordRest* cr, const QString& arpeggioType, QColor arpeg
                   arpeggio->setArpeggioType(ArpeggioType::BRACKET);
             colorItem(arpeggio.get(), arpeggioColor);
             // there can be only one
-            if (!(static_cast<Chord*>(cr))->arpeggio()) {
+            if (!toChord(cr)->arpeggio()) {
                   cr->add(arpeggio.release());
                   }
             }

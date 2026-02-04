@@ -569,7 +569,7 @@ Element* Box::drop(EditData& data)
                               break;
                               }
                         for (Element* elem : el()) {
-                              if (elem->type() == ElementType::LAYOUT_BREAK) {
+                              if (elem->isLayoutBreak()) {
                                     score()->undoChangeElement(elem, e);
                                     break;
                                     }
@@ -648,7 +648,7 @@ QRectF HBox::drag(EditData& data)
       QRectF r(canvasBoundingRect());
       qreal diff = data.evtDelta.x();
       qreal x1   = offset().x() + diff;
-      if (parent()->type() == ElementType::VBOX) {
+      if (parent()->isVBox()) {
             VBox* vb = toVBox(parent());
             qreal x2 = parent()->width() - width() - (vb->leftMargin() + vb->rightMargin()) * DPMM;
             if (x1 < 0.0)

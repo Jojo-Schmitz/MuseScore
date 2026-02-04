@@ -362,7 +362,7 @@ void Score::cmdAddSpanner(Spanner* spanner, const QPointF& pos, bool firstStaffO
       if (firstStaffOnly)
             staffIdx = 0;
       // ignore if we do not have a measure
-      if (mb == 0 || mb->type() != ElementType::MEASURE) {
+      if (mb == 0 || !mb->isMeasure()) {
             qDebug("cmdAddSpanner: cannot put object here");
             delete spanner;
             return;
@@ -760,7 +760,7 @@ void Score::createCRSequence(const Fraction& f, ChordRest* cr, const Fraction& t
 
 Segment* Score::setNoteRest(Segment* segment, int track, NoteVal nval, Fraction sd, Direction stemDirection, bool forceAccidental, bool rhythmic, InputState* externalInputState)
       {
-      Q_ASSERT(segment->segmentType() == SegmentType::ChordRest);
+      Q_ASSERT(segment->isChordRestType());
       InputState& is = externalInputState ? (*externalInputState) : _is;
 
       bool isRest   = nval.pitch == -1;
@@ -884,7 +884,7 @@ Segment* Score::setNoteRest(Segment* segment, int track, NoteVal nval, Fraction 
       if (tie)
             connectTies();
       if (nr) {
-            if (is.slur() && nr->type() == ElementType::NOTE) {
+            if (is.slur() && nr->isNote()) {
                   // If the start element was the same as the end element when the slur was created,
                   // the end grip of the front slur segment was given an x-offset of 3.0 * spatium().
                   // Now that the slur is about to be given a new end element, this should be reset.
@@ -1158,7 +1158,7 @@ bool Score::makeGapVoice(Segment* seg, int track, Fraction len, const Fraction& 
             if (n > 1) {
                   Fraction crtick = cr1->tick() + cr1->actualTicks();
                   Measure* measure = tick2measure(crtick);
-                  if (cr1->type() == ElementType::CHORD) {
+                  if (cr1->isChord()) {
                         // split Chord
                         Chord* c = toChord(cr1);
                         for (size_t i = 1; i < n; ++i) {
@@ -1284,7 +1284,7 @@ QList<Fraction> Score::splitGapToMeasureBoundaries(ChordRest* cr, Fraction gap)
 void Score::changeCRlen(ChordRest* cr, const TDuration& d)
       {
       Fraction dstF;
-      if (d.type() == TDuration::DurationType::V_MEASURE)
+      if (d.isMeasure())
             dstF = cr->measure()->stretchedLen(cr->staff());
       else
             dstF = d.fraction();
@@ -1326,7 +1326,7 @@ void Score::changeCRlen(ChordRest* cr, const Fraction& dstF, bool fillWithRest)
                         if (tremolo->twoNotes())
                               undoRemoveElement(tremolo);
                         }
-                  foreach (Note* n, c->notes()) {
+                  for (Note* n : c->notes()) {
                         if (n->tieFor())
                               undoRemoveElement(n->tieFor());
                         }
@@ -1818,7 +1818,7 @@ void Score::toggleAccidental(AccidentalType at, const EditData& ed)
 
 void Score::changeAccidental(AccidentalType idx)
       {
-      foreach(Note* note, selection().noteList())
+      for (Note* note : selection().noteList())
             changeAccidental(note, idx);
       }
 
@@ -2115,11 +2115,11 @@ void Score::cmdResetBeamMode()
                   ChordRest* cr = toChordRest(seg->element(track));
                   if (!cr)
                         continue;
-                  if (cr->type() == ElementType::CHORD) {
+                  if (cr->isChord()) {
                         if (cr->beamMode() != Beam::Mode::AUTO)
                               cr->undoChangeProperty(Pid::BEAM_MODE, int(Beam::Mode::AUTO));
                         }
-                  else if (cr->type() == ElementType::REST) {
+                  else if (cr->isRest()) {
                         if (cr->beamMode() != Beam::Mode::NONE)
                               cr->undoChangeProperty(Pid::BEAM_MODE, int(Beam::Mode::NONE));
                         }
@@ -2433,7 +2433,7 @@ Element* Score::move(const QString& cmd)
             // if something found and command is forward, the element found is the destination
             if (trg && cmd == "next-chord") {
                   // if chord, go to topmost note
-                  if (trg->type() == ElementType::CHORD)
+                  if (trg->isChord())
                         trg = toChord(trg)->upNote();
                   setPlayNote(true);
                   select(trg, SelectType::SINGLE, 0);
@@ -2598,7 +2598,7 @@ Element* Score::move(const QString& cmd)
             }
 
       if (el) {
-            if (el->type() == ElementType::CHORD)
+            if (el->isChord())
                   el = toChord(el)->upNote();       // originally downNote
             setPlayNote(true);
             if (noteEntryMode()) {
@@ -2763,7 +2763,7 @@ void Score::cmdIncDecDuration(int nSteps, bool stepDotted)
                   // if measure rest is selected as input, then the correct initialDuration will be the
                   // duration of the measure's time signature, else is just the ChordRest's duration
                   TDuration initialDuration = cr->durationType();
-                  if (initialDuration == TDuration::DurationType::V_MEASURE) {
+                  if (initialDuration.isMeasure()) {
                         initialDuration = TDuration(cr->measure()->timesig(), true);
 
                         if (initialDuration.fraction() < cr->measure()->timesig() && nSteps > 0)
@@ -2797,7 +2797,7 @@ void Score::cmdIncDecDuration(int nSteps, bool stepDotted)
 void Score::cmdAddBracket()
       {
       for (Element* el : selection().elements()) {
-            if (el->type() == ElementType::ACCIDENTAL) {
+            if (el->isAccidental()) {
                   Accidental* acc = toAccidental(el);
                   acc->undoChangeProperty(Pid::ACCIDENTAL_BRACKET, int(AccidentalBracket::BRACKET));
                   }
@@ -2811,21 +2811,21 @@ void Score::cmdAddBracket()
 void Score::cmdAddParentheses()
       {
       for (Element* el : selection().elements()) {
-            if (el->type() == ElementType::NOTE) {
+            if (el->isNote()) {
                   Note* n = toNote(el);
                   n->addParentheses();
                   }
-            else if (el->type() == ElementType::ACCIDENTAL) {
+            else if (el->isAccidental()) {
                   Accidental* acc = toAccidental(el);
                   acc->undoChangeProperty(Pid::ACCIDENTAL_BRACKET, int(AccidentalBracket::PARENTHESIS));
                   }
-            else if (el->type() == ElementType::HARMONY) {
+            else if (el->isHarmony()) {
                   Harmony* h = toHarmony(el);
                   h->setLeftParen(true);
                   h->setRightParen(true);
                   h->render();
                   }
-            else if (el->type() == ElementType::TIMESIG) {
+            else if (el->isTimeSig()) {
                   TimeSig* ts = toTimeSig(el);
                   ts->setLargeParentheses(true);
                   }
@@ -2839,7 +2839,7 @@ void Score::cmdAddParentheses()
 void Score::cmdAddBraces()
       {
       for (Element* el : selection().elements()) {
-            if (el->type() == ElementType::ACCIDENTAL) {
+            if (el->isAccidental()) {
                   Accidental* acc = toAccidental(el);
                   acc->undoChangeProperty(Pid::ACCIDENTAL_BRACKET, int(AccidentalBracket::BRACE));
                   }
@@ -2901,7 +2901,7 @@ void Score::cmdAddGrace (NoteType graceType, int duration)
       {
       const QList<Element*> copyOfElements = selection().elements();
       for (Element* e : copyOfElements) {
-            if (e->type() == ElementType::NOTE) {
+            if (e->isNote()) {
                   Note* n = toNote(e);
                   setGraceNote(n->chord(), n->pitch(), graceType, duration);
                   }
@@ -2957,7 +2957,7 @@ void Score::cmdExplode()
                   int n = 0;
                   for (Segment* s = startSegment; s && s != endSegment; s = s->next1()) {
                         Element* e = s->element(srcTrack);
-                        if (e && e->type() == ElementType::CHORD) {
+                        if (e && e->isChord()) {
                               Chord* c = toChord(e);
                               n = qMax(n, int(c->notes().size()));
                               for (Chord*& graceChord : c->graceNotes())
@@ -3000,7 +3000,7 @@ void Score::cmdExplode()
                   int track = (srcStaff + i) * VOICES;
                   for (Segment* s = startSegment; s && s != endSegment; s = s->next1()) {
                         Element* e = s->element(track);
-                        if (e && e->type() == ElementType::CHORD) {
+                        if (e && e->isChord()) {
                               Chord* c = toChord(e); //chord, laststaff, srcstaff
                               doExplode(c, lastStaff, srcStaff, i);
                               for (Chord*& graceChord : c->graceNotes())
@@ -3231,7 +3231,7 @@ void Score::cmdSlashFill()
             int voice = -1;
             // loop through segments adding slashes on each beat
             for (Segment* s = startSegment; s && s->tick() < endTick; s = s->next1()) {
-                  if (s->segmentType() != SegmentType::ChordRest)
+                  if (!s->isChordRestType())
                         continue;
                   // determine beat type based on time signature
                   int d = s->measure()->timesig().denominator();
@@ -3251,17 +3251,17 @@ void Score::cmdSlashFill()
                               if (!cr)
                                     needGap[voice] = true;
                               // chord == keep looking for an available voice
-                              else if (cr->type() == ElementType::CHORD)
+                              else if (cr->isChord())
                                     continue;
                               // full measure rest == OK to use voice
-                              else if (cr->durationType() == TDuration::DurationType::V_MEASURE)
+                              else if (cr->durationType().isMeasure())
                                     break;
                               // no chordrest or ordinary rest == OK to use voice
                               // if there are nothing but rests for duration of measure / selection
                               bool ok = true;
                               for (Segment* ns = s->next(SegmentType::ChordRest); ns && ns != endSegment; ns = ns->next(SegmentType::ChordRest)) {
                                     ChordRest* ncr = toChordRest(ns->element(track + voice));
-                                    if (ncr && ncr->type() == ElementType::CHORD) {
+                                    if (ncr && ncr->isChord()) {
                                           ok = false;
                                           break;
                                           }
@@ -3335,7 +3335,7 @@ void Score::cmdSlashRhythm()
       {
       QList<Chord*> chords;
       // loop through all notes in selection
-      foreach (Element* e, selection().elements()) {
+      for  (Element* e : selection().elements()) {
             if (e->voice() >= 2 && e->isRest()) {
                   Rest* r = toRest(e);
                   if (r->links()) {
@@ -3436,7 +3436,7 @@ void Score::cmdRealizeChordSymbols(bool literal, Voicing voicing, HDuration dura
 //---------------------------------------------------------
 Segment* Score::setChord(Segment* segment, int track, Chord* chordTemplate, Fraction dur, Direction stemDirection)
       {
-      Q_ASSERT(segment->segmentType() == SegmentType::ChordRest);
+      Q_ASSERT(segment->isChordRestType());
 
       Fraction tick = segment->tick();
       Chord* nr     = 0; //current added chord used so we can select the last added chord and so we can apply ties
@@ -3458,7 +3458,7 @@ Segment* Score::setChord(Segment* segment, int track, Chord* chordTemplate, Frac
             //we need to get a correct subduration so that makeGap can function properly
             //since makeGap() takes "normal" duration rather than actual length
             while (seg) {
-                  if (seg->segmentType() == SegmentType::ChordRest) {
+                  if (seg->isChordRestType()) {
                         //design choice made to keep multiple notes across a tuplet as tied single notes rather than combining them
                         //since it's arguably more readable, but the other code is still here (commented)
                         ChordRest* testCr = toChordRest(seg->element(track));
@@ -3605,7 +3605,7 @@ void Score::cmdResequenceRehearsalMarks()
       RehearsalMark* last = 0;
       for (Segment* s = selection().startSegment(); s && s != selection().endSegment(); s = s->next1()) {
             for (Element* e : s->annotations()) {
-                  if (e->type() == ElementType::REHEARSAL_MARK) {
+                  if (e->isRehearsalMark()) {
                         RehearsalMark* rm = toRehearsalMark(e);
                         if (last) {
                               QString rmText = nextRehearsalMarkText(last, rm);

@@ -2343,7 +2343,7 @@ bool TextBase::mousePress(EditData& ed)
 void TextBase::layoutEdit()
       {
       layout();
-      if (parent() && parent()->type() == ElementType::TBOX) {
+      if (parent() && parent()->isTBox()) {
             TBox* tbox = toTBox(parent());
             tbox->layout();
             System* system = tbox->system();

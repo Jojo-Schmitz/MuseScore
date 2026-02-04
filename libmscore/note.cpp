@@ -1936,7 +1936,7 @@ Element* Note::drop(EditData& data)
             case ElementType::GLISSANDO:
                   {
                   for (auto ee : qAsConst(_spannerFor)) {
-                        if (ee->type() == ElementType::GLISSANDO) {
+                        if (ee->isGlissando()) {
                               qDebug("there is already a glissando");
                               delete e;
                               return 0;
@@ -3362,7 +3362,7 @@ Element* Note::nextElement()
                         return _tieFor->frontSegment();
                   else if (!_spannerFor.empty()) {
                         for (auto i : qAsConst(_spannerFor)) {
-                              if (i->type() == ElementType::GLISSANDO)
+                              if (i->isGlissando())
                                     return i->spannerSegments().front();
                               }
                         }
@@ -3372,7 +3372,7 @@ Element* Note::nextElement()
             case ElementType::TIE_SEGMENT:
                   if (!_spannerFor.empty()) {
                       for (auto i : qAsConst(_spannerFor)) {
-                            if (i->type() == ElementType::GLISSANDO)
+                            if (i->isGlissando())
                                   return i->spannerSegments().front();
                                   }
                             }
@@ -3459,7 +3459,7 @@ Element* Note::lastElementBeforeSegment()
       {
       if (!_spannerFor.empty()) {
             for (auto i : qAsConst(_spannerFor)) {
-                  if (i->type() == ElementType::GLISSANDO)
+                  if (i->isGlissando())
                         return i->spannerSegments().front();
                   }
             }

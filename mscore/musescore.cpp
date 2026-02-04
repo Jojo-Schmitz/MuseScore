@@ -6153,8 +6153,8 @@ void MuseScore::endCmd(bool undoRedo)
             if (e && (cs->playNote() || cs->playChord())
                         && entryMethod != NoteEntryMethod::REALTIME_AUTO
                         && entryMethod != NoteEntryMethod::REALTIME_MANUAL) {
-                  if (cs->playChord() && preferences.getBool(PREF_SCORE_CHORD_PLAYONADDNOTE) &&  e->type() == ElementType::NOTE)
-                        play(static_cast<Note*>(e)->chord());
+                  if (cs->playChord() && preferences.getBool(PREF_SCORE_CHORD_PLAYONADDNOTE) &&  e->isNote())
+                        play(toNote(e)->chord());
                   else
                         play(e);
                   cs->setPlayNote(false);

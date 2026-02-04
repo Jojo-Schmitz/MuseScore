@@ -148,23 +148,23 @@ void TestLinks::test3LinkedSameScore_99796()
       // now 3 staves
       QVERIFY(score->staves().size() == 3);
       e = s->element(0);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links()->size() == 3);
       e = s->element(4);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links()->size() == 3);
       e = s->element(8);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links()->size() == 3);
 
       // redo, back to 2 staves
       score->undoStack()->redo(&ed);
       QVERIFY(score->staves().size() == 2);
       e = s->element(0);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links()->size() == 2);
       e = s->element(4);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links()->size() == 2);
       }
 
@@ -195,11 +195,11 @@ void TestLinks::test3LinkedParts_99796()
       Measure* m = score->firstMeasure();
       Segment* s = m->first(SegmentType::ChordRest);
       Element* e = s->element(0);
-      QVERIFY(e->type() == ElementType::CHORD);
+      QVERIFY(e->isChord());
       score->select(e);
       score->cmdDeleteSelection();
       e = s->element(0);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links() == nullptr);
 
       // create parts//
@@ -228,10 +228,10 @@ void TestLinks::test3LinkedParts_99796()
       // we should have now 2 staves and 3 linked rests
       QVERIFY(score->staves().size() == 2);
       e = s->element(0);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links()->size() == 3);
       e = s->element(4);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links()->size() == 3);
 
       // delete part
@@ -242,10 +242,10 @@ void TestLinks::test3LinkedParts_99796()
       // we should have now 2 staves and *2* linked rests
       QVERIFY(score->staves().size() == 2);
       e = s->element(0);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links()->size() == 2);
       e = s->element(4);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links()->size() == 2);
       }
 
@@ -276,11 +276,11 @@ void TestLinks::test4LinkedParts_94911()
       Measure* m = score->firstMeasure();
       Segment* s = m->first(SegmentType::ChordRest);
       Element* e = s->element(0);
-      QVERIFY(e->type() == ElementType::CHORD);
+      QVERIFY(e->isChord());
       score->select(e);
       score->cmdDeleteSelection();
       e = s->element(0);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links() == nullptr);
 
       // add a linked staff
@@ -295,10 +295,10 @@ void TestLinks::test4LinkedParts_94911()
       // we should have now 2 staves and 2 linked rests
       QVERIFY(score->staves().size() == 2);
       e = s->element(0);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links()->size() == 2);
       e = s->element(4);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links()->size() == 2);
 
       // create parts//
@@ -321,10 +321,10 @@ void TestLinks::test4LinkedParts_94911()
       QVERIFY(nscore->staves().size() == 2);
       QVERIFY(score->staves()[0]->links()->size() == 4);
       e = s->element(0);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links()->size() == 4);
       e = s->element(4);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links()->size() == 4);
       QVERIFY(score->excerpts().size() == 1);
 
@@ -354,10 +354,10 @@ void TestLinks::test4LinkedParts_94911()
       QCOMPARE(score->staves().size(), 2);
       QVERIFY(score->staves()[0]->links()->size() == 4);
       e = s->element(0);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links()->size() == 4);
       e = s->element(4);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links()->size() == 4);
       QVERIFY(score->excerpts().size() == 1);
 
@@ -368,7 +368,7 @@ void TestLinks::test4LinkedParts_94911()
       QVERIFY(score->staves().size() == 1);
       QVERIFY(score->staves()[0]->links() == nullptr);
       e = s->element(0);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links() == nullptr);
       }
 
@@ -398,11 +398,11 @@ void TestLinks::test5LinkedParts_94911()
       Measure* m = score->firstMeasure();
       Segment* s = m->first(SegmentType::ChordRest);
       Element* e = s->element(0);
-      QVERIFY(e->type() == ElementType::CHORD);
+      QVERIFY(e->isChord());
       score->select(e);
       score->cmdDeleteSelection();
       e = s->element(0);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links() == nullptr);
 
       // create parts//
@@ -422,7 +422,7 @@ void TestLinks::test5LinkedParts_94911()
       // we should have now 1 staff and 2 linked rests
       QVERIFY(score->staves().size() == 1);
       e = s->element(0);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links()->size() == 2);
 
       // add a linked staff
@@ -439,10 +439,10 @@ void TestLinks::test5LinkedParts_94911()
       QCOMPARE(nscore->staves().size(), 1);
       QVERIFY(score->staves()[0]->links()->size() == 3);
       e = s->element(0);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links()->size() == 3);
       e = s->element(4);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links()->size() == 3);
       QVERIFY(score->excerpts().size() == 1);
 
@@ -452,7 +452,7 @@ void TestLinks::test5LinkedParts_94911()
       QVERIFY(score->staves().size() == 1);
       QVERIFY(score->staves()[0]->links()->size() == 2);
       e = s->element(0);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links()->size() == 2);
       QVERIFY(score->excerpts().size() == 1);
 
@@ -462,10 +462,10 @@ void TestLinks::test5LinkedParts_94911()
       QVERIFY(score->staves().size() == 2);
       QVERIFY(score->staves()[0]->links()->size() == 3);
       e = s->element(0);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links()->size() == 3);
       e = s->element(4);
-      QVERIFY(e->type() == ElementType::REST);
+      QVERIFY(e->isRest());
       QVERIFY(e->links()->size() == 3);
       QVERIFY(score->excerpts().size() == 1);
       }

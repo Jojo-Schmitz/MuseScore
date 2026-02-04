@@ -43,9 +43,9 @@ void ExportMidi::writeHeader(MidiTrack& tempoTrack)
 #if 0 // TODO
       MeasureBase* measure  = cs->first();
 
-      foreach (const Element* e, *measure->el()) {
-            if (e->type() == Element::TEXT) {
-                  const Text* text = (const Text*)(e);
+      for  (const Element* e : *measure->el()) {
+            if (e->isText()) {
+                  const Text* text = toText(e);
                   QString str = text->getText();
                   int len     = str.length() + 1;
                   unsigned char* data = new unsigned char[len];

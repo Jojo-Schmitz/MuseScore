@@ -602,7 +602,7 @@ void Score::pasteChordRest(ChordRest* cr, const Fraction& t, const Interval& src
       // and only if the lengths of the rest and measure match
       // otherwise, we need to convert to duration rest(s)
       // and potentially split the rest up (eg, 5/4 => whole + quarter)
-      bool convertMeasureRest = cr->isRest() && cr->durationType().type() == TDuration::DurationType::V_MEASURE
+      bool convertMeasureRest = cr->isRest() && cr->durationType().isMeasure()
          && (tick != measure->tick() || cr->ticks() != measure->ticks());
 
       Fraction measureEnd = measure->endTick();
@@ -909,7 +909,7 @@ void Score::pasteSymbols(XmlReader& e, ChordRest* dst)
                                                 // in any case, look for a f.b. in annotations:
                                                 // if there is a f.b. element in the right track,
                                                 // this is an (actual) f.b. location
-                                                foreach (Element* a, prevSegm->annotations()) {
+                                                for  (Element* a : prevSegm->annotations()) {
                                                       if (a->isFiguredBass() && a->track() == destTrack) {
                                                             onNoteFB = toFiguredBass(a);
                                                             done1 = true;
@@ -947,7 +947,7 @@ void Score::pasteSymbols(XmlReader& e, ChordRest* dst)
                                           ticks = toChordRest(currSegm->element(destTrack))->ticks();
                                     // in both cases, look for an existing f.b. element in segment and remove it, if found
                                     FiguredBass* oldFB = nullptr;
-                                    foreach (Element* a, currSegm->annotations()) {
+                                    for  (Element* a : currSegm->annotations()) {
                                           if (a->isFiguredBass() && a->track() == destTrack) {
                                                 oldFB = toFiguredBass(a);
                                                 break;

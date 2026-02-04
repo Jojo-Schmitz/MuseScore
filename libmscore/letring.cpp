@@ -230,7 +230,7 @@ QPointF LetRing::linePos(Grip grip, System** sys) const
                   }
             s = c->segment()->system();
             x = c->pos().x() + c->segment()->pos().x() + c->segment()->measure()->pos().x();
-            if (c->isRest() && c->durationType() == TDuration::DurationType::V_MEASURE)
+            if (c->isRest() && c->durationType().isMeasure())
                   x -= c->x();
             }
       else {
@@ -247,7 +247,7 @@ QPointF LetRing::linePos(Grip grip, System** sys) const
                   if (seg) {
                         seg = seg->next();
                         for ( ; seg; seg = seg->next()) {
-                              if (seg->segmentType() == SegmentType::ChordRest) {
+                              if (seg->isChordRestType()) {
                                     // look for a chord/rest in any voice on this staff
                                     bool crFound = false;
                                     int track = staffIdx() * VOICES;
@@ -260,7 +260,7 @@ QPointF LetRing::linePos(Grip grip, System** sys) const
                                     if (crFound)
                                           break;
                                     }
-                              else if (seg->segmentType() == SegmentType::EndBarLine) {
+                              else if (seg->isEndBarLineType()) {
                                     break;
                                     }
                               }
@@ -273,7 +273,7 @@ QPointF LetRing::linePos(Grip grip, System** sys) const
             else if (c) {
                   s = c->segment()->system();
                   x = c->pos().x() + c->segment()->pos().x() + c->segment()->measure()->pos().x();
-                  if (c->isRest() && c->durationType() == TDuration::DurationType::V_MEASURE)
+                  if (c->isRest() && c->durationType().isMeasure())
                         x -= c->x();
                   }
             if (!s) {

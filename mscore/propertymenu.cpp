@@ -61,7 +61,7 @@ namespace Ms {
 
 void ScoreView::genPropertyMenu1(Element* e, QMenu* popup)
       {
-      if ((!e->generated() || e->type() == ElementType::BAR_LINE) && enableExperimental){
+      if ((!e->generated() || e->isBarLine()) && enableExperimental){
             if (e->flag(ElementFlag::HAS_TAG)) {
                   popup->addSeparator();
 
@@ -286,9 +286,9 @@ void ScoreView::elementPropertyAction(const QString& cmd, Element* e)
             }
       else if (cmd == "measure-props") {
             Measure* m = 0;
-            if (e->type() == ElementType::NOTE)
+            if (e->isNote())
                   m = toNote(e)->chord()->segment()->measure();
-            else if (e->type() == ElementType::REST)
+            else if (e->isRest())
                   m = toRest(e)->segment()->measure();
             if (m) {
                   MeasureProperties vp(m);
