@@ -7259,7 +7259,7 @@ static void writeStaffDetails(XmlWriter& xml, const Part* part, const QVector<in
                 || hidden  || needsLineDetails) {
                   QString details = "staff-details";
                   if (staves > 1)
-                        details += QString(" number=\"%1\"").arg(i+1);
+                        details += QString(" number=\"%1\"").arg(i + 1);
                   if (hidden) {
                         details += " print-object=\"no\"";
                         if (st->cutaway())
@@ -7267,8 +7267,10 @@ static void writeStaffDetails(XmlWriter& xml, const Part* part, const QVector<in
                         }
 
                   xml.stag(details);
-                  if (st->links() && st->links()->contains(part->staff(i - 1)))
+
+                  if (i > 0 && st->links() && st->links()->contains(part->staff(i - 1)))
                         xml.tag("staff-type", "alternate");
+
                   xml.tag("staff-lines", st->lines(Fraction(0,1)));
                   if (needsLineDetails) {
                         for (int lineIdx = 0; lineIdx < st->lines(Fraction(0, 1)); lineIdx++) {
