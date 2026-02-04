@@ -13,7 +13,6 @@
 #ifndef __MSCORE_H__
 #define __MSCORE_H__
 
-#include "config.h"
 #include "style.h"
 
 namespace Ms {
@@ -249,6 +248,10 @@ enum MsError {
       CANNOT_SPLIT_MEASURE_FIRST_BEAT,
       CANNOT_SPLIT_MEASURE_TUPLET,
       CANNOT_SPLIT_MEASURE_TOO_SHORT,
+      INSUFFICIENT_MEASURES,
+      CANNOT_SPLIT_MEASURE_REPEAT,
+      CANNOT_REMOVE_TIME_TUPLET,
+      CANNOT_REMOVE_TIME_MEASURE_REPEAT,
       NO_DEST,
       DEST_TUPLET,
       TUPLET_CROSSES_BAR,

@@ -17,9 +17,9 @@
 #include "input.h"
 #include "navigate.h"
 #include "measure.h"
+#include "measurerepeat.h"
 #include "note.h"
 #include "page.h"
-#include "rest.h"
 #include "score.h"
 #include "segment.h"
 #include "spanner.h"
@@ -34,15 +34,12 @@ namespace Ms {
 //    return next Chord or Rest
 //---------------------------------------------------------
 
-ChordRest* nextChordRest(ChordRest* cr, bool skipGrace)
+ChordRest* nextChordRest(ChordRest* cr, bool skipGrace, bool skipMeasureRepeatRests)
       {
       if (!cr)
             return 0;
 
       if (cr->isGrace()) {
-            //
-            // cr is a grace note
-
             Chord* c  = toChord(cr);
             Chord* pc = toChord(cr->parent());
 
@@ -72,9 +69,7 @@ ChordRest* nextChordRest(ChordRest* cr, bool skipGrace)
                   cr = pc;
                   }
             }
-      else {
-            //
-            // cr is not a grace note
+      else { // cr is not a grace note
             if (cr->isChord() && !skipGrace) {
                   Chord* c = toChord(cr);
                   if (!c->graceNotes().empty()) {
@@ -91,6 +86,8 @@ ChordRest* nextChordRest(ChordRest* cr, bool skipGrace)
       for (Segment* seg = cr->segment()->next1MM(st); seg; seg = seg->next1MM(st)) {
             ChordRest* e = toChordRest(seg->element(track));
             if (e) {
+                  if (skipMeasureRepeatRests && e->isRest() && e->measure()->isMeasureRepeatGroup(track2staff(track)))
+                        continue; // these rests are not shown, skip them
                   if (e->isChord() && !skipGrace) {
                         Chord* c = toChord(e);
                         if (!c->graceNotes().empty()) {
@@ -112,15 +109,12 @@ ChordRest* nextChordRest(ChordRest* cr, bool skipGrace)
 //    if grace is true, include grace notes
 //---------------------------------------------------------
 
-ChordRest* prevChordRest(ChordRest* cr, bool skipGrace)
+ChordRest* prevChordRest(ChordRest* cr, bool skipGrace, bool skipMeasureRepeatRests)
       {
       if (!cr)
             return 0;
 
-      if (cr->isGrace()) {
-            //
-            // cr is a grace note
-
+      if (cr->isGrace()) { // cr is a grace note
             Chord* c  = toChord(cr);
             Chord* pc = toChord(cr->parent());
 
@@ -148,9 +142,7 @@ ChordRest* prevChordRest(ChordRest* cr, bool skipGrace)
                   return pc;
                   }
             }
-      else {
-            //
-            // cr is not a grace note
+      else { // cr is not a grace note
             if (cr->isChord() && !skipGrace) {
                   Chord* c = toChord(cr);
                   QVector<Chord*> cl = c->graceNotesBefore();
@@ -164,7 +156,9 @@ ChordRest* prevChordRest(ChordRest* cr, bool skipGrace)
       for (Segment* seg = cr->segment()->prev1MM(st); seg; seg = seg->prev1MM(st)) {
             ChordRest* e = toChordRest(seg->element(track));
             if (e) {
-                  if (e->type() == ElementType::CHORD && !skipGrace) {
+                  if (skipMeasureRepeatRests && e->isRest() && e->measure()->isMeasureRepeatGroup(track2staff(track)))
+                        continue; // these rests are not shown, skip them
+                  if (e->isChord() && !skipGrace) {
                         QVector<Chord*> cl = toChord(e)->graceNotesAfter();
                         if (!cl.empty())
                               return cl.last();
@@ -178,8 +172,8 @@ ChordRest* prevChordRest(ChordRest* cr, bool skipGrace)
 
 //---------------------------------------------------------
 //   upAlt
-//    element: Note() or Rest()
-//    return: Note() or Rest()
+//    element: Note, Rest, MMRest, or MeasureRepeat
+//    return: Note, Rest, MMRest, or MeasureRepeat
 //
 //    return next higher pitched note in chord
 //    move to previous track if at top of chord
@@ -188,7 +182,7 @@ ChordRest* prevChordRest(ChordRest* cr, bool skipGrace)
 Element* Score::upAlt(Element* element)
       {
       Element* re = 0;
-      if (element->isRest())
+      if (element->isRestFamily())
             re = prevTrack(toRest(element));
       else if (element->isNote()) {
             Note* note = toNote(element);
@@ -230,7 +224,7 @@ Note* Score::upAltCtrl(Note* note) const
 Element* Score::downAlt(Element* element)
       {
       Element* re = 0;
-      if (element->isRest())
+      if (element->isRestFamily())
             re = nextTrack(toRest(element));
       else if (element->isNote()) {
             Note* note   = toNote(element);
@@ -439,7 +433,7 @@ ChordRest* Score::downStaff(ChordRest* cr)
 //    that contains such an element
 //---------------------------------------------------------
 
-ChordRest* Score::nextTrack(ChordRest* cr)
+ChordRest* Score::nextTrack(ChordRest* cr, bool skipMeasureRepeatRests)
       {
       if (!cr)
             return 0;
@@ -458,6 +452,11 @@ ChordRest* Score::nextTrack(ChordRest* cr)
             // no more tracks, return original element
             if (track == tracks)
                   return cr;
+            // treat MeasureRepeat as if it starts in the first measure of its group even if internally it's farther along
+            if (cr->isMeasureRepeat()) {
+                  measure = measure->firstOfMeasureRepeatGroup(cr->staffIdx());
+                  return toChordRest(measure->first(SegmentType::ChordRest)->element(track));
+                  }
             // find element at same or previous segment within this track
             for (Segment* segment = cr->segment(); segment; segment = segment->prev(SegmentType::ChordRest)) {
                   el = toChordRest(segment->element(track));
@@ -465,6 +464,8 @@ ChordRest* Score::nextTrack(ChordRest* cr)
                         break;
                   }
             }
+      if (skipMeasureRepeatRests && el->isRest() && measure->isMeasureRepeatGroup(track2staff(track)))
+            el = measure->measureRepeatElement(track2staff(track));
       return el;
       }
 
@@ -475,7 +476,7 @@ ChordRest* Score::nextTrack(ChordRest* cr)
 //    that contains such an element
 //---------------------------------------------------------
 
-ChordRest* Score::prevTrack(ChordRest* cr)
+ChordRest* Score::prevTrack(ChordRest* cr, bool skipMeasureRepeatRests)
       {
       if (!cr)
             return 0;
@@ -493,6 +494,11 @@ ChordRest* Score::prevTrack(ChordRest* cr)
             // no more tracks, return original element
             if (track < 0)
                   return cr;
+            // treat MeasureRepeat as if it starts in the first measure of its group even if internally it's farther along
+            if (cr->isMeasureRepeat()) {
+                  measure = measure->firstOfMeasureRepeatGroup(cr->staffIdx());
+                  return toChordRest(measure->first(SegmentType::ChordRest)->element(track));
+                  }
             // find element at same or previous segment within this track
             for (Segment* segment = cr->segment(); segment; segment = segment->prev(SegmentType::ChordRest)) {
                   el = toChordRest(segment->element(track));
@@ -500,6 +506,8 @@ ChordRest* Score::prevTrack(ChordRest* cr)
                         break;
                   }
             }
+      if (skipMeasureRepeatRests && el->isRest() && measure->isMeasureRepeatGroup(track2staff(track)))
+            el = measure->measureRepeatElement(track2staff(track));
       return el;
       }
 
@@ -804,7 +812,7 @@ Element* Score::prevElement()
                                     }
                               Element* el = startSeg->lastElementOfSegment(startSeg, staffId);
                               if (stEl->type() == ElementType::CHORD || stEl->type() == ElementType::REST
-                                       || stEl->type() == ElementType::REPEAT_MEASURE || stEl->type() == ElementType::NOTE) {
+                                       || stEl->type() == ElementType::MEASURE_REPEAT || stEl->type() == ElementType::NOTE) {
                                     ChordRest* cr = startSeg->cr(stEl->track());
                                     if (cr) {
                                           Element* elCr = cr->lastElementBeforeSegment();

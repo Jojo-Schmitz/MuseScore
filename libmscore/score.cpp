@@ -37,6 +37,7 @@
 #include "line.h"
 #include "log.h"
 #include "lyrics.h"
+#include "measurerepeat.h"
 #include "measure.h"
 #include "mscore.h"
 #include "note.h"
@@ -45,7 +46,6 @@
 #include "part.h"
 #include "pitchspelling.h"
 #include "rehearsalmark.h"
-#include "repeat.h"
 #include "repeatlist.h"
 #include "rest.h"
 #include "revisions.h"
@@ -1662,7 +1662,7 @@ MeasureBase* Score::measure(int idx) const
 
 //---------------------------------------------------------
 //   crMeasure
-//    Returns a measure containing chords an rests
+//    Returns a measure containing chords and/or rests
 //    by its index skipping other MeasureBase descendants
 //---------------------------------------------------------
 
@@ -1960,7 +1960,7 @@ void MasterScore::addExcerpt(Excerpt* ex)
                   break;
                   }
             }
-      if (ex->tracks().isEmpty()) {      // SHOULDN'T HAPPEN, protected in the UI, but it happens during read-in!!!
+      if (ex->tracks().isEmpty()) { // SHOULDN'T HAPPEN, protected in the UI, but it happens during read-in!!!
             QMultiMap<int, int> tracks;
             for (Staff*& s : score->staves()) {
                   const LinkedElements* ls = s->links();
@@ -3308,7 +3308,7 @@ void Score::padToggle(Pad p, const EditData& ed)
                   ChordRest* cr = InputState::chordRest(e);
                   if (!cr)
                         continue;
-                  if (cr->isRepeatMeasure() || (cr->isRest() && toRest(cr)->measure() && toRest(cr)->measure()->isMMRest())) {
+                  if (cr->isMeasureRepeat() || (cr->isRest() && toRest(cr)->measure() && toRest(cr)->measure()->isMMRest())) {
                         canAdjustLength = false;
                         break;
                         }
