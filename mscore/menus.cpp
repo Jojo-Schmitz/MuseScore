@@ -696,7 +696,7 @@ PalettePanel* MuseScore::newRepeatsPalettePanel()
             Marker* mk = new Marker(gscore);
             mk->setMarkerType(markerTypeTable[i].type);
             mk->styleChanged();
-            sp->append(mk, markerTypeTable[i].name);
+            sp->append(mk, markerTypeTable[i].text);
             }
 
       for (int i = 0; i < jumpTypeTableSize(); i++) {

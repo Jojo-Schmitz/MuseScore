@@ -4034,7 +4034,7 @@ QString MusicXMLParserDirection::matchRepeat() const
  Try to find a Jump in \a repeat.
  */
 
-static Jump* findJump(const QString& repeat, Score* score)
+Jump* MusicXMLParserDirection::findJump(const QString& repeat, Score* score)
       {
       Jump* jp = 0;
       if (repeat == "daCapo") {
@@ -4072,7 +4072,7 @@ static Jump* findJump(const QString& repeat, Score* score)
  Try to find a Marker in \a repeat.
  */
 
-static Marker* findMarker(const QString& repeat, Score* score)
+Marker* MusicXMLParserDirection::findMarker(const QString& repeat, Score* score)
       {
       Marker* m = 0;
       if (repeat == "segno") {
@@ -4081,18 +4081,22 @@ static Marker* findMarker(const QString& repeat, Score* score)
             // avoid duplicated code
             // apparently this MUST be after setTextStyle
             m->setMarkerType(Marker::Type::SEGNO);
+            m->setLabel(m->propertyDefault(Pid::LABEL).value<QString>() + _segnoId);
             }
       else if (repeat == "coda") {
             m = new Marker(score);
             m->setMarkerType(Marker::Type::CODA);
+            m->setLabel(m->propertyDefault(Pid::LABEL).value<QString>() + _codaId);
             }
       else if (repeat == "fine") {
             m = new Marker(score, Tid::REPEAT_RIGHT);
             m->setMarkerType(Marker::Type::FINE);
+            m->resetProperty(Pid::LABEL);
             }
       else if (repeat == "toCoda") {
             m = new Marker(score, Tid::REPEAT_RIGHT);
             m->setMarkerType(Marker::Type::TOCODA);
+            m->setLabel(m->propertyDefault(Pid::LABEL).value<QString>() + _codaId);
             }
       return m;
       }
