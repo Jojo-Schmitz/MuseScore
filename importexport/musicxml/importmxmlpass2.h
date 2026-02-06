@@ -437,6 +437,8 @@ private:
       QString _sndFine;
       QString _sndSegno;
       QString _sndToCoda;
+      //QString _codaId;
+      //QString _segnoId;
       QString _placement;
       QString _play;
       bool _hasDefaultY;

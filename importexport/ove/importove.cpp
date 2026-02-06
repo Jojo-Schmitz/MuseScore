@@ -380,7 +380,7 @@ void OveToMScore::convertGroups() {
       for(i=0; i<ove_->getPartCount(); ++i ){
             int partStaffCount = ove_->getStaffCount(i);
             //if(parts == 0)
-            //	continue;
+            //      continue;
             Part* part = parts.at(i);
             if(part == 0)
                   continue;
@@ -2093,15 +2093,17 @@ void OveToMScore::convertRepeats(Measure* measure, int part, int staff, int trac
 
             switch(type) {
                   case OVE::RepeatType::Segno:{
-                        Marker* marker = new Marker(score_);
-                        marker->setMarkerType(Marker::Type::SEGNO);
-                        e = marker;
+                        Marker* m = new Marker(score_);
+                        m->setMarkerType(Marker::Type::SEGNO);
+                        m->resetProperty(Pid::LABEL);
+                        e = m;
                         break;
                         }
                   case OVE::RepeatType::Coda:{
-                        Marker* marker = new Marker(score_);
-                        marker->setMarkerType(Marker::Type::CODA);
-                        e = marker;
+                        Marker* m = new Marker(score_);
+                        m->setMarkerType(Marker::Type::CODA);
+                        m->resetProperty(Pid::LABEL);
+                        e = m;
                         break;
                         }
                   case OVE::RepeatType::DSAlCoda:{
@@ -2131,12 +2133,14 @@ void OveToMScore::convertRepeats(Measure* measure, int part, int staff, int trac
                   case OVE::RepeatType::ToCoda:{
                         Marker* m = new Marker(score_);
                         m->setMarkerType(Marker::Type::TOCODA);
+                        m->resetProperty(Pid::LABEL);
                         e = m;
                         break;
                         }
                   case OVE::RepeatType::Fine:{
                         Marker* m = new Marker(score_);
                         m->setMarkerType(Marker::Type::FINE);
+                        m->resetProperty(Pid::LABEL);
                         e = m;
                         break;
                         }

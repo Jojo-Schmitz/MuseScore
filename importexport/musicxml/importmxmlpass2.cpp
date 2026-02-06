@@ -4076,10 +4076,14 @@ static Marker* findMarker(const QString& repeat, Score* score)
             // avoid duplicated code
             // apparently this MUST be after setTextStyle
             m->setMarkerType(Marker::Type::SEGNO);
+            m->resetProperty(Pid::LABEL);
+            //m->setLabel(m->propertyDefault(Pid::LABEL).value<QString>()/* + _segnoId*/);
             }
       else if (repeat == "coda") {
             m = new Marker(score);
             m->setMarkerType(Marker::Type::CODA);
+            m->resetProperty(Pid::LABEL);
+            //m->setLabel(m->propertyDefault(Pid::LABEL).value<QString>()/* + _codaId*/);
             }
       else if (repeat == "fine") {
             m = new Marker(score, Tid::REPEAT_RIGHT);
@@ -4088,6 +4092,8 @@ static Marker* findMarker(const QString& repeat, Score* score)
       else if (repeat == "toCoda") {
             m = new Marker(score, Tid::REPEAT_RIGHT);
             m->setMarkerType(Marker::Type::TOCODA);
+            m->resetProperty(Pid::LABEL);
+            //m->setLabel(m->propertyDefault(Pid::LABEL).value<QString>()/* + _codaId*/);
             }
       return m;
       }
