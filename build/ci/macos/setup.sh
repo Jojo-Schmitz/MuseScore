@@ -20,9 +20,9 @@ if [ "$BUILD_ARCH" == "Apple" ]
 then
     export MACOSX_DEPLOYMENT_TARGET=11.0
 
-    curl -LO https://github.com/macports/macports-base/releases/download/v2.12.0/MacPorts-2.12.0-15-Sequoia.pkg
-    sudo installer -verbose -pkg MacPorts-2.12.0-15-Sequoia.pkg -target /
-    rm MacPorts-2.12.0-15-Sequoia.pkg
+    curl -LO https://github.com/macports/macports-base/releases/download/v2.12.1/MacPorts-2.12.1-15-Sequoia.pkg
+    sudo installer -verbose -pkg MacPorts-2.12.1-15-Sequoia.pkg -target /
+    rm MacPorts-2.12.1-15-Sequoia.pkg
     export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
     echo -e "universal_target ${MACOSX_DEPLOYMENT_TARGET}\nmacosx_deployment_target ${MACOSX_DEPLOYMENT_TARGET}\nmacosx_sdk_version ${MACOSX_DEPLOYMENT_TARGET}" | sudo tee -a /opt/local/etc/macports/macports.conf
     sudo port install pkgconfig
