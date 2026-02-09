@@ -42,7 +42,6 @@ enum class TType : char { TICKS, FRAMES };
 class Pos {
       TType _type;
       bool _valid;
-      mutable int sn;
       mutable unsigned _tick;
       mutable unsigned _frame;
 
@@ -71,8 +70,6 @@ class Pos {
       Pos snapped(int) const;
       Pos upSnapped(int) const;
       Pos downSnapped(int) const;
-
-      void invalidSn()  { sn = -1; }
 
       TType  type() const     { return _type; }
       void   setType(TType t);
