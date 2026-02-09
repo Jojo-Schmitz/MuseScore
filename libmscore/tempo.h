@@ -27,31 +27,24 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(TempoTypes);
 //---------------------------------------------------------
 
 struct TEvent {
-      TempoTypes type;
-      qreal tempo;     // beats per second
-      qreal pause;     // pause in seconds
-      qreal time;      // precomputed time for tick in sec
+      TempoTypes type = TempoType::INVALID;
+      qreal tempo = 0.0;
+      double pause = 0.0; // pause in seconds
+      double time = 0.0;  // precomputed time for tick in sec
 
-      TEvent();
-      TEvent(const TEvent& e);
-      TEvent(qreal bps, qreal seconds, TempoType t);
+      TEvent() = default;
+      TEvent(qreal bps, qreal pauseInSeconds, TempoType t);
       bool valid() const;
       };
 
-//---------------------------------------------------------
-//   Tempomap
-//---------------------------------------------------------
-
 class TempoMap : public std::map<int, TEvent> {
-      int _tempoSN;           // serial no to track tempo changes
-      qreal _tempo;           // tempo if not using tempo list (beats per second)
-      qreal _relTempo;        // rel. tempo
+      qreal _tempo = 2.0;           // tempo if not using tempo list (beats per second)
+      qreal _relTempo = 1.0;        // rel. tempo
 
       void normalize();
-      void del(int tick);
 
    public:
-      TempoMap();
+      TempoMap() = default;
       void clear();
       void clearRange(int tick1, int tick2);
 
@@ -59,12 +52,8 @@ class TempoMap : public std::map<int, TEvent> {
 
       qreal tempo(int tick) const;
 
-      qreal tick2time(int tick, int* sn = 0) const;
-      qreal tick2timeLC(int tick, int* sn) const;
-      qreal tick2time(int tick, qreal time, int* sn) const;
-      int time2tick(qreal time, int* sn = 0) const;
-      int time2tick(qreal time, int tick, int* sn) const;
-      int tempoSN() const { return _tempoSN; }
+      qreal tick2time(int tick) const;
+      int time2tick(qreal time) const;
 
       void setTempo(int t, qreal);
       void setPause(int t, qreal);

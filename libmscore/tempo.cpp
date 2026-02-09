@@ -14,49 +14,14 @@
 #include "tempo.h"
 
 namespace Ms {
-
-//---------------------------------------------------------
-//   TEvent
-//---------------------------------------------------------
-
-TEvent::TEvent()
+TEvent::TEvent(const qreal t, const double p, const TempoType tp)
+    : type(tp), tempo(t), pause(p)
       {
-      type     = TempoType::INVALID;
-      tempo    = 0.0;
-      pause    = 0.0;
-      time     = 0.0;
-      }
-
-TEvent::TEvent(const TEvent& e)
-      {
-      type  = e.type;
-      tempo = e.tempo;
-      pause = e.pause;
-      time  = e.time;
-      }
-
-TEvent::TEvent(qreal t, qreal p, TempoType tp)
-      {
-      type  = tp;
-      tempo = t;
-      pause = p;
-      time  = 0.0;
       }
 
 bool TEvent::valid() const
       {
       return !(!type);
-      }
-
-//---------------------------------------------------------
-//   TempoMap
-//---------------------------------------------------------
-
-TempoMap::TempoMap()
-      {
-      _tempo    = 2.0;        // default fixed tempo in beat per second
-      _tempoSN  = 1;
-      _relTempo = 1.0;
       }
 
 //---------------------------------------------------------
@@ -114,7 +79,6 @@ void TempoMap::normalize()
             tick  = e->first;
             tempo = e->second.tempo;
             }
-      ++_tempoSN;
       }
 
 //---------------------------------------------------------
@@ -136,7 +100,6 @@ void TempoMap::dump() const
 void TempoMap::clear()
       {
       std::map<int,TEvent>::clear();
-      ++_tempoSN;
       }
 
 //---------------------------------------------------------
@@ -152,7 +115,6 @@ void TempoMap::clearRange(int tick1, int tick2)
       if (first == last)
             return;
       erase(first, last);
-      ++_tempoSN;
       }
 
 //---------------------------------------------------------
@@ -176,25 +138,6 @@ qreal TempoMap::tempo(int tick) const
       return i->second.tempo;
       }
 
-//---------------------------------------------------------
-//   del
-//---------------------------------------------------------
-
-void TempoMap::del(int tick)
-      {
-      auto e = find(tick);
-      if (e == end()) {
-            qDebug("TempoMap::del event at (%d): not found", tick);
-            // abort();
-            return;
-            }
-      // don't delete event if still being used for pause
-      if (e->second.type & TempoType::PAUSE)
-            e->second.type = TempoType::PAUSE;
-      else
-            erase(e);
-      normalize();
-      }
 
 //---------------------------------------------------------
 //   setRelTempo
@@ -212,34 +155,21 @@ void TempoMap::setRelTempo(qreal val)
 
 void TempoMap::delTempo(int tick)
       {
-      del(tick);
-      ++_tempoSN;
+      auto e = find(tick);
+      if (e == end()) {
+            qDebug("TempoMap::del event at (%d): not found", tick);
+            // abort();
+            return;
+            }
+      // don't delete event if still being used for pause
+      if (e->second.type & TempoType::PAUSE)
+            e->second.type = TempoType::PAUSE;
+      else
+            erase(e);
+      normalize();
       }
 
-//---------------------------------------------------------
-//   tick2time
-//---------------------------------------------------------
-
-qreal TempoMap::tick2time(int tick, qreal time, int* sn) const
-      {
-      return (*sn == _tempoSN) ? time : tick2time(tick, sn);
-      }
-
-//---------------------------------------------------------
-//   time2tick
-//    return cached value t if list did not change
-//---------------------------------------------------------
-
-int TempoMap::time2tick(qreal time, int t, int* sn) const
-      {
-      return (*sn == _tempoSN) ? t : time2tick(time, sn);
-      }
-
-//---------------------------------------------------------
-//   tick2time
-//---------------------------------------------------------
-
-qreal TempoMap::tick2time(int tick, int* sn) const
+qreal TempoMap::tick2time(int tick) const
       {
       qreal time  = 0.0;
       qreal delta = qreal(tick);
@@ -271,8 +201,7 @@ qreal TempoMap::tick2time(int tick, int* sn) const
             }
       else
             qDebug("TempoMap: empty");
-      if (sn)
-            *sn = _tempoSN;
+
       time += delta / (MScore::division * tempo * _relTempo);
       return time;
       }
@@ -281,14 +210,12 @@ qreal TempoMap::tick2time(int tick, int* sn) const
 //   time2tick
 //---------------------------------------------------------
 
-int TempoMap::time2tick(qreal time, int* sn) const
+int TempoMap::time2tick(qreal time) const
       {
       int tick     = 0;
-      qreal delta = time;
-      qreal tempo = _tempo;
+      qreal delta = 0.0;
+      qreal tempo = 2.0;
 
-      delta = 0.0;
-      tempo = 2.0;
       for (auto e = begin(); e != end(); ++e) {
             // if in a pause period, wait on previous tick
             if ((time <= e->second.time) && (time > e->second.time - e->second.pause)) {
@@ -303,8 +230,7 @@ int TempoMap::time2tick(qreal time, int* sn) const
             }
       delta = time - delta;
       tick += (int)lrint(delta * _relTempo * MScore::division * tempo);
-      if (sn)
-            *sn = _tempoSN;
+
       return tick;
       }
 
