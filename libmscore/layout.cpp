@@ -2695,8 +2695,18 @@ static bool breakMultiMeasureRest(Measure* m)
                               }
                         }
                   }
-            if (pm->findSegment(SegmentType::Clef, m->tick()))
-                  return true;
+            // Check for courtesy clefs at the end of the previous measure
+            // Only break if the clef is on a visible staff
+            Segment* clefSeg = pm->findSegment(SegmentType::Clef, m->tick());
+            if (clefSeg) {
+                  for (int staffIdx = 0; staffIdx < clefSeg->score()->nstaves(); ++staffIdx) {
+                        if (!clefSeg->score()->staff(staffIdx)->show())
+                              continue;
+                        Element* e = clefSeg->element(staffIdx * VOICES);
+                        if (e && !e->generated())
+                              return true;
+                        }
+                  }
             }
       return false;
       }
