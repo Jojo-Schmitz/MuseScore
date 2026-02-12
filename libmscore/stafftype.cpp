@@ -1244,10 +1244,10 @@ QList<QString> StaffType::fontNames(bool bDuration)
       {
       QList<QString> names;
       if(bDuration)
-            foreach(const TablatureDurationFont& f, _durationFonts)
+            for (const TablatureDurationFont& f : _durationFonts)
                   names.append(f.displayName);
       else
-            foreach(const TablatureFretFont& f, _fretFonts)
+            for (const TablatureFretFont& f : _fretFonts)
                   names.append(f.displayName);
       return names;
       }

@@ -848,23 +848,23 @@ bool ScoreElement::isSLineSegment() const
 
 bool ScoreElement::isTextBase() const
       {
-      return type()  == ElementType::TEXT
-         || type() == ElementType::LYRICS
-         || type() == ElementType::DYNAMIC
-         || type() == ElementType::FINGERING
-         || type() == ElementType::HARMONY
-         || type() == ElementType::MARKER
-         || type() == ElementType::JUMP
-         || type() == ElementType::STAFF_TEXT
-         || type() == ElementType::SYSTEM_TEXT
-         || type() == ElementType::REHEARSAL_MARK
-         || type() == ElementType::INSTRUMENT_CHANGE
-         || type() == ElementType::FIGURED_BASS
-         || type() == ElementType::TEMPO_TEXT
-         || type() == ElementType::INSTRUMENT_NAME
-         || type() == ElementType::MEASURE_NUMBER
-         || type() == ElementType::MMREST_RANGE
-         || type() == ElementType::STICKING
+      return isText()
+         || isLyrics()
+         || isDynamic()
+         || isFingering()
+         || isHarmony()
+         || isMarker()
+         || isJump()
+         || isStaffText()
+         || isSystemText()
+         || isRehearsalMark()
+         || isInstrumentChange()
+         || isFiguredBass()
+         || isTempoText()
+         || isInstrumentName()
+         || isMeasureNumber()
+         || isMMRestRange()
+         || isSticking()
          ;
       }
 

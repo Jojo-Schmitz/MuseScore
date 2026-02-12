@@ -398,7 +398,7 @@ Ms::SynthesizerGroup Zerberus::state() const
       g.setName(name());
 
       QStringList sfl = soundFonts();
-      foreach(QString sf, sfl)
+      for (QString sf : sfl)
             g.push_back(Ms::IdValue(0, sf));
       return g;
       }
@@ -461,7 +461,7 @@ bool Zerberus::loadInstrument(const QString& s)
 
       QFileInfoList l = Zerberus::sfzFiles();
       QString path;
-      foreach (const QFileInfo& fi, l) {
+      for (const QFileInfo& fi : l) {
             if (fi.fileName() == fileName) {
                   path = fi.absoluteFilePath();
                   break;

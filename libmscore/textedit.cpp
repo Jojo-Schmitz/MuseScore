@@ -335,13 +335,13 @@ bool TextBase::edit(EditData& ed)
                         return true;
 
                   case Qt::Key_Left:
-                        if (!_cursor->movePosition(ctrlPressed ? QTextCursor::WordLeft : QTextCursor::Left, mm) && type() == ElementType::LYRICS)
+                        if (!_cursor->movePosition(ctrlPressed ? QTextCursor::WordLeft : QTextCursor::Left, mm) && isLyrics())
                               return false;
                         s.clear();
                         break;
 
                   case Qt::Key_Right:
-                        if (!_cursor->movePosition(ctrlPressed ? QTextCursor::NextWord : QTextCursor::Right, mm) && type() == ElementType::LYRICS)
+                        if (!_cursor->movePosition(ctrlPressed ? QTextCursor::NextWord : QTextCursor::Right, mm) && isLyrics())
                               return false;
                         s.clear();
                         break;

@@ -174,23 +174,23 @@ bool compareElements(Element* e1, Element* e2)
       {
       if (e1->type() != e2->type())
             return false;
-      if (e1->type() == ElementType::TIMESIG) {
+      if (e1->isTimeSig()) {
             }
-      else if (e1->type() == ElementType::KEYSIG) {
-            KeySig* ks1 = static_cast<KeySig*>(e1);
-            KeySig* ks2 = static_cast<KeySig*>(e2);
+      else if (e1->isKeySig()) {
+            KeySig* ks1 = toKeySig(e1);
+            KeySig* ks2 = toKeySig(e2);
             if (ks1->key() != ks2->key()) {
                   qDebug("      key signature %d  !=  %d", int(ks1->key()), int(ks2->key()));
                   return false;
                   }
             }
-      else if (e1->type() == ElementType::CLEF) {
+      else if (e1->isClef()) {
             }
-      else if (e1->type() == ElementType::REST) {
+      else if (e1->isRest()) {
             }
-      else if (e1->type() == ElementType::CHORD) {
-            Ms::Chord* c1 = static_cast<Ms::Chord*>(e1);
-            Ms::Chord* c2 = static_cast<Ms::Chord*>(e2);
+      else if (e1->isChord()) {
+            Ms::Chord* c1 = toChord(e1);
+            Ms::Chord* c2 = toChord(e2);
             if (c1->ticks() != c2->ticks()) {
                   Fraction f1 = c1->ticks();
                   Fraction f2 = c2->ticks();

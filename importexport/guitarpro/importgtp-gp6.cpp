@@ -801,9 +801,9 @@ void GuitarPro6::makeTie(Note* note)
       while (segment) {
             Element* e = segment->element(track);
             if (e) {
-                  if (e->type() == ElementType::CHORD) {
-                        Chord* chord2 = static_cast<Chord*>(e);
-                        foreach(Note* note2, chord2->notes()) {
+                  if (e->isChord()) {
+                        Chord* chord2 = toChord(e);
+                        for (Note* note2 : chord2->notes()) {
                               if (note2->string() == note->string()) {
                                     Tie* tie = new Tie(score);
                                     tie->setEndNote(note);
@@ -959,7 +959,7 @@ Fraction GuitarPro6::readBeats(QString beats, GPPartInfo* partInfo, Measure* mea
                                                 note->add(dot);
                                                 }
 
-                                          Chord* chord = static_cast<Chord*>(cr);
+                                          Chord* chord = toChord(cr);
                                           chord->add(note);
                                           QString harmonicText = "";
                                           bool use_harmonic    = true;
@@ -1487,8 +1487,8 @@ Fraction GuitarPro6::readBeats(QString beats, GPPartInfo* partInfo, Measure* mea
                                                 int strack = staffIdx * VOICES;
                                                 int etrack = staffIdx * VOICES + VOICES;
                                                 for (const Element* e : segment->annotations()) {
-                                                      if (e->type() == ElementType::STAFF_TEXT && e->track() >= strack && e->track() < etrack) {
-                                                            const StaffText* st = static_cast<const StaffText*>(e);
+                                                      if (e->isStaffText() && e->track() >= strack && e->track() < etrack) {
+                                                            const StaffText* st = toStaffText(e);
                                                             if (!st->xmlText().compare(text)) {
                                                                   t = true;
                                                                   break;
@@ -1537,7 +1537,7 @@ Fraction GuitarPro6::readBeats(QString beats, GPPartInfo* partInfo, Measure* mea
                                                       addVibrato(note, Vibrato::Type::GUITAR_VIBRATO_WIDE);
                                                 }
 
-                                          if (cr && (cr->type() == ElementType::CHORD) && sl > 0)
+                                          if (cr && (cr->isChord()) && sl > 0)
                                                 createSlide(sl, cr, staffIdx);
                                           note->setTpcFromPitch();
 
@@ -1597,7 +1597,7 @@ Fraction GuitarPro6::readBeats(QString beats, GPPartInfo* partInfo, Measure* mea
                                                       lyrNote = nullptr;
                                                       }
                                                 }
-                                          else if (!graceNode.toElement().text().compare("BeforeBeat") && chord->type() == ElementType::CHORD) {
+                                          else if (!graceNode.toElement().text().compare("BeforeBeat") && chord->isChord()) {
                                                 auto gNote = score->setGraceNote(chord, lyrNote->pitch(), NoteType::ACCIACCATURA, MScore::division / 2);
                                                 auto iter1  = slideMap.end();
                                                 for (auto beg = slideMap.begin(); beg != slideMap.end(); ++beg) {
@@ -1778,7 +1778,7 @@ Fraction GuitarPro6::readBeats(QString beats, GPPartInfo* partInfo, Measure* mea
                         tuplet->add(cr);
                         }
                   cr->setTicks(l);
-                  if (cr->type() == ElementType::REST && l >= measure->ticks()) {
+                  if (cr->isRest() && l >= measure->ticks()) {
                         cr->setDurationType(TDuration::DurationType::V_MEASURE);
                         cr->setTicks(measure->ticks());
                         }
@@ -1979,8 +1979,8 @@ bool checkForHold(Segment* segment, QList<PitchValue> points)
       Segment* prevSeg = segment->prev1(SegmentType::ChordRest);
       if (!prevSeg)
             return false;
-      foreach (Element* e, prevSeg->annotations()) {
-            if (e->type() == ElementType::TREMOLOBAR) {
+      for (Element* e : prevSeg->annotations()) {
+            if (e->isTremoloBar()) {
                   QList<PitchValue> prevPoints = ((TremoloBar*)e)->points();
                   if (prevPoints.length() != points.length())
                         break;
@@ -2047,8 +2047,8 @@ void GuitarPro6::addTremoloBar(Segment* segment, int track, int whammyOrigin, in
             Segment* prevSeg = segment->prev1(SegmentType::ChordRest);
             if (!prevSeg)
                   return;
-            foreach (Element* e, prevSeg->annotations()) {
-                  if (e->type() == ElementType::TREMOLOBAR) {
+            for (Element* e : prevSeg->annotations()) {
+                  if (e->isTremoloBar()) {
                         QList<PitchValue> prevPoints = ((TremoloBar*)e)->points();
                         QList<PitchValue> points;
                         points.append(PitchValue(0, prevPoints[prevPoints.length() - 1].pitch, false));
@@ -2390,7 +2390,7 @@ void GuitarPro6::readMasterBars(GPPartInfo* partInfo)
                                                 for (const Segment* seg = measure->prevMeasure()->last(); seg; seg = seg->prev1()) {
                                                       Element* el = seg->element(i);
                                                       if (el && el->isChord()) {
-                                                            c = static_cast<Chord*>(el);
+                                                            c = toChord(el);
                                                             break;
                                                             }
                                                       }
@@ -2496,7 +2496,7 @@ void GuitarPro6::readGpif(QByteArray* data)
                   for (const Segment* seg = score->lastSegment(); seg; seg = seg->prev1()) {
                         Element* el = seg->element(i);
                         if (el && el->isChord()) {
-                              c = static_cast<Chord*>(el);
+                              c = toChord(el);
                               break;
                               }
                         }

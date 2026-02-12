@@ -453,6 +453,7 @@ void TestCopyPaste::copypasteSplitNoteOverBarDrumStave()
 
       QVERIFY(saveCompareScore(score, QString("copypasteSplit04.mscx"),
          DIR + "copypasteSplit04-ref.mscx"));
+      delete score;
 }
 
 //---------------------------------------------------------
@@ -537,6 +538,7 @@ void TestCopyPaste::copypastenote(const QString& idx, Fraction scale)
       score->cmdPaste(&mimeData, 0, scale);
       score->endCmd();
       QVERIFY(saveCompareScore(score, "copypasteNote" + idx + ".mscx", DIR + "copypasteNote" + idx + "-ref.mscx"));
+      delete score;
       }
 
 QTEST_MAIN(TestCopyPaste)

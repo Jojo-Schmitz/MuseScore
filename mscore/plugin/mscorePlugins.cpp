@@ -38,7 +38,7 @@ void MuseScore::registerPlugin(PluginDescription* plugin)
             return;
       QString baseName = np.completeBaseName();
 
-      foreach(QString s, plugins) {
+      for (QString s : plugins) {
             QFileInfo fi(s);
             if (fi.completeBaseName() == baseName) {
                   if (MScore::debugMode)
@@ -61,7 +61,7 @@ void MuseScore::registerPlugin(PluginDescription* plugin)
       obj = component.create();
       if (obj == 0) {
             qDebug("creating component <%s> failed", qPrintable(_pluginPath));
-            foreach(QQmlError e, component.errors()) {
+            for (QQmlError e : component.errors()) {
                   qDebug("   line %d: %s", e.line(), qPrintable(e.description()));
                   }
             return;
@@ -103,7 +103,7 @@ void MuseScore::unregisterPlugin(PluginDescription* plugin)
       QString baseName = np.completeBaseName();
 
       bool found = false;
-      foreach(QString s, plugins) {
+      for (QString s : plugins) {
             QFileInfo fi(s);
             if (fi.completeBaseName() == baseName) {
                   found = true;
@@ -136,7 +136,7 @@ void MuseScore::createMenuEntry(PluginDescription* plugin)
       QStringList ml;
       QString s;
       bool escape = false;
-      foreach (QChar c, menu) {
+      for (QChar c : menu) {
             if (escape) {
                   escape = false;
                   s += c;
@@ -165,7 +165,7 @@ void MuseScore::createMenuEntry(PluginDescription* plugin)
             QString m  = ml[i];
             bool found = false;
             QList<QObject*> ol = curMenu->children();
-            foreach(QObject* o, ol) {
+            for (QObject* o : ol) {
                   QMenu* cmenu = qobject_cast<QMenu*>(o);
                   if (!cmenu)
                         continue;
@@ -190,7 +190,7 @@ void MuseScore::createMenuEntry(PluginDescription* plugin)
                         if (sl.size() == 2) {
                               QList<QAction*> al = cm->actions();
                               QAction* ba = 0;
-                              foreach(QAction* ia, al) {
+                              for (QAction* ia : al) {
                                     if (ia->text() == sl[0]) {
                                           ba = ia;
                                           break;
@@ -235,7 +235,7 @@ void MuseScore::removeMenuEntry(PluginDescription* plugin)
       QStringList ml;
       QString s;
       bool escape = false;
-      foreach (QChar c, menu) {
+      for (QChar c : menu) {
             if (escape) {
                   escape = false;
                   s += c;
@@ -266,7 +266,7 @@ void MuseScore::removeMenuEntry(PluginDescription* plugin)
       for(int i = 0; i < n-1; ++i) {
             QString m  = ml[i];
             QList<QObject*> ol = curMenu->children();
-            foreach(QObject* o, ol) {
+            for (QObject* o : ol) {
                   QMenu* cmenu = qobject_cast<QMenu*>(o);
                   if (!cmenu)
                         continue;
@@ -299,7 +299,7 @@ int MuseScore::pluginIdxFromPath(QString _pluginPath) {
       QFileInfo np(_pluginPath);
       QString baseName = np.completeBaseName();
       int idx = 0;
-      foreach(QString s, plugins) {
+      for (QString s : plugins) {
             QFileInfo fi(s);
             if (fi.completeBaseName() == baseName)
                   return idx;
@@ -382,7 +382,7 @@ QmlPlugin* pluginFromPath(QmlPluginEngine* engine, QString pluginPath)
       component.loadUrl(QUrl::fromLocalFile(pluginPath));
       QObject* obj = component.create();
       if (!obj ) {
-            foreach(QQmlError e, component.errors())
+            for (QQmlError e : component.errors())
                   qDebug("   line %d: %s", e.line(), qPrintable(e.description()));
             return nullptr;
             }
@@ -517,7 +517,7 @@ bool collectPluginMetaInformation(PluginDescription* d)
       QObject* obj = component.create();
       if (obj == 0) {
             qDebug("creating component <%s> failed", qPrintable(d->path));
-            foreach(QQmlError e, component.errors()) {
+            for (QQmlError e : component.errors()) {
                   qDebug("   line %d: %s", e.line(), qPrintable(e.description()));
                   }
             return false;

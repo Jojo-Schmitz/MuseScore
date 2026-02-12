@@ -120,7 +120,7 @@ AveragePitch findAverageSegPitch(const Segment *seg, int strack)
       {
       AveragePitch averagePitch;
       for (int voice = 0; voice < VOICES; ++voice) {
-            ChordRest *cr = static_cast<ChordRest *>(seg->element(strack + voice));
+            ChordRest *cr = toChordRest(seg->element(strack + voice));
             if (cr && cr->isChord()) {
                   Chord *chord = toChord(cr);
                   const auto &notes = chord->notes();
@@ -135,7 +135,7 @@ MinMaxPitch findMinMaxSegPitch(const Segment *seg, int strack)
       {
       MinMaxPitch minMaxPitch;
       for (int voice = 0; voice < VOICES; ++voice) {
-            ChordRest *cr = static_cast<ChordRest *>(seg->element(strack + voice));
+            ChordRest *cr = toChordRest(seg->element(strack + voice));
             if (cr && cr->isChord()) {
                   Chord *chord = toChord (cr);
                   const auto &notes = chord->notes();
@@ -156,13 +156,13 @@ bool doesClefBreakTie(const Staff *staff)
       for (int voice = 0; voice < VOICES; ++voice) {
             bool currentTie = false;
             for (Segment *seg = staff->score()->firstSegment(SegmentType::All); seg; seg = seg->next1()) {
-                  if (seg->segmentType() == SegmentType::ChordRest) {
+                  if (seg->isChordRestType()) {
                         if (MidiTie::isTiedBack(seg, strack, voice))
                               currentTie = false;
                         if (MidiTie::isTiedFor(seg, strack, voice))
                               currentTie = true;
                         }
-                  else if (seg->segmentType() == SegmentType::Clef && seg->element(strack)) {
+                  else if (seg->isClefType() && seg->element(strack)) {
                         if (currentTie) {
                               qDebug() << "Clef breaks tie; measure number (from 1):"
                                        << seg->measure()->no() + 1
@@ -223,7 +223,7 @@ findChordRest(const Segment *seg, int strack)
       ElementType elType = ElementType::INVALID;
       ReducedFraction newRestLen(0, 1);
       for (int voice = 0; voice < VOICES; ++voice) {
-            ChordRest *cr = static_cast<ChordRest *>(seg->element(strack + voice));
+            ChordRest *cr = toChordRest(seg->element(strack + voice));
             if (!cr)
                   continue;
             if (cr->isChord()) {

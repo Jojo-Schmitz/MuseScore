@@ -284,10 +284,10 @@ void DrumView::setStaff(Staff* s, Pos* l)
       for (Segment* seg = staff->score()->firstSegment(SegmentType::All); seg; seg = seg->next1()) {
             for (int track = startTrack; track < endTrack; ++track) {
                   Element* e = seg->element(track);
-                  if (e == 0 || e->type() != ElementType::CHORD)
+                  if (e == 0 || !e->isChord())
                         continue;
-                  Chord* chord = static_cast<Chord*>(e);
-                  foreach(Note* n, chord->notes()) {
+                  Chord* chord = toChord(e);
+                  for (Note* n : chord->notes()) {
                         if (n->tieBack())
                               continue;
                         scene()->addItem(new DrumItem(n));
@@ -307,7 +307,7 @@ void DrumView::setStaff(Staff* s, Pos* l)
       //
       QList<QGraphicsItem*> items = scene()->selectedItems();
       QRectF boundingRect;
-      foreach(QGraphicsItem* item, items) {
+      for (QGraphicsItem* item : items) {
             Note* note = static_cast<Note*>(item->data(0).value<void*>());
             if (note)
                   boundingRect |= item->mapToScene(item->boundingRect()).boundingRect();

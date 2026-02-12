@@ -43,7 +43,7 @@ StringData::StringData(int numFrets, QList<instrString>& strings)
       _frets = numFrets;
 
       stringTable.clear();
-      foreach(instrString i, strings)
+      for (instrString i : strings)
             stringTable.append(i);
       }
 
@@ -87,7 +87,7 @@ void StringData::write(XmlWriter& xml) const
       {
       xml.stag("StringData");
       xml.tag("frets", _frets);
-      foreach(instrString strg, stringTable) {
+      for (instrString strg : stringTable) {
             if (strg.open)
                   xml.tag("string open=\"1\"", strg.pitch);
             else
@@ -171,7 +171,7 @@ void StringData::fretChords(Chord * chord) const
       int pitchOffset = -transp + chord->staff()->pitchOffset(chord->segment()->tick());
       // if chord parent is not a segment, the chord is special (usually a grace chord):
       // fret it by itself, ignoring the segment
-      if (chord->parent()->type() != ElementType::SEGMENT)
+      if (!chord->parent()->isSegment())
             sortChordNotes(sortedNotes, chord, pitchOffset, &count);
       else {
             // scan each chord of seg from same staff as 'chord', inserting each of its notes in sortedNotes
@@ -181,14 +181,14 @@ void StringData::fretChords(Chord * chord) const
             int trkTo   = trkFrom + VOICES;
             for(trk = trkFrom; trk < trkTo; ++trk) {
                   Element* ch = seg->elist().at(trk);
-                  if (ch && ch->type() == ElementType::CHORD)
+                  if (ch && ch->isChord())
                         sortChordNotes(sortedNotes, toChord(ch), pitchOffset, &count);
                   }
             }
       // determine used range of frets
       minFret = INT32_MAX;
       maxFret = INT32_MIN;
-      foreach(Note* note, sortedNotes) {
+      for (Note*& note : sortedNotes) {
             if (note->string() != INVALID_STRING_INDEX)
                   bUsed[note->string()]++;
             if (note->fret() != INVALID_FRET_INDEX && note->fret() < minFret)
@@ -198,7 +198,7 @@ void StringData::fretChords(Chord * chord) const
       }
 
       // scan chord notes from highest, matching with strings from the highest
-      foreach(Note * note, sortedNotes) {
+      for (Note*& note : sortedNotes) {
             nString     = nNewString    = note->string();
             nFret       = nNewFret      = note->fret();
             note->setFretConflict(false);       // assume no conflicts on this note
