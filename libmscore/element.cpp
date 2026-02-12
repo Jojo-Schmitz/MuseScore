@@ -98,6 +98,8 @@
 #include "volta.h"
 #include "xml.h"
 
+#include "mscore/preferences.h"
+
 namespace Ms {
 
 // extern bool showInvisible;
@@ -415,7 +417,9 @@ QColor Element::curColor(bool isVisible, QColor normalColor) const
             }
       if (selected() || marked ) {
             QColor originalColor;
-            if (track() == -1)
+            if (score()->selection().isComparison() && preferences.getBool(PREF_SCORE_COMPARISON_SELECTION_COLOR_ENABLED))
+                  originalColor = preferences.getColor(PREF_SCORE_COMPARISON_SELECTION_COLOR);
+            else if (track() == -1)
                   originalColor = MScore::selectColor[0];
             else
                   originalColor = MScore::selectColor[voice()];

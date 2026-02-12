@@ -71,6 +71,7 @@ enum class SelState : char {
       LIST,   // disjoint selection
       RANGE,  // adjacent selection, a range in one or more staves
                   // is selected
+      COMPARISON,
       };
 
 //---------------------------------------------------------
@@ -175,6 +176,7 @@ class Selection {
       bool isNone() const              { return _state == SelState::NONE; }
       bool isRange() const             { return _state == SelState::RANGE; }
       bool isList() const              { return _state == SelState::LIST; }
+      bool isComparison() const        { return _state == SelState::COMPARISON; }
       void setState(SelState s);
 
       //! NOTE If locked, the selected items should not be changed.

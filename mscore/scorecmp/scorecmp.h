@@ -66,6 +66,8 @@ class ScoreComparisonTool : public QDockWidget {
       void on_intelligentModeRadioButton_toggled(bool);
       void on_intelligentDiffView_activated(const QModelIndex&);
       void selectedVersionsChanged();
+      void on_colorEnable_stateChanged(int);
+      void on_colorButton_clicked();
 
    protected:
       void changeEvent(QEvent* e) override;

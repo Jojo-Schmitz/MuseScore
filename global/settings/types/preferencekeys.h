@@ -127,6 +127,8 @@
 #define PREF_SCORE_NOTE_INPUT_DISABLE_MOUSE_INPUT           "ui/score/noteEntry/disableMouseEntry"
 #define PREF_SCORE_STYLE_DEFAULTSTYLEFILE                   "score/style/defaultStyleFile"
 #define PREF_SCORE_STYLE_PARTSTYLEFILE                      "score/style/partStyleFile"
+#define PREF_SCORE_COMPARISON_SELECTION_COLOR               "ui/score/selection/comparison/color"
+#define PREF_SCORE_COMPARISON_SELECTION_COLOR_ENABLED       "ui/score/selection/comparison/color/enabled"
 #define PREF_UI_CANVAS_BG_USECOLOR                          "ui/canvas/background/useColor"
 #define PREF_UI_CANVAS_FG_USECOLOR                          "ui/canvas/foreground/useColor"
 #define PREF_UI_CANVAS_FG_USECOLOR_IN_PALETTES              "ui/canvas/foreground/useColorInPalettes"
