@@ -22,6 +22,8 @@
 
 #include "libmscore/scorediff.h"
 
+#include "preferences.h"
+
 namespace Ms {
 
 //---------------------------------------------------------
@@ -35,6 +37,11 @@ ScoreComparisonTool::ScoreComparisonTool(QWidget* parent)
       _mode = Mode::INTELLIGENT;
       _ui->intelligentModeRadioButton->setChecked(true);
       _ui->diffWidget->setCurrentWidget(_ui->pageIntelligentDiff);
+
+      const QColor selectionColor = _ui->colorEnable->isChecked() ? preferences.getColor(PREF_SCORE_COMPARISON_SELECTION_COLOR) : MScore::selectColor[0];
+      _ui->colorButton->setStyleSheet("background-color:" + selectionColor.name());
+      _ui->colorEnable->setChecked(preferences.getBool(PREF_SCORE_COMPARISON_SELECTION_COLOR_ENABLED));
+
       connect(
          _ui->score1ComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
          this, &ScoreComparisonTool::selectedVersionsChanged);
@@ -464,7 +471,7 @@ void ScoreComparisonTool::showElement(const ScoreElement* se, bool select)
             if (el->isChordRest())
                   score->select(el, SelectType::RANGE);
             else
-                  score->select(el);
+                  score->select(el, SelectType::COMPARISON);
             }
 
       if (score1 == score) {
@@ -516,4 +523,33 @@ void ScoreComparisonTool::slotWindowSplit(bool split)
                );
             }
       }
+
+//---------------------------------------------------------
+//   on_colorEnable_stateChanged
+//    update color selector when enabled/disabled
+//---------------------------------------------------------
+
+void ScoreComparisonTool::on_colorEnable_stateChanged(int state)
+      {
+      const bool checked = (state == Qt::Checked);
+      preferences.setPreference(PREF_SCORE_COMPARISON_SELECTION_COLOR_ENABLED, checked);
+      const QColor color = checked ? preferences.getColor(PREF_SCORE_COMPARISON_SELECTION_COLOR) : MScore::selectColor[0];
+      _ui->colorButton->setStyleSheet("background-color:" + color.name());
+      }
+
+//---------------------------------------------------------
+//   on_colorButton_clicked
+//    Select special color for comparison selection
+//---------------------------------------------------------
+
+void ScoreComparisonTool::on_colorButton_clicked()
+      {
+      const QColor curColor = preferences.getColor(PREF_SCORE_COMPARISON_SELECTION_COLOR);
+      const QColor newColor = QColorDialog::getColor(curColor, this);
+      if (newColor.isValid()) {
+            preferences.setPreference(PREF_SCORE_COMPARISON_SELECTION_COLOR, newColor);
+            _ui->colorButton->setStyleSheet("background-color:" + newColor.name());
+            }
+      }
+
 }

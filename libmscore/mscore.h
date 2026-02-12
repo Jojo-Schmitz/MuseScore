@@ -141,7 +141,7 @@ enum class TransposeMode : char {
 //---------------------------------------------------------
 
 enum class SelectType : char {
-      SINGLE, RANGE, ADD
+      SINGLE, RANGE, ADD, COMPARISON
       };
 
 //---------------------------------------------------------

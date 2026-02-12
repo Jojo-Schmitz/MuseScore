@@ -3387,6 +3387,10 @@ void Score::select(Element* e, SelectType type, int staffIdx)
             case SelectType::SINGLE:
                   selectSingle(e, staffIdx);
                   break;
+            case SelectType::COMPARISON:
+                  selectSingle(e, staffIdx);
+                  _selection.setState(SelState::COMPARISON);
+                  break;
             case SelectType::ADD:
                   selectAdd(e);
                   break;
