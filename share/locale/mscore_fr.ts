@@ -34214,57 +34214,57 @@ Cette partition contient des parties. La modification des indications de mesure 
     <message>
         <location filename="../../libmscore/sym.cpp" line="4661"/>
         <source>Tempus perfectum cum prolatione perfecta (9/8)</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps parfait prolation majeure (9/8)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4662"/>
         <source>Tempus imperfectum cum prolatione imperfecta diminution 4</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps imparfait prolation mineure diminution 4</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4663"/>
         <source>Tempus imperfectum cum prolatione imperfecta diminution 5</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps imparfait prolation mineure diminution 5</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4664"/>
         <source>Tempus perfectum cum prolatione imperfecta (3/4)</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps parfait prolation mineure (3/4)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4665"/>
         <source>Tempus perfectum cum prolatione imperfecta diminution 1 (3/8)</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps parfait prolation mineure diminution 1 (3/8)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4666"/>
         <source>Tempus perfectum cum prolatione perfecta diminution 2 (9/16)</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps parfait prolation majeure diminution 2 (9/16)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4667"/>
         <source>Tempus imperfectum cum prolatione perfecta (6/8)</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps imparfait prolation majeure (6/8)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4668"/>
         <source>Tempus imperfectum cum prolatione imperfecta (2/4)</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps imparfait prolation mineure (2/4)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4669"/>
         <source>Tempus imperfectum cum prolatione imperfecta diminution 1 (2/2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps imparfait prolation mineure diminution 1 (2/2)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4670"/>
         <source>Tempus imperfectum cum prolatione imperfecta diminution 2 (6/16)</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps imparfait prolation mineure diminution 2 (6/16)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4671"/>
         <source>Tempus imperfectum cum prolatione imperfecta diminution 3 (2/2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps imparfait prolation mineure diminution 3 (2/2)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4714"/>
@@ -34679,17 +34679,17 @@ Cette partition contient des parties. La modification des indications de mesure 
     <message>
         <location filename="../../libmscore/sym.cpp" line="3082"/>
         <source>25 small diesis up, (25S, ~5:13S, ~37S, 5C&#xa0;plus&#xa0;5C), 2° up [53 EDO]</source>
-        <translation type="unfinished"></translation>
+        <translation>25 petits dièses vers le haut, (25S, ~5:13S, ~37S, 5C plus 5C), 2° vers le haut [53 EDO]</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3090"/>
         <source>35 medium diesis up, (35M, ~13M, ~125M, 5C&#xa0;plus&#xa0;7C), 2/9-tone up</source>
-        <translation type="unfinished"></translation>
+        <translation>35 dièses moyens vers le haut, (35M, ~13M, ~125M, 5C plus 7C), 2/9 de ton vers le haut</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3120"/>
         <source>5:7 kleisma up, (5:7k, ~11:13k, 7C&#xa0;less&#xa0;5C)</source>
-        <translation type="unfinished"></translation>
+        <translation>5:7 kleisma vers le haut, (5:7k, ~11:13k, 7C moins 5C)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3212"/>
