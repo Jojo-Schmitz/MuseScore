@@ -18408,7 +18408,7 @@ zakończone niepowodzeniem.</translation>
         <location filename="../../mscore/qml/palettes/PaletteTree.qml" line="29"/>
         <source>Palettes Tree, contains %n palette(s)</source>
         <translation>
-            <numerusform>Drzewo palety, zawiera 1 zakładkę palety</numerusform>
+            <numerusform>Drzewo palety, zawiera %n zakładkę palety</numerusform>
             <numerusform>Drzewo palety, zawiera %n zakładki palety</numerusform>
             <numerusform>Drzewo palety, zawiera %n zakładek palety</numerusform>
         </translation>
@@ -18418,7 +18418,7 @@ zakończone niepowodzeniem.</translation>
         <source>%1, contains %n matching element(s)</source>
         <comment>palette</comment>
         <translation>
-            <numerusform>%1, zawiera 1 pasujący element</numerusform>
+            <numerusform>%1, zawiera %n pasujący element</numerusform>
             <numerusform>%1, zawiera %n pasujące elementy</numerusform>
             <numerusform>%1, zawiera %n pasujących elementów</numerusform>
         </translation>
@@ -18496,7 +18496,7 @@ zakończone niepowodzeniem.</translation>
         <location filename="../../mscore/qml/palettes/PalettesWidgetHeader.qml" line="134"/>
         <source>%n palette(s) match(es)</source>
         <translation>
-            <numerusform>1 zakładka palety pasuje</numerusform>
+            <numerusform>%n zakładka palety pasuje</numerusform>
             <numerusform>%n zakładki palety pasują</numerusform>
             <numerusform>%n zakładek palety pasuje</numerusform>
         </translation>
@@ -21786,7 +21786,7 @@ Odwiedź %1stronę internetową MuseScore&apos;a%2, aby pozyskać najnowszą wer
         <location filename="../../libmscore/fret.cpp" line="1493"/>
         <source>%n string(s) total</source>
         <translation>
-            <numerusform>1 struna ogółem</numerusform>
+            <numerusform>%n struna ogółem</numerusform>
             <numerusform>%n struny ogółem</numerusform>
             <numerusform>%n strun ogółem</numerusform>
         </translation>
