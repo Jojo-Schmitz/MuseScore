@@ -18408,7 +18408,7 @@ zakończone niepowodzeniem.</translation>
         <location filename="../../mscore/qml/palettes/PaletteTree.qml" line="29"/>
         <source>Palettes Tree, contains %n palette(s)</source>
         <translation>
-            <numerusform>Drzewo palety, zawiera 1 zakładkę palety</numerusform>
+            <numerusform>Drzewo palety, zawiera %n zakładkę palety</numerusform>
             <numerusform>Drzewo palety, zawiera %n zakładki palety</numerusform>
             <numerusform>Drzewo palety, zawiera %n zakładek palety</numerusform>
         </translation>
@@ -18418,7 +18418,7 @@ zakończone niepowodzeniem.</translation>
         <source>%1, contains %n matching element(s)</source>
         <comment>palette</comment>
         <translation>
-            <numerusform>%1, zawiera 1 pasujący element</numerusform>
+            <numerusform>%1, zawiera %n pasujący element</numerusform>
             <numerusform>%1, zawiera %n pasujące elementy</numerusform>
             <numerusform>%1, zawiera %n pasujących elementów</numerusform>
         </translation>
@@ -18496,7 +18496,7 @@ zakończone niepowodzeniem.</translation>
         <location filename="../../mscore/qml/palettes/PalettesWidgetHeader.qml" line="134"/>
         <source>%n palette(s) match(es)</source>
         <translation>
-            <numerusform>1 zakładka palety pasuje</numerusform>
+            <numerusform>%n zakładka palety pasuje</numerusform>
             <numerusform>%n zakładki palety pasują</numerusform>
             <numerusform>%n zakładek palety pasuje</numerusform>
         </translation>
@@ -21786,7 +21786,7 @@ Odwiedź %1stronę internetową MuseScore&apos;a%2, aby pozyskać najnowszą wer
         <location filename="../../libmscore/fret.cpp" line="1493"/>
         <source>%n string(s) total</source>
         <translation>
-            <numerusform>1 struna ogółem</numerusform>
+            <numerusform>%n struna ogółem</numerusform>
             <numerusform>%n struny ogółem</numerusform>
             <numerusform>%n strun ogółem</numerusform>
         </translation>
@@ -34218,57 +34218,57 @@ Ta partytura ma już partie. Zmiana lokalnych oznaczeń metrycznych, gdy obecne 
     <message>
         <location filename="../../libmscore/sym.cpp" line="4661"/>
         <source>Tempus perfectum cum prolatione perfecta (9/8)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempus perfectum cum prolatione perfecta (9/8)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4662"/>
         <source>Tempus imperfectum cum prolatione imperfecta diminution 4</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempus imperfectum cum prolatione imperfecta diminution 4</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4663"/>
         <source>Tempus imperfectum cum prolatione imperfecta diminution 5</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempus imperfectum cum prolatione imperfecta diminution 5</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4664"/>
         <source>Tempus perfectum cum prolatione imperfecta (3/4)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempus perfectum cum prolatione imperfecta (3/4)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4665"/>
         <source>Tempus perfectum cum prolatione imperfecta diminution 1 (3/8)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempus perfectum cum prolatione imperfecta diminution 1 (3/8)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4666"/>
         <source>Tempus perfectum cum prolatione perfecta diminution 2 (9/16)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempus perfectum cum prolatione perfecta diminution 2 (9/16)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4667"/>
         <source>Tempus imperfectum cum prolatione perfecta (6/8)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempus imperfectum cum prolatione perfecta (6/8)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4668"/>
         <source>Tempus imperfectum cum prolatione imperfecta (2/4)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempus imperfectum cum prolatione imperfecta (2/4)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4669"/>
         <source>Tempus imperfectum cum prolatione imperfecta diminution 1 (2/2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempus imperfectum cum prolatione imperfecta diminution 1 (2/2)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4670"/>
         <source>Tempus imperfectum cum prolatione imperfecta diminution 2 (6/16)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempus imperfectum cum prolatione imperfecta diminution 2 (6/16)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4671"/>
         <source>Tempus imperfectum cum prolatione imperfecta diminution 3 (2/2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempus imperfectum cum prolatione imperfecta diminution 3 (2/2)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4714"/>
@@ -34683,17 +34683,17 @@ Ta partytura ma już partie. Zmiana lokalnych oznaczeń metrycznych, gdy obecne 
     <message>
         <location filename="../../libmscore/sym.cpp" line="3082"/>
         <source>25 small diesis up, (25S, ~5:13S, ~37S, 5C&#xa0;plus&#xa0;5C), 2° up [53 EDO]</source>
-        <translation type="unfinished"></translation>
+        <translation>25 małych diesis wyżej, (25S, ~5:13S, ~37S, 5C&#xa0;plus&#xa0;5C), 2° wyżej [53 równe podziały oktawy]</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3090"/>
         <source>35 medium diesis up, (35M, ~13M, ~125M, 5C&#xa0;plus&#xa0;7C), 2/9-tone up</source>
-        <translation type="unfinished"></translation>
+        <translation>35 średnich diesis wyżej, (35M, ~13M, ~125M, 5C&#xa0;plus&#xa0;7C), 2/9-tonu wyżej</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3120"/>
         <source>5:7 kleisma up, (5:7k, ~11:13k, 7C&#xa0;less&#xa0;5C)</source>
-        <translation type="unfinished"></translation>
+        <translation>5:7 kleisma wyżej, (5:7k, ~11:13k, 7C&#xa0;mniej&#xa0;5C)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3212"/>
