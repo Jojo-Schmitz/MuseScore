@@ -3161,7 +3161,7 @@ bool MStyle::readProperties400(XmlReader& e, int mscVersion)
             || tag == "useStraightNoteFlags"                                      // Mu4 only, let's skip
             || tag == "stemWidth"                                                 // 0.1 -> 0.11, depends on font's `engravingDefaults`! Let's skip.
             || tag == "stemLength"                                                // Mu4 only, let's skip
-            || tag == "stemLengthSmall"                                           // Mu4 only, let's skip
+            || tag == "stemLengthSmall"                                           // Mu4.0-4.6 only, let's skip
             || tag == "shortStemStartLocation")                                   // Mu4 only, let's skip
             e.skipCurrentElement();
       else if (tag == "shortestStem") {                                           // 2.25 -> 2.5
@@ -3384,7 +3384,7 @@ bool MStyle::readProperties400(XmlReader& e, int mscVersion)
             if (!qFuzzyCompare(subTitleFontSize, 14.0))                           // Changed from 4.x default
                   set(Sid::subTitleFontSize, QVariant(subTitleFontSize));
             }
-      else if ((mscVersion >= 410 && tag == "preferSameStringForTranspose")       // Mu4.1+ only, let's skip
+      else if ((mscVersion >= 410 && tag == "preferSameStringForTranspose")       // Mu4.1-4.6 only, let's skip
             || (mscVersion >= 420 && tag == "stringTuningsFontSize")              // Mu4.2+ only, let's skip
             || (mscVersion >= 410 && tag.startsWith("harpPedal"))                 // Mu4.1+ only, let's skip
             || (mscVersion >= 400 && tag == "dynamicsFontSize")                   // 11 -> 10, Mu4 uses the musical font's ones, maybe that's the reason, so let's skip, i.e. reset back
@@ -3766,8 +3766,8 @@ bool  MStyle::readProperties450(XmlReader& e, int mscVersion)
             e.skipCurrentElement();
       else if (tag == "minEmptyMeasures") {                         // 2 -> 1
             int minEmptyMeasures = e.readInt();
-            if (minEmptyMeasures != 1)                              // Changed from 4.5+ default
-                  set(Sid::minEmptyMeasures, minEmptyMeasures);
+            if (minEmptyMeasures == 1)                              // 4.5+ default, let's skip, i.e. reset to Mu3's, which seems better,
+                  e.skipCurrentElement();                           // esp. as it doesn't have `singleMeasureMMRest` etc.
             }
       else if (tag.startsWith("singleMeasureMMRest"))               // Mu4.5+ only, let's skip
             e.skipCurrentElement();
@@ -3809,7 +3809,7 @@ bool  MStyle::readProperties450(XmlReader& e, int mscVersion)
             || tag == "useParensRepeatCourtesiesAfterCancelling"
             || tag == "showCourtesiesAfterCancellingOtherJumps"
             || tag == "useParensOtherJumpCourtesiesAfterCancelling"
-            || tag == "smallParens")                // Mu4.5+ only, let's skip
+            || tag == "smallParens")                                // Mu4.5+ only, let's skip
             e.skipCurrentElement();
       else if (tag == "spatium")                                    // pre-4.5(?) typo
             set(Sid::spatium, e.readDouble() * DPMM);
@@ -4147,55 +4147,103 @@ bool  MStyle::readProperties460(XmlReader& e, int mscVersion)
 
 bool  MStyle::readProperties470(XmlReader& e, int mscVersion)
       {
-#if 0
-      if (/*mscVersion >= 480 && */readProperties480(e, mscVersion))
-            return true
-#else
-      if (mscVersion > 470)
-            qDebug("Yet unknown version detected");
-#endif
+      if (/*mscVersion >= 500 && */readProperties500(e, mscVersion))
+            return true;
 
       const QStringRef& tag(e.name());
 
-      //if (tag == "pagePrintableWidth")           // rounding issue, so let's pass
-      //     return false;
-      //else if (tag == "pageEvenLeftMargin")      // rounding issue, so let's pass
-      //     return false;
-      //else if (tag == "pageOddLeftMargin")       // rounding issue, so let's pass
-      //     return false;
-      //else if (tag == "pageEvenTopMargin")       // rounding issue, so let's pass
-      //     return false;
-      //else if (tag == "pageEvenBottomMargin")    // rounding issue, so let's pass
-      //     return false;
-      //else if (tag == "pageOddTopMargin")        // rounding issue, so let's pass
-      //     return false;
-      //else if (tag == "pageOddBottomMargin")     // rounding issue, so let's pass
-      //     return false;
-      //else
-      if (tag == "hairpinOffset")                                   // Mu4.7+ only, let's skip
+      if (     tag == "dividerLeftAlignToSystemBarline"             // Mu4.7+ only, let's skip
+            || tag == "dividerRightAlignToSystemBarline"            // Mu4.7+ only, let's skip
+            || tag == "dividerLeftSize"                             // Mu4.7+ only, let's skip
+            || tag == "dividerRightSize" )                          // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
+      else if (tag == "accidentalDistance") {       // y: 0.22 -> 0.25
+            double accidentalDistance = e.readDouble();
+            if (!qFuzzyCompare(accidentalDistance, 0.25)) // Changed from 4.x default
+                  set(Sid::accidentalDistance, accidentalDistance);
+            }
+      else if (tag == "articulationAnchorLuteFingering") {          // 4 -> 1
+            int articulationAnchorLuteFingering = e.readInt();
+            if (articulationAnchorLuteFingering != 1)               // Changed from 4.6+ default
+                  set(Sid::articulationAnchorLuteFingering, articulationAnchorLuteFingering);
+            }
+      else if (tag == "hairpinOffset")                              // Mu4.7+ only, let's skip
             e.skipCurrentElement();
       else if (tag == "pedalOffset")                                // Mu4.7+ only, let's skip
             e.skipCurrentElement();
       else if (tag == "displayCapoChords")                          // Mu4.7+ only, let's skip
             e.skipCurrentElement();
-      else if (tag == "keysigShowNaturalsChangingSharpsFlats")      // Mu4.7+ only, let's skip
+      else if (tag == "chordBracketNoteDistance"                    // Mu4.7+ only, let's skip
+            || tag == "chordBracketLineWidth"                       // Mu4.7+ only, let's skip
+            || tag == "chordBracketHookLen")                        // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
+      else if (tag == "keySigShowNaturalsChangingSharpsFlats")      // Mu4.7+ only, let's skip
             e.skipCurrentElement();
       else if (tag == "systemTextLineLineSpacing")                  // Mu4.7+ only, let's skip
             e.skipCurrentElement();
-      else if (tag == "showFretOnFullBendRelease")                  // Mu4.7+ only, let's skip
+      else if (tag == "showFretOnFullBendRelease"                   // Mu4.7+ only, let's skip
+            || tag == "alignPreBendAndPreDiveToGraceNote"           // Mu4.7+ only, let's skip
+            || tag == "useFractionCharacters"                       // Mu4.7+ only, let's skip
+            || tag == "guitarDivesAboveStaff"                       // Mu4.7+ only, let's skip
+            || tag == "guitarDiveLineWidth"                         // Mu4.7+ only, let's skip
+            || tag == "guitarDiveLineWidthTab")                     // Mu4.7+ only, let's skip
             e.skipCurrentElement();
+      //else if (tag == "headerAlign")                              // center,center -> center,top in 4.7 ToDo/Let's pass
+      //      e.skipCurrentElement();
       else if (tag == "letRingOffset")                              // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
+      else if (tag.startsWith("whammyBar"))                         // Mu4.7+ only, let's skip
             e.skipCurrentElement();
       else if (tag == "palmMuteOffset")                             // Mu4.7+ only, let's skip
             e.skipCurrentElement();
-      else if (tag == "defaultsVersion")           // 4mm -> 4nn, let's skip, i.e. reset to Mu3's 302
+      else if (tag.endsWith("MusicalSymbolSize"))                   // Mu4.7+ only, let's skip
             e.skipCurrentElement();
-      //else if (tag == "spatium")                 // rounding issue, so let's pass
-      //     return false;
+      else if (tag == "defaultsVersion")                            // 4mm -> 4nn, let's skip, i.e. reset to Mu3's 302
+            e.skipCurrentElement();
+      else if (tag == "harmonyParenUseSmuflSym")                    // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
+      else if (tag.endsWith("BeginLineArrowHeight")                 // Mu4.7+ only, let's skip
+            || tag.endsWith("BeginLineArrowWidth")                  // Mu4.7+ only, let's skip
+            || tag.endsWith("EndLineArrowHeight")                   // Mu4.7+ only, let's skip
+            || tag.endsWith("EndLineArrowWidth")                    // Mu4.7+ only, let's skip
+            || tag.endsWith("BeginFilledArrowHeight")               // Mu4.7+ only, let's skip
+            || tag.endsWith("BeginFilledArrowWidth")                // Mu4.7+ only, let's skip
+            || tag.endsWith("EndFilledArrowHeight")                 // Mu4.7+ only, let's skip
+            || tag.endsWith("EndFilledArrowWidth"))                 // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
       else // still no match
             return false;
       return true;
 }
+
+bool  MStyle::readProperties500(XmlReader& e, int mscVersion)
+      {
+#if 0
+      if (/*mscVersion >= 510 && */readProperties510(e, mscVersion))
+            return true;
+#else
+      if (mscVersion > 500)
+            qDebug("Yet unknown version detected");
+
+      const QStringRef& tag(e.name());
+
+      if (     tag.startsWith("InstrumentNames")           // Mu5+ only, let's skip
+            || tag.startsWith("InstrumentNumerals")        // Mu5+ only, let's skip
+            || tag.endsWith("NameByGroup"))                // Mu5+ only, let's skip
+            e.skipCurrentElement();
+      else if (tag.startsWith("groupBracket"))             // Mu5+ only, let's skip
+            e.skipCurrentElement();
+      else if (tag == "enableStaveSharing"                 // Mu5+ only, let's skip
+            || tag == "allowVoiceCrossing")                // Mu5+ only, let's skip
+            e.skipCurrentElement();
+      else if (tag == "maskSlurs"                          // Mu5+ only, let's skip
+            || tag == "maskTies")                          // Mu5+ only, let's skip
+               e.skipCurrentElement();
+      else // still no match
+            return false;
+      return true;
+      }
+#endif
 // end 4.x compat
 
 void MStyle::applyNewDefaults(const MStyle& other, const int defaultsVersion)
