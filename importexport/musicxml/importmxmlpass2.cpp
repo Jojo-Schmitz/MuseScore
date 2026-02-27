@@ -3150,11 +3150,11 @@ void MusicXMLParserPass2::staffDetails(const QString& partId, Measure* measure)
                   staffTuning(&stringData);
             else if (_e.name() == "staff-size") {
                   bool ok = false;
-                  qreal scale = _e.attributes().value("scale").toDouble(&ok);
+                  qreal scaling = _e.attributes().value("scaling").toDouble(&ok);
                   if (!ok)
-                        scale = 1.0;
-                  const qreal val = _e.readElementText().toDouble() / 100;
-                  _score->staff(staffIdx)->setProperty(Pid::MAG, scale);
+                        scaling = 100.0;
+                  const Spatium val(_e.readElementText().toDouble() / scaling);
+                  _score->staff(staffIdx)->setProperty(Pid::MAG, scaling / 100.0);
                   _score->staff(staffIdx)->setProperty(Pid::LINE_DISTANCE, val);
                   }
             else

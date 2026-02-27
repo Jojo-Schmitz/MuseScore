@@ -7227,8 +7227,8 @@ static void writeStaffDetails(XmlWriter& xml, const Part* part, const QVector<in
                   if (needWriteLineDistance || needWriteMag) {
                         QString staffSize = "staff-size";
                         if (needWriteMag)
-                              staffSize += QString(" scale=\"%1\"").arg(staffMag);
-                        xml.tag(staffSize, lineDistance * 100);
+                              staffSize += QString(" scaling=\"%1\"").arg(staffMag * 100);
+                        xml.tag(staffSize, staffMag * lineDistance * 100);
                         }
 
                   xml.etag();
