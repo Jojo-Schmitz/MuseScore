@@ -188,11 +188,11 @@ private slots:
       void instrumentSound() { mxmlIoTestRef("testInstrumentSound"); }
       void invalidLayout() { mxmlMscxExportTestRef("testInvalidLayout"); }
       void invalidTimesig() { mxmlIoTestRef("testInvalidTimesig"); }
-      void invisibleDirection() { mxmlIoTest("testInvisibleDirection"); }
       void invisibleElements() { mxmlIoTest("testInvisibleElements"); }
       void invisibleNote() { mxmlMscxExportTestRef("testInvisibleNote"); }
       void invisibleNotations1() { mxmlIoTest("testInvisibleNotations1"); }
       void invisibleNotations2() { mxmlIoTest("testInvisibleNotations2"); }
+      void invisibleTempo() { mxmlIoTest("testInvisibleTempo"); }
       void keysig1() { mxmlIoTest("testKeysig1"); }
       void keysig2() { mxmlIoTest("testKeysig2"); }
       void layoutCleanup1() { mxmlImportTestRef("testLayoutCleanup1"); }
@@ -421,7 +421,7 @@ void TestMxmlIO::mxmlIoTest(const char* file, bool exportLayout)
       preferences.setCustomPreference<MusicxmlExportBreaks>(PREF_EXPORT_MUSICXML_EXPORTBREAKS, MusicxmlExportBreaks::MANUAL);
       preferences.setPreference(PREF_IMPORT_MUSICXML_IMPORTBREAKS, true);
       preferences.setPreference(PREF_EXPORT_MUSICXML_EXPORTLAYOUT, exportLayout);
-      preferences.setPreference(PREF_EXPORT_MUSICXML_EXPORTINVISIBLEELEMENTS, true);
+      preferences.setPreference(PREF_EXPORT_MUSICXML_EXPORTINVISIBLEELEMENTS, false);
       preferences.setPreference(PREF_IMPORT_MUSICXML_IMPORTINFERTEXTTYPE, true);
       MasterScore* score = readScore(DIR + file + ".xml");
       QVERIFY(score);
