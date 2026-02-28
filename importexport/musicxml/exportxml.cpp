@@ -358,6 +358,7 @@ public:
       void systemText(StaffTextBase const* const text, int staff);
       void tempoText(TempoText const* const text, int staff);
       void tempoSound(TempoText const* const text);
+      void swingSound(StaffTextBase const* const text);
       void harmony(Harmony const* const, FretDiagram const* const fd, const Fraction& offset = Fraction(0, 1));
       Score* score() const { return _score; };
       double getTenthsFromInches(double) const;
@@ -4602,7 +4603,25 @@ void ExportMusicXml::tempoSound(TempoText const* const text)
       qreal bpm = text->tempo() * 60.0;
       qreal bpmRounded = round(bpm * 100) / 100;
       _xml.tagE(QString("sound tempo=\"%1\"").arg(QString::number(bpmRounded)));
+      }
 
+void ExportMusicXml::swingSound(StaffTextBase const* const text)
+      {
+      _xml.stag("sound");
+      _xml.stag("swing");
+      if (!text->swingParameters()->swingUnit)
+            _xml.tagE("straight");
+      else {
+            const int swingPercentage = text->swingParameters()->swingRatio;
+            const int swingDivisor = std::gcd(text->swingParameters()->swingRatio, 100);
+            _xml.tag("first",  100 / swingDivisor);
+            _xml.tag("second", swingPercentage / swingDivisor);
+            if (text->swingParameters()->swingUnit == MScore::division / 2)
+                  _xml.tag("swing-type", TDuration(TDuration::DurationType::V_EIGHTH).name());
+            else
+                  _xml.tag("swing-type", TDuration(TDuration::DurationType::V_16TH).name());
+            }
+      _xml.etag();
       _xml.etag();
       }
 
@@ -4652,24 +4671,8 @@ void ExportMusicXml::systemText(StaffTextBase const* const text, int staff)
       directionTag(_xml, _attr, text);
       wordsMetronome(_xml, _score, text, offset);
 
-      if (text->swing()) {
-            _xml.stag("sound");
-            _xml.stag("swing");
-            if (!text->swingParameters()->swingUnit)
-                  _xml.tagE("straight");
-            else {
-                  const int swingPercentage = text->swingParameters()->swingRatio;
-                  const int swingDivisor = gcd(text->swingParameters()->swingRatio, 100);
-                  _xml.tag("first",  100 / swingDivisor);
-                  _xml.tag("second", swingPercentage / swingDivisor);
-                  if (text->swingParameters()->swingUnit == MScore::division / 2)
-                        _xml.tag("swing-type", TDuration(TDuration::DurationType::V_EIGHTH).name());
-                  else
-                        _xml.tag("swing-type", TDuration(TDuration::DurationType::V_16TH).name());
-                  }
-            _xml.etag();
-            _xml.etag();
-            }
+      if (text->swing())
+            swingSound(text);
       directionETag(_xml, staff);
       }
 
@@ -5822,9 +5825,14 @@ static void measureStyle(XmlWriter& xml, Attributes& attr, const Measure* const 
 static bool commonAnnotations(ExportMusicXml* exp, const Element* e, int sstaff)
       {
       if (!exp->canWrite(e)) {
-            // write only tempo
+            // write only tempo and swing
             if (e->isTempoText())
                   exp->tempoSound(toTempoText(e));
+            else if (e->isSystemText()) {
+                  const StaffTextBase* text = toStaffTextBase(e);
+                  if (text->swing())
+                        exp->swingSound(text);
+                  }
             return false;
             }
 
