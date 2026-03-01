@@ -11,7 +11,6 @@
 //=============================================================================
 
 #include "pedal.h"
-#include "sym.h"
 #include "xml.h"
 #include "system.h"
 #include "measure.h"
@@ -113,6 +112,14 @@ void Pedal::read(XmlReader& e)
                   ;
             else if (!TextLineBase::readProperties(e))
                   e.unknown();
+            }
+      if (score()->mscVersion() > 410) { // Mu4.2+ compat, which seems to rely on those defaults
+            if (beginHookType() == HookType::NONE && beginText().isEmpty())
+                  setBeginText("<sym>keyboardPedalPed</sym>");
+            if (beginHookType() == HookType::NONE && continueText().isEmpty())
+                  setContinueText("(<sym>keyboardPedalPed</sym>)");
+            if (!lineVisible() && endHookType() == HookType::NONE && endText().isEmpty())
+                  setEndText("<sym>keyboardPedalUp</sym>");
             }
       }
 
