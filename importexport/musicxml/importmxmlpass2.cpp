@@ -4606,6 +4606,11 @@ void MusicXMLParserDirection::handleRepeats(Measure* measure, const int track, c
                         measure = measure->prevMeasure();
                   else if (tb->tid() == Tid::REPEAT_LEFT && !closerToLeft && measure->nextMeasure())
                         measure = measure->nextMeasure();
+                  // Temporary solution to indent codas - add a horizontal frame at start of system or midway through
+                  if (tb->isMarker() && toMarker(tb)->markerType() == Marker::Type::CODA) {
+                        _score->insertMeasure(ElementType::HBOX, measure);
+                        toHBox(measure->prev())->setBoxWidth(Spatium(10));
+                        }
                   tb->setVisible(_visible);
                   measure->add(tb);
                   }
