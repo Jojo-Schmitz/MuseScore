@@ -548,7 +548,7 @@ static bool overrideTextStyleForComposer(const QString& creditString)
  Also sets Align and Yoff.
  */
 
-static void addText2(VBox* vbx, Score* s, const QString strTxt, const Tid stl, const Align align, const double yoffs)
+static void addText2(VBox* vbx, Score* s, const QString strTxt, const Tid stl, const Align align)
       {
       if (stl != Tid::COMPOSER && overrideTextStyleForComposer(strTxt)) {
             // HACK: in some Dolet 8 files the composer is written as a subtitle, which leads to stupid formatting.
@@ -556,7 +556,6 @@ static void addText2(VBox* vbx, Score* s, const QString strTxt, const Tid stl, c
             Text* text = new Text(s, Tid::COMPOSER);
             text->setXmlText(strTxt);
             text->setXmlText(strTxt.trimmed());
-            text->setOffset(QPointF(0.0, yoffs));
             text->setPropertyFlags(Pid::OFFSET, PropertyFlags::UNSTYLED);
           vbx->add(text);
       } else      if (!strTxt.isEmpty()) {
@@ -564,7 +563,6 @@ static void addText2(VBox* vbx, Score* s, const QString strTxt, const Tid stl, c
             text->setXmlText(strTxt.trimmed());
             text->setAlign(align);
             text->setPropertyFlags(Pid::ALIGN, PropertyFlags::UNSTYLED);
-            text->setOffset(QPointF(0.0, yoffs));
             text->setPropertyFlags(Pid::OFFSET, PropertyFlags::UNSTYLED);
             vbx->add(text);
             }
@@ -767,6 +765,38 @@ static void inferFromTitle(QString& title, QString& inferredSubtitle, QString& i
       inferredSubtitle = subtitleLines.join("\n");
       inferredCredits = creditLines.join("\n");
       }
+
+static void resizeTitleBox(VBox* vbox)
+      {
+      double calculatedVBoxHeight = 0;
+      ElementList elist = vbox->el();
+      Score* score = vbox->score();
+      for (Element* e : elist) {
+            //score->renderer()->layoutItem(e);
+            }
+
+      double padding = vbox->spatium();
+
+      for (Element* e : elist) {
+            if (e->isText()) {
+                  Text* txt = toText(e);
+                  //Text::LayoutData* txtLD = txt->mutldata();
+
+                  //LD_CONDITION(txtLD->isSetBbox());
+
+                  //QRectF bbox = txtLD->bbox();
+                  //bbox.moveTop(0.0);
+                  //txtLD->setBbox(bbox);
+                  //calculatedVBoxHeight += txtLD->bbox().height() + padding;
+                  }
+            }
+
+      qreal heightInSp = calculatedVBoxHeight / padding;
+      if (heightInSp > vbox->propertyDefault(Pid::BOX_HEIGHT).toDouble()) {
+            vbox->undoChangeProperty(Pid::BOX_HEIGHT, heightInSp);
+            }
+      }
+
 //---------------------------------------------------------
 //   addCreditWords
 //---------------------------------------------------------
@@ -807,10 +837,9 @@ static VBox* addCreditWords(Score* const score, const CreditWordsList& crWords, 
             if (mustAddWordToVbox(w->type)) {
                   const Tid tid = top ? tidForCreditWords(w, words, pageSize.width()) : Tid::DEFAULT;
                   const Align align = alignForCreditWords(w, pageSize.width(), tid);
-                  double yoffs = tid == Tid::COMPOSER ? 0.0 : (maxy - w->defaultY) * score->spatium() / 10;
                   if (!vbox)
                         vbox = MusicXMLParserPass1::createAndAddVBoxForCreditWords(score);
-                  addText2(vbox, score, w->words, tid, align, yoffs);
+                  addText2(vbox, score, w->words, tid, align);
                   }
             else if (w->type == "rights" && score->metaTag("copyright").isEmpty()) {
                   // Add rights to footer, not a vbox
@@ -819,6 +848,11 @@ static VBox* addCreditWords(Score* const score, const CreditWordsList& crWords, 
                   rights.remove(tagRe);
                   score->setMetaTag("copyright", rights);
                   }
+            }
+
+      if (vbox && !MScore::testMode) {
+            // Correct size
+            resizeTitleBox(vbox);
             }
 
       return vbox;
@@ -1575,7 +1609,7 @@ static void updateStyles(Score* score,
       const double dblLyricSize = lyricSize.toDouble(); // but avoid comparing (double) floating point number with exact value later
       const double epsilon = 0.001;                     // use epsilon instead
 
-      bool needUseDefaultFont = preferences.getBool(PREF_MIGRATION_APPLY_EDWIN_FOR_XML_FILES);
+      const bool needUseDefaultFont = preferences.getBool(PREF_MIGRATION_APPLY_EDWIN_FOR_XML_FILES);
 
       // loop over all text styles (except the empty, always hidden, first one)
       // set all text styles to the MusicXML defaults
@@ -1584,6 +1618,7 @@ static void updateStyles(Score* score,
             // The MusicXML specification does not specify to which kinds of text
             // the word-font setting applies. Setting all sizes to the size specified
             // gives bad results, so a selection is made:
+            // Only apply word-font style when "Apply default typeface" is unchecked
             // exclude lyrics odd and even lines (handled separately),
             // Roman numeral analysis (special case, leave untouched)
             // and text types used in the title frame
@@ -1592,7 +1627,7 @@ static void updateStyles(Score* score,
             if (tid == Tid::LYRICS_ODD || tid == Tid::LYRICS_EVEN)
                   continue;
 
-            bool needUseDefaultSize = tid == Tid::HARMONY_ROMAN
+            const bool needUseDefaultSize = needUseDefaultFont || tid == Tid::HARMONY_ROMAN
                                       || isTitleFrameStyle(tid);
 
             const TextStyle* ts = textStyle(tid);
