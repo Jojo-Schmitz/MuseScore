@@ -1623,12 +1623,13 @@ static void updateStyles(Score* score,
             // Roman numeral analysis (special case, leave untouched)
             // and text types used in the title frame
             // Some further tweaking may still be required.
+            if (wordFamily.isEmpty())
+                  break; // If no font is specified, use default styles
 
-            if (tid == Tid::LYRICS_ODD || tid == Tid::LYRICS_EVEN)
+            if (tid == Tid::LYRICS_ODD || tid == Tid::LYRICS_EVEN || tid == Tid::HARMONY_ROMAN)
                   continue;
 
-            const bool needUseDefaultSize = needUseDefaultFont || tid == Tid::HARMONY_ROMAN
-                                      || isTitleFrameStyle(tid);
+            const bool needUseDefaultSize = needUseDefaultFont || isTitleFrameStyle(tid);
 
             const TextStyle* ts = textStyle(tid);
             for (const StyledProperty& a :* ts) {
@@ -1640,13 +1641,15 @@ static void updateStyles(Score* score,
             }
 
       // handle lyrics odd and even lines separately
-      if (!needUseDefaultFont) {
-            score->style().set(Sid::lyricsOddFontFace, lyricFamily);
-            score->style().set(Sid::lyricsEvenFontFace, lyricFamily);
-            }
-      if (dblLyricSize > epsilon) {
-            score->style().set(Sid::lyricsOddFontSize, QVariant(dblLyricSize));
-            score->style().set(Sid::lyricsEvenFontSize, QVariant(dblLyricSize));
+      if (!lyricFamily.isEmpty()) {
+            if (!needUseDefaultFont) {
+                  score->style().set(Sid::lyricsOddFontFace, lyricFamily);
+                  score->style().set(Sid::lyricsEvenFontFace, lyricFamily);
+                  }
+            if (dblLyricSize > epsilon) {
+                  score->style().set(Sid::lyricsOddFontSize, QVariant(dblLyricSize));
+                  score->style().set(Sid::lyricsEvenFontSize, QVariant(dblLyricSize));
+                  }
             }
       }
 
@@ -1836,7 +1839,6 @@ void MusicXMLParserPass1::defaults()
              qPrintable(wordFontFamily), qPrintable(wordFontSize),
              qPrintable(lyricFontFamily), qPrintable(lyricFontSize));
       */
-      wordFontFamily = wordFontFamily.isEmpty() ? "Edwin" : wordFontFamily;
       lyricFontFamily = lyricFontFamily.isEmpty() ? wordFontFamily : lyricFontFamily;
       updateStyles(_score, wordFontFamily, wordFontSize, lyricFontFamily, lyricFontSize);
       scaleCopyrightText(_score);
