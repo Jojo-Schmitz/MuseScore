@@ -62,7 +62,7 @@
           </clef>
         <staff-details>
           <staff-lines>5</staff-lines>
-          <staff-size>75</staff-size>
+          <staff-size scaling="75">75</staff-size>
           </staff-details>
         </attributes>
       <note>
