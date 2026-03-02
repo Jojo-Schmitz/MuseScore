@@ -1341,13 +1341,15 @@ QVariant Staff::getProperty(Pid id) const
       {
       switch (id) {
             case Pid::SMALL:
-                  return staffType(Fraction(0,1))->isSmall();
+                  return staffType(Fraction(0, 1))->isSmall();
             case Pid::MAG:
-                  return staffType(Fraction(0,1))->userMag();
+                  return staffType(Fraction(0, 1))->userMag();
+            case Pid::LINE_DISTANCE:
+                 return staffType(Fraction(0, 1))->lineDistance();
             case Pid::STAFF_INVISIBLE:
-                  return staffType(Fraction(0,1))->invisible();
+                  return staffType(Fraction(0, 1))->invisible();
             case Pid::STAFF_COLOR:
-                  return staffType(Fraction(0,1))->color();
+                  return staffType(Fraction(0, 1))->color();
             case Pid::PLAYBACK_VOICE1:
                   return playbackVoice(0);
             case Pid::PLAYBACK_VOICE2:
@@ -1380,19 +1382,22 @@ bool Staff::setProperty(Pid id, const QVariant& v)
       {
       switch (id) {
             case Pid::SMALL: {
-                  qreal _spatium = spatium(Fraction(0,1));
+                  qreal _spatium = spatium(Fraction(0, 1));
                   staffType(Fraction(0,1))->setSmall(v.toBool());
-                  localSpatiumChanged(_spatium, spatium(Fraction(0,1)), Fraction(0, 1));
+                  localSpatiumChanged(_spatium, spatium(Fraction(0, 1)), Fraction(0, 1));
                   break;
                   }
             case Pid::MAG: {
-                  qreal _spatium = spatium(Fraction(0,1));
+                  qreal _spatium = spatium(Fraction(0, 1));
                   staffType(Fraction(0,1))->setUserMag(v.toReal());
-                  localSpatiumChanged(_spatium, spatium(Fraction(0,1)), Fraction(0, 1));
+                  localSpatiumChanged(_spatium, spatium(Fraction(0, 1)), Fraction(0, 1));
+                  break;
                   }
+            case Pid::LINE_DISTANCE:
+                  staffType(Fraction(0, 1))->setLineDistance(v.value<Spatium>());
                   break;
             case Pid::STAFF_COLOR:
-                  setColor(Fraction(0,1),v.value<QColor>());
+                  setColor(Fraction(0, 1), v.value<QColor>());
                   break;
             case Pid::PLAYBACK_VOICE1:
                   setPlaybackVoice(0, v.toBool());
@@ -1425,8 +1430,8 @@ bool Staff::setProperty(Pid id, const QVariant& v)
                         if (e && e->isBarLine() && !e->generated())
                               toBarLine(e)->setSpanStaff(v.toInt());
                         }
-                  }
                   break;
+                  }
             case Pid::STAFF_BARLINE_SPAN_FROM:
                   setBarLineFrom(v.toInt());
                   break;
