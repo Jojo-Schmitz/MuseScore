@@ -21,24 +21,26 @@
 
 #include "mscore/preferences.h"
 
-#include "libmscore/sig.h"
-#include "libmscore/tempo.h"
 #include "libmscore/arpeggio.h"
 #include "libmscore/articulation.h"
 #include "libmscore/barline.h"
 #include "libmscore/box.h"
 #include "libmscore/bracket.h"
+#include "libmscore/bracketItem.h"
 #include "libmscore/breath.h"
 #include "libmscore/chord.h"
+#include "libmscore/chordlist.h"
 #include "libmscore/clef.h"
 #include "libmscore/drumset.h"
 #include "libmscore/dynamic.h"
 #include "libmscore/hairpin.h"
 #include "libmscore/harmony.h"
 #include "libmscore/glissando.h"
+#include "libmscore/jump.h"
 #include "libmscore/keysig.h"
 #include "libmscore/layoutbreak.h"
 #include "libmscore/lyrics.h"
+#include "libmscore/marker.h"
 #include "libmscore/measure.h"
 #include "libmscore/note.h"
 #include "libmscore/accidental.h"
@@ -46,25 +48,22 @@
 #include "libmscore/part.h"
 #include "libmscore/pedal.h"
 #include "libmscore/pitchspelling.h"
+#include "libmscore/rehearsalmark.h"
 #include "libmscore/repeat.h"
 #include "libmscore/rest.h"
 #include "libmscore/score.h"
 #include "libmscore/segment.h"
+#include "libmscore/sig.h"
 #include "libmscore/slur.h"
-#include "libmscore/tie.h"
 #include "libmscore/staff.h"
+#include "libmscore/sym.h"
 #include "libmscore/tempotext.h"
 #include "libmscore/text.h"
+#include "libmscore/tie.h"
 #include "libmscore/timesig.h"
 #include "libmscore/tuplet.h"
 #include "libmscore/tremolo.h"
 #include "libmscore/volta.h"
-#include "libmscore/chordlist.h"
-#include "libmscore/rehearsalmark.h"
-#include "libmscore/marker.h"
-#include "libmscore/jump.h"
-#include "libmscore/sym.h"
-#include "libmscore/bracketItem.h"
 
 using namespace Ms;
 
@@ -380,7 +379,7 @@ void OveToMScore::convertGroups() {
       for(i=0; i<ove_->getPartCount(); ++i ){
             int partStaffCount = ove_->getStaffCount(i);
             //if(parts == 0)
-            //	continue;
+            //      continue;
             Part* part = parts.at(i);
             if(part == 0)
                   continue;
@@ -1356,7 +1355,6 @@ void OveToMScore::convertMeasureMisc(Measure* measure, int part, int staff, int 
 
 // beam in grace
 int getGraceLevel(const QList<OVE::NoteContainer*>& containers, int tick, int unit){
-      int graceCount = 0;
       int level = 0; // normal chord rest
 
       for(int i=0; i<containers.size(); ++i){
@@ -1364,12 +1362,9 @@ int getGraceLevel(const QList<OVE::NoteContainer*>& containers, int tick, int un
             if(container->getTick() > tick)
                   break;
 
-            if(container->getIsGrace() && container->getTick() == tick){
-                  ++graceCount;
-
-                  if(unit <= container->start()->getOffset()){
+            if(container->getIsGrace() && container->getTick() == tick) {
+                  if(unit <= container->start()->getOffset())
                         ++level;
-                        }
                   }
             }
 
@@ -2093,15 +2088,17 @@ void OveToMScore::convertRepeats(Measure* measure, int part, int staff, int trac
 
             switch(type) {
                   case OVE::RepeatType::Segno:{
-                        Marker* marker = new Marker(score_);
-                        marker->setMarkerType(Marker::Type::SEGNO);
-                        e = marker;
+                        Marker* m = new Marker(score_);
+                        m->setMarkerType(Marker::Type::SEGNO);
+                        m->resetProperty(Pid::LABEL);
+                        e = m;
                         break;
                         }
                   case OVE::RepeatType::Coda:{
-                        Marker* marker = new Marker(score_);
-                        marker->setMarkerType(Marker::Type::CODA);
-                        e = marker;
+                        Marker* m = new Marker(score_);
+                        m->setMarkerType(Marker::Type::CODA);
+                        m->resetProperty(Pid::LABEL);
+                        e = m;
                         break;
                         }
                   case OVE::RepeatType::DSAlCoda:{
@@ -2131,12 +2128,14 @@ void OveToMScore::convertRepeats(Measure* measure, int part, int staff, int trac
                   case OVE::RepeatType::ToCoda:{
                         Marker* m = new Marker(score_);
                         m->setMarkerType(Marker::Type::TOCODA);
+                        m->resetProperty(Pid::LABEL);
                         e = m;
                         break;
                         }
                   case OVE::RepeatType::Fine:{
                         Marker* m = new Marker(score_);
                         m->setMarkerType(Marker::Type::FINE);
+                        m->resetProperty(Pid::LABEL);
                         e = m;
                         break;
                         }
