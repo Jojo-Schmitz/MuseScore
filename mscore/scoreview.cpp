@@ -5642,6 +5642,8 @@ void ScoreView::updateEditElement()
                         setEditElement(nullptr);
                         }
                   break;
+            case SelState::COMPARISON:
+                  break;
             }
       }
 

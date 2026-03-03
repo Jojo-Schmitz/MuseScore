@@ -790,6 +790,7 @@ QByteArray Selection::mimeData() const
                         a = symbolListMimeData();
                   break;
             case SelState::NONE:
+            case SelState::COMPARISON:
                   break;
             case SelState::RANGE:
                   a = staffMimeData();
