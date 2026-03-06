@@ -4262,12 +4262,12 @@ void Measure::addSystemHeader(bool isFirstSystem)
                   Clef* clef;
                   if (!cSegment) {
                         cSegment = new Segment(this, SegmentType::HeaderClef, Fraction(0,1));
-                        cSegment->setHeader(true);
                         add(cSegment);
                         clef = 0;
                         }
                   else
                         clef = toClef(cSegment->element(track));
+                  cSegment->setHeader(true);
                   if (staff->staffType(tick())->genClef()) {
                         if (!clef) {
                               //
@@ -4328,12 +4328,12 @@ void Measure::addSystemHeader(bool isFirstSystem)
                   KeySig* keysig;
                   if (!kSegment) {
                         kSegment = new Segment(this, SegmentType::KeySig, Fraction(0,1));
-                        kSegment->setHeader(true);
                         add(kSegment);
                         keysig = 0;
                         }
                   else
                         keysig  = toKeySig(kSegment->element(track));
+                  kSegment->setHeader(true);
                   if (!keysig) {
                         //
                         // create missing key signature
@@ -4545,7 +4545,8 @@ void Measure::removeSystemHeader()
       for (Segment* seg = first(); seg; seg = seg->next()) {
             if (!seg->header())
                   break;
-            seg->setEnabled(false);
+            if (!seg->isKeySigType())
+                  seg->setEnabled(false);
             }
       setHeader(false);
       }
