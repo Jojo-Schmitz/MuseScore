@@ -20,6 +20,7 @@
 #ifndef __MUSICXMLSUPPORT_H__
 #define __MUSICXMLSUPPORT_H__
 
+#include "libmscore/durationtype.h"
 #include "libmscore/fraction.h"
 #include "libmscore/fret.h"
 #include "libmscore/note.h"
@@ -184,6 +185,7 @@ struct MusicXMLInstrument {
 
 typedef QMap<QString, MusicXMLInstrument> MusicXMLInstruments;
 typedef QMapIterator<QString, MusicXMLInstrument> MusicXMLInstrumentsIterator;
+typedef QMap<QString, QPair<QString, TDuration::DurationType> > MetronomeTextMap;
 
 
 //---------------------------------------------------------
