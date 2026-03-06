@@ -25,6 +25,7 @@ class Spanner;
 class ScoreRange;
 class ChordRest;
 class Score;
+class Tie;
 
 //---------------------------------------------------------
 //   TrackList
@@ -74,6 +75,7 @@ struct Annotation {
 
 class ScoreRange {
       QList<TrackList*> tracks;
+      QVector<Tie*> startTies;
       Segment* _first;
       Segment* _last;
 
