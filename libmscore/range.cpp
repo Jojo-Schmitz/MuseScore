@@ -21,6 +21,7 @@
 #include "score.h"
 #include "segment.h"
 #include "slur.h"
+#include "spacer.h"
 #include "staff.h"
 #include "tie.h"
 #include "tremolo.h"
@@ -81,7 +82,7 @@ void TrackList::appendTuplet(Tuplet* srcTuplet, Tuplet* dstTuplet)
                   Segment* seg = toSegment(de->parent());
                   for (Element* ee : seg->annotations()) {
                         if (ee->track() == e->track())
-                              _range->annotations.push_back({ e->tick(), ee->clone() });
+                              _range->_annotations.push_back({ e->tick(), ee->clone() });
                         }
                   }
             }
@@ -172,7 +173,7 @@ void TrackList::append(Element* e)
                         Segment* s1 = src->segment();
                         for (Element* ee : s1->annotations()) {
                               if (ee->track() == e->track())
-                                    _range->annotations.push_back({ s1->tick(), ee->clone() });
+                                    _range->_annotations.push_back({ s1->tick(), ee->clone() });
                               }
                         if (e->isChord()) {
                               Chord* chord = toChord(e);
@@ -280,7 +281,7 @@ void TrackList::read(const Segment* fs, const Segment* es)
                               continue;
 
                         if (ee->track() == _track)
-                              _range->annotations.push_back({ s->tick(), ee->clone() });
+                              _range->_annotations.push_back({ s->tick(), ee->clone() });
                         }
                   continue;
                   }
@@ -644,7 +645,8 @@ bool TrackList::write(Score* score, const Fraction& tick) const
 
 ScoreRange::~ScoreRange()
       {
-      qDeleteAll(tracks);
+      qDeleteAll(_tracks);
+      deleteSpacers();
       }
 
 //---------------------------------------------------------
@@ -661,7 +663,7 @@ void ScoreRange::read(Segment* first, Segment* last, bool readSpanner)
       int startTrack = 0;
       int endTrack   = score->nstaves() * VOICES;
 
-      spanner.clear();
+      _spanner.clear();
 
       if (readSpanner) {
             Fraction stick = first->tick();
@@ -677,7 +679,7 @@ void ScoreRange::read(Segment* first, Segment* last, bool readSpanner)
                         ns->setStartElement(0);
                         ns->setEndElement(0);
                         ns->setTick(ns->tick() - stick);
-                        spanner.push_back(ns);
+                        _spanner.push_back(ns);
                         }
                   }
             }
@@ -688,9 +690,10 @@ void ScoreRange::read(Segment* first, Segment* last, bool readSpanner)
                   TrackList* dl = new TrackList(this);
                   dl->setTrack(track);
                   dl->read(first, last);
-                  tracks.append(dl);
+                  _tracks.append(dl);
                   }
             }
+      backupSpacers(first, last);
       }
 
 //---------------------------------------------------------
@@ -699,7 +702,7 @@ void ScoreRange::read(Segment* first, Segment* last, bool readSpanner)
 
 bool ScoreRange::write(Score* score, const Fraction& tick) const
       {
-      for (TrackList* dl : tracks) {
+      for (TrackList* dl : _tracks) {
             int track = dl->track();
             if (!dl->write(score, tick))
                   return false;
@@ -719,7 +722,7 @@ bool ScoreRange::write(Score* score, const Fraction& tick) const
                   }
             ++track;
             }
-      for (Spanner* s : spanner) {
+      for (Spanner* s : _spanner) {
             s->setTick(s->tick() + tick);
             if (s->isSlur()) {
                   Slur* slur = toSlur(s);
@@ -742,7 +745,7 @@ bool ScoreRange::write(Score* score, const Fraction& tick) const
                   }
             score->undoAddElement(s);
             }
-      for (const Annotation& a : annotations) {
+      for (const Annotation& a : _annotations) {
             Measure* tm = score->tick2measure(a.tick);
             Segment *op = toSegment(a.e->parent());
             Segment* s = tm->undoGetSegment(op->segmentType(), a.tick);
@@ -751,6 +754,7 @@ bool ScoreRange::write(Score* score, const Fraction& tick) const
                   score->undoAddElement(a.e);
                   }
             }
+      restoreSpacers(score, tick);
       return true;
       }
 
@@ -762,11 +766,11 @@ void ScoreRange::fill(const Fraction& f)
       {
       const Fraction oldDuration = ticks();
       Fraction oldEndTick = _first->tick() + oldDuration;
-      for (auto t : qAsConst(tracks))
+      for (auto t : qAsConst(_tracks))
             t->appendGap(f);
 
       Fraction diff = ticks() - oldDuration;
-      for (Spanner* sp : qAsConst(spanner)) {
+      for (Spanner* sp : qAsConst(_spanner)) {
             if (sp->tick2() >= oldEndTick && sp->tick() < oldEndTick)
                   sp->setTicks(sp->ticks() + diff);
             }
@@ -779,7 +783,7 @@ void ScoreRange::fill(const Fraction& f)
 
 bool ScoreRange::truncate(const Fraction& f)
       {
-      for (TrackList* dl : qAsConst(tracks)) {
+      for (TrackList* dl : qAsConst(_tracks)) {
             if (dl->empty())
                   continue;
             Element* e = dl->back();
@@ -789,7 +793,7 @@ bool ScoreRange::truncate(const Fraction& f)
             if (r->ticks() < f)
                   return false;
             }
-      for (TrackList* dl : qAsConst(tracks))
+      for (TrackList* dl : qAsConst(_tracks))
             dl->truncate(f);
       return true;
       }
@@ -800,7 +804,87 @@ bool ScoreRange::truncate(const Fraction& f)
 
 Fraction ScoreRange::ticks() const
       {
-      return tracks.empty() ? Fraction() : tracks[0]->ticks();
+      return _tracks.empty() ? Fraction() : _tracks[0]->ticks();
+      }
+
+//---------------------------------------------------------
+//   backupSpacers
+//---------------------------------------------------------
+
+void ScoreRange::backupSpacers(Segment* first, Segment* last)
+      {
+      Measure* fm = first->measure();
+      Measure* lm = last->measure();
+
+      for (Measure* m = fm; m && m != lm->nextMeasure(); m = m->nextMeasure()) {
+            int nStaves = m->score()->nstaves();
+
+            for (int i = 0; i < nStaves; ++i) {
+                  if (m->vspacerUp(i)) {
+                        SpacerBackup sBackup;
+                        sBackup.s = m->vspacerUp(i)->clone();
+                        sBackup.sPosition =m->tick() + ((m->endTick() - m->tick()) / 2);
+                        sBackup.staffIdx =i;
+                        _spacers.push_back(sBackup);
+                        }
+                  if (m->vspacerDown(i)) {
+                        SpacerBackup sBackup;
+                        sBackup.s = m->vspacerDown(i)->clone();
+                        sBackup.sPosition = m->tick() + ((m->endTick() - m->tick()) / 2);
+                        sBackup.staffIdx = i;
+                        _spacers.push_back(sBackup);
+                        }
+                  }
+            // Last Measure
+            if (m->sectionBreak() || (m->nextMeasure() && (m->nextMeasure()->first(SegmentType::TimeSig))))
+                  break;
+            }
+      }
+
+//---------------------------------------------------------
+//   restoreSpacers
+//---------------------------------------------------------
+void ScoreRange::restoreSpacers(Score* score, const Fraction& tick) const
+      {
+      //---------------------------------------------------------
+      //   addSpacer
+      //---------------------------------------------------------
+      auto addSpacer = [&](Measure* m, Spacer* s, int staffIdx)
+      {
+            // We only add an element if there isn't a previous one of the same Type (UP/DOWN)
+            if (((s->spacerType() == SpacerType::UP) && (!m->vspacerUp(staffIdx)))
+                || (((s->spacerType() == SpacerType::DOWN) || (s->spacerType() == SpacerType::FIXED)) && (!m->vspacerDown(staffIdx)))) {
+                  Spacer* ns = new  Spacer(score);
+                  ns->setSpacerType(s->spacerType());
+                  ns->setGap(s->gap());
+                  ns->setTrack(staffIdx * VOICES);
+                  m->add(ns);
+                  }
+            };
+
+      // Spacers list
+      for (const SpacerBackup& sb : _spacers) {
+            // Look for suitable measure
+            for (Measure* m = score->tick2measure(tick); m; m = m->nextMeasure()) {
+                  if ((sb.sPosition >= m->tick()) && (sb.sPosition <= m->endTick())) {
+                        addSpacer(m, sb.s, sb.staffIdx);
+                        break;
+                        }
+                  // Last Measure
+                  if (m->sectionBreak() || (m->nextMeasure() && (m->nextMeasure()->first(SegmentType::TimeSig))))
+                        break;
+                  }
+            }
+      }
+
+//---------------------------------------------------------
+//   deleteSpacers
+//---------------------------------------------------------
+void ScoreRange::deleteSpacers()
+      {
+      // Spacers list
+      for (const SpacerBackup& sb : _spacers)
+            delete sb.s;
       }
 
 //---------------------------------------------------------
