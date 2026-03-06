@@ -541,7 +541,7 @@ void TestNote::LongNoteAfterShort_183746() {
       score->cmdAddPitch(47, 0, 0);
 
       Segment* s = score->tick2segment(TDuration(TDuration::DurationType::V_128TH).ticks());
-      QVERIFY(s && s->segmentType() == SegmentType::ChordRest);
+      QVERIFY(s && s->isChordRestType());
       QVERIFY(s->tick() == Fraction(1,128));
 
       Element* e = s->firstElementForNavigation(0);

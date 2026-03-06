@@ -1563,7 +1563,7 @@ static void readMeasure(Measure* m, int staffIdx, XmlReader& e)
                         }
                   else {
                         segment->add(chord);
-                        Q_ASSERT(segment->segmentType() == SegmentType::ChordRest);
+                        Q_ASSERT(segment->isChordRestType());
 
                         for (int i = 0; i < graceNotes.size(); ++i) {
                               Chord* gc = graceNotes[i];
@@ -1587,7 +1587,7 @@ static void readMeasure(Measure* m, int staffIdx, XmlReader& e)
                                     Chord* pch = 0;       // previous chord
                                     if (ss) {
                                           ChordRest* cr = toChordRest(ss->element(track));
-                                          if (cr && cr->type() == ElementType::CHORD)
+                                          if (cr && cr->isChord())
                                                 pch = toChord(cr);
                                           }
                                     if (pch) {
@@ -1921,7 +1921,7 @@ static void readMeasure(Measure* m, int staffIdx, XmlReader& e)
                   Element* el = Element::name2Element(tag, m->score());
                   // hack - needed because tick tags are unreliable in 1.3 scores
                   // for symbols attached to anything but a measure
-                  if (el->type() == ElementType::SYMBOL)
+                  if (el->isSymbol())
                         el->setParent(m);    // this will get reset when adding to segment
                   el->setTrack(e.track());
                   el->read(e);
@@ -3126,7 +3126,7 @@ Score::FileError MasterScore::read114(XmlReader& e)
             bool first = true;
             for (int track = 0; track < tracks; ++track) {
                   for (Segment* s = m->first(); s; s = s->next()) {
-                        if (s->segmentType() != SegmentType::ChordRest)
+                        if (!s->isChordRestType())
                               continue;
                         ChordRest* cr = toChordRest(s->element(track));
                         if (cr) {

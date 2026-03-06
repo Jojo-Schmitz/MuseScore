@@ -113,7 +113,7 @@ Tuplet* MuseScore::tupletDialog()
             cr = cs->getSelectedChordRest();
       if (cr == 0)
             return 0;
-      if (cr->durationType() < TDuration(TDuration::DurationType::V_512TH) && cr->durationType() != TDuration(TDuration::DurationType::V_MEASURE)) {
+      if (cr->durationType() < TDuration(TDuration::DurationType::V_512TH) && !cr->durationType().isMeasure()) {
             noteTooShortForTupletDialog();
             return 0;
             }
@@ -145,7 +145,7 @@ Tuplet* MuseScore::tupletDialog()
       else
             tuplet->setBaseLen(TDuration::DurationType::V_INVALID);
 
-      if (tuplet->baseLen() == TDuration::DurationType::V_INVALID) {
+      if (!tuplet->baseLen().isValid()) {
             QMessageBox::warning(0,
                tr("Tuplet Error"),
                tr("Cannot create tuplet with ratio %1 for duration %2").arg(tuplet->ratio().print(), f1.print()));

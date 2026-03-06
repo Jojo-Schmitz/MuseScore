@@ -465,7 +465,7 @@ void ScoreView::dropEvent(QDropEvent* event)
                   case ElementType::HARMONY:
                         {
                         Element* el = elementAt(pos);
-                        if (el == 0 || el->type() == ElementType::STAFF_LINES) {
+                        if (el == 0 || el->isStaffLines()) {
                               int staffIdx;
                               Segment* seg;
                               QPointF offset;
@@ -612,7 +612,7 @@ void ScoreView::dropEvent(QDropEvent* event)
 qDebug("drop <%s>", dta.data());
 
       Element* el = elementAt(pos);
-      if (el == 0 || el->type() != ElementType::MEASURE) {
+      if (el == 0 || !el->isMeasure()) {
             setDropTarget(0);
             return;
             }

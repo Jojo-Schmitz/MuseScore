@@ -98,7 +98,7 @@ QString MScoreTextToMXML::toPlainText(const QString& text)
       {
       QString res;
       bool inElem = false;
-      foreach(QChar ch, text) {
+      for (QChar ch : text) {
             if (ch == '<')
                   inElem = true;
             else if (ch == '>')
