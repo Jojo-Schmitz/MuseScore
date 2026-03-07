@@ -4613,7 +4613,7 @@ void ExportMusicXml::swingSound(StaffTextBase const* const text)
             _xml.tagE("straight");
       else {
             const int swingPercentage = text->swingParameters()->swingRatio;
-            const int swingDivisor = std::gcd(text->swingParameters()->swingRatio, 100);
+            const int swingDivisor = gcd(text->swingParameters()->swingRatio, 100);
             _xml.tag("first",  100 / swingDivisor);
             _xml.tag("second", swingPercentage / swingDivisor);
             if (text->swingParameters()->swingUnit == MScore::division / 2)
