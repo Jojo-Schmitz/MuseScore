@@ -737,7 +737,6 @@ void Tie::slurPos(SlurPos* sp)
 
       //------p2
       y2 = y1;
-      xo = 0;
       if (!ec) {
             sp->p2 = sp->p1 + QPointF(_spatium * 3, 0.0);
             sp->system2 = sp->system1;
@@ -766,6 +765,11 @@ void Tie::slurPos(SlurPos* sp)
                   }
             }
       sp->p2 += QPointF(x2 - xo, y2);
+
+      if (sc->isGrace())
+            sp->p1 += sc->parent()->pos();
+      if (ec->isGrace())
+            sp->p2 += ec->parent()->pos();
 
       // adjust for cross-staff
       if (sc->vStaffIdx() != vStaffIdx() && sp->system1) {
@@ -835,9 +839,9 @@ void Tie::calculateDirection()
             // if there are multiple voices, the tie direction goes on stem side
             if (primaryMeasure->hasVoices(primaryChord->staffIdx(), primaryChord->tick(), primaryChord->actualTicks()))
                   _up = primaryChord->up();
-            else if (tieHasBothNotes && secondaryMeasure->hasVoices(secondaryChord->staffIdx(), secondaryChord->tick(), secondaryChord->actualTicks()))
+            else if (tieHasBothNotes && secondaryMeasure && secondaryMeasure->hasVoices(secondaryChord->staffIdx(), secondaryChord->tick(), secondaryChord->actualTicks()))
                   _up = secondaryChord->up();
-            else if (n == 1) {
+            else if (n == 1 && secondaryChord) {
                   //
                   // single note
                   //
