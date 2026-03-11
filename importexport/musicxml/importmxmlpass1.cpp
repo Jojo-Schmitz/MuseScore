@@ -770,16 +770,15 @@ static void resizeTitleBox(VBox* vbox)
       {
       double calculatedVBoxHeight = 0;
       ElementList elist = vbox->el();
-      Score* score = vbox->score();
-      for (Element* e : elist) {
+      //Score* score = vbox->score();
+      //for (Element* e : elist)
             //score->renderer()->layoutItem(e);
-            }
 
       double padding = vbox->spatium();
 
-      for (Element* e : elist) {
-            if (e->isText()) {
-                  Text* txt = toText(e);
+      //for (Element* e : elist) {
+            //if (e->isText()) {
+                  //Text* txt = toText(e);
                   //Text::LayoutData* txtLD = txt->mutldata();
 
                   //LD_CONDITION(txtLD->isSetBbox());
@@ -788,8 +787,8 @@ static void resizeTitleBox(VBox* vbox)
                   //bbox.moveTop(0.0);
                   //txtLD->setBbox(bbox);
                   //calculatedVBoxHeight += txtLD->bbox().height() + padding;
-                  }
-            }
+                  //
+            //}
 
       qreal heightInSp = calculatedVBoxHeight / padding;
       if (heightInSp > vbox->propertyDefault(Pid::BOX_HEIGHT).toDouble()) {
