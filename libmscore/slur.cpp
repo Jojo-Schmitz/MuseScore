@@ -631,6 +631,11 @@ void Slur::slurPos(SlurPos* sp)
       sp->p1 = scr->pos() + scr->segment()->pos() + scr->measure()->pos();
       sp->p2 = ecr->pos() + ecr->segment()->pos() + ecr->measure()->pos();
 
+      if (scr->isGrace())
+            sp->p1 += scr->parent()->pos();
+      if (ecr->isGrace())
+            sp->p2 += ecr->parent()->pos();
+
       // adjust for cross-staff
       if (scr->vStaffIdx() != vStaffIdx() && sp->system1) {
             qreal diff = sp->system1->staff(scr->vStaffIdx())->y() - sp->system1->staff(vStaffIdx())->y();
