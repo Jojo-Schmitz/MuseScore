@@ -3161,7 +3161,7 @@ bool MStyle::readProperties400(XmlReader& e, int mscVersion)
             || tag == "useStraightNoteFlags"                                      // Mu4 only, let's skip
             || tag == "stemWidth"                                                 // 0.1 -> 0.11, depends on font's `engravingDefaults`! Let's skip.
             || tag == "stemLength"                                                // Mu4 only, let's skip
-            || tag == "stemLengthSmall"                                           // Mu4 only, let's skip
+            || tag == "stemLengthSmall"                                           // Mu4.0-4.7 only, let's skip
             || tag == "shortStemStartLocation")                                   // Mu4 only, let's skip
             e.skipCurrentElement();
       else if (tag == "shortestStem") {                                           // 2.25 -> 2.5
@@ -3384,7 +3384,7 @@ bool MStyle::readProperties400(XmlReader& e, int mscVersion)
             if (!qFuzzyCompare(subTitleFontSize, 14.0))                           // Changed from 4.x default
                   set(Sid::subTitleFontSize, QVariant(subTitleFontSize));
             }
-      else if ((mscVersion >= 410 && tag == "preferSameStringForTranspose")       // Mu4.1+ only, let's skip
+      else if ((mscVersion >= 410 && tag == "preferSameStringForTranspose")       // Mu4.1-4.6 only, let's skip
             || (mscVersion >= 420 && tag == "stringTuningsFontSize")              // Mu4.2+ only, let's skip
             || (mscVersion >= 410 && tag.startsWith("harpPedal"))                 // Mu4.1+ only, let's skip
             || (mscVersion >= 400 && tag == "dynamicsFontSize")                   // 11 -> 10, Mu4 uses the musical font's ones, maybe that's the reason, so let's skip, i.e. reset back
@@ -4172,7 +4172,23 @@ bool  MStyle::readProperties470(XmlReader& e, int mscVersion)
       //else if (tag == "pageOddBottomMargin")     // rounding issue, so let's pass
       //     return false;
       //else
-      if (tag == "hairpinOffset")                                   // Mu4.7+ only, let's skip
+      if (     tag == "dividerLeftAlignToSystemBarline"             // Mu4.7+ only, let's skip
+            || tag == "dividerRightAlignToSystemBarline"            // Mu4.7+ only, let's skip
+            || tag == "dividerLeftSize"                             // Mu4.7+ only, let's skip
+            || tag == "dividerRightSize" )                          // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
+      else if (tag == "articulationAnchorLuteFingering") {          // 4 -> 1
+            int articulationAnchorLuteFingering = e.readInt();
+            if (articulationAnchorLuteFingering != 1)               // Changed from 4.6+ default
+                  set(Sid::articulationAnchorLuteFingering, articulationAnchorLuteFingering);
+            }
+      else if (tag == "chordBracketNoteDistance"                    // Mu4.7+ only, let's skip
+            || tag == "chordBracketLineWidth"                       // Mu4.7+ only, let's skip
+            || tag == "chordBracketHookLen")                        // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
+      else if (tag == "systemTextLineLineSpacing")                  // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
+      else if (tag == "hairpinOffset")                              // Mu4.7+ only, let's skip
             e.skipCurrentElement();
       else if (tag == "pedalOffset")                                // Mu4.7+ only, let's skip
             e.skipCurrentElement();
@@ -4182,13 +4198,36 @@ bool  MStyle::readProperties470(XmlReader& e, int mscVersion)
             e.skipCurrentElement();
       else if (tag == "systemTextLineLineSpacing")                  // Mu4.7+ only, let's skip
             e.skipCurrentElement();
+      else if (tag == "alignPreBendAndPreDiveToGraceNote"           // Mu4.7+ only, let's skip
+            || tag == "useFractionCharacters"                       // Mu4.7+ only, let's skip
+            || tag == "guitarDivesAboveStaff"                       // Mu4.7+ only, let's skip
+            || tag == "guitarDiveLineWidth"                         // Mu4.7+ only, let's skip
+            || tag == "guitarDiveLineWidthTab")                     // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
+      //else if (tag == "headerAlign")                              // center,center -> center,top in 4.7 ToDo/Let's pass
+      //      e.skipCurrentElement();
+      else if (tag == "showFretOnFullBendRelease")                  // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
       else if (tag == "showFretOnFullBendRelease")                  // Mu4.7+ only, let's skip
             e.skipCurrentElement();
       else if (tag == "letRingOffset")                              // Mu4.7+ only, let's skip
             e.skipCurrentElement();
+      else if (tag.startsWith("whammyBar"))                         // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
       else if (tag == "palmMuteOffset")                             // Mu4.7+ only, let's skip
             e.skipCurrentElement();
+      else if (tag.endsWith("MusicalSymbolSize"))                   // Mu4.7+ only, let's skip
+            e.skipCurrentElement();
       else if (tag == "defaultsVersion")           // 4mm -> 4nn, let's skip, i.e. reset to Mu3's 302
+            e.skipCurrentElement();
+      else if (tag.endsWith("BeginLineArrowHeight")                 // Mu4.7+ only, let's skip
+            || tag.endsWith("BeginLineArrowWidth")                  // Mu4.7+ only, let's skip
+            || tag.endsWith("EndLineArrowWidth")                    // Mu4.7+ only, let's skip
+            || tag.endsWith("EndLineArrowWidth")                    // Mu4.7+ only, let's skip
+            || tag.endsWith("BeginFilledArrowWidth")                // Mu4.7+ only, let's skip
+            || tag.endsWith("BeginFilledArrowWidth")                // Mu4.7+ only, let's skip
+            || tag.endsWith("EndFilledArrowWidth")                  // Mu4.7+ only, let's skip
+            || tag.endsWith("EndFilledArrowWidth"))                 // Mu4.7+ only, let's skip
             e.skipCurrentElement();
       //else if (tag == "spatium")                 // rounding issue, so let's pass
       //     return false;
