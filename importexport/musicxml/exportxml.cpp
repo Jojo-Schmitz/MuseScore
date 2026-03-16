@@ -8119,8 +8119,10 @@ void ExportMusicXml::harmony(Harmony const* const h, FretDiagram const* const fd
       QString tagName = "harmony";
       if (!h->isStyled(Pid::PLACEMENT))
             tagName += placement2xml(h);
-      //if (h->hasFrame())
-            //tagName += " print-frame=\"yes\"";
+      if (!h->isStyled(Pid::FONT_FACE))
+            tagName += QString(" font-family=\"%1\"").arg(h->getProperty(Pid::FONT_FACE).value<QString>());
+      if (!h->isStyled(Pid::FONT_SIZE))
+            tagName += QString(" font-size=\"%1\"").arg(h->getProperty(Pid::FONT_SIZE).toReal());
       tagName += QString(" print-frame=\"%1\"").arg(h->hasFrame() ? "yes" : "no"); // .append(relative));
       if (!h->visible())
             tagName += " print-object=\"no\"";

@@ -4615,8 +4615,7 @@ void MusicXMLParserDirection::handleChordSym(const int track, const Fraction tic
       ha->setPropertyFlags(Pid::PLACEMENT, PropertyFlags::UNSTYLED);
       ha->resetProperty(Pid::OFFSET);
       ha->setVisible(_visible);
-      HarmonyDesc newHarmonyDesc(track, ha, nullptr);
-
+      const HarmonyDesc newHarmonyDesc(track, ha, nullptr);
       const int ticks = tick.ticks();
       bool insert = true;
       for (auto itr = harmonyMap.begin(); itr != harmonyMap.end(); itr++) {
@@ -7209,11 +7208,10 @@ void MusicXMLParserPass2::harmony(const QString& partId, Measure* measure, const
       hasTotalY |= tempHasY;
       qreal totalY = defaultY + relativeY;
 
+      const QColor color = _e.attributes().value("color").toString();
+      const QString fontFamily = _e.attributes().value("font-family").toString();
       const QString placement = _e.attributes().value("placement").toString();
       const bool printObject = _e.attributes().value("print-object") != "no";
-      //QString printFrame = _e.attributes().value("print-frame").toString();
-      //QString printStyle = _e.attributes().value("print-style").toString();
-      const QColor color = _e.attributes().value("color").toString();
 
       QString kind, kindText, functionText, inversionText, symbols, parens;
       QList<HDegree> degreeList;
@@ -7410,6 +7408,10 @@ void MusicXMLParserPass2::harmony(const QString& partId, Measure* measure, const
             ha->resetProperty(Pid::OFFSET);
             }
       colorItem(ha, color);
+      if (!fontFamily.isEmpty()) {
+            ha->setFamily(fontFamily);
+            ha->setPropertyFlags(Pid::FONT_FACE, PropertyFlags::UNSTYLED);
+            }
 
       const HarmonyDesc newHarmonyDesc(track, ha, fd);
       bool insert = true;
