@@ -967,7 +967,7 @@ bool ParsedChord::parse(const QString& s, const ChordList* cl, bool syntaxOnly, 
                                     _xmlKind = "suspended-fourth";
                               else if (tok2L == "2")
                                     _xmlKind = "suspended-second";
-                              _xmlText = tok1 + tok2;
+                              _xmlText = tok1L + tok2;
                               }
                         else {
                               _xmlDegrees += "sub3";
@@ -981,7 +981,7 @@ bool ParsedChord::parse(const QString& s, const ChordList* cl, bool syntaxOnly, 
                               _xmlKind = "suspended-fourth";
                         else if (tok2L == "2")
                               _xmlKind = "suspended-second";
-                        _xmlText = tok1 + tok2;
+                        _xmlText = tok1L + tok2;
                         if (_extension == "7" || _extension == "9" || _extension == "11" || _extension == "13") {
                               _xmlDegrees += (_quality == "major") ? "add#7" : "add7";
                               // hack for programs that cannot assemble names well
