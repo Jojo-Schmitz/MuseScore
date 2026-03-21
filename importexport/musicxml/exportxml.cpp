@@ -358,7 +358,7 @@ public:
       void systemText(StaffTextBase const* const text, int staff);
       void tempoText(TempoText const* const text, int staff);
       void tempoSound(TempoText const* const text);
-      void swingSound(StaffTextBase const* const text);
+      void swingSound(StaffTextBase const* const text, const bool offset = false);
       void harmony(Harmony const* const, FretDiagram const* const fd, const Fraction& offset = Fraction(0, 1));
       Score* score() const { return _score; };
       double getTenthsFromInches(double) const;
@@ -4323,10 +4323,10 @@ static void directionTag(XmlWriter& xml, Attributes& attr, Element const* const 
 //   directionETag
 //---------------------------------------------------------
 
-static void directionETag(XmlWriter& xml, int staff, int offs = 0)
+static void directionETag(XmlWriter& xml, int staff, const int offset = 0)
       {
-      if (offs)
-            xml.tag("offset", offs);
+      if (offset)
+            xml.tag("offset sound=\"yes\"", offset);
       if (staff)
             xml.tag("staff", staff);
       xml.etag();
@@ -4566,7 +4566,7 @@ static void wordsMetronome(XmlWriter& xml, Score* s, TextBase const* const text,
             }
 
       if (offset)
-            xml.tag("offset", offset);
+            xml.tag("offset sound=\"yes\"", offset);
       }
 
 //---------------------------------------------------------
@@ -4605,7 +4605,7 @@ void ExportMusicXml::tempoSound(TempoText const* const text)
       _xml.tagE(QString("sound tempo=\"%1\"").arg(QString::number(bpmRounded)));
       }
 
-void ExportMusicXml::swingSound(StaffTextBase const* const text)
+void ExportMusicXml::swingSound(StaffTextBase const* const text, const bool offset)
       {
       _xml.stag("sound");
       _xml.stag("swing");
@@ -4622,6 +4622,8 @@ void ExportMusicXml::swingSound(StaffTextBase const* const text)
                   _xml.tag("swing-type", TDuration(TDuration::DurationType::V_16TH).name());
             }
       _xml.etag();
+      if (offset)
+            _xml.tag("offset", calculateTimeDeltaInDivisions(text->tick(), tick(), div));
       _xml.etag();
       }
 
@@ -4851,11 +4853,9 @@ void ExportMusicXml::hairpin(Hairpin const* const hp, int staff, const Fraction&
                   if ((isStart && hp->beginText().isEmpty()) || (!isStart && hp->endText().isEmpty()))
                         return;
                   // generate backup or forward to the start time of the element
-                  const Fraction tickToWrite = isStart ? hp->tick() : hp->tick2();
-                  moveToTickIfNeed(tickToWrite);
                   directionTag(_xml, _attr, hp);
                   writeHairpinText(_xml, hp, isStart);
-                  directionETag(_xml, staff);
+                  directionETag(_xml, staff, calculateTimeDeltaInDivisions(tick, _tick, div));
                   return;
                   }
 
@@ -4886,10 +4886,6 @@ void ExportMusicXml::hairpin(Hairpin const* const hp, int staff, const Fraction&
                         }
                   }
             }
-
-      // generate backup or forward to the start time of the element
-      const Fraction tickToWrite = isStart ? hp->tick() : hp->tick2();
-      moveToTickIfNeed(tickToWrite);
 
       directionTag(_xml, _attr, hp);
       if (isStart)
@@ -4959,7 +4955,7 @@ void ExportMusicXml::hairpin(Hairpin const* const hp, int staff, const Fraction&
             }
       if (!isStart)
             writeHairpinText(_xml, hp, isStart);
-      directionETag(_xml, staff);
+      directionETag(_xml, staff, calculateTimeDeltaInDivisions(isStart ? hp->tick() : hp->tick2(), _tick, div));
       }
 
 //---------------------------------------------------------
@@ -5060,10 +5056,6 @@ void ExportMusicXml::pedal(Pedal const* const pd, int staff, const Fraction& tic
 
       bool isStart = pd->tick() == tick;
 
-      // generate backup or forward to the start time of the element
-      const Fraction tickToWrite = isStart ? pd->tick() : pd->tick2();
-      moveToTickIfNeed(tickToWrite);
-
       directionTag(_xml, _attr, pd);
       _xml.stag("direction-type");
       QString pedalType;
@@ -5104,7 +5096,7 @@ void ExportMusicXml::pedal(Pedal const* const pd, int staff, const Fraction& tic
       pedalXml += positioningAttributes(pd, pd->tick() == tick);
       _xml.tagE(pedalXml);
       _xml.etag();
-      directionETag(_xml, staff);
+      directionETag(_xml, staff, calculateTimeDeltaInDivisions(isStart ? pd->tick() : pd->tick2(), _tick, div));
       }
 
 //---------------------------------------------------------
@@ -5132,7 +5124,7 @@ void ExportMusicXml::textLine(TextLineBase const* const tl, int staff, const Fra
                   return;
             directionTag(_xml, _attr, tl);
             writeHairpinText(_xml, tl, isStart);
-            directionETag(_xml, staff);
+            directionETag(_xml, staff, calculateTimeDeltaInDivisions(tick, _tick, div));
             return;
             }
 
@@ -5230,10 +5222,6 @@ void ExportMusicXml::textLine(TextLineBase const* const tl, int staff, const Fra
 
       rest += positioningAttributes(tl, tl->tick() == tick);
 
-      // generate backup or forward to the start time of the element
-      const Fraction tickToWrite = isStart ? tl->tick() : tl->tick2();
-      moveToTickIfNeed(tickToWrite);
-
       directionTag(_xml, _attr, tl);
 
       if (!tl->beginText().isEmpty() && tl->tick() == tick) {
@@ -5262,7 +5250,7 @@ void ExportMusicXml::textLine(TextLineBase const* const tl, int staff, const Fra
             xml.tag("offset", offs);
       */
 
-      directionETag(_xml, staff);
+      directionETag(_xml, staff, calculateTimeDeltaInDivisions(isStart ? tl->tick() : tl->tick2(), _tick, div));
       }
 
 //---------------------------------------------------------
@@ -5831,7 +5819,7 @@ static bool commonAnnotations(ExportMusicXml* exp, const Element* e, int sstaff)
             else if (e->isSystemText()) {
                   const StaffTextBase* text = toStaffTextBase(e);
                   if (text->swing())
-                        exp->swingSound(text);
+                        exp->swingSound(text, true);
                   }
             return false;
             }
