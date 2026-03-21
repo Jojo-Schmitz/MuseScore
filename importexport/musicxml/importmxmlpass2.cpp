@@ -6653,17 +6653,10 @@ Note* MusicXMLParserPass2::note(const QString& partId,
                   c->add(stem);
                   }
             setNoteHead(note, noteheadColor, noteheadParentheses, noteheadFilled);
-            note->setVisible(hasHead && printObject); // TODO also set the stem to invisible
+            note->setVisible(hasHead && printObject);
             stem->setVisible(printObject);
 
             if (!grace) {
-                  handleSmallness(cue || isSmall, note, c);
-                  note->setPlay(!cue);          // cue notes don't play
-                  note->setHeadGroup(headGroup);
-                  colorItem(note, noteColor);
-                  setNoteHead(note, noteheadColor, noteheadParentheses, noteheadFilled);
-                  note->setVisible(hasHead && printObject); // TODO also set the stem to invisible
-
                   // regular note
                   // handle beam
                   if (!chord)
