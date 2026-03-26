@@ -677,6 +677,8 @@ void Hairpin::write(XmlWriter& xml) const
       writeProperty(xml, Pid::DYNAMIC_RANGE);
       writeProperty(xml, Pid::SINGLE_NOTE_DYNAMICS);
       writeProperty(xml, Pid::VELO_CHANGE_METHOD);
+      writeProperty(xml, Pid::HAIRPIN_HEIGHT);
+      writeProperty(xml, Pid::HAIRPIN_CONT_HEIGHT);
       writeProperty(xml, Pid::PLACEMENT);
 
       TextLineBase::writeProperties(xml);
