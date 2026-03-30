@@ -37,7 +37,7 @@ set SRC=bravura-mmrest,gonville-mmrest, ^
  accidental-21,accidental-22,accidental-23, ^
  accidental-mirror, ^
  tie-1,tie-2,tie-3,grace-1,grace-2,grace-3,grace-4,grace-5 ^
- tuplets-1,tuplets-2,tuplets-3,tuplets-4,breath-1, ^
+ tuplets-1,tuplets-2,tuplets-3,tuplets-4,breath-1,breath-6, ^
  harmony-1,harmony-2,harmony-3,harmony-4,harmony-5,harmony-6,harmony-7, ^
  harmony-8,harmony-9,harmony-10,harmony-11,harmony-12,harmony-13,harmony-14,harmony-15, ^
  figured-bass-1, ^
