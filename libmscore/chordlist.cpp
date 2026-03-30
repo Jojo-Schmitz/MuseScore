@@ -452,7 +452,7 @@ void ParsedChord::configure(const ChordList* cl)
       // TODO: allow this to be parameterized via chord list
       major << "ma" << "maj" << "major" << "t" << "^";
       minor << "mi" << "min" << "minor" << "-" << "=";
-      diminished << "dim" << "o";
+      diminished << "dim" << "dim." << "o";
       augmented << "aug" << "+";
       lower << "b" << "-" << "dim";
       raise << "#" << "+" << "aug";
@@ -625,8 +625,8 @@ bool ParsedChord::parse(const QString& s, const ChordList* cl, bool syntaxOnly, 
       firstLeadingToken = _tokenList.size();
       while (i < len && leading.contains(s[i]))
             addToken(QString(s[i++]),ChordTokenClass::EXTENSION);
-#endif
       lastLeadingToken = _tokenList.size();
+#endif
       // get extension - up to first non-digit other than comma or slash
       for (tok1 = ""; i < len; ++i) {
             if (!s[i].isDigit() && s[i] != ',' && s[i] != '/')
