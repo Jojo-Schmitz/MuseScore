@@ -62,6 +62,10 @@ on:
         type: string
         required: true
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   plan:
     name: setup (linux yml)
@@ -140,10 +144,6 @@ jobs:
     needs:
       - plan
     steps:
-    - name: Cancel Previous Runs
-      uses: styfle/cancel-workflow-action@0.13.1
-      with:
-        access_token: ${{ github.token }}
     - name: Clone repository
       uses: actions/checkout@v6
     - name: Configure workflow
@@ -228,10 +228,6 @@ jobs:
     needs:
       - plan
     steps:
-    - name: Cancel Previous Runs
-      uses: styfle/cancel-workflow-action@0.13.1
-      with:
-        access_token: ${{ github.token }}
     - name: Clone repository
       uses: actions/checkout@v6
     - name: Configure workflow
@@ -316,10 +312,6 @@ jobs:
     needs:
       - plan
     steps:
-    - name: Cancel Previous Runs
-      uses: styfle/cancel-workflow-action@0.13.1
-      with:
-        access_token: ${{ github.token }}
     - name: Clone repository
       uses: actions/checkout@v6
     - name: Configure workflow

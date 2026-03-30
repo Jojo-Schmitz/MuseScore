@@ -52,6 +52,10 @@ on:
         type: string
         required: true
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   plan:
     name: setup (win yml)
@@ -118,10 +122,6 @@ jobs:
       - plan
     runs-on: windows-2025
     steps:
-    - name: Cancel Previous Runs
-      uses: styfle/cancel-workflow-action@0.13.1
-      with:
-        access_token: ${{ github.token }}
     - name: Clone repository
       uses: actions/checkout@v6
       with:
@@ -200,10 +200,6 @@ jobs:
       - plan
     runs-on: windows-2025
     steps:
-    - name: Cancel Previous Runs
-      uses: styfle/cancel-workflow-action@0.13.1
-      with:
-        access_token: ${{ github.token }}
     - name: Clone repository
       uses: actions/checkout@v6
       with:
@@ -282,10 +278,6 @@ jobs:
       - plan
     runs-on: windows-2025
     steps:
-    - name: Cancel Previous Runs
-      uses: styfle/cancel-workflow-action@0.13.1
-      with:
-        access_token: ${{ github.token }}
     - name: Clone repository
       uses: actions/checkout@v6
       with:
@@ -363,10 +355,6 @@ jobs:
       - plan
     runs-on: windows-2025
     steps:
-    - name: Cancel Previous Runs
-      uses: styfle/cancel-workflow-action@0.13.1
-      with:
-        access_token: ${{ github.token }}
     - name: Clone repository
       uses: actions/checkout@v6
       with:
