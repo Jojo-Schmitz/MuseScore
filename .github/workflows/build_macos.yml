@@ -66,7 +66,9 @@ env:
   DEVELOPER_DIR: /Applications/Xcode.app/Contents/Developer
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  # If run via workflow_call, ${{ github.workflow }} is the root workflow's name (e.g. 'Deploy'),
+  # which is the same for all workflows called in that run, hence we must add a unique suffix here.
+  group: ${{ github.workflow }} ${{ github.event_name }} ${{ github.ref }} macos
   cancel-in-progress: true
 
 jobs:
