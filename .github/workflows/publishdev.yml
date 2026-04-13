@@ -216,7 +216,7 @@ jobs:
         git tag "${{ needs.plan2.outputs.release_tag }}" "${GITHUB_SHA}"
         git push origin "${{ needs.plan2.outputs.release_tag }}"
     - name: Draft release page
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@v3
       with: # https://github.com/softprops/action-gh-release?tab=readme-ov-file#inputs
         draft: true
         files: release/*
