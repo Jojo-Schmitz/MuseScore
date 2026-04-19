@@ -8037,14 +8037,13 @@ static void writeMusicXML(const FretDiagram* item, XmlWriter& xml)
             for (auto const& j : item->barres()) {
                   FretItem::Barre b = j.second;
                   const int fret = j.first;
-                  int mxmlFret = fret + item->fretOffset();
                   if (!b.exists())
                         continue;
 
                   if (b.startString == i)
-                        bStarts.push_back(mxmlFret);
+                        bStarts.push_back(fret);
                   else if (b.endString == i || (b.endString == -1 && mxmlString == 1))
-                        bEnds.push_back(mxmlFret);
+                        bEnds.push_back(fret);
                   }
 
             if (item->marker(i).exists() && item->marker(i).mtype == FretMarkerType::CIRCLE) {
