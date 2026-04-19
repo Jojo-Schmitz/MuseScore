@@ -8246,7 +8246,7 @@ static void writeMusicXML(const FretDiagram* item, XmlWriter& xml)
             for (int j : bStarts) {
                   xml.stag("frame-note");
                   xml.tag("string", mxmlString);
-                  xml.tag("fret", j);
+                  xml.tag("fret", j + item->fretOffset());
                   xml.tagE("barre type=\"start\"");
                   xml.etag();
                   }
@@ -8254,7 +8254,7 @@ static void writeMusicXML(const FretDiagram* item, XmlWriter& xml)
             for (int j : bEnds) {
                   xml.stag("frame-note");
                   xml.tag("string", mxmlString);
-                  xml.tag("fret", j);
+                  xml.tag("fret", j + item->fretOffset());
                   xml.tagE("barre type=\"stop\"");
                   xml.etag();
                   }
