@@ -637,7 +637,7 @@ static int convertNote(const QString& s, NoteSpellingType noteSpelling, NoteCase
                   r = 4;
             else if (ss == "la")
                   r = 5;
-            else if (ss == "si")
+            else if (ss == "si" || ss == "ti")
                   r = 6;
             else
                   return Tpc::TPC_INVALID;
