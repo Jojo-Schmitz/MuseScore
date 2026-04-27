@@ -7,7 +7,7 @@ name: Build and draft release
 
 on:
   # schedule: # scheduled workflows will only run on the default branch. edit default values under gen1 and gen2 below
-  #   - cron: '0 4 */1 * *' # At 04:00 on every day-of-month
+  #   - cron: '0 2 */1 * *' # At 02:00 on every day-of-month
   push: # push.inputs field does not exist, use gen1 and gen2 below
     branches:
     - temp34
