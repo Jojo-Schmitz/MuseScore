@@ -1441,12 +1441,13 @@ SpannerWriter::SpannerWriter(XmlWriter& xml, const Element* current, const Spann
    : ConnectorInfoWriter(xml, current, sp, track, frac)
       {
       const bool clipboardmode = xml.clipboardmode();
-      if (!sp->startElement() || !sp->endElement()) {
+      if ((!sp->startElement() || !sp->endElement())
+          && (sp->anchor() == Spanner::Anchor::CHORD || sp->anchor() == Spanner::Anchor::NOTE)) {
             qDebug("SpannerWriter: spanner (%s) doesn't have an endpoint!", sp->name());
             return;
             }
-      if (current->isMeasure() || current->isSegment() || (sp->startElement()->type() != current->type())) {
-            // (The latter is the hairpins' case, for example, though they are
+      if (current->isMeasure() || current->isSegment() || !sp->startElement() || !sp->endElement()            // (The latter is the hairpins' case, for example, though they are
+          || (sp->startElement()->type() != current->type())) {
             // covered by the other checks too.)
             // We cannot determine position of the spanner from its start/end
             // elements and will try to obtain this info from the spanner itself.
