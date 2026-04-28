@@ -151,7 +151,6 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
             return;
             }
 
-      bool crossBeamFound = false;
       std::vector<Note*> upStemNotes;
       std::vector<Note*> downStemNotes;
       int upVoices       = 0;
@@ -176,8 +175,6 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
             Element* e = segment->element(track);
             if (e && e->isChord()) {
                   Chord* chord = toChord(e);
-                  if (chord->beam() && chord->beam()->cross())
-                        crossBeamFound = true;
                   bool hasGraceBefore = false;
                   for (Chord* c : qAsConst(chord->graceNotes())) {
                         if (c->isGraceBefore())
@@ -190,7 +187,7 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                         upStemNotes.insert(upStemNotes.end(), chord->notes().begin(), chord->notes().end());
                         upDots   = qMax(upDots, chord->dots());
                         maxUpMag = qMax(maxUpMag, chord->mag());
-                        if (!upHooks)
+                        if (!upHooks && !chord->beam())
                               upHooks = chord->hook();
                         if (hasGraceBefore)
                               upGrace = true;
@@ -200,7 +197,7 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                         downStemNotes.insert(downStemNotes.end(), chord->notes().begin(), chord->notes().end());
                         downDots = qMax(downDots, chord->dots());
                         maxDownMag = qMax(maxDownMag, chord->mag());
-                        if (!downHooks)
+                        if (!downHooks && !chord->beam())
                               downHooks = chord->hook();
                         if (hasGraceBefore)
                               downGrace = true;
@@ -308,13 +305,8 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
             if (upVoices && downVoices) {
                   Note* bottomUpNote = upStemNotes.front();
                   Note* topDownNote  = downStemNotes.back();
-                  int separation;
-                  // TODO: handle conflicts for cross-staff notes and notes on cross-staff beams
-                  // for now we simply treat these as though there is no conflict
-                  if (bottomUpNote->chord()->staffMove() == topDownNote->chord()->staffMove() && !crossBeamFound)
-                        separation = topDownNote->line() - bottomUpNote->line();
-                  else
-                        separation = 2;   // no conflict
+                  int separation = topDownNote->line() - bottomUpNote->line();
+
                   QVector<Note*> overlapNotes;
                   overlapNotes.reserve(8);
 
