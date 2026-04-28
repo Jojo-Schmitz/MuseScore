@@ -3506,7 +3506,7 @@ void MusicXMLParserDirection::direction(const QString& partId,
                         t->setFrameType(FrameType::NO_FRAME);
                         }
                   else if (_enclosure == "rectangle") {
-                        t->setFrameType(FrameType::SQUARE);
+                        t->setFrameType(FrameType::RECTANGLE);
                         t->setFrameRound(0);
                         }
 
@@ -3594,7 +3594,7 @@ void MusicXMLParserDirection::direction(const QString& partId,
             else if (_enclosure == "none")
                   dynamic->setFrameType(FrameType::NO_FRAME);
             else if (_enclosure == "rectangle") {
-                  dynamic->setFrameType(FrameType::SQUARE);
+                  dynamic->setFrameType(FrameType::RECTANGLE);
                   dynamic->setFrameRound(0);
                   }
 
