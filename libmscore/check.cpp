@@ -10,16 +10,15 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "score.h"
-#include "slur.h"
-#include "measure.h"
-#include "tuplet.h"
 #include "chordrest.h"
+#include "clef.h"
+#include "keysig.h"
+#include "measure.h"
 #include "rest.h"
+#include "score.h"
 #include "segment.h"
 #include "staff.h"
-#include "keysig.h"
-#include "clef.h"
+#include "tuplet.h"
 #include "utils.h"
 
 namespace Ms {
@@ -375,6 +374,8 @@ void Measure::checkMeasure(int staffIdx, bool useGapRests)
                   else if (currentPos > expectedPos) {
                         qDebug("in measure underrun %6d at %d-%d track %d", tick().ticks(), (currentPos/stretch).ticks(), (expectedPos/stretch).ticks(), track);
                         fillGap(expectedPos, currentPos - expectedPos, track, stretch);
+                        if (currentPos >= f)
+                              break;
                         }
 
                   DurationElement* de = cr;
