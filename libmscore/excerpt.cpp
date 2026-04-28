@@ -361,6 +361,7 @@ static void cloneSpanner(Spanner* s, Score* score, int dstTrack, int dstTrack2)
       // don’t clone voltas for track != 0
       if ((s->isVolta() || (s->isTextLine() && toTextLine(s)->systemFlag())) && s->track() != 0)
             return;
+
       Spanner* ns = toSpanner(s->linkedClone());
       ns->setScore(score);
       ns->setParent(0);
@@ -368,7 +369,6 @@ static void cloneSpanner(Spanner* s, Score* score, int dstTrack, int dstTrack2)
       ns->setTrack2(dstTrack2);
 
       if (ns->isSlur()) {
-
             // set start/end element for slur
             ChordRest* cr1 = s->startCR();
             ChordRest* cr2 = s->endCR();
@@ -402,7 +402,33 @@ static void cloneSpanner(Spanner* s, Score* score, int dstTrack, int dstTrack2)
             if (!ns->endElement())
                   qDebug("clone Slur: no end element");
             }
+      else if (ns->isTrill())
+            ns->computeStartElement();
+      else {
+            if (!ns->startElement())
+                  ns->computeStartElement();
+            if (!ns->endElement())
+                  ns->computeEndElement();
+            }
+
+      if (!ns->startElement() || !ns->endElement()) {
+#if 0
+            if (Element* startElement = ns->startElement()) {
+                  if (startElement->isChord())
+                        toChord(startElement)->removeStartingSpanner(ns);
+                  }
+            if (Element* endElement = ns->endElement()) {
+                  if (endElement->isChord())
+                        toChord(endElement)->removeEndingSpanner(ns);
+                  }
+#endif
+            qDebug() << "No start or end element, can't add spanner: " << ns->tick().toString();
+            delete ns;
+            return;
+            }
+
       score->undo(new AddElement(ns));
+      ns->styleChanged();
       }
 
 //---------------------------------------------------------
