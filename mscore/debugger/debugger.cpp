@@ -267,8 +267,8 @@ static void addMeasureBaseToList(ElementItem* mi, MeasureBase* mb)
       {
       foreach(Element* e, mb->el()) {
             ElementItem* mmi = new ElementItem(mi, e);
-            if (e->type() == ElementType::HBOX || e->type() == ElementType::VBOX)
-                  addMeasureBaseToList(mmi, static_cast<MeasureBase*>(e));
+            if (e->isHBox() || e->isVBox())
+                  addMeasureBaseToList(mmi, toMeasureBase(e));
             }
       }
 
@@ -321,8 +321,8 @@ static void addChord(ElementItem* sei, Chord* chord)
                   new ElementItem(ni, note->accidental());
                   }
             for (Element* f : note->el()) {
-                  if (f->type() == ElementType::SYMBOL || f->type() == ElementType::IMAGE) {
-                        BSymbol* bs = static_cast<BSymbol*>(f);
+                  if (f->isSymbol() || f->isImage()) {
+                        BSymbol* bs = toBSymbol(f);
                         addSymbol(ni, bs);
                         }
                   else
@@ -345,8 +345,8 @@ static void addChord(ElementItem* sei, Chord* chord)
             }
       for (Element* e : chord->el()) {
             ElementItem* ei = new ElementItem(sei, e);
-            if (e->type() == ElementType::SLUR) {
-                  Slur* gs = static_cast<Slur*>(e);
+            if (e->isSlur()) {
+                  Slur* gs = toSlur(e);
                   for (SpannerSegment* sp : gs->spannerSegments())
                         new ElementItem(ei, sp);
                   }
@@ -414,11 +414,11 @@ void Debugger::addMeasure(ElementItem* mi, Measure* measure)
                   }
 
             foreach(Element* s, segment->annotations()) {
-                  if (s->type() == ElementType::SYMBOL || s->type() == ElementType::IMAGE)
-                        addBSymbol(segItem, static_cast<BSymbol*>(s));
-                  else if (s->type() == ElementType::FRET_DIAGRAM) {
+                  if (s->isSymbol() || s->isImage())
+                        addBSymbol(segItem, toBSymbol(s));
+                  else if (s->isFretDiagram()) {
                         ElementItem* fdi = new ElementItem(segItem, s);
-                        FretDiagram* fd = static_cast<FretDiagram*>(s);
+                        FretDiagram* fd = toFretDiagram(s);
                         if (fd->harmony())
                               new ElementItem(fdi, fd->harmony());
                         }
@@ -460,8 +460,8 @@ void Debugger::updateList(Score* s)
       li->setText(0, "Global");
       for (auto i : s->spanner()) {
             ElementItem* it = new ElementItem(li, i.second);
-            if (i.second->type() == ElementType::TRILL) {
-                  Trill* trill = static_cast<Trill*>(i.second);
+            if (i.second->isTrill()) {
+                  Trill* trill = toTrill(i.second);
                   if (trill->accidental())
                         new ElementItem(it, trill->accidental());
                   }
@@ -489,9 +489,9 @@ void Debugger::updateList(Score* s)
                         ElementItem* mi = new ElementItem(si, mb);
                         addMeasureBaseToList(mi, mb);
 
-                        if (mb->type() != ElementType::MEASURE)
+                        if (!mb->isMeasure())
                               continue;
-                        Measure* measure = (Measure*) mb;
+                        Measure* measure = toMeasure(mb);
                         if (cs->styleB(Sid::concertPitch)) {
                               if (measure->mmRest()) {
                                     ElementItem* mmi = new ElementItem(mi, measure->mmRest());

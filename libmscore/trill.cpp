@@ -67,7 +67,7 @@ void TrillSegment::draw(QPainter* painter) const
 void TrillSegment::add(Element* e)
       {
       e->setParent(this);
-      if (e->type() == ElementType::ACCIDENTAL) {
+      if (e->isAccidental()) {
             // accidental is part of trill
             trill()->setAccidental(toAccidental(e));
             }
@@ -301,7 +301,7 @@ Trill::~Trill()
 
 void Trill::add(Element* e)
       {
-      if (e->type() == ElementType::ACCIDENTAL) {
+      if (e->isAccidental()) {
             e->setParent(this);
             _accidental = toAccidental(e);
             }

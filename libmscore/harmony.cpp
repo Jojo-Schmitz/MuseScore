@@ -1563,7 +1563,7 @@ qreal TextSegment::width() const
       return fm.width(text);
 #else
       qreal w = 0.0;
-      foreach(QChar c, text) {
+      for (QChar c : text) {
             // if we calculate width by character, at least skip high surrogates
             if (c.isHighSurrogate())
                   continue;

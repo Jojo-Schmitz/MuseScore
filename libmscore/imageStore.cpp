@@ -55,7 +55,7 @@ void ImageStoreItem::reference(Image* image)
 
 bool ImageStoreItem::isUsed(Score* score) const
       {
-      foreach(Image* image, _references) {
+      for (Image* image : _references) {
             if (image->score() == score && image->isUsed())
                   return true;
             }
