@@ -637,7 +637,7 @@ static int convertNote(const QString& s, NoteSpellingType noteSpelling, NoteCase
                   r = 4;
             else if (ss == "la")
                   r = 5;
-            else if (ss == "si")
+            else if (ss == "si" || ss == "ti")
                   r = 6;
             else
                   return Tpc::TPC_INVALID;
@@ -650,6 +650,7 @@ static int convertNote(const QString& s, NoteSpellingType noteSpelling, NoteCase
                   case 'f':   r = 3; break;
                   case 'g':   r = 4; break;
                   case 'a':   r = 5; break;
+                  case 'h':   // allow for German 'h' too, silently turn into 'b'
                   case 'b':   r = 6; break;
                   default:    return Tpc::TPC_INVALID;
                   }
