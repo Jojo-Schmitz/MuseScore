@@ -2929,8 +2929,25 @@ void MusicXMLParserPass2::measure(const QString& partId,
                   }
             else if (_e.name() == "barline")
                   barline(partId, measure, time + mTime);
-            else if (_e.name() == "print")
-                  _e.skipCurrentElement();
+            else if (_e.name() == "print") {
+                  if (_score->parts()[0] == _pass1.getPart(partId)) {
+                        // only process for first part
+                        while (_e.readNextStartElement()) {
+                              if (_e.name() == "page-layout")
+                                    _e.skipCurrentElement();            // skip but don't log
+                              else if (_e.name() == "system-layout")
+                                    _e.skipCurrentElement();            // skip but don't log
+                              else if (_e.name() == "staff-layout")
+                                    _e.skipCurrentElement();            // skip but don't log
+                              else if (_e.name() == "measure-layout")
+                                    measureLayout(measure);
+                              else
+                                    skipLogCurrElem();
+                              }
+                        }
+                  else
+                        _e.skipCurrentElement();
+                  }
             else
                   skipLogCurrElem();
 
@@ -3023,6 +3040,25 @@ void MusicXMLParserPass2::measure(const QString& partId,
             }
 
       addError(checkAtEndElement(_e, "measure"));
+      }
+
+//---------------------------------------------------------
+//   measureLayout
+//---------------------------------------------------------
+
+void MusicXMLParserPass2::measureLayout(Measure* measure)
+      {
+      while (_e.readNextStartElement()) {
+            if (_e.name() == "measure-distance") {
+                  const Spatium val(_e.readElementText().toDouble() / 10.0);
+                  if (!measure->prev() || !measure->prev()->isHBox()) {
+                        _score->insertMeasure(ElementType::HBOX, measure);
+                        toHBox(measure)->setBoxWidth(val);
+                        }
+                  else
+                        skipLogCurrElem();
+                  }
+            }
       }
 
 //---------------------------------------------------------
@@ -4570,6 +4606,13 @@ void MusicXMLParserDirection::handleRepeats(Measure* measure, const int track, c
                         measure = measure->prevMeasure();
                   else if (tb->tid() == Tid::REPEAT_LEFT && !closerToLeft && measure->nextMeasure())
                         measure = measure->nextMeasure();
+                  // Temporary solution to indent codas - add a horizontal frame at start of system or midway through
+                  const MeasureBase* prevMeasureBase = measure->prev();
+                  const bool hbox = prevMeasureBase && prevMeasureBase->isHBox();
+                  if (tb->isMarker() && toMarker(tb)->markerType() == Marker::Type::CODA && !hbox) {
+                        _score->insertMeasure(ElementType::HBOX, measure);
+                        toHBox(measure->prev())->setBoxWidth(Spatium(10));
+                        }
                   tb->setVisible(_visible);
                   measure->add(tb);
                   }

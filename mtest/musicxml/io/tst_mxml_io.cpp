@@ -94,6 +94,7 @@ private slots:
       void chordSymbols2() { mxmlImportTestRef("testChordSymbols2"); }
       void clefs1() { mxmlIoTest("testClefs1"); }
       void clefs2() { mxmlIoTest("testClefs2"); }
+      void codaHBox() { mxmlImportTestRef("testCodaHBox"); }
       void colorExport() { mxmlMscxExportTestRef("testColorExport"); }
       void colors() { mxmlIoTest("testColors"); }
       void completeMeasureRests() { mxmlIoTest("testCompleteMeasureRests"); }
