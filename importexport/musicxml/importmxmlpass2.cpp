@@ -3485,6 +3485,23 @@ void MusicXMLParserDirection::direction(const QString& partId,
                         t = new StaffText(_score, Tid::EXPRESSION);
                   else if (_systemDirection)
                         t = new SystemText(_score);
+                  else if (!_play.isEmpty()) {
+                        StaffText* st = new StaffText(_score);
+                        if (_play == "pizzicato" || _play == "mute" || _play == "open") {
+                              st->setChannelName(0, _play);
+                              st->setChannelName(1, _play);
+                              st->setChannelName(2, _play);
+                              st->setChannelName(3, _play);
+                              }
+                        else if (_play == "natural" ) {
+                              st->setChannelName(0, "arco");
+                              st->setChannelName(1, "arco");
+                              st->setChannelName(2, "arco");
+                              st->setChannelName(3, "arco");
+                              }
+                        t = st;
+                        _play.clear();
+                        }
                   else
                         t = new StaffText(_score);
                   t->setXmlText(_wordsText + _metroText);
