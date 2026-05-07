@@ -143,6 +143,10 @@
       <Measure>
         <voice>
           <StaffText>
+            <channelSwitch voice="0" name="mute"/>
+            <channelSwitch voice="1" name="mute"/>
+            <channelSwitch voice="2" name="mute"/>
+            <channelSwitch voice="3" name="mute"/>
             <color r="69" g="0" b="84" a="255"/>
             <text><sym>stringsMuteOn</sym></text>
             </StaffText>
@@ -183,6 +187,10 @@
       <Measure>
         <voice>
           <StaffText>
+            <channelSwitch voice="0" name="open"/>
+            <channelSwitch voice="1" name="open"/>
+            <channelSwitch voice="2" name="open"/>
+            <channelSwitch voice="3" name="open"/>
             <color r="253" g="169" b="51" a="255"/>
             <text><sym>stringsMuteOff</sym></text>
             </StaffText>
