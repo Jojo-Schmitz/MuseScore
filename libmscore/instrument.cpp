@@ -352,6 +352,7 @@ void Instrument::read(XmlReader& e, Part* part)
       bool customDrumset = false;
       bool readSingleNoteDynamics = false;
 
+      auto defaultChannel = _channel[0];
       _channel.clear();       // remove default channel
       _id = e.attribute("id");
       while (e.readNextStartElement()) {
@@ -367,15 +368,17 @@ void Instrument::read(XmlReader& e, Part* part)
       if (_instrumentId.isEmpty())
             _instrumentId = recognizeInstrumentId();
 
-      if (channel(0) && channel(0)->program() == -1) {
-          channel(0)->setProgram(recognizeMidiProgram());
-      }
+      if (_channel.empty())
+            _channel.append(defaultChannel);
+
+      if (_channel[0] && _channel[0]->program() == -1)
+            _channel[0]->setProgram(recognizeMidiProgram());
 
       if (!readSingleNoteDynamics)
             setSingleNoteDynamicsFromTemplate();
 
       if (_useDrumset) {
-            if (_channel[0]->bank() == 0 && _channel[0]->synti().toLower() != "zerberus")
+            if (_channel[0] && _channel[0]->bank() == 0 && _channel[0]->synti().toLower() != "zerberus")
                   _channel[0]->setBank(128);
             }
       }
