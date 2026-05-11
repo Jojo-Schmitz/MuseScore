@@ -5067,12 +5067,8 @@ void ExportMusicXml::pedal(Pedal const* const pd, int staff, const Fraction& tic
                         pedalType = "change";
                         break;
                   case HookType::NONE:
-                        if (pd->beginText().isEmpty()) {
-                              pedalType = pd->lineVisible() ? "resume" : "start";
-                              break;
-                              }
-                        else
-                              // FALLTHROUGH
+                        pedalType = (pd->lineVisible() && pd->beginText().isEmpty()) ? "resume" : "start";
+                        break;
                   default:
                         pedalType = "start";
                   }
@@ -5081,10 +5077,13 @@ void ExportMusicXml::pedal(Pedal const* const pd, int staff, const Fraction& tic
                   pedalType = "sostenuto";
             }
       else {
-            if (!pd->endText().isEmpty() || pd->endHookType() == HookType::HOOK_90)
-                  pedalType = "stop";
-            else
-                  pedalType = "discontinue";
+            switch (pd->endHookType()) {
+                  case HookType::NONE:
+                        pedalType = (pd->lineVisible() && pd->endText().isEmpty()) ? "discontinue" : "stop";
+                        break;
+                  default:
+                        pedalType = "stop";
+                  }
             // "change" type is handled only on the beginning of pedal lines
 
             signText = pd->endText().isEmpty() ? " sign=\"no\"" : " sign=\"yes\"";
