@@ -4686,6 +4686,7 @@ void MusicXMLParserDirection::bracket(const QString& type, const int number,
                         textLine->setBeginHookType(HookType::HOOK_90);
                   else if (lineEnd == "both")
                         textLine->setBeginHookType(HookType::HOOK_90T);
+                        //textLine->setBeginHookType(HookType::ARROW_FILLED);
                   else if (lineEnd == "arrow")
                         _logger->logError(QString("line-end \"arrow\" not supported"));
                   else if (lineEnd == "none")
@@ -4738,7 +4739,11 @@ void MusicXMLParserDirection::bracket(const QString& type, const int number,
                   else if (lineEnd == "both")
                         textLine->setEndHookType(HookType::HOOK_90T);
                   else if (lineEnd == "arrow")
+#if 0
+                        textLine->setBeginHookType(HookType::ARROW_FILLED);
+#else
                         _logger->logError(QString("line-end \"arrow\" not supported"));
+#endif
                   else if (lineEnd == "none")
                         textLine->setEndHookType(HookType::NONE);
                   }
