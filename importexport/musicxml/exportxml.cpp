@@ -228,6 +228,7 @@ class GlissandoHandler {
 
 public:
       GlissandoHandler();
+      void reset();
       void doGlissandoStart(Glissando* gliss, Notations& notations, XmlWriter& xml);
       void doGlissandoStop(Glissando* gliss, Notations& notations, XmlWriter& xml);
       };
@@ -912,11 +913,16 @@ static void glissando(const Glissando* gli, int number, bool start, Notations& n
 
 GlissandoHandler::GlissandoHandler()
       {
-      for (int i = 0; i < MAX_NUMBER_LEVEL; ++i) {
-            glissNote[i] = 0;
-            slideNote[i] = 0;
-            }
+      reset();
       }
+
+void GlissandoHandler::reset()
+{
+    for (int i = 0; i < MAX_NUMBER_LEVEL; ++i) {
+        glissNote[i] = 0;
+        slideNote[i] = 0;
+    }
+}
 
 //---------------------------------------------------------
 //   findNote -- get index of Note in note table for subtype type
@@ -7774,6 +7780,7 @@ void ExportMusicXml::writeParts()
 
       for (int partIndex = 0; partIndex < parts.size(); ++partIndex) {
             const Part* part = parts.at(partIndex);
+            gh.reset(); // reset glissando handler state for each part
             _tick = { 0,1 };
             _xml.stag(QString("part id=\"P%1\"").arg(partIndex+1));
 
