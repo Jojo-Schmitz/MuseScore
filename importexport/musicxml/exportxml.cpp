@@ -1367,8 +1367,8 @@ static void creditWords(XmlWriter& xml, const Score* const s, const int pageNr,
       xml.stag(QString("credit page=\"%1\"").arg(pageNr));
       if (!creditType.isEmpty())
             xml.tag("credit-type", creditType);
-      QString attr = QString(" default-x=\"%1\"").arg(x);
-      attr += QString(" default-y=\"%1\"").arg(y);
+      QString attr = QString(" default-x=\"%1\"").arg(QString::number(x, 'f', 2));
+      attr += QString(" default-y=\"%1\"").arg(QString::number(y, 'f', 2));
       attr += " justify=\"" + just + "\"";
       attr += " valign=\"" + val + "\"";
       MScoreTextToMXML mttm("credit-words", attr, defFmt, mtf);

@@ -774,7 +774,7 @@ static void resizeTitleBox(VBox* vbox)
       //for (Element* e : elist)
             //score->renderer()->layoutItem(e);
 
-      double padding = vbox->spatium();
+      const double padding = vbox->sizeIsSpatiumDependent() ? vbox->spatium() : MScore::baseStyle().value(Sid::spatium).toDouble();
 
       //for (Element* e : elist) {
             //if (e->isText()) {
