@@ -44,6 +44,7 @@ class ImageStoreItem {
       void load();
       QString hashName() const;
       const QByteArray& hash() const   { return _hash; }
+      const QString& type() const { return _type; }
       void set(const QByteArray& b, const QByteArray& h) { _buffer = b; _hash = h; }
       };
 

@@ -57,6 +57,8 @@
 #include "libmscore/glissando.h"
 #include "libmscore/hairpin.h"
 #include "libmscore/harmony.h"
+#include "libmscore/image.h"
+#include "libmscore/imageStore.h"
 #include "libmscore/instrchange.h"
 #include "libmscore/jump.h"
 #include "libmscore/key.h"
@@ -302,6 +304,7 @@ class ExportMusicXml {
       TrillHash _trillStart;
       TrillHash _trillStop;
       MxmlInstrumentMap instrMap;
+      bool _isMxl = false;
 
       int findBracket(const TextLineBase* tl) const;
       int findDashes(const TextLineBase* tl) const;
@@ -350,6 +353,7 @@ public:
       void moveToTickIfNeed(const Fraction& t, const Fraction& stretch = {1, 1});
       void words(TextBase const* const text, int staff);
       void tboxTextAsWords(TextBase const* const text, int staff, QPointF position);
+      void image(const Image* const img, int staff);
       void rehearsal(RehearsalMark const* const rmk, int staff);
       void hairpin(Hairpin const* const hp, int staff, const Fraction& tick);
       void ottava(Ottava const* const ot, int staff, const Fraction& tick);
@@ -362,6 +366,7 @@ public:
       void swingSound(StaffTextBase const* const text, const bool offset = false);
       void harmony(Harmony const* const, FretDiagram const* const fd, const Fraction& offset = Fraction(0, 1));
       Score* score() const { return _score; };
+      void setMxl(bool v) { _isMxl = v; }
       double getTenthsFromInches(double) const;
       double getTenthsFromDots(double) const;
       Fraction tick() const { return _tick; }
@@ -4668,6 +4673,116 @@ void ExportMusicXml::words(TextBase const* const text, int staff)
 
 
 //---------------------------------------------------------
+//   getImageInfo
+//---------------------------------------------------------
+
+static void getImageInfo(const ImageStoreItem* isi, QString& source, QString& type)
+      {
+      source = isi->hashName();
+      QString suffix = isi->type().toLower();
+
+      if (suffix == "svg" || suffix == "svgz")
+            type = "image/svg+xml";
+      else if (suffix == "png")
+            type = "image/png";
+      else if (suffix == "jpg" || suffix == "jpeg")
+            type = "image/jpeg";
+      else if (suffix == "gif")
+            type = "image/gif";
+      else if (suffix == "bmp")
+            type = "image/bmp";
+      else if (suffix == "tif" || suffix == "tiff")
+            type = "image/tiff";
+
+      if (type.isEmpty()) {
+            const QByteArray& ba = isi->buffer();
+            if (ba.size() >= 4) {
+                  if (ba.at(0) == (char)0x89 && ba.at(1) == 0x50 && ba.at(2) == 0x4E && ba.at(3) == 0x47) {
+                        type = "image/png";
+                        if (suffix.isEmpty())
+                              source += ".png";
+                        }
+                  else if (ba.at(0) == (char)0xFF && ba.at(1) == (char)0xD8 && ba.at(2) == (char)0xFF) {
+                        type = "image/jpeg";
+                        if (suffix.isEmpty())
+                              source += ".jpg";
+                        }
+                  else if (ba.at(0) == 0x47 && ba.at(1) == 0x49 && ba.at(2) == 0x46 && ba.at(3) == 0x38) {
+                        type = "image/gif";
+                        if (suffix.isEmpty())
+                              source += ".gif";
+                        }
+                  else if (ba.at(0) == 0x42 && ba.at(1) == 0x4D) {
+                        type = "image/bmp";
+                        if (suffix.isEmpty())
+                              source += ".bmp";
+                        }
+                  else if ((ba.at(0) == 0x49 && ba.at(1) == 0x49 && ba.at(2) == 0x2A && ba.at(3) == 0x00) ||
+                           (ba.at(0) == 0x4D && ba.at(1) == 0x4D && ba.at(2) == 0x00 && ba.at(3) == 0x2A)) {
+                        type = "image/tiff";
+                        if (suffix.isEmpty())
+                              source += ".tif";
+                        }
+                  else if (ba.at(0) == 0x3C && (ba.at(1) == 0x3F || ba.at(1) == 0x73)) {
+                        type = "image/svg+xml";
+                        if (suffix.isEmpty())
+                              source += ".svg";
+                        }
+                  }
+            }
+
+      if (type.isEmpty())
+            type = "application/octet-stream";
+      }
+
+//---------------------------------------------------------
+//   image
+//---------------------------------------------------------
+
+void ExportMusicXml::image(const Image* const img, int staff)
+      {
+      ImageStoreItem* isi = img->storeItem();
+      if (!isi)
+            return;
+
+      directionTag(_xml, _attr, img);
+      _xml.stag("direction-type");
+
+      QString source;
+      QString type;
+      getImageInfo(isi, source, type);
+
+      if (_isMxl) {
+            QString imgTag = "image source=\"" + XmlWriter::xmlString(source) + "\"";
+            imgTag += " type=\"" + XmlWriter::xmlString(type) + "\"";
+
+            double width = img->width();
+            double height = img->height();
+            if (!img->sizeIsSpatium()) {
+                  double sp = img->spatium();
+                  if (sp > 0.0) {
+                        width /= sp;
+                        height /= sp;
+                        }
+                  }
+
+            imgTag += " height=\"" + QString::number(height * 10.0, 'f', 2) + "\"";
+            imgTag += " width=\"" + QString::number(width * 10.0, 'f', 2) + "\"";
+            imgTag += positioningAttributes(img);
+
+            _xml.tagE(imgTag);
+            }
+      else {
+            QString otherTag = "other-direction";
+            otherTag += positioningAttributes(img);
+            _xml.tag(otherTag, XmlWriter::xmlString(source));
+            }
+      _xml.etag(); // direction-type
+
+      directionETag(_xml, staff);
+      }
+
+//---------------------------------------------------------
 //   systemText
 //---------------------------------------------------------
 
@@ -5846,6 +5961,8 @@ static bool commonAnnotations(ExportMusicXml* exp, const Element* e, int sstaff)
             exp->dynamic(toDynamic(e), sstaff);
       else if (e->isRehearsalMark())
             exp->rehearsal(toRehearsalMark(e), sstaff);
+      else if (e->isImage())
+            exp->image(toImage(e), sstaff);
       else if (e->isSystemText())
             exp->systemText(toStaffTextBase(e), sstaff);
 
@@ -7989,9 +8106,18 @@ static void writeMxlArchive(Score* score, MQZipWriter& zipwriter, const QString&
       QBuffer dbuf;
       dbuf.open(QIODevice::ReadWrite);
       ExportMusicXml em(score);
+      em.setMxl(true);
       em.write(&dbuf);
       dbuf.seek(0);
       zipwriter.addFile(filename, dbuf.data());
+      for (const ImageStoreItem* isi : imageStore) {
+            if (isi->isUsed(score)) {
+                  QString source;
+                  QString type;
+                  getImageInfo(isi, source, type);
+                  zipwriter.addFile(source, isi->buffer());
+                  }
+            }
       }
 
 bool saveMxl(Score* score, QIODevice* device)
