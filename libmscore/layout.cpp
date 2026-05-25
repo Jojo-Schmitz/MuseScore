@@ -4695,8 +4695,9 @@ void Score::layoutSystemElements(System* system, LayoutContext& lc)
 
       for (auto interval : spanners) {
             Spanner* sp = interval.value;
-            if (sp->staff() && !sp->staff()->show())
-                continue;
+            const bool visibleStaff = system->staff(sp->staffIdx())->show();
+            if (!sp->systemFlag() && !visibleStaff)
+                  continue;
 
             const Measure* startMeas = sp->findStartMeasure();
             const Measure* endMeas = sp->findEndMeasure();
