@@ -288,6 +288,7 @@ const std::list<const char*> MuseScore::_allFileOperationEntries {
             "file-open",
             "file-save",
             "file-save-online",
+            "file-reload",
             "print",
             "undo",
             "redo"
@@ -1407,6 +1408,7 @@ MuseScore::MuseScore()
       menuFile->addAction(getAction("file-save-as"));
       menuFile->addAction(getAction("file-save-a-copy"));
       menuFile->addAction(getAction("file-save-selection"));
+      menuFile->addAction(getAction("file-reload"));
       menuFile->addAction(getAction(saveOnlineMenuItem));
 
       menuFile->addSeparator();
@@ -6310,6 +6312,14 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
             importScore();
       else if (cmd == "file-export")
             showExportDialog();
+      else if (cmd == "file-reload") {
+            saveFile();
+            const auto ms = cs->masterScore();
+            const auto fi = ms->fileInfo();
+            const auto fn = fi->absoluteFilePath();
+            closeScore(cs);
+            openScore(fn);
+            }
       else if (cmd == "unroll-repeats")
             scoreUnrolled(cs->masterScore());
       else if (cmd == "quit")

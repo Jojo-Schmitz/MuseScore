@@ -132,6 +132,16 @@ Shortcut Shortcut::_sc[] = {
          },
       {
          MsWidget::MAIN_WINDOW,
+         STATE_NORMAL | STATE_NOTE_ENTRY | STATE_EDIT | STATE_PLAY,
+         "file-reload",
+         QT_TRANSLATE_NOOP("action","Reload Current Score"),
+         QT_TRANSLATE_NOOP("action","File > Reload Current Score"),
+         QT_TRANSLATE_NOOP("action","Reload current score"),
+         Icons::fileReload_ICON,
+         Qt::ApplicationShortcut
+         },
+      {
+         MsWidget::MAIN_WINDOW,
          STATE_DISABLED | STATE_NORMAL | STATE_NOTE_ENTRY | STATE_EDIT | STATE_PLAY,
          "file-new",
          QT_TRANSLATE_NOOP("action","New…"),
