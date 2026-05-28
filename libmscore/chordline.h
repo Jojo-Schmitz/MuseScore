@@ -86,7 +86,7 @@ class ChordLine final : public Element {
       bool isBelow() const { return _chordLineType == ChordLineType::SCOOP || _chordLineType == ChordLineType::FALL; }
       };
 
-extern const char* scorelineNames[];
+extern const char* chordlineNames[];
 
 }     // namespace Ms
 #endif

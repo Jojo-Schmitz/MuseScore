@@ -20,7 +20,7 @@
 namespace Ms {
 static const std::vector<SymId> s_waveSymbols = { SymId::wiggleVIbratoMediumSlower, SymId::wiggleVIbratoMediumSlower };
 
-const char* scorelineNames[] = {
+const char* chordlineNames[] = {
       QT_TRANSLATE_NOOP("Ms", "Fall"),
       QT_TRANSLATE_NOOP("Ms", "Doit"),
       QT_TRANSLATE_NOOP("Ms", "Plop"),
@@ -391,7 +391,7 @@ QString ChordLine::accessibleInfo() const
       {
       QString rez = Element::accessibleInfo();
       if(chordLineType() != ChordLineType::NOTYPE)
-            rez = QString("%1: %2").arg(rez, scorelineNames[static_cast<int>(chordLineType()) - 1]);
+            rez = QString("%1: %2").arg(rez, chordlineNames[static_cast<int>(chordLineType()) - 1]);
       return rez;
       }
 
