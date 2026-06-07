@@ -17,10 +17,10 @@
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //=============================================================================
 
-#include "musescoredialogs.h"
 #include "icons.h"
-#include "preferences.h"
 #include "musescore.h"
+#include "musescoredialogs.h"
+#include "preferences.h"
 #include "scoreview.h"
 
 namespace Ms {
@@ -151,18 +151,23 @@ AboutBoxDialog::AboutBoxDialog()
       else {
             auto msVersion = QString(VERSION);
             if (strlen(BUILD_NUMBER))
-                  msVersion += QString(".") + QString(BUILD_NUMBER);// +QString(" Beta");
+                  msVersion += QString("-") + QString(BUILD_NUMBER); // + QString(" Beta");
             versionLabel->setText(tr("Version: %1").arg(msVersion) + tr(" Evolution"));
       }
 
-      revisionLabel->setText(tr("Revision: %1").arg(revision));
+      if (!revision.isEmpty())
+            revisionLabel->setText(tr("Revision: %1").arg(QString("<a href=\"https://github.com/Jojo-Schmitz/musescore/commit/%1\">%1</a>").arg(revision)));
+      else {
+            revisionLabel->setText("");
+            copyRevisionButton->setVisible(false);
+            }
       setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
       auto compilerDateISO = []() -> QString {
             // Attempt to convert __DATE__ into ISO 8601 format (YYYY-MM-DD)
             QDate date = QDate::fromString(__DATE__, "MMM dd yyyy");
             if (!date.isValid())
-                  date = QDate::fromString(__DATE__, "MMM  d yyyy");
+                  date = QDate::fromString(__DATE__, "MMM  d yyyy"); // for single digit days __DATE__ may use a leading space rather than a leading 0
             return date.isValid() ? date.toString(Qt::ISODate) : __DATE__;
             };
 
@@ -170,15 +175,17 @@ AboutBoxDialog::AboutBoxDialog()
       dateTime += preferences.getBool(PREF_UI_APP_BUILD_DATE_ISO) ? compilerDateISO() : __DATE__;
       dateTime += " ";
       dateTime += __TIME__;
+      if (!revision.isEmpty())
+            dateTime += " UTC"; // local builds (most likely not having revision set) use local time, GitHub CI uses UTC
 
       buildDateLabel->setText(tr("Build date: %1").arg(dateTime));
 
       QString visitAndDonateString;
-#if !defined(FOR_WINSTORE) && 0
+#if !defined(FOR_WINSTORE)
       visitAndDonateString = tr("Visit %1 for new versions and more information.\nGet %2help%3 with the program or %4contribute%5 to its development.")
-                  .arg("<a href=\"https://www.musescore.org/\">www.musescore.org</a>",
+                  .arg("<a href=\"https://github.com/Jojo-Schmitz/MuseScore/wiki\">github.com/Jojo-Schmitz/MuseScore/wiki</a>",
                        "<a href=\"https://www.musescore.org/forum\">", "</a>",
-                       "<a href=\"https://www.musescore.org/contribute\">", "</a>");
+                       "<a href=\"https://github.com/Jojo-Schmitz/MuseScore/wiki/Contribute\">", "</a>");
       visitAndDonateString += "\n\n";
 #endif
       QString finalString = visitAndDonateString + tr("Copyright &copy; 1999-2026 MuseScore Limited and others.\nPublished under the %1GNU General Public License version 2%2.")
@@ -195,23 +202,15 @@ AboutBoxDialog::AboutBoxDialog()
 
 void AboutBoxDialog::copyRevisionToClipboard()
       {
-      QClipboard* cb = QApplication::clipboard();
-      QString sysinfo = "OS: ";
-      sysinfo += QSysInfo::prettyProductName();
-      if (QSysInfo::productType() == "windows" && (QSysInfo::productVersion() == "10" || QSysInfo::productVersion() == "11"))
-            sysinfo += " or later";
-      sysinfo += ", Arch.: ";
-      sysinfo += QSysInfo::currentCpuArchitecture();
-      // endianness?
-      sysinfo += ", MuseScore version (";
-      sysinfo += QSysInfo::WordSize==32 ? "32" : "64";
-      sysinfo += "-bit): " + QString(VERSION);
-      if (strlen(BUILD_NUMBER))
-            sysinfo += QString(".") + QString(BUILD_NUMBER);
-      sysinfo += ", revision: ";
-      sysinfo += "GitHub-Jojo-Schmitz-MuseScore-";
-      sysinfo += revision;
-      cb->setText(sysinfo);
+      QApplication::clipboard()->setText(
+            QString("OS: %1, Arch.: %2, MuseScore Studio version (%3-bit): %4-%5")
+                  .arg(QSysInfo::prettyProductName()
+                       + ((QSysInfo::productType() == "windows" && (QSysInfo::productVersion() == "10" || QSysInfo::productVersion() == "11"))
+                          ? " or later" : ""), QSysInfo::currentCpuArchitecture())
+                  .arg(QSysInfo::WordSize)
+                  .arg(VERSION, BUILD_NUMBER)
+            + QString(revision.isEmpty() ? "" : ", revision: [%1](https://github.com/Jojo-Schmitz/MuseScore/commit/%1)")
+                  .arg(revision));
       }
 
 //---------------------------------------------------------

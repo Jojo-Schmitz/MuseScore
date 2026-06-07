@@ -10,25 +10,21 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-#include "page.h"
-#include "score.h"
-#include "text.h"
-#include "xml.h"
-#include "measure.h"
-#include "style.h"
-#include "chord.h"
 #include "beam.h"
-#include "tuplet.h"
-#include "note.h"
-#include "barline.h"
-#include "slur.h"
-#include "hook.h"
 #include "bracket.h"
 #include "line.h"
-#include "staff.h"
-#include "system.h"
+#include "measure.h"
 #include "mscore.h"
+#include "note.h"
+#include "page.h"
+#include "score.h"
 #include "segment.h"
+#include "staff.h"
+#include "style.h"
+#include "system.h"
+#include "text.h"
+#include "tuplet.h"
+#include "xml.h"
 
 namespace Ms {
 
@@ -483,10 +479,11 @@ QString Page::replaceTextMacros(const QString& s) const
                                     }
                               else {
                                     int rev = score()->mscoreRevision();
-                                    if (rev > 99999)  // MuseScore 1.3 is decimal 5702, 2.0 and later uses a 7-digit hex SHA
-                                          d += QString::number(rev, 16);
-                                    else
+                                    if (rev > 0 && rev < 5709)  // MuseScore 1.x and earlier used decimal numbers, referring to a commit on SourceForge.net, the largest being 5709
                                           d += QString::number(rev, 10);
+                                    else if (rev > 0xffffff) // MuseScore 2.0 and later use a >= 7-digit hex SHA, referring to a commit on GitHub.com
+                                          d += QString::number(rev, 16);
+                                    // else unknown, like in a self-built development version, or in a very old version of MuseScore before the revision number was tracked
                                     }
                               break;
                         case '$':

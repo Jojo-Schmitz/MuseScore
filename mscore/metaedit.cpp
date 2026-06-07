@@ -17,13 +17,14 @@
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //=============================================================================
 
+#include "icons.h"
 #include "metaedit.h"
+#include "musescore.h"
+#include "openfilelocation.h"
+#include "preferences.h"
+
 #include "libmscore/score.h"
 #include "libmscore/undo.h"
-#include "musescore.h"
-#include "preferences.h"
-#include "icons.h"
-#include "openfilelocation.h"
 
 namespace Ms {
 
@@ -42,14 +43,16 @@ MetaEditDialog::MetaEditDialog(Score* score, QWidget* parent)
       QDialog::setWindowFlag(Qt::WindowContextHelpButtonHint, false);
       QDialog::setWindowFlag(Qt::WindowMinMaxButtonsHint);
 
-      version->setText(m_score->mscoreVersion());
+      QString mscoreVersion = m_score->mscoreVersion();
+      version->setText(mscoreVersion);
       level->setText(QString::number(m_score->mscVersion()));
 
       int rev = m_score->mscoreRevision();
-      if (rev > 99999)  // MuseScore 1.3 is decimal 5702, 2.0 and later uses a 7-digit hex SHA
-            revision->setText(QString::number(rev, 16));
-      else
-            revision->setText(QString::number(rev, 10));
+      if (rev > 0 && rev <= 5709) // MuseScore 1.x and earlier used decimal numbers, referring to a commit on SourceForge.net, the largest being 5709
+            revision->setText(QString("<a href=\"https://sourceforge.net/p/mscore/code/%1/\">%1</a>").arg(QString::number(rev, 10)));
+      else if (rev > 0xffffff) // MuseScore 2.0 and later use a >= 7-digit hex SHA, referring to a commit on GitHub.com
+            revision->setText(QString("<a href=\"https://github.com/%1/MuseScore/commit/%2\">%2</a>").arg(mscoreVersion == "3.6.3" ? "Jojo-Schmitz": "musescore", QString::number(rev, 16)));
+      //else unknown, like in a self-built development version, or in a very old version of MuseScore before the revision number was tracked
 
       QString currentFileName  = score->masterScore()->fileInfo()->absoluteFilePath();
       QString previousFileName = score->importedFilePath();

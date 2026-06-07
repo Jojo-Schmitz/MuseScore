@@ -113,6 +113,9 @@
              <property name="text">
               <string notr="true" extracomment="gets replaced programmatically">Revision: nnnnnnn</string>
              </property>
+             <property name="openExternalLinks">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item>
