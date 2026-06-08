@@ -1545,6 +1545,9 @@ void Beam::layout2(std::vector<ChordRest*>crl, SpannerSegmentType, int frag)
 
       if (crl.empty())                  // no beamed Elements
             return;
+
+      beamSegments.clear();
+
       const ChordRest* c1 = crl.front();       // first chord/rest in beam
       const ChordRest* c2 = crl.back();        // last chord/rest in beam
 
