@@ -426,6 +426,7 @@ private:
       QString _dynamicsPlacement;
       QStringList _dynamicsList;
       QString _enclosure;
+      QString _fontFamily;
       QString _wordsText;
       QString _metroText;
       QString _rehearsalText;
@@ -468,6 +469,7 @@ private:
       void handleRepeats(Measure* measure, const int track, const Fraction tick);
       QString matchRepeat() const;
       void handleNmiCmi(Measure* measure, const int track, const Fraction tick, DelayedDirectionsList& delayedDirections);
+      void handleTempo(QString& wordsString);
       void handleChordSym(const int track, const Fraction tick, HarmonyMap& harmonyMap);
       bool isLikelyFingering(const QString& fingeringStr) const;
       bool isLikelyCredit(const Fraction& tick) const;
