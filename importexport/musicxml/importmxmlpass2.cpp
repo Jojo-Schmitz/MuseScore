@@ -650,10 +650,16 @@ static void setPartInstruments(MxmlLogger* logger, const QXmlStreamReader* const
 //---------------------------------------------------------
 
 /**
- Convert SMuFL code points to MuseScore <sym>...</sym>
+ Convert SMuFL code points to MuseScore <sym>...</sym> notation.
+ When \p isDolet is true (i.e. the file was produced by Dolet and the text comes
+ from a MusicXML \c \<words\> or \c \<rehearsal\> element), every occurrence of \c $
+ or \c Ø within the text is treated as a Dolet-plugin segno/coda shorthand and replaced
+ with the corresponding SMuFL symbol — including when embedded in longer strings such as
+ "Dal $ al Ø" or "To Ø".  In all other contexts (non-Dolet files, or lyric text) the
+ characters are preserved as-is.
  */
 
-static QString text2syms(const QString& t)
+static QString text2syms(const QString& t, bool isDolet = false)
       {
       //QTime time;
       //time.start();
@@ -676,9 +682,10 @@ static QString text2syms(const QString& t)
                   maxStringSize = string.size();
             }
 
-      // Special case Dolet inference (TODO: put behind a setting or export type flag)
-      map.insert("$", SymId::segno);
-      map.insert("Ø", SymId::coda);
+      if (isDolet) {
+            map.insert("$", SymId::segno);
+            map.insert("Ø", SymId::coda);
+            }
 
       //qDebug("text2syms map count %d maxsz %d filling time elapsed: %d ms",
       //       map.size(), maxStringSize, time.elapsed());
@@ -745,11 +752,7 @@ static QString decodeEntities( const QString& src )
 
 // TODO: probably should be shared between pass 1 and 2
 
-/**
- Read the next part of a MusicXML formatted string and convert to MuseScore internal encoding.
- */
-
-static QString nextPartOfFormattedString(QXmlStreamReader& e)
+static QString nextPartOfFormattedString(QXmlStreamReader& e, bool isDolet = false)
       {
       //QString lang       = e.attribute(QString("xml:lang"), "it");
       QString fontWeight = e.attributes().value("font-weight").toString();
@@ -763,7 +766,7 @@ static QString nextPartOfFormattedString(QXmlStreamReader& e)
       QString txt        = e.readElementText();
       // replace HTML entities
       txt = decodeEntities(txt);
-      QString syms       = text2syms(txt);
+      QString syms       = text2syms(txt, isDolet);
 
       QString importedtext;
 
@@ -3761,7 +3764,7 @@ void MusicXMLParserDirection::directionType(QList<MusicXmlSpannerDesc>& starts,
                   _metroText = metronome(_tpoMetro);
             else if (_e.name() == "words") {
                   _enclosure      = _e.attributes().value("enclosure").toString();
-                  QString nextPart = nextPartOfFormattedString(_e);
+                  QString nextPart = nextPartOfFormattedString(_e, _pass1.dolet());
                   textToDynamic(nextPart);
                   textToCrescLine(nextPart);
                   _wordsText += nextPart;
@@ -3770,7 +3773,7 @@ void MusicXMLParserDirection::directionType(QList<MusicXmlSpannerDesc>& starts,
                   _enclosure      = _e.attributes().value("enclosure").toString();
                   if (_enclosure.isEmpty())
                         _enclosure = "square";  // note different default
-                  _rehearsalText += nextPartOfFormattedString(_e);
+                  _rehearsalText += nextPartOfFormattedString(_e, _pass1.dolet());
                   }
             else if (_e.name() == "pedal")
                   pedal(type, n, starts, stops);
