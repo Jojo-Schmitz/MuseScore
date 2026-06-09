@@ -61,10 +61,10 @@ void TestEarlymusic::earlymusic01()
       Segment*    seg   = msr->findSegment(SegmentType::ChordRest, Fraction(0,1));
       QVERIFY(seg);
       Ms::Chord*      chord = static_cast<Ms::Chord*>(seg->element(0));
-      QVERIFY(chord && chord->type() == ElementType::CHORD);
+      QVERIFY(chord && chord->isChord());
       QVERIFY(chord->crossMeasure() == CrossMeasure::UNKNOWN);
       TDuration cmDur   = chord->crossMeasureDurationType();
-//      QVERIFY(cmDur.type() == TDuration::DurationType::V_INVALID);    // irrelevant if crossMeasure() == UNKNOWN
+//      QVERIFY(!cmDur.isValid());    // irrelevant if crossMeasure() == UNKNOWN
       TDuration acDur   = chord->actualDurationType();
       QVERIFY(acDur.type() == TDuration::DurationType::V_BREVE);
       TDuration dur     = chord->durationType();

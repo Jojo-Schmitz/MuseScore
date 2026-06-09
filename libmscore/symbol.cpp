@@ -66,7 +66,7 @@ QString Symbol::accessibleInfo() const
 
 void Symbol::layout()
       {
-      // foreach(Element* e, leafs())     done in BSymbol::layout() ?
+      // for (Element* e : leafs())     done in BSymbol::layout() ?
       //      e->layout();
       setbbox(_scoreFont ? _scoreFont->bbox(_sym, magS()) : symBbox(_sym));
       qreal w = width();

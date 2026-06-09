@@ -416,7 +416,7 @@ void Staff::setClef(Clef* clef)
             return;
       Fraction tick = clef->segment()->tick();
       for (Segment* s = clef->segment()->next1(); s && s->tick() == tick; s = s->next1()) {
-            if ((s->segmentType() == SegmentType::Clef || s->segmentType() == SegmentType::HeaderClef)
+            if ((s->isClefType() || s->isHeaderClefType())
                 && s->element(clef->track())
                 && !s->element(clef->track())->generated()) {
                   // adding this clef has no effect on the clefs list
@@ -437,7 +437,7 @@ void Staff::removeClef(const Clef* clef)
             return;
       Fraction tick = clef->segment()->tick();
       for (Segment* s = clef->segment()->next1(); s && s->tick() == tick; s = s->next1()) {
-            if ((s->segmentType() == SegmentType::Clef || s->segmentType() == SegmentType::HeaderClef)
+            if ((s->isClefType() || s->isHeaderClefType())
                 && s->element(clef->track())
                 && !s->element(clef->track())->generated()) {
                   // removal of this clef has no effect on the clefs list
@@ -446,7 +446,7 @@ void Staff::removeClef(const Clef* clef)
             }
       clefs.erase(clef->segment()->tick().ticks());
       for (Segment* s = clef->segment()->prev1(); s && s->tick() == tick; s = s->prev1()) {
-            if ((s->segmentType() == SegmentType::Clef || s->segmentType() == SegmentType::HeaderClef)
+            if ((s->isClefType() || s->isHeaderClefType())
                && s->element(clef->track())
                && !s->element(clef->track())->generated()) {
                   // a previous clef at the same tick position gets valid
@@ -536,7 +536,7 @@ const Groups& Staff::group(const Fraction& tick) const
 
 void Staff::addTimeSig(TimeSig* timesig)
       {
-      if (timesig->segment()->segmentType() == SegmentType::TimeSig)
+      if (timesig->segment()->isTimeSigType())
             timesigs[timesig->segment()->tick().ticks()] = timesig;
 //      dumpTimeSigs("after addTimeSig");
       }
@@ -547,7 +547,7 @@ void Staff::addTimeSig(TimeSig* timesig)
 
 void Staff::removeTimeSig(TimeSig* timesig)
       {
-      if (timesig->segment()->segmentType() == SegmentType::TimeSig)
+      if (timesig->segment()->isTimeSigType())
             timesigs.erase(timesig->segment()->tick().ticks());
 //      dumpTimeSigs("after removeTimeSig");
       }
@@ -1218,8 +1218,8 @@ void Staff::updateOttava()
       _pitchOffsets.clear();
       for (auto i : score()->spanner()) {
             const Spanner* s = i.second;
-            if (s->type() == ElementType::OTTAVA && s->staffIdx() == staffIdx) {
-                  const Ottava* o = static_cast<const Ottava*>(s);
+            if (s->isOttava() && s->staffIdx() == staffIdx) {
+                  const Ottava* o = toOttava(s);
                   _pitchOffsets.setPitchOffset(o->tick().ticks(), o->pitchShift());
                   _pitchOffsets.setPitchOffset(o->tick2().ticks(), 0);
                   }

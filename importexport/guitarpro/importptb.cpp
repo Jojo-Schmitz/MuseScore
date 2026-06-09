@@ -1332,7 +1332,7 @@ Score::FileError PowerTab::read()
             // create excerpt title
             //
             MeasureBase* measure = pscore->first();
-            if (!measure || (measure->type() != ElementType::VBOX)) {
+            if (!measure || !measure->isVBox()) {
                   MeasureBase* mb = new VBox(pscore);
                   mb->setTick(Fraction(0,1));
                   pscore->addMeasure(mb, measure);

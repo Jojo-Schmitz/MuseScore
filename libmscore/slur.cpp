@@ -412,7 +412,7 @@ void SlurSegment::layoutSegment(const QPointF& p1, const QPointF& p2)
                         if (s == ss || s == es)
                               continue;
                         // allow slurs to cross barlines
-                        if (s->segmentType() & SegmentType::BarLineType)
+                        if (s->isType(SegmentType::BarLineType))
                               continue;
                         qreal x1 = s->x() + s->measure()->x();
                         qreal x2 = x1 + s->width();

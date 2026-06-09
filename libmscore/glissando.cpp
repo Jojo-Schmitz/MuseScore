@@ -508,7 +508,7 @@ Note* Glissando::guessInitialNote(Chord* chord)
             segm = segm->prev1();
       while (segm) {
             // if previous segment is a ChordRest segment
-            if (segm->segmentType() == SegmentType::ChordRest) {
+            if (segm->isChordRestType()) {
                   Chord* target = nullptr;
                   // look for a Chord in the same track
                   if (segm->element(chordTrack) && segm->element(chordTrack)->isChord())
@@ -601,7 +601,7 @@ Note* Glissando::guessFinalNote(Chord* chord)
       Part*       part        = chord->part();
       while (segm) {
             // if next segment is a ChordRest segment
-            if (segm->segmentType() == SegmentType::ChordRest) {
+            if (segm->isChordRestType()) {
                   Chord* target = nullptr;
 
                   // look for a Chord in the same track

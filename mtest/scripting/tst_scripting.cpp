@@ -72,7 +72,7 @@ QmlPlugin* TestScripting::loadPlugin(QString path)
       component.loadUrl(QUrl::fromLocalFile(path));
       QObject* obj = component.create();
       if (obj == 0) {
-            foreach(QQmlError e, component.errors())
+            for (QQmlError e : component.errors())
                   qDebug("   line %d: %s", e.line(), qPrintable(e.description()));
             return nullptr;
             }
@@ -103,7 +103,7 @@ void TestScripting::plugins01()
       QObject* object = component.create();
       if (object == 0) {
             qDebug("creating component <%s> failed", qPrintable(path));
-            foreach(QQmlError e, component.errors())
+            for (QQmlError e : component.errors())
                   qDebug("   line %d: %s", e.line(), qPrintable(e.description()));
             }
       else {
@@ -128,7 +128,7 @@ void TestScripting::plugins02()
       QObject* object = component.create();
       if (object == 0) {
             qDebug("creating component <%s> failed", qPrintable(path));
-            foreach(QQmlError e, component.errors())
+            for (QQmlError e : component.errors())
                   qDebug("   line %d: %s", e.line(), qPrintable(e.description()));
             }
       else {

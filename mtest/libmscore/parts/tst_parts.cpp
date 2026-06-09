@@ -617,8 +617,8 @@ MasterScore* TestParts::doRemoveFingering()
       Ms::Chord* chord = static_cast<Ms::Chord*>(s->element(0));
       Note* note   = chord->upNote();
       Element* fingering = 0;
-      foreach(Element* e, note->el()) {
-            if (e->type() == ElementType::FINGERING) {
+      for (Element* e : note->el()) {
+            if (e->isFingering()) {
                   fingering = e;
                   break;
                   }
@@ -740,8 +740,8 @@ MasterScore* TestParts::doRemoveSymbol()
       Ms::Chord* chord = static_cast<Ms::Chord*>(s->element(0));
       Note* note   = chord->upNote();
       Element* se = 0;
-      foreach(Element* e, note->el()) {
-            if (e->type() == ElementType::SYMBOL) {
+      for (Element* e : note->el()) {
+            if (e->isSymbol()) {
                   se = e;
                   break;
                   }
@@ -863,8 +863,8 @@ MasterScore* TestParts::doRemoveChordline()
       Ms::Chord* chord = static_cast<Ms::Chord*>(s->element(0));
 
       Element* se = 0;
-      foreach(Element* e, chord->el()) {
-            if (e->type() == ElementType::CHORDLINE) {
+      for (Element* e : chord->el()) {
+            if (e->isChordLine()) {
                   se = e;
                   break;
                   }
@@ -986,8 +986,8 @@ MasterScore* TestParts::doRemoveImage()
       Ms::Chord* chord = static_cast<Ms::Chord*>(s->element(0));
       Note* note   = chord->upNote();
       Element* fingering = 0;
-      foreach(Element* e, note->el()) {
-            if (e->type() == IMAGE) {
+      for (Element* e : note->el()) {
+            if (e->isImage()) {
                   fingering = e;
                   break;
                   }

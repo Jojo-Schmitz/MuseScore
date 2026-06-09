@@ -584,16 +584,16 @@ bool saveInstrumentTemplates(const QString& instrTemplates)
       XmlWriter xml(0, &qf);
       xml << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
       xml.stag("museScore");
-      foreach(const InstrumentGenre* genre, instrumentGenres)
+      for (const InstrumentGenre* genre : instrumentGenres)
             genre->write(xml);
       xml << "\n";
-      foreach(const InstrumentFamily* fam, instrumentFamilies)
+      for (const InstrumentFamily* fam : instrumentFamilies)
             fam->write(xml);
       xml << "\n";
-      foreach(const MidiArticulation& a, articulation)
+      for (const MidiArticulation& a : articulation)
             a.write(xml);
       xml << "\n";
-      foreach(InstrumentGroup* group, instrumentGroups) {
+      for (InstrumentGroup* group: instrumentGroups) {
             xml.stag(QString("InstrumentGroup id=\"%1\"").arg(group->id));
             xml.tag("name", group->name);
             if (group->extended)
@@ -624,12 +624,12 @@ bool saveInstrumentTemplates1(const QString& instrTemplates)
       XmlWriter xml(0, &qf);
       xml << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
       xml.stag("museScore");
-      foreach(const InstrumentGenre* genre, instrumentGenres)
+      for (const InstrumentGenre* genre : instrumentGenres)
             genre->write1(xml);
-      foreach(const InstrumentFamily* fam, instrumentFamilies)
+      for  (const InstrumentFamily* fam : instrumentFamilies)
             fam->write1(xml);
       xml << "\n";
-      foreach(InstrumentGroup* group, instrumentGroups) {
+      for (InstrumentGroup* group : instrumentGroups) {
             xml.stag(QString("InstrumentGroup id=\"%1\"").arg(group->id));
             xml.tag("name", group->name);
             for (InstrumentTemplate* it : qAsConst(group->instrumentTemplates)) {
@@ -868,7 +868,7 @@ void InstrumentTemplate::linkGenre(const QString& genre)
 bool InstrumentTemplate::genreMember(const QString& name)
       {
             bool rVal=false;
-            foreach(InstrumentGenre *instrumentGenre, genres ) {
+            for (InstrumentGenre *instrumentGenre : genres ) {
                 if(instrumentGenre->id == name) {
                       rVal = true;
                       break;

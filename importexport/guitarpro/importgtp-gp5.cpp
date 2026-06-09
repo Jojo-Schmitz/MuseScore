@@ -643,7 +643,7 @@ void GuitarPro5::readMeasures(int /*startingTempo*/)
                   std::string str = gpLyrics.lyrics[i].toUtf8().constData();
 			auto seg = gpLyrics.segments[i];
 			auto mes = seg->measure();
-			while (str.size() && seg && seg->segmentType() == SegmentType::ChordRest) {
+         while (str.size() && seg && seg->isChordRestType()) {
                         auto cr = seg->cr(gpLyrics.lyricTrack);
 				if (cr) {
                               if (str[0] != '-') {
@@ -887,7 +887,7 @@ bool GuitarPro5::read(QFile* fp)
             auto segment = n->chord()->segment();
 		auto measure = segment->measure();
 		while ((segment = segment->next1(SegmentType::ChordRest)) || ((measure = measure->nextMeasure() ) && (segment = measure->first()))) {
-                  if (segment->segmentType() != SegmentType::ChordRest)
+                  if (!segment->isChordRestType())
 			      continue;
                   bool br = false;
 			ChordRest* cr = toChordRest(segment->cr(n->track()));
@@ -1477,7 +1477,7 @@ bool GuitarPro5::readNote(int string, Note* note)
                   if (e) {
                         if (e->isChord()) {
                               Chord* chord2 = toChord(e);
-                              foreach (Note* note2, chord2->notes()) {
+                              for (Note* note2 : chord2->notes()) {
                                     if (note2->string() == string) {
 					            if (chords.empty()) {
                                                 Tie* tie = new Tie(score);

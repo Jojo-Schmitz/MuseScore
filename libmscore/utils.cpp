@@ -350,7 +350,7 @@ Note* prevChordNote(Note* note)
       // TODO : limit to same instrument, not simply to same staff!
       Segment*    seg   = note->chord()->segment()->prev1();
       while (seg) {
-            if (seg->segmentType() == SegmentType::ChordRest) {
+            if (seg->isChordRestType()) {
                   Element*    targetElement = seg->elementAt(track);
                   // if a chord exists in the same track, return its top note
                   if (targetElement && targetElement->isChord())

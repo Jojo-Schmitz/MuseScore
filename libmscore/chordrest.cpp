@@ -210,8 +210,8 @@ bool ChordRest::readProperties(XmlReader& e)
 
       if (tag == "durationType") {
             setDurationType(e.readElementText());
-            if (actualDurationType().type() != TDuration::DurationType::V_MEASURE) {
-                  if (score()->mscVersion() < 112 && (type() == ElementType::REST) &&
+            if (!actualDurationType().isMeasure()) {
+                  if (score()->mscVersion() < 112 && isRest() &&
                               // for backward compatibility, convert V_WHOLE rests to V_MEASURE
                               // if long enough to fill a measure.
                               // OTOH, freshly created (un-initialized) rests have numerator == 0 (< 4/4)
@@ -275,7 +275,7 @@ bool ChordRest::readProperties(XmlReader& e)
             int i = e.readInt();
             if (i == 0)
                   i = mticks;
-            if ((type() == ElementType::REST) && (mticks == i)) {
+            if ((isRest()) && (mticks == i)) {
                   setDurationType(TDuration::DurationType::V_MEASURE);
                   setTicks(Fraction::fromTicks(i));
                   }
@@ -363,7 +363,7 @@ void ChordRest::readAddConnector(ConnectorInfoReader* info, bool pasteMode)
                                           ChordRest* cr = toChordRest(linkedCR);
                                           if (cr->score() == linkedSpanner->score() && cr->staffIdx() == ls->staffIdx()) {
                                                 ls->setTrack2(cr->track());
-                                                if (ls->type() == ElementType::SLUR)
+                                                if (ls->isSlur())
                                                       ls->setEndElement(cr);
                                                 break;
                                                 }
@@ -1211,11 +1211,11 @@ QString ChordRest::accessibleExtraInfo() const
                   Spanner* s = interval.value;
                   if (!score()->selectionFilter().canSelect(s))
                         continue;
-                  if (s->type() == ElementType::VOLTA || //voltas are added for barlines
-                      s->type() == ElementType::TIE    ) //ties are added in notes
+                  if (s->isVolta() || //voltas are added for barlines
+                      s->isTie()    ) //ties are added in notes
                         continue;
 
-                  if (s->type() == ElementType::SLUR) {
+                  if (s->isSlur()) {
                         if (s->tick() == tick() && s->track() == track())
                               rez = QObject::tr("%1 Start of %2").arg(rez, s->screenReaderInfo());
                         if (s->tick2() == tick() && s->track2() == track())

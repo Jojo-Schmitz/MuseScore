@@ -595,7 +595,7 @@ bool Palette::applyPaletteElement(Element* element, Qt::KeyboardModifiers modifi
             else if (element->isSLine() && !element->isGlissando() && addSingle) {
                   Segment* startSegment = cr1->segment();
                   Segment* endSegment = cr2->segment();
-                  if (element->type() == ElementType::PEDAL && cr2 != cr1)
+                  if (element->isPedal() && cr2 != cr1)
                         endSegment = endSegment->nextCR(cr2->track());
 
                   QByteArray a = element->mimeData(QPointF());
@@ -616,17 +616,17 @@ bool Palette::applyPaletteElement(Element* element, Qt::KeyboardModifiers modifi
                   }
             }
       else if (sel.isRange()) {
-            if (element->type() == ElementType::BAR_LINE
-                || element->type() == ElementType::MARKER
-                || element->type() == ElementType::JUMP
-                || element->type() == ElementType::SPACER
-                || element->type() == ElementType::VBOX
-                || element->type() == ElementType::HBOX
-                || element->type() == ElementType::TBOX
-                || element->type() == ElementType::MEASURE
-                || element->type() == ElementType::BRACKET
-                || element->type() == ElementType::STAFFTYPE_CHANGE
-                || (element->type() == ElementType::ICON
+            if (element->isBarLine()
+                || element->isMarker()
+                || element->isJump()
+                || element->isSpacer()
+                || element->isVBox()
+                || element->isHBox()
+                || element->isTBox()
+                || element->isMeasure()
+                || element->isBracket()
+                || element->isStaffTypeChange()
+                || (element->isIcon()
                     && (toIcon(element)->iconType() == IconType::VFRAME
                         || toIcon(element)->iconType() == IconType::HFRAME
                         || toIcon(element)->iconType() == IconType::TFRAME
@@ -642,8 +642,8 @@ bool Palette::applyPaletteElement(Element* element, Qt::KeyboardModifiers modifi
                               break;
                         }
                   }
-            else if (element->type() == ElementType::LAYOUT_BREAK) {
-                  LayoutBreak* breakElement = static_cast<LayoutBreak*>(element);
+            else if (element->isLayoutBreak()) {
+                  LayoutBreak* breakElement = toLayoutBreak(element);
                   score->cmdToggleLayoutBreak(breakElement->layoutBreakType());
                   }
             else if (element->isClef() || element->isKeySig() || element->isTimeSig()) {
@@ -656,24 +656,24 @@ bool Palette::applyPaletteElement(Element* element, Qt::KeyboardModifiers modifi
                   // for clefs, apply to each staff separately
                   // otherwise just apply to top staff
                   int staffIdx1 = sel.staffStart();
-                  int staffIdx2 = element->type() == ElementType::CLEF ? sel.staffEnd() : staffIdx1 + 1;
+                  int staffIdx2 = element->isClef() ? sel.staffEnd() : staffIdx1 + 1;
                   for (int i = staffIdx1; i < staffIdx2; ++i) {
                         // for clefs, use mid-measure changes if appropriate
                         Element* e1 = nullptr;
                         Element* e2 = nullptr;
                         // use mid-measure clef changes as appropriate
-                        if (element->type() == ElementType::CLEF) {
+                        if (element->isClef()) {
                               if (sel.startSegment()->isChordRestType() && sel.startSegment()->rtick().isNotZero()) {
-                                    ChordRest* cr = static_cast<ChordRest*>(sel.startSegment()->nextChordRest(i * VOICES));
+                                    ChordRest* cr = toChordRest(sel.startSegment()->nextChordRest(i * VOICES));
                                     if (cr && cr->isChord())
-                                          e1 = static_cast<Chord*>(cr)->upNote();
+                                          e1 = toChord(cr)->upNote();
                                     else
                                           e1 = cr;
                                     }
-                              if (sel.endSegment() && sel.endSegment()->segmentType() == SegmentType::ChordRest) {
-                                    ChordRest* cr = static_cast<ChordRest*>(sel.endSegment()->nextChordRest(i * VOICES));
+                              if (sel.endSegment() && sel.endSegment()->isChordRestType()) {
+                                    ChordRest* cr = toChordRest(sel.endSegment()->nextChordRest(i * VOICES));
                                     if (cr && cr->isChord())
-                                          e2 = static_cast<Chord*>(cr)->upNote();
+                                          e2 = toChord(cr)->upNote();
                                     else
                                           e2 = cr;
                                     }
@@ -743,7 +743,7 @@ bool Palette::applyPaletteElement(Element* element, Qt::KeyboardModifiers modifi
             else if (element->isSlur()) {
                   viewer->cmdAddSlur(toSlur(element));
                   }
-            else if (element->isSLine() && element->type() != ElementType::GLISSANDO) {
+            else if (element->isSLine() && !element->isGlissando()) {
                   Segment* startSegment = sel.startSegment();
                   Segment* endSegment = sel.endSegment();
                   bool firstStaffOnly = (element->isVolta() || (element->isTextLine() && toTextLine(element)->systemFlag())) && !(modifiers & Qt::ControlModifier);
@@ -1547,9 +1547,9 @@ void Palette::write(const QString& p)
       QSet<ImageStoreItem*> images;
       int n = cells.size();
       for (int i = 0; i < n; ++i) {
-            if (cells[i] == 0 || cells[i]->element == 0 || cells[i]->element->type() != ElementType::IMAGE)
+            if (cells[i] == 0 || cells[i]->element == 0 || !cells[i]->element->isImage())
                   continue;
-            images.insert(static_cast<Image*>(cells[i]->element.get())->storeItem());
+            images.insert(toImage(cells[i]->element.get())->storeItem());
             }
 
       QString path(p);
@@ -1656,8 +1656,8 @@ void Palette::read(XmlReader& e)
                               else {
                                     cell->element->read(e);
                                     cell->element->styleChanged();
-                                    if (cell->element->type() == ElementType::ICON) {
-                                          Icon* icon = static_cast<Icon*>(cell->element.get());
+                                    if (cell->element->isIcon()) {
+                                          Icon* icon = toIcon(cell->element.get());
                                           QAction* ac = getAction(icon->action());
                                           if (ac) {
                                                 QIcon qicon(ac->icon());
@@ -1759,8 +1759,8 @@ void Palette::actionToggled(bool /*val*/)
       int nn = ccp()->size();
       for (int n = 0; n < nn; ++n) {
             const Element* e = cellAt(n)->element.get();
-            if (e && e->type() == ElementType::ICON) {
-                  QAction* a = getAction(static_cast<const Icon*>(e)->action());
+            if (e && e->isIcon()) {
+                  QAction* a = getAction(toIcon(e)->action());
                   if (a->isChecked()) {
                         selectedIdx = n;
                         break;

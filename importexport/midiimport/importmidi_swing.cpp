@@ -93,7 +93,7 @@ void SwingDetector::checkNormalSwing()
       {
       if (elements.size() == 2
                   && areAllTuplets()
-                  && (elements[0]->isChord() || elements[1]->type() == ElementType::CHORD)
+                  && (elements[0]->isChord() || elements[1]->isChord())
                   && elements[0]->ticks().reduced() == Fraction(1, 4)
                   && elements[1]->ticks().reduced() == Fraction(1, 8))
             {

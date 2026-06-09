@@ -220,8 +220,8 @@ void Clef::draw(QPainter* painter) const
 
 bool Clef::acceptDrop(EditData& data) const
       {
-      return (data.dropElement->type() == ElementType::CLEF
-         || (/*!generated() &&*/ data.dropElement->type() == ElementType::AMBITUS) );
+      return (data.dropElement->isClef()
+         || (/*!generated() &&*/ data.dropElement->isAmbitus()) );
       }
 
 //---------------------------------------------------------
@@ -427,7 +427,7 @@ Clef* Clef::otherClef()
       Segment* otherSegm = nullptr;
       Fraction segmTick  = segm->tick();
       SegmentType type = SegmentType::Clef;
-      if (segmTick == meas->tick() && segm->segmentType() == SegmentType::HeaderClef) // if clef segm is measure-initial
+      if (segmTick == meas->tick() && segm->isHeaderClefType()) // if clef segm is measure-initial
             otherMeas = meas->prevMeasure();                                          // look for a previous measure
       else if (segmTick == meas->tick() + meas->ticks()) {                            // if clef segm is measure-final
             otherMeas = meas->nextMeasure();                                          // look for a next measure

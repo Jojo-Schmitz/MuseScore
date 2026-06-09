@@ -86,7 +86,7 @@ void TestSpanners::spanners01()
       Segment*    seg   = msr->findSegment(SegmentType::ChordRest, Fraction(0,1));
       QVERIFY(seg);
       Ms::Chord*      chord = static_cast<Ms::Chord*>(seg->element(0));
-      QVERIFY(chord && chord->type() == ElementType::CHORD);
+      QVERIFY(chord && chord->isChord());
       Note*       note  = chord->upNote();
       QVERIFY(note);
       // drop a glissando on note
@@ -102,7 +102,7 @@ void TestSpanners::spanners01()
       seg   = msr->first();
       QVERIFY(seg);
       chord = static_cast<Ms::Chord*>(seg->element(0));   // voice 0 of staff 0
-      QVERIFY(chord && chord->type() == ElementType::CHORD);
+      QVERIFY(chord && chord->isChord());
       note  = chord->upNote();
       QVERIFY(note);
       // drop a glissando on note
@@ -118,7 +118,7 @@ void TestSpanners::spanners01()
       seg   = msr->first();
       QVERIFY(seg);
       chord = static_cast<Ms::Chord*>(seg->element(4));   // voice 0 of staff 1
-      QVERIFY(chord && chord->type() == ElementType::CHORD);
+      QVERIFY(chord && chord->isChord());
       note  = chord->upNote();
       QVERIFY(note);
       // drop a glissando on note
@@ -134,7 +134,7 @@ void TestSpanners::spanners01()
       seg   = msr->first();
       QVERIFY(seg);
       chord = static_cast<Ms::Chord*>(seg->element(0));   // voice 0 of staff 0
-      QVERIFY(chord && chord->type() == ElementType::CHORD);
+      QVERIFY(chord && chord->isChord());
       note  = chord->upNote();
       QVERIFY(note);
       // drop a glissando on note
@@ -150,7 +150,7 @@ void TestSpanners::spanners01()
       seg   = msr->first();
       QVERIFY(seg);
       chord = static_cast<Ms::Chord*>(seg->element(0));   // voice 0 of staff 0
-      QVERIFY(chord && chord->type() == ElementType::CHORD);
+      QVERIFY(chord && chord->isChord());
       note  = chord->upNote();
       QVERIFY(note);
       // drop a glissando on note
@@ -201,7 +201,7 @@ void TestSpanners::spanners03()
       Segment*    seg   = msr->findSegment(SegmentType::ChordRest, Fraction(0,1));
       QVERIFY(seg);
       Ms::Chord*      chord = static_cast<Ms::Chord*>(seg->element(0));
-      QVERIFY(chord && chord->type() == ElementType::CHORD);
+      QVERIFY(chord && chord->isChord());
       Note*       note  = chord->upNote();
       QVERIFY(note);
       // drop a glissando on note
@@ -213,7 +213,7 @@ void TestSpanners::spanners03()
       // GLISSANDO FROM AFTER-GRACE TO BEFORE-GRACE OF NEXT CHORD
       // go to last after-grace of chord and drop a glissando on it
       Ms::Chord*      grace = chord->graceNotesAfter().last();
-      QVERIFY(grace && grace->type() == ElementType::CHORD);
+      QVERIFY(grace && grace->isChord());
       note              = grace->upNote();
       QVERIFY(note);
       gliss             = new Glissando(score);
@@ -226,7 +226,7 @@ void TestSpanners::spanners03()
       seg               = seg->nextCR(0);
       QVERIFY(seg);
       chord             = static_cast<Ms::Chord*>(seg->element(0));
-      QVERIFY(chord && chord->type() == ElementType::CHORD);
+      QVERIFY(chord && chord->isChord());
       note              = chord->upNote();
       QVERIFY(note);
       gliss             = new Glissando(score);
@@ -239,10 +239,10 @@ void TestSpanners::spanners03()
       seg               = seg->nextCR(0);
       QVERIFY(seg);
       chord             = static_cast<Ms::Chord*>(seg->element(0));
-      QVERIFY(chord && chord->type() == ElementType::CHORD);
+      QVERIFY(chord && chord->isChord());
       // go to its last before-grace note
       grace             = chord->graceNotesBefore().last();
-      QVERIFY(grace && grace->type() == ElementType::CHORD);
+      QVERIFY(grace && grace->isChord());
       note              = grace->upNote();
       QVERIFY(note);
       gliss             = new Glissando(score);
@@ -334,7 +334,7 @@ void TestSpanners::spanners06()
       Segment*    seg   = msr->findSegment(SegmentType::ChordRest, Fraction(0,1));
       QVERIFY(seg);
       Ms::Chord*      chord = static_cast<Ms::Chord*>(seg->element(0));
-      QVERIFY(chord && chord->type() == ElementType::CHORD);
+      QVERIFY(chord && chord->isChord());
       Note*       note  = chord->upNote();
       QVERIFY(note);
       // drop a glissando on note
@@ -366,7 +366,7 @@ void TestSpanners::spanners07()
       Segment*    seg   = msr->findSegment(SegmentType::ChordRest, Fraction(0,1));
       QVERIFY(seg);
       Ms::Chord*      chord = static_cast<Ms::Chord*>(seg->element(0));
-      QVERIFY(chord && chord->type() == ElementType::CHORD);
+      QVERIFY(chord && chord->isChord());
       Note*       note  = chord->upNote();
       QVERIFY(note);
       // drop a glissando on note
@@ -400,7 +400,7 @@ void TestSpanners::spanners08()
       Segment*    seg   = msr->findSegment(SegmentType::ChordRest, 0);
       QVERIFY(seg);
       Ms::Chord*      chord = static_cast<Ms::Chord*>(seg->element(0));
-      QVERIFY(chord && chord->type() == ElementType::CHORD);
+      QVERIFY(chord && chord->isChord());
       QVERIFY(chord->lyrics().size() > 0);
       Lyrics*     lyr   = chord->lyrics(0, Element::Placement::BELOW);
       score->startCmd();

@@ -130,8 +130,8 @@ void SelectDialog::setPattern(ElementPattern* p)
       p->subtypeValid = sameSubtype->isChecked();
       if (sameSystem->isChecked()) {
             do {
-                  if (e->type() == ElementType::SYSTEM) {
-                        p->system = static_cast<const System*>(e);
+                  if (e->isSystem()) {
+                        p->system = toSystem(e);
                         break;
                         }
                   e = e->parent();

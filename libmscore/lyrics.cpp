@@ -162,7 +162,7 @@ bool Lyrics::readProperties(XmlReader& e)
 void Lyrics::add(Element* el)
       {
 //      el->setParent(this);
-//      if (el->type() == ElementType::LINE)
+//      if (el->isLine())
 //            _separator.append((Line*)el);           // ignore! Internally managed
 //            ;
 //      else
