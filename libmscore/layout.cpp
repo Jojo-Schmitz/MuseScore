@@ -2590,9 +2590,9 @@ static bool validMMRestMeasure(Measure* m)
                   if (!(e->isRehearsalMark() || e->isTempoText() || e->isHarmony() || e->isStaffText() || e->isSystemText() || e->isInstrumentChange()))
                         return false;
                   }
+            int tracks = m->score()->ntracks();
             if (s->isChordRestType()) {
                   bool restFound = false;
-                  int tracks = m->score()->ntracks();
                   for (int track = 0; track < tracks; ++track) {
                         if ((track % VOICES) == 0 && !m->score()->staff(track/VOICES)->show()) {
                               track += VOICES-1;
@@ -2613,6 +2613,17 @@ static bool validMMRestMeasure(Measure* m)
                   // measure is not empty if there is more than one rest
                   if (n > 1)
                         return false;
+                  }
+            else if (s->isBreathType()) {
+                  for (int track = 0; track < tracks; ++track) {
+                        if ((track % VOICES) == 0 && !m->score()->staff(track / VOICES)->show()) {
+                              track += VOICES - 1;
+                              continue;
+                              }
+                        Element* el = s->element(track);
+                        if (el && el->visible())
+                              return false;
+                        }
                   }
             }
       return true;
