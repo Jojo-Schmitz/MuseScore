@@ -5247,6 +5247,9 @@ void MusicXMLParserPass2::barline(const QString& partId, Measure* measure, const
       else if (loc == "right")
           locTick = measure->endTick();
 
+      const QString codaLabel = _e.attributes().value("coda").toString();
+      const QString segnoLabel = _e.attributes().value("segno").toString();
+
       QString barStyle;
       QColor barlineColor;
       QString endingNumber;
@@ -5254,7 +5257,6 @@ void MusicXMLParserPass2::barline(const QString& partId, Measure* measure, const
       QColor endingColor;
       QString endingText;
       QString repeat;
-      QString count;
       bool printEnding = true;
 
       while (_e.readNextStartElement()) {
@@ -5262,17 +5264,57 @@ void MusicXMLParserPass2::barline(const QString& partId, Measure* measure, const
                   barlineColor = _e.attributes().value("color").toString();
                   barStyle     = _e.readElementText();
                   }
-            else if (_e.name() == "ending") {
-                  endingNumber = _e.attributes().value("number").toString();
-                  endingType   = _e.attributes().value("type").toString();
-                  endingColor  = _e.attributes().value("color").toString();
-                  printEnding  = _e.attributes().value("print-object") != "no";
-                  endingText   = _e.readElementText();
+            else if (_e.name() == "segno") {
+                  const QColor segnoColor = _e.attributes().value("color").toString();
+                  const QString segnoSymbol = _e.attributes().value("smufl").toString();
+                  Measure* markedMeasure = (loc == "right") ? measure->nextMeasure() : measure;
+                  if (markedMeasure == nullptr) {
+                        _logger->logError("coda or segno marker cannot be placed at the end of the score", &_e);
+                        _e.skipCurrentElement();
+                        continue;
+                        }
+                  Marker* m = new Marker(markedMeasure->score());
+                  m->setMarkerType(Marker::Type::SEGNO);
+                  if (!segnoSymbol.isEmpty())
+                        m->setXmlText("<sym>" + segnoSymbol + "</sym>");
+                  if (!segnoLabel.isEmpty())
+                        m->setLabel(segnoLabel);
+                  if (segnoColor.isValid())
+                        colorItem(m, segnoColor);
+                  const int track = _pass1.trackForPart(partId);
+                  addElemOffset(m, track, "above", markedMeasure, markedMeasure->tick());
+                  _e.skipCurrentElement();
+                  }
+            else if (_e.name() == "coda") {
+                  const QColor codaColor = _e.attributes().value("color").toString();
+                  const QString codaSymbol = _e.attributes().value("smufl").toString();
+                  Measure* markedMeasure = (loc == "right") ? measure->nextMeasure() : measure;
+                  if (markedMeasure == nullptr) {
+                        _logger->logError("coda or segno marker cannot be placed at the end of the score", &_e);
+                        _e.skipCurrentElement();
+                        continue;
+                        }
+                  Marker* m = new Marker(markedMeasure->score());
+                  m->setMarkerType(Marker::Type::CODA);
+                  if (!codaSymbol.isEmpty())
+                        m->setXmlText("<sym>" + codaSymbol + "</sym>");
+                  if (!codaLabel.isEmpty())
+                        m->setLabel(codaLabel);
+                  if (codaColor.isValid())
+                        colorItem(m, codaColor);
+                  const int track = _pass1.trackForPart(partId);
+                  addElemOffset(m, track, "above", markedMeasure, markedMeasure->tick());
+                  _e.skipCurrentElement();
                   }
             else if (_e.name() == "fermata") {
                   const QColor fermataColor = _e.attributes().value("color").toString();
                   const QString fermataType = _e.attributes().value("type").toString();
-                  Segment* const segment = measure->getSegment(SegmentType::EndBarLine, locTick);
+                  SegmentType st = SegmentType::BarLine;
+                  if (locTick == measure->endTick())
+                       st = SegmentType::EndBarLine;
+                  else if (locTick == measure->tick())
+                       st = SegmentType::BeginBarLine;
+                  Segment* const segment = measure->getSegment(st, locTick);
                   const int track = _pass1.trackForPart(partId);
                   Fermata* fermata = new Fermata(measure->score());
                   fermata->setSymId(convertFermataToSymId(_e.readElementText()));
@@ -5286,12 +5328,21 @@ void MusicXMLParserPass2::barline(const QString& partId, Measure* measure, const
                   else if (fermataType.isEmpty())
                         fermata->setPlacement(fermata->propertyDefault(Pid::PLACEMENT).value<Placement>());
                   }
+            else if (_e.name() == "ending") {
+                  endingNumber = _e.attributes().value("number").toString();
+                  endingType   = _e.attributes().value("type").toString();
+                  endingColor  = _e.attributes().value("color").toString();
+                  printEnding  = _e.attributes().value("print-object") != "no";
+                  endingText   = _e.readElementText();
+                  }
             else if (_e.name() == "repeat") {
                   repeat       = _e.attributes().value("direction").toString();
-                  count        = _e.attributes().value("times").toString();
-                  if (count.isEmpty())
-                        count  = "2";
-                  measure->setRepeatCount(count.toInt());
+                  int count    = _e.attributes().value("times").toInt();
+                  if (!count)
+                        count  = 2;
+                  measure->setRepeatCount(count);
+                  bool repeatBarTips = !_e.attributes().value("winged").isEmpty() && _e.attributes().value("winged") != "none";
+                  _score->undoChangeStyleVal(Sid::repeatBarTips, repeatBarTips);
                   _e.skipCurrentElement();
                   }
             else

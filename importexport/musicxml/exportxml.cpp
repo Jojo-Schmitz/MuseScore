@@ -1728,8 +1728,12 @@ void ExportMusicXml::barlineLeft(const Measure* const m, const int track)
             _xml.tag("bar-style", QString("heavy-light"));
       if (volta)
             ending(_xml, volta, true);
-      if (rs)
-            _xml.tagE("repeat direction=\"forward\"");
+      if (rs) {
+            QString repeat ="repeat direction=\"forward\"";
+            if (_score->styleB(Sid::repeatBarTips))
+                  repeat += " winged=\"curved\"";
+            _xml.tagE(repeat);
+            }
       _xml.etag();
       }
 
@@ -1994,11 +1998,12 @@ void ExportMusicXml::barlineRight(const Measure* const m, const int strack, cons
             }
 
       if (bst == BarLineType::END_REPEAT || bst == BarLineType::END_START_REPEAT) {
-            if (m->repeatCount() > 2) {
-                  _xml.tagE(QString("repeat direction=\"backward\" times=\"%1\"").arg(m->repeatCount()));
-                  } else {
-                  _xml.tagE("repeat direction=\"backward\"");
-                  }
+            QString repeat = "repeat direction=\"backward\"";
+            if (m->repeatCount() > 2)
+                  repeat += QString(" times=\"%1\"").arg(m->repeatCount());
+            if (_score->styleB(Sid::repeatBarTips))
+                  repeat += " winged=\"curved\"";
+            _xml.tagE(repeat);
             }
 
       _xml.etag();
