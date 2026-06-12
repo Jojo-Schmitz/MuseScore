@@ -5269,12 +5269,14 @@ void ExportMusicXml::textLine(TextLineBase const* const tl, int staff, const Fra
 void ExportMusicXml::dynamic(Dynamic const* const dyn, int staff)
       {
       QSet<QString> set; // the valid MusicXML dynamics
-      set << "f" << "ff" << "fff" << "ffff" << "fffff" << "ffffff"
+      set << "p" << "pp" << "ppp" << "pppp" << "ppppp" << "pppppp"
+          << "f" << "ff" << "fff" << "ffff" << "fffff" << "ffffff"
+          << "mp" << "mf"
           << "fp" << "fz"
-          << "mf" << "mp"
-          << "p" << "pp" << "ppp" << "pppp" << "ppppp" << "pppppp"
-          << "rf" << "rfz"
-          << "sf" << "sffz" << "sfp" << "sfpp" << "sfz";
+          << "sf" << "sfp" << "sfpp"
+          << "fp" << "rf" << "rfz"
+          << "sfz" << "sffz" << "fz"
+          << "n" << "pf" << "sfzp";
 
       directionTag(_xml, _attr, dyn);
 
