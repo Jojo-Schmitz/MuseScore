@@ -5,7 +5,7 @@ Version=3.7 # Version of the PortableApps format, not of MuseScore
 [Details]
 Name=MuseScore Portable
 AppId=MuseScorePortable
-Publisher=Musescore BVBA and Others
+Publisher=MuseScore BVBA and Others
 Homepage=PortableApps.com/MuseScorePortable
 Donate=musescore.org/donate
 Category=Music & Video
@@ -27,9 +27,9 @@ Icons=1
 Start=MuseScorePortable.exe
 
 [Associations]
-FileTypes=mscx, mscz
+FileTypes=mscz, mscx
 Protocols=musescore
 
 [FileTypeIcons]
-mscx=custom
 mscz=custom
+mscx=custom
