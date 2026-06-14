@@ -145,8 +145,8 @@ bool SlurSegment::edit(EditData& ed)
                   return false; // Cross-staff slurs don't make sense for TAB staves
             if (cr->staff()->isLinked(e->staff()))
                   return false; // Don't allow slur to cross into staff that's linked to this
-            }
             changeAnchor(ed, cr);
+            }
       return true;
       }
 
