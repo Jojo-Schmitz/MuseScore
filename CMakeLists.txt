@@ -717,8 +717,8 @@ if (NOT MINGW AND NOT MSVC AND NOT APPLE)
     # Install man pages in either compressed or uncompressed form
     install( FILES ${MAN_BUILD} DESTINATION share/man/man1 COMPONENT doc)
     # Create symlink alias for man pages so `man musescore` = `man mscore`
-    install(CODE "message(STATUS \"Creating symlink ${CMAKE_INSTALL_PREFIX}/share/man/man1/${MAN_FULL_ALIAS} -> ${CMAKE_INSTALL_PREFIX}/share/man/man1/${MAN_FULL_NAME}\")
-                  execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink \"${CMAKE_INSTALL_PREFIX}/share/man/man1/${MAN_FULL_NAME}\" \"${CMAKE_INSTALL_PREFIX}/share/man/man1/${MAN_FULL_ALIAS}\")"
+    install(CODE "message(STATUS \"Creating symlink \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/man/man1/${MAN_FULL_ALIAS} -> ${CMAKE_INSTALL_PREFIX}/share/man/man1/${MAN_FULL_NAME}\")
+                  execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink \"${CMAKE_INSTALL_PREFIX}/share/man/man1/${MAN_FULL_NAME}\" \"\$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/man/man1/${MAN_FULL_ALIAS}\")"
             COMPONENT doc)
     # Add .MSCZ and .MSCX to MIME database (informs system that filetypes .MSCZ & .MSCX are MuseScore files)
     configure_file(build/Linux+BSD/musescore.xml.in musescore${MSCORE_INSTALL_SUFFIX}.xml)
