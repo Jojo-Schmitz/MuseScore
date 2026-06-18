@@ -823,12 +823,18 @@ void Workspace::read(XmlReader& e)
                                     break;
                               case QVariant::LongLong:
                                     {
-                                    bool new_longlong = e.readLongLong();
+                                    auto new_longlong = e.readLongLong();
                                     preferences.setLocalPreference(preference_name, QVariant(new_longlong));
                                     break;
                                     }
+                              case QVariant::Double:
+                                    {
+                                    auto new_double = e.readDouble();
+                                    preferences.setLocalPreference(preference_name, QVariant(new_double));
+                                    break;
+                                    }
                               default:
-                                    qDebug() << preferences.defaultValue(preference_name).type() << " not handled.";
+                                    qDebug() << preference_name << ":" << preferences.defaultValue(preference_name).type() << " not handled.";
                                     e.unknown();
                               }
                         }
