@@ -15,6 +15,7 @@
 #include "instrument.h"
 #include "mscore.h"
 #include "part.h"
+#include "property.h"
 #include "score.h"
 #include "stringdata.h"
 #include "text.h"
@@ -100,15 +101,6 @@ Instrument::Instrument(QString id)
       Channel* a = new Channel;
       a->setName(Channel::DEFAULT_NAME);
       _channel.append(a);
-
-      _minPitchA   = 0;
-      _maxPitchA   = 127;
-      _minPitchP   = 0;
-      _maxPitchP   = 127;
-      _useDrumset  = false;
-      _drumset     = 0;
-      _singleNoteDynamics = true;
-      _nameColor = MScore::defaultColor;
       }
 
 Instrument::Instrument(const Instrument& i)
@@ -131,6 +123,7 @@ Instrument::Instrument(const Instrument& i)
       _midiActions  = i._midiActions;
       _articulation = i._articulation;
       _singleNoteDynamics = i._singleNoteDynamics;
+      _glissandoStyle = i._glissandoStyle;
       for (Channel* c : i._channel)
             _channel.append(new Channel(*c));
       _clefType     = i._clefType;
@@ -161,6 +154,7 @@ void Instrument::operator=(const Instrument& i)
       _midiActions  = i._midiActions;
       _articulation = i._articulation;
       _singleNoteDynamics = i._singleNoteDynamics;
+      _glissandoStyle = i._glissandoStyle;
       for (Channel* c : i._channel)
             _channel.append(new Channel(*c));
       _clefType     = i._clefType;
@@ -275,6 +269,9 @@ void Instrument::write(XmlWriter& xml, const Part* part) const
       if (_singleNoteDynamics != getSingleNoteDynamicsFromTemplate())
             xml.tag("singleNoteDynamics", _singleNoteDynamics);
 
+      if (glissandoStyle() != getGlissandoStyleFromTemplate())
+            xml.tag(Pid::GLISS_STYLE, int(_glissandoStyle), int(GlissandoStyle::CHROMATIC));
+
       if (!(_stringData == StringData()))
             _stringData.write(xml);
       for (const NamedEventList& a : _midiActions)
@@ -351,6 +348,7 @@ void Instrument::read(XmlReader& e, Part* part)
       {
       bool customDrumset = false;
       bool readSingleNoteDynamics = false;
+      bool readGlissandoStyle = false;
 
       auto defaultChannel = _channel[0];
       _channel.clear();       // remove default channel
@@ -361,8 +359,14 @@ void Instrument::read(XmlReader& e, Part* part)
                   _singleNoteDynamics = e.readBool();
                   readSingleNoteDynamics = true;
                   }
-            else if (tag == "glissandoStyle") // Mu4 compatibility
-                  e.skipCurrentElement();
+            else if (tag == "glissandoStyle")  {
+                  QString val(e.readElementText());
+                  if (val == "portamento")
+                        _glissandoStyle = GlissandoStyle::PORTAMENTO;
+                  else if (val == "diatonic")
+                        _glissandoStyle = GlissandoStyle::DIATONIC;
+                  readGlissandoStyle = true;
+                  }
             else if (!readProperties(e, part, &customDrumset))
                   e.unknown();
             }
@@ -378,6 +382,9 @@ void Instrument::read(XmlReader& e, Part* part)
 
       if (!readSingleNoteDynamics)
             setSingleNoteDynamicsFromTemplate();
+
+      if (!readGlissandoStyle)
+            setGlissandoStyleFromTemplate();
 
       if (_useDrumset) {
             if (_channel[0] && _channel[0]->bank() == 0 && _channel[0]->synti().toLower() != "zerberus")
@@ -951,6 +958,41 @@ void Channel::switchExpressive(Synthesizer* synth, bool expressive, bool force /
                   }
             }
       }
+
+#if 0  // Todo?
+QString Instrument::family() const
+{
+    static const QString NO_FAMILY = "-";
+
+    if (_familyCache.empty()) {
+        auto search = searchTemplateIndexForId(_id);
+
+        if (search.instrTemplate) {
+            _familyCache = search.instrTemplate->familyId();
+        } else {
+            _familyCache = NO_FAMILY;
+        }
+    }
+
+    return _familyCache == NO_FAMILY ? QString() : _familyCache;
+}
+
+bool Instrument::isVocalInstrument() const
+{
+    QString instrumentFamily = family();
+    return instrumentFamily == "voices" || instrumentFamily == "voice-groups";
+}
+
+bool Instrument::isNormallyMultiStaveInstrument() const
+{
+    QString instrumentFamily = family();
+    return instrumentFamily == "keyboards"
+           || instrumentFamily == "organs"
+           || instrumentFamily == "keyboard-percussion"
+           || instrumentFamily == "harps"
+           || instrumentFamily == "accordions";
+}
+#endif
 
 //---------------------------------------------------------
 //   updateInitList
@@ -1591,6 +1633,7 @@ Instrument Instrument::fromTemplate(const InstrumentTemplate* t)
             instr._channel.append(new Channel(c));
       instr.setStringData(t->stringData);
       instr.setSingleNoteDynamics(t->singleNoteDynamics);
+      instr.setGlissandoStyle(t->glissandoStyle);
       return instr;
       }
 
@@ -1682,6 +1725,28 @@ bool Instrument::getSingleNoteDynamicsFromTemplate() const
 void Instrument::setSingleNoteDynamicsFromTemplate()
       {
       setSingleNoteDynamics(getSingleNoteDynamicsFromTemplate());
+      }
+
+//---------------------------------------------------------
+//   getGlissandoStyleFromTemplate
+//---------------------------------------------------------
+
+GlissandoStyle Instrument::getGlissandoStyleFromTemplate() const
+      {
+      QString templateName = trackName().toLower().replace(" ", "-").replace("♭", "b");
+      InstrumentTemplate* tp = searchTemplate(templateName);
+      if (tp)
+            return tp->glissandoStyle;
+      return GlissandoStyle::CHROMATIC;
+      }
+
+//---------------------------------------------------------
+//   setGlissandoStyleFromTemplate
+//---------------------------------------------------------
+
+void Instrument::setGlissandoStyleFromTemplate()
+      {
+      setGlissandoStyle(getGlissandoStyleFromTemplate());
       }
 
 //---------------------------------------------------------

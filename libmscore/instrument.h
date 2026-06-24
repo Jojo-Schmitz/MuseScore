@@ -259,14 +259,14 @@ class Instrument {
       StaffNameList _shortNames;
       QString _trackName;
       QString _id;
-      QColor _nameColor;
+      QColor _nameColor = MScore::defaultColor;
 
-      char _minPitchA, _maxPitchA, _minPitchP, _maxPitchP;
+      char _minPitchA = 0, _maxPitchA = 127, _minPitchP = 0, _maxPitchP = 127;
       Interval _transpose;
       QString _instrumentId;
 
-      bool _useDrumset;
-      Drumset* _drumset;
+      bool _useDrumset = false;
+      Drumset* _drumset = nullptr;
       StringData  _stringData;
 
       QList<NamedEventList>   _midiActions;
@@ -274,7 +274,8 @@ class Instrument {
       QList<Channel*> _channel;      // at least one entry
       QList<ClefTypeList> _clefType;
 
-      bool _singleNoteDynamics;
+      bool _singleNoteDynamics = true;
+      GlissandoStyle _glissandoStyle = GlissandoStyle::CHROMATIC;
 
    public:
       Instrument(QString id="");
@@ -364,6 +365,11 @@ class Instrument {
       void switchExpressive(MasterScore* score, Synthesizer* synth, bool expressive, bool force = false);
       QColor getNameColor() const                     { return _nameColor; }
       void setNameColor(const QColor &nameColor)      { _nameColor = nameColor; }
+
+      GlissandoStyle glissandoStyle() const      { return _glissandoStyle; };
+      void setGlissandoStyle(GlissandoStyle val) { _glissandoStyle = val; };
+      void setGlissandoStyleFromTemplate();
+      GlissandoStyle getGlissandoStyleFromTemplate() const;
       };
 
 //---------------------------------------------------------

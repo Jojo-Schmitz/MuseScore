@@ -722,6 +722,9 @@ QVariant Glissando::propertyDefault(Pid propertyId) const
             case Pid::GLISS_SHOW_TEXT:
                   return true;
             case Pid::GLISS_STYLE:
+                  //if (score()->staff()->glissandoStyle())
+                  //      return int(GlissandoStyle::PORTAMENTO);
+                  //else
                   return int(GlissandoStyle::CHROMATIC);
             case Pid::GLISS_EASEIN:
             case Pid::GLISS_EASEOUT:
