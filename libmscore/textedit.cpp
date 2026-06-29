@@ -160,6 +160,10 @@ void TextBase::endEdit(EditData& ed)
                   Filter::Link,
                   };
 
+            CmdState& cs = score()->cmdState();
+            cs.reset();
+            cs.setTick(tick());
+
             if (newlyAdded && !undo->current()->hasUnfilteredChildren(filters, this)) {
                   for (Filter f : filters)
                         undo->current()->filterChildren(f, this);
