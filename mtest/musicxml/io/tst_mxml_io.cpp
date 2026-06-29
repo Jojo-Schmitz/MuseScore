@@ -237,6 +237,7 @@ private slots:
       void measureNumbers() { mxmlIoTest("testMeasureNumbers"); }
       void measureNumberOffset() { mxmlIoTest("testMeasureNumberOffset"); }
       void measureStyleSlash() { mxmlImportTestRef("testMeasureStyleSlash"); }
+      void metronome() { mxmlIoTest("testmetronome"); }
       void midiPortExport() { mxmlMscxExportTestRef("testMidiPortExport"); }
       void multiInstrumentPart1() { mxmlIoTest("testMultiInstrumentPart1"); }
       void multiInstrumentPart2() { mxmlIoTest("testMultiInstrumentPart2"); }
