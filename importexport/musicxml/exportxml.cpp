@@ -315,7 +315,7 @@ class ExportMusicXml {
       void rest(Rest* chord, int staff, const std::vector<Lyrics*>* ll);
       void clef(int staff, const ClefType ct, const QString& extraAttributes = QString());
       void timesig(const TimeSig* tsig, int staff);
-      void keysig(const KeySig* ks, ClefType ct, int staff = 0, bool visible = true);
+      void keysig(const KeySig* ks, ClefType ct, int staff = 0);
       void barlineLeft(const Measure* const m, const int track);
       void barlineMiddle(const BarLine* bl);
       void barlineRight(const Measure* const m, const int strack, const int etrack);
@@ -2097,7 +2097,7 @@ void ExportMusicXml::timesig(const TimeSig* tsig, int staff)
             tagName += " symbol=\"single-number\"";
       if (staff)
             tagName += QString(" number=\"%1\"").arg(staff);
-      if (!tsig->visible())
+      if (!tsig->visible() || (tsig->staff() && !tsig->staff()->staffType(tsig->tick())->genTimesig()))
             tagName += " print-object=\"no\"";
       tagName += color2xml(tsig);
       _xml.stag(tagName);
@@ -2292,7 +2292,7 @@ static double accSymId2alter(SymId id)
 //   keysig
 //---------------------------------------------------------
 
-void ExportMusicXml::keysig(const KeySig* ks, ClefType ct, int staff, bool visible)
+void ExportMusicXml::keysig(const KeySig* ks, ClefType ct, int staff)
       {
       static char table2[]  = "CDEFGAB";
       int po = ClefInfo::pitchOffset(ct); // actually 7 * oct + step for topmost staff line
@@ -2302,7 +2302,7 @@ void ExportMusicXml::keysig(const KeySig* ks, ClefType ct, int staff, bool visib
       QString tagName = "key";
       if (staff)
             tagName += QString(" number=\"%1\"").arg(staff);
-      if (!visible)
+      if (!ks->visible() || (ks->staff() && ks->staff()->isTabStaff(Fraction(0, 1))))
             tagName += " print-object=\"no\"";
       tagName += color2xml(ks);
       _attr.doAttr(_xml, true);
@@ -4193,9 +4193,10 @@ void ExportMusicXml::rest(Rest* rest, int staff, const std::vector<Lyrics*>* ll)
       QString noteTag = QString("note");
       noteTag += color2xml(rest);
       noteTag += elementPosition(this, rest);
-      if (!rest->visible() ) {
+      if (!rest->visible()
+          || (rest->staff() && rest->staff()->staffType(rest->tick())->isTabStaff()
+              && !rest->staff()->staffType(rest->tick())->showRests()))
             noteTag += QString(" print-object=\"no\"");
-            }
       _xml.stag(noteTag);
 
       int yOffsSt   = 0;
@@ -6400,17 +6401,29 @@ void ExportMusicXml::keysigTimesig(const Measure* m, const Part* p)
                         if (!(keysigs.value(i)->key() == keysigs.value(0)->key()))
                               singleKey = false;
 
+            if (singleKey) {
+                auto keyPrintObject = [](const KeySig* ks) {
+                    return !ks->visible() || (ks->staff() && ks->staff()->isTabStaff(ks->tick()));
+                };
+                for (int i = 1; i < nstaves; i++) {
+                    if (keyPrintObject(keysigs.value(i)) != keyPrintObject(keysigs.value(0))) {
+                        singleKey = false;
+                        break;
+                    }
+                }
+            }
+
             // write the keysigs
             //qDebug(" singleKey %d", singleKey);
             if (singleKey) {
                   // keysig applies to all staves
-                  keysig(keysigs.value(0), p->staff(0)->clef(m->tick()), 0, keysigs.value(0)->visible());
+                  keysig(keysigs.value(0), p->staff(0)->clef(m->tick()), 0);
                   }
             else {
                   // staff-specific keysigs
                   const QList<int> ksigs = keysigs.keys();
                   for (int st : ksigs)
-                        keysig(keysigs.value(st), p->staff(st)->clef(m->tick()), st + 1, keysigs.value(st)->visible());
+                        keysig(keysigs.value(st), p->staff(st)->clef(m->tick()), st + 1);
                   }
             }
       else {
@@ -6419,6 +6432,8 @@ void ExportMusicXml::keysigTimesig(const Measure* m, const Part* p)
                   //KeySigEvent kse;
                   //kse.setKey(Key::C);
                   KeySig* ks = new KeySig(_score);
+                  if (p->staff(0)->isTabStaff(Fraction(0, 1)))
+                       ks->setVisible(false);
                   ks->setKey(Key::C);
                   keysig(ks, p->staff(0)->clef(m->tick()));
                   delete ks;
@@ -6460,6 +6475,17 @@ void ExportMusicXml::keysigTimesig(const Measure* m, const Part* p)
                   for (int i = 1; i < nstaves; i++) {
                         if (!(timesigs[i]->sig() == timesigs[0]->sig()))
                               singleTime = false;
+                        }
+                  }
+            if (singleTime) {
+                  auto timePrintObject = [](const TimeSig* ts) {
+                        return !ts->visible() || (ts->staff() && !ts->staff()->staffType(ts->tick())->genTimesig());
+                        };
+                  for (int i = 1; i < nstaves; i++) {
+                        if (timePrintObject(timesigs.value(i)) != timePrintObject(timesigs.value(0))) {
+                              singleTime = false;
+                              break;
+                              }
                         }
                   }
 
@@ -6951,7 +6977,7 @@ void ExportMusicXml::findAndExportClef(const Measure* const m, const int staves,
                         if ((tick.isZero() || !cle->generated()) && ((seg->measure() != m) || ((seg->segmentType() == SegmentType::HeaderClef) && !cle->otherClef()))) {
                               clefDebug("exportxml: clef exported");
                               QString clefAttr = color2xml(cle);
-                              if (!cle->visible())
+                              if (!cle->visible() || (cle->staff() && !cle->staff()->staffType(cle->tick())->genClef()))
                                     clefAttr += " print-object=\"no\"";
                               clef(sstaff, cle->clefType(), clefAttr);
                               }
@@ -7204,7 +7230,7 @@ void ExportMusicXml::writeElement(Element* el, const Measure* m, int sstaff, boo
             // these will be output at the start of the next measure
             const Clef* cle = toClef(el);
             const Fraction ti = cle->segment()->tick();
-            const QString visible = (!cle->visible()) ? " print-object=\"no\"" : QString();
+            const QString visible = (!cle->visible() || (cle->staff() && !cle->staff()->staffType(cle->tick())->genClef())) ? " print-object=\"no\"" : QString();
             clefDebug("exportxml: clef in measure ti=%d ct=%d gen=%d", ti, int(cle->clefType()), el->generated());
             if (el->generated()) {
                   clefDebug("exportxml: generated clef not exported");
@@ -7300,6 +7326,8 @@ static void writeStaffDetails(XmlWriter& xml, const Part* part, const QVector<in
                   QString details = "staff-details";
                   if (staves > 1)
                         details += QString(" number=\"%1\"").arg(i+1);
+                  if (st->isTabStaff(Fraction(0, 1)) && !st->staffType(Fraction(0, 1))->useNumbers())
+                        details += " show-frets=\"letters\"";
                   if (hidden) {
                         details += " print-object=\"no\"";
                         if (st->cutaway())
