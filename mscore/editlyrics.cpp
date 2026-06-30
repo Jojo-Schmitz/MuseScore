@@ -402,10 +402,6 @@ void ScoreView::lyricsUnderscore()
                         break;
                   }
             segment = segment->prev1(SegmentType::ChordRest);
-            // if the segment has a rest in this track, stop going back
-            Element* e = segment ? segment->element(track) : 0;
-            if (e && !e->isChord())
-                  break;
             }
 
       // one-chord melisma?
