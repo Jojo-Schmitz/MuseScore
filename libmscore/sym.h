@@ -3157,6 +3157,7 @@ class ScoreFont {
       std::list<std::pair<Sid, QVariant>> _engravingDefaults;
       double _textEnclosureThickness = 0;
       mutable QFont* font { 0 };
+      bool _external { false };
 
       static QVector<ScoreFont> _builtinScoreFonts;
       static QVector<ScoreFont> _userScoreFonts;
@@ -3169,10 +3170,12 @@ class ScoreFont {
    public:
       ScoreFont() {}
       ScoreFont(const ScoreFont&);
-      ScoreFont(const char* n, const char* f, const char* p, const char* fn)
-         : _name(n), _family(f), _fontPath(p), _filename(fn) {
+      ScoreFont(const char* n, const char* f, const char* p, const char* fn, bool external = false)
+         : _name(n), _family(f), _fontPath(p), _filename(fn), _external(external) {
             _symbols = QVector<Sym>(int(SymId::lastSym) + 1);
             }
+
+      ScoreFont& operator=(const Ms::ScoreFont&)=default;
       ~ScoreFont();
 
       const QString& name() const           { return _name;   }
@@ -3225,6 +3228,7 @@ class ScoreFont {
 
       bool isValid(SymId id) const                    { return sym(id).isValid(); }
       bool useFallbackFont(SymId id) const;
+      bool isExternal() const { return _external; }
 
       Sym sym(SymId id) const;
       };
