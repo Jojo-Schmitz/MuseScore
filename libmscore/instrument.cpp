@@ -361,6 +361,8 @@ void Instrument::read(XmlReader& e, Part* part)
                   _singleNoteDynamics = e.readBool();
                   readSingleNoteDynamics = true;
                   }
+            else if (tag == "glissandoStyle") // Mu4 compatibility
+                  e.skipCurrentElement();
             else if (!readProperties(e, part, &customDrumset))
                   e.unknown();
             }

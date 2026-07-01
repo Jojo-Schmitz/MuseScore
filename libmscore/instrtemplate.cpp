@@ -525,6 +525,8 @@ void InstrumentTemplate::read(XmlReader& e)
                   }
             else if (tag == "singleNoteDynamics")
                   singleNoteDynamics = e.readBool();
+            else if (tag == "glissandoStyle") // Mu4 compatibility
+                  e.skipCurrentElement();
             else
                   e.unknown();
             }
