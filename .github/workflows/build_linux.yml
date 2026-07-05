@@ -1,11 +1,11 @@
 name: 'Build: Linux / Check: Unit tests (mtests)'
 
 on:
-  schedule: # scheduled workflows will only run on the default branch. edit default values under gen1 below
-    - cron: '20 1 * * *' # At 01:20 on every day-of-month
-  push: # push.inputs field does not exist, use gen1 below
-    branches:
-    - 3.x
+  #schedule: # scheduled workflows will only run on the default branch. edit default values under gen1 below
+  #  - cron: '20 1 * * *' # At 01:20 on every day-of-month
+  #push: # push.inputs field does not exist, use gen1 below
+  #  branches:
+  #  - 3.x
   pull_request: # all branches. pull_request.inputs field does not exist, edit gen1 below
   workflow_dispatch: # triggered by github web ui run "build linux" workflow button
     inputs:
@@ -70,7 +70,7 @@ concurrency:
 
 jobs:
   plan:
-    name: setup (linux yml)
+    name: Setup (Linux yml)
     runs-on: ubuntu-latest
     outputs:
       platforms: ${{ steps.gen1.outputs.platforms }}

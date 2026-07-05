@@ -6,12 +6,12 @@ name: Build and draft release
 # - release draft created (not published yet)
 
 on:
-  # schedule: # scheduled workflows will only run on the default branch. edit default values under gen1 and gen2 below
-  #   - cron: '20 1 * * *' # At 15:20 on every day-of-month
+  #schedule: # scheduled workflows will only run on the default branch. edit default values under gen1 and gen2 below
+  #  - cron: '20 1 * * *' # At 15:20 on every day-of-month
   push: # push.inputs field does not exist, use gen1 and gen2 below
     branches:
-    - temp34
-  # pull_request: # pull_request.inputs field does not exist, edit gen1 below
+    - 3.x_off
+  #pull_request: # pull_request.inputs field does not exist, edit gen1 below
   workflow_dispatch: # triggered by github web ui run "Build and draft release" workflow button
     inputs:
       manual_name:

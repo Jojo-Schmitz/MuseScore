@@ -1,12 +1,12 @@
 name: 'Build: All'
 
 on:
-  # schedule: # scheduled workflows will only run on the default branch. edit default values under gen1 below
-  #   - cron: '20 1 * * *' # At 01:20 on every day-of-month
-  # push: # push.inputs field does not exist, use gen1 below
-  #   branches:
-  #     - temp34
-  # pull_request: # pull_request.inputs field does not exist, edit gen1 below
+  schedule: # scheduled workflows will only run on the default branch. edit default values under gen1 below
+    - cron: '20 1 * * *' # At 01:20 on every day-of-month
+  push: # push.inputs field does not exist, use gen1 below
+    branches:
+      - 3.x
+  #pull_request: # pull_request.inputs field does not exist, edit gen1 below
   workflow_dispatch: # triggered by github web ui run "build all" workflow button
     inputs:
       platforms:
@@ -98,7 +98,7 @@ defaults:
 
 jobs:
   plan:
-    name: setup (build all yml)
+    name: Setup (build all yml)
     runs-on: ubuntu-latest
     outputs:
       platforms: ${{ steps.gen1.outputs.platforms }}
