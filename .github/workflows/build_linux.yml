@@ -6,7 +6,7 @@ on:
   #push: # push.inputs field does not exist, use gen1 below
   #  branches:
   #  - 3.x
-  pull_request: # all branches. pull_request.inputs field does not exist, edit gen1 below
+  #pull_request: # all branches. pull_request.inputs field does not exist, edit gen1 below
   workflow_dispatch: # triggered by github web ui run "build linux" workflow button
     inputs:
       platforms:
