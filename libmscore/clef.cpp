@@ -103,7 +103,7 @@ Clef::Clef(Score* s)
 
 qreal Clef::mag() const
       {
-      qreal mag = staff() ? staff()->mag(tick()) : 1.0;
+      qreal mag = staff() ? staff()->mag(this) : 1.0;
       if (m_isSmall)
             mag *= score()->styleD(Sid::smallClefMag);
       return mag;
@@ -123,7 +123,7 @@ void Clef::layout()
 
       // check clef visibility and type compatibility
       if (clefSeg && staff()) {
-            Fraction tick = clefSeg->tick();
+            Fraction tick = clefSeg->measure()->tick();
             const StaffType* st = staff()->staffType(tick);
             bool show     = st->genClef();        // check staff type allows clef display
             StaffGroup staffGroup = st->group();
