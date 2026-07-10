@@ -3948,7 +3948,8 @@ void Score::cmdToggleLayoutBreak(LayoutBreak::Type type)
                               // if measure is mmrest, then propagate to last original measure
                               if (measure)
                                     mb = measure->isMMRest() ? measure->mmRestLast() : measure;
-                              allNoBreaks = mb->noBreak();
+                              if (mb)
+                                    allNoBreaks = mb->noBreak();
                               }
                         }
                   }
