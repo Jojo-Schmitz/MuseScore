@@ -3113,11 +3113,10 @@ void MusicXMLParserPass1::handleOctaveShift(const Fraction cTime,
       short sz = 0;
 
       switch (size) {
-            case   8: sz =  1; break;
-            case  15: sz =  2; break;
-            default:
-                  _logger->logError(QString("invalid octave-shift size %1").arg(size), &_e);
-                  return;
+            case 22: sz =  3; break;
+            case 15: sz =  2; break;
+            case 8:
+            default: sz =  1;
             }
 
       if (!cTime.isValid() || cTime < Fraction(0, 1))

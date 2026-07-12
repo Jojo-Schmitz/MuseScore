@@ -1585,11 +1585,13 @@ static void pitch2xml(const Note* note, QString& s, int& alter, int& octave)
       // correct for ottava lines
       int ottava = 0;
       switch (note->ppitch() - note->pitch()) {
+            case  36: ottava =  3; break;
             case  24: ottava =  2; break;
             case  12: ottava =  1; break;
             case   0: ottava =  0; break;
             case -12: ottava = -1; break;
             case -24: ottava = -2; break;
+            case -36: ottava = -3; break;
             default:  qDebug("pitch2xml() tick=%d pitch()=%d ppitch()=%d",
                              tick.ticks(), note->pitch(), note->ppitch());
             }
@@ -5133,12 +5135,20 @@ void ExportMusicXml::ottava(Ottava const* const ot, int staff, const Fraction& t
                         sz = "15";
                         tp = "down";
                         break;
+                  case OttavaType::OTTAVA_22MA:
+                        sz = "22";
+                        tp = "down";
+                        break;
                   case OttavaType::OTTAVA_8VB:
                         sz = "8";
                         tp = "up";
                         break;
                   case OttavaType::OTTAVA_15MB:
                         sz = "15";
+                        tp = "up";
+                        break;
+                  case OttavaType::OTTAVA_22MB:
+                        sz = "22";
                         tp = "up";
                         break;
                   default:
@@ -5152,6 +5162,8 @@ void ExportMusicXml::ottava(Ottava const* const ot, int staff, const Fraction& t
                   octaveShiftXml = QString("octave-shift type=\"stop\" size=\"8\" number=\"%1\"").arg(n + 1);
             else if (st == OttavaType::OTTAVA_15MA || st == OttavaType::OTTAVA_15MB)
                   octaveShiftXml = QString("octave-shift type=\"stop\" size=\"15\" number=\"%1\"").arg(n + 1);
+            else if (st == OttavaType::OTTAVA_22MA || st == OttavaType::OTTAVA_22MB)
+                  octaveShiftXml = QString("octave-shift type=\"stop\" size=\"22\" number=\"%1\"").arg(n + 1);
             else
                   qDebug("ottava subtype %d not understood", int(st));
             }
@@ -5161,7 +5173,7 @@ void ExportMusicXml::ottava(Ottava const* const ot, int staff, const Fraction& t
             const Fraction tickToWrite = isStart ? ot->tick() : ot->tick2();
             moveToTickIfNeed(tickToWrite);
 
-            directionTag(_xml, _attr, ot);
+            directionTag(_xml, _attr, nullptr);
             _xml.stag("direction-type");
             octaveShiftXml += color2xml(ot);
             octaveShiftXml += positioningAttributes(ot, ot->tick() == tick);

@@ -4817,7 +4817,7 @@ void MusicXMLParserDirection::octaveShift(const QString& type, const int number,
       const MusicXmlExtendedSpannerDesc& spdesc = _pass2.getSpanner({ ElementType::OTTAVA, number });
       if (type == "up" || type == "down") {
             int ottavasize = _e.attributes().value("size").toInt();
-            if (!(ottavasize == 8 || ottavasize == 15)) {
+            if (!(ottavasize == 8 || ottavasize == 15 || ottavasize == 22)) {
                   _logger->logError(QString("unknown octave-shift size %1").arg(ottavasize), &_e);
                   }
             else {
@@ -4829,6 +4829,8 @@ void MusicXMLParserDirection::octaveShift(const QString& type, const int number,
                               o->setOttavaType(OttavaType::OTTAVA_8VA);
                         else if (ottavasize == 15)
                               o->setOttavaType(OttavaType::OTTAVA_15MA);
+                        else if (ottavasize == 22)
+                              o->setOttavaType(OttavaType::OTTAVA_22MA);
                         }
                   else /*if (type == "up")*/ {
                         _placement = _placement.isEmpty() ? "below" : _placement;
@@ -4836,6 +4838,8 @@ void MusicXMLParserDirection::octaveShift(const QString& type, const int number,
                               o->setOttavaType(OttavaType::OTTAVA_8VB);
                         else if (ottavasize == 15)
                               o->setOttavaType(OttavaType::OTTAVA_15MB);
+                        else if (ottavasize == 22)
+                              o->setOttavaType(OttavaType::OTTAVA_22MB);
                         }
 
                   colorItem(o, _e.attributes().value("color").toString());
