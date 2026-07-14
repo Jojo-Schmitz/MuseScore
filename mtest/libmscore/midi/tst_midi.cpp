@@ -12,8 +12,8 @@
 
 #include <QCoreApplication>
 #include <QFile>
-#include <QIODevice>
 #include <QTextStream>
+#include <QIODevice>
 #include <QtTest/QtTest>
 
 #include "audio/exports/exportmidi.h"
@@ -67,6 +67,7 @@ class TestMidi : public QObject, public MTest
       void midiPortExport()   { midiExportTestRef("testMidiPort"); }
       void midiArpeggio()     { midiExportTestRef("testArpeggio"); }
       void midiMutedUnison()  { midiExportTestRef("testMutedUnison"); }
+      void midiMeasureRepeats() { midiExportTestRef("testMeasureRepeats"); }
       void midi184376ExportMidiInitialKeySig()
             {
             midiExportTestRef("testInitialKeySigThenRepeatToMeas2");    // tick 0 has Bb keysig.  Meas 2 has no key sig. Meas 2 repeats back to start of Meas 2.  Result should have initial Bb keysig
@@ -613,5 +614,6 @@ void TestMidi::midiExportTestRef(const QString& file)
 
 QTEST_MAIN(TestMidi)
 
+#if __has_include("tst_midi.moc")
 #include "tst_midi.moc"
-
+#endif

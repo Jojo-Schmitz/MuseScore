@@ -201,10 +201,17 @@ static const StyleType styleTypes[] {
       { Sid::minNoteDistance,         "minNoteDistance",         Spatium(0.2) },
       { Sid::barNoteDistance,         "barNoteDistance",         Spatium(1.3) },     // was 1.2
 
-      { Sid::barAccidentalDistance,   "barAccidentalDistance",   Spatium(0.65)   },
+      { Sid::barAccidentalDistance,   "barAccidentalDistance",   Spatium(0.65) },
       { Sid::multiMeasureRestMargin,  "multiMeasureRestMargin",  Spatium(1.2)  },
+      { Sid::mmRestHBarThickness,     "mmRestHBarThickness",     Spatium(0.7)  }, // stems from Mu4, but is needed for multimeasure repeats too
       { Sid::noteBarDistance,         "noteBarDistance",         Spatium(1.5)  },
       { Sid::measureSpacing,          "measureSpacing",          QVariant(1.2) },
+      { Sid::measureRepeatNumberPos,  "measureRepeatNumberPos",  Spatium(-1.5) },
+      { Sid::mrNumberSeries,          "mrNumberSeries",          QVariant(false) },
+      { Sid::mrNumberEveryXMeasures,  "mrNumberEveryXMeasures",  4 },
+      { Sid::mrNumberSeriesWithParentheses, "mrNumberSeriesWithParentheses", QVariant(true) },
+      { Sid::oneMeasureRepeatShow1,   "oneMeasureRepeatShow1",   QVariant(false) },
+      { Sid::fourMeasureRepeatShowExtenders, "fourMeasureRepeatShowExtenders", QVariant(false) },
       { Sid::staffLineWidth,          "staffLineWidth",          Spatium(0.11) },
       { Sid::ledgerLineWidth,         "ledgerLineWidth",         Spatium(0.16) },     // 0.1875
       { Sid::ledgerLineLength,        "ledgerLineLength",        Spatium(0.35) },     // notehead width + this value
@@ -3295,7 +3302,6 @@ bool MStyle::readProperties400(XmlReader& e, int mscVersion)
             }
       else if (tag == "mmRestNumberMaskHBar"                                      // Mu4 only, let's skip
             || tag == "multiMeasureRestMargin"                                    // Mu4 only, let's skip
-            || tag == "mmRestHBarThickness"                                       // Mu4 only, let's skip
             || tag == "mmRestHBarVStrokeThickness"                                // Mu4 only, let's skip
             || tag == "mmRestHBarVStrokeHeight"                                   // Mu4 only, let's skip
             || tag == "oldStyleMultiMeasureRests"                                 // Mu4 only, let's skip

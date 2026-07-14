@@ -12,22 +12,14 @@
 
 #include "articulation.h"
 #include "barline.h"
-#include "fermata.h"
 #include "image.h"
 #include "marker.h"
-#include "measure.h"
 #include "part.h"
 #include "score.h"
-#include "segment.h"
 #include "spanner.h"
-#include "staff.h"
 #include "stafflines.h"
-#include "stafftype.h"
-#include "sym.h"
-#include "symbol.h"
 #include "system.h"
 #include "undo.h"
-#include "xml.h"
 
 namespace Ms {
 
@@ -189,6 +181,12 @@ static void undoChangeBarLineType(BarLine* bl, BarLineType barType, bool allStav
                   }
                   break;
             case BarLineType::START_REPEAT: {
+                  for (int staffIdx = 0; staffIdx < m2->score()->nstaves(); ++staffIdx) {
+                        if (m2->isMeasureRepeatGroupWithPrevM(staffIdx)) {
+                              MScore::setError(CANNOT_SPLIT_MEASURE_REPEAT);
+                              return;
+                              }
+                        }
                   for (Score*& lscore : m2->score()->scoreList()) {
                         Measure* lmeasure = lscore->tick2measure(m2->tick());
                         if (lmeasure)
@@ -197,6 +195,12 @@ static void undoChangeBarLineType(BarLine* bl, BarLineType barType, bool allStav
                   }
                   break;
             case BarLineType::END_REPEAT: {
+                  for (int staffIdx = 0; staffIdx < m2->score()->nstaves(); ++staffIdx) {
+                        if (m2->isMeasureRepeatGroupWithNextM(staffIdx)) {
+                              MScore::setError(CANNOT_SPLIT_MEASURE_REPEAT);
+                              return;
+                              }
+                        }
                   for (Score*& lscore : m2->score()->scoreList()) {
                         Measure* lmeasure = lscore->tick2measure(m2->tick());
                         if (lmeasure)
@@ -205,6 +209,12 @@ static void undoChangeBarLineType(BarLine* bl, BarLineType barType, bool allStav
                   }
                   break;
             case BarLineType::END_START_REPEAT: {
+                  for (int staffIdx = 0; staffIdx < m2->score()->nstaves(); ++staffIdx) {
+                        if (m2->isMeasureRepeatGroupWithNextM(staffIdx)) {
+                              MScore::setError(CANNOT_SPLIT_MEASURE_REPEAT);
+                              return;
+                              }
+                        }
                   for (Score*& lscore : m2->score()->scoreList()) {
                         Measure* lmeasure = lscore->tick2measure(m2->tick());
                         if (lmeasure) {

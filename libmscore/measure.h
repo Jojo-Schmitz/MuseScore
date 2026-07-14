@@ -18,7 +18,6 @@
  Definition of class Measure.
 */
 
-#include "fraction.h"
 #include "measurebase.h"
 #include "segmentlist.h"
 
@@ -41,7 +40,7 @@ class TieMap;
 class AccidentalState;
 class Spanner;
 class Part;
-class RepeatMeasure;
+class MeasureRepeat;
 
 class MStaff;
 
@@ -53,6 +52,65 @@ enum class MeasureNumberMode : char {
       AUTO,       // show measure number depending on style
       SHOW,       // always show measure number
       HIDE        // don’t show measure number
+      };
+
+//---------------------------------------------------------
+//   MStaff
+///   Per staff values of measure.
+//---------------------------------------------------------
+
+class MStaff {
+      MeasureNumber* _noText    { nullptr  }; ///< Measure number text object
+      MMRestRange* _mmRangeText { nullptr  }; ///< Multi measure rest range text object
+      StaffLines*  _lines       { nullptr  };
+      Spacer* _vspacerUp        { nullptr  };
+      Spacer* _vspacerDown      { nullptr  };
+      bool _hasVoices           { false };    ///< indicates that MStaff contains more than one voice,
+                                              ///< this changes some layout rules
+      bool _visible             { true  };
+      bool _stemless            { false };
+#ifndef NDEBUG
+      bool _corrupted           { false };
+#endif
+      int _measureRepeatCount   { 0 };
+
+   public:
+      MStaff()  {}
+      ~MStaff();
+      MStaff(const MStaff&);
+
+      void setScore(Score*);
+      void setTrack(int);
+
+      MeasureNumber* noText() const   { return _noText;     }
+      void setNoText(MeasureNumber* t) { _noText = t;        }
+
+      MMRestRange *mmRangeText() const { return _mmRangeText; }
+      void setMMRangeText(MMRestRange *r) { _mmRangeText = r; }
+
+      StaffLines* lines() const      { return _lines; }
+      void setLines(StaffLines* l)   { _lines = l;    }
+
+      Spacer* vspacerUp() const      { return _vspacerUp;   }
+      void setVspacerUp(Spacer* s)   { _vspacerUp = s;      }
+      Spacer* vspacerDown() const    { return _vspacerDown; }
+      void setVspacerDown(Spacer* s) { _vspacerDown = s;    }
+
+      bool hasVoices() const         { return _hasVoices;  }
+      void setHasVoices(bool val)    { _hasVoices = val;   }
+
+      bool visible() const           { return _visible;    }
+      void setVisible(bool val)      { _visible = val;     }
+
+      bool stemless() const          { return _stemless; }
+      void setStemless(bool val)     { _stemless = val;  }
+
+#ifndef NDEBUG
+      bool corrupted() const         { return _corrupted; }
+      void setCorrupted(bool val)    { _corrupted = val; }
+#endif
+      int measureRepeatCount() const { return _measureRepeatCount; }
+      void setMeasureRepeatCount(int n) { _measureRepeatCount = n; }
       };
 
 //---------------------------------------------------------
@@ -72,14 +130,14 @@ class Measure final : public MeasureBase {
 
       Fraction _timesig;
 
-      int _mmRestCount;       // > 0 if this is a multi measure rest
-                              // 0 if this is the start of a mm rest (_mmRest != 0)
-                              // < 0 if this measure is covered by a mm rest
+      int _mmRestCount;       // > 0 if this is a multimeasure rest
+                              // 0 if this is the start of an mm rest (_mmRest != 0)
+                              // < 0 if this measure is covered by an mm rest
 
       int _playbackCount;     // temp. value used in RepeatList
                               // counts how many times this measure was already played
 
-      int _repeatCount;       ///< end repeat marker und repeat count
+      int _repeatCount;       ///< end repeat marker and repeat count
 
       MeasureNumberMode _noMode;
       bool _breakMultiMeasureRest;
@@ -118,7 +176,7 @@ class Measure final : public MeasureBase {
       void change(Element* o, Element* n) override;
       void spatiumChanged(qreal oldValue, qreal newValue) override;
 
-      System* system() const                      { return (System*)parent(); }
+      System* system() const { return (System*)parent(); }
       bool hasVoices(int staffIdx, Fraction stick, Fraction len) const;
       bool hasVoices(int staffIdx) const;
       void setHasVoices(int staffIdx, bool v);
@@ -214,8 +272,6 @@ class Measure final : public MeasureBase {
       void barLinesSetSpan(Segment*);
       void setEndBarLineType(BarLineType val, int track, bool visible = true, QColor color = QColor());
 
-      RepeatMeasure* cmdInsertRepeatMeasure(int staffIdx);
-
       void scanElements(void* data, void (*func)(void*, Element*), bool all=true) override;
       void createVoice(int track);
       void adjustToLen(Fraction, bool appendRestsIfNecessary = true);
@@ -228,7 +284,6 @@ class Measure final : public MeasureBase {
       bool isEmpty(int staffIdx) const;
       bool isCutawayClef(int staffIdx) const;
       bool isFullMeasureRest() const;
-      bool isRepeatMeasure(const Staff* staff) const;
       bool visible(int staffIdx) const;
       bool stemless(int staffIdx) const;
       LayoutBreak* nextSectionBreak() const;
@@ -263,6 +318,18 @@ class Measure final : public MeasureBase {
       void setMMRestCount(int n)    { _mmRestCount = n;    }
       Measure* mmRestFirst() const;
       Measure* mmRestLast() const;
+
+      int measureRepeatCount(int staffIdx) const { return _mstaves[staffIdx]->measureRepeatCount(); }
+      void setMeasureRepeatCount(int n, int staffIdx) { _mstaves[staffIdx]->setMeasureRepeatCount(n); }
+      bool isMeasureRepeatGroup(int staffIdx) const { return measureRepeatCount(staffIdx); }   // alias for convenience
+      bool isMeasureRepeatGroupWithNextM(int staffIdx) const;
+      bool isMeasureRepeatGroupWithPrevM(int staffIdx) const;
+      Measure* firstOfMeasureRepeatGroup(int staffIdx) const;     // used to find beginning of group
+      MeasureRepeat* measureRepeatElement(int staffIdx) const;    // get measure repeat element from anywhere within group
+      int measureRepeatNumMeasures(int staffIdx) const;
+      bool isOneMeasureRepeat(int staffIdx) const;
+      bool nextIsOneMeasureRepeat(int staffidx) const;
+      bool prevIsOneMeasureRepeat(int staffIdx) const;
 
       Element* nextElementStaff(int staff);
       Element* prevElementStaff(int staff);

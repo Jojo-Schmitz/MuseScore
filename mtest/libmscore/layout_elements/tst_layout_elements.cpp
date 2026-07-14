@@ -11,13 +11,16 @@
 //=============================================================================
 
 #include <QtTest/QtTest>
-#include "mtest/testutils.h"
+
 #include "libmscore/measure.h"
 #include "libmscore/page.h"
+#include "libmscore/rest.h"
 #include "libmscore/score.h"
 #include "libmscore/staff.h"
 #include "libmscore/system.h"
 #include "libmscore/tuplet.h"
+
+#include "mtest/testutils.h"
 
 #define DIR QString("libmscore/layout_elements/")
 
@@ -80,6 +83,10 @@ static void isLayoutDone(void* data, Element* e)
                   return;
                   }
             }
+      if (e->isRest() && toRest(e)->shouldNotBeDrawn()) {
+            // another valid exception
+            return;
+            }
       // If layout of element is done it (usually?) has a valid
       // bounding box (bbox).
       if (e->visible() && !e->bbox().isValid()) {
@@ -114,5 +121,8 @@ void TestLayoutElements::tstLayoutAll(QString file)
       }
 
 QTEST_MAIN(TestLayoutElements)
+
+#if __has_include("tst_layout_elements.moc")
 #include "tst_layout_elements.moc"
+#endif
 

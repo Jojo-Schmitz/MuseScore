@@ -321,6 +321,7 @@ private:
       void measChordNote( /*, const MxmlPhase2Note note, ChordRest& currChord */);
       void measChordFlush( /*, ChordRest& currChord */);
       void measure(const QString& partId, const Fraction time);
+      void setMeasureRepeats(const int scoreRelStaff, Measure* measure);
       void attributes(const QString& partId, Measure* measure, const Fraction& tick);
       void measureStyle(Measure* measure);
       void barline(const QString& partId, Measure* measure, const Fraction& tick);
@@ -398,6 +399,10 @@ private:
       std::vector<GraceNoteLyrics> _graceNoteLyrics; ///< Lyrics to be moved from grace note to main note
 
       MusicXmlSlash _measureStyleSlash;           ///< Are we inside a measure to be displayed as slashes?
+
+      int _nstaves;                               ///< Number of staves in current part
+      std::vector<int> _measureRepeatNumMeasures;
+      std::vector<int> _measureRepeatCount;
       };
 
 //---------------------------------------------------------
