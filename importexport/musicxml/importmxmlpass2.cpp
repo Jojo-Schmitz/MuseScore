@@ -5178,7 +5178,8 @@ QString MusicXMLParserDirection::metronome(double& r)
 //---------------------------------------------------------
 
 static bool determineBarLineType(const QString& barStyle, const QString& repeat,
-                                 BarLineType& type, bool& visible)
+                                 BarLineType& type, bool& visible,
+                                 const MusicXMLExporterSoftware& exporter)
       {
       // set defaults
       type = BarLineType::NORMAL;
@@ -5188,10 +5189,12 @@ static bool determineBarLineType(const QString& barStyle, const QString& repeat,
             type = BarLineType::END_REPEAT;
       else if (barStyle == "heavy-light" && repeat == "forward")
             type = BarLineType::START_REPEAT;
+      else if (barStyle == "light-heavy" && repeat == "forward" && exporter == MusicXMLExporterSoftware::NOTEFLIGHT)
+            type = BarLineType::START_REPEAT;
       else if (barStyle == "light-heavy" && repeat.isEmpty())
             type = BarLineType::END;
       else if (barStyle == "heavy-light" && repeat.isEmpty())
-                  type = BarLineType::REVERSE_END;
+            type = BarLineType::REVERSE_END;
       else if (barStyle == "regular")
             type = BarLineType::NORMAL;
       else if (barStyle == "dashed")
@@ -5371,7 +5374,7 @@ void MusicXMLParserPass2::barline(const QString& partId, Measure* measure, const
 
       BarLineType type = BarLineType::NORMAL;
       bool visible = true;
-      if (determineBarLineType(barStyle, repeat, type, visible)) {
+      if (determineBarLineType(barStyle, repeat, type, visible, _pass1.exporterSoftware())) {
             const int track = _pass1.trackForPart(partId);
             if (type == BarLineType::START_REPEAT) {
                   // combine start_repeat flag with current state initialized during measure parsing

@@ -66,6 +66,7 @@ private slots:
       void barlineFermatas() { mxmlIoTest("testBarlineFermatas"); }
       //void barlineJump() { mxmlImportTestRef("testBarlineJump"); }
       void barlineLoc() { mxmlImportTestRef("testBarlineLoc"); }
+      void noteflightStartRepeatBarline() { mxmlImportTestRef("testNoteflightStartRepeatBarline"); }
       void barlineSpan() { mxmlIoTest("testBarlineSpan"); }
       void barlineTips() { mxmlIoTest("testBarlineTips"); }
       void barlinesGrandStaff1() { mxmlImportTestRef("testBarlinesGrandStaff"); }
