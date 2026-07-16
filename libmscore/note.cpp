@@ -247,7 +247,9 @@ static NoteHeadName noteHeadSchemeNames[] = {
       {"auto",                QT_TRANSLATE_NOOP("noteheadschemes", "Auto") },
       {"normal",              QT_TRANSLATE_NOOP("noteheadschemes", "Normal") },
       {"name-pitch",          QT_TRANSLATE_NOOP("noteheadschemes", "Pitch Names") },
+      {"name-pitch-no-acc",   QT_TRANSLATE_NOOP("noteheadschemes", "Pitch Names, No Accidentals") },
       {"name-pitch-german",   QT_TRANSLATE_NOOP("noteheadschemes", "German Pitch Names") },
+      {"name-pitch-german-no-acc",   QT_TRANSLATE_NOOP("noteheadschemes", "German Pitch Names, No Accidentals") },
       {"solfege-movable",     QT_TRANSLATE_NOOP("noteheadschemes", "Solf\u00e8ge Movable Do") }, // &egrave;
       {"solfege-fixed",       QT_TRANSLATE_NOOP("noteheadschemes", "Solf\u00e8ge Fixed Do") },   // &egrave;
       {"shape-4",             QT_TRANSLATE_NOOP("noteheadschemes", "4-shape (Walker)") },
@@ -465,15 +467,17 @@ SymId Note::noteHead(int direction, NoteHead::Group group, NoteHead::Type t, int
       if (scheme == NoteHead::Scheme::HEAD_NORMAL)
             return noteHeads[direction][int(group)][int(t)];
       // other schemes
-      if (scheme == NoteHead::Scheme::HEAD_PITCHNAME || scheme == NoteHead::Scheme::HEAD_PITCHNAME_GERMAN) {
+      if (scheme == NoteHead::Scheme::HEAD_PITCHNAME || scheme == NoteHead::Scheme::HEAD_PITCHNAME_GERMAN
+          || scheme == NoteHead::Scheme::HEAD_PITCHNAME_NO_ACCIDENTALS
+          || scheme == NoteHead::Scheme::HEAD_PITCHNAME_GERMAN_NO_ACCIDENTALS) {
+            const bool no_accidentals = scheme == NoteHead::Scheme::HEAD_PITCHNAME_NO_ACCIDENTALS
+                        || scheme == NoteHead::Scheme::HEAD_PITCHNAME_GERMAN_NO_ACCIDENTALS;
+            const bool german = scheme == NoteHead::Scheme::HEAD_PITCHNAME_GERMAN
+                        || scheme == NoteHead::Scheme::HEAD_PITCHNAME_GERMAN_NO_ACCIDENTALS;
             if (tpc == Tpc::TPC_A)
                   group = NoteHead::Group::HEAD_A;
-            else if (tpc == Tpc::TPC_B) {
-                  if (scheme == NoteHead::Scheme::HEAD_PITCHNAME_GERMAN)
-                        group = NoteHead::Group::HEAD_H;
-                  else
-                        group = NoteHead::Group::HEAD_B;
-                  }
+            else if (tpc == Tpc::TPC_B)
+                  group = german ? NoteHead::Group::HEAD_H : NoteHead::Group::HEAD_B;
             else if (tpc == Tpc::TPC_C)
                   group = NoteHead::Group::HEAD_C;
             else if (tpc == Tpc::TPC_D)
@@ -485,39 +489,36 @@ SymId Note::noteHead(int direction, NoteHead::Group group, NoteHead::Type t, int
             else if (tpc == Tpc::TPC_G)
                   group = NoteHead::Group::HEAD_G;
             else if (tpc == Tpc::TPC_A_S)
-                  group = NoteHead::Group::HEAD_A_SHARP;
+                  group = no_accidentals ? NoteHead::Group::HEAD_A : NoteHead::Group::HEAD_A_SHARP;
             else if (tpc == Tpc::TPC_B_S)
-                  if (scheme == NoteHead::Scheme::HEAD_PITCHNAME_GERMAN)
-                        group = NoteHead::Group::HEAD_H_SHARP;
+                  if (no_accidentals)
+                        group = german ? NoteHead::Group::HEAD_H : NoteHead::Group::HEAD_B;
                   else
-                        group = NoteHead::Group::HEAD_B_SHARP;
+                        group = german ? NoteHead::Group::HEAD_H_SHARP : NoteHead::Group::HEAD_B_SHARP;
             else if (tpc == Tpc::TPC_C_S)
-                  group = NoteHead::Group::HEAD_C_SHARP;
+                  group = no_accidentals ? NoteHead::Group::HEAD_C : NoteHead::Group::HEAD_C_SHARP;
             else if (tpc == Tpc::TPC_D_S)
-                  group = NoteHead::Group::HEAD_D_SHARP;
+                  group = no_accidentals ? NoteHead::Group::HEAD_D : NoteHead::Group::HEAD_D_SHARP;
             else if (tpc == Tpc::TPC_E_S)
-                  group = NoteHead::Group::HEAD_E_SHARP;
+                  group = no_accidentals ? NoteHead::Group::HEAD_E : NoteHead::Group::HEAD_E_SHARP;
             else if (tpc == Tpc::TPC_F_S)
-                  group = NoteHead::Group::HEAD_F_SHARP;
+                  group = no_accidentals ? NoteHead::Group::HEAD_F : NoteHead::Group::HEAD_F_SHARP;
             else if (tpc == Tpc::TPC_G_S)
-                  group = NoteHead::Group::HEAD_G_SHARP;
+                  group = no_accidentals ? NoteHead::Group::HEAD_G : NoteHead::Group::HEAD_G_SHARP;
             else if (tpc == Tpc::TPC_A_B)
-                  group = NoteHead::Group::HEAD_A_FLAT;
+                  group = no_accidentals ? NoteHead::Group::HEAD_A : NoteHead::Group::HEAD_A_FLAT;
             else if (tpc == Tpc::TPC_B_B)
-                  if (scheme == NoteHead::Scheme::HEAD_PITCHNAME_GERMAN)
-                        group = NoteHead::Group::HEAD_B;
-                  else
-                        group = NoteHead::Group::HEAD_B_FLAT;
+                  group = (no_accidentals || german) ? NoteHead::Group::HEAD_B : NoteHead::Group::HEAD_B_FLAT;
             else if (tpc == Tpc::TPC_C_B)
-                  group = NoteHead::Group::HEAD_C_FLAT;
+                  group = no_accidentals ? NoteHead::Group::HEAD_C : NoteHead::Group::HEAD_C_FLAT;
             else if (tpc == Tpc::TPC_D_B)
-                  group = NoteHead::Group::HEAD_D_FLAT;
+                     group = no_accidentals ? NoteHead::Group::HEAD_D : NoteHead::Group::HEAD_D_FLAT;
             else if (tpc == Tpc::TPC_E_B)
-                  group = NoteHead::Group::HEAD_E_FLAT;
+                  group = no_accidentals ? NoteHead::Group::HEAD_E : NoteHead::Group::HEAD_E_FLAT;
             else if (tpc == Tpc::TPC_F_B)
-                  group = NoteHead::Group::HEAD_F_FLAT;
+                  group = no_accidentals ? NoteHead::Group::HEAD_F : NoteHead::Group::HEAD_F_FLAT;
             else if (tpc == Tpc::TPC_G_B)
-                  group = NoteHead::Group::HEAD_G_FLAT;
+                  group = no_accidentals ? NoteHead::Group::HEAD_G : NoteHead::Group::HEAD_G_FLAT;
             }
       else if (scheme == NoteHead::Scheme::HEAD_SHAPE_NOTE_4) {
             int degree = tpc2degree(tpc, key);
@@ -1264,7 +1265,9 @@ bool Note::isNoteName() const
             NoteHead::Scheme s = _headScheme;
             if (s == NoteHead::Scheme::HEAD_AUTO)
                   s = st->staffTypeForElement(this)->noteHeadScheme();
-            return s == NoteHead::Scheme::HEAD_PITCHNAME || s == NoteHead::Scheme::HEAD_PITCHNAME_GERMAN || s == NoteHead::Scheme::HEAD_SOLFEGE || s == NoteHead::Scheme::HEAD_SOLFEGE_FIXED;
+            return s == NoteHead::Scheme::HEAD_PITCHNAME || s == NoteHead::Scheme::HEAD_PITCHNAME_GERMAN
+                        || s == NoteHead::Scheme::HEAD_PITCHNAME_NO_ACCIDENTALS || s == NoteHead::Scheme::HEAD_PITCHNAME_GERMAN_NO_ACCIDENTALS
+                        || s == NoteHead::Scheme::HEAD_SOLFEGE || s == NoteHead::Scheme::HEAD_SOLFEGE_FIXED;
 
             }
       return false;

@@ -37,7 +37,9 @@ const char* g_groupNames[STAFF_GROUP_MAX] = {
 NoteHead::Scheme noteHeadSchemes[] = {
       NoteHead::Scheme::HEAD_NORMAL,
       NoteHead::Scheme::HEAD_PITCHNAME,
+      NoteHead::Scheme::HEAD_PITCHNAME_NO_ACCIDENTALS,
       NoteHead::Scheme::HEAD_PITCHNAME_GERMAN,
+      NoteHead::Scheme::HEAD_PITCHNAME_GERMAN_NO_ACCIDENTALS,
       NoteHead::Scheme::HEAD_SOLFEGE,
       NoteHead::Scheme::HEAD_SOLFEGE_FIXED,
       NoteHead::Scheme::HEAD_SHAPE_NOTE_4,

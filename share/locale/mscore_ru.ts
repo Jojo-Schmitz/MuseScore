@@ -13107,23 +13107,23 @@ failed: %2</source>
 <context>
     <name>Ms::InspectorAccidental</name>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="1048"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="1050"/>
         <source>None</source>
         <comment>no accidental bracket type</comment>
         <translation>Нет</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="1049"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="1051"/>
         <source>Parenthesis</source>
         <translation>Круглая скобка</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="1050"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="1052"/>
         <source>Bracket</source>
         <translation>Акколада</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="1051"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="1053"/>
         <source>Brace</source>
         <translation>Фигурная акколада</translation>
     </message>
@@ -13131,12 +13131,12 @@ failed: %2</source>
 <context>
     <name>Ms::InspectorArticulation</name>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="652"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="654"/>
         <source>Ornament</source>
         <translation>Орнаментика</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="652"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="654"/>
         <source>Articulation</source>
         <translation>Штрих</translation>
     </message>
@@ -13190,12 +13190,12 @@ failed: %2</source>
 <context>
     <name>Ms::InspectorCaesura</name>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="1327"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="1329"/>
         <source>Caesura</source>
         <translation>Цезура</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="1327"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="1329"/>
         <source>Breath</source>
         <translation>Цезура</translation>
     </message>
@@ -13274,57 +13274,57 @@ failed: %2</source>
 <context>
     <name>Ms::InspectorKeySig</name>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="982"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="984"/>
         <source>Unknown</source>
         <translation>Неизвестно</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="983"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="985"/>
         <source>None</source>
         <translation>Нет</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="984"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="986"/>
         <source>Major</source>
         <translation>Мажор</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="985"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="987"/>
         <source>Minor</source>
         <translation>Минор</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="986"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="988"/>
         <source>Dorian</source>
         <translation>Дорийский</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="987"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="989"/>
         <source>Phrygian</source>
         <translation>Фригийский</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="988"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="990"/>
         <source>Lydian</source>
         <translation>Лидийское письмо</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="989"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="991"/>
         <source>Mixolydian</source>
         <translation>Миксолидийский</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="990"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="992"/>
         <source>Aeolian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="991"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="993"/>
         <source>Ionian</source>
         <translation>Ионийский</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="992"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="994"/>
         <source>Locrian</source>
         <translation>Локрийский</translation>
     </message>
@@ -13341,32 +13341,32 @@ failed: %2</source>
 <context>
     <name>Ms::InspectorRest</name>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="762"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="764"/>
         <source>Select</source>
         <translation>Выбрать</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="777"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="779"/>
         <source>Dot 1</source>
         <translation>Точка 1</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="780"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="782"/>
         <source>Dot 2</source>
         <translation>Точка 2</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="783"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="785"/>
         <source>Dot 3</source>
         <translation>Точка 3</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="790"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="792"/>
         <source>Dot 4</source>
         <translation>Точка 4</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="793"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="795"/>
         <source>Tuplet</source>
         <translation>Мультиоль</translation>
     </message>
@@ -13374,12 +13374,12 @@ failed: %2</source>
 <context>
     <name>Ms::InspectorSlurTie</name>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="1280"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="1282"/>
         <source>Slur</source>
         <translation>Лига</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="1280"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="1282"/>
         <source>Tie</source>
         <translation>Лига-связка</translation>
     </message>
@@ -16530,20 +16530,20 @@ Please select a measure and try again</source>
 <context>
     <name>Ms::ShortcutCaptureDialog</name>
     <message>
-        <location filename="../../mscore/shortcutcapturedialog.cpp" line="147"/>
-        <location filename="../../mscore/shortcutcapturedialog.cpp" line="155"/>
+        <location filename="../../mscore/shortcutcapturedialog.cpp" line="154"/>
+        <location filename="../../mscore/shortcutcapturedialog.cpp" line="162"/>
         <source>Shortcut conflicts with %1</source>
         <translation>Сочетание клавиш конфликтует с %1</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcutcapturedialog.cpp" line="167"/>
+        <location filename="../../mscore/shortcutcapturedialog.cpp" line="174"/>
         <source>Shortcut conflicts with</source>
         <translation>Сочетание клавиш конфликтует с </translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcutcapturedialog.cpp" line="172"/>
-        <location filename="../../mscore/shortcutcapturedialog.cpp" line="262"/>
-        <location filename="../../mscore/shortcutcapturedialog.cpp" line="264"/>
+        <location filename="../../mscore/shortcutcapturedialog.cpp" line="179"/>
+        <location filename="../../mscore/shortcutcapturedialog.cpp" line="292"/>
+        <location filename="../../mscore/shortcutcapturedialog.cpp" line="294"/>
         <source>New shortcut</source>
         <translation>Новое сочетание клавиш</translation>
     </message>
@@ -21131,8 +21131,8 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
         <location filename="../../libmscore/barline.cpp" line="1788"/>
         <location filename="../../libmscore/chordrest.cpp" line="1220"/>
         <location filename="../../libmscore/chordrest.cpp" line="1230"/>
-        <location filename="../../libmscore/note.cpp" line="3243"/>
-        <location filename="../../libmscore/note.cpp" line="3252"/>
+        <location filename="../../libmscore/note.cpp" line="3246"/>
+        <location filename="../../libmscore/note.cpp" line="3255"/>
         <source>%1 Start of %2</source>
         <translation>%1 начало %2</translation>
     </message>
@@ -21140,8 +21140,8 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
         <location filename="../../libmscore/barline.cpp" line="1790"/>
         <location filename="../../libmscore/chordrest.cpp" line="1222"/>
         <location filename="../../libmscore/chordrest.cpp" line="1232"/>
-        <location filename="../../libmscore/note.cpp" line="3246"/>
-        <location filename="../../libmscore/note.cpp" line="3259"/>
+        <location filename="../../libmscore/note.cpp" line="3249"/>
+        <location filename="../../libmscore/note.cpp" line="3262"/>
         <source>%1 End of %2</source>
         <translation>%1 конец %2</translation>
     </message>
@@ -21265,81 +21265,81 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
         <translation>Вы не можете создать перечисление</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="908"/>
+        <location filename="../../libmscore/note.cpp" line="909"/>
         <source>%1 (sounding as %2%3)</source>
         <translation>%1 (звучит как %2%3)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="2359"/>
+        <location filename="../../libmscore/note.cpp" line="2362"/>
         <source>Acciaccatura</source>
         <translation>Короткий форшлаг</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="2361"/>
+        <location filename="../../libmscore/note.cpp" line="2364"/>
         <source>Appoggiatura</source>
         <translation>Форшлаг в 1/8</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="2365"/>
+        <location filename="../../libmscore/note.cpp" line="2368"/>
         <source>Grace note after</source>
         <translation>Форшлаг после ноты</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="2369"/>
+        <location filename="../../libmscore/note.cpp" line="2372"/>
         <source>Grace note before</source>
         <translation>Форшлаг перед нотой</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="2371"/>
+        <location filename="../../libmscore/note.cpp" line="2374"/>
         <source>Note</source>
         <translation>Нота</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="3180"/>
-        <location filename="../../libmscore/note.cpp" line="3210"/>
+        <location filename="../../libmscore/note.cpp" line="3183"/>
+        <location filename="../../libmscore/note.cpp" line="3213"/>
         <location filename="../../libmscore/rest.cpp" line="896"/>
         <location filename="../../libmscore/rest.cpp" line="908"/>
         <source>Voice: %1</source>
         <translation>Голос: %1</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="3187"/>
+        <location filename="../../libmscore/note.cpp" line="3190"/>
         <source> (on %1‰ off %2‰)</source>
         <translation> (вкл. %1‰ выкл. %2‰)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="3191"/>
+        <location filename="../../libmscore/note.cpp" line="3194"/>
         <source>Beat slash</source>
         <translation>Долевые наклонные черты</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="3191"/>
+        <location filename="../../libmscore/note.cpp" line="3194"/>
         <source>Rhythm slash</source>
         <translation>Ритмические наклонные черты</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="3195"/>
-        <location filename="../../libmscore/note.cpp" line="3218"/>
+        <location filename="../../libmscore/note.cpp" line="3198"/>
+        <location filename="../../libmscore/note.cpp" line="3221"/>
         <source>%1; String: %2; Fret: %3</source>
         <translation>%1; Струна: %2; Лад: %3</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="3198"/>
+        <location filename="../../libmscore/note.cpp" line="3201"/>
         <source>%1; Pitch: %2; Duration: %3%4%5</source>
         <translation>%1; Высота: %2; Длительность: %3%4%5</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="3214"/>
+        <location filename="../../libmscore/note.cpp" line="3217"/>
         <source>Beat Slash</source>
         <translation>Долевые наклонные черточки</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="3214"/>
+        <location filename="../../libmscore/note.cpp" line="3217"/>
         <source>Rhythm Slash</source>
         <translation>Наклонные черточки ритма</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="3222"/>
+        <location filename="../../libmscore/note.cpp" line="3225"/>
         <source>%1 head %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21435,13 +21435,13 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
         <translation>размер %1/%2</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="1139"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="1141"/>
         <location filename="../../mscore/inspector/inspectorTextLineBase.cpp" line="41"/>
         <source>Above</source>
         <translation>Над</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspector.cpp" line="1140"/>
+        <location filename="../../mscore/inspector/inspector.cpp" line="1142"/>
         <location filename="../../mscore/inspector/inspectorTextLineBase.cpp" line="42"/>
         <source>Below</source>
         <translation>Под</translation>
@@ -32141,403 +32141,403 @@ This score already has part scores. Changing local time signatures while part sc
 <context>
     <name>noteheadnames</name>
     <message>
-        <location filename="../../libmscore/note.cpp" line="261"/>
+        <location filename="../../libmscore/note.cpp" line="263"/>
         <source>Normal</source>
         <translation>Обычная</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="262"/>
+        <location filename="../../libmscore/note.cpp" line="264"/>
         <source>Cross</source>
         <translation>Перекрестье</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="270"/>
+        <location filename="../../libmscore/note.cpp" line="272"/>
         <source>Diamond</source>
         <translation>Ромб</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="284"/>
+        <location filename="../../libmscore/note.cpp" line="286"/>
         <source>Mi</source>
         <translation>Ми</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="277"/>
+        <location filename="../../libmscore/note.cpp" line="279"/>
         <source>Slash</source>
         <translation>Косая черта</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="263"/>
+        <location filename="../../libmscore/note.cpp" line="265"/>
         <source>Plus</source>
         <translation>Плюс</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="264"/>
+        <location filename="../../libmscore/note.cpp" line="266"/>
         <source>XCircle</source>
         <translation>Круг с перекрестием</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="265"/>
+        <location filename="../../libmscore/note.cpp" line="267"/>
         <source>With X</source>
         <translation>С перекрестием</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="266"/>
+        <location filename="../../libmscore/note.cpp" line="268"/>
         <source>Triangle Up</source>
         <translation>Треугольник вверх</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="267"/>
+        <location filename="../../libmscore/note.cpp" line="269"/>
         <source>Triangle Down</source>
         <translation>Треугольник вниз</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="268"/>
+        <location filename="../../libmscore/note.cpp" line="270"/>
         <source>Slashed (Forwards)</source>
         <translation>Перечёркнутая (вперёд)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="269"/>
+        <location filename="../../libmscore/note.cpp" line="271"/>
         <source>Slashed (Backwards)</source>
         <translation>Перечёркнутая (назад)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="271"/>
+        <location filename="../../libmscore/note.cpp" line="273"/>
         <source>Diamond (Old)</source>
         <translation>Ромб (старый)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="272"/>
+        <location filename="../../libmscore/note.cpp" line="274"/>
         <source>Circled</source>
         <translation>Обведённая кругом</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="273"/>
+        <location filename="../../libmscore/note.cpp" line="275"/>
         <source>Circled Large</source>
         <translation>Обведённая большим кругом</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="274"/>
+        <location filename="../../libmscore/note.cpp" line="276"/>
         <source>Large Arrow</source>
         <translation>Большая стрелка</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="278"/>
+        <location filename="../../libmscore/note.cpp" line="280"/>
         <source>Large Diamond</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="285"/>
+        <location filename="../../libmscore/note.cpp" line="287"/>
         <source>Do</source>
         <translation>До</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="286"/>
+        <location filename="../../libmscore/note.cpp" line="288"/>
         <source>Re</source>
         <translation>Ре</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="289"/>
+        <location filename="../../libmscore/note.cpp" line="291"/>
         <source>Heavy Cross</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="290"/>
+        <location filename="../../libmscore/note.cpp" line="292"/>
         <source>Heavy Cross Hat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="293"/>
+        <location filename="../../libmscore/note.cpp" line="295"/>
         <source>Do (Walker)</source>
         <translation>До (Уокер)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="294"/>
+        <location filename="../../libmscore/note.cpp" line="296"/>
         <source>Re (Walker)</source>
         <translation>Ре (Уокер)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="295"/>
+        <location filename="../../libmscore/note.cpp" line="297"/>
         <source>Ti (Walker)</source>
         <translation>Си (Уокер)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="296"/>
+        <location filename="../../libmscore/note.cpp" line="298"/>
         <source>Do (Funk)</source>
         <translation>До (Фанк)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="297"/>
+        <location filename="../../libmscore/note.cpp" line="299"/>
         <source>Re (Funk)</source>
         <translation>Ре (Фанк)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="298"/>
+        <location filename="../../libmscore/note.cpp" line="300"/>
         <source>Ti (Funk)</source>
         <translation>Си (Фанк)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="301"/>
+        <location filename="../../libmscore/note.cpp" line="303"/>
         <source>Do (Name)</source>
         <translation>До (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="302"/>
+        <location filename="../../libmscore/note.cpp" line="304"/>
         <source>Di (Name)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="303"/>
+        <location filename="../../libmscore/note.cpp" line="305"/>
         <source>Ra (Name)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="304"/>
+        <location filename="../../libmscore/note.cpp" line="306"/>
         <source>Re (Name)</source>
         <translation>Ре (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="305"/>
+        <location filename="../../libmscore/note.cpp" line="307"/>
         <source>Ro (Name)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="306"/>
+        <location filename="../../libmscore/note.cpp" line="308"/>
         <source>Me (Name)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="307"/>
+        <location filename="../../libmscore/note.cpp" line="309"/>
         <source>Mi (Name)</source>
         <translation>Ми (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="308"/>
+        <location filename="../../libmscore/note.cpp" line="310"/>
         <source>Fa (Name)</source>
         <translation>Фа (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="309"/>
+        <location filename="../../libmscore/note.cpp" line="311"/>
         <source>Fi (Name)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="310"/>
+        <location filename="../../libmscore/note.cpp" line="312"/>
         <source>Se (Name)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="311"/>
+        <location filename="../../libmscore/note.cpp" line="313"/>
         <source>Sol (Name)</source>
         <translation>Соль (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="312"/>
+        <location filename="../../libmscore/note.cpp" line="314"/>
         <source>Le (Name)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="313"/>
+        <location filename="../../libmscore/note.cpp" line="315"/>
         <source>La (Name)</source>
         <translation>Ля (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="314"/>
+        <location filename="../../libmscore/note.cpp" line="316"/>
         <source>Li (Name)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="315"/>
+        <location filename="../../libmscore/note.cpp" line="317"/>
         <source>Te (Name)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="316"/>
+        <location filename="../../libmscore/note.cpp" line="318"/>
         <source>Ti (Name)</source>
         <translation>Си (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="317"/>
+        <location filename="../../libmscore/note.cpp" line="319"/>
         <source>Si (Name)</source>
         <translation>Си (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="320"/>
+        <location filename="../../libmscore/note.cpp" line="322"/>
         <source>A♯ (Name)</source>
         <translation>A♯ (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="321"/>
+        <location filename="../../libmscore/note.cpp" line="323"/>
         <source>A (Name)</source>
         <translation>A (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="322"/>
+        <location filename="../../libmscore/note.cpp" line="324"/>
         <source>A♭ (Name)</source>
         <translation>A♭ (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="323"/>
+        <location filename="../../libmscore/note.cpp" line="325"/>
         <source>B♯ (Name)</source>
         <translation>B♯ (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="324"/>
+        <location filename="../../libmscore/note.cpp" line="326"/>
         <source>B (Name)</source>
         <translation>B (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="325"/>
+        <location filename="../../libmscore/note.cpp" line="327"/>
         <source>B♭ (Name)</source>
         <translation>B♭ (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="326"/>
+        <location filename="../../libmscore/note.cpp" line="328"/>
         <source>C♯ (Name)</source>
         <translation>C♯ (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="327"/>
+        <location filename="../../libmscore/note.cpp" line="329"/>
         <source>C (Name)</source>
         <translation>C (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="328"/>
+        <location filename="../../libmscore/note.cpp" line="330"/>
         <source>C♭ (Name)</source>
         <translation>C♭ (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="329"/>
+        <location filename="../../libmscore/note.cpp" line="331"/>
         <source>D♯ (Name)</source>
         <translation>D♯ (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="330"/>
+        <location filename="../../libmscore/note.cpp" line="332"/>
         <source>D (Name)</source>
         <translation>D (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="331"/>
+        <location filename="../../libmscore/note.cpp" line="333"/>
         <source>D♭ (Name)</source>
         <translation>D♭ (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="332"/>
+        <location filename="../../libmscore/note.cpp" line="334"/>
         <source>E♯ (Name)</source>
         <translation>E♯ (Название) </translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="333"/>
+        <location filename="../../libmscore/note.cpp" line="335"/>
         <source>E (Name)</source>
         <translation>E (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="334"/>
+        <location filename="../../libmscore/note.cpp" line="336"/>
         <source>E♭ (Name)</source>
         <translation>E♭ (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="335"/>
+        <location filename="../../libmscore/note.cpp" line="337"/>
         <source>F♯ (Name)</source>
         <translation>F♯ (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="336"/>
+        <location filename="../../libmscore/note.cpp" line="338"/>
         <source>F (Name)</source>
         <translation>F (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="337"/>
+        <location filename="../../libmscore/note.cpp" line="339"/>
         <source>F♭ (Name)</source>
         <translation>F♭ (Название)
 </translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="338"/>
+        <location filename="../../libmscore/note.cpp" line="340"/>
         <source>G♯ (Name)</source>
         <translation>G♯ (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="339"/>
+        <location filename="../../libmscore/note.cpp" line="341"/>
         <source>G (Name)</source>
         <translation>G (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="340"/>
+        <location filename="../../libmscore/note.cpp" line="342"/>
         <source>G♭ (Name)</source>
         <translation>G♭ (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="341"/>
+        <location filename="../../libmscore/note.cpp" line="343"/>
         <source>H (Name)</source>
         <translation>H (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="342"/>
+        <location filename="../../libmscore/note.cpp" line="344"/>
         <source>H♯ (Name)</source>
         <translation>H♯ (Название)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="345"/>
+        <location filename="../../libmscore/note.cpp" line="347"/>
         <source>Swiss Rudiments Flam</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="346"/>
+        <location filename="../../libmscore/note.cpp" line="348"/>
         <source>Swiss Rudiments Doublé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="348"/>
+        <location filename="../../libmscore/note.cpp" line="350"/>
         <source>Custom</source>
         <translation>Пользовательский</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="353"/>
+        <location filename="../../libmscore/note.cpp" line="355"/>
         <source>Auto</source>
         <translation>Авто</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="354"/>
+        <location filename="../../libmscore/note.cpp" line="356"/>
         <source>Whole</source>
         <translation>Целая</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="355"/>
+        <location filename="../../libmscore/note.cpp" line="357"/>
         <source>Half</source>
         <translation>Половинная</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="356"/>
+        <location filename="../../libmscore/note.cpp" line="358"/>
         <source>Quarter</source>
         <translation>Четвертная</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="357"/>
+        <location filename="../../libmscore/note.cpp" line="359"/>
         <source>Breve</source>
         <translation>Бревис</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="283"/>
+        <location filename="../../libmscore/note.cpp" line="285"/>
         <source>Fa</source>
         <translation>Фа</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="282"/>
+        <location filename="../../libmscore/note.cpp" line="284"/>
         <source>La</source>
         <translation>Ля</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="287"/>
+        <location filename="../../libmscore/note.cpp" line="289"/>
         <source>Ti</source>
         <translation>Си</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="281"/>
+        <location filename="../../libmscore/note.cpp" line="283"/>
         <source>Sol</source>
         <translation>Соль</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="275"/>
+        <location filename="../../libmscore/note.cpp" line="277"/>
         <source>Alt. Brevis</source>
         <translation>Другой бревис</translation>
     </message>
@@ -32561,36 +32561,46 @@ This score already has part scores. Changing local time signatures while part sc
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="250"/>
+        <source>Pitch Names, No Accidentals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../libmscore/note.cpp" line="251"/>
         <source>German Pitch Names</source>
         <translation>Немецкие названия строев</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="251"/>
+        <location filename="../../libmscore/note.cpp" line="252"/>
+        <source>German Pitch Names, No Accidentals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../libmscore/note.cpp" line="253"/>
         <source>Solfège Movable Do</source>
         <translation>Сольмизация: подвижный «до»</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="252"/>
+        <location filename="../../libmscore/note.cpp" line="254"/>
         <source>Solfège Fixed Do</source>
         <translation>Сольмизация: неподвижный «до»</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="253"/>
+        <location filename="../../libmscore/note.cpp" line="255"/>
         <source>4-shape (Walker)</source>
         <translation>4&#xa0;формы (Уокер)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="254"/>
+        <location filename="../../libmscore/note.cpp" line="256"/>
         <source>7-shape (Aikin)</source>
         <translation>7&#xa0;форм (Аикин)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="255"/>
+        <location filename="../../libmscore/note.cpp" line="257"/>
         <source>7-shape (Funk)</source>
         <translation>7 форм (Фанк)</translation>
     </message>
     <message>
-        <location filename="../../libmscore/note.cpp" line="256"/>
+        <location filename="../../libmscore/note.cpp" line="258"/>
         <source>7-shape (Walker)</source>
         <translation>7&#xa0;форм (Уокер)</translation>
     </message>
