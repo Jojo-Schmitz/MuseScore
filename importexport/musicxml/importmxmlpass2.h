@@ -240,7 +240,7 @@ public:
       QString tremoloSmufl() const { return _tremoloSmufl; }
       QColor tremoloColor() const { return _tremoloColor; }
       int tremoloNr() const { return _tremoloNr; }
-      bool mustStopGraceAFter() const { return _slurStop || _wavyLineStop; }
+      bool mustStopGraceAfter() const { return _slurStop || _wavyLineStop; }
 private:
       void addError(const QString& error);      ///< Add an error to be shown in the GUI
       void addNotation(const Notation& notation, ChordRest* const cr, Note* const note);

@@ -6443,6 +6443,8 @@ Note* MusicXMLParserPass2::note(const QString& partId,
       const bool hasDynamics = _e.attributes().hasAttribute("dynamics");
       const int velocity = std::clamp(int(round(_e.attributes().value("dynamics").toDouble() * 0.9)), 1, 127);
       bool graceSlash = false;
+      qreal graceStealFollowing = -1.0;
+      qreal graceStealPrevious  = -1.0;
       bool printObject = _e.attributes().value("print-object") != "no";
       bool printLyric = (printObject && _e.attributes().value("print-lyric") != "no") ||_e.attributes().value("print-lyric") == "yes";
       Beam::Mode bm;
@@ -6480,6 +6482,14 @@ Note* MusicXMLParserPass2::note(const QString& partId,
             else if (_e.name() == "grace") {
                   grace = true;
                   graceSlash = _e.attributes().value("slash") == "yes";
+                  bool ok = false;
+                  graceStealFollowing = _e.attributes().value("steal-time-following").toDouble(&ok);
+                  if (!ok)
+                        graceStealFollowing = -1.0;
+                  ok = false;
+                  graceStealPrevious  = _e.attributes().value("steal-time-previous").toDouble(&ok);
+                  if (!ok)
+                        graceStealPrevious = -1.0;
                   _e.skipCurrentElement();  // skip but don't log
                   }
             else if (_e.name() == "instrument") {
@@ -6815,9 +6825,12 @@ Note* MusicXMLParserPass2::note(const QString& partId,
                   }
             }
 
-      // handle grace after state: remember current grace list size
-      if (grace && notations.mustStopGraceAFter()) {
-            gac = gcl.size();
+      if (grace) {
+            const bool afterByStealTime = graceStealPrevious >= 0.0 && c && c->noteType() != NoteType::ACCIACCATURA;
+            if (graceStealFollowing < 0.0 && (afterByStealTime || notations.mustStopGraceAfter())) {
+                  // handle grace after state: remember current grace list size
+                  gac = gcl.size();
+                  }
             }
 
       // handle tremolo before handling tuplet (two note tremolos modify timeMod)
