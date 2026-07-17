@@ -519,6 +519,39 @@ SymId Note::noteHead(int direction, NoteHead::Group group, NoteHead::Type t, int
                   group = no_accidentals ? NoteHead::Group::HEAD_F : NoteHead::Group::HEAD_F_FLAT;
             else if (tpc == Tpc::TPC_G_B)
                   group = no_accidentals ? NoteHead::Group::HEAD_G : NoteHead::Group::HEAD_G_FLAT;
+            else if (no_accidentals) {
+                  // for TPCs that don't have their own heads (i.e. with 2 or 3 accidentals),
+                  // fall back to using the corresponding ones without accidentals
+                  // rather than using a (smaller!) normal notehead
+                  if (tpc == Tpc::TPC_A_SS || tpc == Tpc::TPC_A_SSS)
+                        group = NoteHead::Group::HEAD_A;
+                  else if (tpc == Tpc::TPC_B_SS || tpc == Tpc::TPC_B_SSS)
+                        group = german ? NoteHead::Group::HEAD_H : NoteHead::Group::HEAD_B;
+                  else if (tpc == Tpc::TPC_C_SS || tpc == Tpc::TPC_C_SSS)
+                        group = NoteHead::Group::HEAD_C;
+                  else if (tpc == Tpc::TPC_D_SS || tpc == Tpc::TPC_D_SSS)
+                        group = NoteHead::Group::HEAD_D;
+                  else if (tpc == Tpc::TPC_E_SS || tpc == Tpc::TPC_E_SSS)
+                        group = NoteHead::Group::HEAD_E;
+                  else if (tpc == Tpc::TPC_F_SS || tpc == Tpc::TPC_F_SSS)
+                        group = NoteHead::Group::HEAD_F;
+                  else if (tpc == Tpc::TPC_G_SS || tpc == Tpc::TPC_G_SSS)
+                        group = NoteHead::Group::HEAD_G;
+                  else if (tpc == Tpc::TPC_A_BB || tpc == Tpc::TPC_A_BBB)
+                        group = NoteHead::Group::HEAD_A;
+                  else if (tpc == Tpc::TPC_B_BB || tpc == Tpc::TPC_B_BBB)
+                        group = german ? NoteHead::Group::HEAD_H: NoteHead::Group::HEAD_B;
+                  else if (tpc == Tpc::TPC_C_BB || tpc == Tpc::TPC_C_BBB)
+                        group = NoteHead::Group::HEAD_C;
+                  else if (tpc == Tpc::TPC_D_BB || tpc == Tpc::TPC_D_BBB)
+                        group = NoteHead::Group::HEAD_D;
+                  else if (tpc == Tpc::TPC_E_BB || tpc == Tpc::TPC_E_BBB)
+                        group = NoteHead::Group::HEAD_E;
+                  else if (tpc == Tpc::TPC_F_BB || tpc == Tpc::TPC_F_BBB)
+                        group = NoteHead::Group::HEAD_F;
+                  else if (tpc == Tpc::TPC_G_BB || tpc == Tpc::TPC_G_BB)
+                        group = NoteHead::Group::HEAD_G;
+                  }
             }
       else if (scheme == NoteHead::Scheme::HEAD_SHAPE_NOTE_4) {
             int degree = tpc2degree(tpc, key);
