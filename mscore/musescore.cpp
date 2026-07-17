@@ -305,6 +305,7 @@ const std::list<const char*> MuseScore::_allPlaybackControlEntries {
             "repeat",
             "pan",
             "metronome",
+            "playback-highlight",
             "countin"
             };
 
@@ -1130,6 +1131,7 @@ MuseScore::MuseScore()
       loopInAction    = getAction("loop-in");
       loopOutAction   = getAction("loop-out");
       metronomeAction = getAction("metronome");
+      playbackHighlightAction = getAction("playback-highlight");
       countInAction   = getAction("countin");
       panAction       = getAction("pan");
 
