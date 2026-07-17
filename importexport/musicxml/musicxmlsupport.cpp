@@ -669,8 +669,8 @@ AccidentalType mxmlString2accidentalType(const QString mxmlName, const QString s
       map["sharp-sharp"] = AccidentalType::SHARP2;
       //map["double-flat"] = AccidentalType::FLAT2; // shouldn't harm, but doesn't exist in MusicXML
       map["flat-flat"] = AccidentalType::FLAT2;
-      map["natural-sharp"] = AccidentalType::SHARP;
-      map["natural-flat"] = AccidentalType::FLAT;
+      map["natural-sharp"] = AccidentalType::NATURAL_SHARP;
+      map["natural-flat"] = AccidentalType::NATURAL_FLAT;
 
       map["quarter-flat"] = AccidentalType::MIRRORED_FLAT;
       map["quarter-sharp"] = AccidentalType::SHARP_SLASH;
