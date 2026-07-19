@@ -6543,6 +6543,8 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
             }
       else if (cmd == "metronome")  // no action
             ;
+      else if (cmd == "playback-highlight")  // no action
+            ;
       else if (cmd == "countin")    // no action
             ;
       else if (cmd == "playback-speed-increase") {
