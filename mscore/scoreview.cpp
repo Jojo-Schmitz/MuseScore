@@ -642,7 +642,8 @@ void ScoreView::moveCursor(const Fraction& tick)
       x -= _spatium;
       y -= 3 * _spatium;
 
-      _cursor->setRect(QRectF(x, y, w, h));
+      if (mscore->playbackHighlight())
+        _cursor->setRect(QRectF(x, y, w, h));
       update(_matrix.mapRect(_cursor->rect()).toRect().adjusted(-1,-1,1,1));
 
       if (_score->layoutMode() == LayoutMode::LINE && seq->isPlaying() && panSettings().enabled)
