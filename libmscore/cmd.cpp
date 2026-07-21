@@ -2276,14 +2276,15 @@ bool Score::processMidiInput()
                   else
                         p = staff(staffIdx)->part();
                   if (p) {
-                        if (!styleB(Sid::concertPitch)) {
+                        if (!styleB(Sid::concertPitch))
                               ev.pitch += p->instrument(selection().tickStart())->transpose().chromatic;
-                              }
-                        MScore::seq->startNote(
-                                          p->instrument(selection().tickStart())->channel(0)->channel(),   // tick that way?
-                                          ev.pitch,
-                                          ev.velocity,
-                                          0.0);
+
+                        if (MScore::seq)
+                              MScore::seq->startNote(
+                                                p->instrument(selection().tickStart())->channel(0)->channel(),   // tick that way?
+                                                ev.pitch,
+                                                ev.velocity,
+                                                0.0);
                         }
                   }
             if (noteEntryMode()) {

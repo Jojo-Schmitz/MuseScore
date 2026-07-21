@@ -207,7 +207,8 @@ void DrumTools::drumNoteSelected(int val)
             Note* note       = ch->downNote();
             int ticks        = MScore::defaultPlayDuration;
             int pitch        = note->pitch();
-            seq->startNote(staff->part()->instrument()->channel(0)->channel(), pitch, 80, ticks, 0.0);  //tick?
+            if (seq)
+                  seq->startNote(staff->part()->instrument()->channel(0)->channel(), pitch, 80, ticks, 0.0);  //tick?
 
             int track = (_score->inputState().track() / VOICES) * VOICES + element->track();
             _score->inputState().setTrack(track);
