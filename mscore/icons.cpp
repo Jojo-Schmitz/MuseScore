@@ -134,6 +134,7 @@ static const char* iconNames[] = {
       "media-playback-loop-in.svg",
       "media-playback-loop-out.svg",
       "media-playback-metronome.svg",
+      "media-playback-highlight.svg",
       "media-playback-countin.svg",
       "frame-vertical.svg",
       "frame-horizontal.svg",

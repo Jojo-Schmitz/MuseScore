@@ -3251,7 +3251,7 @@ Shortcut Shortcut::_sc[] = {
          QT_TRANSLATE_NOOP("action","Playback Highligh"),
          QT_TRANSLATE_NOOP("action","Toggle playback highlight"),
          QT_TRANSLATE_NOOP("action","Highlight notes during playback"),
-         Icons::metronome_ICON,
+         Icons::playback_highlight_ICON,
          Qt::WindowShortcut,
          ShortcutFlags::A_CHECKABLE
          },

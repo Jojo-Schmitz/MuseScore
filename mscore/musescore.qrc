@@ -164,6 +164,7 @@
         <file>data/icons/media-playback-loop-in.svg</file>
         <file>data/icons/media-playback-loop-out.svg</file>
         <file>data/icons/media-playback-metronome.svg</file>
+        <file>data/icons/media-playback-highlight.svg</file>
         <file>data/icons/media-playback-countin.svg</file>
         <file>data/icons/midi-input.svg</file>
         <file>data/icons/media-playback-pan.svg</file>
