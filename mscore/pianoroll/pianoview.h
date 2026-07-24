@@ -129,7 +129,7 @@ private:
       Fraction _editNoteLength = Fraction(1, 4);
       int _editNoteDots = 0;
       int _editNoteVoice = 0;
-      PianoRollEditTool _editNoteTool = PianoRollEditTool::SELECT;
+      PianoRollEditTool _editNoteTool = PianoRollEditTool::EVENT_ADJUST;
 
       QList<PianoItem*> _noteList;
       quint8 _pitchHighlight[128];
