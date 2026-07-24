@@ -1083,7 +1083,8 @@ static void addScorePreview(QFileDialog* dialog)
       if (splitter) {
             ScorePreview* preview = new ScorePreview;
             splitter->addWidget(preview);
-            dialog->connect(dialog, SIGNAL(currentChanged(QString&)), preview, SLOT(setScore(QString&)));
+            dialog->connect(dialog, &QFileDialog::currentChanged,
+                            preview, qOverload<const QString&>(&ScorePreview::setScore));
             }
       }
 
@@ -1191,15 +1192,15 @@ QString MuseScore::getSaveScoreName(const QString& title, QString& name, const Q
 
       if (selectFolder)
             saveScoreDialog->setFileMode(QFileDialog::Directory);
-      saveScoreDialog->setOption(QFileDialog::DontConfirmOverwrite, !askOverwrite);
 
+      saveScoreDialog->setOption(QFileDialog::DontConfirmOverwrite, !askOverwrite);
       saveScoreDialog->setWindowTitle(title);
       saveScoreDialog->setNameFilter(filter);
       saveScoreDialog->selectFile(name);
 
       if (!selectFolder) {
-            connect(saveScoreDialog, SIGNAL(filterSelected(QString&)),
-               SLOT(saveScoreDialogFilterSelected(QString&)));
+            connect(saveScoreDialog, &QFileDialog::filterSelected,
+                    this, &MuseScore::saveScoreDialogFilterSelected);
             }
       QString s;
       if (saveScoreDialog->exec())
@@ -2861,8 +2862,8 @@ QString MuseScore::getWallpaper(const QString& caption)
             if (sp) {
                   WallpaperPreview* preview = new WallpaperPreview;
                   sp->addWidget(preview);
-                  connect(loadBackgroundDialog, SIGNAL(currentChanged(QString&)),
-                     preview, SLOT(setImage(QString&)));
+                  connect(loadBackgroundDialog, &QFileDialog::currentChanged,
+                          preview, &WallpaperPreview::setImage);
                   }
             }
 
