@@ -845,7 +845,7 @@ PalettePanel* MuseScore::newTremoloPalettePanel()
       sp->setGrid(27, 40);
       sp->setDrawGrid(true);
 
-      for (int i = int(TremoloType::R8); i <= int(TremoloType::C64); ++i) {
+      for (int i = int(TremoloType::R8); i <= int(TremoloType::C256); ++i) {
             Tremolo* tremolo = new Tremolo(gscore);
             tremolo->setTremoloType(TremoloType(i));
             sp->append(tremolo, tremolo->subtypeName());

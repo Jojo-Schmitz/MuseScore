@@ -40,11 +40,15 @@ static const char* tremoloName[] = {
       QT_TRANSLATE_NOOP("Tremolo", "16th through stem"),
       QT_TRANSLATE_NOOP("Tremolo", "32nd through stem"),
       QT_TRANSLATE_NOOP("Tremolo", "64th through stem"),
+      QT_TRANSLATE_NOOP("Tremolo", "128th through stem"),
+      QT_TRANSLATE_NOOP("Tremolo", "256th through stem"),
       QT_TRANSLATE_NOOP("Tremolo", "Buzz roll"),
       QT_TRANSLATE_NOOP("Tremolo", "Eighth between notes"),
       QT_TRANSLATE_NOOP("Tremolo", "16th between notes"),
       QT_TRANSLATE_NOOP("Tremolo", "32nd between notes"),
-      QT_TRANSLATE_NOOP("Tremolo", "64th between notes")
+      QT_TRANSLATE_NOOP("Tremolo", "64th between notes"),
+      QT_TRANSLATE_NOOP("Tremolo", "128th between notes"),
+      QT_TRANSLATE_NOOP("Tremolo", "256th between notes")
       };
 
 Tremolo::Tremolo(Score* score)
@@ -138,6 +142,14 @@ void Tremolo::setTremoloType(TremoloType t)
             case TremoloType::R64:
             case TremoloType::C64:
                   _lines = 4;
+                  break;
+            case TremoloType::R128:
+            case TremoloType::C128:
+                  _lines = 5;
+                  break;
+            case TremoloType::R256:
+            case TremoloType::C256:
+                  _lines = 6;
                   break;
             default:
                   _lines = 1;
@@ -593,15 +605,19 @@ void Tremolo::setTremoloType(const QString& s)
 QString Tremolo::type2name(TremoloType t)
       {
       switch(t) {
-            case TremoloType::R8:  return QString("r8");
-            case TremoloType::R16: return QString("r16");
-            case TremoloType::R32: return QString("r32");
-            case TremoloType::R64: return QString("r64");
-            case TremoloType::C8:  return QString("c8");
-            case TremoloType::C16: return QString("c16");
-            case TremoloType::C32: return QString("c32");
-            case TremoloType::C64: return QString("c64");
+            case TremoloType::R8:        return QString("r8");
+            case TremoloType::R16:       return QString("r16");
+            case TremoloType::R32:       return QString("r32");
+            case TremoloType::R64:       return QString("r64");
+            case TremoloType::R128:      return QString("r128");
+            case TremoloType::R256:      return QString("r256");
             case TremoloType::BUZZ_ROLL: return QString("buzzroll");
+            case TremoloType::C8:        return QString("c8");
+            case TremoloType::C16:       return QString("c16");
+            case TremoloType::C32:       return QString("c32");
+            case TremoloType::C64:       return QString("c64");
+            case TremoloType::C128:      return QString("c128");
+            case TremoloType::C256:      return QString("c256");
             default:
                   break;
             }
@@ -624,6 +640,12 @@ TremoloType Tremolo::name2Type(const QString& s)
             t = TremoloType::R32;
       else if (s == "r64")
             t = TremoloType::R64;
+      else if (s == "r128")
+            t = TremoloType::R128;
+      else if (s == "r256")
+            t = TremoloType::R256;
+      else if (s == "buzzroll")
+            t = TremoloType::BUZZ_ROLL;
       else if (s == "c8")
             t = TremoloType::C8;
       else if (s == "c16")
@@ -632,8 +654,10 @@ TremoloType Tremolo::name2Type(const QString& s)
             t = TremoloType::C32;
       else if (s == "c64")
             t = TremoloType::C64;
-      else if (s == "buzzroll")
-            t = TremoloType::BUZZ_ROLL;
+      else if (s == "c128")
+            t = TremoloType::C128;
+      else if (s == "c256")
+            t = TremoloType::C256;
       return t;
       }
 
@@ -649,6 +673,8 @@ Fraction Tremolo::tremoloLen() const
             case 2: f.set(1,16); break;
             case 3: f.set(1,32); break;
             case 4: f.set(1,64); break;
+            case 5: f.set(1,128); break;
+            case 6: f.set(1,256); break;
             }
       return f;
       }

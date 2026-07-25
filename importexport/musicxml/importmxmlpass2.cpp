@@ -6262,14 +6262,16 @@ static void addTremolo(ChordRest* cr, const int tremoloNr, const QString& tremol
             return;
       if (tremoloNr) {
             //qDebug("tremolo %d type '%s' ticks %d tremStart %p", tremoloNr, qPrintable(tremoloType), ticks, _tremStart);
-            if (tremoloNr == 1 || tremoloNr == 2 || tremoloNr == 3 || tremoloNr == 4) {
+            if (tremoloNr >= 1 && tremoloNr <= 6) {
                   if (tremoloType.isEmpty() || tremoloType == "single") {
                         Tremolo* const tremolo = new Tremolo(cr->score());
                         switch (tremoloNr) {
-                              case 1: tremolo->setTremoloType(TremoloType::R8); break;
-                              case 2: tremolo->setTremoloType(TremoloType::R16); break;
-                              case 3: tremolo->setTremoloType(TremoloType::R32); break;
-                              case 4: tremolo->setTremoloType(TremoloType::R64); break;
+                              case 1: tremolo->setTremoloType(TremoloType::R8);   break;
+                              case 2: tremolo->setTremoloType(TremoloType::R16);  break;
+                              case 3: tremolo->setTremoloType(TremoloType::R32);  break;
+                              case 4: tremolo->setTremoloType(TremoloType::R64);  break;
+                              case 5: tremolo->setTremoloType(TremoloType::R128); break;
+                              case 6: tremolo->setTremoloType(TremoloType::R256); break;
                               }
                         colorItem(tremolo, color);
                         cr->add(tremolo);
@@ -6286,10 +6288,12 @@ static void addTremolo(ChordRest* cr, const int tremoloNr, const QString& tremol
                         if (tremStart) {
                               Tremolo* const tremolo = new Tremolo(cr->score());
                               switch (tremoloNr) {
-                                    case 1: tremolo->setTremoloType(TremoloType::C8); break;
-                                    case 2: tremolo->setTremoloType(TremoloType::C16); break;
-                                    case 3: tremolo->setTremoloType(TremoloType::C32); break;
-                                    case 4: tremolo->setTremoloType(TremoloType::C64); break;
+                                    case 1: tremolo->setTremoloType(TremoloType::C8);   break;
+                                    case 2: tremolo->setTremoloType(TremoloType::C16);  break;
+                                    case 3: tremolo->setTremoloType(TremoloType::C32);  break;
+                                    case 4: tremolo->setTremoloType(TremoloType::C64);  break;
+                                    case 5: tremolo->setTremoloType(TremoloType::C128); break;
+                                    case 6: tremolo->setTremoloType(TremoloType::C256); break;
                                     }
                               colorItem(tremolo, color);
                               tremolo->setChords(tremStart, static_cast<Chord*>(cr));
