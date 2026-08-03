@@ -13984,6 +13984,13 @@ Aeolus organ synthesizer, currently disabled -->
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>55-88</aPitchRange>
                   <pPitchRange>55-103</pPitchRange>
+                  <StringData>
+                        <frets>24</frets>
+                        <string>55</string>
+                        <string>62</string>
+                        <string>69</string>
+                        <string>76</string>
+                  </StringData>
                   <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 0, Prog 40; MS General: Violin-->
@@ -14045,6 +14052,13 @@ Aeolus organ synthesizer, currently disabled -->
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>48-79</aPitchRange>
                   <pPitchRange>48-93</pPitchRange>
+                  <StringData>
+                        <frets>24</frets>
+                       <string>48</string>
+                        <string>55</string>
+                        <string>62</string>
+                        <string>69</string>
+                  </StringData>
                   <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 0, Prog 41; MS General: Viola-->
@@ -14105,6 +14119,13 @@ Aeolus organ synthesizer, currently disabled -->
                   <barlineSpan>1</barlineSpan>
                   <aPitchRange>36-67</aPitchRange>
                   <pPitchRange>36-90</pPitchRange>
+                  <StringData>
+                        <frets>24</frets>
+                        <string>36</string>
+                        <string>43</string>
+                        <string>50</string>
+                        <string>57</string>
+                  </StringData>
                   <glissandoStyle>portamento</glissandoStyle>
                   <Channel name="arco">
                         <!--MIDI: Bank 0, Prog 42; MS General: Cello-->

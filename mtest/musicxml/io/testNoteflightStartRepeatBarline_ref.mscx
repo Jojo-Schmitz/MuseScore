@@ -51,6 +51,13 @@
         <minPitchA>55</minPitchA>
         <maxPitchA>88</maxPitchA>
         <instrumentId>strings.violin</instrumentId>
+        <StringData>
+          <frets>24</frets>
+          <string>55</string>
+          <string>62</string>
+          <string>69</string>
+          <string>76</string>
+          </StringData>
         <Articulation>
           <velocity>100</velocity>
           <gateTime>100</gateTime>
