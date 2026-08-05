@@ -929,6 +929,7 @@
       <action>repeat</action>
       <action>pan</action>
       <action>metronome</action>
+      <action>playback-highlight</action>
       </Toolbar>
     </Workspace>
   </museScore>
