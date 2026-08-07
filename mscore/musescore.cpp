@@ -1044,6 +1044,7 @@ void MuseScore::populatePlaybackControls()
       transportTools->clear();
 
       for (const auto s : _playbackControlEntries) {
+
             if (!*s)
                   transportTools->addSeparator();
             else {
