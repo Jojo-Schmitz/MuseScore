@@ -1659,7 +1659,7 @@ void Seq::heartBeatTimeout()
                                           continue;
                                     Note* currentNote = toNote(se);
                                     if (mscore->playbackHighlight())
-                                        currentNote->setMark(true);
+                                          currentNote->setMark(true);
                                     markedNotes.append(currentNote);
                                     r |= currentNote->canvasBoundingRect();
                                     }

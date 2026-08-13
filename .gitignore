@@ -6,8 +6,6 @@
 .directory
 build.release
 build.debug
-build.dev
-install.dev
 build.qtc
 win32build
 win32install

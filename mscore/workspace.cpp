@@ -767,7 +767,7 @@ void Workspace::read(XmlReader& e)
                         if (t == "action") {
                               QString s = e.readElementText();
                               for (auto k : toolbarEntries) {
-                                  if (QString(k) == s) {
+                                    if (k == s) {
                                           l.push_back(k);
                                           break;
                                           }
