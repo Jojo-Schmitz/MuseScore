@@ -142,6 +142,7 @@ void Preferences::init(bool storeInMemoryOnly)
             {PREF_APP_PATHS_MYTEMPLATES,                           new StringPreference(QFileInfo(QString("%1/%2").arg(wd, QCoreApplication::translate("templates_directory", "Templates"))).absoluteFilePath(), false)},
             {PREF_APP_PATHS_MYEXTENSIONS,                          new StringPreference(QFileInfo(QString("%1/%2").arg(wd, QCoreApplication::translate("extensions_directory", "Extensions"))).absoluteFilePath(), false)},
             {PREF_APP_PLAYBACK_FOLLOWSONG,                         new BoolPreference(true)},
+            {PREF_APP_PLAYBACK_HIGHLIGHT,                          new BoolPreference(true)},
             {PREF_APP_PLAYBACK_PANPLAYBACK,                        new BoolPreference(true, false)},
             {PREF_APP_PLAYBACK_PLAYREPEATS,                        new BoolPreference(true, false)},
             {PREF_APP_PLAYBACK_SPEEDINCREMENT,                     new IntPreference(5)},
