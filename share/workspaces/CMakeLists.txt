@@ -29,25 +29,8 @@ function(build_workspace # compress a workspace XML file at build time
     "${WS_NAME}"
     "${WS_NAME}.xml"
     )
-
-  add_custom_command(
-    OUTPUT "${CMAKE_BINARY_DIR}/${Mscore_SHARE_NAME}${Mscore_INSTALL_NAME}workspaces/${WS_NAME}.workspace"
-    DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/${WS_NAME}.workspace"
-    COMMAND "${CMAKE_COMMAND}" -E make_directory
-      "${CMAKE_BINARY_DIR}/${Mscore_SHARE_NAME}${Mscore_INSTALL_NAME}workspaces"
-    COMMAND "${CMAKE_COMMAND}" -E copy_if_different
-      "${CMAKE_CURRENT_BINARY_DIR}/${WS_NAME}.workspace"
-      "${CMAKE_BINARY_DIR}/${Mscore_SHARE_NAME}${Mscore_INSTALL_NAME}workspaces/${WS_NAME}.workspace"
-    COMMENT "Copying '${WS_NAME}.workspace' to build-tree runtime data"
-    VERBATIM
-    )
-
   list(APPEND GENERATED_WORKSPACES "${WS_NAME}.workspace")
-  list(APPEND RUNTIME_WORKSPACES
-    "${CMAKE_BINARY_DIR}/${Mscore_SHARE_NAME}${Mscore_INSTALL_NAME}workspaces/${WS_NAME}.workspace"
-    )
   set(GENERATED_WORKSPACES "${GENERATED_WORKSPACES}" PARENT_SCOPE)
-  set(RUNTIME_WORKSPACES "${RUNTIME_WORKSPACES}" PARENT_SCOPE)
 endfunction(build_workspace)
 
 set(GENERATED_WORKSPACES "") # create empty list
@@ -56,9 +39,7 @@ build_workspace(Basic)
 build_workspace(Advanced)
 
 # custom commands do not run unless something depends on their output
-add_custom_target(workspaces
-  DEPENDS ${GENERATED_WORKSPACES} ${RUNTIME_WORKSPACES}
-)
+add_custom_target(workspaces DEPENDS ${GENERATED_WORKSPACES})
 
 foreach(FILE IN LISTS GENERATED_WORKSPACES)
   install(
