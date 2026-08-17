@@ -495,6 +495,7 @@ void MuseScore::preferencesChanged(bool fromWorkspace, bool changeUI)
       getAction("pan")->setChecked(MScore::panPlayback);
       getAction("follow")->setChecked(preferences.getBool(PREF_APP_PLAYBACK_FOLLOWSONG));
       getAction("playback-highlight")->setChecked(preferences.getBool(PREF_APP_PLAYBACK_HIGHLIGHT));
+      getAction("countin")->setChecked(preferences.getBool(PREF_APP_PLAYBACK_COUNTIN));
       getAction("midi-on")->setChecked(preferences.getBool(PREF_IO_MIDI_ENABLEINPUT));
       getAction("toggle-statusbar")->setChecked(preferences.getBool(PREF_UI_APP_SHOWSTATUSBAR));
       getAction("show-tours")->setChecked(preferences.getBool(PREF_UI_APP_STARTUP_SHOWTOURS));
@@ -6422,6 +6423,8 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
             preferences.setPreference(PREF_APP_PLAYBACK_FOLLOWSONG, a->isChecked());
       else if (cmd == "playback-highlight")
             preferences.setPreference(PREF_APP_PLAYBACK_HIGHLIGHT, a->isChecked());
+      else if (cmd == "countin")
+            preferences.setPreference(PREF_APP_PLAYBACK_COUNTIN, a->isChecked());
       else if (cmd == "split-h")
             splitWindow(true);
       else if (cmd == "split-v")
