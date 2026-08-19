@@ -28,6 +28,7 @@
       <ledgerLineWidth>0.15625</ledgerLineWidth>
       <hairpinWidth>0.125</hairpinWidth>
       <pedalLineWidth>0.15625</pedalLineWidth>
+      <fretFrets>5</fretFrets>
       <smallNoteMag>0.75</smallNoteMag>
       <graceNoteMag>0.6</graceNoteMag>
       <hideInstrumentNameIfOneInstrument>0</hideInstrumentNameIfOneInstrument>

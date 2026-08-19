@@ -2981,17 +2981,20 @@ void MusicXMLParserPass2::measure(const QString& partId,
       for (auto& harmony : delayedHarmony) {
             HarmonyDesc harmonyDesc = harmony.second;
             Fraction tick = Fraction::fromTicks(harmony.first);
-            if (harmonyDesc._fretDiagram) {
-                  harmonyDesc._fretDiagram->setTrack(harmonyDesc._track);
+            if (FretDiagram* fd = harmonyDesc._fretDiagram) {
+                  fd->setTrack(harmonyDesc._track);
                   Segment* s = measure->getSegment(SegmentType::ChordRest, tick);
-                  harmonyDesc._harmony->setProperty(Pid::ALIGN, int(Align::HCENTER | Align::TOP));
-                  s->add(harmonyDesc._fretDiagram);
+                  if (Harmony* harmony = harmonyDesc._harmony) {
+                        harmony->setProperty(Pid::ALIGN, int(Align::HCENTER | Align::TOP));
+                        harmony->setTrack(harmonyDesc._track);
+                        fd->add(harmony);
+                        }
+                  s->add(fd);
                   }
-
-            if (harmonyDesc._harmony) {
-                  harmonyDesc._harmony->setTrack(harmonyDesc._track);
+            else if (Harmony* harmony = harmonyDesc._harmony) {
+                  harmony->setTrack(harmonyDesc._track);
                   Segment* s = measure->getSegment(SegmentType::ChordRest, tick);
-                  s->add(harmonyDesc._harmony);
+                  s->add(harmony);
                   }
             }
 
@@ -7180,7 +7183,8 @@ FretDiagram* MusicXMLParserPass2::frame(qreal& defaultY, qreal& relativeY)
                   int val = _e.readElementText().toInt();
                   if (val > 0) {
                         fd->setStrings(val);
-                        fd->setPropertyFlags(Pid::FRET_STRINGS, PropertyFlags::UNSTYLED); // Prevent style overwrite
+                        if (val != fd->propertyDefault(Pid::FRET_FRETS).toInt())
+                              fd->setPropertyFlags(Pid::FRET_STRINGS, PropertyFlags::UNSTYLED); // Prevent style overwrite
                         for (int i = 0; i < val; ++i) {
                               // MXML Spec: any string without a dot or other marker has a closed string
                               // cross marker above it.

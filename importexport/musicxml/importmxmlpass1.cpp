@@ -218,6 +218,13 @@ void MusicXMLParserPass1::setExporterSoftware(QString& exporter)
             _exporterSoftware = MusicXMLExporterSoftware::NOTEFLIGHT;
       }
 
+void MusicXMLParserPass1::setExporterStyles()
+      {
+      // If exporters have different default styles to MuseScore, assume they are being used here
+      if (sibOrDolet())
+            _score->style().set(Sid::fretFrets, 5);
+      }
+
 //---------------------------------------------------------
 //   initPartState
 //---------------------------------------------------------
@@ -1305,6 +1312,7 @@ void MusicXMLParserPass1::identification()
                         else if (_e.name() == "software") {
                               QString exporterString = _e.readElementText().toLower();
                               setExporterSoftware(exporterString);
+                              setExporterStyles();
                               }
                         else if (_e.name() == "supports" && _e.attributes().value("element") == "beam" && _e.attributes().value("type") == "yes") {
                               _hasBeamingInfo = true;

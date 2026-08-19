@@ -210,6 +210,7 @@ private:
       // functions
       void addError(const QString& error);      ///< Add an error to be shown in the GUI
       void setExporterSoftware(QString& exporter);
+      void setExporterStyles();
 
       // generic pass 1 data
       QXmlStreamReader _e;

@@ -127,6 +127,11 @@
             <sigD>4</sigD>
             </TimeSig>
           <FretDiagram>
+            <Harmony>
+              <root>19</root>
+              <name>maj7</name>
+              <align>center,top</align>
+              </Harmony>
             <fretDiagram>
               <string no="0">
                 <marker>cross</marker>
@@ -155,10 +160,6 @@
               <dot>4</dot>
               </string>
             </FretDiagram>
-          <Harmony>
-            <root>19</root>
-            <name>maj7</name>
-            </Harmony>
           <Chord>
             <durationType>quarter</durationType>
             <StemDirection>down</StemDirection>
@@ -170,6 +171,11 @@
           <FretDiagram>
             <fretOffset>2</fretOffset>
             <frets>3</frets>
+            <Harmony>
+              <root>16</root>
+              <name>7</name>
+              <align>center,top</align>
+              </Harmony>
             <fretDiagram>
               <string no="0">
                 <marker>cross</marker>
@@ -209,10 +215,6 @@
               <marker>79</marker>
               </string>
             </FretDiagram>
-          <Harmony>
-            <root>16</root>
-            <name>7</name>
-            </Harmony>
           <Chord>
             <durationType>quarter</durationType>
             <StemDirection>down</StemDirection>
@@ -222,6 +224,11 @@
               </Note>
             </Chord>
           <FretDiagram>
+            <Harmony>
+              <root>15</root>
+              <name>maj7</name>
+              <align>center,top</align>
+              </Harmony>
             <fretDiagram>
               <string no="0">
                 <dot fret="3">normal</dot>
@@ -261,10 +268,6 @@
               <marker>79</marker>
               </string>
             </FretDiagram>
-          <Harmony>
-            <root>15</root>
-            <name>maj7</name>
-            </Harmony>
           <Chord>
             <durationType>quarter</durationType>
             <StemDirection>down</StemDirection>
@@ -283,6 +286,11 @@
               </Note>
             </Chord>
           <FretDiagram>
+            <Harmony>
+              <root>12</root>
+              <name>7</name>
+              <align>center,top</align>
+              </Harmony>
             <fretDiagram>
               <string no="0">
                 <marker>cross</marker>
@@ -305,10 +313,6 @@
               <dot>3</dot>
               </string>
             </FretDiagram>
-          <Harmony>
-            <root>12</root>
-            <name>7</name>
-            </Harmony>
           <Chord>
             <durationType>quarter</durationType>
             <StemDirection>down</StemDirection>
@@ -329,6 +333,11 @@
       <Measure>
         <voice>
           <FretDiagram>
+            <Harmony>
+              <root>11</root>
+              <name>maj7</name>
+              <align>center,top</align>
+              </Harmony>
             <fretDiagram>
               <string no="0">
                 <marker>cross</marker>
@@ -351,10 +360,6 @@
               <dot>1</dot>
               </string>
             </FretDiagram>
-          <Harmony>
-            <root>11</root>
-            <name>maj7</name>
-            </Harmony>
           <Chord>
             <durationType>quarter</durationType>
             <StemDirection>down</StemDirection>
@@ -373,6 +378,11 @@
             </Chord>
           <FretDiagram>
             <fretOffset>4</fretOffset>
+            <Harmony>
+              <root>17</root>
+              <name>m7</name>
+              <align>center,top</align>
+              </Harmony>
             <fretDiagram>
               <string no="0">
                 <dot fret="1">normal</dot>
@@ -412,10 +422,6 @@
               <marker>79</marker>
               </string>
             </FretDiagram>
-          <Harmony>
-            <root>17</root>
-            <name>m7</name>
-            </Harmony>
           <Chord>
             <durationType>quarter</durationType>
             <StemDirection>down</StemDirection>
@@ -435,6 +441,11 @@
             </Chord>
           <FretDiagram>
             <fretOffset>2</fretOffset>
+            <Harmony>
+              <root>16</root>
+              <name>7</name>
+              <align>center,top</align>
+              </Harmony>
             <fretDiagram>
               <string no="0">
                 <marker>cross</marker>
@@ -474,10 +485,6 @@
               <marker>79</marker>
               </string>
             </FretDiagram>
-          <Harmony>
-            <root>16</root>
-            <name>7</name>
-            </Harmony>
           <Chord>
             <durationType>quarter</durationType>
             <StemDirection>down</StemDirection>
@@ -498,6 +505,11 @@
       <Measure>
         <voice>
           <FretDiagram>
+            <Harmony>
+              <root>15</root>
+              <name>maj7</name>
+              <align>center,top</align>
+              </Harmony>
             <fretDiagram>
               <string no="0">
                 <dot fret="3">normal</dot>
@@ -537,10 +549,6 @@
               <marker>79</marker>
               </string>
             </FretDiagram>
-          <Harmony>
-            <root>15</root>
-            <name>maj7</name>
-            </Harmony>
           <Chord>
             <durationType>quarter</durationType>
             <StemDirection>down</StemDirection>
@@ -550,6 +558,11 @@
               </Note>
             </Chord>
           <FretDiagram>
+            <Harmony>
+              <root>12</root>
+              <name>7</name>
+              <align>center,top</align>
+              </Harmony>
             <fretDiagram>
               <string no="0">
                 <marker>cross</marker>
@@ -572,10 +585,6 @@
               <dot>3</dot>
               </string>
             </FretDiagram>
-          <Harmony>
-            <root>12</root>
-            <name>7</name>
-            </Harmony>
           <Chord>
             <durationType>quarter</durationType>
             <StemDirection>down</StemDirection>
@@ -585,6 +594,11 @@
               </Note>
             </Chord>
           <FretDiagram>
+            <Harmony>
+              <root>11</root>
+              <name>maj7</name>
+              <align>center,top</align>
+              </Harmony>
             <fretDiagram>
               <string no="0">
                 <marker>cross</marker>
@@ -613,10 +627,6 @@
               <marker>88</marker>
               </string>
             </FretDiagram>
-          <Harmony>
-            <root>11</root>
-            <name>maj7</name>
-            </Harmony>
           <Chord>
             <dots>1</dots>
             <durationType>quarter</durationType>
@@ -627,6 +637,11 @@
               </Note>
             </Chord>
           <FretDiagram>
+            <Harmony>
+              <root>20</root>
+              <name>7</name>
+              <align>center,top</align>
+              </Harmony>
             <fretDiagram>
               <string no="1">
                 <dot fret="4">normal</dot>
@@ -643,10 +658,6 @@
               <dot>3</dot>
               </string>
             </FretDiagram>
-          <Harmony>
-            <root>20</root>
-            <name>7</name>
-            </Harmony>
           <Chord>
             <BeamMode>no</BeamMode>
             <durationType>eighth</durationType>
@@ -661,6 +672,11 @@
       <Measure>
         <voice>
           <FretDiagram>
+            <Harmony>
+              <root>19</root>
+              <name>maj7</name>
+              <align>center,top</align>
+              </Harmony>
             <fretDiagram>
               <string no="0">
                 <marker>cross</marker>
@@ -689,10 +705,6 @@
               <dot>4</dot>
               </string>
             </FretDiagram>
-          <Harmony>
-            <root>19</root>
-            <name>maj7</name>
-            </Harmony>
           <Chord>
             <durationType>whole</durationType>
             <Note>

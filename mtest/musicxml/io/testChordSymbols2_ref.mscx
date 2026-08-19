@@ -21,6 +21,7 @@
       <stemWidth>0.125</stemWidth>
       <staffLineWidth>0.09375</staffLineWidth>
       <ledgerLineWidth>0.15625</ledgerLineWidth>
+      <fretFrets>5</fretFrets>
       <smallNoteMag>0.75</smallNoteMag>
       <graceNoteMag>0.6</graceNoteMag>
       <slurEndWidth>0.0625</slurEndWidth>
@@ -131,7 +132,12 @@
             <sigD>4</sigD>
             </TimeSig>
           <FretDiagram>
-            <frets>5</frets>
+            <Harmony>
+              <root>13</root>
+              <name>add9</name>
+              <base>14</base>
+              <align>center,top</align>
+              </Harmony>
             <fretDiagram>
               <string no="0">
                 <marker>cross</marker>
@@ -171,11 +177,6 @@
               <dot>3</dot>
               </string>
             </FretDiagram>
-          <Harmony>
-            <root>13</root>
-            <name>add9</name>
-            <base>14</base>
-            </Harmony>
           <Chord>
             <durationType>whole</durationType>
             <Note>
