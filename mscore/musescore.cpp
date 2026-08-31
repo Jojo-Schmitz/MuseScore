@@ -189,6 +189,13 @@ extern Ms::Synthesizer* createZerberus();
 #define endl Qt::endl
 #endif
 
+#if defined(Q_OS_WIN)
+// for SystemParametersInfo(SPI_GETSCREENREADER), see screenReaderActive()
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+#include <windows.h>
+#endif
+
 namespace Ms {
 
 MuseScore* mscore;
@@ -4723,6 +4730,25 @@ void MuseScore::writeSettings()
       }
 
 //---------------------------------------------------------
+//   screenReaderActive
+//    QAccessible::isActive() only tells whether some accessibility client
+//    attached itself; on Windows that is the case even when no screen reader
+//    is running at all, so there ask the system itself
+//---------------------------------------------------------
+
+static bool screenReaderActive()
+      {
+#if defined(Q_OS_WIN)
+      BOOL screenReader = FALSE;
+      if (!SystemParametersInfo(SPI_GETSCREENREADER, 0, &screenReader, 0))
+            return false;
+      return screenReader;
+#else
+      return QAccessible::isActive();
+#endif
+      }
+
+//---------------------------------------------------------
 //   readSettings
 //---------------------------------------------------------
 
@@ -4753,6 +4779,9 @@ void MuseScore::readSettings()
             }
 
       MuseScore::restoreGeometry(this);
+      // remember the restored state: when a session gets restored the main
+      // window is shown again in init(), which would drop the maximized state
+      _startMaximized = isMaximized();
 
       // Grab the mixer visible state before the beginGroup.
       // Previously the showMixer() call was made at the end of
@@ -4767,8 +4796,9 @@ void MuseScore::readSettings()
 
       //for some reason when MuseScore starts maximized the screen-reader
       //doesn't respond to QAccessibleEvents --> so force normal mode
-      if (isMaximized() && QAccessible::isActive()) {
+      if (isMaximized() && screenReaderActive()) {
             showNormal();
+            _startMaximized = false;
             }
       mscore->showPalette(settings.value("showPanel", "1").toBool());
       mscore->showInspector(settings.value("showInspector", "1").toBool());
@@ -4780,6 +4810,7 @@ void MuseScore::readSettings()
       //if we were in full screen mode, go to maximized mode
       if (isFullScreen()) {
             showMaximized();
+            _startMaximized = true;
             }
 
       _horizontalSplit = settings.value("split", true).toBool();
@@ -8318,7 +8349,10 @@ void MuseScore::init(QStringList& argv)
 #endif
 
       mscore->changeState(mscore->noScore() ? STATE_DISABLED : STATE_NORMAL);
-      mscore->show();
+      if (mscore->_startMaximized)
+            mscore->showMaximized();
+      else
+            mscore->show();
 
       if (!restoredSession || files) {
             showSplashMessage(sc, tr("Loading scores…"));

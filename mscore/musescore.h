@@ -363,6 +363,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       int _midiRecordId                  { -1 };
 
       bool _fullscreen                   { false };
+      bool _startMaximized               { false };
       QList<LanguageItem> _languages;
 
       Startcenter* startcenter             { 0 };
