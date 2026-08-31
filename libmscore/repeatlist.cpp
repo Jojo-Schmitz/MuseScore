@@ -163,6 +163,7 @@ void RepeatList::updateTempo()
             s->timeOffset = t - ct;
             utick        += s->len();
             t            += tl->tick2time(s->tick + s->len()) - ct;
+            t            += s->pause;
             }
       }
 
@@ -751,6 +752,34 @@ void RepeatList::unwind()
             return;
 
       collectRepeatListElements();
+      QList<std::pair<Measure const*, qreal>> sectionPauses;
+      for (auto sectionIt = _rlElements.cbegin();
+           sectionIt != _rlElements.cend();
+           ++sectionIt) {
+            auto nextSectionIt = sectionIt + 1;
+            if (nextSectionIt == _rlElements.cend())
+                  break;
+
+            Q_ASSERT(!(*sectionIt)->isEmpty());
+
+            auto lastElementIt = (*sectionIt)->cend() - 1;
+            Q_ASSERT((*lastElementIt)->repeatListElementType
+                     == RepeatListElementType::SECTION_BREAK);
+
+            LayoutBreak const* sectionBreak =
+                toMeasureBase((*lastElementIt)->element)->sectionBreakElement();
+
+            if (sectionBreak != nullptr) {
+                  Q_ASSERT(!(*nextSectionIt)->isEmpty());
+
+                  Measure const* nextSectionMeasure =
+                      (*nextSectionIt)->front()->measure;
+
+                  sectionPauses.append(
+                      std::make_pair(nextSectionMeasure,
+                                     sectionBreak->pause()));
+                  }
+            }
 
       // Following variables are used during unwinding, but may be altered when following jumps
       // Therefor they are declared outside of the loop
@@ -999,15 +1028,22 @@ void RepeatList::unwind()
                   ++repeatListElementIt;
                   }
 
-            // Reached the end of this section
-            // Inform the last RepeatSegment that the Section Break pause property should be honored now
-            rs = this->back();
-            repeatListElementIt = (*sectionIt)->cend() - 1;
-            Q_ASSERT((*repeatListElementIt)->repeatListElementType == RepeatListElementType::SECTION_BREAK);
+            }
 
-            LayoutBreak const * const sectionBreak = toMeasureBase((*repeatListElementIt)->element)->sectionBreakElement();
-            if (sectionBreak != nullptr) {
-                  rs->pause = sectionBreak->pause();
+      // Assign each section break pause to the RepeatSegment immediately
+      // preceding the first unwound occurrence of the following section.
+      for (const auto& sectionPause : sectionPauses) {
+            Measure const* sectionStart = sectionPause.first;
+            qreal pause = sectionPause.second;
+
+            for (int i = 1; i < size(); ++i) {
+                  RepeatSegment* current = at(i);
+
+                  if (!current->measureList.isEmpty()
+                      && current->measureList.front()->tick() == sectionStart->tick()) {
+                        at(i - 1)->pause = pause;
+                        break;
+                        }
                   }
             }
 
