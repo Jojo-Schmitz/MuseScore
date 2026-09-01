@@ -155,9 +155,8 @@ void Bracket::layout()
       _shape.clear();
       switch (bracketType()) {
             case BracketType::BRACE: {
-                  if (score()->styleSt(Sid::musicalSymbolFont) == "Emmentaler" ||      // prevent fallback to Bravura
-                      score()->styleSt(Sid::musicalSymbolFont) == "Gonville" ||        // prevent fallback to Bravura
-                      score()->styleSt(Sid::musicalSymbolFont).startsWith("Finale")) { // just like Finale itself, don't use Finale's glyphs
+                  if (score()->styleSt(Sid::musicalSymbolFont) == "Emmentaler" || score()->styleSt(Sid::musicalSymbolFont) == "Gonville") {
+                        // prevent fallback to Bravura
                         _braceSymbol = SymId::noSym;
                         qreal w = score()->styleP(Sid::akkoladeWidth);
 
@@ -185,6 +184,26 @@ void Bracket::layout()
                         path.cubicTo(XM( -360), YM( 4304), XM(  -8), YM( 3192), XM(   -8), YM( 2048)); // c 0
                         path.cubicTo(XM( -  8), YM( 1320), XM(-136), YM(  624), XM( -512), YM(    0)); // c 1
                         path.cubicTo(XM( -136), YM( -624), XM(  -8), YM(-1320), XM(   -8), YM(-2048)); // c 0*/
+                        setbbox(path.boundingRect());
+                        _shape.add(bbox());
+                        }
+                  else if (score()->styleSt(Sid::musicalSymbolFont).startsWith("Finale")) {
+                        // just like Finale itself, don't use Finale's glyphs, not Finale Maestro's at least
+                        // for the others prevent fallback to Bravura
+                        _braceSymbol = SymId::noSym;
+                        qreal w = score()->styleP(Sid::akkoladeWidth);
+                        qreal y = std::min(h2 * 0.125, spatium());
+
+#define XF(a) w * a
+#define YF(a, b) a + h2 + (b * y)
+
+                        path.moveTo(XF(0), YF(0, 0));
+                        path.cubicTo(XF(2.25), YF(0, 2), XF(-1.5), YF(h2, -4), XF(0.98), YF(h2, 0));
+                        path.lineTo(XF(1), YF(h2, -0.3));
+                        path.cubicTo(XF(-0.5), YF(h2, -3), XF(2.25), YF(0, 1.5), XF(0.15), YF(0, 0));
+                        path.cubicTo(XF(2.25), YF(0, -1.5), XF(-0.5), YF(-h2, 3), XF(1), YF(-h2, 0.3));
+                        path.lineTo(XF(0.98), YF(-h2, 0));
+                        path.cubicTo(XF(-1.5), YF(-h2, 4), XF(2.25), YF(0, -2), XF(0), YF(0, 0));
                         setbbox(path.boundingRect());
                         _shape.add(bbox());
                         }
