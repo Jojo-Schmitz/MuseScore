@@ -1000,17 +1000,16 @@ void RepeatList::unwind()
                   ++repeatListElementIt;
                   }
 
+            // Reached the end of this section
+            // Inform the last RepeatSegment that the Section Break pause property should be honored now
             rs = this->back();
             repeatListElementIt = (*sectionIt)->cend() - 1;
-            Q_ASSERT((*repeatListElementIt)->repeatListElementType
-                     == RepeatListElementType::SECTION_BREAK);
+            Q_ASSERT((*repeatListElementIt)->repeatListElementType == RepeatListElementType::SECTION_BREAK);
 
-            LayoutBreak const* sectionBreak =
-                toMeasureBase((*repeatListElementIt)->element)->sectionBreakElement();
-
-            if (sectionBreak)
+            LayoutBreak const * const sectionBreak = toMeasureBase((*repeatListElementIt)->element)->sectionBreakElement();
+            if (sectionBreak) {
                   rs->pause = sectionBreak->pause();
-
+                  }
             }
 
       updateTempo();
