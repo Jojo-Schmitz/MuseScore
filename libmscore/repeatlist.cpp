@@ -769,7 +769,7 @@ void RepeatList::unwind()
             LayoutBreak const* sectionBreak =
                 toMeasureBase((*lastElementIt)->element)->sectionBreakElement();
 
-            if (sectionBreak != nullptr) {
+            if (sectionBreak) {
                   Q_ASSERT(!(*nextSectionIt)->isEmpty());
 
                   Measure const* nextSectionMeasure =
