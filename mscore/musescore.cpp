@@ -6326,33 +6326,35 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
             seq->seekEnd();
       else if (cmd == "keys")
             showKeyEditor();
-      else if (cmd == "file-new")
-            newFile();
-      else if (cmd == "file-open")
-            openFiles();
-      else if (cmd == "file-close")
-            closeScore(cs);
-      else if (cmd == "file-save")
-            saveFile();
-      else if (cmd == "file-save-as")
-            saveAs(cs, false);
-      else if (cmd == "file-save-a-copy")
-            saveAs(cs, true);
-      else if (cmd == "file-save-selection")
-            saveSelection(cs);
       else if (cmd == saveOnlineMenuItem)
             showUploadScoreDialog();
-      else if (cmd == "file-import-pdf")
-            importScore();
-      else if (cmd == "file-export")
-            showExportDialog();
-      else if (cmd == "file-reload") {
-            saveFile();
-            const auto ms = cs->masterScore();
-            const auto fi = ms->fileInfo();
-            const auto fn = fi->absoluteFilePath();
-            closeScore(cs);
-            openScore(fn);
+      else if (cmd.startsWith("file")) {
+            if (cmd == "file-new")
+                  newFile();
+            else if (cmd == "file-open")
+                  openFiles();
+            else if (cmd == "file-close")
+                  closeScore(cs);
+            else if (cmd == "file-save")
+                  saveFile();
+            else if (cmd == "file-save-as")
+                  saveAs(cs, false);
+            else if (cmd == "file-save-a-copy")
+                  saveAs(cs, true);
+            else if (cmd == "file-save-selection")
+                  saveSelection(cs);
+            else if (cmd == "file-import-pdf")
+                  importScore();
+            else if (cmd == "file-export")
+                  showExportDialog();
+            else if (cmd == "file-reload") {
+                  saveFile();
+                  const auto ms = cs->masterScore();
+                  const auto fi = ms->fileInfo();
+                  const auto fn = fi->absoluteFilePath();
+                  closeScore(cs);
+                  openScore(fn);
+                  }
             }
       else if (cmd == "unroll-repeats")
             scoreUnrolled(cs->masterScore());
@@ -6366,10 +6368,6 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
             showMasterPalette(qApp->translate("Palette", "Time Signatures"));
       else if (cmd == "symbols")
             showMasterPalette(qApp->translate("MasterPalette", "Symbols"));
-      else if (cmd == "toggle-statusbar") {
-            preferences.setPreference(PREF_UI_APP_SHOWSTATUSBAR, a->isChecked());
-            _statusBar->setVisible(a->isChecked());
-            }
       else if (cmd == "append-measures")
             cmdAppendMeasures();
       else if (cmd == "insert-measures")
@@ -6412,38 +6410,50 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
       else if (cmd == "omr")
             showOmrPanel(a->isChecked());
 #endif
-      else if (cmd == "toggle-playpanel")
-            showPlayPanel(a->isChecked());
-      else if (cmd == "toggle-navigator")
-            showNavigator(a->isChecked());
-      else if (cmd == "toggle-timeline")
-            showTimeline(a->isChecked());
-      else if (cmd == "toggle-midiimportpanel")
-            importmidiPanel->setVisible(a->isChecked());
-      else if (cmd == "toggle-mixer")
-            showMixer(a->isChecked());
+      else if (cmd.startsWith("toggle")) {
+            if (cmd == "toggle-statusbar") {
+                  preferences.setPreference(PREF_UI_APP_SHOWSTATUSBAR, a->isChecked());
+                  _statusBar->setVisible(a->isChecked());
+                  }
+            else if (cmd == "toggle-playpanel")
+                  showPlayPanel(a->isChecked());
+            else if (cmd == "toggle-navigator")
+                  showNavigator(a->isChecked());
+            else if (cmd == "toggle-timeline")
+                  showTimeline(a->isChecked());
+            else if (cmd == "toggle-midiimportpanel")
+                  importmidiPanel->setVisible(a->isChecked());
+            else if (cmd == "toggle-mixer")
+                  showMixer(a->isChecked());
+            else if (cmd == "toggle-selection-window")
+                  showSelectionWindow(a->isChecked());
+            else if (cmd == "toggle-fileoperations")
+                  fileTools->setVisible(!fileTools->isVisible());
+            else if (cmd == "toggle-transport")
+                  transportTools->setVisible(!transportTools->isVisible());
+            else if (cmd == "toggle-concertpitch")
+                  cpitchTools->setVisible(!cpitchTools->isVisible());
+            else if (cmd == "toggle-imagecapture")
+                  fotoTools->setVisible(!fotoTools->isVisible());
+            else if (cmd == "toggle-noteinput")
+                  entryTools->setVisible(!entryTools->isVisible());
+            else if (cmd == "toggle-workspaces-toolbar")
+                  workspacesTools->setVisible(!workspacesTools->isVisible());
+            else if (cmd == "toggle-piano")
+                  showPianoKeyboard(a->isChecked());
+            else if (cmd == "toggle-scorecmp-tool")
+                  reDisplayDockWidget(scoreCmpTool, a->isChecked());
+#if 0
+            else if (cmd == "toggle-feedback")
+                  feedbackTools->setVisible(!feedbackTools->isVisible());
+#endif
+#ifdef MSCORE_UNSTABLE
+            else if (cmd == "toggle-script-recorder")
+                  scriptRecorder->setVisible(a->isChecked());
+#endif
+            }
       else if (cmd == "synth-control")
             showSynthControl(a->isChecked());
-      else if (cmd == "toggle-selection-window")
-            showSelectionWindow(a->isChecked());
-      else if (cmd == "show-keys")
-            ;
-      else if (cmd == "toggle-fileoperations")
-            fileTools->setVisible(!fileTools->isVisible());
-      else if (cmd == "toggle-transport")
-            transportTools->setVisible(!transportTools->isVisible());
-      else if (cmd == "toggle-concertpitch")
-            cpitchTools->setVisible(!cpitchTools->isVisible());
-      else if (cmd == "toggle-imagecapture")
-            fotoTools->setVisible(!fotoTools->isVisible());
-      else if (cmd == "toggle-noteinput")
-            entryTools->setVisible(!entryTools->isVisible());
-#if 0
-      else if (cmd == "toggle-feedback")
-            feedbackTools->setVisible(!feedbackTools->isVisible());
-#endif
-      else if (cmd == "toggle-workspaces-toolbar")
-            workspacesTools->setVisible(!workspacesTools->isVisible());
       else if (cmd == "create-new-workspace") {
             mscore->createNewWorkspace();
             emit mscore->workspacesChanged();
@@ -6481,14 +6491,6 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
             editRaster();
       else if (cmd == "hraster" || cmd == "vraster")  // value in [hv]RasterAction already set
             ;
-      else if (cmd == "toggle-piano")
-            showPianoKeyboard(a->isChecked());
-      else if (cmd == "toggle-scorecmp-tool")
-            reDisplayDockWidget(scoreCmpTool, a->isChecked());
-#ifdef MSCORE_UNSTABLE
-      else if (cmd == "toggle-script-recorder")
-            scriptRecorder->setVisible(a->isChecked());
-#endif
       else if (cmd == "plugin-creator")
             showPluginCreator(a);
       else if (cmd == "plugin-manager")
@@ -6543,22 +6545,6 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
             setPlayRepeats(a->isChecked());
       else if (cmd == "pan")
             setPanPlayback(a->isChecked());
-      else if (cmd == "show-invisible") {
-            cs->setShowInvisible(a->isChecked());
-            cs->update();
-            }
-      else if (cmd == "show-unprintable") {
-            cs->setShowUnprintable(a->isChecked());
-            cs->update();
-            }
-      else if (cmd == "show-frames") {
-            cs->setShowFrames(a->isChecked());
-            cs->update();
-            }
-      else if (cmd == "show-pageborders") {
-            cs->setShowPageborders(a->isChecked());
-            cs->update();
-            }
       else if (cmd == "mark-irregular") {
             cs->setMarkIrregularMeasures(a->isChecked());
             cs->update();
@@ -6630,8 +6616,6 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
                         switchLayoutMode(LayoutMode::PAGE);
                   }
             }
-      else if (cmd == "show-tours")
-            preferences.setPreference(PREF_UI_APP_STARTUP_SHOWTOURS, a->isChecked());
       else if (cmd == "reset-tours")
             tourHandler()->resetCompletedTours();
       else if (cmd == "report-bug")
@@ -6653,39 +6637,61 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
                   cs->update();
                   }
             }
-      else if (cmd == "show-segment-shapes") {
-            MScore::showSegmentShapes = a->isChecked();
-            if (cs) {
-                  cs->setLayoutAll();
+      else if (cmd.startsWith("show")) {
+            if (cmd == "show-keys")
+                  ;
+            else if (cmd == "show-invisible") {
+                  cs->setShowInvisible(a->isChecked());
                   cs->update();
                   }
-            }
-      else if (cmd == "show-skylines") {
-            MScore::showSkylines = a->isChecked();
-            if (cs) {
-                  cs->setLayoutAll();
+            else if (cmd == "show-unprintable") {
+                  cs->setShowUnprintable(a->isChecked());
                   cs->update();
                   }
-            }
-      else if (cmd == "show-bounding-rect") {
-            MScore::showBoundingRect = a->isChecked();
-            if (cs) {
-                  cs->setLayoutAll();
+            else if (cmd == "show-frames") {
+                  cs->setShowFrames(a->isChecked());
                   cs->update();
                   }
-            }
-      else if (cmd == "show-system-bounding-rect") {
-            MScore::showSystemBoundingRect = a->isChecked();
-            if (cs) {
-                  cs->setLayoutAll();
+            else if (cmd == "show-pageborders") {
+                  cs->setShowPageborders(a->isChecked());
                   cs->update();
                   }
-            }
-      else if (cmd == "show-corrupted-measures") {
-            MScore::showCorruptedMeasures = a->isChecked();
-            if (cs) {
-                  cs->setLayoutAll();
-                  cs->update();
+            else if (cmd == "show-tours")
+                  preferences.setPreference(PREF_UI_APP_STARTUP_SHOWTOURS, a->isChecked());
+            else if (cmd == "show-segment-shapes") {
+                  MScore::showSegmentShapes = a->isChecked();
+                  if (cs) {
+                        cs->setLayoutAll();
+                        cs->update();
+                        }
+                  }
+            else if (cmd == "show-skylines") {
+                  MScore::showSkylines = a->isChecked();
+                  if (cs) {
+                        cs->setLayoutAll();
+                        cs->update();
+                        }
+                  }
+            else if (cmd == "show-bounding-rect") {
+                  MScore::showBoundingRect = a->isChecked();
+                  if (cs) {
+                        cs->setLayoutAll();
+                        cs->update();
+                        }
+                  }
+            else if (cmd == "show-system-bounding-rect") {
+                  MScore::showSystemBoundingRect = a->isChecked();
+                  if (cs) {
+                        cs->setLayoutAll();
+                        cs->update();
+                        }
+                  }
+            else if (cmd == "show-corrupted-measures") {
+                  MScore::showCorruptedMeasures = a->isChecked();
+                  if (cs) {
+                        cs->setLayoutAll();
+                        cs->update();
+                        }
                   }
             }
       else if (cmd == "qml-reload-source") {
