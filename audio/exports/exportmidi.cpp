@@ -485,6 +485,17 @@ void ExportMidi::PauseMap::calculate(const Score* s)
                               }
                         }
                   }
+            if (!qFuzzyIsNull(rs->pause)) {
+                  int utick = rs->utick + rs->len();
+
+                  Fraction timeSig(sigmap->timesig(endTick).timesig());
+                  qreal quarterNotesPerMeasure = (4.0 * timeSig.numerator()) / timeSig.denominator();
+                  int ticksPerMeasure = quarterNotesPerMeasure * DIVISION;
+
+                  tempomapWithPauses->setTempo(this->addPauseTicks(utick), quarterNotesPerMeasure / rs->pause);
+                  this->insert(std::pair<const int, int> (utick, ticksPerMeasure + this->offsetAtUTick(utick)));
+                  tempomapWithPauses->setTempo(this->addPauseTicks(utick), tempomap->tempo(endTick));
+                  }
             }
       }
 
