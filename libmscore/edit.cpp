@@ -605,21 +605,20 @@ bool Score::rewriteMeasures(Measure* fm, const Fraction& ns, int staffIdx)
       Measure* nm  = nullptr;
       LayoutBreak* sectionBreak = nullptr;
 
-      // disable local time sig modifications in linked staves
-      if (staffIdx != -1 && excerpts().size() > 0) {
-            MScore::setError(CANNOT_CHANGE_LOCAL_TIMESIG_HAS_EXCERPTS);
-            return false;
-            }
-
       //
       // split into Measure segments fm-lm
       //
+      auto foundLM = [fm, staffIdx](MeasureBase* curMeas, Measure* curLM) {
+            if (!curMeas || !curMeas->isMeasure() || curLM->sectionBreak())
+                  return true;
+            Segment* timeSigSeg = toMeasure(curMeas)->first(SegmentType::TimeSig);
+            if (timeSigSeg && curMeas != fm)
+                  return staffIdx == -1 || timeSigSeg->element(staff2track(staffIdx));
+             return false;
+            };
       for (MeasureBase* measure = fm; ; measure = measure->next()) {
 
-            if (!measure || !measure->isMeasure() || lm->sectionBreak()
-              || (toMeasure(measure)->first(SegmentType::TimeSig) && measure != fm))
-                  {
-
+            if (foundLM(measure, lm)){
                   // save section break to reinstate after rewrite
                   if (lm->sectionBreak())
                         sectionBreak = new LayoutBreak(*lm->sectionBreakElement());
@@ -713,6 +712,8 @@ bool Score::rewriteMeasures(Measure* fm, const Fraction& ns, int staffIdx)
             return true;
       Segment* s = nm->undoGetSegment(SegmentType::TimeSig, nm->tick());
       for (int i = 0; i < nstaves(); ++i) {
+            if (staffIdx != -1 && i != staffIdx)
+                  continue;
             if (!s->element(i * VOICES)) {
                   TimeSig* ots = staff(i)->timeSig(nm->tick());
                   if (ots) {
@@ -772,10 +773,23 @@ void Score::cmdAddTimeSig(Measure* fm, int staffIdx, TimeSig* ts, bool local)
                         endStaffIdx   = startStaffIdx + 1;
                         }
                   else {
+#if 1
                         // TODO: get index for this score
                         qDebug("cmdAddTimeSig: unable to write local time signature change to linked score");
                         startStaffIdx = 0;
                         endStaffIdx   = 0;
+#else
+                        const Staff* thisStaff = staff(staffIdx);
+                        const Staff* linkedStaff = thisStaff->findLinkedInScore(score);
+                        if (linkedStaff) {
+                              startStaffIdx = linkedStaff->idx();
+                              endStaffIdx = startStaffIdx + 1;
+                              }
+                        else {
+                              startStaffIdx = 0;
+                              endStaffIdx = 0;
+                              }
+#endif
                         }
                   }
             else {
@@ -852,7 +866,9 @@ void Score::cmdAddTimeSig(Measure* fm, int staffIdx, TimeSig* ts, bool local)
             // we will only add time signatures if this succeeds
             // this means, however, that the rewrite cannot depend on the time signatures being in place
             if (mf) {
-                  if (!mScore->rewriteMeasures(mf, ns, local ? staffIdx : -1)) {
+                  auto staffIdxRangeOnMaster = getStaffIdxRange(mScore);
+                  if (staffIdxRangeOnMaster.second != staffIdxRangeOnMaster.first
+                      && !mScore->rewriteMeasures(mf, ns, local ? staffIdxRangeOnMaster.first : -1)) {
                         undoStack()->current()->unwind();
                         return;
                         }
@@ -908,11 +924,6 @@ void Score::cmdAddTimeSig(Measure* fm, int staffIdx, TimeSig* ts, bool local)
 
 void Score::cmdRemoveTimeSig(TimeSig* ts)
       {
-      if (ts->isLocal() && excerpts().size() > 0) {
-            MScore::setError(CANNOT_CHANGE_LOCAL_TIMESIG_HAS_EXCERPTS);
-            return;
-            }
-
       Measure* m = ts->measure();
       Segment* s = ts->segment();
 
