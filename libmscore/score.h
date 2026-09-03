@@ -732,6 +732,7 @@ class Score : public QObject, public ScoreElement {
 
       void addElement(Element*);
       void removeElement(Element*);
+      bool containsElement(const Element* element) const;
 
       Note* addPitch(NoteVal&, bool addFlag, InputState* externalInputState = nullptr);
       void addPitch(int pitch, bool addFlag, bool insert);
