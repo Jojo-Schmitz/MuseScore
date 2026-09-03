@@ -708,9 +708,10 @@ void Selection::dump()
       {
       qDebug("Selection dump: ");
       switch(_state) {
-            case SelState::NONE:   qDebug("NONE"); return;
-            case SelState::RANGE:  qDebug("RANGE"); break;
-            case SelState::LIST:   qDebug("LIST"); break;
+            case SelState::NONE:         qDebug("NONE"); return;
+            case SelState::RANGE:        qDebug("RANGE"); break;
+            case SelState::LIST:         qDebug("LIST"); break;
+            case SelState::COMPARISON:   qDebug("COMPARISON"); break;
             }
       for (const Element* e : qAsConst(_el))
             qDebug("  %p %s", e, e->name());
