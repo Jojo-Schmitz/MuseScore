@@ -16,7 +16,6 @@
 #include "score.h"
 #include "segment.h"
 #include "spanner.h"
-#include "tie.h"
 #include "tuplet.h"
 #include "undo.h"
 #include "utils.h"
@@ -73,18 +72,6 @@ void Score::splitMeasure(Segment* segment)
                   sl.push_back(std::make_tuple(s, s->tick(), s->ticks()));
             }
 
-      // Make sure ties are the beginning the split measure are restored.
-      std::vector<Tie*> ties;
-      for (int track = 0; track < ntracks(); track++) {
-            Chord* chord = measure->findChord(stick, track);
-            if (chord)
-                  for (Note* note : chord->notes()) {
-                        Tie* tie = note->tieBack();
-                        if (tie)
-                              ties.push_back(tie->clone());
-                        }
-                  }
-
       MeasureBase* nm = measure->next();
 
       undoRemoveMeasures(measure, measure, true);
@@ -108,7 +95,7 @@ void Score::splitMeasure(Segment* segment)
       // Now make sure this reduction doesn't go 'beyond' the original measure's
       // actual denominator for both resultant measures.
       if (ticks1.denominator() < measure->ticks().denominator()) {
-            if (measure->ticks().denominator() % m1->timesig().denominator() == 0) {
+            if (ticks1.denominator() && measure->ticks().denominator() % m1->timesig().denominator() == 0) {
                   int mult = measure->ticks().denominator() / ticks1.denominator();
                   // *= operator automatically reduces via GCD, so rather do literal multiplication:
                   ticks1.setDenominator(ticks1.denominator() * mult);
@@ -116,7 +103,7 @@ void Score::splitMeasure(Segment* segment)
                   }
             }
       if (ticks2.denominator() < measure->ticks().denominator()) {
-            if (measure->ticks().denominator() % m2->timesig().denominator() == 0) {
+            if (ticks2.denominator() && measure->ticks().denominator() % m2->timesig().denominator() == 0) {
                   int mult = measure->ticks().denominator() / ticks2.denominator();
                   ticks2.setDenominator(ticks2.denominator() * mult);
                   ticks2.setNumerator(ticks2.numerator() * mult);
@@ -129,12 +116,6 @@ void Score::splitMeasure(Segment* segment)
       m1->adjustToLen(ticks1, false);
       m2->adjustToLen(ticks2, false);
       range.write(this, m1->tick());
-
-      // Restore ties the the beginning of the split measure.
-      for (auto tie : ties) {
-            tie->setEndNote(searchTieNote(tie->startNote()));
-            undoAddElement(tie);
-            }
 
       for (auto i : sl) {
             Spanner* s      = std::get<0>(i);
