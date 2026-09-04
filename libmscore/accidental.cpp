@@ -48,25 +48,25 @@ static Acc accList[] = {
       Acc(AccidentalVal::SHARP,      0, SymId::accidentalNaturalSharp), // NATURAL_SHARP
       Acc(AccidentalVal::SHARP2,     0, SymId::accidentalSharpSharp),   // SHARP_SHARP
 
+      // Stein-Zimmermann
+      Acc(AccidentalVal::NATURAL,   -50, SymId::accidentalQuarterToneFlatStein), // MIRRORED_FLAT
+      Acc(AccidentalVal::NATURAL,  -150, SymId::accidentalThreeQuarterTonesFlatZimmermann), // MIRRORED_FLAT2
+      Acc(AccidentalVal::NATURAL,    50, SymId::accidentalQuarterToneSharpStein),       // SHARP_SLASH
+      Acc(AccidentalVal::NATURAL,   150, SymId::accidentalThreeQuarterTonesSharpStein), // SHARP_SLASH4
+
       // Gould arrow quartertone
-      Acc(AccidentalVal::NATURAL,   -50, SymId::accidentalQuarterToneFlatArrowUp),        // FLAT_ARROW_UP
-      Acc(AccidentalVal::NATURAL,  -150, SymId::accidentalThreeQuarterTonesFlatArrowDown),// FLAT_ARROW_DOWN
-      Acc(AccidentalVal::NATURAL,    50, SymId::accidentalQuarterToneSharpNaturalArrowUp),// NATURAL_ARROW_UP
+      Acc(AccidentalVal::NATURAL,   -50, SymId::accidentalQuarterToneFlatArrowUp),          // FLAT_ARROW_UP
+      Acc(AccidentalVal::NATURAL,  -150, SymId::accidentalThreeQuarterTonesFlatArrowDown),  // FLAT_ARROW_DOWN
+      Acc(AccidentalVal::NATURAL,    50, SymId::accidentalQuarterToneSharpNaturalArrowUp),  // NATURAL_ARROW_UP
       Acc(AccidentalVal::NATURAL,   -50, SymId::accidentalQuarterToneFlatNaturalArrowDown), // NATURAL_ARROW_DOWN
-      Acc(AccidentalVal::NATURAL,   150, SymId::accidentalThreeQuarterTonesSharpArrowUp), // SHARP_ARROW_UP
-      Acc(AccidentalVal::NATURAL,    50, SymId::accidentalQuarterToneSharpArrowDown),     // SHARP_ARROW_DOWN
+      Acc(AccidentalVal::NATURAL,   150, SymId::accidentalThreeQuarterTonesSharpArrowUp),   // SHARP_ARROW_UP
+      Acc(AccidentalVal::NATURAL,    50, SymId::accidentalQuarterToneSharpArrowDown),       // SHARP_ARROW_DOWN
       Acc(AccidentalVal::NATURAL,   250, SymId::accidentalFiveQuarterTonesSharpArrowUp),    // SHARP2_ARROW_UP
       Acc(AccidentalVal::NATURAL,   150, SymId::accidentalThreeQuarterTonesSharpArrowDown), // SHARP2_ARROW_DOWN
       Acc(AccidentalVal::NATURAL,  -150, SymId::accidentalThreeQuarterTonesFlatArrowUp),    // FLAT2_ARROW_UP
       Acc(AccidentalVal::NATURAL,  -250, SymId::accidentalFiveQuarterTonesFlatArrowDown),   // FLAT2_ARROW_DOWN
       Acc(AccidentalVal::NATURAL,   -50, SymId::accidentalArrowDown), // ARROW_DOWN
       Acc(AccidentalVal::NATURAL,    50, SymId::accidentalArrowUp),   // ARROW_UP
-
-      // Stein-Zimmermann
-      Acc(AccidentalVal::NATURAL,   -50, SymId::accidentalQuarterToneFlatStein), // MIRRORED_FLAT
-      Acc(AccidentalVal::NATURAL,  -150, SymId::accidentalThreeQuarterTonesFlatZimmermann), // MIRRORED_FLAT2
-      Acc(AccidentalVal::NATURAL,    50, SymId::accidentalQuarterToneSharpStein),       // SHARP_SLASH
-      Acc(AccidentalVal::NATURAL,   150, SymId::accidentalThreeQuarterTonesSharpStein), // SHARP_SLASH4
 
       // Arel-Ezgi-Uzdilek (AEU)
       Acc(AccidentalVal::NATURAL,   -89, SymId::accidentalBuyukMucennebFlat),  // FLAT_SLASH2
@@ -342,12 +342,27 @@ AccidentalType Accidental::name2subtype(const QString& tag)
       }
 
 //---------------------------------------------------------
+//   subtype2centoffset
+//---------------------------------------------------------
+
+qreal Accidental::subtype2centOffset(AccidentalType st)
+      {
+      return accList[int(st)].centOffset;
+      }
+//---------------------------------------------------------
 //   setSubtype
 //---------------------------------------------------------
 
 void Accidental::setSubtype(const QString& tag)
       {
       setAccidentalType(name2subtype(tag));
+      }
+
+void Accidental::setAccidentalType(AccidentalType t)
+      {
+      _accidentalType = t;
+      if (note())
+            note()->setCentOffset(Accidental::subtype2centOffset(t));
       }
 
 //---------------------------------------------------------
