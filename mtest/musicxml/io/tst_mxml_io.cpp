@@ -109,8 +109,9 @@ private slots:
       void cueNotes2() { mxmlMscxExportTestRef("testCueNotes2"); }
       void cueNotes3() { mxmlImportTestRef("testCueNotes3"); }
       void dalSegno() { mxmlIoTest("testDalSegno"); }
-      void dcalCoda() { mxmlIoTest("testDCalCoda"); }
+      void dcalCoda() { mxmlIoTestRef("testDCalCoda"); }
       void dcalFine() { mxmlIoTest("testDCalFine"); }
+      //void dcalFineNoInferTextType() { mxmlIoTest("testDCalFine"); }
       void directions1() { mxmlIoTestRef("testDirections1"); }
       void directions2() { mxmlIoTest("testDirections2"); }
       void displayStepOctave() {  mxmlMscxExportTestRef("testDisplayStepOctave"); }

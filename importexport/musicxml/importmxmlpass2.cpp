@@ -4023,9 +4023,9 @@ void MusicXMLParserDirection::otherDirection()
  Do a wild-card match with known repeat texts.
  */
 
-QString MusicXMLParserDirection::matchRepeat() const
+QString MusicXMLParserDirection::matchRepeat(const QString& wordsText) const
       {
-      QString plainWords = MScoreTextToMXML::toPlainText(_wordsText.toLower().simplified());
+      QString plainWords = MScoreTextToMXML::toPlainText(wordsText.toLower().simplified());
       static QRegularExpression daCapo("^(d\\.? ?|da )(c\\.?|capo)$");
       static QRegularExpression daCapoAlFine("^(d\\.? ?|da )(c\\.? ?|capo )al fine$");
       static QRegularExpression daCapoAlCoda("^(d\\.? ?|da )(c\\.? ?|capo )al coda$");
@@ -4544,25 +4544,26 @@ void MusicXMLParserDirection::addInferredCrescLine(const int track, const Fracti
 
 void MusicXMLParserDirection::handleRepeats(Measure* measure, const int track, const Fraction tick)
       {
-      if (!preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTINFERTEXTTYPE))
-            return;
       // Try to recognize the various repeats
+      // The explicit repeat attributes of the <sound> element are always honoured;
+      // only the purely text-based fallback depends on the inferTextType preference
       QString repeat;
+      const QString plainWords = MScoreTextToMXML::toPlainText(_wordsText.toLower().simplified());
+      const QString wordsRepeat = matchRepeat(plainWords);
       if (!_sndCoda.isEmpty())
             repeat = "coda";
-      else if (!_sndDacapo.isEmpty())
-            repeat = "daCapo";
+      else if (!_sndDacapo.isEmpty()) // the accompanying words may refine the jump type (e.g. "D.C. al Fine")
+            repeat = wordsRepeat.startsWith("daCapo") ? wordsRepeat : "daCapo";
       else if (!_sndDalsegno.isEmpty())
-            repeat = "dalSegno";
+            repeat = wordsRepeat.startsWith("dalSegno") ? wordsRepeat : "dalSegno";
       else if (!_sndFine.isEmpty())
             repeat = "fine";
       else if (!_sndSegno.isEmpty())
             repeat = "segno";
       else if (!_sndToCoda.isEmpty())
             repeat = "toCoda";
-      // As sound may be missing, next do a wild-card match with known repeat texts
-      else
-            repeat = matchRepeat();
+      else if (!preferences.getBool(PREF_IMPORT_MUSICXML_IMPORTINFERTEXTTYPE))
+            repeat = wordsRepeat;
 
       // Create Jump or Marker and assign it _wordsText (invisible if no _wordsText)
       if (!repeat.isEmpty()) {
