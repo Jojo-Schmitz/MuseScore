@@ -819,20 +819,6 @@ void Excerpt::cloneStaves(Score* oscore, Score* score, const QList<int>& map, QM
                   dstTrack2 = 0;
                   cloneSpanner(s, score, dstTrack, dstTrack2);
                   }
-            else if (s->isHairpin()) {
-                  //always export these spanners to first voice of the destination staff
-
-                  QList<int> track1;
-                  for (int ii = s->track(); ii < s->track() + VOICES; ii++) {
-                        track1 += trackList.values(ii);
-                        }
-
-                  for (int track : qAsConst(track1)) {
-                        if (!(track % VOICES))
-                              cloneSpanner(s, score, track, track);
-                        }
-
-                  }
             else {
                   if (trackList.value(s->track(), -1) == -1 || trackList.value(s->track2(), -1) == -1)
                         continue;
