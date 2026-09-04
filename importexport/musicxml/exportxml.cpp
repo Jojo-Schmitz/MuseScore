@@ -4412,41 +4412,27 @@ static bool findMetronome(const QList<TextFragment>& list,
       hasParen = false;
       metroLeft.clear();
       metroRight.clear();
-      int metroPos = -1;   // metronome start position
-      int metroLen = 0;    // metronome length
-
-      int indEq  = words.indexOf('=');
-      if (indEq <= 0)
-            return false;
 
       int len1 = 0;
       TDuration dur;
+      int pos1 = TempoText::findTempoDuration(words, len1, dur);
+      if (pos1 == -1)
+            return false;
 
-      // find first note, limiting search to the part left of the first '=',
-      // to prevent matching the second note in a "note1 = note2" metronome
-      int pos1 = TempoText::findTempoDuration(words.left(indEq), len1, dur);
+      int metroPos = pos1;
+      int metroLen = len1;
+      metroLeft = words.mid(pos1, len1);
+
       QRegExp eq("\\s*=\\s*");
       int pos2 = eq.indexIn(words, pos1 + len1);
       if (pos1 != -1 && pos2 == pos1 + len1) {
-            int len2 = eq.matchedLength();
-            if (words.length() > pos2 + len2) {
-                  QString s1 = words.mid(0, pos1);     // string to the left of metronome
-                  QString s2 = words.mid(pos1, len1);  // first note
-                  //QString s3 = words.mid(pos2, len2);  // equals sign
-                  QString s4 = words.mid(pos2 + len2); // string to the right of equals sign
-                  /*
-                  qDebug("found note and equals: '%s'%s'%s'%s'",
-                         qPrintable(s1),
-                         qPrintable(s2),
-                         qPrintable(s3),
-                         qPrintable(s4)
-                         );
-                   */
-
-                  // now determine what is to the right of the equals sign
-                  // must have either a (dotted) note or a number at start of s4
-                  int len3 = 0;
-                  // One or more digits, optionally followed by a single dot or comma and one or more digits
+            int lenEq = eq.pattern().size();
+            QString sAfterEq = words.mid(pos2 + lenEq);
+            int len3 = 0;
+            TDuration dur3;
+            int pos3 = TempoText::findTempoDuration(sAfterEq, len3, dur3);
+            if (pos3 == -1) {
+                  // did not find note, try to find a number
                   QRegExp nmb("\\d+([,\\.]{1}\\d+)?");
                   int pos3 = TempoText::findTempoDuration(s4, len3, dur);
                   if (pos3 == -1) {
@@ -4484,28 +4470,28 @@ static bool findMetronome(const QList<TextFragment>& list,
                         metroPos -= 1;           // move left one position
                         metroLen += 2;           // add length of '(' and ')'
                         }
-
-                  // calculate starting position corrected for surrogate pairs
-                  // (which were ignored by toPlainTextPlusSymbols())
-                  int corrPos = metroPos;
-                  for (int i = 0; i < metroPos; ++i)
-                        if (words.at(i).isHighSurrogate())
-                              --corrPos;
-                  metroPos = corrPos;
-
-                  /*
-                  qDebug("-> found '%s'%s' hasParen %d metro pos %d len %d",
-                         qPrintable(metroLeft),
-                         qPrintable(metroRight),
-                         hasParen, metroPos, metroLen
-                         );
-                   */
-                  QList<TextFragment> mid; // not used
-                  MScoreTextToMXML::split(list, metroPos, metroLen, wordsLeft, mid, wordsRight);
-                  return true;
                   }
             }
-      return false;
+
+      if (metroPos > 0 && words.at(metroPos - 1) == '(') {
+            if (words.size() > (metroPos + metroLen) && words.at(metroPos + metroLen) == ')') {
+                  hasParen = true;
+                  metroPos -= 1;
+                  metroLen += 2;
+                  }
+            }
+      // calculate starting position corrected for surrogate pairs
+      // (which were ignored by toPlainTextPlusSymbols())
+      int corrPos = metroPos;
+      for (int i = 0; i < metroPos; ++i) {
+      if (words.at(i).isHighSurrogate())
+            --corrPos;
+            }
+      metroPos = corrPos;
+
+      QList<TextFragment> mid;       // not used
+      MScoreTextToMXML::split(list, metroPos, metroLen, wordsLeft, mid, wordsRight);
+      return true;
       }
 
 //---------------------------------------------------------
@@ -4562,10 +4548,12 @@ static void wordsMetronome(XmlWriter& xml, Score* s, TextBase const* const text,
             TempoText::findTempoDuration(metroLeft, len1, dur);
             beatUnit(xml, dur);
 
-            if (TempoText::findTempoDuration(metroRight, len1, dur) != -1)
-                  beatUnit(xml, dur);
-            else
-                  xml.tag("per-minute", metroRight);
+            if (!metroRight.isEmpty()) {
+                  if (TempoText::findTempoDuration(metroRight, len1, dur) != -1)
+                        beatUnit(xml, dur);
+                  else
+                        xml.tag("per-minute", metroRight);
+                  }
 
             xml.etag();
             xml.etag();
