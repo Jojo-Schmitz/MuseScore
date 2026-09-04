@@ -61,7 +61,7 @@ class InstrumentFamily {
 //---------------------------------------------------------
 
 class InstrumentTemplate {
-      int staves;             // 1 <= MAX_STAVES
+      int staves = 1;             // 1 <= MAX_STAVES
 
    public:
       QString id;
@@ -71,17 +71,17 @@ class InstrumentTemplate {
       QString musicXMLid;         ///< used in MusicXML 3.0
       QString description;        ///< a longer description of the instrument
 
-      char minPitchA;         // pitch range playable by an amateur
-      char maxPitchA;
-      char minPitchP;         // pitch range playable by professional
-      char maxPitchP;
+      char minPitchA = 0;         // pitch range playable by an amateur
+      char maxPitchA = 127;
+      char minPitchP = 0;         // pitch range playable by professional
+      char maxPitchP = 127;
 
-      Interval transpose;     // for transposing instruments
+      Interval transpose;         // for transposing instruments
 
-      StaffGroup  staffGroup;
-      const StaffType* staffTypePreset;
-      bool useDrumset;
-      Drumset* drumset;
+      StaffGroup  staffGroup= StaffGroup::STANDARD;
+      const StaffType* staffTypePreset = nullptr;
+      bool useDrumset = false;
+      Drumset* drumset = nullptr;
 
       StringData stringData;
 
@@ -89,7 +89,7 @@ class InstrumentTemplate {
       QList<MidiArticulation> articulation;
       QList<Channel>          channel;
       QList<InstrumentGenre*> genres;     //; list of genres this instrument belongs to
-      InstrumentFamily*       family;     //; family the instrument belongs to
+      InstrumentFamily*       family = nullptr;     //; family the instrument belongs to
 
       ClefTypeList clefTypes[MAX_STAVES];
       int staffLines[MAX_STAVES];
@@ -98,9 +98,11 @@ class InstrumentTemplate {
       int barlineSpan[MAX_STAVES];
       bool smallStaff[MAX_STAVES];
 
-      bool extended;          // belongs to extended instrument set if true
+      bool extended = false;          // belongs to extended instrument set if true
 
-      bool singleNoteDynamics;
+      bool singleNoteDynamics = true;
+
+      GlissandoStyle glissandoStyle = GlissandoStyle::CHROMATIC;
 
       InstrumentTemplate();
       InstrumentTemplate(const InstrumentTemplate&);

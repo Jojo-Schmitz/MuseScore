@@ -13,6 +13,7 @@
 #include "instrtemplate.h"
 #include "bracket.h"
 #include "drumset.h"
+#include "property.h"
 #include "stafftype.h"
 #include "style.h"
 #include "sym.h"
@@ -152,19 +153,6 @@ void InstrumentGroup::clear()
 
 InstrumentTemplate::InstrumentTemplate()
       {
-      staves             = 1;
-      minPitchA          = 0;
-      maxPitchA          = 127;
-      minPitchP          = 0;
-      maxPitchP          = 127;
-      staffGroup         = StaffGroup::STANDARD;
-      staffTypePreset    = 0;
-      useDrumset         = false;
-      drumset            = 0;
-      extended           = false;
-      singleNoteDynamics = true;
-      family             = nullptr;
-
       for (int i = 0; i < MAX_STAVES; ++i) {
             clefTypes[i]._concertClef = ClefType::G;
             clefTypes[i]._transposingClef = ClefType::G;
@@ -218,8 +206,9 @@ void InstrumentTemplate::init(const InstrumentTemplate& t)
       stringData  = t.stringData;
       midiActions = t.midiActions;
       channel     = t.channel;
-      family     = t.family;
+      family      = t.family;
       singleNoteDynamics = t.singleNoteDynamics;
+      glissandoStyle     = t.glissandoStyle;
       }
 
 InstrumentTemplate::~InstrumentTemplate()
@@ -313,6 +302,8 @@ void InstrumentTemplate::write(XmlWriter& xml) const
       
       if (!singleNoteDynamics)      // default is true
             xml.tag("singleNoteDynamics", singleNoteDynamics);
+
+      xml.tag(Pid::GLISS_STYLE, int(glissandoStyle), int(GlissandoStyle::CHROMATIC));
 
       for (const NamedEventList& a : midiActions)
             a.write(xml, "MidiAction");
@@ -511,7 +502,7 @@ void InstrumentTemplate::read(XmlReader& e)
                   if (ttt)
                         init(*ttt);
                   else
-                        qDebug("InstrumentTemplate:: init instrument <%s> not found", qPrintable(val));
+                        qDebug("InstrumentTemplate: init instrument <%s> not found", qPrintable(val));
                   }
             else if (tag == "musicXMLid") {
                   musicXMLid = e.readElementText();
@@ -525,8 +516,13 @@ void InstrumentTemplate::read(XmlReader& e)
                   }
             else if (tag == "singleNoteDynamics")
                   singleNoteDynamics = e.readBool();
-            else if (tag == "glissandoStyle") // Mu4 compatibility
-                  e.skipCurrentElement();
+            else if (tag == "glissandoStyle") {
+                  QString val(e.readElementText());
+                  if (val == "portamento")
+                        glissandoStyle = GlissandoStyle::PORTAMENTO;
+                  else if (val == "diatonic")
+                        glissandoStyle = GlissandoStyle::DIATONIC;
+                  }
             else
                   e.unknown();
             }
