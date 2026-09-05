@@ -176,6 +176,10 @@ void TrackList::append(Element* e)
                               }
                         if (e->isChord()) {
                               Chord* chord = toChord(e);
+
+                              // Map between Chords and clonned chords
+                              _clonedChord.insert(std::make_pair(chord, toChord(element)));
+
                               bool akkumulateChord = true;
                               for (Note* n : chord->notes()) {
                                     if (!n->tieBack() || !n->tieBack()->generated()) {
@@ -268,6 +272,7 @@ bool TrackList::truncate(const Fraction& f)
 void TrackList::read(const Segment* fs, const Segment* es)
       {
       Fraction tick = fs->tick();
+      _clonedChord.clear();
 
       const Segment* s;
       for (s = fs; s && (s != es); s = s->next1()) {
@@ -319,6 +324,9 @@ void TrackList::read(const Segment* fs, const Segment* es)
       if (gap.isNotZero())
             appendGap(gap);
 
+      // Clone and rebuild Spanners
+      cloneAndRebuildSpanners(_clonedChord);
+
       //
       // connect ties
       //
@@ -352,6 +360,7 @@ void TrackList::read(const Segment* fs, const Segment* es)
                         }
                   }
             }
+      _clonedChord.clear();
       }
 
 //---------------------------------------------------------
@@ -481,6 +490,7 @@ bool TrackList::write(Score* score, const Fraction& tick) const
       {
       if ((_track % VOICES) && size() == 1 && at(0)->isRest())     // don’t write rests in voice > 0
             return true;
+      ClonedChordMap wClonedChord;
       Measure* measure = score->tick2measure(tick);
       Measure* m       = measure;
       Fraction remains = m->endTick() - tick;
@@ -545,6 +555,9 @@ bool TrackList::write(Score* score, const Fraction& tick) const
                                     remains  -= gd;
 
                                     if (cr->isChord()) {
+                                          // Map between Chords and clonned chords
+                                          wClonedChord.insert(std::make_pair(toChord(e), toChord(cr)));
+
                                           if (!firstpart && toChord(cr)->tremolo() && toChord(cr)->tremolo()->twoNotes()) { // remove partial two-note tremolo
                                                 if (toChord(e)->tremolo()->chord1() == toChord(e))
                                                       toChord(cr)->tremolo()->setChords(toChord(cr),nullptr);
@@ -613,6 +626,83 @@ bool TrackList::write(Score* score, const Fraction& tick) const
                   seg->add(ne);
                   }
             }
+
+      //---------------------------------------------------------
+      //   rebuildSpannerStartEndNotesWrite lambda function
+      //   (required to be a within function as write function es const
+      //---------------------------------------------------------
+      auto cloneAndRebuildSpannersWrite = [&](ClonedChordMap& cChordMap)
+      {
+            Chord* srcChord = nullptr;
+            Note* cNote = nullptr;
+            auto iter = cChordMap.begin();
+
+            // Clone Spanners from Chords
+            while (iter != cChordMap.end()) {
+                  srcChord = iter->first;
+
+                  //
+                  // Add For and Back Note's spanners to cloned Note
+                  //
+                  for (Note* n1 : srcChord->notes()) {
+                        cNote = clonedNote(n1, cChordMap);
+
+                        if (cNote) {
+                              for (Spanner* sp : n1->spannerFor()) {
+                                    if (sp->isGlissando()) {
+                                          qInfo() << "tpacebes spannerFor created";
+                                          Spanner* csp = toSpanner(sp->clone());
+                                          csp->setNoteSpan(cNote, toNote(csp->endElement()));
+                                          cNote->addSpannerFor(csp);
+                                          }
+                                    }
+                              for (Spanner* sp : n1->spannerBack()) {
+                                    if (sp->isGlissando()) {
+                                          qInfo() << "tpacebes spannerBack created";
+                                          Spanner* csp = toSpanner(sp->clone());
+                                          csp->setNoteSpan(toNote(csp->startElement()), cNote);
+                                          cNote->addSpannerBack(csp);
+                                          }
+                                    }
+                              }
+                        }
+                  ++iter;
+                  }
+
+            Chord* cChord = nullptr;
+            // Rebuild Spanner's start and end Notes
+            iter = cChordMap.begin();
+            while (iter != cChordMap.end()) {
+                  cChord = iter->second;
+
+                  for (Note* n1 : cChord->notes()) {
+                        for (Spanner* sp : n1->spannerFor()) {
+                              if (sp->isGlissando()) {
+                                    Note* endClonedNote = clonedNote(toNote(sp->endElement()), cChordMap);
+
+                                    if (endClonedNote)
+                                          sp->setNoteSpan(n1, endClonedNote);
+                                    }
+                              }
+
+                        for (Spanner* sp : n1->spannerBack()) {
+                              if (sp->isGlissando()) {
+                                    Note* startClonedNote = clonedNote(toNote(sp->startElement()), cChordMap);
+
+                                    if (startClonedNote)
+                                          sp->setNoteSpan(startClonedNote, n1);
+                                    }
+                              }
+                        }
+                  ++iter;
+                  }
+            };
+
+      //
+      // Rebuild Spanner's Start and End Notes
+      //
+      cloneAndRebuildSpannersWrite(wClonedChord);
+
       //
       // connect ties from measure->first() to segment
       //
@@ -820,5 +910,110 @@ void TrackList::dump() const
             }
       }
 
-}
+//---------------------------------------------------------
+//   clonedNote
+//---------------------------------------------------------
+Note* TrackList::clonedNote(const Note* srcNote, ClonedChordMap& cChordMap) const
+      {
+      Note* cNote = nullptr;
+      Chord* srcChord = srcNote->chord();
+      Chord* cChord = cChordMap[srcChord];
 
+      if ((srcChord) && (cChord)) {
+            int noteSrcPosition = 0;
+            int noteClonedPosition = 0;
+            bool noteFound = false;
+            // We presume notes where created in the same order in the srcChord and clonedChord
+            // Note position in sourceChord
+            for (Note* n : srcChord->notes()) {
+                  ++noteSrcPosition;
+                  if (srcNote == n) {
+                        noteFound = true;
+                        break;
+                        }
+                  }
+            if (noteFound) {
+                  // Note in clonedChord
+                  for (Note* n : cChord->notes()) {
+                        ++noteClonedPosition;
+                        if (noteClonedPosition == noteSrcPosition) {
+                              cNote = n;
+                              break;
+                              }
+                        }
+                  }
+            }
+      return cNote;
+      }
+
+//---------------------------------------------------------
+//   cloneAndRebuildSpanners
+//---------------------------------------------------------
+void TrackList::cloneAndRebuildSpanners(ClonedChordMap& cChordMap)
+      {
+      Chord* srcChord = nullptr;
+      Note* cNote = nullptr;
+      auto iter = cChordMap.begin();
+
+      // Clone Spanners from Chords
+      while (iter != cChordMap.end()) {
+            srcChord = iter->first;
+            qInfo() << "tpacebes Clone Spanners inside";
+
+            //
+            // Add For and Back Note's spanners to cloned Note
+            //
+            for (Note* n1 : srcChord->notes()) {
+                  cNote = clonedNote(n1, cChordMap);
+
+                  if (cNote) {
+                        for (Spanner* sp : n1->spannerFor()) {
+                              if (sp->isGlissando()) {
+                                    qInfo() << "tpacebes spannerFor created";
+                                    Spanner* csp = toSpanner(sp->clone());
+                                    csp->setNoteSpan(cNote, toNote(csp->endElement()));
+                                    cNote->addSpannerFor(csp);
+                                    }
+                              }
+                        for (Spanner* sp : n1->spannerBack()) {
+                              if (sp->isGlissando()) {
+                                    qInfo() << "tpacebes spannerBack created";
+                                    Spanner* csp = toSpanner(sp->clone());
+                                    csp->setNoteSpan(toNote(csp->startElement()), cNote);
+                                    cNote->addSpannerBack(csp);
+                                    }
+                              }
+                        }
+                  }
+            ++iter;
+            }
+
+      Chord* cChord = nullptr;
+      // Rebuild Spanner's start and end Notes
+      iter = cChordMap.begin();
+      while (iter != cChordMap.end()) {
+            cChord = iter->second;
+
+            for (Note* n1 : cChord->notes()) {
+                  for (Spanner* sp : n1->spannerFor()) {
+                        if (sp->isGlissando()) {
+                              Note* endClonedNote = clonedNote(toNote(sp->endElement()), cChordMap);
+
+                              if (endClonedNote)
+                                    sp->setNoteSpan(n1, endClonedNote);
+                              }
+                        }
+
+                  for (Spanner* sp : n1->spannerBack()) {
+                        if (sp->isGlissando()) {
+                              Note* startClonedNote = clonedNote(toNote(sp->startElement()), cChordMap);
+
+                              if (startClonedNote)
+                                    sp->setNoteSpan(startClonedNote, n1);
+                              }
+                        }
+                  }
+            ++iter;
+            }
+      }
+}
