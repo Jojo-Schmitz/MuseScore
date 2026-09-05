@@ -662,7 +662,7 @@ static int convertNote(const QString& s, NoteSpellingType noteSpelling, NoteCase
 //   parseHarmony
 //    determine root and bass tpc & case
 //    compare body of chordname against chord list
-//    return true if chord is recognized
+//    return nullptr if chord is not recognized
 //---------------------------------------------------------
 
 const ChordDescription* Harmony::parseHarmony(const QString& ss, int* root, int* base, bool syntaxOnly)
@@ -670,7 +670,7 @@ const ChordDescription* Harmony::parseHarmony(const QString& ss, int* root, int*
       _id = -1;
       if (_parsedForm) {
             delete _parsedForm;
-            _parsedForm = 0;
+            _parsedForm = nullptr;
             }
       _textName.clear();
       bool useLiteral = false;
@@ -682,7 +682,7 @@ const ChordDescription* Harmony::parseHarmony(const QString& ss, int* root, int*
             _textName = ss;
             *root = Tpc::TPC_INVALID;
             *base = Tpc::TPC_INVALID;
-            return 0;
+            return nullptr;
             }
 
       // pre-process for parentheses
@@ -694,7 +694,7 @@ const ChordDescription* Harmony::parseHarmony(const QString& ss, int* root, int*
       if (_leftParen || _rightParen)
             s = s.simplified();     // in case of spaces inside parentheses
       if (s.isEmpty())
-            return 0;
+            return nullptr;
 
       // pre-process for lower case minor chords
       bool preferMinor;
@@ -725,7 +725,7 @@ const ChordDescription* Harmony::parseHarmony(const QString& ss, int* root, int*
                         qDebug("failed <%s>", qPrintable(ss));
                         _userName = s;
                         _textName = s;
-                        return 0;
+                        return nullptr;
                         }
                   }
             *root = r;
@@ -750,7 +750,7 @@ const ChordDescription* Harmony::parseHarmony(const QString& ss, int* root, int*
 
       _userName = s;
       const ChordList* cl = score()->style().chordList();
-      const ChordDescription* cd = 0;
+      const ChordDescription* cd = nullptr;
       if (useLiteral)
             cd = descr(s);
       else {
@@ -1382,6 +1382,7 @@ QPoint Harmony::calculateBoundingRect()
       const qreal        standardNoteWidth = symWidth(SymId::noteheadBlack);
       qreal              newx = 0.0;
       qreal              newy = 0.0;
+      const bool alignToFretDiagram = fd && fd->visible();
 
       if (textList.empty()) {
             TextBase::layout1();
@@ -1391,7 +1392,7 @@ QPoint Harmony::calculateBoundingRect()
 
             qreal xx = 0.0;
             qreal yy = 0.0;
-            if (fd) {
+            if (alignToFretDiagram) {
                   if (align() & Align::RIGHT)
                         xx = fd->width() / 2.0;
                   yy = rypos();
@@ -1409,7 +1410,7 @@ QPoint Harmony::calculateBoundingRect()
             }
       else {
             QRectF bb;
-            for (TextSegment* ts : qAsConst(textList))
+            for (TextSegment*& ts : textList)
                   bb |= ts->tightBoundingRect().translated(ts->x, ts->y);
 
             qreal yy = -bb.y();  // Align::TOP
@@ -1421,7 +1422,7 @@ QPoint Harmony::calculateBoundingRect()
                   yy = -bb.height() - bb.y();
 
             qreal xx = -bb.x(); // Align::LEFT
-            if (fd) {
+            if (alignToFretDiagram) {
                   if (align() & Align::RIGHT)
                         xx = fd->bbox().width() - bb.width();
                   else if (align() & Align::HCENTER)
@@ -1440,7 +1441,7 @@ QPoint Harmony::calculateBoundingRect()
                   newy = ypos;
                   }
 
-            for (TextSegment* ts : qAsConst(textList))
+            for (TextSegment*& ts : textList)
                   ts->offset = QPointF(xx, yy);
 
             setbbox(bb.translated(xx, yy));
@@ -1458,6 +1459,10 @@ QPoint Harmony::calculateBoundingRect()
                         }
 
                   }
+            }
+      if (fd && !fd->visible()) {
+            // Translate to base position around note
+            newx -= fd->pos().x();
             }
       return QPoint(newx, newy);
       }
@@ -2232,11 +2237,13 @@ QVariant Harmony::propertyDefault(Pid id) const
                         }
                   }
                   break;
-            case Pid::OFFSET:
-                  if (parent() && parent()->isFretDiagram()) {
+            case Pid::OFFSET: {
+                  const FretDiagram* fd = parent() && parent()->isFretDiagram() ? toFretDiagram(parent()) : nullptr;
+                  if (fd && fd->visible()) {
                         v = QVariant(QPointF(0.0, 0.0));
                         break;
                         }
+                  }
                   // fall-through
             default:
                   v = TextBase::propertyDefault(id);
@@ -2252,7 +2259,8 @@ QVariant Harmony::propertyDefault(Pid id) const
 Sid Harmony::getPropertyStyle(Pid pid) const
       {
       if (pid == Pid::OFFSET) {
-            if (parent() && parent()->isFretDiagram())
+            const FretDiagram* fd = parent() && parent()->isFretDiagram() ? toFretDiagram(parent()) : nullptr;
+            if (fd && fd->visible())
                   return Sid::NOSTYLE;
             else if (tid() == Tid::HARMONY_A)
                   return placeAbove() ? Sid::chordSymbolAPosAbove : Sid::chordSymbolAPosBelow;
