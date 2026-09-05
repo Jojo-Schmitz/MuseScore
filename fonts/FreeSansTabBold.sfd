@@ -1,0 +1,576 @@
+SplineFontDB: 3.2
+FontName: FreeSansTabBold
+FullName: FreeSansTabBold
+FamilyName: FreeSansTabBold
+Weight: Bold
+Copyright: Copyright 2002, 2003, 2005, 2008, 2009, 2010, 2012 GNU Freefont contributors.
+Version: $Revision: 1 $
+ItalicAngle: 0
+UnderlinePosition: 0
+UnderlineWidth: 0
+Ascent: 800
+Descent: 200
+InvalidEm: 0
+LayerCount: 2
+Layer: 0 0 "Back" 1
+Layer: 1 0 "Fore" 0
+FSType: 0
+OS2Version: 3
+OS2_WeightWidthSlopeOnly: 0
+OS2_UseTypoMetrics: 0
+CreationTime: 1203284335
+ModificationTime: 1741468786
+PfmFamily: 33
+TTFWeight: 400
+TTFWidth: 5
+LineGap: 100
+VLineGap: 0
+Panose: 2 11 5 4 2 2 2 2 2 4
+OS2TypoAscent: 0
+OS2TypoAOffset: 1
+OS2TypoDescent: 0
+OS2TypoDOffset: 1
+OS2TypoLinegap: 100
+OS2WinAscent: 800
+OS2WinAOffset: 0
+OS2WinDescent: 200
+OS2WinDOffset: 0
+HheadAscent: -150
+HheadAOffset: 1
+HheadDescent: 438
+HheadDOffset: 1
+OS2SubXSize: 650
+OS2SubYSize: 666
+OS2SubXOff: 0
+OS2SubYOff: 200
+OS2SupXSize: 650
+OS2SupYSize: 666
+OS2SupXOff: 0
+OS2SupYOff: 390
+OS2StrikeYSize: 49
+OS2StrikeYPos: 258
+OS2FamilyClass: 2053
+OS2Vendor: 'GNU '
+Lookup: 260 0 0 "'abvm' Above Base Mark in Devanagari" { "'abvm' Above Base Mark in Devanagari-candrabindu"  "'abvm' Above Base Mark in Devanagari-anusvara"  "'abvm' Above Base Mark in Devanagari subtable"  } ['abvm' ('dev2' <'dflt' > 'deva' <'dflt' > ) ]
+Lookup: 260 0 0 "'blwm' Below Base Mark in Devanagari" { "'blwm' Below Base Mark in Devanagari subtable"  } ['blwm' ('dev2' <'dflt' > 'deva' <'dflt' > ) ]
+Lookup: 262 0 0 "'mkmk' Mark to Mark in Devanagari" { "'mkmk' Mark to Mark in Devanagari-above"  } ['mkmk' ('dev2' <'dflt' > 'deva' <'dflt' > ) ]
+Lookup: 260 0 0 "'abvm' Above Base Mark in Malayalam" { "'abvm' Above Base Mark in Malayalam-reph"  } ['abvm' ('mly2' <'dflt' > 'mlym' <'dflt' > ) ]
+Lookup: 260 0 0 "'blwm' Below Base Mark in Malay+AQEA-lam" { "'blwm' Below Base Mark in Malay+AQEA-lam-1"  } ['blwm' ('mly2' <'dflt' > 'mlym' <'dflt' > ) ]
+Lookup: 260 0 0 "'abvm' Above Base Mark in Gurmukhi" { "'abvm' Above Base Mark in Gurmukhi subtable"  "'abvm' Above Base Mark in Gurmukhi-mid"  } ['abvm' ('guru' <'dflt' > ) ]
+Lookup: 260 0 0 "'blwm' Below Base Mark in Gurmukhi" { "'blwm' Below Base Mark in Gurmukhi subtable"  "'blwm' Below Base Mark in Gurmukhi-nukta"  } ['blwm' ('guru' <'dflt' > ) ]
+Lookup: 262 0 0 "'mkmk' Mark to Mark in Gurmukhi" { "'mkmk' Mark to Mark in Gurmukhi"  } ['mkmk' ('guru' <'dflt' > ) ]
+Lookup: 260 0 0 "'blwm' Below Base Mark in Gurmukhi mid" { "'blwm' Below Base Mark in Gurmukhi mid"  } ['blwm' ('guru' <'dflt' > ) ]
+Lookup: 260 0 0 "'mark' Mark Positioning in Syriac" { "'mark' Mark Positioning in Syriac subtable"  } ['mark' ('syrc' <'dflt' > ) ]
+Lookup: 260 1 0 "'mark' Mark Positioning in Yiddish" { "'mark' Mark Positioning in Yiddish"  } ['mark' ('hebr' <'JII ' > ) ]
+Lookup: 260 1 0 "'mark' Mark Positioning in Hebrew 2" { "'mark' Mark Positioning in Hebrew 2 subtable"  } ['mark' ('hebr' <'IWR ' 'dflt' > ) ]
+Lookup: 260 257 0 "'mark' Mark Positioning in Hebrew" { "'mark' Mark Positioning in Hebrew subtable"  } ['mark' ('hebr' <'IWR ' 'JII ' 'dflt' > ) ]
+Lookup: 260 0 0 "'mark' Mark Positioning in Cyrillic" { "'mark' Mark Positioning in Cyrillic subtable"  } ['mark' ('cyrl' <'dflt' > ) ]
+Lookup: 262 0 0 "'mkmk' Mark to Mark in Cyrillic" { "'mkmk' Mark to Mark in Cyrillic subtable"  } ['mkmk' ('cyrl' <'dflt' > ) ]
+Lookup: 260 0 0 "'mark' Mark Positioning in Latin" { "'mark' Mark Positioning in Latin subtable"  "'mark' Mark Positioning in Latin subtable 2"  } ['mark' ('latn' <'dflt' > ) ]
+Lookup: 260 0 0 "'mark' Mark Positioning in Latin 1" { "'mark' Mark Positioning in Latin 1 subtable"  } ['mark' ('latn' <'dflt' > ) ]
+Lookup: 260 0 0 "'mark' Mark Positioning in Latin 2" { "'mark' Mark Positioning in Latin 2 subtable"  } ['mark' ('latn' <'dflt' > ) ]
+Lookup: 260 0 0 "'mark' Mark Positioning" { "'mark' Mark Positioning subtable"  } ['mark' ('DFLT' <'dflt' > 'armn' <'dflt' > 'beng' <'dflt' > 'bng2' <'dflt' > 'cyrl' <'dflt' > 'dev2' <'dflt' > 'deva' <'dflt' > 'geor' <'dflt' > 'gjr2' <'dflt' > 'grek' <'dflt' > 'gujr' <'dflt' > 'gur2' <'dflt' > 'hebr' <'dflt' > 'latn' <'dflt' > 'phnx' <'dflt' > 'syrc' <'dflt' > 'tml2' <'dflt' > 'ugar' <'dflt' > 'xpeo' <'dflt' > ) ]
+Lookup: 260 0 0 "'blwm' Below Base Mark in Gujarati" { "'blwm' Below Base Mark in Gujarati-nukta"  "'blwm' Below Base Mark in Gujarati subtable"  } ['blwm' ('gujr' <'dflt' > 'gjr2' <'dflt' > ) ]
+Lookup: 260 0 0 "'abvm' Above Base Mark in Gujarati" { "'abvm' Above Base Mark in Gujarati subtable"  } ['abvm' ('gujr' <'dflt' > 'gjr2' <'dflt' > ) ]
+Lookup: 258 0 0 "'kern' Horizontal Kerning in Cyrillic" { "'kern' Horizontal Kerning in Cyrillic-small" [150,0,0] "'kern' Horizontal Kerning in Cyrillic-capital" [150,0,0] } ['kern' ('cyrl' <'dflt' > ) ]
+Lookup: 258 0 0 "'kern' Horizontal Kerning in Latin" { "'kern' Horizontal Kerning in Latin-capital" [150,0,0] "'kern' Horizontal Kerning in Latin-small" [150,0,0] } []
+Lookup: 260 0 0 "'blwm' Below Base Mark in Bengali" { "'blwm' Below Base Mark in Bengali-nukta"  "'blwm' Below Base Mark in Bengali-matra"  } ['blwm' ('beng' <'dflt' > 'bng2' <'dflt' > ) ]
+MarkAttachClasses: 4
+"Heb_point" 222 afii57799 afii57801 afii57800 afii57802 hiriqhebrew tserehebrew segolhebrew patahhebrew qamatshebrew holamhebrew uni05BA afii57796 dageshhebrew afii57839 rafehebrew shindothebrew sindothebrew upperdothebrew uni05C5 uni05C7
+"Dev_above" 157 invcandrabindudeva candrabindudeva anusvaradeva oesigndeva ecandrasigndeva eshortsigndeva esigndeva aisigndeva udattadeva gravedeva acutedeva longecandradeva
+"Dev_below" 141 nuktadeva usigndeva uusigndeva rvocalicsigndeva rrvocalicsigndeva anudattadeva uesigndeva uuesigndeva lvocalicvowelsigndeva llvocalicsigndeva
+DEI: 91125
+KernClass2: 16 14 "'kern' Horizontal Kerning in Latin-small"
+ 73 a aacute agrave acircumflex adieresis aring abreve atilde amacron aogonek
+ 143 b c o p oacute ograve ocircumflex odieresis obreve oslash otilde omacron ohungarumlaut ccedilla ccircumflex ccaron cacute cdotaccent pdotaccent
+ 84 e ae oe eacute egrave ecircumflex ebreve edotaccent emacron ecaron eogonek edieresis
+ 14 d j ddotaccent
+ 4 f ff
+ 114 g q u gcommaaccent gbreve gdotaccent uacute ugrave ucircumflex ubreve udieresis utilde umacron uring uhungarumlaut
+ 61 h hdotaccent m n mdotaccent ntilde ncommaaccent nacute ncaron
+ 14 i l fi ffi ffl
+ 16 k x kcommaaccent
+ 8 r rcaron
+ 45 s scaron scedilla sacute sdotbelow sdotaccent
+ 31 t tcedilla tdotaccent tdotbelow
+ 47 v w y yacute ygrave ycircumflex ydieresis yhook
+ 26 z zcaron zacute zdotaccent
+ 20 dcaron lcaron tcaron
+ 170 c e d o oe q dcaron eacute egrave ecircumflex edieresis ebreve emacron ccedilla ccaron ccircumflex oacute ograve omacron ocircumflex odieresis obreve otilde ohungarumlaut
+ 109 a g ae gcommaaccent gbreve gdotaccent aacute agrave acircumflex adieresis aring abreve atilde amacron aogonek
+ 41 v w y yacute ygrave ycircumflex ydieresis
+ 1 j
+ 1 x
+ 37 m n ntilde ncommaaccent nacute ncaron
+ 45 s scaron scedilla sacute sdotbelow sdotaccent
+ 50 t f ff fl fi ffl ffi tcedilla tdotaccent tdotbelow
+ 8 r rcaron
+ 12 p pdotaccent
+ 79 u uacute ugrave ucircumflex ubreve udieresis utilde umacron uring uhungarumlaut
+ 31 h i l hdotaccent iacute iogonek
+ 30 z zcaron zacute zdotaccent ezh
+ 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} -10 {} -10 {} -20 {} 0 {} -15 {} -10 {} -10 {} -25 {} -10 {} 0 {} -10 {} -15 {} 0 {} 0 {} 0 {} -10 {} -20 {} 0 {} -25 {} -20 {} -15 {} -15 {} -10 {} -5 {} -10 {} -15 {} -10 {} 0 {} 0 {} -5 {} -20 {} 0 {} -25 {} -15 {} -10 {} -5 {} -5 {} 0 {} -5 {} -10 {} -5 {} 0 {} -20 {} -10 {} -20 {} -5 {} -20 {} -5 {} -20 {} -10 {} -10 {} -10 {} -10 {} -20 {} -10 {} 0 {} -20 {} -15 {} 0 {} 0 {} -20 {} -10 {} -20 {} 0 {} -5 {} 0 {} -5 {} -15 {} 0 {} 0 {} -20 {} -15 {} -20 {} 0 {} 0 {} 0 {} -10 {} -15 {} -10 {} -5 {} 0 {} -20 {} 0 {} 0 {} -20 {} -10 {} -30 {} -15 {} -15 {} -20 {} -15 {} -10 {} -15 {} -5 {} -15 {} -20 {} 0 {} 0 {} -20 {} -25 {} -20 {} 0 {} 0 {} 0 {} -10 {} -25 {} 0 {} 0 {} 0 {} -15 {} 0 {} 0 {} -25 {} -15 {} -20 {} 0 {} 0 {} -20 {} -10 {} -10 {} -20 {} -10 {} -20 {} -35 {} 0 {} 0 {} -15 {} -20 {} 0 {} 0 {} -10 {} -5 {} -10 {} 5 {} 0 {} 0 {} -5 {} 0 {} 0 {} 0 {} -10 {} -10 {} -30 {} -20 {} -40 {} -20 {} -10 {} -20 {} -20 {} -10 {} -15 {} -20 {} 0 {} 0 {} -20 {} -10 {} 0 {} 0 {} -20 {} -10 {} -10 {} -15 {} -10 {} 0 {} 0 {} -15 {} 0 {} 0 {} -20 {} -20 {} 0 {} -15 {} -15 {} -30 {} -20 {} 0 {} -20 {} -20 {} -20 {} -20 {} -20 {} 0 {} -20 {} -20 {} -20 {} -10 {} -20 {} -30 {} -20 {} -10 {} -30 {} -20 {} -25 {} -20 {} 0 {} 0 {} -80 {} -80 {} -142 {} -20 {} -50 {} -80 {} -80 {} 0 {} -50 {} -50 {} -50 {} 0 {} -60 {}
+KernClass2: 17 24 "'kern' Horizontal Kerning in Latin-capital"
+ 73 A Aacute Agrave Acircumflex Adieresis Abreve Atilde Aring Amacron Aogonek
+ 12 B Bdotaccent
+ 134 C D G Thorn Eth Yogh Ccedilla Cacute Ccircumflex Cdotaccent Ccaron Dcaron Dcroat Ddotaccent Gcircumflex Gbreve Gdotaccent Gcommaaccent
+ 73 E AE OE Eacute Egrave Ecircumflex Edieresis Etilde Ecaron Emacron Eogonek
+ 12 F Fdotaccent
+ 39 H I Iacute Igrave Icircumflex Idieresis
+ 1 J
+ 35 L Lslash Lcommaaccent Lacute Lcaron
+ 3 M N
+ 17 P Wynn Pdotaccent
+ 82 Q O Oacute Ograve Ocircumflex Odieresis Obreve Otilde Omacron Ohungarumlaut Oslash
+ 8 R Rcaron
+ 45 S Scaron Scedilla Sacute Sdotbelow Sdotaccent
+ 38 T Tcaron Tcedilla Tdotaccent Tdotbelow
+ 41 V W Y Yacute Ygrave Ycircumflex Ydieresis
+ 25 K X Z Zcaron Kcommaaccent
+ 76 A AE Aacute Agrave Acircumflex Adieresis Abreve Atilde Aring Amacron Aogonek
+ 41 V W Y Yacute Ygrave Ycircumflex Ydieresis
+ 178 C G O OE Q Ccedilla Cacute Ccircumflex Cdotaccent Ccaron Gcircumflex Gbreve Gdotaccent Gcommaaccent Oacute Ograve Ocircumflex Odieresis Obreve Otilde Omacron Ohungarumlaut Oslash
+ 128 c d o q oe eth ccedilla ccaron ccircumflex dcaron oacute ograve ocircumflex odieresis obreve omacron oslash otilde ohungarumlaut
+ 109 a g ae gcommaaccent gbreve gdotaccent aacute agrave acircumflex adieresis aring abreve atilde amacron aogonek
+ 41 v w y yacute ygrave ycircumflex ydieresis
+ 38 T Tcaron Tcedilla Tdotaccent Tdotbelow
+ 1 J
+ 1 j
+ 1 x
+ 75 m n z mdotaccent ntilde ncommaaccent nacute ncaron zcaron zacute zdotaccent
+ 45 s scaron scedilla sacute sdotbelow sdotaccent
+ 47 t f ff fi ffi ffl tcedilla tdotaccent tdotbelow
+ 28 X Z Zcaron Zacute Zdotaccent
+ 45 S Scaron Scedilla Sacute Sdotbelow Sdotaccent
+ 8 r rcaron
+ 12 p pdotaccent
+ 79 u uacute ugrave ucircumflex udieresis ubreve utilde umacron uring uhungarumlaut
+ 60 e eacute egrave ecircumflex edieresis ebreve emacron eogonek
+ 37 I Iacute Igrave Icircumflex Idieresis
+ 5 H M N
+ 103 E L Eacute Egrave Ecircumflex Edieresis Etilde Ecaron Emacron Eogonek Lslash Lcommaaccent Lacute Lcaron
+ 27 F K Fdotaccent Kcommaaccent
+ 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} -60 {} -40 {} -20 {} -20 {} -30 {} -40 {} 0 {} 0 {} 0 {} -30 {} -20 {} -30 {} -10 {} -30 {} -30 {} -20 {} -25 {} -15 {} -30 {} -40 {} -50 {} -55 {} 0 {} -30 {} -50 {} -30 {} 0 {} -10 {} -30 {} -50 {} 0 {} -20 {} -30 {} -30 {} -10 {} -10 {} -50 {} -20 {} -20 {} -10 {} -20 {} 0 {} -30 {} -40 {} -50 {} -55 {} 0 {} -40 {} -50 {} -20 {} 0 {} -20 {} -10 {} -40 {} 0 {} -30 {} -30 {} -30 {} -20 {} -20 {} -40 {} -10 {} -20 {} -20 {} -30 {} 0 {} -30 {} -40 {} -45 {} -50 {} 0 {} -20 {} -20 {} -40 {} -30 {} -30 {} -40 {} -20 {} -20 {} -30 {} -30 {} -40 {} -20 {} -30 {} -30 {} -50 {} -30 {} -20 {} -45 {} -20 {} -30 {} -40 {} -45 {} -50 {} 0 {} -40 {} -20 {} -30 {} -30 {} -30 {} -10 {} 0 {} -30 {} -20 {} -40 {} -50 {} -40 {} -20 {} -30 {} -40 {} -40 {} -30 {} -50 {} -20 {} -30 {} -40 {} -50 {} -55 {} 0 {} -40 {} -20 {} -45 {} -30 {} -40 {} -30 {} -10 {} -20 {} -20 {} -55 {} -50 {} -50 {} -10 {} -60 {} -35 {} -35 {} -25 {} -45 {} -20 {} -10 {} -40 {} -45 {} -50 {} 0 {} -40 {} -30 {} -30 {} -20 {} -30 {} -30 {} 0 {} 0 {} -20 {} -50 {} -40 {} -20 {} 0 {} -50 {} -30 {} -30 {} -20 {} -40 {} -15 {} -20 {} -40 {} -45 {} -55 {} 0 {} 0 {} -60 {} -40 {} -30 {} -20 {} -40 {} -40 {} 0 {} -10 {} 0 {} -40 {} -20 {} -30 {} 0 {} -40 {} -30 {} 0 {} -40 {} -25 {} -30 {} -40 {} -50 {} -55 {} 0 {} -40 {} -40 {} -20 {} -20 {} -10 {} -30 {} -20 {} -10 {} -20 {} -40 {} -30 {} -30 {} -10 {} -50 {} -30 {} -30 {} -30 {} -30 {} -20 {} -20 {} -30 {} -40 {} -45 {} 0 {} -60 {} -40 {} -20 {} -40 {} -50 {} 0 {} -30 {} -40 {} 0 {} -40 {} -40 {} -30 {} 0 {} -60 {} -30 {} -30 {} -20 {} -40 {} -30 {} -20 {} -40 {} -45 {} -50 {} 0 {} -30 {} -40 {} 0 {} 0 {} -20 {} 0 {} -40 {} 0 {} 0 {} 0 {} -20 {} 0 {} 0 {} -50 {} -20 {} -20 {} -10 {} -15 {} 0 {} -10 {} -30 {} -30 {} -40 {} 0 {} -10 {} -50 {} -10 {} -10 {} -10 {} -10 {} -20 {} 0 {} -10 {} 0 {} -10 {} -10 {} 0 {} -20 {} -20 {} -20 {} -10 {} -40 {} 0 {} -10 {} -30 {} -40 {} -55 {} 0 {} -30 {} -50 {} -20 {} 0 {} 0 {} -20 {} -40 {} 0 {} -10 {} -40 {} -20 {} 0 {} -10 {} -50 {} -10 {} -20 {} -10 {} -25 {} 0 {} -20 {} -30 {} -35 {} -40 {} 0 {} -50 {} -10 {} -40 {} -40 {} -40 {} -20 {} 0 {} -40 {} 0 {} -30 {} -40 {} -40 {} -20 {} -40 {} -40 {} -40 {} -30 {} -40 {} -25 {} -20 {} -30 {} -35 {} -40 {} 0 {} -60 {} 0 {} -50 {} -50 {} -50 {} 0 {} 0 {} -30 {} 0 {} -30 {} -60 {} -40 {} -20 {} -30 {} -50 {} -60 {} -40 {} -50 {} -30 {} -40 {} -50 {} -55 {} -60 {} 0 {} 0 {} 0 {} -50 {} -40 {} -30 {} -30 {} 0 {} 0 {} -10 {} -20 {} -40 {} -20 {} -30 {} 0 {} -50 {} -40 {} -30 {} -40 {} -30 {} -40 {} -50 {} -50 {} -55 {}
+KernClass2: 6 6 "'kern' Horizontal Kerning in Cyrillic-capital"
+ 33 Gecyrillic Tecyrillic Gjecyrillic
+ 24 Ucyrillic Ushortcyrillic
+ 10 Ercyrillic
+ 115 Ecyrillic Zecyrillic Ocyrillic Escyrillic Efcyrillic Hardsigncyrillic Softsigncyrillic Ereversedcyrillic IUcyrillic
+ 22 Kacyrillic Kjecyrillic
+ 571 acyrillic vecyrillic gecyrillic decyrillic iecyrillic zhecyrillic zecyrillic iicyrillic iishortcyrillic kacyrillic elcyrillic emcyrillic encyrillic ocyrillic pecyrillic ercyrillic escyrillic tecyrillic ucyrillic efcyrillic khacyrillic tsecyrillic checyrillic shacyrillic shchacyrillic hardsigncyrillic yericyrillic softsigncyrillic ereversedcyrillic iucyrillic iacyrillic iecyrillic_grave iocyrillic djecyrillic gjecyrillic ecyrillic dzecyrillic icyrillic yicyrillic jecyrillic ljecyrillic njecyrillic tshecyrillic kjecyrillic iicyrillic_grave ushortcyrillic dzhecyrillic
+ 70 Ecyrillic Zecyrillic Ocyrillic Escyrillic Efcyrillic Ereversedcyrillic
+ 9 Acyrillic
+ 10 Tecyrillic
+ 10 IAcyrillic
+ 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} 0 {} -20 {} -10 {} -20 {} 0 {} -10 {} 0 {} -40 {} -30 {} -50 {} 0 {} -20 {} 0 {} -10 {} -5 {} -30 {} 0 {} -5 {} 0 {} 0 {} 0 {} 0 {} -15 {} -10 {} 0 {} -20 {} -40 {} -10 {} -30 {} -10 {}
+KernClass2: 3 2 "'kern' Horizontal Kerning in Cyrillic-small"
+ 21 gecyrillic tecyrillic
+ 24 ucyrillic ushortcyrillic
+ 10 decyrillic
+ 0 {} 0 {} 0 {} -20 {} 0 {} -10 {}
+ShortTable: maxp 16
+  0
+  0
+  0
+  0
+  0
+  0
+  0
+  2
+  1
+  0
+  9
+  0
+  256
+  0
+  0
+  0
+EndShort
+LangName: 1066 "" "" "v+HusA-a"
+LangName: 1058 "" "" "+BD8EQARPBDwEVgQ5"
+LangName: 1055 "" "" "Normal"
+LangName: 1053 "" "" "Normal"
+LangName: 1034 "" "" "Normal"
+LangName: 1060 "" "" "Navadno"
+LangName: 1051 "" "" "Norm+AOEA-lne"
+LangName: 1049 "" "" "+BB4EMQRLBEcEPQRLBDkA"
+LangName: 1048 "" "" "Normal"
+LangName: 1046 "" "" "Normal"
+LangName: 1045 "" "" "Odmiana Zwyk+AUIA-a"
+LangName: 1044 "" "" "Normal"
+LangName: 1063 "" "" "normalusis"
+LangName: 1062 "" "" "vid+ARMA-js"
+LangName: 1040 "" "" "Medio"
+LangName: 1057 "" "" "menengah"
+LangName: 1038 "" "" "Norm+AOEA-l"
+LangName: 1081 "" "" "+CTgJPgkuCT4JKAlNCS8A"
+LangName: 1032 "" "" "+ALUDtQPDA7EDrwOx"
+LangName: 1031 "" "" "Mittel"
+LangName: 1036 "" "" "Normal"
+LangName: 1035 "" "" "Normaali"
+LangName: 1043 "" "" "Gemiddeld"
+LangName: 1030 "" "" "normal"
+LangName: 1029 "" "" "oby+AQ0A-ejn+AOkA"
+LangName: 1027 "" "" "Normal"
+LangName: 1026 "" "" "+BD0EPgRABDwEMAQ7BDUEPQAA"
+LangName: 1069 "" "" "Arrunta"
+LangName: 1033 "" "" "Regular" "" "" "" "" "" "GNU" "" "" "https://savannah.gnu.org/projects/freefont/" "" "This computer font is part of GNU FreeFont.  It is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.+AAoACgAA-This font is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.+AAoACgAA-You should have received a copy of the GNU General Public License along with this font.  If not, see +AAoA    http://www.gnu.org/licenses/+AAoACgAA-As a special exception, if you create a document which uses this font, and embed this font or unaltered portions of this font into the document, this font does not by itself cause the resulting document to be covered by the GNU General Public License. This exception does not however invalidate any other reasons why the document might be covered by the GNU General Public License. If you modify this font, you may extend this exception to your version of the font, but you are not obligated to do so. If you do not wish to do so, delete this exception statement from your version." "http://www.gnu.org/copyleft/gpl.html"
+GaspTable: 3 9 2 22 1 65535 3 0
+Encoding: Custom
+UnicodeInterp: none
+NameList: Adobe Glyph List
+DisplaySize: -36
+AntiAlias: 1
+FitToEm: 1
+WinInfo: 0 16 11
+BeginPrivate: 9
+UniqueID 7 5020902
+BlueValues 31 [-24 0 524 540 700 709 729 741]
+BlueScale 8 0.039625
+BlueFuzz 1 0
+StdHW 4 [82]
+StdVW 4 [93]
+StemSnapH 4 [82]
+StemSnapV 4 [93]
+ForceBold 5 false
+EndPrivate
+Grid
+-1000 467.5 m 0
+ 2000 467.5 l 1024
+-1000 357 m 0
+ 2000 357 l 1024
+-1000 522 m 0
+ 2000 522 l 1024
+-1001 416 m 0
+ 1999 416 l 1024
+EndSplineSet
+TeXData: 1 0 0 262144 131072 87381 549454 1048576 87381 783286 444596 497025 792723 393216 433062 380633 303038 157286 324010 404750 52429 2506097 1059062 262144
+AnchorClass2: "dev-candrabindu" "'abvm' Above Base Mark in Devanagari-candrabindu" "dev-anusvara" "'abvm' Above Base Mark in Devanagari-anusvara" "beng-matra" "'blwm' Below Base Mark in Bengali-matra" "beng-nukta" "'blwm' Below Base Mark in Bengali-nukta" "dev-rakaar" "'blwm' Below Base Mark in Devanagari subtable" "dev-belowmark" "'mkmk' Mark to Mark in Devanagari-above" "mlm-reph" "'abvm' Above Base Mark in Malayalam-reph" "mlm-below" "'blwm' Below Base Mark in Malay+AQEA-lam-1" "guj-nukta" "'blwm' Below Base Mark in Gujarati-nukta" "gur-top-mid" "'abvm' Above Base Mark in Gurmukhi-mid" "gur-nukta" "'blwm' Below Base Mark in Gurmukhi-nukta" "gur-top-mkmk" "'mkmk' Mark to Mark in Gurmukhi" "gur-below-mid" "'blwm' Below Base Mark in Gurmukhi mid" "guru_above" "'abvm' Above Base Mark in Gurmukhi subtable" "guru_below" "'blwm' Below Base Mark in Gurmukhi subtable" "syr_below" "'mark' Mark Positioning in Syriac subtable" "syr_above" "'mark' Mark Positioning in Syriac subtable" "above_mid_heb" "'mark' Mark Positioning in Hebrew subtable" "vowel_below_yiddish" "'mark' Mark Positioning in Yiddish" "vowel_above_heb" "'mark' Mark Positioning in Hebrew subtable" "vowel_left_heb" "'mark' Mark Positioning in Hebrew subtable" "vowel_below_heb" "'mark' Mark Positioning in Hebrew 2 subtable" "abovemk_cyr" "'mkmk' Mark to Mark in Cyrillic subtable" "topright" "'mark' Mark Positioning in Latin 2 subtable" "abovecyr" "'mark' Mark Positioning in Cyrillic subtable" "middle" "'mark' Mark Positioning subtable" "ogonek" "'mark' Mark Positioning in Latin subtable 2" "dev_above" "'abvm' Above Base Mark in Devanagari subtable" "gujr-0" "'abvm' Above Base Mark in Gujarati subtable" "dev_below" "'blwm' Below Base Mark in Devanagari subtable" "gujr-1" "'blwm' Below Base Mark in Gujarati subtable" "above" "'mark' Mark Positioning in Latin 1 subtable" "below" "'mark' Mark Positioning in Latin subtable"
+BeginChars: 121 13
+
+StartChar: slash
+Encoding: 47 47 0
+Width: 278
+Flags: HMW
+LayerCount: 2
+Fore
+SplineSet
+223.505122039 736.5 m 1
+ 294.241206399 736.5 l 1
+ 52 -21 l 1
+ -18 -21 l 1
+ 223.505122039 736.5 l 1
+EndSplineSet
+EndChar
+
+StartChar: zero
+Encoding: 48 48 1
+Width: 586
+Flags: HW
+AnchorPoint: "middle" 273 339 basechar 0
+LayerCount: 2
+Fore
+SplineSet
+290 -23 m 0
+ 124.266601562 -23 43 107.880859375 43 343 c 0
+ 43 479.329101562 69.37109375 566.775390625 108.482421875 622.149414062 c 0
+ 157.560546875 691.634765625 229.923877157 709 290 709 c 0
+ 480.555664062 709 537 538.982421875 537 337.120117188 c 0
+ 537 107.7578125 453.682617188 -23 290 -23 c 0
+432 344.880859375 m 0
+ 432 530.256835938 383.052865128 616 290 616 c 0
+ 196.946097019 616 148 531.26171875 148 341.959960938 c 0
+ 148 152.536132812 197.136024124 65 287.874476987 65 c 0
+ 384.169594992 65 432 148.7109375 432 344.880859375 c 0
+EndSplineSet
+EndChar
+
+StartChar: one
+Encoding: 49 49 2
+Width: 571
+Flags: HW
+AnchorPoint: "middle" 286 339 basechar 0
+LayerCount: 2
+Fore
+SplineSet
+260 -20 m 1
+ 259 497.5 l 1
+ 102 497.5 l 1
+ 102 497.5 102 569.4296875 102 571.98046875 c 1
+ 244.673828125 589.204101562 258.869140625 600.455078125 290.833984375 709 c 1
+ 362 709 l 1
+ 362 701.578125 362 -20 362 -20 c 1
+ 260 -20 l 1
+EndSplineSet
+EndChar
+
+StartChar: two
+Encoding: 50 50 3
+Width: 586
+Flags: HW
+AnchorPoint: "middle" 276 339 basechar 0
+LayerCount: 2
+Fore
+SplineSet
+152.4921875 675.787109375 m 0
+ 199.385848424 702.666015625 253.685813517 709 300.089708691 709 c 0
+ 444.278320312 709 541.39453125 620.979492188 541.39453125 493.5 c 0
+ 541.39453125 403.142578125 487.974609375 327.727539062 385.43285747 272.896484375 c 2
+ 385.43285747 265.396484375 279.486677199 211.39453125 279.486677199 218.89453125 c 2
+ 191.057315557 173.876953125 160.322265625 132.677734375 149.836914062 82 c 5
+ 536.39453125 82 l 1
+ 536.39453125 74.5 536.39453125 -27.5 536.39453125 -20 c 1
+ 34 -20 l 1
+ 42.02734375 136.533203125 75.033203125 213.986328125 242.157261748 306.034179688 c 2
+ 242.157261748 298.534179688 339.59281949 350.516601562 339.59281949 358.016601562 c 2
+ 404.768503527 393.170898438 436.39453125 438.830078125 436.39453125 491.5 c 0
+ 436.39453125 563.140625 377.73439622 617 296.911416397 617 c 0
+ 164.948140969 617 156.55546288 505.0546875 152.954101562 448 c 1
+ 50.181640625 448 l 1
+ 51.4638671875 493.745117188 55.2783203125 616.864257812 152.4921875 675.787109375 c 0
+EndSplineSet
+EndChar
+
+StartChar: three
+Encoding: 51 51 4
+Width: 586
+Flags: HW
+AnchorPoint: "middle" 266 364 basechar 0
+LayerCount: 2
+Fore
+SplineSet
+284.571357819 70 m 0
+ 378.358740049 70 431.5546875 118.001953125 431.5546875 200.543945312 c 0
+ 431.5546875 248.848632812 414.708817482 318.4609375 284.680060204 318.5 c 1
+ 245.565836418 317.502929688 l 1
+ 225.735415672 317.502929688 l 1
+ 225.735415672 317.502929688 225.735415672 403.03515625 225.735415672 405.177734375 c 1
+ 353.571490563 407.188476562 410.194045106 419.953125 410.194045106 506.272460938 c 0
+ 410.194045106 575.58984375 364.517303068 617 285.631464885 617 c 0
+ 163.299871701 617 152.197734814 535.217773438 150.36328125 465 c 1
+ 47.404296875 465 l 1
+ 48.5078125 520.506835938 52.251953125 709 284.571357819 709 c 0
+ 430.182617188 709 515.5546875 634.397460938 515.5546875 510.56640625 c 0
+ 515.5546875 444.5859375 486.2578125 395.334960938 428.8203125 367.106445312 c 1
+ 504.01171875 336.799804688 536.5546875 285.40625 536.5546875 200.912109375 c 0
+ 536.5546875 65.34765625 438.401367188 -23 281.391036622 -23 c 0
+ 62.73046875 -23 38.4716796875 130.392578125 32 221 c 1
+ 135.130859375 221 l 1
+ 139.344726562 148.66015625 157.136964121 70 284.571357819 70 c 0
+EndSplineSet
+EndChar
+
+StartChar: four
+Encoding: 52 52 5
+Width: 586
+Flags: HW
+AnchorPoint: "middle" 288 339 basechar 0
+LayerCount: 2
+Fore
+SplineSet
+550 162.5 m 1
+ 445 162.5 l 1
+ 446 -20 l 1
+ 336 -20 l 1
+ 337.056179775 162.5 l 1
+ 28 162.5 l 1
+ 28 162.5 28 262.655273438 28 264.029296875 c 1
+ 28 262.655273438 365.21925474 701.6015625 365.21925474 709 c 1
+ 445 709 l 1
+ 445 701.622070312 445 256.5 445 256.5 c 1
+ 550 256.5 l 1
+ 550 162.5 l 1
+127.094726562 256.5 m 1
+ 337.056179775 256.5 l 1
+ 337.056179775 535.646484375 l 1
+ 127.094726562 256.5 l 1
+EndSplineSet
+EndChar
+
+StartChar: five
+Encoding: 53 53 6
+Width: 586
+Flags: HW
+AnchorPoint: "middle" 273 339 basechar 0
+LayerCount: 2
+Fore
+SplineSet
+112.569335938 709 m 1
+ 507.610351562 709 l 1
+ 507.610351562 701.5 507.610351562 599.5 507.610351562 607 c 1
+ 199.078310667 607 l 1
+ 199.078310667 599.822265625 172.919836846 439.819335938 172.919836846 439.819335938 c 1
+ 212.566015207 463.770507812 252.942264825 474.5 301.24692284 474.5 c 0
+ 448.21875 474.5 544.610351562 376.209960938 544.610351562 234.616210938 c 0
+ 544.610351562 83.2265625 441.317382812 -23 286.422133122 -23 c 0
+ 76.478515625 -23 46.7666015625 128.861328125 36.75 180.053710938 c 2
+ 36.75 187.553710938 35 196.5 35 189 c 1
+ 137.897460938 189 l 1
+ 151.041992188 138.927734375 177.600152015 70 284.30430602 70 c 0
+ 381.613704543 70 439.610351562 126.580078125 439.610351562 222.8203125 c 0
+ 439.610351562 322.169921875 380.300403556 381.5 284.30430602 381.5 c 0
+ 221.068346475 381.5 190.548058827 360.864257812 150.61328125 315.5 c 1
+ 57.509765625 315.5 l 1
+ 57.509765625 315.5 112.569335938 701.640625 112.569335938 709 c 1
+EndSplineSet
+EndChar
+
+StartChar: six
+Encoding: 54 54 7
+Width: 586
+Flags: HW
+AnchorPoint: "middle" 286 339 basechar 0
+LayerCount: 2
+Fore
+SplineSet
+296.183673469 -23 m 0
+ 105.133789062 -23 43 126.750976562 43 323.401367188 c 0
+ 43 467.202148438 72.7763671875 559.428710938 116.116210938 617.724609375 c 0
+ 170.903220663 690.8046875 250.251514668 709 313.163265306 709 c 0
+ 431.303710938 709 510.47265625 636.653320312 527.920898438 517.594726562 c 2
+ 527.920898438 510.094726562 529.1796875 501.5 529.1796875 509 c 1
+ 426.385742188 509 l 1
+ 421.310746173 533.174804688 403.215003189 616 306.795918367 616 c 0
+ 211.051498724 616 153.795898438 536.97265625 148.424804688 383.63671875 c 1
+ 188.476642219 426.352539062 244.238600128 448.5 312.102040816 448.5 c 0
+ 449.678710938 448.5 543 353.252929688 543 219.640625 c 0
+ 543 79.0830078125 442.668945312 -23 296.183673469 -23 c 0
+438 212.75 m 0
+ 438 302.266601562 385.900669643 355.5 300.428571429 355.5 c 0
+ 212.367665816 355.5 153 299.625976562 153 217.622070312 c 0
+ 153 132.286132812 215.160634566 70 297.244897959 70 c 0
+ 378.374681122 70 438 129.408203125 438 212.75 c 0
+EndSplineSet
+EndChar
+
+StartChar: seven
+Encoding: 55 55 8
+Width: 586
+Flags: HW
+AnchorPoint: "middle" 273 365 basechar 0
+LayerCount: 2
+Fore
+SplineSet
+46 709 m 1
+ 550 709 l 1
+ 550 701.5 550 617.498046875 550 624.998046875 c 1
+ 366.453878012 385.458984375 288.4765625 187.765625 250.630859375 -20 c 1
+ 136.100585938 -20 l 1
+ 188.107421875 203.112304688 250.303652108 353.405273438 437.109375 607 c 1
+ 46 607 l 1
+ 46 599.5 46 701.5 46 709 c 1
+EndSplineSet
+EndChar
+
+StartChar: eight
+Encoding: 56 56 9
+Width: 586
+Flags: HW
+AnchorPoint: "middle" 275 354 basechar 0
+LayerCount: 2
+Fore
+SplineSet
+150.419921875 373.15234375 m 1
+ 85.806640625 414.975585938 62 452.681640625 62 516.4453125 c 0
+ 62 629.8203125 154.296875 709 290 709 c 0
+ 426.711914062 709 518 629.788085938 518 516.4453125 c 0
+ 518 451.838867188 494.216796875 414.044921875 428.852539062 373.083007812 c 1
+ 504.774414062 333.864257812 543 275.34765625 543 198.952148438 c 0
+ 543 68.1669921875 440.921875 -23 290 -23 c 0
+ 139.0625 -23 37 68.1923828125 37 199.931640625 c 0
+ 37 275.466796875 75.267578125 333.936523438 150.419921875 373.15234375 c 1
+412.402390438 514.303710938 m 0
+ 412.402390438 576.62109375 365.977823083 616 290 616 c 0
+ 215.032261579 616 167.597609562 576.518554688 167.597609562 515.267578125 c 0
+ 167.597609562 455.030273438 214.999144049 415.5 290 415.5 c 0
+ 365.035008404 415.5 412.402390438 455.080078125 412.402390438 514.303710938 c 0
+438 198.735351562 m 0
+ 438 275.1953125 379.54359126 326.5 290 326.5 c 0
+ 200.45640874 326.5 142 275.1953125 142 198.735351562 c 0
+ 142 122.182617188 200.61475193 70 287.880478088 70 c 0
+ 379.5953374 70 438 121.309570312 438 198.735351562 c 0
+EndSplineSet
+EndChar
+
+StartChar: nine
+Encoding: 57 57 10
+Width: 586
+Flags: HW
+AnchorPoint: "middle" 269 339 basechar 0
+LayerCount: 2
+Fore
+SplineSet
+284.786585366 709 m 0
+ 474.799804688 709 539 561.2890625 539 362.598632812 c 0
+ 539 218.791015625 509.021484375 126.555664062 465.456054688 68.259765625 c 0
+ 410.34952601 -4.8125 330.704863758 -23 267.81097561 -23 c 0
+ 149.696289062 -23 70.52734375 49.3466796875 53.0791015625 168.405273438 c 2
+ 53.0791015625 175.905273438 51.8203125 184.5 51.8203125 177 c 1
+ 154.614257812 177 l 1
+ 159.68885766 152.825195312 177.780356803 70 274.176829268 70 c 0
+ 370.207555259 70 427.555664062 149.5546875 432.625976562 303.897460938 c 1
+ 387.307498095 258.240234375 336.23250524 237.5 269.932926829 237.5 c 0
+ 131.34765625 237.5 38 332.731445312 38 466.359375 c 0
+ 38 606.916992188 138.331054688 709 284.786585366 709 c 0
+428 468.390625 m 0
+ 428 554.7421875 365.768864329 617 283.725609756 617 c 0
+ 202.637647675 617 143 557.622070312 143 473.262695312 c 0
+ 143 383.73828125 195.090629764 330.5 280.542682927 330.5 c 0
+ 367.483624714 330.5 428 387.387695312 428 468.390625 c 0
+EndSplineSet
+EndChar
+
+StartChar: X
+Encoding: 88 88 11
+Width: 687
+Flags: HW
+AnchorPoint: "middle" 330 374 basechar 0
+AnchorPoint: "above" 336 729 basechar 0
+AnchorPoint: "below" 326 0 basechar 0
+LayerCount: 2
+Fore
+SplineSet
+352.935928707 449.178710938 m 1
+ 352.935928707 441.678710938 543.93359375 723.5 543.93359375 731 c 1
+ 543.93359375 723.5 673.60546875 723.5 673.60546875 731 c 1
+ 673.60546875 723.651367188 417.419479283 373.611328125 417.419479283 373.798828125 c 1
+ 417.419479283 373.611328125 685.569335938 7.3486328125 685.569335938 0 c 1
+ 685.569335938 7.5 552.23046875 7.5 552.23046875 0 c 1
+ 552.23046875 7.5 349.787347548 305.331054688 349.787347548 297.831054688 c 1
+ 349.787347548 305.331054688 146.327148438 7.5 146.327148438 0 c 1
+ 146.327148438 7.5 15 7.5 15 -0 c 1
+ 15 7.3486328125 283.251388513 373.64453125 283.251388513 373.833007812 c 1
+ 283.251388513 373.64453125 31.095703125 721.651367188 31.095703125 729 c 1
+ 162.95530749 729 l 1
+ 162.95530749 721.5 352.935928707 441.678710938 352.935928707 449.178710938 c 1
+EndSplineSet
+EndChar
+
+StartChar: x
+Encoding: 120 120 12
+Width: 506
+Flags: HW
+AnchorPoint: "topright" 373 540 basechar 0
+AnchorPoint: "above" 248 538 basechar 0
+AnchorPoint: "middle" 239 270 basechar 0
+AnchorPoint: "below" 237 0 basechar 0
+LayerCount: 2
+Fore
+SplineSet
+262.8203125 340.069335938 m 1
+ 262.8203125 332.569335938 392.294921875 516.5 392.294921875 524 c 1
+ 392.294921875 516.5 504.672851562 516.5 504.672851562 524 c 1
+ 504.672851562 516.708984375 319.160043005 270.424804688 319.160043005 270.666015625 c 1
+ 319.160043005 270.424804688 509.34765625 7.291015625 509.34765625 0 c 1
+ 509.34765625 7.5 394.256835938 7.5 394.256835938 0 c 1
+ 394.256835938 7.5 259.829244428 202.337890625 259.829244428 194.837890625 c 1
+ 259.829244428 202.337890625 123.350585938 7.5 123.350585938 0 c 1
+ 123.350585938 7.5 10 7.5 10 -0 c 1
+ 10 7.291015625 204.334800171 266.760742188 204.334800171 266.896484375 c 1
+ 204.334800171 266.760742188 20.140625 516.708984375 20.140625 524 c 1
+ 133.345703125 524 l 1
+ 133.345703125 516.5 262.8203125 332.569335938 262.8203125 340.069335938 c 1
+EndSplineSet
+EndChar
+EndChars
+EndSplineFont
