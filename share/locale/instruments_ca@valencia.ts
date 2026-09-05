@@ -2390,7 +2390,7 @@
         <location filename="../instruments/instrumentsxml.h" line="258"/>
         <source>B♭ S. Oc.</source>
         <comment>B♭ Soprano Ocarina</comment>
-        <translation>Oc. Sop. Si♭ </translation>
+        <translation>Oc. Sop. Si♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="268"/>
@@ -7817,7 +7817,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="16"/>
         <source>Liturgical Unmetrical</source>
-        <translation>Litúrgica sense mesura </translation>
+        <translation>Litúrgica sense mesura</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="17"/>
@@ -7847,7 +7847,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="22"/>
         <source>Saxophone Quartet</source>
-        <translation>Quartet de saxofons </translation>
+        <translation>Quartet de saxofons</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="23"/>
@@ -7922,7 +7922,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="37"/>
         <source>Band and Percussion</source>
-        <translation>Banda i percussió </translation>
+        <translation>Banda i percussió</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="38"/>

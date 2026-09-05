@@ -222,7 +222,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="287"/>
         <source>Garklein Recorder</source>
-        <translation>Mionfhliúit Shasanach </translation>
+        <translation>Mionfhliúit Shasanach</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="289"/>
@@ -1365,7 +1365,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="944"/>
         <source>Orff Soprano Glockenspiel</source>
-        <translation>Glocainspíl Sopráin </translation>
+        <translation>Glocainspíl Sopráin</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="946"/>
@@ -1546,7 +1546,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1083"/>
         <source>Finger Cymbals</source>
-        <translation>Méarchiombail </translation>
+        <translation>Méarchiombail</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1085"/>
@@ -6754,7 +6754,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1730"/>
         <source>D Vne.</source>
         <comment>D Violone</comment>
-        <translation>D Víolón </translation>
+        <translation>D Víolón</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1342"/>

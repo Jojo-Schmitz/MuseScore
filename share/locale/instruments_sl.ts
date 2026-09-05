@@ -232,7 +232,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="291"/>
         <source>Soprano Recorder</source>
-        <translation> Sopranska kljunasta flavta</translation>
+        <translation>Sopranska kljunasta flavta</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="293"/>

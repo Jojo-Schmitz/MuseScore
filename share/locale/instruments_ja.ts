@@ -1681,7 +1681,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1149"/>
         <source>Whip</source>
-        <translation>ウィップ </translation>
+        <translation>ウィップ</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1151"/>
@@ -4024,7 +4024,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="593"/>
         <source>Horn in C alto</source>
-        <translation>C アルト ホルン </translation>
+        <translation>C アルト ホルン</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="594"/>
@@ -5741,7 +5741,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1176"/>
         <source>Percussion - Marching</source>
-        <translation>マーチング パーカッション </translation>
+        <translation>マーチング パーカッション</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1178"/>

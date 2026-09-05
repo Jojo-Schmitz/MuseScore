@@ -7288,7 +7288,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1464"/>
         <location filename="../instruments/instrumentsxml.h" line="1473"/>
         <source>distortion</source>
-        <translation>säröinen </translation>
+        <translation>säröinen</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1465"/>

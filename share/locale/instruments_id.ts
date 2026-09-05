@@ -26,7 +26,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="200"/>
         <source>Sub Contra-alto Flute</source>
-        <translation>Seruling Sub Kontra-alto  </translation>
+        <translation>Seruling Sub Kontra-alto <translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="202"/>

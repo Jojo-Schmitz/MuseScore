@@ -307,7 +307,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="330"/>
         <source>Heckelphone</source>
-        <translation>Гекельфон </translation>
+        <translation>Гекельфон</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="334"/>

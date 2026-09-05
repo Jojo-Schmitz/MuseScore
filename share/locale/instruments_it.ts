@@ -2072,7 +2072,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="132"/>
         <source>Keyboard Percussion</source>
-        <translation>Percussioni a tastiera </translation>
+        <translation>Percussioni a tastiera</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="152"/>
@@ -2181,7 +2181,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="189"/>
         <source>E♭ Piccolo</source>
-        <translation>Ottavino in Mi♭ </translation>
+        <translation>Ottavino in Mi♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="190"/>
@@ -2858,7 +2858,7 @@
         <location filename="../instruments/instrumentsxml.h" line="266"/>
         <source>B♭ A. Oc.</source>
         <comment>B♭ Alto Ocarina</comment>
-        <translation>Ocr. C. in Si♭ </translation>
+        <translation>Ocr. C. in Si♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="272"/>
@@ -7734,7 +7734,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1749"/>
         <source>String Ensemble</source>
-        <translation>Ensemble di archi </translation>
+        <translation>Ensemble di archi</translation>
     </message>
 </context>
 <context>
@@ -7762,7 +7762,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="5"/>
         <source>Grand Staff</source>
-        <translation>Doppio pentagramma </translation>
+        <translation>Doppio pentagramma</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="6"/>

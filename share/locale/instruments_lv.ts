@@ -222,7 +222,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="287"/>
         <source>Garklein Recorder</source>
-        <translation>Garklein blokflauta </translation>
+        <translation>Garklein blokflauta</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="289"/>

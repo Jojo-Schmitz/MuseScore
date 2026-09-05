@@ -563,7 +563,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="458"/>
         <source>Chalumeau</source>
-        <translation>Chalumeau </translation>
+        <translation>Chalumeau</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="460"/>

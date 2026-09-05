@@ -4594,7 +4594,7 @@
         <location filename="../instruments/instrumentsxml.h" line="897"/>
         <source>E♭ Tb.</source>
         <comment>E♭ Tuba</comment>
-        <translation>Tba. mi♭ </translation>
+        <translation>Tba. mi♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="900"/>
@@ -4643,14 +4643,14 @@
         <location filename="../instruments/instrumentsxml.h" line="916"/>
         <location filename="../instruments/instrumentsxml.h" line="918"/>
         <source>B♭ Sousaphone</source>
-        <translation>Sousafón B♭ </translation>
+        <translation>Sousafón B♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="917"/>
         <location filename="../instruments/instrumentsxml.h" line="919"/>
         <source>B♭ Sphn.</source>
         <comment>B♭ Sousaphone</comment>
-        <translation>Sousaf. B♭ </translation>
+        <translation>Sousaf. B♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="920"/>
@@ -4661,7 +4661,7 @@
         <location filename="../instruments/instrumentsxml.h" line="922"/>
         <source>Wag. Tb.</source>
         <comment>Wagner Tuba</comment>
-        <translation>Tba. Wagn. </translation>
+        <translation>Tba. Wagn.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="924"/>
@@ -7817,7 +7817,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="16"/>
         <source>Liturgical Unmetrical</source>
-        <translation>Litúrxico sen métrica </translation>
+        <translation>Litúrxico sen métrica</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="17"/>
@@ -7952,7 +7952,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="43"/>
         <source>Battery Percussion</source>
-        <translation>Bateria Percusión </translation>
+        <translation>Bateria Percusión</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="44"/>

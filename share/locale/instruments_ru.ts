@@ -61,7 +61,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="216"/>
         <source>Danso</source>
-        <translation> Тансо</translation>
+        <translation>Тансо</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="218"/>
@@ -222,7 +222,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="287"/>
         <source>Garklein Recorder</source>
-        <translation>Блок-флейта гаркляйн </translation>
+        <translation>Блок-флейта гаркляйн</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="289"/>
@@ -4576,7 +4576,7 @@
         <location filename="../instruments/instrumentsxml.h" line="888"/>
         <source>Euph.</source>
         <comment>Euphonium</comment>
-        <translation>Эуф </translation>
+        <translation>Эуф</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="891"/>
@@ -4644,7 +4644,7 @@
         <location filename="../instruments/instrumentsxml.h" line="916"/>
         <location filename="../instruments/instrumentsxml.h" line="918"/>
         <source>B♭ Sousaphone</source>
-        <translation>B♭ Сузафон </translation>
+        <translation>B♭ Сузафон</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="917"/>
@@ -4709,7 +4709,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="937"/>
         <source>Percussion - Pitched</source>
-        <translation>Перкусcия&#xa0;— с определенной высотой звучания</translation>
+        <translation>Перкусcия — с определенной высотой звучания</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="939"/>
@@ -4949,7 +4949,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1030"/>
         <source>Percussion - Unpitched</source>
-        <translation>Перкуссия&#xa0;— без определенной высоты звучания</translation>
+        <translation>Перкуссия — без определенной высоты звучания</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1032"/>
@@ -5771,7 +5771,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1188"/>
         <source>Percussion - Body</source>
-        <translation>Перкуссия&#xa0;— тело</translation>
+        <translation>Перкуссия — тело</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1190"/>
@@ -6227,7 +6227,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1320"/>
         <source>Warm Synthesizer</source>
-        <translation>Теплый Синтезатор </translation>
+        <translation>Теплый Синтезатор</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1321"/>
@@ -6845,7 +6845,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1343"/>
         <source>Mal. Syn.</source>
         <comment>Mallet Synthesizer</comment>
-        <translation>Мол.Си. </translation>
+        <translation>Мол.Си.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1357"/>
@@ -6857,7 +6857,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1368"/>
         <source>Perc. Syn.</source>
         <comment>Percussion Synthesizer</comment>
-        <translation>Син. Уд. </translation>
+        <translation>Син. Уд.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1369"/>
@@ -7803,7 +7803,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="13"/>
         <source>Voice + Piano</source>
-        <translation>Голос + Фортепиано </translation>
+        <translation>Голос + Фортепиано</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="14"/>

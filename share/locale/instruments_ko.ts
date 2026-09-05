@@ -141,7 +141,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="255"/>
         <source>Ocarina</source>
-        <translation>오카리나 </translation>
+        <translation>오카리나</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="259"/>
@@ -217,7 +217,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="285"/>
         <source>Recorder</source>
-        <translation>리코더 </translation>
+        <translation>리코더</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="287"/>
@@ -232,27 +232,27 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="291"/>
         <source>Soprano Recorder</source>
-        <translation>소프라노 리코더 </translation>
+        <translation>소프라노 리코더</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="293"/>
         <source>Alto Recorder</source>
-        <translation>알토 리코더 </translation>
+        <translation>알토 리코더</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="295"/>
         <source>Tenor Recorder</source>
-        <translation>테너 리코더 </translation>
+        <translation>테너 리코더</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="297"/>
         <source>Bass Recorder</source>
-        <translation>베이스 리코더 </translation>
+        <translation>베이스 리코더</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="301"/>
         <source>Contrabass Recorder</source>
-        <translation>콘트라베이스 리코더 </translation>
+        <translation>콘트라베이스 리코더</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="299"/>
@@ -267,22 +267,22 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="305"/>
         <source>B♭ Tin Whistle</source>
-        <translation>휘슬 </translation>
+        <translation>휘슬</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="311"/>
         <source>Piccolo Oboe</source>
-        <translation>피콜로 오보에 </translation>
+        <translation>피콜로 오보에</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="313"/>
         <source>Oboe</source>
-        <translation>오보에 </translation>
+        <translation>오보에</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="315"/>
         <source>Baroque Oboe</source>
-        <translation>바로크 오보에 </translation>
+        <translation>바로크 오보에</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="317"/>
@@ -498,17 +498,17 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="410"/>
         <source>Clarinet</source>
-        <translation>클라리넷 </translation>
+        <translation>클라리넷</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="412"/>
         <source>Piccolo Clarinet</source>
-        <translation>피콜로 클라리넷 </translation>
+        <translation>피콜로 클라리넷</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="414"/>
         <source>Soprano Clarinet</source>
-        <translation>소프라노 클라리넷 </translation>
+        <translation>소프라노 클라리넷</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="418"/>
@@ -548,7 +548,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="434"/>
         <source>Bass Clarinet</source>
-        <translation>베이스 클라리넷 </translation>
+        <translation>베이스 클라리넷</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="446"/>
@@ -558,7 +558,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="448"/>
         <source>Contrabass Clarinet</source>
-        <translation>콘트라베이스 클라리넷 </translation>
+        <translation>콘트라베이스 클라리넷</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="458"/>
@@ -603,12 +603,12 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="474"/>
         <source>Bassoon</source>
-        <translation>바순 </translation>
+        <translation>바순</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="476"/>
         <source>Contrabassoon</source>
-        <translation>콘트라바순 </translation>
+        <translation>콘트라바순</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="478"/>
@@ -743,7 +743,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="531"/>
         <source>Harmonica</source>
-        <translation>하모니카 </translation>
+        <translation>하모니카</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="533"/>
@@ -828,7 +828,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="565"/>
         <source>Accordion</source>
-        <translation>아코디언 </translation>
+        <translation>아코디언</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="567"/>
@@ -975,12 +975,12 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="696"/>
         <source>Trumpet</source>
-        <translation>트럼펫 </translation>
+        <translation>트럼펫</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="700"/>
         <source>Piccolo Trumpet</source>
-        <translation>피콜로 트럼펫 </translation>
+        <translation>피콜로 트럼펫</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="704"/>
@@ -1025,12 +1025,12 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="748"/>
         <source>Tenor Trumpet</source>
-        <translation>테너 트럼펫 </translation>
+        <translation>테너 트럼펫</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="752"/>
         <source>Bass Trumpet</source>
-        <translation>베이스 트럼펫 </translation>
+        <translation>베이스 트럼펫</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="756"/>
@@ -1050,7 +1050,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="768"/>
         <source>Baroque Trumpet</source>
-        <translation>바로크 트럼펫 </translation>
+        <translation>바로크 트럼펫</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="772"/>
@@ -1201,7 +1201,7 @@
         <location filename="../instruments/instrumentsxml.h" line="854"/>
         <location filename="../instruments/instrumentsxml.h" line="858"/>
         <source>Trombone</source>
-        <translation>트롬본 </translation>
+        <translation>트롬본</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="860"/>
@@ -1252,7 +1252,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="890"/>
         <source>Tuba</source>
-        <translation>튜바 </translation>
+        <translation>튜바</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="892"/>
@@ -1616,7 +1616,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1118"/>
         <source>Cymbal</source>
-        <translation>심벌 </translation>
+        <translation>심벌</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1120"/>
@@ -1766,7 +1766,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1186"/>
         <source>Cymbals</source>
-        <translation>심벌즈 </translation>
+        <translation>심벌즈</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1197"/>
@@ -1794,14 +1794,14 @@
         <location filename="../instruments/instrumentsxml.h" line="1207"/>
         <location filename="../instruments/instrumentsxml.h" line="1209"/>
         <source>Mezzo-soprano</source>
-        <translation>메조-소프라노 </translation>
+        <translation>메조-소프라노</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1212"/>
         <location filename="../instruments/instrumentsxml.h" line="1214"/>
         <location filename="../instruments/instrumentsxml.h" line="1236"/>
         <source>Alto</source>
-        <translation>알토 </translation>
+        <translation>알토</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1217"/>
@@ -1818,19 +1818,19 @@
         <location filename="../instruments/instrumentsxml.h" line="1223"/>
         <location filename="../instruments/instrumentsxml.h" line="1239"/>
         <source>Tenor</source>
-        <translation>테너 </translation>
+        <translation>테너</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1226"/>
         <location filename="../instruments/instrumentsxml.h" line="1228"/>
         <source>Baritone</source>
-        <translation>바리톤 </translation>
+        <translation>바리톤</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1231"/>
         <location filename="../instruments/instrumentsxml.h" line="1240"/>
         <source>Bass</source>
-        <translation>베이스 </translation>
+        <translation>베이스</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1241"/>
@@ -1841,17 +1841,17 @@
         <location filename="../instruments/instrumentsxml.h" line="149"/>
         <location filename="../instruments/instrumentsxml.h" line="1243"/>
         <source>Keyboards</source>
-        <translation>키보드 </translation>
+        <translation>키보드</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1244"/>
         <source>Piano</source>
-        <translation>피아노 </translation>
+        <translation>피아노</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1246"/>
         <source>Grand Piano</source>
-        <translation>그랜드 피아노 </translation>
+        <translation>그랜드 피아노</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1248"/>
@@ -1891,7 +1891,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1262"/>
         <source>Electric Piano</source>
-        <translation>전자 피아노 </translation>
+        <translation>전자 피아노</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1264"/>
@@ -1901,7 +1901,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1266"/>
         <source>Organ</source>
-        <translation>오르간 </translation>
+        <translation>오르간</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1268"/>
@@ -4937,7 +4937,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1028"/>
         <source>Carillon</source>
-        <translation>카리용 </translation>
+        <translation>카리용</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1029"/>
@@ -6041,7 +6041,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1285"/>
         <source>soundtrack</source>
-        <translation>사운드트랙 </translation>
+        <translation>사운드트랙</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1286"/>
@@ -6934,22 +6934,22 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1405"/>
         <source>Soprano Guitar</source>
-        <translation>소프라노 가타 </translation>
+        <translation>소프라노 가타</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1409"/>
         <source>Alto Guitar</source>
-        <translation>알토 기타 </translation>
+        <translation>알토 기타</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1413"/>
         <source>Classical Guitar</source>
-        <translation>클래식 기타 </translation>
+        <translation>클래식 기타</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1435"/>
         <source>Acoustic Guitar</source>
-        <translation>어쿠스틱 기타 </translation>
+        <translation>어쿠스틱 기타</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1444"/>
@@ -6970,12 +6970,12 @@
         <location filename="../instruments/instrumentsxml.h" line="1458"/>
         <location filename="../instruments/instrumentsxml.h" line="1466"/>
         <source>Electric Guitar</source>
-        <translation>일렉 기타 </translation>
+        <translation>일렉 기타</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1476"/>
         <source>Harp</source>
-        <translation>하프 </translation>
+        <translation>하프</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1494"/>
@@ -7413,7 +7413,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1535"/>
         <source>Mandolin</source>
-        <translation>만돌린 </translation>
+        <translation>만돌린</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1538"/>
@@ -7480,7 +7480,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1561"/>
         <source>Bass Guitar</source>
-        <translation>베이스 기타 </translation>
+        <translation>베이스 기타</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1566"/>
@@ -7491,7 +7491,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1567"/>
         <source>Bass</source>
         <comment>Acoustic Bass</comment>
-        <translation>베이스 </translation>
+        <translation>베이스</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1568"/>
@@ -7518,7 +7518,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1732"/>
         <location filename="../instruments/instrumentsxml.h" line="1738"/>
         <source>pizzicato</source>
-        <translation>피치카토 </translation>
+        <translation>피치카토</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1571"/>
@@ -7587,7 +7587,7 @@
         <location filename="../instruments/instrumentsxml.h" line="175"/>
         <location filename="../instruments/instrumentsxml.h" line="1620"/>
         <source>Strings</source>
-        <translation>현악기 </translation>
+        <translation>현악기</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1621"/>
@@ -7608,7 +7608,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1651"/>
         <source>Viola</source>
-        <translation>비올라 </translation>
+        <translation>비올라</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1662"/>
@@ -7623,7 +7623,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1684"/>
         <source>Double Bass</source>
-        <translation>더블 베이스 </translation>
+        <translation>더블 베이스</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1685"/>
@@ -7882,7 +7882,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="29"/>
         <source>Piano</source>
-        <translation>피아노 </translation>
+        <translation>피아노</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="30"/>

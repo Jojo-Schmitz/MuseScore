@@ -1390,7 +1390,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="954"/>
         <source>Vibraphone</source>
-        <translation>Вібрафон </translation>
+        <translation>Вібрафон</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="956"/>
@@ -1501,7 +1501,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1024"/>
         <source>Treble Kalimba</source>
-        <translation> Дискантова калімба</translation>
+        <translation>Дискантова калімба</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1026"/>
@@ -1726,7 +1726,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1170"/>
         <source>Stones</source>
-        <translation>Каміння </translation>
+        <translation>Каміння</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1189"/>

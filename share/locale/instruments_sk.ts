@@ -1781,7 +1781,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1200"/>
         <source>Boy Soprano</source>
-        <translation>Chlapčenský soprán </translation>
+        <translation>Chlapčenský soprán</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1202"/>

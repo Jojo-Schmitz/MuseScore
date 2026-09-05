@@ -738,7 +738,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="530"/>
         <source>Free Reed</source>
-        <translation>Aerofoner </translation>
+        <translation>Aerofoner</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="531"/>
@@ -758,7 +758,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="537"/>
         <source>12 Hole G Chromatic Harmonica</source>
-        <translation>12-hulls kromatisk G munnspill </translation>
+        <translation>12-hulls kromatisk G munnspill</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="539"/>
@@ -3435,7 +3435,7 @@
         <location filename="../instruments/instrumentsxml.h" line="451"/>
         <source>C Pkt. Sax</source>
         <comment>Pocket Sax in C</comment>
-        <translation>C Pkt. Sax </translation>
+        <translation>C Pkt. Sax</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="452"/>

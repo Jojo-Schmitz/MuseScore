@@ -7048,7 +7048,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1372"/>
         <source>Banjo (Tablature)</source>
-        <translation>ბანჯო (ტაბულატურა) </translation>
+        <translation>ბანჯო (ტაბულატურა)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1374"/>

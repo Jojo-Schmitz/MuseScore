@@ -41,7 +41,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="206"/>
         <source>Contra-alto Flute</source>
-        <translation>Kontr-alto Flüt </translation>
+        <translation>Kontr-alto Flüt</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="208"/>

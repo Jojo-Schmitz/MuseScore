@@ -2153,7 +2153,7 @@
         <location filename="../instruments/instrumentsxml.h" line="62"/>
         <location filename="../instruments/instrumentsxml.h" line="183"/>
         <source>Winds</source>
-        <translation> 管樂器</translation>
+        <translation>管樂器</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="184"/>

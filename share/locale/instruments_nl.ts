@@ -161,7 +161,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="257"/>
         <source>B♭ Soprano Ocarina</source>
-        <translation>Sopraan-ocarina in B♭ </translation>
+        <translation>Sopraan-ocarina in B♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="267"/>
@@ -267,7 +267,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="305"/>
         <source>B♭ Tin Whistle</source>
-        <translation> B♭ Tin whistle</translation>
+        <translation>B♭ Tin whistle</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="311"/>
@@ -433,7 +433,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="384"/>
         <source>B♭ Duduk</source>
-        <translation>Doedoek in B♭ </translation>
+        <translation>Doedoek in B♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="386"/>
@@ -703,7 +703,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="514"/>
         <source>Melody Saxophone</source>
-        <translation>Melody saxofoon </translation>
+        <translation>Melody saxofoon</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="516"/>
@@ -1050,7 +1050,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="768"/>
         <source>Baroque Trumpet</source>
-        <translation>Baroktrompet </translation>
+        <translation>Baroktrompet</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="772"/>
@@ -4207,7 +4207,7 @@
         <location filename="../instruments/instrumentsxml.h" line="705"/>
         <source>P. Tpt. B♭</source>
         <comment>Piccolo Trumpet in B♭</comment>
-        <translation>B♭ P. Tpt. </translation>
+        <translation>B♭ P. Tpt.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="709"/>
@@ -4926,7 +4926,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1025"/>
         <source>Tr. Kal.</source>
         <comment>Treble Kalimba</comment>
-        <translation>S. Kal. </translation>
+        <translation>S. Kal.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1027"/>
@@ -5570,7 +5570,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1117"/>
         <source>Trgl.</source>
         <comment>Triangle</comment>
-        <translation>Trgl. </translation>
+        <translation>Trgl.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1119"/>

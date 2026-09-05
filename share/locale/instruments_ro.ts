@@ -377,7 +377,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="360"/>
         <source>Greatbass Crumhorn</source>
-        <translation>Fluer Corn </translation>
+        <translation>Fluer Corn</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="362"/>
@@ -995,7 +995,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="720"/>
         <source>E♭ Trumpet</source>
-        <translation>Trumpetă Mi♭ </translation>
+        <translation>Trumpetă Mi♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="724"/>
@@ -1279,7 +1279,7 @@
         <location filename="../instruments/instrumentsxml.h" line="901"/>
         <location filename="../instruments/instrumentsxml.h" line="903"/>
         <source>B♭ Tuba</source>
-        <translation>Tuba Si♭ </translation>
+        <translation>Tuba Si♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="905"/>
@@ -1561,7 +1561,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1091"/>
         <source>Bell Plate</source>
-        <translation>Bell Plate </translation>
+        <translation>Bell Plate</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1093"/>
@@ -4791,7 +4791,7 @@
         <location filename="../instruments/instrumentsxml.h" line="963"/>
         <source>O. B. Met.</source>
         <comment>Orff Bass Metallophone</comment>
-        <translation>Met. B. O. </translation>
+        <translation>Met. B. O.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="985"/>

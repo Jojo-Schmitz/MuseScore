@@ -7012,7 +7012,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1521"/>
         <source>Lute 8-course</source>
-        <translation>8 sokako lautea </translation>
+        <translation>8 sokako lautea</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1524"/>

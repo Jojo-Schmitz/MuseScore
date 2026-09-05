@@ -267,7 +267,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="305"/>
         <source>B♭ Tin Whistle</source>
-        <translation> Tin Whistle Sí♭</translation>
+        <translation>Tin Whistle Sí♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="311"/>
@@ -317,12 +317,12 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="336"/>
         <source>Sopranino Shawm</source>
-        <translation> Shawm Sopranino</translation>
+        <translation>Shawm Sopranino</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="338"/>
         <source>Soprano Shawm</source>
-        <translation>Shawm Soprano </translation>
+        <translation>Shawm Soprano</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="340"/>
@@ -995,7 +995,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="720"/>
         <source>E♭ Trumpet</source>
-        <translation>Trompete em E♭ </translation>
+        <translation>Trompete em E♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="724"/>
@@ -1010,7 +1010,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="732"/>
         <source>B♭ Trumpet</source>
-        <translation>Trompete em B♭ </translation>
+        <translation>Trompete em B♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="740"/>
@@ -1035,7 +1035,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="756"/>
         <source>E♭ Bass Trumpet</source>
-        <translation>Trompete Baixo em E♭ </translation>
+        <translation>Trompete Baixo em E♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="760"/>
@@ -1045,7 +1045,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="764"/>
         <source>B♭ Bass Trumpet</source>
-        <translation>Trompete Baixo em B♭ </translation>
+        <translation>Trompete Baixo em B♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="768"/>
@@ -1060,7 +1060,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="776"/>
         <source>Baroque Trumpet in E♭</source>
-        <translation>Trompete Barroca em E♭ </translation>
+        <translation>Trompete Barroca em E♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="780"/>
@@ -1075,7 +1075,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="788"/>
         <source>Baroque Trumpet in B♭</source>
-        <translation>Trompete Barroca em B♭ </translation>
+        <translation>Trompete Barroca em B♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="792"/>
@@ -1263,7 +1263,7 @@
         <location filename="../instruments/instrumentsxml.h" line="894"/>
         <location filename="../instruments/instrumentsxml.h" line="896"/>
         <source>E♭ Tuba</source>
-        <translation>Tuba em E♭ </translation>
+        <translation>Tuba em E♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="898"/>
@@ -1279,7 +1279,7 @@
         <location filename="../instruments/instrumentsxml.h" line="901"/>
         <location filename="../instruments/instrumentsxml.h" line="903"/>
         <source>B♭ Tuba</source>
-        <translation>Tuba em B♭ </translation>
+        <translation>Tuba em B♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="905"/>
@@ -1294,7 +1294,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="908"/>
         <source>Bass Tuba in E♭</source>
-        <translation>Tuba Baixo em E♭ </translation>
+        <translation>Tuba Baixo em E♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="910"/>
@@ -4241,7 +4241,7 @@
         <location filename="../instruments/instrumentsxml.h" line="721"/>
         <source>E♭ Tpt.</source>
         <comment>E♭ Trumpet</comment>
-        <translation>Tp. E♭ </translation>
+        <translation>Tp. E♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="725"/>
@@ -4259,7 +4259,7 @@
         <location filename="../instruments/instrumentsxml.h" line="733"/>
         <source>B♭ Tpt.</source>
         <comment>B♭ Trumpet</comment>
-        <translation>Tp. B♭ </translation>
+        <translation>Tp. B♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="736"/>
@@ -4300,7 +4300,7 @@
         <location filename="../instruments/instrumentsxml.h" line="757"/>
         <source>E♭ B. Tpt.</source>
         <comment>E♭ Bass Trumpet</comment>
-        <translation>Tp. B. E♭ </translation>
+        <translation>Tp. B. E♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="761"/>
@@ -4312,7 +4312,7 @@
         <location filename="../instruments/instrumentsxml.h" line="765"/>
         <source>B♭ B. Tpt.</source>
         <comment>B♭ Bass Trumpet</comment>
-        <translation>Tp. B. B♭ </translation>
+        <translation>Tp. B. B♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="769"/>
@@ -4330,7 +4330,7 @@
         <location filename="../instruments/instrumentsxml.h" line="777"/>
         <source>Bq. Tpt. E♭</source>
         <comment>Baroque Trumpet in E♭</comment>
-        <translation>Tp. Bc. E♭ </translation>
+        <translation>Tp. Bc. E♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="781"/>
@@ -4348,7 +4348,7 @@
         <location filename="../instruments/instrumentsxml.h" line="789"/>
         <source>Bq. Tpt. B♭</source>
         <comment>Baroque Trumpet in B♭</comment>
-        <translation>Tp. Bc. B♭ </translation>
+        <translation>Tp. Bc. B♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="793"/>
@@ -7982,7 +7982,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="49"/>
         <source>Symphony Orchestra</source>
-        <translation>Orquestra Sinfónica </translation>
+        <translation>Orquestra Sinfónica</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="50"/>

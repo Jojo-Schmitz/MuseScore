@@ -975,7 +975,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="696"/>
         <source>Trumpet</source>
-        <translation>Trompet </translation>
+        <translation>Trompet</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="700"/>
@@ -995,7 +995,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="720"/>
         <source>E♭ Trumpet</source>
-        <translation> Trompet i Es</translation>
+        <translation>Trompet i Es</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="724"/>
@@ -1035,7 +1035,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="756"/>
         <source>E♭ Bass Trumpet</source>
-        <translation> Bastrompet i Es</translation>
+        <translation>Bastrompet i Es</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="760"/>
@@ -3329,7 +3329,7 @@
         <location filename="../instruments/instrumentsxml.h" line="421"/>
         <source>E♭ Cl.</source>
         <comment>E♭ Clarinet</comment>
-        <translation>Kl. i Es </translation>
+        <translation>Kl. i Es</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="422"/>
@@ -3382,7 +3382,7 @@
         <location filename="../instruments/instrumentsxml.h" line="436"/>
         <location filename="../instruments/instrumentsxml.h" line="438"/>
         <source>B♭ Bass Clarinet</source>
-        <translation> Basklarinet i B♭</translation>
+        <translation>Basklarinet i B♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="437"/>
@@ -6604,7 +6604,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1613"/>
         <source>Laúd (Tablature)</source>
-        <translation>Laúd (Tabulatur) </translation>
+        <translation>Laúd (Tabulatur)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1614"/>
@@ -6924,12 +6924,12 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1401"/>
         <source>Bouzouki (3-course)</source>
-        <translation>6-strengs bouzouki </translation>
+        <translation>6-strengs bouzouki</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1404"/>
         <source>Bouzouki (4-course)</source>
-        <translation>8-strengs bouzouki </translation>
+        <translation>8-strengs bouzouki</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1405"/>

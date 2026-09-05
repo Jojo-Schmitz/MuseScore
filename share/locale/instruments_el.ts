@@ -267,7 +267,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="305"/>
         <source>B♭ Tin Whistle</source>
-        <translation>Σι♭ Διατονική Σφυρίχτρα </translation>
+        <translation>Σι♭ Διατονική Σφυρίχτρα</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="311"/>
@@ -603,7 +603,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="474"/>
         <source>Bassoon</source>
-        <translation>Φαγκότο </translation>
+        <translation>Φαγκότο</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="476"/>
@@ -708,7 +708,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="516"/>
         <source>Tenor Saxophone</source>
-        <translation>Τενόρο Σαξόφωνο </translation>
+        <translation>Τενόρο Σαξόφωνο</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="518"/>
@@ -843,7 +843,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="571"/>
         <source>Melodica</source>
-        <translation>Μελόντικα </translation>
+        <translation>Μελόντικα</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="576"/>
@@ -1005,7 +1005,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="728"/>
         <source>C Trumpet</source>
-        <translation>Ντο Τρομπέτα </translation>
+        <translation>Ντο Τρομπέτα</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="732"/>
@@ -1035,7 +1035,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="756"/>
         <source>E♭ Bass Trumpet</source>
-        <translation>Μι♭ Μπάσο Τρομπέτα </translation>
+        <translation>Μι♭ Μπάσο Τρομπέτα</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="760"/>
@@ -1242,7 +1242,7 @@
         <location filename="../instruments/instrumentsxml.h" line="885"/>
         <location filename="../instruments/instrumentsxml.h" line="887"/>
         <source>Euphonium</source>
-        <translation>Ευφώνιο </translation>
+        <translation>Ευφώνιο</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="889"/>
@@ -1289,7 +1289,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="906"/>
         <source>Bass Tuba in F</source>
-        <translation>Μπάσο Τούμπα σε Φα </translation>
+        <translation>Μπάσο Τούμπα σε Φα</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="908"/>
@@ -1591,7 +1591,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1105"/>
         <source>Chains</source>
-        <translation>Αλυσίδες </translation>
+        <translation>Αλυσίδες</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1107"/>
@@ -1801,7 +1801,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1214"/>
         <location filename="../instruments/instrumentsxml.h" line="1236"/>
         <source>Alto</source>
-        <translation>Άλτο </translation>
+        <translation>Άλτο</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1217"/>
@@ -1830,7 +1830,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1231"/>
         <location filename="../instruments/instrumentsxml.h" line="1240"/>
         <source>Bass</source>
-        <translation>Μπάσο </translation>
+        <translation>Μπάσο</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1241"/>
@@ -6980,7 +6980,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1494"/>
         <source>Koto</source>
-        <translation>Κότο </translation>
+        <translation>Κότο</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1507"/>
@@ -6997,7 +6997,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1512"/>
         <source>Lute 5-course</source>
-        <translation>5χορδο Λαούτο </translation>
+        <translation>5χορδο Λαούτο</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1515"/>
@@ -7491,7 +7491,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1567"/>
         <source>Bass</source>
         <comment>Acoustic Bass</comment>
-        <translation>Μπάσο </translation>
+        <translation>Μπάσο</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1568"/>

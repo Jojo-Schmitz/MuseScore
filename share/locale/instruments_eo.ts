@@ -7055,7 +7055,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1371"/>
         <source>Bj.</source>
         <comment>Banjo</comment>
-        <translation> Bnĝ</translation>
+        <translation>Bnĝ</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1372"/>

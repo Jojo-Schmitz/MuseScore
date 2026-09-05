@@ -3429,7 +3429,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="450"/>
         <source>Pocket Sax in C</source>
-        <translation> C xaphoon</translation>
+        <translation>C xaphoon</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="451"/>

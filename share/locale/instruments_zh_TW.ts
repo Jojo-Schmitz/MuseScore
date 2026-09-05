@@ -658,7 +658,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="496"/>
         <source>Bass Sarrusophone</source>
-        <translation> 低音薩魯管</translation>
+        <translation>低音薩魯管</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="498"/>

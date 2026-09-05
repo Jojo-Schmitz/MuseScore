@@ -3210,7 +3210,7 @@
         <location filename="../instruments/instrumentsxml.h" line="383"/>
         <source>B Du.</source>
         <comment>B Duduk</comment>
-        <translation> H du.</translation>
+        <translation>H du.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="385"/>
@@ -4070,7 +4070,7 @@
         <location filename="../instruments/instrumentsxml.h" line="614"/>
         <source>E Hn.</source>
         <comment>Horn in E</comment>
-        <translation> E kt.</translation>
+        <translation>E kt.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="618"/>

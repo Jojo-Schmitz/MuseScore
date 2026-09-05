@@ -51,7 +51,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="210"/>
         <source>Double Contrabass Flute</source>
-        <translation>Flauta Sub-Contrabaixo </translation>
+        <translation>Flauta Sub-Contrabaixo</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="212"/>
@@ -161,7 +161,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="257"/>
         <source>B♭ Soprano Ocarina</source>
-        <translation>Ocarina Soprano em B♭ </translation>
+        <translation>Ocarina Soprano em B♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="267"/>
@@ -181,7 +181,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="265"/>
         <source>B♭ Alto Ocarina</source>
-        <translation> Ocarina Contralto em B♭</translation>
+        <translation>Ocarina Contralto em B♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="271"/>
@@ -302,7 +302,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="328"/>
         <source>Piccolo Heckelphone</source>
-        <translation>Piccolo Heckelphone&#xa0;</translation>
+        <translation>Piccolo Heckelphone</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="330"/>
@@ -478,7 +478,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="402"/>
         <source>Rauschpfeife</source>
-        <translation>Rauschpfeife </translation>
+        <translation>Rauschpfeife</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="404"/>
@@ -1105,7 +1105,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="804"/>
         <source>Flugelhorn</source>
-        <translation>Fliscorne </translation>
+        <translation>Fliscorne</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="808"/>
@@ -1190,7 +1190,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="844"/>
         <source>Tenor Cornett</source>
-        <translation>Corneto Tenor </translation>
+        <translation>Corneto Tenor</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="846"/>
@@ -2072,7 +2072,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="132"/>
         <source>Keyboard Percussion</source>
-        <translation>Percussão de Teclado </translation>
+        <translation>Percussão de Teclado</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="152"/>
@@ -2390,7 +2390,7 @@
         <location filename="../instruments/instrumentsxml.h" line="258"/>
         <source>B♭ S. Oc.</source>
         <comment>B♭ Soprano Ocarina</comment>
-        <translation>S. Oc. em B♭&#xa0;</translation>
+        <translation>S. Oc. em B♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="268"/>
@@ -3389,12 +3389,12 @@
         <location filename="../instruments/instrumentsxml.h" line="439"/>
         <source>B♭ B. Cl.</source>
         <comment>B♭ Bass Clarinet</comment>
-        <translation>Clr. B. em B♭&#xa0;</translation>
+        <translation>Clr. B. em B♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="440"/>
         <source>B♭ Bass Clarinet (Bass Clef)</source>
-        <translation>Clarinete Baixo em B♭&#xa0;(Clave de Fá)</translation>
+        <translation>Clarinete Baixo em B♭ (Clave de Fá)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="441"/>
@@ -3440,7 +3440,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="452"/>
         <source>Pocket Sax in B♭</source>
-        <translation>Sax de Bolso em B </translation>
+        <translation>Sax de Bolso em B</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="453"/>
@@ -4041,7 +4041,7 @@
         <location filename="../instruments/instrumentsxml.h" line="598"/>
         <source>B♭ Hn.</source>
         <comment>Horn in B♭ alto</comment>
-        <translation>Trp. em B♭&#xa0;</translation>
+        <translation>Trp. em B♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="602"/>
@@ -4053,7 +4053,7 @@
         <location filename="../instruments/instrumentsxml.h" line="606"/>
         <source>A♭ Hn.</source>
         <comment>Horn in A♭</comment>
-        <translation>Trp. em A♭&#xa0;</translation>
+        <translation>Trp. em A♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="610"/>
@@ -4100,7 +4100,7 @@
         <location filename="../instruments/instrumentsxml.h" line="635"/>
         <source>B♭ Hn.</source>
         <comment>Horn in B♭ basso</comment>
-        <translation>Trp. em B♭&#xa0;</translation>
+        <translation>Trp. em B♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="639"/>
@@ -4607,7 +4607,7 @@
         <location filename="../instruments/instrumentsxml.h" line="904"/>
         <source>B♭ Tb.</source>
         <comment>B♭ Tuba</comment>
-        <translation>Tb. em B♭&#xa0;</translation>
+        <translation>Tb. em B♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="907"/>
@@ -7470,7 +7470,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1557"/>
         <source>Tenor Ukulele</source>
-        <translation>Ukulele tenor </translation>
+        <translation>Ukulele tenor</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1559"/>
@@ -7742,7 +7742,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1"/>
         <source>General</source>
-        <translation>Geral:</translation>
+        <translation>Geral</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="2"/>
@@ -7787,7 +7787,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="10"/>
         <source>SATB Closed Score</source>
-        <translation>Partitura Fechada SCTB&#xa0;</translation>
+        <translation>Partitura Fechada SCTB</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="11"/>
@@ -7797,7 +7797,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="12"/>
         <source>SATB Closed Score + Piano</source>
-        <translation>Partitura Fechada SCTB&#xa0;+ Piano </translation>
+        <translation>Partitura Fechada SCTB + Piano</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="13"/>
@@ -7982,7 +7982,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="49"/>
         <source>Symphony Orchestra</source>
-        <translation>Orquestra Sinfônica </translation>
+        <translation>Orquestra Sinfônica</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="50"/>

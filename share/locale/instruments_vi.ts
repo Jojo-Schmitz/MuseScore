@@ -337,7 +337,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="344"/>
         <source>Bass Shawm</source>
-        <translation>Kèn Shawm Bass </translation>
+        <translation>Kèn Shawm Bass</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="346"/>
@@ -743,7 +743,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="531"/>
         <source>Harmonica</source>
-        <translation>Kèn Harmonica </translation>
+        <translation>Kèn Harmonica</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="533"/>
@@ -7460,7 +7460,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1550"/>
         <source>Sitar</source>
-        <translation>Đàn </translation>
+        <translation>Đàn</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1552"/>
