@@ -7674,8 +7674,8 @@ MuseScoreApplication* MuseScoreApplication::initApplication(int& argc, char** ar
             appName  = "MuseScore3Development";
             }
       else {
-            appName2 = "mscore3";
-            appName  = "MuseScore3";
+            appName2 = "mscore3evo";
+            appName  = "MuseScore3Evo";
             }
 
       //! NOTE Disable cache for all platforms
