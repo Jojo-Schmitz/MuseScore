@@ -53,6 +53,7 @@
 #define PREF_APP_USESINGLEPALETTE                           "application/useSinglePalette"
 #define PREF_APP_PALETTESCALE                               "application/paletteScale"
 #define PREF_APP_STARTUP_FIRSTSTART                         "application/startup/firstStart"
+#define PREF_APP_STARTUP_FROM_MUSESCORE3                    "application/startup/fromMuseScore3"
 #define PREF_APP_STARTUP_SESSIONSTART                       "application/startup/sessionStart"
 #define PREF_APP_STARTUP_STARTSCORE                         "application/startup/startScore"
 #define PREF_APP_WORKSPACE                                  "application/workspace"

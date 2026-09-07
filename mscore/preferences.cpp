@@ -152,6 +152,7 @@ void Preferences::init(bool storeInMemoryOnly)
             {PREF_APP_USESINGLEPALETTE,                            new BoolPreference(false, false)},
             {PREF_APP_PALETTESCALE,                                new DoublePreference(1.0)},
             {PREF_APP_STARTUP_FIRSTSTART,                          new BoolPreference(true)},
+            {PREF_APP_STARTUP_FROM_MUSESCORE3,                     new BoolPreference(true)},
             {PREF_APP_STARTUP_SESSIONSTART,                        new EnumPreference(QVariant::fromValue(SessionStart::SCORE), false)},
             {PREF_APP_STARTUP_STARTSCORE,                          new StringPreference(":/data/My_First_Score.mscx", false)},
             {PREF_APP_WORKSPACE,                                   new StringPreference("Basic", false)},

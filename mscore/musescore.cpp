@@ -1211,7 +1211,7 @@ static void migrateEvolutionSettings()
             QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 
       static constexpr const char* migrationKey =
-            "migration/fromMuseScore3";
+            PREF_APP_STARTUP_FROM_MUSESCORE3;
 
       QSettings newSettings;
 
