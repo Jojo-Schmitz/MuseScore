@@ -61,6 +61,7 @@
 #define PREF_APP_TELEMETRY_ALLOWED                          "application/telemetry/allowed"
 #define PREF_APP_BACKUP_GENERATE_BACKUP                     "application/backup/generateBackup"
 #define PREF_APP_BACKUP_SUBFOLDER                           "application/backup/subfolder"
+#define PREF_APP_DEBUG_LOG_ENABLED                          "application/debugLog/enabled"
 #define PREF_EXPORT_AUDIO_NORMALIZE                         "export/audio/normalize"
 #define PREF_EXPORT_AUDIO_SAMPLERATE                        "export/audio/sampleRate"
 #define PREF_EXPORT_AUDIO_PCMRATE                           "export/audio/PCMRate"

@@ -18,6 +18,7 @@
 
 #include "accessibletoolbutton.h"
 #include "config.h"
+#include "debuglog.h"
 #include "drumroll.h"
 #include "drumtools.h"
 #include "editraster.h"
@@ -1410,6 +1411,10 @@ MuseScore::MuseScore()
       }
       addDockWidget(Qt::BottomDockWidgetArea, scoreCmpTool);
 
+      _debugLogDock = new DebugLogDock(this);
+      addDockWidget(Qt::BottomDockWidgetArea, _debugLogDock);
+      _debugLogDock->hide();
+
       if (MuseScore::unstable()) {
             scriptRecorder = new ScriptRecorderWidget(this, this);
             scriptRecorder->setVisible(false);
@@ -2068,6 +2073,21 @@ MuseScore::MuseScore()
       menuDebug->addAction(a);
       a = getAction("qml-reload-source");
       menuDebug->addAction(a);
+
+      menuDebug->addSeparator();
+
+      _debugLogAction = new QAction(this);
+      _debugLogAction->setCheckable(true);
+      _debugLogAction->setChecked(_debugLogDock->isVisible());
+
+      connect(_debugLogAction, &QAction::toggled,
+              this, &MuseScore::showDebugLog);
+      connect(_debugLogDock, &QDockWidget::visibilityChanged,
+              _debugLogAction, &QAction::setChecked);
+
+      menuDebug->addAction(_debugLogAction);
+      Workspace::addActionAndString(_debugLogAction, "debug-log");
+
       Workspace::addMenuAndString(menuDebug, "menu-debug");
 
       //---------------------
@@ -2338,6 +2358,12 @@ void MuseScore::retranslate()
       setMenuTitles();
       _positionLabel->setToolTip(tr("Measure:Beat:Tick"));
       pref->setText(tr("&Preferences…"));
+
+      if (_debugLogAction)
+            _debugLogAction->setText(tr("Debug Log"));
+      if (_debugLogDock)
+            _debugLogDock->setWindowTitle(tr("Debug Log"));
+
       aboutAction->setText(tr("&About…"));
       aboutQtAction->setText(tr("About &Qt…"));
       aboutMusicXMLAction->setText(tr("About &MusicXML…"));
@@ -2475,9 +2501,16 @@ void MuseScore::updateMenus()
       updateMenu(menuHelp,        "menu-help",         "Help");
       updateMenu(menuTours,       "menu-tours",        "");
       updateMenu(menuDebug,       "menu-debug",        "Debug");
+
+      if (menuDebug && _debugLogAction && !menuDebug->actions().contains(_debugLogAction)) {
+            menuDebug->addSeparator();
+            menuDebug->addAction(_debugLogAction);
+            }
+
       connect(openRecent,     SIGNAL(aboutToShow()),       SLOT(openRecentMenu()));
       connect(openRecent,     SIGNAL(triggered(QAction*)), SLOT(selectScore(QAction*)));
       connect(menuWorkspaces, SIGNAL(aboutToShow()),       SLOT(showWorkspaceMenu()));
+
       setMenuTitles();
 #ifdef SCRIPT_INTERFACE
       addPluginMenuEntries();
@@ -3236,6 +3269,16 @@ void MuseScore::showPageSettings()
       pageSettings->setScore(cs);
       pageSettings->show();
       pageSettings->raise();
+      }
+
+//---------------------------------------------------------
+//   showDebugLog
+//---------------------------------------------------------
+
+void MuseScore::showDebugLog(bool visible)
+      {
+      if (_debugLogDock)
+            reDisplayDockWidget(_debugLogDock, visible);
       }
 
 //---------------------------------------------------------
@@ -8298,6 +8341,16 @@ void MuseScore::init(QStringList& argv)
             QFile::remove(settings.fileName() + ".lock"); //forcibly remove lock
             QFile::remove(settings.fileName());
             settings.clear();
+            }
+
+      if (!MScore::noGui) {
+            QSettings settings;
+            // Need access to the preference prior to Preferences::init()
+            // to capture the initial messages
+            const bool debugLogEnabled =
+                  settings.value(PREF_APP_DEBUG_LOG_ENABLED, false).toBool();
+
+            setDebugLogMessageHandlerEnabled(debugLogEnabled);
             }
 
       // create local plugin directory

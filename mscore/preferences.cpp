@@ -166,6 +166,7 @@ void Preferences::init(bool storeInMemoryOnly)
             {PREF_MIGRATION_DO_NOT_ASK_ME_AGAIN_XML,               new BoolPreference(false, false)},
             {PREF_APP_BACKUP_GENERATE_BACKUP,                      new BoolPreference(true)},
             {PREF_APP_BACKUP_SUBFOLDER,                            new StringPreference(".mscbackup")},
+            {PREF_APP_DEBUG_LOG_ENABLED,                           new BoolPreference(false)},
             {PREF_EXPORT_AUDIO_NORMALIZE,                          new BoolPreference(true, false)},
             {PREF_EXPORT_AUDIO_SAMPLERATE,                         new IntPreference(44100, false)},
             {PREF_EXPORT_AUDIO_PCMRATE,                            new IntPreference(16)},

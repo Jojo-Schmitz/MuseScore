@@ -50,6 +50,7 @@ class PlayPanel;
 class IPlayPanel;
 class Mixer;
 class Debugger;
+class DebugLogDock;
 class MeasureListEditor;
 class MasterScore;
 class Score;
@@ -320,6 +321,8 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       Mixer* mixer                         { 0 };
       SynthControl* synthControl           { 0 };
       Debugger* debugger                   { 0 };
+      DebugLogDock* _debugLogDock          { nullptr };
+      QAction* _debugLogAction             { nullptr };
       MeasureListEditor* measureListEdit   { 0 };
       PageSettings* pageSettings           { 0 };
 
@@ -539,6 +542,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void cmdInsertMeasures();
       void zoomBoxChanged(const ZoomIndex, const qreal);
       void showPageSettings();
+      void showDebugLog(bool visible);
       void removeTab(int);
       void removeTab();
       void clipboardChanged();

@@ -209,7 +209,7 @@ add_library(mscoreapp STATIC
       abstractdialog.h accessibletoolbutton.h albummanager.h
       analyse.h articulationprop.h
       bendcanvas.h breaksdialog.h
-      chordview.h click.h clickableLabel.h continuouspanel.h downloadUtils.h
+      chordview.h click.h clickableLabel.h continuouspanel.h debuglog.h downloadUtils.h
       drumroll.h drumtools.h drumview.h easeinoutcanvas.h editdrumset.h
       editinstrument.h editpitch.h editraster.h editstaff.h
       editstafftype.h editstringdata.h editstyle.h enableplayforwidget.h
@@ -244,7 +244,7 @@ add_library(mscoreapp STATIC
       editinstrument.cpp editstyle.cpp easeinoutcanvas.cpp
       clickableLabel.cpp
       instrdialog.cpp instrwidget.cpp
-      debugger/debugger.cpp menus.cpp
+      debugger/debugger.cpp debuglog.cpp menus.cpp
       mssplashscreen.cpp musescore.cpp musescoredialogs.cpp navigator.cpp pagesettings.cpp palette.cpp
       sessionstatusobserver.cpp
       timeline.cpp

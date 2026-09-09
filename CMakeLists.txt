@@ -61,6 +61,9 @@ include (GetCompilerVersion)
 set(CMAKE_AUTOMOC     TRUE)
 set(USE_SSE           TRUE)
 
+# Enable qDebug() output and message context in release builds
+set(ENABLE_RELEASE_DEBUG_LOG ON)
+
 set(MUSESCORE_REVISION "" CACHE STRING "Build revision")
 
 # Set revision for local builds
@@ -74,6 +77,10 @@ endif(MUSESCORE_REVISION STREQUAL "")
 message(STATUS "MUSESCORE_REVISION: ${MUSESCORE_REVISION}")
 
 add_definitions(-DMUSESCORE_REVISION="${MUSESCORE_REVISION}")
+
+if (ENABLE_RELEASE_DEBUG_LOG)
+      add_definitions(-DQT_MESSAGELOGCONTEXT)
+endif()
 
 # Setup version number and general build settings
 SET(MUSESCORE_BUILD_CONFIG "dev" CACHE STRING "Build config")
@@ -269,8 +276,14 @@ else (APPLE)
          set(CMAKE_C_FLAGS    "${CMAKE_C_FLAGS} /arch:SSE")
       endif (USE_SSE)
       set(CMAKE_CXX_FLAGS_DEBUG          "/MT /permissive- /std:c++20 /Zc:__cplusplus /W4 /Zi /Ob0 /Od /RTC1 /wd4996")
-      set(CMAKE_CXX_FLAGS_RELEASE        "/MT /permissive- /std:c++20 /Zc:__cplusplus /W4 /O2 /Ob2 /DNDEBUG /DQT_NO_DEBUG /DQT_NO_DEBUG_OUTPUT")
-      set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/MT /permissive- /std:c++20 /Zc:__cplusplus /W4 /Zi /O2 /Ob1 /DNDEBUG /DQT_NO_DEBUG /DQT_NO_DEBUG_OUTPUT /wd4996")
+      set(CMAKE_CXX_FLAGS_RELEASE        "/MT /permissive- /std:c++20 /Zc:__cplusplus /W4 /O2 /Ob2 /DNDEBUG /DQT_NO_DEBUG")
+      set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/MT /permissive- /std:c++20 /Zc:__cplusplus /W4 /Zi /O2 /Ob1 /DNDEBUG /DQT_NO_DEBUG /wd4996")
+
+      if (NOT ENABLE_RELEASE_DEBUG_LOG)
+            set(CMAKE_CXX_FLAGS_RELEASE        "${CMAKE_CXX_FLAGS_RELEASE} /DQT_NO_DEBUG_OUTPUT")
+            set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /DQT_NO_DEBUG_OUTPUT")
+      endif()
+
       set(CMAKE_C_FLAGS_DEBUG            "/MT /W4 /Zi /Ob0 /Od /RTC1")
       set(CMAKE_C_FLAGS_RELEASE          "/MT /W4 /O2 /Ob2 /DNDEBUG")
       set(CMAKE_C_FLAGS_RELWITHDEBINFO   "/MT /W4 /Zi /O2 /Ob1 /DNDEBUG")
@@ -295,7 +308,10 @@ else (APPLE)
          endif (ARCH_TYPE=_x64)
          set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -fPIC")
          set(CMAKE_CXX_FLAGS_DEBUG   "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -Woverloaded-virtual")
-         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DQT_NO_DEBUG_OUTPUT")
+
+         if (NOT ENABLE_RELEASE_DEBUG_LOG)
+               set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DQT_NO_DEBUG_OUTPUT")
+         endif()
       endif (MINGW)
       set(CMAKE_CXX_FLAGS_DEBUG   "${CMAKE_CXX_FLAGS_DEBUG} -Wno-deprecated-declarations -Wno-cast-function-type") # don't want to see those in 3.x when using Qt 5.15
    endif (MSVC)

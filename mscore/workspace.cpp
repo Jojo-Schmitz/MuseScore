@@ -1528,6 +1528,17 @@ void WorkspacesManager::clearWorkspaces()
 
 void Workspace::addActionAndString(QAction* action, QString string)
       {
+      // Action identifiers are unique, so replace an existing mapping
+      // rather than retaining a possibly stale QAction pointer. This
+      // is in accord with how the workspace code already assumes invariance:
+      // one action ID mapped to one QAction*
+      for (auto& pair : actionToStringList) {
+            if (pair.second == string) {
+                  pair.first = action;
+                  return;
+                  }
+            }
+
       QPair<QAction*, QString> pair;
       pair.first = action;
       pair.second = string;
