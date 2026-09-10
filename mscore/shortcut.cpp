@@ -3325,6 +3325,17 @@ Shortcut Shortcut::_sc[] = {
          },
       {
          MsWidget::MAIN_WINDOW,
+         STATE_DISABLED | STATE_NORMAL | STATE_NOTE_ENTRY | STATE_PLAY | STATE_EDIT,
+         "independent-metronome",
+         QT_TRANSLATE_NOOP("action","Independent Metronome"),
+         QT_TRANSLATE_NOOP("action","Toggle independent metronome"),
+         QT_TRANSLATE_NOOP("action","Play an independent metronome with optional score synchronization"),
+         Icons::independentMetronome_ICON,
+         Qt::WindowShortcut,
+         ShortcutFlags::A_CHECKABLE
+         },
+      {
+         MsWidget::MAIN_WINDOW,
          STATE_NORMAL | STATE_NOTE_ENTRY | STATE_PLAY | STATE_EDIT,
          "playback-speed-increase",
          QT_TRANSLATE_NOOP("action","Increase Playback Speed"),

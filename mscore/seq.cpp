@@ -17,6 +17,8 @@
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //=============================================================================
 
+#include <cmath>
+
 #include "click.h"
 #include "config.h"
 #include "musescore.h"
@@ -29,6 +31,12 @@
 
 #include "audio/midi/msynthesizer.h"
 
+#ifdef HAS_AUDIOFILE
+#include "audiofile/audiofile.h"
+#endif
+
+#include <QFile>
+
 #include "libmscore/audio.h"
 #include "libmscore/chord.h"
 #include "libmscore/measure.h"
@@ -38,6 +46,7 @@
 #include "libmscore/repeatlist.h"
 #include "libmscore/score.h"
 #include "libmscore/segment.h"
+#include "libmscore/sig.h"
 #include "libmscore/staff.h"
 #include "libmscore/tempo.h"
 #include "libmscore/tie.h"
@@ -150,9 +159,13 @@ Seq::Seq()
       playlistChanged = false;
       cs              = 0;
       cv              = 0;
-      tackRemain        = 0;
-      tickRemain        = 0;
-      maxMidiOutPort  = 0;
+      tackRemain            = 0;
+      tickRemain            = 0;
+      independentTackRemain = 0;
+      independentTickRemain = 0;
+      independentTackVolume = 1.0;
+      independentTickVolume = 1.0;
+      maxMidiOutPort        = 0;
 
       endUTick  = 0;
       state    = Transport::STOP;
@@ -160,7 +173,12 @@ Seq::Seq()
       _driver  = 0;
       playPos  = events.cbegin();
       playFrame  = 0;
-      metronomeVolume = 0.3;
+
+      metronomeVolumeValue =
+            qBound(0.0,
+                   preferences.getDouble(PREF_APP_PLAYBACK_METRONOME_VOLUME),
+                   10.0); // 10.0 upper bound corresponds to the VolSlider maximum of +20dB
+
       useJackTransportSavedFlag = false;
 
       inCountIn         = false;
@@ -181,6 +199,42 @@ Seq::Seq()
       noteTimer->setSingleShot(true);
       connect(noteTimer, SIGNAL(timeout()), this, SLOT(stopNotes()));
       noteTimer->stop();
+
+      independentMetronomeEnabledValue = false;
+
+      independentMetronomeBpmValue =
+            preferences.getDouble(PREF_APP_PLAYBACK_INDEPENDENT_METRONOME_BPM);
+
+      independentMetronomeNumeratorValue =
+            preferences.getInt(PREF_APP_PLAYBACK_INDEPENDENT_METRONOME_NUMERATOR);
+
+      independentMetronomeDenominatorValue =
+            preferences.getInt(PREF_APP_PLAYBACK_INDEPENDENT_METRONOME_DENOMINATOR);
+
+      independentMetronomeFollowPlaybackValue =
+            preferences.getBool(PREF_APP_PLAYBACK_INDEPENDENT_METRONOME_FOLLOW);
+
+      independentMetronomeBeatAccentsValue =
+            preferences.getBool(PREF_APP_PLAYBACK_INDEPENDENT_METRONOME_ACCENTS);
+
+      if (independentMetronomeBpmValue < 20.0
+          || independentMetronomeBpmValue > 400.0) {
+            independentMetronomeBpmValue = 120.0;
+            }
+
+      if (independentMetronomeNumeratorValue < 1
+          || independentMetronomeNumeratorValue > 32) {
+            independentMetronomeNumeratorValue = 4;
+            }
+
+      if (independentMetronomeDenominatorValue <= 0
+          || (independentMetronomeDenominatorValue
+              & (independentMetronomeDenominatorValue - 1)) != 0
+          || (DIVISION * 4) % independentMetronomeDenominatorValue != 0) {
+            independentMetronomeDenominatorValue = 4;
+            }
+
+      syncIndependentMetronomeRealtimeConfig();
 
       connect(this, SIGNAL(toGui(int, int)), this, SLOT(seqMessage(int, int)), Qt::QueuedConnection);
 
@@ -234,6 +288,16 @@ void Seq::setScoreView(ScoreView* v)
       }
 
 //---------------------------------------------------------
+//   preferencesChanged
+//---------------------------------------------------------
+
+void Seq::preferencesChanged()
+      {
+      cachedPrefs.update();
+      reloadMetronomeSamples();
+      }
+
+//---------------------------------------------------------
 //   Seq::CachedPreferences::update
 //---------------------------------------------------------
 
@@ -279,12 +343,21 @@ void Seq::stopTransport()
 
 bool Seq::init(bool hotPlug)
       {
+      // Rebuild realtime metronome state before the audio
+      // callback can start running
+      syncIndependentMetronomeRealtimeConfig();
+
       if (!_driver || !_driver->start(hotPlug)) {
             qDebug("Cannot start I/O");
             running = false;
             return false;
             }
+
       cachedPrefs.update();
+
+      // The driver has established the output sample rate
+      reloadMetronomeSamples(true);
+
       running = true;
       return true;
       }
@@ -645,6 +718,55 @@ void Seq::processMessages()
                               piano->releasePlaybackPitch(pressedPitch);
                         }
                         break;
+                  case SeqMsgId::INDEPENDENT_METRONOME_ENABLED:
+                        independentMetronomeEnabledRT = msg.intVal != 0;
+
+                        resetIndependentMetronomeRealtimeState();
+
+                        if (!independentMetronomeEnabledRT)
+                              independentMetronomeFollowPlaybackActiveRT = false;
+                        break;
+
+                  case SeqMsgId::INDEPENDENT_METRONOME_BPM:
+                        independentMetronomeBpmRT = msg.realVal;
+
+                        // Changing BPM starts a complete interval at the new tempo
+                        if (independentMetronomeEnabledRT
+                            && !independentMetronomeFollowPlaybackActiveRT) {
+                              independentMetronomeFramesUntilNextClick =
+                                    independentMetronomeFramesPerClick();
+                              }
+                        break;
+
+                  case SeqMsgId::INDEPENDENT_METRONOME_TIME_SIGNATURE:
+                        independentMetronomeNumeratorRT =
+                              msg.intVal;
+                        independentMetronomeDenominatorRT =
+                              msg.intVal2;
+
+                        independentMetronomeRtick = 0;
+
+                        if (independentMetronomeEnabledRT
+                            && !independentMetronomeFollowPlaybackActiveRT) {
+                              independentMetronomeFramesUntilNextClick =
+                                    independentMetronomeFramesPerClick();
+                              }
+                        break;
+
+                  case SeqMsgId::INDEPENDENT_METRONOME_FOLLOW:
+                        independentMetronomeFollowPlaybackRT =
+                              msg.intVal != 0;
+                        break;
+
+                  case SeqMsgId::INDEPENDENT_METRONOME_ACCENTS:
+                        independentMetronomeBeatAccentsRT =
+                              msg.intVal != 0;
+                        break;
+
+                  case SeqMsgId::METRONOME_GAIN:
+                        metronomeVolume = msg.realVal;
+                        break;
+
                   default:
                         break;
                   }
@@ -660,31 +782,239 @@ void Seq::metronome(unsigned n, float* p, bool force)
       if (!mscore->metronome() && !force) {
             tickRemain = 0;
             tackRemain = 0;
+
+            _tickCustomSampleInUse.store(nullptr);
+            _tackCustomSampleInUse.store(nullptr);
+
             return;
             }
+
       if (tickRemain) {
-            tackRemain = 0;
-            int idx = tickLength - tickRemain;
-            int nn = n < tickRemain ? n : tickRemain;
-            for (int i = 0; i < nn; ++i) {
-                  qreal v = metronomeTick[idx] * tickVolume * metronomeVolume;
-                  *p++ += v;
-                  *p++ += v;
-                  ++idx;
+            const MetronomeCustomSample* sample =
+                  _tickCustomSampleInUse.load();
+
+            mixMetronomeSample(
+                  n, p,
+                  tickRemain,
+                  tickVolume,
+                  sample,
+                  metronomeTick,
+                  tickLength);
+
+            if (!tickRemain) {
+                  _tickCustomSampleInUse.store(nullptr);
                   }
-            tickRemain -= nn;
             }
+
       if (tackRemain) {
-            int idx = tackLength - tackRemain;
-            int nn = n < tackRemain ? n : tackRemain;
-            for (int i = 0; i < nn; ++i) {
-                  qreal v = metronomeTack[idx] * tackVolume * metronomeVolume;
-                  *p++ += v;
-                  *p++ += v;
-                  ++idx;
+            const MetronomeCustomSample* sample =
+                  _tackCustomSampleInUse.load();
+
+            mixMetronomeSample(
+                  n, p,
+                  tackRemain,
+                  tackVolume,
+                  sample,
+                  metronomeTack,
+                  tackLength);
+
+            if (!tackRemain) {
+                  _tackCustomSampleInUse.store(nullptr);
                   }
-            tackRemain -= nn;
             }
+      }
+
+//---------------------------------------------------------
+//   mixIndependentMetronomeSamples
+//---------------------------------------------------------
+
+void Seq::mixIndependentMetronomeSamples(unsigned n, float* p)
+      {
+      if (independentTickRemain) {
+            const MetronomeCustomSample* sample =
+                  _independentTickCustomSampleInUse.load();
+
+            mixMetronomeSample(
+                  n, p,
+                  independentTickRemain,
+                  independentTickVolume,
+                  sample,
+                  metronomeTick,
+                  tickLength);
+
+            if (!independentTickRemain) {
+                  _independentTickCustomSampleInUse.store(nullptr);
+                  }
+            }
+
+      if (independentTackRemain) {
+            const MetronomeCustomSample* sample =
+                  _independentTackCustomSampleInUse.load();
+
+            mixMetronomeSample(
+                  n, p,
+                  independentTackRemain,
+                  independentTackVolume,
+                  sample,
+                  metronomeTack,
+                  tackLength);
+
+            if (!independentTackRemain) {
+                  _independentTackCustomSampleInUse.store(nullptr);
+                  }
+            }
+      }
+
+//---------------------------------------------------------
+//   independentMetronome
+//---------------------------------------------------------
+
+void Seq::independentMetronome(unsigned n, float* p)
+      {
+      if (!independentMetronomeEnabledRT)
+            return;
+
+      if (independentMetronomeFollowPlaybackActiveRT) {
+            mixIndependentMetronomeSamples(n, p);
+            return;
+            }
+
+      unsigned frame = 0;
+
+      while (frame < n) {
+            // Start any click whose musical position has arrived:
+            if (independentMetronomeFramesUntilNextClick <= 0.0) {
+                  const TimeSigFrac timeSig(
+                        independentMetronomeNumeratorRT,
+                        independentMetronomeDenominatorRT);
+
+                  const BeatType type =
+                        timeSig.rtick2beatType(
+                              independentMetronomeRtick);
+
+                  const NPlayEvent event(type);
+                  const qreal volume =
+                        independentMetronomeEventVolume(event);
+
+                  if (event.type() == ME_TICK1)
+                        startMetronomeTick(volume, true);
+                  else if (event.type() == ME_TICK2)
+                        startMetronomeTack(volume, true);
+
+                  const int clickTicks =
+                        independentMetronomeClickTicks();
+
+                  independentMetronomeRtick =
+                        (independentMetronomeRtick + clickTicks)
+                        % timeSig.ticksPerMeasure();
+
+                  // Add rather than assign. If a fractional
+                  // frame crossed the boundary by part of a frame,
+                  // that error is carried into the next interval
+                  // rather than accumulating
+                  independentMetronomeFramesUntilNextClick +=
+                        independentMetronomeFramesPerClick();
+                  }
+
+            const unsigned framesRemaining = n - frame;
+
+            unsigned framesToClick =
+                  unsigned(std::ceil(
+                        independentMetronomeFramesUntilNextClick));
+
+            if (framesToClick == 0)
+                  framesToClick = 1;
+
+            const unsigned framesToProcess =
+                  qMin(framesRemaining, framesToClick);
+
+            mixIndependentMetronomeSamples(
+                  framesToProcess,
+                  p + frame * 2);
+
+            frame += framesToProcess;
+
+            independentMetronomeFramesUntilNextClick -=
+                  framesToProcess;
+            }
+      }
+
+//---------------------------------------------------------
+//   resetIndependentMetronomeRealtimeState
+//   This must run before audio starts or from
+//   the realtime thread
+//---------------------------------------------------------
+
+void Seq::resetIndependentMetronomeRealtimeState()
+      {
+      independentMetronomeRtick = 0;
+      independentMetronomeFramesUntilNextClick = 0.0;
+
+      independentTickRemain = 0;
+      independentTackRemain = 0;
+
+      _independentTickCustomSampleInUse.store(nullptr);
+      _independentTackCustomSampleInUse.store(nullptr);
+      }
+
+//---------------------------------------------------------
+//   syncIndependentMetronomeRealtimeConfig
+//---------------------------------------------------------
+
+void Seq::syncIndependentMetronomeRealtimeConfig()
+      {
+      independentMetronomeEnabledRT =
+            independentMetronomeEnabledValue;
+
+      independentMetronomeBpmRT =
+            independentMetronomeBpmValue;
+
+      independentMetronomeNumeratorRT =
+            independentMetronomeNumeratorValue;
+
+      independentMetronomeDenominatorRT =
+            independentMetronomeDenominatorValue;
+
+      independentMetronomeFollowPlaybackRT =
+            independentMetronomeFollowPlaybackValue;
+
+      independentMetronomeBeatAccentsRT =
+            independentMetronomeBeatAccentsValue;
+
+      metronomeVolume = metronomeVolumeValue;
+
+      independentMetronomeFollowPlaybackActiveRT = false;
+
+      resetIndependentMetronomeRealtimeState();
+      }
+
+//---------------------------------------------------------
+//   updateIndependentMetronomeFollowState
+//---------------------------------------------------------
+
+void Seq::updateIndependentMetronomeFollowState()
+      {
+      const bool followActive =
+            independentMetronomeEnabledRT
+            && independentMetronomeFollowPlaybackRT
+            && state == Transport::PLAY;
+
+      if (followActive == independentMetronomeFollowPlaybackActiveRT)
+            return;
+
+      // Crossing either boundary starts with clean audio state
+
+      // Enter Follow:
+      //   discard the free-running click/phase and let the score's
+      //   next ME_TICK event establish playback timing
+
+      // Leave Follow:
+      //   re-arm the manual clock from a new downbeat
+
+      resetIndependentMetronomeRealtimeState();
+
+      independentMetronomeFollowPlaybackActiveRT =
+            followActive;
       }
 
 //---------------------------------------------------------
@@ -807,6 +1137,11 @@ void Seq::process(unsigned framesPerPeriod, float* buffer)
 
       processMessages();
 
+      updateIndependentMetronomeFollowState();
+
+      const bool independentFollowPlaybackActive =
+            independentMetronomeFollowPlaybackActiveRT;
+
       if (state == Transport::PLAY) {
             if (!cs)
                   return;
@@ -886,6 +1221,11 @@ void Seq::process(unsigned framesPerPeriod, float* buffer)
                         if (cs->playMode() == PlayMode::SYNTHESIZER) {
                               metronome(n, p, inCountIn);
                               _synti->process(n, p);
+
+                              // Mix after synthesizer processing so the
+                              // independent click bypasses Master Volume
+                              independentMetronome(n, p);
+
                               p += n * 2;
                               *pPlayFrame  += n;
                               framesRemain -= n;
@@ -898,10 +1238,16 @@ void Seq::process(unsigned framesPerPeriod, float* buffer)
                                     long rn = ov_read_float(&vf, &pcm, n, &section);
                                     if (rn == 0)
                                           break;
+
+                                    float* audioStart = p;
+
                                     for (int i = 0; i < rn; ++i) {
                                           *p++ = pcm[0][i];
                                           *p++ = pcm[1][i];
                                           }
+
+                                    independentMetronome(rn, audioStart);
+
                                     *pPlayFrame  += rn;
                                     framesRemain -= rn;
                                     framePos     += rn;
@@ -912,12 +1258,30 @@ void Seq::process(unsigned framesPerPeriod, float* buffer)
                   const NPlayEvent& event = (*pPlayPos)->second;
                   playEvent(event, framePos);
                   if (event.type() == ME_TICK1) {
-                        tickRemain = tickLength;
-                        tickVolume = event.velo() ? qreal(event.value()) / 127.0 : 1.0;
+                        const qreal volume =
+                              event.velo()
+                              ? qreal(event.value()) / 127.0
+                              : 1.0;
+
+                        startMetronomeTick(volume, false);
+
+                        if (independentFollowPlaybackActive)
+                              startMetronomeTick(
+                                    independentMetronomeEventVolume(event),
+                                    true);
                         }
                   else if (event.type() == ME_TICK2) {
-                        tackRemain = tackLength;
-                        tackVolume = event.velo() ? qreal(event.value()) / 127.0 : 1.0;
+                        const qreal volume =
+                              event.velo()
+                              ? qreal(event.value()) / 127.0
+                              : 1.0;
+
+                        startMetronomeTack(volume, false);
+
+                        if (independentFollowPlaybackActive)
+                              startMetronomeTack(
+                                    independentMetronomeEventVolume(event),
+                                    true);
                         }
                   mutex.lock();
                   ++(*pPlayPos);
@@ -927,6 +1291,9 @@ void Seq::process(unsigned framesPerPeriod, float* buffer)
                   if (cs->playMode() == PlayMode::SYNTHESIZER) {
                         metronome(framesRemain, p, inCountIn);
                         _synti->process(framesRemain, p);
+
+                        independentMetronome(framesRemain, p);
+
                         *pPlayFrame += framesRemain;
                         }
                   else {
@@ -937,10 +1304,16 @@ void Seq::process(unsigned framesPerPeriod, float* buffer)
                               long rn = ov_read_float(&vf, &pcm, n, &section);
                               if (rn == 0)
                                     break;
+
+                              float* audioStart = p;
+
                               for (int i = 0; i < rn; ++i) {
                                     *p++ = pcm[0][i];
                                     *p++ = pcm[1][i];
                                     }
+
+                              independentMetronome(rn, audioStart);
+
                               *pPlayFrame  += rn;
                               framesRemain -= rn;
                               framePos     += rn;
@@ -968,20 +1341,24 @@ void Seq::process(unsigned framesPerPeriod, float* buffer)
             // Outside of playback mode
             while (!liveEventQueue()->empty()) {
                   const NPlayEvent& event = liveEventQueue()->dequeue();
-                  if (event.type() == ME_TICK1) {
-                        tickRemain = tickLength;
-                        tickVolume = event.velo() ? qreal(event.value()) / 127.0 : 1.0;
-                        }
-                  else if (event.type() == ME_TICK2) {
-                        tackRemain = tackLength;
-                        tackVolume = event.velo() ? qreal(event.value()) / 127.0 : 1.0;
-                        }
+                  const qreal volume =
+                        event.velo()
+                        ? qreal(event.value()) / 127.0
+                        : 1.0;
+
+                  if (event.type() == ME_TICK1)
+                        startMetronomeTick(volume, false);
+                  else if (event.type() == ME_TICK2)
+                        startMetronomeTack(volume, false);
                   }
             if (framesRemain) {
                   metronome(framesRemain, p, true);
                   _synti->process(framesRemain, p);
+
+                  independentMetronome(framesRemain, p);
                   }
             }
+
       //
       // metering / master gain
       //
@@ -1313,6 +1690,559 @@ void Seq::playMetronomeBeat(BeatType type)
       }
 
 //---------------------------------------------------------
+//   loadMetronomeSample
+//---------------------------------------------------------
+
+const Seq::MetronomeCustomSample* Seq::loadMetronomeSample(const QString& path)
+      {
+#ifdef HAS_AUDIOFILE
+      if (path.isEmpty())
+            return nullptr;
+
+      QFile file(path);
+      if (!file.open(QIODevice::ReadOnly)) {
+            qWarning() << "Cannot open custom metronome sound:" << path;
+            return nullptr;
+            }
+
+      const QByteArray data = file.readAll();
+      if (data.isEmpty()) {
+            qWarning() << "Custom metronome sound is empty:" << path;
+            return nullptr;
+            }
+
+      AudioFile audio;
+      if (!audio.open(data)) {
+            qWarning() << "Cannot decode custom metronome sound:" << path;
+            return nullptr;
+            }
+
+      const int channels = audio.channels();
+      const int sourceRate = audio.samplerate();
+      const sf_count_t sourceFrames = audio.frames();
+
+      if ((channels != 1 && channels != 2)
+          || sourceRate <= 0
+          || sourceFrames <= 0) {
+            qWarning() << "Unsupported custom metronome sound:" << path
+                       << "channels:" << channels
+                       << "sample rate:" << sourceRate
+                       << "frames:" << sourceFrames;
+            return nullptr;
+            }
+
+      std::vector<float> source;
+      source.resize(size_t(sourceFrames) * size_t(channels));
+
+      const sf_count_t framesRead =
+            audio.readData(source.data(), sourceFrames);
+
+      if (framesRead <= 0) {
+            qWarning()
+                  << "Cannot read custom metronome sound:"
+                  << path;
+            return nullptr;
+            }
+
+      float maxSignal = 0.0f;
+
+      const size_t samplesRead =
+            size_t(framesRead) * size_t(channels);
+
+      for (size_t i = 0; i < samplesRead; ++i)
+            maxSignal = qMax(maxSignal, qAbs(source[i]));
+
+      // Some libsndfile versions can return OGG float samples outside
+      // the normal [-1, 1] range, so we'll correct that but not normalize
+      // any custom tick/tack sounds
+      const float sourceGain =
+            maxSignal > 1.0f
+            ? 1.0f / maxSignal
+            : 1.0f;
+
+      const double rateRatio =
+            double(MScore::sampleRate) / double(sourceRate);
+
+      const unsigned targetFrames =
+            unsigned(qMax<qint64>(
+                  1,
+                  qRound64(double(framesRead) * rateRatio)));
+
+      std::unique_ptr<MetronomeCustomSample> sample(
+            new MetronomeCustomSample);
+
+      sample->data.resize(size_t(targetFrames) * 2);
+
+      for (unsigned frame = 0; frame < targetFrames; ++frame) {
+            const double sourcePos =
+                  double(frame) * double(sourceRate)
+                  / double(MScore::sampleRate);
+
+            const sf_count_t frame0 =
+                  qMin<sf_count_t>(sf_count_t(sourcePos),
+                                   framesRead - 1);
+
+            const sf_count_t frame1 =
+                  qMin<sf_count_t>(frame0 + 1,
+                                   framesRead - 1);
+
+            const float fraction =
+                  float(sourcePos - double(frame0));
+
+            for (int outputChannel = 0; outputChannel < 2;
+                 ++outputChannel) {
+                  // Mono is duplicated to left and right
+                  // Stereo retains its original channels
+                  const int sourceChannel =
+                        channels == 1 ? 0 : outputChannel;
+
+                  const float sample0 =
+                        source[size_t(frame0) * channels + sourceChannel]
+                        * sourceGain;
+
+                  const float sample1 =
+                        source[size_t(frame1) * channels + sourceChannel]
+                        * sourceGain;
+
+                  sample->data[size_t(frame) * 2 + outputChannel] =
+                        sample0 + (sample1 - sample0) * fraction;
+                  }
+            }
+
+      const MetronomeCustomSample* result = sample.get();
+      _metronomeSampleStorage.emplace_back(std::move(sample));
+
+      return result;
+#else
+      Q_UNUSED(path);
+      return nullptr;
+#endif
+      }
+
+//---------------------------------------------------------
+//   reloadMetronomeSamples
+//---------------------------------------------------------
+
+void Seq::reloadMetronomeSamples(bool force)
+      {
+#ifdef HAS_AUDIOFILE
+      const QString tickPath =
+            preferences.getString(
+                  PREF_APP_PLAYBACK_METRONOME_DOWNBEAT_SOUND);
+
+      const QString tackPath =
+            preferences.getString(
+                  PREF_APP_PLAYBACK_METRONOME_BEAT_SOUND);
+
+      const bool sampleRateChanged =
+            _loadedMetronomeSampleRate != MScore::sampleRate;
+
+      const bool tickNeedsRetry =
+            !tickPath.isEmpty()
+            && !_customMetronomeTickSample.load();
+
+      const bool tackNeedsRetry =
+            !tackPath.isEmpty()
+            && !_customMetronomeTackSample.load();
+
+      if (force || sampleRateChanged
+          || tickPath != _loadedMetronomeTickPath
+          || tickNeedsRetry) {
+            const MetronomeCustomSample* sample =
+                  loadMetronomeSample(tickPath);
+
+            _customMetronomeTickSample.store(sample);
+
+            _loadedMetronomeTickPath = tickPath;
+            }
+
+      if (force || sampleRateChanged
+          || tackPath != _loadedMetronomeTackPath
+          || tackNeedsRetry) {
+            const MetronomeCustomSample* sample =
+                  loadMetronomeSample(tackPath);
+
+            _customMetronomeTackSample.store(sample);
+
+            _loadedMetronomeTackPath = tackPath;
+            }
+
+      _loadedMetronomeSampleRate = MScore::sampleRate;
+
+      reclaimRetiredMetronomeSamples();
+#else
+      Q_UNUSED(force);
+#endif
+      }
+
+//---------------------------------------------------------
+//   reclaimRetiredMetronomeSamples
+//---------------------------------------------------------
+
+void Seq::reclaimRetiredMetronomeSamples()
+      {
+      const MetronomeCustomSample* currentTick =
+            _customMetronomeTickSample.load();
+
+      const MetronomeCustomSample* currentTack =
+            _customMetronomeTackSample.load();
+
+      const MetronomeCustomSample* tickInUse =
+            _tickCustomSampleInUse.load();
+
+      const MetronomeCustomSample* tackInUse =
+            _tackCustomSampleInUse.load();
+
+      const MetronomeCustomSample* independentTickInUse =
+            _independentTickCustomSampleInUse.load();
+
+      const MetronomeCustomSample* independentTackInUse =
+            _independentTackCustomSampleInUse.load();
+
+      auto i = _metronomeSampleStorage.begin();
+
+      while (i != _metronomeSampleStorage.end()) {
+            const MetronomeCustomSample* sample = i->get();
+
+            const bool needed =
+                  sample == currentTick
+                  || sample == currentTack
+                  || sample == tickInUse
+                  || sample == tackInUse
+                  || sample == independentTickInUse
+                  || sample == independentTackInUse;
+
+            if (needed)
+                  ++i;
+            else
+                  i = _metronomeSampleStorage.erase(i);
+            }
+      }
+
+//---------------------------------------------------------
+//   independentMetronomeEventVolume
+//---------------------------------------------------------
+
+qreal Seq::independentMetronomeEventVolume(const NPlayEvent& event) const
+      {
+      if (!independentMetronomeBeatAccentsRT
+          && event.type() == ME_TICK2) {
+            // With beat accents disabled, every non-downbeat
+            // has the normal unstressed tack volume
+            return 80.0 / 127.0;
+            }
+
+      return event.velo()
+            ? qreal(event.value()) / 127.0
+            : 1.0;
+      }
+
+//---------------------------------------------------------
+//   acquireMetronomeSample
+//---------------------------------------------------------
+
+const Seq::MetronomeCustomSample* Seq::acquireMetronomeSample(
+      const std::atomic<const MetronomeCustomSample*>& published,
+      std::atomic<const MetronomeCustomSample*>& inUse)
+      {
+      const MetronomeCustomSample* sample;
+
+      do {
+            sample = published.load();
+
+            // Publish the sample as being in use before validating
+            // that it is still the currently selected sample
+            inUse.store(sample);
+            }
+      while (sample != published.load());
+
+      return sample;
+      }
+
+//---------------------------------------------------------
+//   startMetronomeTick
+//---------------------------------------------------------
+
+void Seq::startMetronomeTick(qreal volume, bool independent)
+      {
+      const MetronomeCustomSample* sample;
+
+      if (independent) {
+            sample = acquireMetronomeSample(
+                  _customMetronomeTickSample,
+                  _independentTickCustomSampleInUse);
+            }
+      else {
+            sample = acquireMetronomeSample(
+                  _customMetronomeTickSample,
+                  _tickCustomSampleInUse);
+            }
+
+      if (independent) {
+            independentTackRemain = 0;
+            _independentTackCustomSampleInUse.store(nullptr);
+            }
+      else {
+            tackRemain = 0;
+            _tackCustomSampleInUse.store(nullptr);
+            }
+
+      const uint frames = sample
+            ? sample->frames()
+            : tickLength;
+
+      if (independent) {
+            independentTickRemain = frames;
+            independentTickVolume = volume;
+            }
+      else {
+            tickRemain = frames;
+            tickVolume = volume;
+            }
+      }
+
+//---------------------------------------------------------
+//   startMetronomeTack
+//---------------------------------------------------------
+
+void Seq::startMetronomeTack(qreal volume, bool independent)
+      {
+      const MetronomeCustomSample* sample;
+
+      if (independent) {
+            sample = acquireMetronomeSample(
+                  _customMetronomeTackSample,
+                  _independentTackCustomSampleInUse);
+            }
+      else {
+            sample = acquireMetronomeSample(
+                  _customMetronomeTackSample,
+                  _tackCustomSampleInUse);
+            }
+
+      const uint frames = sample
+            ? sample->frames()
+            : tackLength;
+
+      if (independent) {
+            independentTackRemain = frames;
+            independentTackVolume = volume;
+            }
+      else {
+            tackRemain = frames;
+            tackVolume = volume;
+            }
+      }
+
+//---------------------------------------------------------
+//   mixMetronomeSample
+//---------------------------------------------------------
+
+void Seq::mixMetronomeSample(unsigned n, float* p,
+                             uint& remain, qreal volume,
+                             const MetronomeCustomSample* customSample,
+                             const double* defaultSample,
+                             unsigned defaultFrames)
+      {
+      if (!remain)
+            return;
+
+      const unsigned sampleFrames =
+            customSample ? customSample->frames() : defaultFrames;
+
+      if (remain > sampleFrames) {
+            remain = 0;
+            return;
+            }
+
+      const unsigned idx = sampleFrames - remain;
+      const unsigned nn = qMin(n, remain);
+      const qreal gain = volume * metronomeVolume;
+
+      if (customSample) {
+            const float* source =
+                  customSample->data.data() + size_t(idx) * 2;
+
+            for (unsigned i = 0; i < nn; ++i) {
+                  *p++ += *source++ * gain;
+                  *p++ += *source++ * gain;
+                  }
+            }
+      else {
+            unsigned sourceIdx = idx;
+
+            for (unsigned i = 0; i < nn; ++i) {
+                  const qreal value =
+                        defaultSample[sourceIdx++] * gain;
+
+                  *p++ += value;
+                  *p++ += value;
+                  }
+            }
+
+      remain -= nn;
+      }
+
+//---------------------------------------------------------
+//   independentMetronomeClickTicks
+//---------------------------------------------------------
+
+int Seq::independentMetronomeClickTicks() const
+      {
+      const TimeSigFrac timeSig(independentMetronomeNumeratorRT,
+                                independentMetronomeDenominatorRT);
+
+      // MuseScore stores tempo in quarter-notes per second:
+      const qreal tempo = independentMetronomeBpmRT / 60.0;
+
+      return timeSig.isBeatedCompound(tempo)
+            ? timeSig.beatTicks()
+            : timeSig.dUnitTicks();
+      }
+
+//---------------------------------------------------------
+//   independentMetronomeFramesPerClick
+//---------------------------------------------------------
+
+double Seq::independentMetronomeFramesPerClick() const
+      {
+      const qreal tempo = independentMetronomeBpmRT / 60.0;
+
+      const int clickTicks = independentMetronomeClickTicks();
+      const qreal ticksPerSecond = tempo * DIVISION;
+
+      if (ticksPerSecond <= 0.0)
+            return 1.0;
+
+      return qMax(
+            1.0,
+            double(MScore::sampleRate) * clickTicks / ticksPerSecond);
+      }
+
+//---------------------------------------------------------
+//   setIndependentMetronomeEnabled
+//---------------------------------------------------------
+
+void Seq::setIndependentMetronomeEnabled(bool enabled)
+      {
+      if (independentMetronomeEnabledValue == enabled)
+            return;
+
+      independentMetronomeEnabledValue = enabled;
+
+      guiToSeq(SeqMsg(SeqMsgId::INDEPENDENT_METRONOME_ENABLED,
+                      enabled ? 1 : 0));
+      }
+
+//---------------------------------------------------------
+//   independentMetronomeEnabled
+//---------------------------------------------------------
+
+bool Seq::independentMetronomeEnabled() const
+      {
+      return independentMetronomeEnabledValue;
+      }
+
+//---------------------------------------------------------
+//   setIndependentMetronomeBpm
+//---------------------------------------------------------
+
+void Seq::setIndependentMetronomeBpm(double bpm)
+      {
+      if (bpm < 20.0 || bpm > 400.0)
+            return;
+
+      if (qFuzzyCompare(1.0 + independentMetronomeBpmValue,
+                        1.0 + bpm)) {
+            return;
+            }
+
+      independentMetronomeBpmValue = bpm;
+
+      preferences.setPreference(
+            PREF_APP_PLAYBACK_INDEPENDENT_METRONOME_BPM,
+            bpm);
+
+      guiToSeq(SeqMsg(SeqMsgId::INDEPENDENT_METRONOME_BPM,
+                      qreal(bpm)));
+      }
+
+//---------------------------------------------------------
+//   setIndependentMetronomeTimeSignature
+//---------------------------------------------------------
+
+void Seq::setIndependentMetronomeTimeSignature(int numerator, int denominator)
+      {
+      if (numerator < 1 || numerator > 32 || denominator <= 0)
+            return;
+
+      // Restrict denominator to powers of two which can be
+      // represented exactly by MuseScore's tick resolution
+      if ((denominator & (denominator - 1)) != 0
+          || (DIVISION * 4) % denominator != 0)
+            return;
+
+      if (independentMetronomeNumeratorValue == numerator
+          && independentMetronomeDenominatorValue == denominator) {
+            return;
+            }
+
+      independentMetronomeNumeratorValue = numerator;
+      independentMetronomeDenominatorValue = denominator;
+
+      preferences.setPreference(
+            PREF_APP_PLAYBACK_INDEPENDENT_METRONOME_NUMERATOR,
+            numerator);
+
+      preferences.setPreference(
+            PREF_APP_PLAYBACK_INDEPENDENT_METRONOME_DENOMINATOR,
+            denominator);
+
+      // Begin the new meter from its downbeat
+      guiToSeq(SeqMsg(SeqMsgId::INDEPENDENT_METRONOME_TIME_SIGNATURE,
+                      numerator,
+                      denominator));
+      }
+
+//---------------------------------------------------------
+//   setIndependentMetronomeFollowPlayback
+//---------------------------------------------------------
+
+void Seq::setIndependentMetronomeFollowPlayback(bool follow)
+      {
+      if (independentMetronomeFollowPlaybackValue == follow)
+            return;
+
+      independentMetronomeFollowPlaybackValue = follow;
+
+      preferences.setPreference(
+            PREF_APP_PLAYBACK_INDEPENDENT_METRONOME_FOLLOW,
+            follow);
+
+      guiToSeq(SeqMsg(SeqMsgId::INDEPENDENT_METRONOME_FOLLOW,
+                      follow ? 1 : 0));
+      }
+
+//---------------------------------------------------------
+//   setIndependentMetronomeBeatAccents
+//---------------------------------------------------------
+
+void Seq::setIndependentMetronomeBeatAccents(bool enabled)
+      {
+      if (independentMetronomeBeatAccentsValue == enabled)
+            return;
+
+      independentMetronomeBeatAccentsValue = enabled;
+
+      preferences.setPreference(
+            PREF_APP_PLAYBACK_INDEPENDENT_METRONOME_ACCENTS,
+            enabled);
+
+      guiToSeq(SeqMsg(SeqMsgId::INDEPENDENT_METRONOME_ACCENTS,
+                      enabled ? 1 : 0));
+      }
+
+//---------------------------------------------------------
 //   startNoteTimer
 //---------------------------------------------------------
 
@@ -1323,6 +2253,7 @@ void Seq::startNoteTimer(int duration)
             noteTimer->start();
             }
       }
+
 //---------------------------------------------------------
 //   stopNoteTimer
 //---------------------------------------------------------
@@ -1775,6 +2706,31 @@ void Seq::setLoopOut()
       if (state == Transport::PLAY)
             guiToSeq(SeqMsg(SeqMsgId::SEEK, t.ticks()));
       }
+
+//---------------------------------------------------------
+//   setMetronomeGain
+//---------------------------------------------------------
+
+void Seq::setMetronomeGain(float val)
+      {
+      val = qBound(0.0f, val, 10.0f);
+
+      if (qFuzzyCompare(metronomeVolumeValue, qreal(val)))
+            return;
+
+      metronomeVolumeValue = val;
+
+      preferences.setPreference(
+            PREF_APP_PLAYBACK_METRONOME_VOLUME,
+            double(val));
+
+      guiToSeq(SeqMsg(SeqMsgId::METRONOME_GAIN,
+                      qreal(val)));
+      }
+
+//---------------------------------------------------------
+//   setPos
+//---------------------------------------------------------
 
 void Seq::setPos(POS, unsigned t)
       {

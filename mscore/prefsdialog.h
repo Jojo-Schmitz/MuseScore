@@ -76,6 +76,9 @@ class PreferenceDialog : public AbstractDialog, private Ui::PrefsDialogBase {
       void selectScoreOrderList1();
       void selectScoreOrderList2();
       void selectStartWith();
+      void selectMetronomeDownbeatSound();
+      void selectMetronomeBeatSound();
+      void resetMetronomeSounds();
       void resetShortcutClicked();
       void saveShortcutListClicked();
       void loadShortcutListClicked();

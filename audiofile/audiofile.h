@@ -39,6 +39,7 @@ class AudioFile {
 
       bool open(const QByteArray&);
       const char* error() const     { return sf_strerror(sf); }
+      sf_count_t readData(float* data, sf_count_t frames);
       sf_count_t readData(short* data, sf_count_t frames);
 
       int channels() const   { return info.channels; }

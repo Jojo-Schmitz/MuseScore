@@ -12,9 +12,17 @@
 
 #include "musescore.h"
 
+#include <QCheckBox>
+#include <QComboBox>
 #include <QDir>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QSpinBox>
 #include <QStandardPaths>
 #include <QStyleFactory>
+#include <QTimer>
+#include <QWidgetAction>
 
 #include "accessibletoolbutton.h"
 #include "config.h"
@@ -312,6 +320,7 @@ const std::list<const char*> MuseScore::_allPlaybackControlEntries {
             "loop",
             "",
             "repeat",
+            "independent-metronome",
             "pan",
             "metronome",
             "playback-highlight",
@@ -1116,6 +1125,193 @@ void MuseScore::populatePlaybackControls()
                   else if (QString(s) == "play") {
                         _playButton = new AccessibleToolButton(transportTools, getAction("play"));
                         transportTools->addWidget(_playButton);
+                        }
+                  else if (QString(s) == "independent-metronome") {
+                        QAction* action = getAction("independent-metronome");
+
+                        AccessibleToolButton* button =
+                              new AccessibleToolButton(transportTools, action);
+
+                        if (!seq) {
+                              // Skip the independent metronome if some non-GUI or
+                              // test configuration constructed MuseScore without
+                              // creating a sequencer
+                              transportTools->addWidget(button);
+                              continue;
+                              }
+
+                        QMenu* menu = new QMenu(button);
+
+                        QWidget* settingsWidget = new QWidget(menu);
+                        QGridLayout* settingsLayout =
+                              new QGridLayout(settingsWidget);
+                        settingsLayout->setContentsMargins(8, 4, 8, 4);
+
+                        QLabel* tempoLabel =
+                              new QLabel(tr("BPM:"), settingsWidget);
+
+                        QSpinBox* tempoSpin =
+                              new QSpinBox(settingsWidget);
+                        tempoSpin->setRange(20, 400);
+                        tempoSpin->setValue(
+                              qRound(seq->independentMetronomeBpm()));
+                        tempoSpin->setKeyboardTracking(false);
+                        tempoSpin->setToolTip(
+                              tr("Tempo in quarter notes per minute"));
+                        tempoLabel->setToolTip(tempoSpin->toolTip());
+
+                        QLabel* timeSigLabel =
+                              new QLabel(tr("Time signature:"), settingsWidget);
+
+                        QSpinBox* numeratorSpin =
+                              new QSpinBox(settingsWidget);
+                        numeratorSpin->setRange(1, 32);
+                        numeratorSpin->setValue(
+                              seq->independentMetronomeNumerator());
+                        numeratorSpin->setKeyboardTracking(false);
+
+                        QLabel* slashLabel =
+                              new QLabel("/", settingsWidget);
+
+                        QComboBox* denominatorCombo =
+                              new QComboBox(settingsWidget);
+                        denominatorCombo->addItem("1",   1);
+                        denominatorCombo->addItem("2",   2);
+                        denominatorCombo->addItem("4",   4);
+                        denominatorCombo->addItem("8",   8);
+                        denominatorCombo->addItem("16", 16);
+                        denominatorCombo->addItem("32", 32);
+                        denominatorCombo->addItem("64", 64);
+                        denominatorCombo->addItem("128", 128);
+
+                        const int denominatorIndex =
+                              denominatorCombo->findData(
+                                    seq->independentMetronomeDenominator());
+
+                        if (denominatorIndex >= 0)
+                              denominatorCombo->setCurrentIndex(
+                                    denominatorIndex);
+
+                        QCheckBox* followPlaybackCheck =
+                              new QCheckBox(tr("Follow score"), settingsWidget);
+
+                        followPlaybackCheck->setChecked(
+                              seq->independentMetronomeFollowPlayback());
+
+                        QCheckBox* beatAccentsCheck =
+                              new QCheckBox(tr("Beat accents"), settingsWidget);
+
+                        beatAccentsCheck->setChecked(
+                              seq->independentMetronomeBeatAccents());
+
+                        beatAccentsCheck->setToolTip(
+                              tr("Use varying strengths for non-downbeat clicks"));
+
+                        settingsLayout->addWidget(tempoLabel,          0, 0);
+                        settingsLayout->addWidget(tempoSpin,           0, 1, 1, 3);
+                        settingsLayout->addWidget(timeSigLabel,        1, 0);
+                        settingsLayout->addWidget(numeratorSpin,       1, 1);
+                        settingsLayout->addWidget(slashLabel,          1, 2);
+                        settingsLayout->addWidget(denominatorCombo,    1, 3);
+                        settingsLayout->addWidget(beatAccentsCheck,    2, 0, 1, 4);
+                        settingsLayout->addWidget(followPlaybackCheck, 3, 0, 1, 4);
+
+                        QWidgetAction* settingsAction =
+                              new QWidgetAction(menu);
+                        settingsAction->setDefaultWidget(settingsWidget);
+                        menu->addAction(settingsAction);
+
+                        QAction* playAction = getAction("play");
+
+                        auto updateIndependentMetronomeFollowUi =
+                              [tempoLabel,
+                               tempoSpin,
+                               timeSigLabel,
+                               numeratorSpin,
+                               slashLabel,
+                               denominatorCombo,
+                               followPlaybackCheck](bool playing) {
+
+                                    const bool following =
+                                          followPlaybackCheck->isChecked()
+                                          && playing;
+
+                                    tempoLabel->setEnabled(!following);
+                                    tempoSpin->setEnabled(!following);
+
+                                    timeSigLabel->setEnabled(!following);
+                                    numeratorSpin->setEnabled(!following);
+                                    slashLabel->setEnabled(!following);
+                                    denominatorCombo->setEnabled(!following);
+
+                                    followPlaybackCheck->setText(
+                                          following ? tr("Following score")
+                                                    : tr("Follow score"));
+                                    };
+
+                        connect(tempoSpin,
+                                QOverload<int>::of(&QSpinBox::valueChanged),
+                                [this](int value) {
+                                      seq->setIndependentMetronomeBpm(value);
+                                      });
+
+                        connect(numeratorSpin,
+                                QOverload<int>::of(&QSpinBox::valueChanged),
+                                [this, numeratorSpin, denominatorCombo](int) {
+                                      seq->setIndependentMetronomeTimeSignature(
+                                            numeratorSpin->value(),
+                                            denominatorCombo->currentData().toInt());
+                                      });
+
+                        connect(denominatorCombo,
+                                QOverload<int>::of(&QComboBox::currentIndexChanged),
+                                [this, numeratorSpin, denominatorCombo](int) {
+                                      seq->setIndependentMetronomeTimeSignature(
+                                            numeratorSpin->value(),
+                                            denominatorCombo->currentData().toInt());
+                                      });
+
+                        connect(followPlaybackCheck,
+                                &QCheckBox::toggled,
+                                settingsWidget,
+                                [this,
+                                 playAction,
+                                 updateIndependentMetronomeFollowUi](bool checked) {
+
+                                      seq->setIndependentMetronomeFollowPlayback(
+                                            checked);
+
+                                      updateIndependentMetronomeFollowUi(
+                                            playAction->isChecked());
+                                      });
+
+                        connect(seq,
+                                &Seq::started,
+                                settingsWidget,
+                                [updateIndependentMetronomeFollowUi]() {
+                                      updateIndependentMetronomeFollowUi(true);
+                                      });
+
+                        connect(seq,
+                                &Seq::stopped,
+                                settingsWidget,
+                                [updateIndependentMetronomeFollowUi]() {
+                                      updateIndependentMetronomeFollowUi(false);
+                                      });
+
+                        updateIndependentMetronomeFollowUi(playAction->isChecked());
+
+                        connect(beatAccentsCheck,
+                                &QCheckBox::toggled,
+                                [this](bool checked) {
+                                      seq->setIndependentMetronomeBeatAccents(
+                                            checked);
+                                      });
+
+                        button->setMenu(menu);
+                        button->setPopupMode(QToolButton::MenuButtonPopup);
+
+                        transportTools->addWidget(button);
                         }
                   else {
                         QWidget* w = new AccessibleToolButton(transportTools, getAction(s));
@@ -6824,6 +7020,8 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
             ;
       else if (cmd == "countin")    // no action
             ;
+      else if (cmd == "independent-metronome")
+            seq->setIndependentMetronomeEnabled(a->isChecked());
       else if (cmd == "playback-speed-increase") {
             createPlayPanel();
             playPanel->increaseSpeed();

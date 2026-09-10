@@ -204,6 +204,15 @@ PreferenceDialog::PreferenceDialog(QWidget* parent)
       connect(scoreOrderList2Button,  &QToolButton::clicked, this, &PreferenceDialog::selectScoreOrderList2);
       connect(startWithButton,        &QToolButton::clicked, this, &PreferenceDialog::selectStartWith);
 
+      connect(metronomeDownbeatSoundButton, &QToolButton::clicked,
+              this, &PreferenceDialog::selectMetronomeDownbeatSound);
+
+      connect(metronomeBeatSoundButton, &QToolButton::clicked,
+              this, &PreferenceDialog::selectMetronomeBeatSound);
+
+      connect(metronomeSoundsReset, &QPushButton::clicked,
+              this, &PreferenceDialog::resetMetronomeSounds);
+
       defaultStyleButton->setIcon(*icons[int(Icons::fileOpen_ICON)]);
       partStyleButton->setIcon(*icons[int(Icons::fileOpen_ICON)]);
       styleFileButton->setIcon(*icons[int(Icons::fileOpen_ICON)]);
@@ -212,6 +221,9 @@ PreferenceDialog::PreferenceDialog(QWidget* parent)
       scoreOrderList1Button->setIcon(*icons[int(Icons::fileOpen_ICON)]);
       scoreOrderList2Button->setIcon(*icons[int(Icons::fileOpen_ICON)]);
       startWithButton->setIcon(*icons[int(Icons::fileOpen_ICON)]);
+
+      metronomeDownbeatSoundButton->setIcon(*icons[int(Icons::fileOpen_ICON)]);
+      metronomeBeatSoundButton->setIcon(*icons[int(Icons::fileOpen_ICON)]);
 
       connect(shortcutList,   &QTreeWidget::itemActivated, this, &PreferenceDialog::defineShortcutClicked);
       connect(resetShortcut,  &QToolButton::clicked, this, &PreferenceDialog::resetShortcutClicked);
@@ -298,6 +310,8 @@ void PreferenceDialog::start()
       normalWidgets = std::vector<PreferenceItem*>{
                   new IntPreferenceItem(PREF_APP_AUTOSAVE_AUTOSAVETIME, autoSaveTime),
                   new BoolPreferenceItem(PREF_APP_AUTOSAVE_USEAUTOSAVE, autoSave),
+                  new StringPreferenceItem(PREF_APP_PLAYBACK_METRONOME_DOWNBEAT_SOUND, metronomeDownbeatSound),
+                  new StringPreferenceItem(PREF_APP_PLAYBACK_METRONOME_BEAT_SOUND, metronomeBeatSound),
                   new StringPreferenceItem(PREF_APP_PATHS_INSTRUMENTLIST1, instrumentList1),
                   new StringPreferenceItem(PREF_APP_PATHS_INSTRUMENTLIST2, instrumentList2),
                   new StringPreferenceItem(PREF_APP_PATHS_SCOREORDERLIST1, scoreOrderList1),
@@ -1082,6 +1096,62 @@ void PreferenceDialog::selectStartWith()
          );
       if (!s.isNull())
             sessionScore->setText(s);
+      }
+
+//---------------------------------------------------------
+//   selectMetronomeDownbeatSound
+//---------------------------------------------------------
+
+void PreferenceDialog::selectMetronomeDownbeatSound()
+      {
+      QString s = QFileDialog::getOpenFileName(
+            this,
+            tr("Choose Metronome Downbeat Sound"),
+            metronomeDownbeatSound->text(),
+            tr("Audio Files")
+                  + " (*.wav *.wave *.aif *.aiff *.flac *.ogg);;"
+                  + tr("All") + " (*)",
+            0,
+            preferences.getBool(PREF_UI_APP_USENATIVEDIALOGS)
+                  ? QFileDialog::Options()
+                  : QFileDialog::DontUseNativeDialog
+            );
+
+      if (!s.isNull())
+            metronomeDownbeatSound->setText(s);
+      }
+
+//---------------------------------------------------------
+//   selectMetronomeBeatSound
+//---------------------------------------------------------
+
+void PreferenceDialog::selectMetronomeBeatSound()
+      {
+      QString s = QFileDialog::getOpenFileName(
+            this,
+            tr("Choose Metronome Beat Sound"),
+            metronomeBeatSound->text(),
+            tr("Audio Files")
+                  + " (*.wav *.wave *.aif *.aiff *.flac *.ogg);;"
+                  + tr("All") + " (*)",
+            0,
+            preferences.getBool(PREF_UI_APP_USENATIVEDIALOGS)
+                  ? QFileDialog::Options()
+                  : QFileDialog::DontUseNativeDialog
+            );
+
+      if (!s.isNull())
+            metronomeBeatSound->setText(s);
+      }
+
+//---------------------------------------------------------
+//   resetMetronomeSounds
+//---------------------------------------------------------
+
+void PreferenceDialog::resetMetronomeSounds()
+      {
+      metronomeDownbeatSound->clear();
+      metronomeBeatSound->clear();
       }
 
 //---------------------------------------------------------

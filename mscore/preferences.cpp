@@ -149,6 +149,17 @@ void Preferences::init(bool storeInMemoryOnly)
             {PREF_APP_PLAYBACK_SPEEDINCREMENT,                     new IntPreference(5)},
             {PREF_APP_PLAYBACK_LOOPTOSELECTIONONPLAY,              new BoolPreference(true)},
             {PREF_APP_PLAYBACK_DEFAULT_MASTER_VOLUME,              new DoublePreference(0.10)}, // results in -40dB
+            {PREF_APP_PLAYBACK_METRONOME_VOLUME,                   new DoublePreference(0.3, false)},
+
+            {PREF_APP_PLAYBACK_METRONOME_DOWNBEAT_SOUND,           new StringPreference("", false)},
+            {PREF_APP_PLAYBACK_METRONOME_BEAT_SOUND,               new StringPreference("", false)},
+
+            {PREF_APP_PLAYBACK_INDEPENDENT_METRONOME_BPM,          new DoublePreference(120.0, false)},
+            {PREF_APP_PLAYBACK_INDEPENDENT_METRONOME_NUMERATOR,    new IntPreference(4, false)},
+            {PREF_APP_PLAYBACK_INDEPENDENT_METRONOME_DENOMINATOR,  new IntPreference(4, false)},
+            {PREF_APP_PLAYBACK_INDEPENDENT_METRONOME_FOLLOW,       new BoolPreference(false, false)},
+            {PREF_APP_PLAYBACK_INDEPENDENT_METRONOME_ACCENTS,      new BoolPreference(true, false)},
+
             {PREF_APP_USESINGLEPALETTE,                            new BoolPreference(false, false)},
             {PREF_APP_PALETTESCALE,                                new DoublePreference(1.0)},
             {PREF_APP_STARTUP_FIRSTSTART,                          new BoolPreference(true)},

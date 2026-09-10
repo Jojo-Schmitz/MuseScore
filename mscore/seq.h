@@ -28,6 +28,10 @@
 #include "audio/midi/event.h"
 #include "audiodrivers/driver.h"
 
+#include <atomic>
+#include <memory>
+#include <vector>
+
 class QTimer;
 
 namespace Ms {
@@ -56,7 +60,14 @@ enum class SeqMsgId : char {
       TEMPO_CHANGE,
       PLAY, SEEK,
       ALL_NOTE_OFF,
-      MIDI_INPUT_EVENT
+      MIDI_INPUT_EVENT,
+
+      INDEPENDENT_METRONOME_ENABLED,
+      INDEPENDENT_METRONOME_BPM,
+      INDEPENDENT_METRONOME_TIME_SIGNATURE,
+      INDEPENDENT_METRONOME_FOLLOW,
+      INDEPENDENT_METRONOME_ACCENTS,
+      METRONOME_GAIN
       };
 
 struct SeqMsg {
@@ -65,10 +76,12 @@ struct SeqMsg {
             int intVal;
             qreal realVal;
             };
+      int intVal2 { 0 };
       NPlayEvent event;
 
       SeqMsg() {}
       SeqMsg(SeqMsgId _id, int val) : id(_id), intVal(val) {}
+      SeqMsg(SeqMsgId _id, int val, int val2) : id(_id), intVal(val), intVal2(val2) {}
       SeqMsg(SeqMsgId _id, qreal val) : id(_id), realVal(val) {}
       SeqMsg(SeqMsgId _id, const NPlayEvent& e) : id(_id), event(e) {}
       };
@@ -155,16 +168,71 @@ class Seq : public QObject, public Sequencer {
 
       QList<const Note*> markedNotes;     // notes marked as sounding
 
+      struct MetronomeCustomSample {
+            std::vector<float> data;       // interleaved stereo
+
+            unsigned frames() const
+                  {
+                  return unsigned(data.size() / 2);
+                  }
+            };
+
+      std::atomic<const MetronomeCustomSample*> _customMetronomeTickSample { nullptr };
+      std::atomic<const MetronomeCustomSample*> _customMetronomeTackSample { nullptr };
+
+      // Samples are immutable after loading. Retired generations remain
+      // alive while referenced by the realtime thread and are reclaimed
+      // on a later sample reload
+      std::vector<std::unique_ptr<MetronomeCustomSample>> _metronomeSampleStorage;
+
+      std::atomic<const MetronomeCustomSample*> _tickCustomSampleInUse { nullptr };
+      std::atomic<const MetronomeCustomSample*> _tackCustomSampleInUse { nullptr };
+      std::atomic<const MetronomeCustomSample*> _independentTickCustomSampleInUse { nullptr };
+      std::atomic<const MetronomeCustomSample*> _independentTackCustomSampleInUse { nullptr };
+
+      QString _loadedMetronomeTickPath;
+      QString _loadedMetronomeTackPath;
+      int _loadedMetronomeSampleRate { 0 };
+
       uint tackRemain;        // metronome state (remaining audio samples)
       uint tickRemain;
       qreal tackVolume;       // relative volumes
       qreal tickVolume;
-      qreal metronomeVolume;  // overall volume
+      qreal metronomeVolume;       // realtime-thread value
+      qreal metronomeVolumeValue;  // GUI/persisted value
+
+      uint independentTackRemain;
+      uint independentTickRemain;
+      qreal independentTackVolume;
+      qreal independentTickVolume;
 
       unsigned initialMillisecondTimestampWithLatency; // millisecond timestamp (relative to PortAudio's initialization) of start of playback
 
       QTimer* heartBeatTimer;
       QTimer* noteTimer;
+
+      bool independentMetronomeEnabledValue;
+      double independentMetronomeBpmValue;
+      int independentMetronomeNumeratorValue;
+      int independentMetronomeDenominatorValue;
+      bool independentMetronomeFollowPlaybackValue;
+      bool independentMetronomeBeatAccentsValue;
+
+      // Realtime-thread copies of the configuration above
+      bool independentMetronomeEnabledRT;
+      double independentMetronomeBpmRT;
+      int independentMetronomeNumeratorRT;
+      int independentMetronomeDenominatorRT;
+      bool independentMetronomeFollowPlaybackRT;
+      bool independentMetronomeBeatAccentsRT;
+
+      // True only while Follow Playback is controlling the
+      // independent metronome
+      bool independentMetronomeFollowPlaybackActiveRT;
+
+      // Realtime-owned free-running clock state
+      int independentMetronomeRtick;
+      double independentMetronomeFramesUntilNextClick;
 
       /**
        * Preferences cached for faster access in realtime context.
@@ -195,6 +263,34 @@ class Seq : public QObject, public Sequencer {
       void playEvent(const NPlayEvent&, unsigned framePos);
       void guiToSeq(const SeqMsg& msg);
       void metronome(unsigned n, float* l, bool force);
+      void independentMetronome(unsigned n, float* l);
+      void mixIndependentMetronomeSamples(unsigned n, float* l);
+
+      void mixMetronomeSample(unsigned n, float* p,
+                              uint& remain, qreal volume,
+                              const MetronomeCustomSample* customSample,
+                              const double* defaultSample,
+                              unsigned defaultFrames);
+
+      void startMetronomeTick(qreal volume, bool independent);
+      void startMetronomeTack(qreal volume, bool independent);
+      qreal independentMetronomeEventVolume(const NPlayEvent& event) const;
+
+      const MetronomeCustomSample* loadMetronomeSample(const QString& path);
+      void reloadMetronomeSamples(bool force = false);
+
+      const MetronomeCustomSample* acquireMetronomeSample(
+            const std::atomic<const MetronomeCustomSample*>& published,
+            std::atomic<const MetronomeCustomSample*>& inUse);
+
+      void reclaimRetiredMetronomeSamples();
+
+      void resetIndependentMetronomeRealtimeState();
+      void syncIndependentMetronomeRealtimeConfig();
+      void updateIndependentMetronomeFollowState();
+      int independentMetronomeClickTicks() const;
+      double independentMetronomeFramesPerClick() const;
+
       void seekCommon(int utick);
       void unmarkNotes();
       void updateSynthesizerState(int tick1, int tick2);
@@ -219,7 +315,7 @@ class Seq : public QObject, public Sequencer {
       void start();
       void stop();
       void setPos(POS, unsigned);
-      void setMetronomeGain(float val) { metronomeVolume = val; }
+      void setMetronomeGain(float val);
 
    signals:
       void started();
@@ -282,15 +378,36 @@ class Seq : public QObject, public Sequencer {
       virtual void startNote(int channel, int, int, int, double nt) override;
       virtual void playMetronomeBeat(BeatType type) override;
 
+      void setIndependentMetronomeEnabled(bool enabled);
+      bool independentMetronomeEnabled() const;
+
+      void setIndependentMetronomeBpm(double bpm);
+      double independentMetronomeBpm() const
+            { return independentMetronomeBpmValue; }
+
+      void setIndependentMetronomeTimeSignature(int numerator, int denominator);
+      int independentMetronomeNumerator() const
+            { return independentMetronomeNumeratorValue; }
+      int independentMetronomeDenominator() const
+            { return independentMetronomeDenominatorValue; }
+
+      void setIndependentMetronomeFollowPlayback(bool follow);
+      bool independentMetronomeFollowPlayback() const
+            { return independentMetronomeFollowPlaybackValue; }
+
+      void setIndependentMetronomeBeatAccents(bool enabled);
+      bool independentMetronomeBeatAccents() const
+            { return independentMetronomeBeatAccentsValue; }
+
       void eventToGui(NPlayEvent);
       void stopNoteTimer();
       void recomputeMaxMidiOutPort();
-      float metronomeGain() const      { return metronomeVolume; }
+      float metronomeGain() const { return metronomeVolumeValue; }
 
       void setInitialMillisecondTimestampWithLatency();
       unsigned getCurrentMillisecondTimestampWithLatency(unsigned framePos) const;
 
-      void preferencesChanged() { cachedPrefs.update(); }
+      void preferencesChanged();
       };
 
 extern Seq* seq;

@@ -61,9 +61,24 @@ bool AudioFile::open(const QByteArray& b)
       buf = b;
       idx = 0;
       sf  = sf_open_virtual(&sfio, SFM_READ, &info, this);
+
+      if (!sf)
+            return false;
+
       hasInstrument = sf_command(sf, SFC_GET_INSTRUMENT, &inst, sizeof(inst)) == SF_TRUE;
+
       _type = info.format & SF_FORMAT_OGG ? fltp : s16p;
-      return sf != 0;
+
+      return true;
+      }
+
+//---------------------------------------------------------
+//   readData
+//---------------------------------------------------------
+
+sf_count_t AudioFile::readData(float* data, sf_count_t frames)
+      {
+      return sf_readf_float(sf, data, frames);
       }
 
 //---------------------------------------------------------

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="24px"
+   height="24px"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg16"
+   sodipodi:docname="media-independent-metronome.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sodipodi:namedview
+     id="namedview18"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="44.791667"
+     inkscape:cx="8.6065116"
+     inkscape:cy="11.988837"
+     inkscape:window-width="2544"
+     inkscape:window-height="1336"
+     inkscape:window-x="0"
+     inkscape:window-y="29"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg16" />
+  <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+  <title
+     id="title2">media-playback-metronome</title>
+  <desc
+     id="desc4">Created with Sketch.</desc>
+  <defs
+     id="defs6" />
+  <g
+     id="g12"
+     style="fill:none;fill-rule:evenodd;stroke:none;stroke-width:1"
+     transform="matrix(-1,0,0,1,24,0)">
+    <rect
+       id="rect27705-9"
+       x="0"
+       y="0"
+       width="24"
+       height="24" />
+    <path
+       d="M 8.5626062,2.0000006 4.8126061,22.000001 H 18.656356 l -1.53125,-8 -1.6875,2.90625 0.5625,3.09375 H 7.4688561 L 10.406356,4.0000006 h 2.65625 l 0.34375,2 c 0.48058,-0.54077 1.10145,-0.96278 1.8125,-1.21875 0.0526,-0.0189 0.10257,-0.0455 0.15625,-0.0625 -0.04243,-0.15834 -0.46875,-2.71875 -0.46875,-2.71875 z"
+       id="path17616-0"
+       fill="#3b3f45" />
+    <polygon
+       id="rect17622-4"
+       fill="#3b3f45"
+       points="11.125106,17.000001 13.093856,17.000001 19.187606,6.4375006 17.718856,5.5937506 " />
+    <path
+       d="m 19.234163,9.0218852 c 0,1.3803678 -1.119001,2.4993808 -2.499369,2.4993808 -1.38038,0 -2.499381,-1.119013 -2.499381,-2.4993808 0,-1.3803678 1.119001,-2.4993807 2.499381,-2.4993807 1.380368,0 2.499369,1.1190129 2.499369,2.4993807 z"
+       id="path17657-3-4"
+       fill="#3b3f45"
+       transform="rotate(75,16.734788,9.021885)" />
+  </g>
+  <metadata
+     id="metadata317">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>media-playback-metronome</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

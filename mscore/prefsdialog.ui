@@ -548,56 +548,244 @@
          </layout>
         </widget>
        </item>
-       <item row="5" column="1">
-        <widget class="QGroupBox" name="oscServer">
-         <property name="title">
-          <string>OSC Remote Control</string>
+       <item row="4" column="1" rowspan="2">
+        <layout class="QHBoxLayout" name="horizontalLayout_generalBottom">
+         <property name="spacing">
+          <number>9</number>
          </property>
-         <property name="checkable">
-          <bool>true</bool>
+         <property name="leftMargin">
+          <number>0</number>
          </property>
-         <property name="checked">
-          <bool>false</bool>
+         <property name="topMargin">
+          <number>0</number>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_9">
-          <item>
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string extracomment="The UDP port number on which the MuseScore OSC server will listen on">Port number:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSpinBox" name="oscPort">
-            <property name="accessibleName">
-             <string>Port number</string>
-            </property>
-            <property name="minimum">
-             <number>1</number>
-            </property>
-            <property name="maximum">
-             <number>65535</number>
-            </property>
-            <property name="value">
-             <number>5282</number>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_15">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </widget>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_generalBottomLeft">
+           <property name="spacing">
+            <number>9</number>
+           </property>
+           <item>
+            <widget class="QGroupBox" name="autoSave">
+             <property name="title">
+              <string>Auto Save</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <layout class="QHBoxLayout">
+              <property name="spacing">
+               <number>9</number>
+              </property>
+              <property name="leftMargin">
+               <number>9</number>
+              </property>
+              <property name="topMargin">
+               <number>9</number>
+              </property>
+              <property name="rightMargin">
+               <number>9</number>
+              </property>
+              <property name="bottomMargin">
+               <number>9</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="label_autoSaveTime">
+                <property name="text">
+                 <string>Save every:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="autoSaveTime">
+                <property name="accessibleName">
+                 <string>Select delay (in minutes) between auto saves</string>
+                </property>
+                <property name="suffix">
+                 <string extracomment="minutes">min</string>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="value">
+                 <number>2</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="oscServer">
+             <property name="title">
+              <string>OSC Remote Control</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_9">
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string extracomment="The UDP port number on which the MuseScore OSC server will listen on">Port number:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="oscPort">
+                <property name="accessibleName">
+                 <string>Port number</string>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>65535</number>
+                </property>
+                <property name="value">
+                 <number>5282</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_15">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="metronomeSounds">
+           <property name="title">
+            <string>Metronome sounds</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_metronomeSounds">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_metronomeDownbeatSound">
+              <property name="text">
+               <string>Downbeat:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="metronomeDownbeatSound">
+              <property name="accessibleName">
+               <string>Metronome downbeat sound</string>
+              </property>
+              <property name="accessibleDescription">
+               <string>Path to a custom audio file for the metronome downbeat</string>
+              </property>
+              <property name="placeholderText">
+               <string>Built-in default</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QToolButton" name="metronomeDownbeatSoundButton">
+              <property name="accessibleName">
+               <string>Choose metronome downbeat sound</string>
+              </property>
+              <property name="toolTip">
+               <string>Choose downbeat sound</string>
+              </property>
+              <property name="text">
+               <string notr="true"/>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_metronomeBeatSound">
+              <property name="text">
+               <string>Other beats:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="metronomeBeatSound">
+              <property name="accessibleName">
+               <string>Metronome other beat sound</string>
+              </property>
+              <property name="accessibleDescription">
+               <string>Path to a custom audio file for other metronome beats</string>
+              </property>
+              <property name="placeholderText">
+               <string>Built-in default</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QToolButton" name="metronomeBeatSoundButton">
+              <property name="accessibleName">
+               <string>Choose metronome other beat sound</string>
+              </property>
+              <property name="toolTip">
+               <string>Choose other beat sound</string>
+              </property>
+              <property name="text">
+               <string notr="true"/>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1" colspan="2">
+             <layout class="QHBoxLayout" name="horizontalLayout_metronomeSoundsReset">
+              <item>
+               <spacer name="horizontalSpacer_metronomeSoundsReset">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="metronomeSoundsReset">
+                <property name="text">
+                 <string>Reset to default</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item row="0" column="0" rowspan="3">
         <widget class="QGroupBox" name="groupBox_programStart">
@@ -710,69 +898,6 @@
              <string>Show tours</string>
             </property>
            </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QGroupBox" name="autoSave">
-         <property name="title">
-          <string>Auto Save</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <layout class="QHBoxLayout">
-          <property name="spacing">
-           <number>9</number>
-          </property>
-          <property name="leftMargin">
-           <number>9</number>
-          </property>
-          <property name="topMargin">
-           <number>9</number>
-          </property>
-          <property name="rightMargin">
-           <number>9</number>
-          </property>
-          <property name="bottomMargin">
-           <number>9</number>
-          </property>
-          <item>
-           <widget class="QLabel" name="label_autoSaveTime">
-            <property name="text">
-             <string>Save every:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSpinBox" name="autoSaveTime">
-            <property name="accessibleName">
-             <string>Select delay (in minutes) between auto saves</string>
-            </property>
-            <property name="suffix">
-             <string extracomment="minutes">min</string>
-            </property>
-            <property name="minimum">
-             <number>1</number>
-            </property>
-            <property name="value">
-             <number>2</number>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-           </spacer>
           </item>
          </layout>
         </widget>
