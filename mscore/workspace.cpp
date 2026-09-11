@@ -46,7 +46,7 @@ int qt_ntfs_permission_lookup;
 
 namespace Ms {
 
-static constexpr int WORKSPACE_UI_VERSION = 1;
+static constexpr int WORKSPACE_UI_VERSION = 2;
 
 bool WorkspacesManager::isWorkspacesListDirty = true;
 Workspace* WorkspacesManager::m_currentWorkspace = nullptr;
@@ -1084,6 +1084,15 @@ void Workspace::migrate(int uiVersion)
 
             if (auto entries = mscore->playbackControlEntries()) {
                   ensureToolbarEntry(*entries, "playback-highlight", "countin", InsertPosition::BEFORE);
+                  mscore->populatePlaybackControls();
+                  }
+            }
+      if (uiVersion < 2) {
+            if (auto entries = mscore->playbackControlEntries()) {
+                  ensureToolbarEntry(*entries,
+                                     "independent-metronome",
+                                     "repeat",
+                                     InsertPosition::AFTER);
                   mscore->populatePlaybackControls();
                   }
             }
