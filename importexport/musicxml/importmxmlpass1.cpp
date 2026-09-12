@@ -1597,7 +1597,12 @@ static bool isTitleFrameStyle(const Tid tid)
       return tid == Tid::TITLE
              || tid == Tid::SUBTITLE
              || tid == Tid::COMPOSER
-             || tid == Tid::POET;
+             || tid == Tid::POET
+             || tid == Tid::ALBUM_FRONT_TITLE
+             || tid == Tid::ALBUM_FRONT_COMPOSER
+             || tid == Tid::ALBUM_FRONT_LYRICIST
+             || tid == Tid::ALBUM_CONTENTS_TITLE
+             || tid == Tid::ALBUM_CONTENTS_TEXT;
       }
 
 //---------------------------------------------------------

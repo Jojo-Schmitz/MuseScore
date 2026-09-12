@@ -53,9 +53,9 @@ Startcenter::Startcenter(QWidget* parent)
       setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
       setWindowModality(Qt::ApplicationModal);
       connect(recentPage,  &ScoreBrowser::scoreActivated, this, &Startcenter::loadScore);
-      connect(openScore, SIGNAL(clicked()), this, SLOT(openScoreClicked()));
+      connect(openFile, SIGNAL(clicked()), this, SLOT(openFileClicked()));
       connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
-      setStyleSheet(QString("QPushButton { background-color: %1 }").arg(openScore->palette().color(QPalette::Base).name()));
+      setStyleSheet(QString("QPushButton { background-color: %1 }").arg(openFile->palette().color(QPalette::Base).name()));
 
 //      if (enableExperimental)
 // right now don’t know how it use in WebEngine @handrok
@@ -129,7 +129,7 @@ void Startcenter::updateRecentScores()
 //   openScoreClicked
 //---------------------------------------------------------
 
-void Startcenter::openScoreClicked()
+void Startcenter::openFileClicked()
       {
       mscore->tourHandler()->delayWelcomeTour();
       close();

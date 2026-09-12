@@ -402,6 +402,7 @@ class ScoreView : public QWidget, public MuseScoreView {
       Page* addPage();
       virtual void setScore(Score* s) override;
       virtual void removeScore() override { _score = 0; }
+      void setActiveScore(Score* s);
 
       void setPhysicalZoomLevel(qreal logicalLevel);
 
