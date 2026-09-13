@@ -200,8 +200,14 @@ extern Ms::Synthesizer* createZerberus();
 
 #if defined(Q_OS_WIN)
 // for SystemParametersInfo(SPI_GETSCREENREADER), see screenReaderActive()
+// Qt's qt_windows.h may have defined these already (NOMINMAX without a value),
+// so only define what is missing, to not warn about redefining them
+#ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
+#endif
+#ifndef NOMINMAX
 #define NOMINMAX 1
+#endif
 #include <windows.h>
 #endif
 
