@@ -25,6 +25,8 @@ namespace Ms {
 //---------------------------------------------------------
 
 class DebugLogDock : public QDockWidget {
+	  Q_OBJECT
+
 	  QPlainTextEdit* _output { nullptr };
 	  QCheckBox* _enabledCheck { nullptr };
 	  QTimer* _flushTimer { nullptr };
