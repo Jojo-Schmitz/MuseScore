@@ -82,7 +82,7 @@ class Accidental final : public Element {
 
       QString subtypeUserName() const;
       void setSubtype(const QString& s);
-      void setAccidentalType(AccidentalType t)     { _accidentalType = t;    }
+      void setAccidentalType(AccidentalType t);
 
       AccidentalType accidentalType() const        { return _accidentalType; }
       AccidentalRole role() const                  { return _role;           }
@@ -127,6 +127,7 @@ class Accidental final : public Element {
       static AccidentalType value2subtype(AccidentalVal);
       static AccidentalType name2subtype(const QString&);
       static bool isMicrotonal(AccidentalType t)  { return t > AccidentalType::FLAT3; }
+      static qreal subtype2centOffset(AccidentalType);
 
       QString accessibleInfo() const override;
       };
