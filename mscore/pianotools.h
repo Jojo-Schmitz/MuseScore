@@ -37,7 +37,7 @@ class PianoKeyItem : public QGraphicsPathItem {
       bool _pressed;
       bool _highlighted;
       bool _selected;
-      HPiano* piano;
+      HPiano* piano { nullptr };
 
       virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = 0);
       virtual void mousePressEvent(QGraphicsSceneMouseEvent*);

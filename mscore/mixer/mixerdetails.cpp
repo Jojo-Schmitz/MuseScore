@@ -349,6 +349,10 @@ void MixerDetails::trackColorChanged(QColor col)
             }
 
       _mti->setColor(col.rgb());
+
+      Part* part = _mti->part();
+      if (part && part->masterScore())
+            emit part->masterScore()->partColorChanged();
       }
 
 //---------------------------------------------------------

@@ -254,6 +254,13 @@ class PartChannelSettingsLink final : private ChannelListener {
 //   Instrument
 //---------------------------------------------------------
 
+enum class PianoRollNoteShape : char {
+      AUTO,
+      RECTANGLE,
+      DIAMOND,
+      UNUSED
+      };
+
 class Instrument {
       StaffNameList _longNames;
       StaffNameList _shortNames;
@@ -264,6 +271,8 @@ class Instrument {
       char _minPitchA, _maxPitchA, _minPitchP, _maxPitchP;
       Interval _transpose;
       QString _instrumentId;
+
+      PianoRollNoteShape _pianoRollNoteShape { PianoRollNoteShape::AUTO };
 
       bool _useDrumset;
       Drumset* _drumset;
@@ -312,6 +321,9 @@ class Instrument {
       Drumset* drumset()                                     { return _drumset;    }
       bool useDrumset() const                                { return _useDrumset; }
       void setUseDrumset(bool val);
+      PianoRollNoteShape pianoRollNoteShape() const          { return _pianoRollNoteShape;   }
+      void setPianoRollNoteShape(PianoRollNoteShape value)   { _pianoRollNoteShape = value;  }
+
       void setAmateurPitchRange(int a, int b)                { _minPitchA = a; _maxPitchA = b; }
       void setProfessionalPitchRange(int a, int b)           { _minPitchP = a; _maxPitchP = b; }
       Channel* channel(int idx)                              { return _channel[idx];  }

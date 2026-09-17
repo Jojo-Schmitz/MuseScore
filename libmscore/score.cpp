@@ -3366,6 +3366,8 @@ void Score::deselect(Element* el)
 
 void Score::select(Element* e, SelectType type, int staffIdx)
       {
+      _selection.setSource(SelectionSource::SCORE);
+
       // Move the playhead to the selected element's preferred play position.
       if (e) {
             const auto playTick = e->playTick();
@@ -5001,6 +5003,281 @@ QString Score::nextRehearsalMarkText(RehearsalMark* previous, RehearsalMark* cur
                   return QString("%1").arg(n);
                   }
             }
+      }
+
+//---------------------------------------------------------
+//   regroupVoicing
+//---------------------------------------------------------
+
+bool Score::regroupVoicing(const Fraction& startTick,
+                           const Fraction& endTick,
+                           int staffIdx)
+      {
+      if (staffIdx < 0 || staffIdx >= nstaves()
+          || startTick >= endTick) {
+            return false;
+            }
+
+      const int staffTrack = staffIdx * VOICES;
+
+      auto chordAtTick = [this](int track,
+                                const Fraction& tick) -> Chord* {
+            Measure* measure = tick2measure(tick);
+            if (!measure)
+                  return nullptr;
+
+            Chord* activeChord = nullptr;
+
+            for (Segment* segment = measure->first(SegmentType::ChordRest);
+                 segment;
+                 segment = segment->next(SegmentType::ChordRest)) {
+
+                  if (segment->tick() > tick)
+                        break;
+
+                  ChordRest* cr =
+                        toChordRest(segment->element(track));
+
+                  if (!cr || !cr->isChord())
+                        continue;
+
+                  Chord* chord = toChord(cr);
+
+                  if (chord->tick() <= tick
+                      && chord->tick() + chord->actualTicks() > tick) {
+                        activeChord = chord;
+                        }
+                  }
+
+            return activeChord;
+            };
+
+      bool voiceUsed[VOICES] = {
+            false, false, false, false
+            };
+
+      for (int voice = 0; voice < VOICES; ++voice) {
+            if (chordAtTick(staffTrack + voice, startTick))
+                  voiceUsed[voice] = true;
+            }
+
+      for (Segment* segment =
+                 tick2segment(startTick,
+                              false,
+                              SegmentType::ChordRest);
+           segment && segment->tick() < endTick;
+           segment = segment->next(SegmentType::ChordRest)) {
+
+            for (int voice = 0; voice < VOICES; ++voice) {
+                  if (voiceUsed[voice])
+                        continue;
+
+                  ChordRest* cr =
+                        toChordRest(
+                              segment->element(staffTrack + voice));
+
+                  if (cr && cr->isChord())
+                        voiceUsed[voice] = true;
+                  }
+            }
+
+      QVector<int> usedVoices;
+
+      for (int voice = 0; voice < VOICES; ++voice) {
+            if (voiceUsed[voice])
+                  usedVoices.append(voice);
+            }
+
+      if (usedVoices.size() < 2)
+            return false;
+
+
+      struct VoicePairRelation {
+            int firstAbove { 0 };
+            int secondAbove { 0 };
+            };
+
+      auto compareChords = [](const Chord* a,
+                              const Chord* b) -> int {
+            if (!a || !b)
+                  return 0;
+
+            const int aTop = a->upNote()->pitch();
+            const int bTop = b->upNote()->pitch();
+
+            if (aTop != bTop)
+                  return aTop > bTop ? 1 : -1;
+
+            const int aBottom = a->downNote()->pitch();
+            const int bBottom = b->downNote()->pitch();
+
+            if (aBottom != bBottom)
+                  return aBottom > bBottom ? 1 : -1;
+
+            return 0;
+            };
+
+
+      int rankScore[VOICES] = { 0, 0, 0, 0 };
+      for (int i = 0; i < usedVoices.size(); ++i) {
+            for (int j = i + 1; j < usedVoices.size(); ++j) {
+                  const int voiceA = usedVoices[i];
+                  const int voiceB = usedVoices[j];
+
+                  VoicePairRelation relation;
+
+                  for (Segment* segment =
+                             tick2segment(startTick,
+                                          false,
+                                          SegmentType::ChordRest);
+                       segment && segment->tick() < endTick;
+                       segment = segment->next(
+                             SegmentType::ChordRest)) {
+
+                        const Fraction tick = segment->tick();
+
+                        Chord* chordA =
+                              chordAtTick(
+                                    staffTrack + voiceA,
+                                    tick);
+
+                        Chord* chordB =
+                              chordAtTick(
+                                    staffTrack + voiceB,
+                                    tick);
+
+                        if (!chordA || !chordB)
+                              continue;
+
+                        const int comparison =
+                              compareChords(chordA, chordB);
+
+                        if (comparison > 0)
+                              ++relation.firstAbove;
+                        else if (comparison < 0)
+                              ++relation.secondAbove;
+                        }
+
+                  if (relation.firstAbove > relation.secondAbove)
+                        ++rankScore[voiceA];
+                  else if (relation.secondAbove > relation.firstAbove)
+                        ++rankScore[voiceB];
+
+                  }
+            }
+
+
+      QVector<int> rankedVoices = usedVoices;
+
+      std::sort(
+            rankedVoices.begin(),
+            rankedVoices.end(),
+            [&rankScore](int a, int b) {
+                  if (rankScore[a] != rankScore[b])
+                        return rankScore[a] > rankScore[b];
+
+                  // inconclusive: preserve normal existing voice order
+                  return a < b;
+                  });
+
+
+      bool fullyRanked = true;
+
+      for (int i = 1; i < rankedVoices.size(); ++i) {
+            if (rankScore[rankedVoices[i - 1]]
+                == rankScore[rankedVoices[i]]) {
+                  fullyRanked = false;
+                  break;
+                  }
+            }
+
+      int destinationForVoice[VOICES] = {
+            0, 1, 2, 3
+            };
+
+      if (fullyRanked) {
+            for (int i = 0; i < rankedVoices.size(); ++i)
+                  destinationForVoice[rankedVoices[i]] = i;
+            }
+
+      bool needsChange = false;
+
+      for (int voice : usedVoices) {
+            if (destinationForVoice[voice] != voice) {
+                  needsChange = true;
+                  break;
+                  }
+            }
+
+      if (!needsChange)
+            return false;
+
+      int sourceAtDestination[VOICES] = { 0, 1, 2, 3 };
+
+      for (int sourceVoice = 0; sourceVoice < VOICES; ++sourceVoice) {
+            const int destinationVoice =
+                  destinationForVoice[sourceVoice];
+
+            sourceAtDestination[destinationVoice] =
+                  sourceVoice;
+            }
+
+      Measure* firstMeasure = tick2measure(startTick);
+      Measure* lastMeasure  = tick2measure(endTick);
+
+      if (!firstMeasure || !lastMeasure)
+            return false;
+
+      Measure* endMeasure = lastMeasure;
+
+      if (endTick > lastMeasure->tick())
+            endMeasure = lastMeasure->nextMeasure();
+
+      for (Measure* measure = firstMeasure;
+           measure && measure != endMeasure;
+           measure = measure->nextMeasure()) {
+
+            int currentSourceAtVoice[VOICES] = {
+                  0, 1, 2, 3
+                  };
+
+            for (int destinationVoice = 0;
+                 destinationVoice < VOICES;
+                 ++destinationVoice) {
+
+                  const int wantedSource =
+                        sourceAtDestination[destinationVoice];
+
+                  int currentVoice = -1;
+
+                  for (int voice = destinationVoice;
+                       voice < VOICES;
+                       ++voice) {
+                        if (currentSourceAtVoice[voice]
+                            == wantedSource) {
+                              currentVoice = voice;
+                              break;
+                              }
+                        }
+
+                  if (currentVoice == -1
+                      || currentVoice == destinationVoice)
+                        continue;
+
+                  undoExchangeVoice(
+                        measure,
+                        destinationVoice,
+                        currentVoice,
+                        staffIdx,
+                        staffIdx + 1);
+
+                  std::swap(
+                        currentSourceAtVoice[destinationVoice],
+                        currentSourceAtVoice[currentVoice]);
+                  }
+            }
+
+      return true;
       }
 
 //---------------------------------------------------------

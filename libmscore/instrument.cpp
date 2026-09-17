@@ -127,6 +127,7 @@ Instrument::Instrument(const Instrument& i)
       _drumset      = 0;
       setDrumset(i._drumset);
       _useDrumset   = i._useDrumset;
+      _pianoRollNoteShape = i._pianoRollNoteShape;
       _stringData   = i._stringData;
       _midiActions  = i._midiActions;
       _articulation = i._articulation;
@@ -156,6 +157,7 @@ void Instrument::operator=(const Instrument& i)
       _stringData   = i._stringData;
       _drumset      = 0;
       setDrumset(i._drumset);
+      _pianoRollNoteShape = i._pianoRollNoteShape;
       _useDrumset   = i._useDrumset;
       _stringData   = i._stringData;
       _midiActions  = i._midiActions;
@@ -246,6 +248,9 @@ void Instrument::write(XmlWriter& xml, const Part* part) const
       if (_useDrumset) {
             xml.tag("useDrumset", _useDrumset);
             _drumset->save(xml);
+            }
+      if (_pianoRollNoteShape != PianoRollNoteShape::AUTO) {
+            xml.tag("pianoRollNoteShape", int(_pianoRollNoteShape));
             }
       for (int i = 0; i < _clefType.size(); ++i) {
             ClefTypeList ct = _clefType[i];
@@ -435,6 +440,14 @@ bool Instrument::readProperties(XmlReader& e, Part* part, bool* customDrumset)
             if (_useDrumset) {
                   delete _drumset;
                   _drumset = new Drumset(*smDrumset);
+                  }
+            }
+      else if (tag == "pianoRollNoteShape") {
+            const int value = e.readInt();
+
+            if (value >= int(PianoRollNoteShape::AUTO)
+                && value < int(PianoRollNoteShape::UNUSED)) {
+                  _pianoRollNoteShape = PianoRollNoteShape(value);
                   }
             }
       else if (tag == "Drum") {
@@ -1273,6 +1286,7 @@ bool Instrument::operator==(const Instrument& i) const
          &&  i._minPitchP == _minPitchP
          &&  i._maxPitchP == _maxPitchP
          &&  i._useDrumset == _useDrumset
+         &&  i._pianoRollNoteShape == _pianoRollNoteShape
          &&  i._midiActions == _midiActions
          &&  i._articulation == _articulation
          &&  i._transpose.diatonic == _transpose.diatonic
@@ -1311,6 +1325,7 @@ bool Instrument::isDifferentInstrument(const Instrument& i) const
             || i._minPitchP != _minPitchP
             || i._maxPitchP != _maxPitchP
             || i._useDrumset != _useDrumset
+            || i._pianoRollNoteShape != _pianoRollNoteShape
             || i._midiActions != _midiActions
             || i._articulation != _articulation
             || i._transpose.diatonic != _transpose.diatonic

@@ -1629,6 +1629,19 @@ ChangePart::ChangePart(Part* _part, Instrument* i, const QString& s)
       }
 
 //---------------------------------------------------------
+//   ChangePianoRollNoteShape::flip
+//---------------------------------------------------------
+
+void ChangePianoRollNoteShape::flip(EditData*)
+      {
+      const PianoRollNoteShape oldShape =
+            instrument->pianoRollNoteShape();
+
+      instrument->setPianoRollNoteShape(shape);
+      shape = oldShape;
+      }
+
+//---------------------------------------------------------
 //   flip
 //---------------------------------------------------------
 

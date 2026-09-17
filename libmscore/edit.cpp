@@ -2646,6 +2646,35 @@ void Score::cmdDeleteSelection()
             // so we need a local copy:
             QList<Element*> el = selection().elements();
 
+            if (selection().fromPianoRoll()) {
+                  QList<Element*> expanded;
+
+                  for (Element* e : qAsConst(el)) {
+                        if (!e->isNote()) {
+                              if (!expanded.contains(e))
+                                    expanded.append(e);
+                              continue;
+                              }
+
+                        Note* note = toNote(e);
+
+                        while (note->tieBack())
+                              note = note->tieBack()->startNote();
+
+                        for (;;) {
+                              if (!expanded.contains(note))
+                                    expanded.append(note);
+
+                              if (!note->tieFor())
+                                    break;
+
+                              note = note->tieFor()->endNote();
+                              }
+                        }
+
+                  el = expanded;
+                  }
+
             // keep track of linked elements that are deleted implicitly
             // so we don't try to delete them twice if they are also in selection
             QList<ScoreElement*> deletedElements;

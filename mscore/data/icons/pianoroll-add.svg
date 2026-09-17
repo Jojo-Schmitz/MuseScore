@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="16px"
+   height="16px"
+   viewBox="0 0 16 16"
+   version="1.1"
+   id="svg15"
+   sodipodi:docname="edit.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sodipodi:namedview
+     id="namedview17"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="67.1875"
+     inkscape:cx="5.7376744"
+     inkscape:cy="7.9925581"
+     inkscape:window-width="2544"
+     inkscape:window-height="1336"
+     inkscape:window-x="0"
+     inkscape:window-y="29"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg15" />
+  <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+  <title
+     id="title2">edit</title>
+  <desc
+     id="desc4">Created with Sketch.</desc>
+  <defs
+     id="defs6" />
+  <path
+     style="fill:#f5e6c1;fill-opacity:1;stroke:#000000;stroke-width:0.985116px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+     d="M 4.8798897,8.9581294 1.173703,0.93759046 9.9672193,2.8055417 8.981551,7.3878366 Z"
+     id="path8464"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="ccccc" />
+  <path
+     style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.460196px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="M 2.9631465,4.2851147 1.0686981,0.8609064 4.9929226,1.9348253 4.9359432,4.0008313 Z"
+     id="path8464-8"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="ccccc" />
+  <path
+     style="fill:#fbe96c;fill-opacity:1;stroke:#000000;stroke-width:1.09865px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+     d="M 4.8798897,8.9581294 8.981551,7.3878366 9.9672193,2.8055417 12.411294,4.4725794 12.347249,15.19913 Z"
+     id="path8481"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cccccc" />
+  <path
+     style="fill:none;stroke:#f6bd29;stroke-width:1.09865px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+     d="m 9.7215682,8.1979675 1.5369858,1.156155"
+     id="path8483"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cc" />
+  <metadata
+     id="metadata688">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>edit</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
