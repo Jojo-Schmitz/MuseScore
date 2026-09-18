@@ -6774,6 +6774,8 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
       if (ScriptRecorder* rec = getScriptRecorder())
             rec->recordCommand(cmd);
 
+      bool unknown = false;
+
       if (cmd == "instruments")
             editInstrumentList();
       else if (cmd == "rewind") {
@@ -6836,6 +6838,8 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
                   closeScore(cs);
                   openScore(fn);
                   }
+            else
+                  unknown = true;
             }
       else if (cmd == "unroll-repeats")
             scoreUnrolled(cs->masterScore());
@@ -6933,6 +6937,8 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
 #ifdef MSCORE_UNSTABLE
             else if (cmd == "toggle-script-recorder")
                   scriptRecorder->setVisible(a->isChecked());
+            else
+                  unknown = true;
 #endif
             }
       else if (cmd == "synth-control")
@@ -7204,7 +7210,10 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
                   }
             }
 #endif
-      else {
+      else
+            unknown = true;
+
+      if (unknown) {
             if (cv) {
                   //isAncestorOf is called to see if a widget from inspector has focus
                   //if so, the focus doesn't get shifted to the score, unless escape is
