@@ -575,7 +575,11 @@ QString MP3Exporter::getLibraryPath()
 
 QString MP3Exporter::getLibraryName()
       {
+#ifdef __ARM_ARCH
+      return QString("libmp3lame.0.dylib");
+#else // Intel
       return QString("libmp3lame.dylib");
+#endif
       }
 
 QString MP3Exporter::getLibraryTypeString()
