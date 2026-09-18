@@ -6771,6 +6771,19 @@ ScoreTab* MuseScore::createScoreTab()
 
 void MuseScore::cmd(QAction* a, const QString& cmd)
       {
+      //isAncestorOf is called to see if a widget from inspector has focus
+      //if so, the focus doesn't get shifted to the score, unless escape is
+      //pressed, or the user clicks in the score
+#define PROCESS_NOT_FOUND_CMD \
+      do { \
+            if (cv) { \
+                  if (!inspector()->isAncestorOf(qApp->focusWidget()) || cmd == "escape") \
+                        cv->setFocus(); \
+                  cv->cmd(a); \
+            } \
+            else \
+                  qDebug("2:unknown cmd <%s>", qPrintable(cmd)); \
+      } while (0)
       if (ScriptRecorder* rec = getScriptRecorder())
             rec->recordCommand(cmd);
 
@@ -6836,6 +6849,7 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
                   closeScore(cs);
                   openScore(fn);
                   }
+            PROCESS_NOT_FOUND_CMD;
             }
       else if (cmd == "unroll-repeats")
             scoreUnrolled(cs->masterScore());
@@ -6934,6 +6948,7 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
             else if (cmd == "toggle-script-recorder")
                   scriptRecorder->setVisible(a->isChecked());
 #endif
+            PROCESS_NOT_FOUND_CMD;
             }
       else if (cmd == "synth-control")
             showSynthControl(a->isChecked());
@@ -7187,6 +7202,7 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
                         cs->update();
                         }
                   }
+            PROCESS_NOT_FOUND_CMD;
             }
 #ifndef NDEBUG
       else if (cmd == "qml-reload-source") {
@@ -7204,20 +7220,11 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
                   }
             }
 #endif
-      else {
-            if (cv) {
-                  //isAncestorOf is called to see if a widget from inspector has focus
-                  //if so, the focus doesn't get shifted to the score, unless escape is
-                  //pressed, or the user clicks in the score
-                  if (!inspector()->isAncestorOf(qApp->focusWidget()) || cmd == "escape")
-                        cv->setFocus();
-                  cv->cmd(a);
-                  }
-            else
-                  qDebug("2:unknown cmd <%s>", qPrintable(cmd));
-            }
+      else
+            PROCESS_NOT_FOUND_CMD;
       if (debugger)
             debugger->reloadClicked();
+#undef PROCESS_NOT_FOUND_CMD
       }
 
 //---------------------------------------------------------
