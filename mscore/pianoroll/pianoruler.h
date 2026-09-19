@@ -21,10 +21,13 @@
 #define __PIANO_RULER_H__
 
 #include "libmscore/pos.h"
+#include "pianoroll/pianorolledittool.h"
+#include "pianoroll/pianoview.h"
 
 namespace Ms {
 
 class Score;
+class PianoView;
 
 static const int pianoRulerHeight = 28;
 static const int MAP_OFFSET = 480;
@@ -36,23 +39,35 @@ static const int MAP_OFFSET = 480;
 class PianoRuler : public QWidget {
       Q_OBJECT
 
-      Score* _score;
+      PianoView* _pianoView { nullptr };
+
+      Score* _score { nullptr };
       Pos _cursor;
-      Pos* _locator;
+      Pos* _locator { nullptr };
 
       qreal _xZoom;
       int _xpos;
       TType _timeType;
       QFont _font1, _font2;
 
+      PianoRollOrientation _orientation { PianoRollOrientation::HORIZONTAL };
+
+      bool _loopEnabled { false };
+
+      qreal _playbackLocatorTick { 0.0 };
+      bool _playbackLocatorTickValid { false };
+
       static QPixmap* markIcon[3];
 
       virtual void paintEvent(QPaintEvent*);
       virtual void mousePressEvent(QMouseEvent*);
-      virtual void mouseMoveEvent(QMouseEvent* event);
+      virtual void mouseMoveEvent(QMouseEvent*);
       virtual void leaveEvent(QEvent*);
 
-      Pos pix2pos(int x) const;
+      void paintHorizontal(QPaintEvent*);
+      void paintVertical(QPaintEvent*);
+
+      Pos pix2pos(int) const;
       int pos2pix(const Pos& p) const;
       void moveLocator(QMouseEvent*);
 
@@ -70,6 +85,18 @@ class PianoRuler : public QWidget {
       void setScore(Score*, Pos* locator);
       int xpos() const { return _xpos; }
       qreal xZoom() const { return _xZoom; }
+
+      void setPlaybackLocatorTick(qreal tick);
+      void clearPlaybackLocatorTick();
+
+      qreal tickToPixelF(qreal tick) const;
+
+      void setOrientation(PianoRollOrientation);
+      void setPianoView(PianoView*);
+
+      bool playbackLocatorActive() const;
+
+      void setLoopEnabled(bool);
       };
 
 

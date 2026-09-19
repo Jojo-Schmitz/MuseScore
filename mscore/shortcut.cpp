@@ -3135,6 +3135,17 @@ Shortcut Shortcut::_sc[] = {
          },
       {
          MsWidget::MAIN_WINDOW,
+         STATE_DISABLED | STATE_NORMAL | STATE_NOTE_ENTRY | STATE_PLAY | STATE_FOTO | STATE_EDIT,
+         "toggle-piano-roll",
+         QT_TRANSLATE_NOOP("action","Piano Roll Editor"),
+         QT_TRANSLATE_NOOP("action","Piano roll editor"),
+         0,
+         Icons::pianorollEditor_ICON,
+         Qt::WindowShortcut,
+         ShortcutFlags::A_CHECKABLE
+         },
+      {
+         MsWidget::MAIN_WINDOW,
          STATE_NORMAL | STATE_NOTE_ENTRY | STATE_PLAY | STATE_FOTO | STATE_EDIT,
          "toggle-scorecmp-tool",
          QT_TRANSLATE_NOOP("action","Score Comparison Tool"),

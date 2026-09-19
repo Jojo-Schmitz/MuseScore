@@ -53,7 +53,7 @@ class NoteTweakerDialog : public QDialog
       void setNoteOffTime();
 
    private:
-      void addChord(Chord* chord, int voice);
+      void addChord(Chord* chord);
       void updateNotes();
       void clearNoteData();
 

@@ -1377,11 +1377,144 @@ void Score::cmdAddTie(bool addToChord)
       }
 
 //---------------------------------------------------------
+//   findOrCreateTieTarget
+//---------------------------------------------------------
+
+Note* Score::findOrCreateTieTarget(Note* note)
+      {
+      if (!note || !note->chord())
+            return nullptr;
+
+      Chord* chord = note->chord();
+      const int track = note->track();
+      const int staffTrack = (track / VOICES) * VOICES;
+
+      // consider the position immediately following the source note
+      const Fraction nextTick =
+            chord->tick() + chord->actualTicks();
+
+      Segment* segment =
+            tick2segment(nextTick, false, SegmentType::ChordRest);
+
+      if (!segment)
+            return nullptr;
+
+      // First preference: same pitch in the same voice
+      ChordRest* cr = segment->cr(track);
+
+      if (cr && cr->isChord()) {
+            Chord* nextChord = toChord(cr);
+
+            for (Note* n : nextChord->notes()) {
+                  if (n && n->pitch() == note->pitch())
+                        return n;
+                  }
+            }
+
+      // Second preference: same pitch in another voice on same staff
+      for (int voice = 0; voice < VOICES; ++voice) {
+            const int candidateTrack = staffTrack + voice;
+
+            if (candidateTrack == track)
+                  continue;
+
+            ChordRest* candidateCR = segment->cr(candidateTrack);
+
+            if (!candidateCR || !candidateCR->isChord())
+                  continue;
+
+            Chord* candidateChord = toChord(candidateCR);
+
+            for (Note* n : candidateChord->notes()) {
+                  if (n && n->pitch() == note->pitch())
+                        return n;
+                  }
+            }
+
+      // No matching pitch exists at next position: follow
+      // MuseScore 4's behavior and create the continuation
+      // in the source voice, replacing the next ChordRest
+      if (!cr) {
+            expandVoice(segment, track);
+            cr = segment->cr(track);
+            }
+
+      if (!cr)
+            return nullptr;
+
+      Segment* newSegment = setNoteRest(
+            cr->segment(),
+            track,
+            note->noteVal(),
+            chord->ticks());
+
+      if (!newSegment)
+            return nullptr;
+
+      ChordRest* newCR = newSegment->cr(track);
+
+      if (!newCR || !newCR->isChord())
+            return nullptr;
+
+      Chord* newChord = toChord(newCR);
+
+      for (Note* n : newChord->notes()) {
+            if (n && n->pitch() == note->pitch())
+                  return n;
+            }
+
+      return nullptr;
+      }
+
+//---------------------------------------------------------
 //   cmdRemoveTie
 //---------------------------------------------------------
 
 void Score::cmdToggleTie()
       {
+      // An explicit two-note list selection is the exception for
+      // deliberately tying non-adjacent notes (including across
+      // rests/voices
+      if (!noteEntryMode() && selection().isList()) {
+            std::vector<Note*> selectedNotes = selection().noteList();
+
+            if (selectedNotes.size() == 2) {
+                  Note* note1 = selectedNotes[0];
+                  Note* note2 = selectedNotes[1];
+
+                  if (note1 && note2) {
+                        if (note2->tick() < note1->tick())
+                              std::swap(note1, note2);
+
+                        if (note1->pitch() == note2->pitch()
+                            && note1 != note2) {
+                              startCmd();
+
+                              if (Tie* forwardTie = note1->tieFor()) {
+                                    if (forwardTie->endNote() == note2)
+                                          undoRemoveElement(forwardTie);
+                                    }
+                              else {
+                                    Tie* tie = new Tie(this);
+                                    tie->setStartNote(note1);
+                                    tie->setEndNote(note2);
+                                    tie->setTrack(note1->track());
+                                    tie->setTick(note1->chord()->segment()->tick());
+                                    const Fraction difference =
+                                          note2->chord()->segment()->tick()
+                                          - note1->chord()->segment()->tick();
+                                    tie->setTicks(difference);
+
+                                    undoAddElement(tie);
+                                    }
+
+                              endCmd();
+                              return;
+                              }
+                        }
+                  }
+            }
+
       const std::vector<Note*> noteList = cmdTieNoteList(selection(), noteEntryMode());
 
       if (noteList.empty()) {
@@ -1393,20 +1526,22 @@ void Score::cmdToggleTie()
       const size_t notes = noteList.size();
       std::vector<Note*> tieNoteList(notes);
 
+      startCmd();
+
       for (size_t i = 0; i < notes; ++i) {
             Note* n = noteList[i];
+
             if (n->tieFor()) {
                   tieNoteList[i] = nullptr;
                   }
             else {
-                  Note* tieNote = searchTieNote(n);
+                  Note* tieNote = findOrCreateTieTarget(n);
                   tieNoteList[i] = tieNote;
+
                   if (tieNote)
                         canAddTies = true;
                   }
             }
-
-      startCmd();
 
       if (canAddTies) {
             for (size_t i = 0; i < notes; ++i) {
@@ -1419,7 +1554,10 @@ void Score::cmdToggleTie()
                         tie->setEndNote(note2);
                         tie->setTrack(note->track());
                         tie->setTick(note->chord()->segment()->tick());
-                        tie->setTicks(note2->chord()->segment()->tick() - note->chord()->segment()->tick());
+                        const Fraction difference =
+                              note2->chord()->segment()->tick()
+                              - note->chord()->segment()->tick();
+                        tie->setTicks(difference);
                         undoAddElement(tie);
                         }
                   }
@@ -2507,6 +2645,35 @@ void Score::cmdDeleteSelection()
             // deleteItem modifies selection().elements() list,
             // so we need a local copy:
             QList<Element*> el = selection().elements();
+
+            if (selection().fromPianoRoll()) {
+                  QList<Element*> expanded;
+
+                  for (Element* e : qAsConst(el)) {
+                        if (!e->isNote()) {
+                              if (!expanded.contains(e))
+                                    expanded.append(e);
+                              continue;
+                              }
+
+                        Note* note = toNote(e);
+
+                        while (note->tieBack())
+                              note = note->tieBack()->startNote();
+
+                        for (;;) {
+                              if (!expanded.contains(note))
+                                    expanded.append(note);
+
+                              if (!note->tieFor())
+                                    break;
+
+                              note = note->tieFor()->endNote();
+                              }
+                        }
+
+                  el = expanded;
+                  }
 
             // keep track of linked elements that are deleted implicitly
             // so we don't try to delete them twice if they are also in selection

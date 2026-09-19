@@ -281,6 +281,42 @@ ChordRest* Selection::lastChordRest(int track) const
       }
 
 //---------------------------------------------------------
+//   longestChordRestAtTick
+//---------------------------------------------------------
+
+ChordRest* Selection::longestChordRestAtTick(const Fraction& tick, int track) const
+      {
+      ChordRest* cr = nullptr;
+
+      for (Element* el : _el) {
+            if (!el)
+                  continue;
+
+            if (el->isNote())
+                  el = toNote(el)->chord();
+
+            if (!el->isChordRest())
+                  continue;
+
+            ChordRest* candidate = toChordRest(el);
+
+            if (!candidate->segment()->isChordRestType())
+                  continue;
+
+            if (track != -1 && candidate->track() != track)
+                  continue;
+
+            if (candidate->tick() != tick)
+                  continue;
+
+            if (!cr || candidate->endTick() > cr->endTick())
+                  cr = candidate;
+            }
+
+      return cr;
+      }
+
+//---------------------------------------------------------
 //   findMeasure
 //---------------------------------------------------------
 
@@ -346,6 +382,8 @@ void Selection::clear()
       _staffStart    = 0;
       _staffEnd      = 0;
       _activeTrack   = 0;
+      _source        = SelectionSource::NONE;
+
       setState(SelState::NONE);
       }
 

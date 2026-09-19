@@ -667,6 +667,22 @@ class ChangeStaffType : public UndoCommand {
       };
 
 //---------------------------------------------------------
+//   ChangePianoRollNoteShape
+//---------------------------------------------------------
+
+class ChangePianoRollNoteShape : public UndoCommand {
+      Instrument* instrument;
+      PianoRollNoteShape shape;
+
+      void flip(EditData*) override;
+
+   public:
+      ChangePianoRollNoteShape(Instrument* i, PianoRollNoteShape s)
+         : instrument(i), shape(s) {}
+      UNDO_NAME("ChangePianoRollNoteShape")
+      };
+
+//---------------------------------------------------------
 //   ChangePart
 //---------------------------------------------------------
 

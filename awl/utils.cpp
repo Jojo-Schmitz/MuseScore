@@ -19,20 +19,6 @@
 
 #include "utils.h"
 
-static const char* vall[] = {
-      QT_TRANSLATE_NOOP("awlutils", "c"),
-      QT_TRANSLATE_NOOP("awlutils", "c♯"),
-      QT_TRANSLATE_NOOP("awlutils", "d"),
-      QT_TRANSLATE_NOOP("awlutils", "d♯"),
-      QT_TRANSLATE_NOOP("awlutils", "e"),
-      QT_TRANSLATE_NOOP("awlutils", "f"),
-      QT_TRANSLATE_NOOP("awlutils", "f♯"),
-      QT_TRANSLATE_NOOP("awlutils", "g"),
-      QT_TRANSLATE_NOOP("awlutils", "g♯"),
-      QT_TRANSLATE_NOOP("awlutils", "a"),
-      QT_TRANSLATE_NOOP("awlutils", "a♯"),
-      QT_TRANSLATE_NOOP("awlutils", "b")
-      };
 static const char* valu[] = {
       QT_TRANSLATE_NOOP("awlutils", "C"),
       QT_TRANSLATE_NOOP("awlutils", "C♯"),
@@ -62,7 +48,7 @@ QString pitch2string(int v)
       QString o;
       o = QString::asprintf("%d", octave);
       int i = v % 12;
-      return qApp->translate("awlutils", octave < 0 ? valu[i] : vall[i]) + o;
+      return qApp->translate("awlutils", valu[i]) + o;
       }
 }
 

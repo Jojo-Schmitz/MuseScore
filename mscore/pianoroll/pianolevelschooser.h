@@ -22,8 +22,6 @@
 
 #include "ui_pianolevelschooser.h"
 
-#include "libmscore/staff.h"
-
 namespace Ms {
 
 class PianoView;
@@ -37,13 +35,14 @@ class PianoLevelsChooser : public QWidget, public Ui::PianoLevelsChooser
       Q_OBJECT
 
       int _levelsIndex;
-      Staff* _staff;
-      PianoView* _pianoView = nullptr;
+      PianoView* _pianoView { nullptr };
+      bool _playbackEditingEnabled { true };
 
 public:
-      Staff* staff() { return _staff; }
-      void setStaff(Staff* staff) { _staff = staff; }
       void setPianoView(PianoView* pianoView);
+      void setPlaybackEditingEnabled(bool enabled);
+      void updateEditorEnabled();
+      void setEventPreviewValues(int ontime, int len);
 
 signals:
       void levelsIndexChanged(int);

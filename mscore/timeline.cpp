@@ -56,6 +56,17 @@ void MuseScore::showTimeline(bool visible)
             }
       connect(_timeline, SIGNAL(visibilityChanged(bool)), act, SLOT(setChecked(bool)));
       connect(_timeline, SIGNAL(closed(bool)), act, SLOT(setChecked(bool)));
+
+      const bool visibleDockedPianoroll = pianorollDock && pianorollDock->isVisible() && !pianorollDock->isFloating();
+      if (visible
+          && visibleDockedPianoroll
+          && dockWidgetArea(pianorollDock) == Qt::BottomDockWidgetArea) {
+            splitDockWidget(
+                  pianorollDock,
+                  _timeline,
+                  Qt::Vertical);
+            }
+
       reDisplayDockWidget(_timeline, visible);
 
       getAction("toggle-timeline")->setChecked(visible);

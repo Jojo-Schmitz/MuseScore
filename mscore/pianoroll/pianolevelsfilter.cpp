@@ -57,7 +57,7 @@ QString PianoLevelFilterOnTime::tooltip()
 //   value
 //---------------------------------------------------------
 
-int PianoLevelFilterOnTime::value(Staff* /*staff*/, Note* /*note*/, NoteEvent* evt)
+int PianoLevelFilterOnTime::value(Note* /*note*/, NoteEvent* evt)
       {
       return evt->ontime();
       }
@@ -66,16 +66,14 @@ int PianoLevelFilterOnTime::value(Staff* /*staff*/, Note* /*note*/, NoteEvent* e
 //   setValue
 //---------------------------------------------------------
 
-void PianoLevelFilterOnTime::setValue(Staff* staff, Note* note, NoteEvent* evt, int value)
+void PianoLevelFilterOnTime::setValue(Note* note, NoteEvent* evt, int value)
       {
-      Score* score = staff->score();
+      Score* score = note->score();
 
       NoteEvent ne = *evt;
       ne.setOntime(value);
 
-      score->startCmd();
       score->undo(new ChangeNoteEvent(note, evt, ne));
-      score->endCmd();
       }
 
 //---------------------------------------------------------
@@ -100,7 +98,7 @@ QString PianoLevelFilterLenMultiplier::tooltip()
 //   value
 //---------------------------------------------------------
 
-int PianoLevelFilterLenMultiplier::value(Staff* /*staff*/, Note* /*note*/, NoteEvent* evt)
+int PianoLevelFilterLenMultiplier::value(Note* /*note*/, NoteEvent* evt)
       {
       return evt->len();
       }
@@ -109,16 +107,14 @@ int PianoLevelFilterLenMultiplier::value(Staff* /*staff*/, Note* /*note*/, NoteE
 //   setValue
 //---------------------------------------------------------
 
-void PianoLevelFilterLenMultiplier::setValue(Staff* staff, Note* note, NoteEvent* evt, int value)
+void PianoLevelFilterLenMultiplier::setValue(Note* note, NoteEvent* evt, int value)
       {
-      Score* score = staff->score();
+      Score* score = note->score();
 
       NoteEvent ne = *evt;
       ne.setLen(value);
 
-      score->startCmd();
       score->undo(new ChangeNoteEvent(note, evt, ne));
-      score->endCmd();
       }
 
 
@@ -140,12 +136,28 @@ QString PianoLevelFilterLenWholenote::tooltip()
       return qApp->translate("PianoLevelsFilter", STRN_LEN_OFF_TT);
       }
 
+//---------------------------------------------------------
+//   previewValue
+//---------------------------------------------------------
+
+bool PianoLevelFilterLenWholenote::previewValue(Note* /*note*/, int /*previewOntime*/, int previewLen, const Fraction& previewNoteLen, int& value) const
+      {
+      Fraction offsetLen =
+            previewNoteLen
+            - (previewNoteLen * previewLen / 1000);
+
+      value =
+            -offsetLen.numerator() * 1000
+            / offsetLen.denominator();
+
+      return true;
+      }
 
 //---------------------------------------------------------
 //   value
 //---------------------------------------------------------
 
-int PianoLevelFilterLenWholenote::value(Staff* /*staff*/, Note* note, NoteEvent* evt)
+int PianoLevelFilterLenWholenote::value(Note* note, NoteEvent* evt)
       {
       Chord* chord = note->chord();
       Fraction noteLen = chord->ticks();
@@ -159,7 +171,7 @@ int PianoLevelFilterLenWholenote::value(Staff* /*staff*/, Note* note, NoteEvent*
 //   setValue
 //---------------------------------------------------------
 
-void PianoLevelFilterLenWholenote::setValue(Staff* staff, Note* note, NoteEvent* evt, int value)
+void PianoLevelFilterLenWholenote::setValue(Note* note, NoteEvent* evt, int value)
       {
       Chord* chord = note->chord();
       Fraction noteLen = chord->ticks();
@@ -168,14 +180,12 @@ void PianoLevelFilterLenWholenote::setValue(Staff* staff, Note* note, NoteEvent*
       Fraction evtLenFrac = playLen / noteLen;
       int evtLen = qMax(evtLenFrac.numerator() * 1000 / evtLenFrac.denominator(), 1);
 
-      Score* score = staff->score();
+      Score* score = note->score();
 
       NoteEvent ne = *evt;
       ne.setLen(evtLen);
 
-      score->startCmd();
       score->undo(new ChangeNoteEvent(note, evt, ne));
-      score->endCmd();
       }
 
 //---------------------------------------------------------
@@ -200,8 +210,10 @@ QString PianoLevelFilterVeloOffset::tooltip()
 //   value
 //---------------------------------------------------------
 
-int PianoLevelFilterVeloOffset::value(Staff* staff, Note* note, NoteEvent* /*evt*/)
+int PianoLevelFilterVeloOffset::value(Note* note, NoteEvent* /*evt*/)
       {
+      Staff* staff = note->staff();
+
       //Change velocity to equivalent in new metric
       switch (Note::ValueType(note->veloType())) {
             case Note::ValueType::USER_VAL: {
@@ -218,11 +230,10 @@ int PianoLevelFilterVeloOffset::value(Staff* staff, Note* note, NoteEvent* /*evt
 //   setValue
 //---------------------------------------------------------
 
-void PianoLevelFilterVeloOffset::setValue(Staff* staff, Note* note, NoteEvent* /*evt*/, int value)
+void PianoLevelFilterVeloOffset::setValue(Note* note, NoteEvent* /*evt*/, int value)
       {
-      Score* score = staff->score();
-
-      score->startCmd();
+      Staff* staff = note->staff();
+      Score* score = note->score();
 
       switch (Note::ValueType(note->veloType())) {
             case Note::ValueType::USER_VAL: {
@@ -239,8 +250,6 @@ void PianoLevelFilterVeloOffset::setValue(Staff* staff, Note* note, NoteEvent* /
                   break;
                   }
             }
-
-      score->endCmd();
       }
 
 
@@ -266,8 +275,10 @@ QString PianoLevelFilterVeloUser::tooltip()
 //   value
 //---------------------------------------------------------
 
-int PianoLevelFilterVeloUser::value(Staff* staff, Note* note, NoteEvent* /*evt*/)
+int PianoLevelFilterVeloUser::value(Note* note, NoteEvent* /*evt*/)
       {
+      Staff* staff = note->staff();
+
       //Change velocity to equivalent in new metric
       switch (Note::ValueType(note->veloType())) {
             case Note::ValueType::USER_VAL:
@@ -284,11 +295,10 @@ int PianoLevelFilterVeloUser::value(Staff* staff, Note* note, NoteEvent* /*evt*/
 //   setValue
 //---------------------------------------------------------
 
-void PianoLevelFilterVeloUser::setValue(Staff* staff, Note* note, NoteEvent* /*evt*/, int value)
+void PianoLevelFilterVeloUser::setValue(Note* note, NoteEvent* /*evt*/, int value)
       {
-      Score* score = staff->score();
-
-      score->startCmd();
+      Staff* staff = note->staff();
+      Score* score = note->score();
 
       switch (Note::ValueType(note->veloType())) {
             case Note::ValueType::USER_VAL:
@@ -303,8 +313,6 @@ void PianoLevelFilterVeloUser::setValue(Staff* staff, Note* note, NoteEvent* /*e
                   break;
                   }
             }
-
-      score->endCmd();
       }
 
 }

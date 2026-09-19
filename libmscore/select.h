@@ -75,6 +75,16 @@ enum class SelState : char {
       };
 
 //---------------------------------------------------------
+//   SelectionSource
+//---------------------------------------------------------
+
+enum class SelectionSource : char {
+      NONE,
+      SCORE,
+      PIANO_ROLL
+      };
+
+//---------------------------------------------------------
 //   SelectionFilterType
 //   see also `static const char* labels[]` in mscore/selectionwindow.cpp
 //   need to keep those in sync!
@@ -137,6 +147,7 @@ public:
 class Selection {
       Score* _score;
       SelState _state;
+      SelectionSource _source { SelectionSource::NONE };
       QList<Element*> _el;          // valid in mode SelState::LIST
 
       int _staffStart;              // valid if selState is SelState::RANGE
@@ -178,6 +189,9 @@ class Selection {
       bool isList() const              { return _state == SelState::LIST; }
       bool isComparison() const        { return _state == SelState::COMPARISON; }
       void setState(SelState s);
+      SelectionSource source() const                   { return _source; }
+      void setSource(SelectionSource source)           { _source = source; }
+      bool fromPianoRoll() const                       { return _source == SelectionSource::PIANO_ROLL; }
 
       //! NOTE If locked, the selected items should not be changed.
       void lock(const QString& reason)    { _lockReason = reason; }
@@ -206,6 +220,7 @@ class Selection {
       Segment* firstChordRestSegment() const;
       ChordRest* firstChordRest(int track = -1) const;
       ChordRest* lastChordRest(int track = -1) const;
+      ChordRest* longestChordRestAtTick(const Fraction& tick, int track = -1) const;
       Measure* findMeasure() const;
       void update();
       void updateState();

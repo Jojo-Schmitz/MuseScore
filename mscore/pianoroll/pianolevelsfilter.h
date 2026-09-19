@@ -24,9 +24,7 @@ namespace Ms {
 
 class Note;
 class NoteEvent;
-class Staff;
-
-
+class Fraction;
 
 //---------------------------------------------------------
 //   PianoLevelsFilter
@@ -43,8 +41,17 @@ public:
       virtual int minRange() = 0;
       virtual int divisionGap() = 0;  //Vertical guide line separation gap
       virtual bool isPerEvent() = 0;
-      virtual int value(Staff* staff, Note* note, NoteEvent* evt) = 0;
-      virtual void setValue(Staff* staff, Note* note, NoteEvent* evt, int value) = 0;
+      virtual int value(Note* note, NoteEvent* evt) = 0;
+      virtual void setValue(Note* note, NoteEvent* evt, int value) = 0;
+      virtual bool previewValue(Note* note, int previewOntime, int previewLen, const Fraction& previewNoteLen, int& value) const
+            {
+            Q_UNUSED(note);
+            Q_UNUSED(previewOntime);
+            Q_UNUSED(previewLen);
+            Q_UNUSED(previewNoteLen);
+            Q_UNUSED(value);
+            return false;
+            }
       };
 
 
@@ -62,8 +69,14 @@ public:
       int minRange() override { return -1000; }
       int divisionGap() override { return 250; }
       bool isPerEvent() override { return true; }
-      int value(Staff* staff, Note* note, NoteEvent* evt) override;
-      void setValue(Staff* staff, Note* note, NoteEvent* evt, int value) override;
+      int value(Note* note, NoteEvent* evt) override;
+      void setValue(Note* note, NoteEvent* evt, int value) override;
+      bool previewValue(Note* /*note*/, int previewOntime, int /*previewLen*/, const Fraction& /*previewNoteLen*/, int& value) const override
+            {
+            value = previewOntime;
+            return true;
+            }
+
       };
 
 
@@ -82,8 +95,13 @@ public:
       int minRange() override { return 0; }
       int divisionGap() override { return 250; }
       bool isPerEvent() override { return true; }
-      int value(Staff* staff, Note* note, NoteEvent* evt) override;
-      void setValue(Staff* staff, Note* note, NoteEvent* evt, int value) override;
+      int value(Note* note, NoteEvent* evt) override;
+      void setValue(Note* note, NoteEvent* evt, int value) override;
+      bool previewValue(Note* /*note*/, int /*previewOntime*/, int previewLen, const Fraction& /*previewNoteLen*/, int& value) const override
+            {
+            value = previewLen;
+            return true;
+            }
       };
 
 
@@ -102,8 +120,9 @@ public:
       int minRange() override { return -1000; }
       int divisionGap() override { return 1000 / 4; }
       bool isPerEvent() override { return true; }
-      int value(Staff* staff, Note* note, NoteEvent* evt) override;
-      void setValue(Staff* staff, Note* note, NoteEvent* evt, int value) override;
+      int value(Note* note, NoteEvent* evt) override;
+      void setValue(Note* note, NoteEvent* evt, int value) override;
+      bool previewValue(Note* note, int previewOntime, int previewLen, const Fraction& previewNoteLen, int& value) const override;
       };
 
 
@@ -118,12 +137,12 @@ class PianoLevelFilterVeloOffset : public PianoLevelsFilter {
 public:
       QString name() override;
       QString tooltip() override;
-      int maxRange() override { return 200; }
-      int minRange() override { return -200; }
-      int divisionGap() override { return 100; }
+      int maxRange() override { return +128; }
+      int minRange() override { return -128; }
+      int divisionGap() override { return 32; }
       bool isPerEvent() override { return false; }
-      int value(Staff* staff, Note* note, NoteEvent* evt) override;
-      void setValue(Staff* staff, Note* note, NoteEvent* evt, int value) override;
+      int value(Note* note, NoteEvent* evt) override;
+      void setValue(Note* note, NoteEvent* evt, int value) override;
       };
 
 
@@ -142,8 +161,8 @@ public:
       int minRange() override { return 0; }
       int divisionGap() override { return 32; }
       bool isPerEvent() override { return false; }
-      int value(Staff* staff, Note* note, NoteEvent* evt) override;
-      void setValue(Staff* staff, Note* note, NoteEvent* evt, int value) override;
+      int value(Note* note, NoteEvent* evt) override;
+      void setValue(Note* note, NoteEvent* evt, int value) override;
       };
 
 }
