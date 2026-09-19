@@ -6937,9 +6937,9 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
 #ifdef MSCORE_UNSTABLE
             else if (cmd == "toggle-script-recorder")
                   scriptRecorder->setVisible(a->isChecked());
+#endif
             else
                   unknown = true;
-#endif
             }
       else if (cmd == "synth-control")
             showSynthControl(a->isChecked());
@@ -7193,6 +7193,8 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
                         cs->update();
                         }
                   }
+            else
+                  unknown = true;
             }
 #ifndef NDEBUG
       else if (cmd == "qml-reload-source") {
