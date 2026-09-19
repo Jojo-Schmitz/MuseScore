@@ -40,6 +40,11 @@ HPiano::HPiano(QWidget* parent)
       setMidLineWidth(0);
 
       setScene(new QGraphicsScene);
+      // A spatial index has nothing to offer for 88 keys that never move, and its
+      // BSP tree has been observed to go stale after hours of use: the scene then
+      // no longer finds the keys in part of the keyboard, so they stop being drawn
+      // and stop responding to clicks until MuseScore gets restarted
+      scene()->setItemIndexMethod(QGraphicsScene::NoIndex);
       setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
       setResizeAnchor(QGraphicsView::AnchorUnderMouse);
       setMouseTracking(true);
