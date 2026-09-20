@@ -86,13 +86,17 @@ class SLine : public Spanner {
       qreal _dashLineLen      { 5.0   };
       qreal _dashGapLen       { 5.0   };
       bool _diagonal          { false };
+      ElementType _type       {ElementType::INVALID};
 
    protected:
       virtual QPointF linePos(Grip, System** system) const;
 
    public:
+      SLine(ElementType type, Score* s, ElementFlags = ElementFlag::NOTHING);
       SLine(Score* s, ElementFlags = ElementFlag::NOTHING);
       SLine(const SLine&);
+
+      virtual ElementType type() const override { return _type;}
 
       virtual void layout() override;
       virtual SpannerSegment* layoutSystem(System*) override;
