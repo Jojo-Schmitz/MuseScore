@@ -28,15 +28,16 @@ static const ElementStyle markerStyle {
 
 //must be in sync with Marker::Type enum
 const MarkerTypeItem markerTypeTable[] = {
-      { Marker::Type::SEGNO    , QT_TRANSLATE_NOOP("markerType", "Segno")           },
-      { Marker::Type::VARSEGNO , QT_TRANSLATE_NOOP("markerType", "Segno variation") },
-      { Marker::Type::CODA     , QT_TRANSLATE_NOOP("markerType", "Coda")            },
-      { Marker::Type::VARCODA  , QT_TRANSLATE_NOOP("markerType", "Varied coda")     },
-      { Marker::Type::CODETTA  , QT_TRANSLATE_NOOP("markerType", "Codetta")         },
-      { Marker::Type::FINE     , QT_TRANSLATE_NOOP("markerType", "Fine")            },
-      { Marker::Type::TOCODA   , QT_TRANSLATE_NOOP("markerType", "To Coda")         },
-      { Marker::Type::TOCODASYM, QT_TRANSLATE_NOOP("markerType", "To Coda (Symbol)")},
-      { Marker::Type::USER     , QT_TRANSLATE_NOOP("markerType", "Custom")          }
+      { Marker::Type::SEGNO,      "<sym>segno</sym>",               "segno", false },
+      { Marker::Type::VARSEGNO,   "<sym>segnoSerpent1</sym>",       "varsegno", false },
+      { Marker::Type::CODA,       "<sym>coda</sym>",                "codab", false },
+      { Marker::Type::VARCODA,    "<sym>codaSquare</sym>",          "varcoda", false },
+      { Marker::Type::CODETTA,    "<sym>coda</sym><sym>coda</sym>", "codetta", false },
+      { Marker::Type::FINE,       "Fine",                           "fine", true },
+      { Marker::Type::TOCODA,     "To Coda",                        "coda", true },
+      { Marker::Type::TOCODASYM,  "To <sym>coda</sym>",             "coda", true },
+      //{ Marker::Type::DA_CODA,    "Da Coda",                        "coda", true },
+      //{ Marker::Type::DA_DBLCODA, "Da Doppia Coda",                 "coda", true },
       };
 
 int markerTypeTableSize()
@@ -67,80 +68,30 @@ Marker::Marker(Score* s, Tid tid)
 
 void Marker::setMarkerType(Type t)
       {
+      bool changeLabel = getProperty(Pid::LABEL) == propertyDefault(Pid::LABEL);
       _markerType = t;
-      const char* txt = 0;
-      switch (t) {
-            case Type::SEGNO:
-                  txt = "<sym>segno</sym>";
-                  setLabel("segno");
-                  break;
+      for (const MarkerTypeItem& p : markerTypeTable) {
+            if (p.type == t) {
+                  if (empty())
+                        setXmlText(p.text);
+                  if (changeLabel)
+                        setLabel(p.label);
+                  Tid ts = p.rightAligned ? Tid::REPEAT_RIGHT : Tid::REPEAT_LEFT;
+                  if (tid() != ts)
+                        initTid(ts);
 
-            case Type::VARSEGNO:
-                  txt = "<sym>segnoSerpent1</sym>";
-                  setLabel("varsegno");
                   break;
-
-            case Type::CODA:
-                  txt = "<sym>coda</sym>";
-                  setLabel("codab");
-                  break;
-
-            case Type::VARCODA:
-                  txt = "<sym>codaSquare</sym>";
-                  setLabel("varcoda");
-                  break;
-
-            case Type::CODETTA:
-                  txt = "<sym>coda</sym><sym>coda</sym>";
-                  setLabel("codetta");
-                  break;
-
-            case Type::FINE:
-                  txt = "Fine";
-                  initTid(Tid::REPEAT_RIGHT, true);
-                  setLabel("fine");
-                  break;
-
-            case Type::TOCODA:
-                  txt = "To Coda";
-                  initTid(Tid::REPEAT_RIGHT, true);
-                  setLabel("coda");
-                  break;
-
-            case Type::TOCODASYM:
-                  txt = "To <font size=\"20\"/><sym>coda</sym>";
-                  initTid(Tid::REPEAT_RIGHT, true);
-                  setLabel("coda");
-                  break;
-
-            case Type::USER:
-                  break;
-
-            default:
-                  qDebug("unknown marker type %d", int(t));
-                  break;
+                  }
             }
-      if (empty() && txt)
-            setXmlText(txt);
       }
 
-//---------------------------------------------------------
+      //---------------------------------------------------------
 //   markerTypeUserName
 //---------------------------------------------------------
 
 QString Marker::markerTypeUserName() const
       {
-      return qApp->translate("markerType", markerTypeTable[static_cast<int>(_markerType)].name.toUtf8().constData());
-      }
-
-//---------------------------------------------------------
-//   styleChanged
-//---------------------------------------------------------
-
-void Marker::styleChanged()
-      {
-      setMarkerType(_markerType);
-      TextBase::styleChanged();
+      return qApp->translate("markerType", markerTypeTable[static_cast<int>(_markerType)].text.toUtf8().constData());
       }
 
 //---------------------------------------------------------
@@ -243,6 +194,10 @@ QVariant Marker::getProperty(Pid propertyId) const
       {
       switch (propertyId) {
             case Pid::LABEL:
+                  for (const MarkerTypeItem& p : markerTypeTable) {
+                        if (_markerType == p.type)
+                              return p.label;
+                  }
                   return label();
             case Pid::MARKER_TYPE:
                   return int(markerType());
