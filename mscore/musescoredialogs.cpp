@@ -152,7 +152,14 @@ AboutBoxDialog::AboutBoxDialog()
             auto msVersion = QString(VERSION);
             if (strlen(BUILD_NUMBER))
                   msVersion += QString("-") + QString(BUILD_NUMBER); // + QString(" Beta");
-            versionLabel->setText(tr("Version: %1").arg(msVersion) + tr(" Evolution"));
+            versionLabel->setText(tr("Version: %1").arg(msVersion) + tr(" Evolution")
+#if defined(Q_OS_WIN) // only the Windows builds come in 32- or 64-bit, all others in 64-bit only
+                                  + QString(" %1-bit").arg(QSysInfo::WordSize)
+#if defined(WIN_PORTABLE)
+                                  + " PortableApp"
+#endif
+#endif
+                        );
       }
 
       if (!revision.isEmpty())
@@ -203,7 +210,7 @@ AboutBoxDialog::AboutBoxDialog()
 void AboutBoxDialog::copyRevisionToClipboard()
       {
       QApplication::clipboard()->setText(
-            QString("OS: %1, Arch.: %2, MuseScore Studio version (%3-bit): %4-%5")
+            QString("OS: %1, Arch.: %2, MuseScore version (%3-bit): %4-%5")
                   .arg(QSysInfo::prettyProductName()
                        + ((QSysInfo::productType() == "windows" && (QSysInfo::productVersion() == "10" || QSysInfo::productVersion() == "11"))
                           ? " or later" : ""), QSysInfo::currentCpuArchitecture())
