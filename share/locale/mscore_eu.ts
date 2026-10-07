@@ -246,122 +246,122 @@
 <context>
     <name>BarPattern</name>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="45"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="50"/>
         <source>C major / A minor</source>
         <translation>Do maior / La minor</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="46"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="51"/>
         <source>D♭ major / B♭ minor</source>
         <translation>Re♭ maior / Si♭ minor</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="47"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="52"/>
         <source>D major / B minor</source>
         <translation>Re maior / Si minor</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="48"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="53"/>
         <source>E♭ major / C minor</source>
         <translation>Mi♭ maior / Do minor</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="49"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="54"/>
         <source>E major / C♯ minor</source>
         <translation>Mi maior / Do♯ minor</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="50"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="55"/>
         <source>F major / D minor</source>
         <translation>Fa maior / Re minor</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="51"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="56"/>
         <source>G♭ major / E♭ minor</source>
         <translation>Sol♭ maior / Mi♭ minor</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="52"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="57"/>
         <source>G major / E minor</source>
         <translation>Sol maior / Mi minor</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="53"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="58"/>
         <source>A♭ major / F minor</source>
         <translation>La♭ maior / Fa minor</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="54"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="59"/>
         <source>A major / F♯ minor</source>
         <translation>La maior / Fa♯ minor</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="55"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="60"/>
         <source>B♭ major / G minor</source>
         <translation>Si♭ maior / Sol minor</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="56"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="61"/>
         <source>B major / G♯ minor</source>
         <translation>Si maior / Sol♯ minor</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="57"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="62"/>
         <source>C Diminished</source>
         <translation>Do gutxitua</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="58"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="63"/>
         <source>D♭ Diminished</source>
         <translation>Re♭ gutxitua</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="59"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="64"/>
         <source>D Diminished</source>
         <translation>Re gutxitua</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="60"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="65"/>
         <source>C Half/Whole</source>
         <translation>Do erdi/osoa</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="61"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="66"/>
         <source>D♭ Half/Whole</source>
         <translation>Re♭ erdi/osoa</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="62"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="67"/>
         <source>D Half/Whole</source>
         <translation>Re erdi/osoa</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="63"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="68"/>
         <source>C Whole tone</source>
         <translation>Do tonu osokoa</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="64"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="69"/>
         <source>D♭ Whole tone</source>
         <translation>Re♭ tonu osokoa</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="65"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="70"/>
         <source>C Augmented</source>
         <translation>Do gehitua</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="66"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="71"/>
         <source>D♭ Augmented</source>
         <translation>Re♭ gehitua</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="67"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="72"/>
         <source>D Augmented</source>
         <translation>Re gehitua</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="68"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="73"/>
         <source>E♭ Augmented</source>
         <translation>Mi♭ gehitua</translation>
     </message>
@@ -597,17 +597,17 @@
 <context>
     <name>Direction</name>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="183"/>
+        <location filename="../../libmscore/mscore.cpp" line="187"/>
         <source>Auto</source>
         <translation>Automatikoa</translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="184"/>
+        <location filename="../../libmscore/mscore.cpp" line="188"/>
         <source>Up</source>
         <translation>Gora</translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="185"/>
+        <location filename="../../libmscore/mscore.cpp" line="189"/>
         <source>Down</source>
         <translation>Behera</translation>
     </message>
@@ -5769,7 +5769,7 @@ By default, they will be placed such as that their right end are at the same lev
 <context>
     <name>GreendotButton</name>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="6413"/>
+        <location filename="../../mscore/musescore.cpp" line="6691"/>
         <source>Record</source>
         <translation>Grabatu</translation>
     </message>
@@ -11713,9 +11713,9 @@ Hau behin bakarrik egin behar duzu.
         <translation>Paleta nagusia</translation>
     </message>
     <message>
-        <location filename="../../mscore/masterpalette.cpp" line="196"/>
-        <location filename="../../mscore/masterpalette.cpp" line="229"/>
-        <location filename="../../mscore/musescore.cpp" line="6851"/>
+        <location filename="../../mscore/masterpalette.cpp" line="224"/>
+        <location filename="../../mscore/masterpalette.cpp" line="267"/>
+        <location filename="../../mscore/musescore.cpp" line="7133"/>
         <source>Symbols</source>
         <translation>Ikurrak</translation>
     </message>
@@ -12325,23 +12325,23 @@ n-kotxoak konpasa zeharkatuko luke</translation>
         <translation>Bertsioa: %1</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescoredialogs.cpp" line="159"/>
+        <location filename="../../mscore/musescoredialogs.cpp" line="166"/>
         <source>Revision: %1</source>
         <translation>Berrikuspena: %1</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescoredialogs.cpp" line="181"/>
+        <location filename="../../mscore/musescoredialogs.cpp" line="188"/>
         <source>Build date: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescoredialogs.cpp" line="185"/>
+        <location filename="../../mscore/musescoredialogs.cpp" line="192"/>
         <source>Visit %1 for new versions and more information.
 Get %2help%3 with the program or %4contribute%5 to its development.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescoredialogs.cpp" line="191"/>
+        <location filename="../../mscore/musescoredialogs.cpp" line="198"/>
         <source>Copyright &amp;copy; 1999-2026 MuseScore Limited and others.
 Published under the %1GNU General Public License version 2%2.</source>
         <translation type="unfinished"></translation>
@@ -12350,7 +12350,7 @@ Published under the %1GNU General Public License version 2%2.</source>
 <context>
     <name>Ms::AboutMusicXMLBoxDialog</name>
     <message>
-        <location filename="../../mscore/musescoredialogs.cpp" line="225"/>
+        <location filename="../../mscore/musescoredialogs.cpp" line="232"/>
         <source>MusicXML is an open file format for exchanging digital sheet music,
 supported by many applications.
 Copyright © 2004-2017 the Contributors to the MusicXML
@@ -12450,29 +12450,54 @@ A human-readable summary is available:
 <context>
     <name>Ms::DebugLogDock</name>
     <message>
-        <location filename="../../mscore/debuglog.cpp" line="208"/>
+        <location filename="../../mscore/debuglog.cpp" line="252"/>
         <source>Clear</source>
         <translation type="unfinished">Garbitu</translation>
     </message>
     <message>
-        <location filename="../../mscore/debuglog.cpp" line="209"/>
+        <location filename="../../mscore/debuglog.cpp" line="253"/>
         <source>Copy All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/debuglog.cpp" line="211"/>
+        <location filename="../../mscore/debuglog.cpp" line="255"/>
         <source>Enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/debuglog.cpp" line="214"/>
+        <location filename="../../mscore/debuglog.cpp" line="262"/>
         <source>Details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/debuglog.cpp" line="217"/>
+        <location filename="../../mscore/debuglog.cpp" line="265"/>
+        <source>Source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/debuglog.cpp" line="268"/>
         <source>Autoscroll</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/debuglog.cpp" line="284"/>
+        <source>Find in log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/debuglog.cpp" line="289"/>
+        <source>Find previous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/debuglog.cpp" line="293"/>
+        <source>Find next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/debuglog.cpp" line="315"/>
+        <source>Copy</source>
+        <translation type="unfinished">Kopiatu</translation>
     </message>
 </context>
 <context>
@@ -13640,6 +13665,15 @@ huts egin du: %2</translation>
     </message>
 </context>
 <context>
+    <name>Ms::MasterPalette</name>
+    <message>
+        <location filename="../../mscore/masterpalette.cpp" line="170"/>
+        <location filename="../../mscore/masterpalette.cpp" line="271"/>
+        <source>Reset</source>
+        <translation type="unfinished">Berrezarri</translation>
+    </message>
+</context>
+<context>
     <name>Ms::MasterScore</name>
     <message>
         <location filename="../../libmscore/scorefile.cpp" line="393"/>
@@ -13887,82 +13921,82 @@ Soinua: %5</translation>
     <name>Ms::MuseScore</name>
     <message>
         <location filename="../../mscore/exportaudio.cpp" line="343"/>
-        <location filename="../../mscore/musescore.cpp" line="7807"/>
+        <location filename="../../mscore/musescore.cpp" line="8125"/>
         <source>Cancel</source>
         <translation>Utzi</translation>
     </message>
     <message>
         <location filename="../../mscore/exportaudio.cpp" line="344"/>
-        <location filename="../../mscore/musescore.cpp" line="7808"/>
+        <location filename="../../mscore/musescore.cpp" line="8126"/>
         <source>Exporting…</source>
         <translation>Esportatzen…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7729"/>
-        <location filename="../../mscore/musescore.cpp" line="7741"/>
+        <location filename="../../mscore/musescore.cpp" line="8047"/>
+        <location filename="../../mscore/musescore.cpp" line="8059"/>
         <source>Error Opening LAME library</source>
         <translation>Akatsa LAME libreria irekitzean</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7730"/>
+        <location filename="../../mscore/musescore.cpp" line="8048"/>
         <source>Could not open MP3 encoding library!</source>
         <translation>Ezin izan da MP3 kodifikazio liburutegia ireki!</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7742"/>
+        <location filename="../../mscore/musescore.cpp" line="8060"/>
         <source>Not a valid or supported MP3 encoding library!</source>
         <translation>Ez da MP3 kodifikazio liburutegi balioduna edo eutsia!</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7690"/>
-        <location filename="../../mscore/musescore.cpp" line="7766"/>
-        <location filename="../../mscore/musescore.cpp" line="7917"/>
+        <location filename="../../mscore/musescore.cpp" line="8008"/>
+        <location filename="../../mscore/musescore.cpp" line="8084"/>
+        <location filename="../../mscore/musescore.cpp" line="8235"/>
         <source>Encoding Error</source>
         <translation>akatsa</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4970"/>
+        <location filename="../../mscore/musescore.cpp" line="5037"/>
         <source>Insert mode</source>
         <translation>Txertatzeko modua</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4994"/>
+        <location filename="../../mscore/musescore.cpp" line="5061"/>
         <source>Drumset input mode</source>
         <translation>Bateria sarrera modua</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="6560"/>
+        <location filename="../../mscore/musescore.cpp" line="6838"/>
         <source>Invalid Command</source>
         <translation>Komando baliogabea</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="6561"/>
+        <location filename="../../mscore/musescore.cpp" line="6839"/>
         <source>Command %1 not valid in current state</source>
         <translation>Uneko egoeran %1 komandoa baliogabea</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7510"/>
+        <location filename="../../mscore/musescore.cpp" line="7828"/>
         <source>Find / Go to:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7767"/>
+        <location filename="../../mscore/musescore.cpp" line="8085"/>
         <source>Unable to initialize MP3 stream</source>
         <translation>Ezin izan da MP3 emaria abiarazi</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7691"/>
+        <location filename="../../mscore/musescore.cpp" line="8009"/>
         <source>Unable to open target file for writing</source>
         <translation>Ezin izan da helburu fitxategia ireki idazteko</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7918"/>
+        <location filename="../../mscore/musescore.cpp" line="8236"/>
         <source>Error %1 returned from MP3 encoder</source>
         <translation>MP3 kodifikatzailetik %1 akatsa jaso da</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="252"/>
-        <location filename="../../mscore/musescore.cpp" line="5873"/>
+        <location filename="../../mscore/musescore.cpp" line="5966"/>
         <location filename="../../mscore/plugin/mscorePlugins.cpp" line="444"/>
         <source>MuseScore</source>
         <translation>MuseScore</translation>
@@ -14083,7 +14117,7 @@ itxi aurretik?</translation>
     <message>
         <location filename="../../mscore/file.cpp" line="1241"/>
         <location filename="../../mscore/file.cpp" line="1268"/>
-        <location filename="../../mscore/musescore.cpp" line="7009"/>
+        <location filename="../../mscore/musescore.cpp" line="7295"/>
         <source>Load Style</source>
         <translation>Estiloa kargatu</translation>
     </message>
@@ -14096,7 +14130,7 @@ itxi aurretik?</translation>
         <location filename="../../mscore/file.cpp" line="1248"/>
         <location filename="../../mscore/file.cpp" line="1285"/>
         <location filename="../../mscore/file.cpp" line="1368"/>
-        <location filename="../../mscore/musescore.cpp" line="7000"/>
+        <location filename="../../mscore/musescore.cpp" line="7286"/>
         <source>Save Style</source>
         <translation>Estiloa gorde</translation>
     </message>
@@ -14362,349 +14396,349 @@ Ordezkatu nahi duzu?
         <translation>Eskuz</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2636"/>
+        <location filename="../../mscore/musescore.cpp" line="2667"/>
         <source>&amp;Add</source>
         <translation>Er&amp;antsi</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2637"/>
+        <location filename="../../mscore/musescore.cpp" line="2668"/>
         <source>&amp;Measures</source>
         <translation>&amp;Konpasak</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2638"/>
+        <location filename="../../mscore/musescore.cpp" line="2669"/>
         <source>&amp;Frames</source>
         <translation>&amp;Markoak</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2639"/>
+        <location filename="../../mscore/musescore.cpp" line="2670"/>
         <source>&amp;Text</source>
         <translation>&amp;Testua</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2640"/>
+        <location filename="../../mscore/musescore.cpp" line="2671"/>
         <source>&amp;Lines</source>
         <translation>&amp;Lerroak</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="371"/>
+        <location filename="../../mscore/musescore.cpp" line="373"/>
         <source>No measure selected:
 Please select a measure and try again</source>
         <translation>Ez da konpasik hautatu:
 mesedez, aukeratu konpas bat eta berriro saiatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2562"/>
+        <location filename="../../mscore/musescore.cpp" line="2593"/>
         <source>Measure:Beat:Tick</source>
         <translation>Konpasa:Aldia:Zatia</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1553"/>
+        <location filename="../../mscore/musescore.cpp" line="1565"/>
         <source>Switch layer</source>
         <translation>Geruza aldatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1558"/>
+        <location filename="../../mscore/musescore.cpp" line="1570"/>
         <source>Switch play mode</source>
         <translation>Erreprodukzio-modua aldatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2612"/>
+        <location filename="../../mscore/musescore.cpp" line="2643"/>
         <source>Show MIDI import panel</source>
         <translation>MIDI inportazio panela erakutsi</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2583"/>
+        <location filename="../../mscore/musescore.cpp" line="2614"/>
         <source>File Operations</source>
         <translation>Fitxategi-eragiketak</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1095"/>
-        <location filename="../../mscore/musescore.cpp" line="2602"/>
+        <location filename="../../mscore/musescore.cpp" line="1107"/>
+        <location filename="../../mscore/musescore.cpp" line="2633"/>
         <source>View Mode</source>
         <translation>Ikuspegia</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1096"/>
-        <location filename="../../mscore/musescore.cpp" line="2603"/>
+        <location filename="../../mscore/musescore.cpp" line="1108"/>
+        <location filename="../../mscore/musescore.cpp" line="2634"/>
         <source>Page View</source>
         <translation>Orrialde ikuspegia</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1098"/>
-        <location filename="../../mscore/musescore.cpp" line="2605"/>
+        <location filename="../../mscore/musescore.cpp" line="1110"/>
+        <location filename="../../mscore/musescore.cpp" line="2636"/>
         <source>Continuous View</source>
         <translation>Ikuspegi jarraia</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2584"/>
+        <location filename="../../mscore/musescore.cpp" line="2615"/>
         <source>Playback Controls</source>
         <translation>Erreprodukzio kontrolak</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2585"/>
+        <location filename="../../mscore/musescore.cpp" line="2616"/>
         <source>Concert Pitch</source>
         <translation>Kontzertu tonua</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2586"/>
+        <location filename="../../mscore/musescore.cpp" line="2617"/>
         <source>Image Capture</source>
         <translation>Irudi kaptura</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2587"/>
+        <location filename="../../mscore/musescore.cpp" line="2618"/>
         <source>Note Input</source>
         <translation>Nota sarrera</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="654"/>
+        <location filename="../../mscore/musescore.cpp" line="666"/>
         <source>Note Entry Methods</source>
         <translation>Nota sarrera moduak</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2630"/>
+        <location filename="../../mscore/musescore.cpp" line="2661"/>
         <source>&amp;File</source>
         <translation>&amp;Fitxategia</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2631"/>
+        <location filename="../../mscore/musescore.cpp" line="2662"/>
         <source>Open &amp;Recent</source>
         <translation>&amp;Azken dokumentuak ireki</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2632"/>
+        <location filename="../../mscore/musescore.cpp" line="2663"/>
         <source>&amp;Edit</source>
         <translation>&amp;Editatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2648"/>
+        <location filename="../../mscore/musescore.cpp" line="2679"/>
         <source>&amp;Measure</source>
         <translation>&amp;Konpasa</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2646"/>
+        <location filename="../../mscore/musescore.cpp" line="2677"/>
         <source>&amp;Tools</source>
         <translation>&amp;Tresnak</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2647"/>
+        <location filename="../../mscore/musescore.cpp" line="2678"/>
         <source>&amp;Voices</source>
         <translation>Ah&amp;otsak</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2635"/>
+        <location filename="../../mscore/musescore.cpp" line="2666"/>
         <source>W&amp;orkspaces</source>
         <translation>&amp;Laneko areak</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2563"/>
+        <location filename="../../mscore/musescore.cpp" line="2594"/>
         <source>&amp;Preferences…</source>
         <translation>&amp;Hobespenak…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2633"/>
+        <location filename="../../mscore/musescore.cpp" line="2664"/>
         <source>&amp;View</source>
         <translation>&amp;Ikusi</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2634"/>
+        <location filename="../../mscore/musescore.cpp" line="2665"/>
         <source>&amp;Toolbars</source>
         <translation>&amp;Tresna-barrak</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2643"/>
+        <location filename="../../mscore/musescore.cpp" line="2674"/>
         <source>T&amp;uplets</source>
         <translation>&amp;N-kotxoak</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2650"/>
+        <location filename="../../mscore/musescore.cpp" line="2681"/>
         <source>&amp;Plugins</source>
         <translation>&amp;Pluginak</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2653"/>
+        <location filename="../../mscore/musescore.cpp" line="2684"/>
         <source>&amp;Help</source>
         <translation>&amp;Laguntza</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2573"/>
+        <location filename="../../mscore/musescore.cpp" line="2604"/>
         <source>&amp;Online Handbook</source>
         <translation>&amp;Sareko eskuliburua</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2570"/>
+        <location filename="../../mscore/musescore.cpp" line="2601"/>
         <source>&amp;About…</source>
         <translation>&amp;Honi buruz…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1099"/>
-        <location filename="../../mscore/musescore.cpp" line="2606"/>
+        <location filename="../../mscore/musescore.cpp" line="1111"/>
+        <location filename="../../mscore/musescore.cpp" line="2637"/>
         <source>Single Page</source>
         <translation>Orrialde bakarra</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1556"/>
+        <location filename="../../mscore/musescore.cpp" line="1568"/>
         <source>Synthesizer</source>
         <translation>Sintetizadorea</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1557"/>
+        <location filename="../../mscore/musescore.cpp" line="1569"/>
         <source>Audio track</source>
         <translation>Audio pista</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2158"/>
-        <location filename="../../mscore/musescore.cpp" line="2645"/>
+        <location filename="../../mscore/musescore.cpp" line="2174"/>
+        <location filename="../../mscore/musescore.cpp" line="2676"/>
         <source>&amp;Stretch</source>
         <translation>&amp;Zabalera</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2641"/>
+        <location filename="../../mscore/musescore.cpp" line="2672"/>
         <source>N&amp;otes</source>
         <translation>N&amp;otak</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2642"/>
+        <location filename="../../mscore/musescore.cpp" line="2673"/>
         <source>&amp;Intervals</source>
         <translation>&amp;Bitarteak</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2644"/>
+        <location filename="../../mscore/musescore.cpp" line="2675"/>
         <source>F&amp;ormat</source>
         <translation>F&amp;ormatua</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2654"/>
+        <location filename="../../mscore/musescore.cpp" line="2685"/>
         <source>&amp;Tours</source>
         <translation>&amp;Ibilaldiak</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2571"/>
+        <location filename="../../mscore/musescore.cpp" line="2602"/>
         <source>About &amp;Qt…</source>
         <translation>&amp;Qt-ri buruz…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2572"/>
+        <location filename="../../mscore/musescore.cpp" line="2603"/>
         <source>About &amp;MusicXML…</source>
         <translation>&amp;MusicXML-ri buruz…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2575"/>
+        <location filename="../../mscore/musescore.cpp" line="2606"/>
         <source>Check for &amp;Update</source>
         <translation>Eg&amp;uneraketak bilatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2576"/>
+        <location filename="../../mscore/musescore.cpp" line="2607"/>
         <source>Ask for Help</source>
         <translation>Laguntza eskatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2577"/>
+        <location filename="../../mscore/musescore.cpp" line="2608"/>
         <source>Report a Bug</source>
         <translation>Zorrien berri eman</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2581"/>
+        <location filename="../../mscore/musescore.cpp" line="2612"/>
         <source>Revert to Factory Settings</source>
         <translation>Fabrikako ezarpenak leheneratu</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2579"/>
-        <location filename="../../mscore/musescore.cpp" line="2589"/>
+        <location filename="../../mscore/musescore.cpp" line="2610"/>
+        <location filename="../../mscore/musescore.cpp" line="2620"/>
         <source>Feedback</source>
         <translation>Eman iritzia</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="856"/>
+        <location filename="../../mscore/musescore.cpp" line="868"/>
         <source>Please wait; unpacking extension…</source>
         <translation>Itxaron mesedez; luzapena zabaltzen…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="935"/>
+        <location filename="../../mscore/musescore.cpp" line="947"/>
         <source>Please wait; loading SoundFonts…</source>
         <translation>Itxaron mesedez; SoundFont-ak kargatzen…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1097"/>
-        <location filename="../../mscore/musescore.cpp" line="2604"/>
+        <location filename="../../mscore/musescore.cpp" line="1109"/>
+        <location filename="../../mscore/musescore.cpp" line="2635"/>
         <source>Double Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1101"/>
-        <location filename="../../mscore/musescore.cpp" line="2610"/>
+        <location filename="../../mscore/musescore.cpp" line="1113"/>
+        <location filename="../../mscore/musescore.cpp" line="2641"/>
         <source>Floating</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1158"/>
+        <location filename="../../mscore/musescore.cpp" line="1170"/>
         <source>BPM:</source>
         <translation type="unfinished">T/M:</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1167"/>
+        <location filename="../../mscore/musescore.cpp" line="1179"/>
         <source>Tempo in quarter notes per minute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1171"/>
+        <location filename="../../mscore/musescore.cpp" line="1183"/>
         <source>Time signature:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1203"/>
-        <location filename="../../mscore/musescore.cpp" line="1256"/>
+        <location filename="../../mscore/musescore.cpp" line="1215"/>
+        <location filename="../../mscore/musescore.cpp" line="1268"/>
         <source>Follow score</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1209"/>
+        <location filename="../../mscore/musescore.cpp" line="1221"/>
         <source>Beat accents</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1215"/>
+        <location filename="../../mscore/musescore.cpp" line="1227"/>
         <source>Use varying strengths for non-downbeat clicks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1255"/>
+        <location filename="../../mscore/musescore.cpp" line="1267"/>
         <source>Following score</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2480"/>
+        <location filename="../../mscore/musescore.cpp" line="2511"/>
         <source>No login credentials stored. Please sign in via the GUI.</source>
         <translation>Ez dago saioa hasteko kredentzialik gordeta. Hasi saioa GUI bidez.</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2566"/>
-        <location filename="../../mscore/musescore.cpp" line="2568"/>
+        <location filename="../../mscore/musescore.cpp" line="2597"/>
+        <location filename="../../mscore/musescore.cpp" line="2599"/>
         <source>Debug Log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2591"/>
+        <location filename="../../mscore/musescore.cpp" line="2622"/>
         <source>Alternative Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2592"/>
+        <location filename="../../mscore/musescore.cpp" line="2623"/>
         <source>Workspaces</source>
         <translation>Lan inguruneak</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2652"/>
+        <location filename="../../mscore/musescore.cpp" line="2683"/>
         <source>Debug</source>
         <translation type="unfinished">Zorrikatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2810"/>
+        <location filename="../../mscore/musescore.cpp" line="2841"/>
         <source>Are you sure?</source>
         <translation>Ziur zaude?</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2811"/>
+        <location filename="../../mscore/musescore.cpp" line="2842"/>
         <source>This will reset all your preferences.
 Custom palettes, custom shortcuts, and the list of recent scores will be deleted. MuseScore will restart with its default settings.
 Reverting will not remove any scores from your computer.
@@ -14716,105 +14750,105 @@ Ez da zure ordenagailutik partiturarik ezabatuko.
 Ziur zaude jarrai nahi izateaz?</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="3064"/>
+        <location filename="../../mscore/musescore.cpp" line="3095"/>
         <source>Clear Recent Files</source>
         <translation>Azken fitxategiak garbitu</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="3069"/>
+        <location filename="../../mscore/musescore.cpp" line="3100"/>
         <source>No recent files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4686"/>
+        <location filename="../../mscore/musescore.cpp" line="4753"/>
         <source>System</source>
         <extracomment>The default language of the operating system. NOT a music system.</extracomment>
         <translation>Sistema</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4694"/>
+        <location filename="../../mscore/musescore.cpp" line="4761"/>
         <source>Error reading language file %s at line %d column %d: %s
 </source>
         <translation>Errore bat gertatu da %s hizkuntza-fitxategia irakurtzean %d lerroan %d zutabean: %s
 </translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4936"/>
+        <location filename="../../mscore/musescore.cpp" line="5003"/>
         <source>No score</source>
         <translation>Ez dago partiturarik</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4942"/>
+        <location filename="../../mscore/musescore.cpp" line="5009"/>
         <source>Normal mode</source>
         <translation>Modu normala</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4950"/>
+        <location filename="../../mscore/musescore.cpp" line="5017"/>
         <source>Repitch input mode</source>
         <translation>Altuera aldaketa sarrera modua</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4955"/>
+        <location filename="../../mscore/musescore.cpp" line="5022"/>
         <source>Rhythm input mode</source>
         <translation>Erritmo sarrera modua</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4960"/>
+        <location filename="../../mscore/musescore.cpp" line="5027"/>
         <source>Realtime (automatic) note input mode</source>
         <translation>Denbora errealean nota sarrera modua (automatikoa)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4965"/>
+        <location filename="../../mscore/musescore.cpp" line="5032"/>
         <source>Realtime (manual) note input mode</source>
         <translation>Denbora errealean nota sarrera modua (eskuzkoa)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4975"/>
+        <location filename="../../mscore/musescore.cpp" line="5042"/>
         <source>Steptime note input mode</source>
         <translation>Noten banakako sarrera modua</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5016"/>
+        <location filename="../../mscore/musescore.cpp" line="5083"/>
         <source>TAB input mode</source>
         <translation>Tablatura sarrera modua</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5019"/>
+        <location filename="../../mscore/musescore.cpp" line="5086"/>
         <source>Edit mode</source>
         <translation>Editatzeko modua</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5022"/>
+        <location filename="../../mscore/musescore.cpp" line="5089"/>
         <source>Text edit mode</source>
         <translation>Testua editatzeko modua</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5025"/>
+        <location filename="../../mscore/musescore.cpp" line="5092"/>
         <source>Lyrics edit mode</source>
         <translation>Hitzak editatzeko modua</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5028"/>
+        <location filename="../../mscore/musescore.cpp" line="5095"/>
         <source>Chord symbol/figured bass edit mode</source>
         <translation>Akorde-ikurrak/baxu zifratua editatzeko modua</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5031"/>
+        <location filename="../../mscore/musescore.cpp" line="5098"/>
         <source>Play</source>
         <translation>Erreproduzitu</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5034"/>
+        <location filename="../../mscore/musescore.cpp" line="5101"/>
         <source>Image capture mode</source>
         <translation>Irudiak kapturatzeko modua</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5038"/>
+        <location filename="../../mscore/musescore.cpp" line="5105"/>
         <source>Score locked</source>
         <translation>Partitura blokeatuta</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5874"/>
+        <location filename="../../mscore/musescore.cpp" line="5967"/>
         <source>The previous session quit unexpectedly.
 
 Restore session?</source>
@@ -14823,87 +14857,92 @@ Restore session?</source>
 Saioa berreskuratu?</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="6505"/>
+        <location filename="../../mscore/musescore.cpp" line="6206"/>
+        <source>Piano Roll Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/musescore.cpp" line="6783"/>
         <source>Invalid selection. Cannot realize chord symbol</source>
         <translation>Hautapen baliogabea. Ezin da akorde-ikurra gauzatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="6521"/>
+        <location filename="../../mscore/musescore.cpp" line="6799"/>
         <source>No chord symbol selected. Cannot realize chord symbol</source>
         <translation>Ez da akorde-ikurrik hautatu. Ezin da akorde-ikurra gauzatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7010"/>
+        <location filename="../../mscore/musescore.cpp" line="7296"/>
         <source>MuseScore may not be able to load this style file: %1</source>
         <translation>Baliteke MuseScore-k &apos;%1&apos; estilo fitxategia kargatzeko ez izatea.</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7331"/>
+        <location filename="../../mscore/musescore.cpp" line="7632"/>
         <source>Warning</source>
         <translation>Kontuz</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7332"/>
+        <location filename="../../mscore/musescore.cpp" line="7633"/>
         <source>Cannot create tuplet: Note value is too short</source>
         <translation>Ezin da n-kotxoa sortu: nota balioa laburregia da</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8696"/>
+        <location filename="../../mscore/musescore.cpp" line="9014"/>
         <source>Initializing sequencer and audio driver…</source>
         <translation>Sekuenziadorea eta audio driverra abiarazten…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8705"/>
+        <location filename="../../mscore/musescore.cpp" line="9023"/>
         <source>Loading SoundFonts…</source>
         <translation>SoundFont-ak kargatzen…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8748"/>
+        <location filename="../../mscore/musescore.cpp" line="9066"/>
         <source>Initializing workspace…</source>
         <translation>Lan ingurunea abiarazten…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8752"/>
+        <location filename="../../mscore/musescore.cpp" line="9070"/>
         <source>Creating main window…</source>
         <translation>Leiho nagusia sortzen…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8769"/>
+        <location filename="../../mscore/musescore.cpp" line="9087"/>
         <source>Reading translations…</source>
         <translation>Itzulpenak irakurtzen…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8776"/>
+        <location filename="../../mscore/musescore.cpp" line="9094"/>
         <source>Initializing startup wizard…</source>
         <translation>Hasierako morroia abiarazten…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8792"/>
+        <location filename="../../mscore/musescore.cpp" line="9110"/>
         <source>Initializing preferences…</source>
         <translation>Hobespenak abiarazten…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8833"/>
+        <location filename="../../mscore/musescore.cpp" line="9151"/>
         <source>Initializing main window…</source>
         <translation>Leiho nagusia abiarazten…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8857"/>
+        <location filename="../../mscore/musescore.cpp" line="9175"/>
         <source>Restoring session…</source>
         <translation>Sesioa berrezartzen…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8891"/>
+        <location filename="../../mscore/musescore.cpp" line="9209"/>
         <source>Loading scores…</source>
         <translation>Partiturak kargatzen…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8902"/>
+        <location filename="../../mscore/musescore.cpp" line="9220"/>
         <source>Initializing start center…</source>
         <translation>Hasiera-zentroa abiarazten…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8924"/>
+        <location filename="../../mscore/musescore.cpp" line="9242"/>
         <source>Initializing tours…</source>
         <translation>Ibilaldiak abiarazten…</translation>
     </message>
@@ -14967,22 +15006,22 @@ This plugin requires an open score to run.</source>
 <context>
     <name>Ms::MuseScoreApplication</name>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8365"/>
+        <location filename="../../mscore/musescore.cpp" line="8683"/>
         <source>Must specify at least one score to save online.</source>
         <translation>Gutxienez puntuazio bat zehaztu behar da sarean gordetzeko.</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8426"/>
+        <location filename="../../mscore/musescore.cpp" line="8744"/>
         <source>--run-test-script is incompatible with --diff and --raw-diff</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8461"/>
+        <location filename="../../mscore/musescore.cpp" line="8779"/>
         <source>Only two scores are needed for performing a comparison</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8466"/>
+        <location filename="../../mscore/musescore.cpp" line="8784"/>
         <source>Please specify scripts to execute</source>
         <translation>Zehaztu exekutatu beharreko scriptak</translation>
     </message>
@@ -15155,23 +15194,23 @@ gaitu behar duzu</translation>
         <translation>Gehiago erakutsi</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette.cpp" line="269"/>
-        <location filename="../../mscore/palette.cpp" line="296"/>
+        <location filename="../../mscore/palette.cpp" line="298"/>
+        <location filename="../../mscore/palette.cpp" line="325"/>
         <source>More Elements…</source>
         <translation>Elementu gehiago…</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette.cpp" line="279"/>
+        <location filename="../../mscore/palette.cpp" line="308"/>
         <source>Copy SMuFL Symbol Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/palette.cpp" line="292"/>
+        <location filename="../../mscore/palette.cpp" line="321"/>
         <source>Delete</source>
         <translation>Ezabatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette.cpp" line="293"/>
+        <location filename="../../mscore/palette.cpp" line="322"/>
         <source>Properties…</source>
         <translation>Ezaugarriak…</translation>
     </message>
@@ -15325,7 +15364,7 @@ gaitu behar duzu</translation>
 <context>
     <name>Ms::PianoTools</name>
     <message>
-        <location filename="../../mscore/pianotools.cpp" line="468"/>
+        <location filename="../../mscore/pianotools.cpp" line="488"/>
         <source>Piano Keyboard</source>
         <translation>Piano teklatua</translation>
     </message>
@@ -15333,192 +15372,59 @@ gaitu behar duzu</translation>
 <context>
     <name>Ms::PianoView</name>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="766"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2578"/>
         <source>Cut notes</source>
         <translation>Notak moztu </translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="770"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2582"/>
         <source>Copy notes</source>
         <translation>Notak kopiatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="774"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2586"/>
         <source>Paste notes here</source>
         <translation>Notak hemen itsatsi</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="782"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2594"/>
         <source>Set Voice 1</source>
         <translation>1. ahotsa ezarri</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="786"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2598"/>
         <source>Set Voice 2</source>
         <translation>2. ahotsa ezarri</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="790"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2602"/>
         <source>Set Voice 3</source>
         <translation>3. ahotsa ezarri</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="794"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2606"/>
         <source>Set Voice 4</source>
         <translation>4. ahotsa ezarri</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="800"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2612"/>
+        <source>Color…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2616"/>
+        <source>Reset Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2622"/>
         <source>Tuplets</source>
         <translation>N-kotxoak</translation>
     </message>
-</context>
-<context>
-    <name>Ms::PianorollEditor</name>
     <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="92"/>
-        <source>Wave</source>
-        <translation>Uhina</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="93"/>
-        <source>Show wave display</source>
-        <translation>Uhin bistaratzea erakutsi</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="101"/>
-        <source>Part:</source>
-        <translation>Partea</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="122"/>
-        <source>Select Notes</source>
-        <translation>Notak hautatu</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="125"/>
-        <source>Cut Chord</source>
-        <translation>Akodea moztu</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="126"/>
-        <source>Erase Note</source>
-        <translation>Nota ezabatu</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="123"/>
-        <source>Add Note</source>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="6395"/>
+        <source>Select Note Color</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="127"/>
-        <source>Change Playback Length</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="128"/>
-        <source>Toggle Tie</source>
-        <translation>Ligatura trukatu</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="242"/>
-        <source>Voice 1</source>
-        <translation>1. ahotsa</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="243"/>
-        <source>Voice 2</source>
-        <translation>2. ahotsa</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="244"/>
-        <source>Voice 3</source>
-        <translation>3. ahotsa</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="245"/>
-        <source>Voice 4</source>
-        <translation>4. ahotsa</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="271"/>
-        <source>Cursor:</source>
-        <translation>Kurtsorea:</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="282"/>
-        <source>Subdiv.:</source>
-        <translation>Azpidib.:</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="284"/>
-        <source>Subdivide the beat this many times</source>
-        <translation>Aldia zenbatetan zatitu</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="289"/>
-        <source>Tuplet:</source>
-        <translation>N-kotxoa:</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="291"/>
-        <source>Edit notes aligned to tuplets of this many beats</source>
-        <translation>Aldi kopuru honetako balio bereziko multzoei lerrokatutako notak editatu</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="296"/>
-        <source>Stripe Pattern:</source>
-        <translation>Marra diseinua:</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="298"/>
-        <source>White stripes show the tones of this chord.</source>
-        <translation>Marra txuriek akorde honeko notak erakusten dituzte.</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="305"/>
-        <source>Velocity:</source>
-        <translation>Abiadura:</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="307"/>
-        <source>Offset</source>
-        <translation>Desplazamendua</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="308"/>
-        <source>User</source>
-        <translation>Erabiltzailea</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="316"/>
-        <source>Pitch:</source>
-        <translation>Altuera:</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="321"/>
-        <source>OnTime:</source>
-        <translation>Aldiarekin bat:</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="325"/>
-        <source>Len:</source>
-        <translation>Luz.:</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="575"/>
-        <source>Part: %1</source>
-        <translation>Partea: %1</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="595"/>
-        <source>&lt;%1&gt; Staff: %2</source>
-        <translation>&lt;%1&gt; Pentagrama: %2</translation>
-    </message>
-    <message>
-        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="604"/>
-        <source>Piano roll editor</source>
-        <translation>Piano bobinaren editorea</translation>
     </message>
 </context>
 <context>
@@ -16167,7 +16073,7 @@ huts egin du:
 %2</translation>
     </message>
     <message>
-        <location filename="../../libmscore/edit.cpp" line="3332"/>
+        <location filename="../../libmscore/edit.cpp" line="3518"/>
         <source>Please select the complete tuplet and retry the command</source>
         <translation>Mesedez, n-kotxo osoa hautatu eta agindua errepikatu</translation>
     </message>
@@ -16567,7 +16473,7 @@ huts egin du:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/scoreview.cpp" line="5099"/>
+        <location filename="../../mscore/scoreview.cpp" line="5109"/>
         <source>No staves found:
 Please use the instruments dialog to
 first create some staves</source>
@@ -16591,7 +16497,7 @@ Please select a range of measures to join and try again</source>
 Mesedez, hautatu elkartzeko konpas tarte bat eta saiatu berriro</translation>
     </message>
     <message>
-        <location filename="../../mscore/scoreview.cpp" line="5181"/>
+        <location filename="../../mscore/scoreview.cpp" line="5191"/>
         <source>No measure selected:
 Please select a measure and try again</source>
         <translation>Ez da konpasik hautatu:
@@ -16784,8 +16690,8 @@ Ibilaldi horiek ikusi nahiko zenituzke?</translation>
 <context>
     <name>Ms::TDockWidget</name>
     <message>
-        <location filename="../../mscore/timeline.cpp" line="80"/>
-        <location filename="../../mscore/timeline.cpp" line="102"/>
+        <location filename="../../mscore/timeline.cpp" line="91"/>
+        <location filename="../../mscore/timeline.cpp" line="113"/>
         <source>Timeline</source>
         <translation>Denbora-lerroa</translation>
     </message>
@@ -16793,37 +16699,37 @@ Ibilaldi horiek ikusi nahiko zenituzke?</translation>
 <context>
     <name>Ms::TRowLabels</name>
     <message>
-        <location filename="../../mscore/timeline.cpp" line="613"/>
+        <location filename="../../mscore/timeline.cpp" line="624"/>
         <source>Expand meta rows</source>
         <translation>Meta lerroak zabaldu</translation>
     </message>
     <message>
-        <location filename="../../mscore/timeline.cpp" line="616"/>
+        <location filename="../../mscore/timeline.cpp" line="627"/>
         <source>Collapse meta rows</source>
         <translation>Meta lerroak uzkurtu</translation>
     </message>
     <message>
-        <location filename="../../mscore/timeline.cpp" line="619"/>
+        <location filename="../../mscore/timeline.cpp" line="630"/>
         <source>Move meta row down one</source>
         <translation>Meta lerroa beherantz eraman</translation>
     </message>
     <message>
-        <location filename="../../mscore/timeline.cpp" line="622"/>
+        <location filename="../../mscore/timeline.cpp" line="633"/>
         <source>Move meta row up one</source>
         <translation>Meta lerroa gorantz eraman</translation>
     </message>
     <message>
-        <location filename="../../mscore/timeline.cpp" line="625"/>
+        <location filename="../../mscore/timeline.cpp" line="636"/>
         <source>Move meta row up/down one</source>
         <translation>Meta lerroa gorantz/beherantz eraman</translation>
     </message>
     <message>
-        <location filename="../../mscore/timeline.cpp" line="628"/>
+        <location filename="../../mscore/timeline.cpp" line="639"/>
         <source>Hide instrument in score</source>
         <translation>Ezkutatu instrumentua partituran</translation>
     </message>
     <message>
-        <location filename="../../mscore/timeline.cpp" line="631"/>
+        <location filename="../../mscore/timeline.cpp" line="642"/>
         <source>Show instrument in score</source>
         <translation>Instrumentua partituran erakutsi</translation>
     </message>
@@ -16849,17 +16755,22 @@ Ibilaldi horiek ikusi nahiko zenituzke?</translation>
 <context>
     <name>Ms::TextPalette</name>
     <message>
-        <location filename="../../mscore/textpalette.cpp" line="379"/>
+        <location filename="../../mscore/textpalette.cpp" line="368"/>
+        <source>Reset</source>
+        <translation type="unfinished">Berrezarri</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/textpalette.cpp" line="402"/>
         <source>Common Symbols</source>
         <translation>Ikur arruntak</translation>
     </message>
     <message>
-        <location filename="../../mscore/textpalette.cpp" line="393"/>
+        <location filename="../../mscore/textpalette.cpp" line="416"/>
         <source>Musical Symbols</source>
         <translation>Musika ikurrak</translation>
     </message>
     <message>
-        <location filename="../../mscore/textpalette.cpp" line="414"/>
+        <location filename="../../mscore/textpalette.cpp" line="437"/>
         <source>Unicode Symbols</source>
         <translation>Unicode ikurrak</translation>
     </message>
@@ -16919,90 +16830,90 @@ Ibilaldi horiek ikusi nahiko zenituzke?</translation>
 <context>
     <name>Ms::Timeline</name>
     <message>
-        <location filename="../../mscore/timeline.cpp" line="791"/>
-        <location filename="../../mscore/timeline.cpp" line="1170"/>
-        <location filename="../../mscore/timeline.cpp" line="2444"/>
+        <location filename="../../mscore/timeline.cpp" line="802"/>
+        <location filename="../../mscore/timeline.cpp" line="1181"/>
+        <location filename="../../mscore/timeline.cpp" line="2455"/>
         <source>Tempo</source>
         <translation>Tempoa</translation>
     </message>
     <message>
-        <location filename="../../mscore/timeline.cpp" line="792"/>
-        <location filename="../../mscore/timeline.cpp" line="1198"/>
-        <location filename="../../mscore/timeline.cpp" line="2445"/>
+        <location filename="../../mscore/timeline.cpp" line="803"/>
+        <location filename="../../mscore/timeline.cpp" line="1209"/>
+        <location filename="../../mscore/timeline.cpp" line="2456"/>
         <source>Time Signature</source>
         <translation>Konpas neurria</translation>
     </message>
     <message>
-        <location filename="../../mscore/timeline.cpp" line="793"/>
-        <location filename="../../mscore/timeline.cpp" line="1235"/>
-        <location filename="../../mscore/timeline.cpp" line="2446"/>
+        <location filename="../../mscore/timeline.cpp" line="804"/>
+        <location filename="../../mscore/timeline.cpp" line="1246"/>
+        <location filename="../../mscore/timeline.cpp" line="2457"/>
         <source>Rehearsal Mark</source>
         <translation>Entsegu marka</translation>
     </message>
     <message>
-        <location filename="../../mscore/timeline.cpp" line="794"/>
-        <location filename="../../mscore/timeline.cpp" line="1111"/>
-        <location filename="../../mscore/timeline.cpp" line="1115"/>
-        <location filename="../../mscore/timeline.cpp" line="1263"/>
-        <location filename="../../mscore/timeline.cpp" line="2447"/>
+        <location filename="../../mscore/timeline.cpp" line="805"/>
+        <location filename="../../mscore/timeline.cpp" line="1122"/>
+        <location filename="../../mscore/timeline.cpp" line="1126"/>
+        <location filename="../../mscore/timeline.cpp" line="1274"/>
+        <location filename="../../mscore/timeline.cpp" line="2458"/>
         <source>Key Signature</source>
         <translation>Armadura</translation>
     </message>
     <message>
-        <location filename="../../mscore/timeline.cpp" line="795"/>
-        <location filename="../../mscore/timeline.cpp" line="1366"/>
-        <location filename="../../mscore/timeline.cpp" line="2448"/>
+        <location filename="../../mscore/timeline.cpp" line="806"/>
+        <location filename="../../mscore/timeline.cpp" line="1377"/>
+        <location filename="../../mscore/timeline.cpp" line="2459"/>
         <source>Barlines</source>
         <translation>Zatilerroak</translation>
     </message>
     <message>
-        <location filename="../../mscore/timeline.cpp" line="796"/>
-        <location filename="../../mscore/timeline.cpp" line="1133"/>
-        <location filename="../../mscore/timeline.cpp" line="1419"/>
-        <location filename="../../mscore/timeline.cpp" line="2449"/>
+        <location filename="../../mscore/timeline.cpp" line="807"/>
+        <location filename="../../mscore/timeline.cpp" line="1144"/>
+        <location filename="../../mscore/timeline.cpp" line="1430"/>
+        <location filename="../../mscore/timeline.cpp" line="2460"/>
         <source>Jumps and Markers</source>
         <translation>Jauziak eta markatzaileak</translation>
     </message>
     <message>
-        <location filename="../../mscore/timeline.cpp" line="797"/>
-        <location filename="../../mscore/timeline.cpp" line="1494"/>
-        <location filename="../../mscore/timeline.cpp" line="1536"/>
-        <location filename="../../mscore/timeline.cpp" line="2450"/>
-        <location filename="../../mscore/timeline.cpp" line="2747"/>
-        <location filename="../../mscore/timeline.cpp" line="2985"/>
-        <location filename="../../mscore/timeline.cpp" line="3017"/>
+        <location filename="../../mscore/timeline.cpp" line="808"/>
+        <location filename="../../mscore/timeline.cpp" line="1505"/>
+        <location filename="../../mscore/timeline.cpp" line="1547"/>
+        <location filename="../../mscore/timeline.cpp" line="2461"/>
+        <location filename="../../mscore/timeline.cpp" line="2758"/>
+        <location filename="../../mscore/timeline.cpp" line="2996"/>
+        <location filename="../../mscore/timeline.cpp" line="3028"/>
         <source>Measures</source>
         <translation>Konpasak</translation>
     </message>
     <message>
-        <location filename="../../mscore/timeline.cpp" line="1038"/>
+        <location filename="../../mscore/timeline.cpp" line="1049"/>
         <source>Measure</source>
         <translation>Konpasa</translation>
     </message>
     <message>
-        <location filename="../../mscore/timeline.cpp" line="1333"/>
+        <location filename="../../mscore/timeline.cpp" line="1344"/>
         <source>Custom Key Signature</source>
         <translation>Armadura pertsonalizatua</translation>
     </message>
     <message>
-        <location filename="../../mscore/timeline.cpp" line="2974"/>
+        <location filename="../../mscore/timeline.cpp" line="2985"/>
         <source>Context menu</source>
         <translation>Laster-menua</translation>
     </message>
     <message>
-        <location filename="../../mscore/timeline.cpp" line="2976"/>
+        <location filename="../../mscore/timeline.cpp" line="2987"/>
         <source>Edit Instruments</source>
         <translation>Instrumentuak editatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/timeline.cpp" line="2994"/>
-        <location filename="../../mscore/timeline.cpp" line="3014"/>
+        <location filename="../../mscore/timeline.cpp" line="3005"/>
+        <location filename="../../mscore/timeline.cpp" line="3025"/>
         <source>Hide all</source>
         <translation>Dena ezkutatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/timeline.cpp" line="2997"/>
-        <location filename="../../mscore/timeline.cpp" line="3023"/>
+        <location filename="../../mscore/timeline.cpp" line="3008"/>
+        <location filename="../../mscore/timeline.cpp" line="3034"/>
         <source>Show all</source>
         <translation>Dena erakutsi</translation>
     </message>
@@ -17195,7 +17106,7 @@ Ibilaldi horiek ikusi nahiko zenituzke?</translation>
         <translation>Aurreratua editatua</translation>
     </message>
     <message>
-        <location filename="../../mscore/workspace.cpp" line="1298"/>
+        <location filename="../../mscore/workspace.cpp" line="1312"/>
         <source>%1 edited</source>
         <extracomment>Name of the edited read-only workspace, %1 is replaced with the old workspace name</extracomment>
         <translation>%1 editatua</translation>
@@ -17242,9 +17153,9 @@ mesedez, izen ezberdina aukeratu:</translation>
 <context>
     <name>Ms::ZoomBox</name>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2595"/>
-        <location filename="../../mscore/musescore.cpp" line="2596"/>
-        <location filename="../../mscore/musescore.cpp" line="2597"/>
+        <location filename="../../mscore/musescore.cpp" line="2626"/>
+        <location filename="../../mscore/musescore.cpp" line="2627"/>
+        <location filename="../../mscore/musescore.cpp" line="2628"/>
         <location filename="../../mscore/zoombox.cpp" line="95"/>
         <location filename="../../mscore/zoombox.cpp" line="96"/>
         <location filename="../../mscore/zoombox.cpp" line="97"/>
@@ -17751,9 +17662,9 @@ mesedez, izen ezberdina aukeratu:</translation>
         <translation>Ñabardurak</translation>
     </message>
     <message>
-        <location filename="../../mscore/masterpalette.cpp" line="227"/>
+        <location filename="../../mscore/masterpalette.cpp" line="265"/>
         <location filename="../../mscore/menus.cpp" line="549"/>
-        <location filename="../../mscore/musescore.cpp" line="6847"/>
+        <location filename="../../mscore/musescore.cpp" line="7129"/>
         <source>Key Signatures</source>
         <translation>Armadurak</translation>
     </message>
@@ -18337,9 +18248,9 @@ mesedez, izen ezberdina aukeratu:</translation>
         <translation>Testua</translation>
     </message>
     <message>
-        <location filename="../../mscore/masterpalette.cpp" line="228"/>
+        <location filename="../../mscore/masterpalette.cpp" line="266"/>
         <location filename="../../mscore/menus.cpp" line="1767"/>
-        <location filename="../../mscore/musescore.cpp" line="6849"/>
+        <location filename="../../mscore/musescore.cpp" line="7131"/>
         <source>Time Signatures</source>
         <translation>Konpas neurriak</translation>
     </message>
@@ -18349,7 +18260,12 @@ mesedez, izen ezberdina aukeratu:</translation>
         <translation>Gider diagramak</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette.cpp" line="1543"/>
+        <location filename="../../mscore/palette.cpp" line="281"/>
+        <source>Zoom: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/palette.cpp" line="1609"/>
         <location filename="../../mscore/palette/palettetree.cpp" line="483"/>
         <source>Writing Palette File
 %1
@@ -18359,7 +18275,7 @@ paleta fitxategia idazteak
 huts egin du:</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette.cpp" line="1544"/>
+        <location filename="../../mscore/palette.cpp" line="1610"/>
         <location filename="../../mscore/palette/palettetree.cpp" line="484"/>
         <source>Writing Palette File</source>
         <translation>Paleta fitxategia idazten</translation>
@@ -18861,6 +18777,297 @@ huts egin du:</translation>
         <location filename="../../mscore/pianoroll/pianolevelsfilter.cpp" line="26"/>
         <source>Ignore dynamic markings and set the velocity directly</source>
         <translation>Ñabardurak kontuan ez hartu eta abiadura zuzenean ezarri</translation>
+    </message>
+</context>
+<context>
+    <name>PianorollEditor</name>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="161"/>
+        <source>Editable staff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="182"/>
+        <source>View orientation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="183"/>
+        <source>Horizontal</source>
+        <translation type="unfinished">Horizontala</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="184"/>
+        <source>Vertical</source>
+        <translation type="unfinished">Bertikala</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="205"/>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="242"/>
+        <source>Staff</source>
+        <translation type="unfinished">Pentagrama</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="206"/>
+        <source>Displayed scope</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="207"/>
+        <source>Part</source>
+        <translation type="unfinished">Partea</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="208"/>
+        <source>Score</source>
+        <translation type="unfinished">Partitura</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="227"/>
+        <source>Levels Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="240"/>
+        <source>Coloring scheme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="241"/>
+        <source>Voice</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="243"/>
+        <source>Instrument</source>
+        <translation type="unfinished">Instrumentua</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="262"/>
+        <source>Piano roll note representation for the editable instrument</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="265"/>
+        <source>Auto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="269"/>
+        <source>Duration</source>
+        <translation type="unfinished">Iraupena</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="273"/>
+        <source>Onset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="278"/>
+        <source>Automatic: rectangles for pitched instruments, diamonds for drums</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="283"/>
+        <source>Rectangle</source>
+        <translation type="unfinished">Laukizuzena</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="288"/>
+        <source>Diamond</source>
+        <translation type="unfinished">Erronboa</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="320"/>
+        <source>Honor user-defined note colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="337"/>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="344"/>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="345"/>
+        <source>Show pitch names</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="363"/>
+        <source>Regroup Voicing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="366"/>
+        <source>Regroup existing voices by pitch order</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="388"/>
+        <source>Toggle piano roll controls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="711"/>
+        <source>Select Notes</source>
+        <translation type="unfinished">Notak hautatu</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="715"/>
+        <source>Add Note</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="719"/>
+        <source>Paint Notes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="723"/>
+        <source>Cut Chord</source>
+        <translation type="unfinished">Akodea moztu</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="727"/>
+        <source>Erase Note</source>
+        <translation type="unfinished">Nota ezabatu</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="731"/>
+        <source>Change Playback Length</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="735"/>
+        <source>Toggle Tie</source>
+        <translation type="unfinished">Ligatura trukatu</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="890"/>
+        <source>Voice 1</source>
+        <translation type="unfinished">1. ahotsa</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="891"/>
+        <source>Voice 2</source>
+        <translation type="unfinished">2. ahotsa</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="892"/>
+        <source>Voice 3</source>
+        <translation type="unfinished">3. ahotsa</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="893"/>
+        <source>Voice 4</source>
+        <translation type="unfinished">4. ahotsa</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="927"/>
+        <source>Auto Voice</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="931"/>
+        <source>Automatically choose a compatible voice when inserting notes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="952"/>
+        <source>Cursor:</source>
+        <translation type="unfinished">Kurtsorea:</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="966"/>
+        <source>Subdiv.:</source>
+        <translation type="unfinished">Azpidib.:</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="969"/>
+        <source>Subdivide the beat this many times</source>
+        <translation type="unfinished">Aldia zenbatetan zatitu</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="974"/>
+        <source>Tuplet:</source>
+        <translation type="unfinished">N-kotxoa:</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="977"/>
+        <source>Edit notes aligned to tuplets of this many beats</source>
+        <translation type="unfinished">Aldi kopuru honetako balio bereziko multzoei lerrokatutako notak editatu</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="982"/>
+        <source>Stripe Pattern:</source>
+        <translation type="unfinished">Marra diseinua:</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="985"/>
+        <source>White stripes show the tones of this chord.</source>
+        <translation type="unfinished">Marra txuriek akorde honeko notak erakusten dituzte.</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="999"/>
+        <source>Keyboard-aligned grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="1002"/>
+        <source>Align the vertical piano-roll pitch lanes with the keyboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="1025"/>
+        <source>Velocity:</source>
+        <translation type="unfinished">Abiadura:</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="1028"/>
+        <source>Offset</source>
+        <translation type="unfinished">Desplazamendua</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="1029"/>
+        <source>User</source>
+        <translation type="unfinished">Erabiltzailea</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="1043"/>
+        <source>Pitch:</source>
+        <translation type="unfinished">Altuera:</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="1049"/>
+        <source>OnTime:</source>
+        <translation type="unfinished">Aldiarekin bat:</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="1056"/>
+        <source>Len:</source>
+        <translation type="unfinished">Luz.:</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="1351"/>
+        <source>: Staff %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="1798"/>
+        <source>&lt;%1&gt; Staff: %2</source>
+        <translation type="unfinished">&lt;%1&gt; Pentagrama: %2</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="1806"/>
+        <source>Piano roll editor</source>
+        <translation type="unfinished">Piano bobinaren editorea</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="1994"/>
+        <source>Hide piano roll controls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/pianoroll/pianoroll.cpp" line="1995"/>
+        <source>Show piano roll controls</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21674,12 +21881,12 @@ Bisitatu %1MuseScore-ren webgunea%2 azken bertsioa eskuratzeko.</translation>
         <translation>Eskuina</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4742"/>
+        <location filename="../../mscore/shortcut.cpp" line="4753"/>
         <source>Load Shortcuts</source>
         <translation>Laster-teklak kargatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4742"/>
+        <location filename="../../mscore/shortcut.cpp" line="4753"/>
         <source>Can&apos;t load shortcuts file: %1</source>
         <translation>Ezin da laster-teklen fitxategia kargatu: %1</translation>
     </message>
@@ -22092,17 +22299,17 @@ Bisitatu %1MuseScore-ren webgunea%2 azken bertsioa eskuratzeko.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/element.cpp" line="2652"/>
+        <location filename="../../libmscore/element.cpp" line="2653"/>
         <source>Measure: %1</source>
         <translation type="unfinished">Konpasa: %1</translation>
     </message>
     <message>
-        <location filename="../../libmscore/element.cpp" line="2654"/>
+        <location filename="../../libmscore/element.cpp" line="2655"/>
         <source>Beat: %1</source>
         <translation type="unfinished">%1. aldia</translation>
     </message>
     <message>
-        <location filename="../../libmscore/element.cpp" line="2657"/>
+        <location filename="../../libmscore/element.cpp" line="2658"/>
         <source>Staff: %1</source>
         <translation type="unfinished">Pentagrama: %1</translation>
     </message>
@@ -22119,7 +22326,7 @@ Bisitatu %1MuseScore-ren webgunea%2 azken bertsioa eskuratzeko.</translation>
         <location filename="../../importexport/capella/capella.cpp" line="2786"/>
         <location filename="../../importexport/midiimport/importmidi.cpp" line="1206"/>
         <location filename="../../mscore/instrdialog.cpp" line="166"/>
-        <location filename="../../mscore/musescore.cpp" line="4699"/>
+        <location filename="../../mscore/musescore.cpp" line="4766"/>
         <source>Quit</source>
         <translation>Irten</translation>
     </message>
@@ -22171,65 +22378,65 @@ Gainidatzi nahi duzu?</translation>
         <translation>Errorea estiloa kargatzean</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="755"/>
-        <location filename="../../mscore/musescore.cpp" line="761"/>
-        <location filename="../../mscore/musescore.cpp" line="791"/>
-        <location filename="../../mscore/musescore.cpp" line="796"/>
-        <location filename="../../mscore/musescore.cpp" line="801"/>
-        <location filename="../../mscore/musescore.cpp" line="816"/>
-        <location filename="../../mscore/musescore.cpp" line="834"/>
-        <location filename="../../mscore/musescore.cpp" line="843"/>
-        <location filename="../../mscore/musescore.cpp" line="875"/>
+        <location filename="../../mscore/musescore.cpp" line="767"/>
+        <location filename="../../mscore/musescore.cpp" line="773"/>
+        <location filename="../../mscore/musescore.cpp" line="803"/>
+        <location filename="../../mscore/musescore.cpp" line="808"/>
+        <location filename="../../mscore/musescore.cpp" line="813"/>
+        <location filename="../../mscore/musescore.cpp" line="828"/>
+        <location filename="../../mscore/musescore.cpp" line="846"/>
+        <location filename="../../mscore/musescore.cpp" line="855"/>
+        <location filename="../../mscore/musescore.cpp" line="887"/>
         <source>Import Extension File</source>
         <translation>Luzapena inportatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="755"/>
+        <location filename="../../mscore/musescore.cpp" line="767"/>
         <source>Cannot import extension on read-only storage: %1</source>
         <translation>Ezin da luzapena irakurtzeko soilik den biltegian: %1</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="761"/>
+        <location filename="../../mscore/musescore.cpp" line="773"/>
         <source>Cannot import extension: storage %1 is full</source>
         <translation>Ezin da luzapena inportatu: %1 memoria beteta dago</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="791"/>
+        <location filename="../../mscore/musescore.cpp" line="803"/>
         <source>Corrupted extension: no metadata.json</source>
         <translation>Kaltetutako luzapena: ez dago metadata.json</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="796"/>
+        <location filename="../../mscore/musescore.cpp" line="808"/>
         <source>Corrupted extension: unsupported directories in root directory</source>
         <translation>Luzapen hondatua: direktorio ez eutsiak erroko direktorioan</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="801"/>
+        <location filename="../../mscore/musescore.cpp" line="813"/>
         <source>Corrupted extension: unsupported files in root directory</source>
         <translation>Luzapen hondatua: fitxategi ez eutsiak erroko direktorioan</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="816"/>
+        <location filename="../../mscore/musescore.cpp" line="828"/>
         <source>Corrupted extension: corrupted metadata.json</source>
         <translation>Kaltetutako luzapena: metadata.jason kaltetuta dago</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="834"/>
+        <location filename="../../mscore/musescore.cpp" line="846"/>
         <source>A newer version is already installed</source>
         <translation>Bertsio berriago bat dagoeneko instalatu da</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="843"/>
+        <location filename="../../mscore/musescore.cpp" line="855"/>
         <source>Error while deleting previous version of the extension: %1</source>
         <translation>Luzapenaren aurreko bertsioa ezabatzean akatsa: %1</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="875"/>
+        <location filename="../../mscore/musescore.cpp" line="887"/>
         <source>Unable to extract files from the extension</source>
         <translation>Ezin da luzapenetik fitxategirik atera</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4697"/>
+        <location filename="../../mscore/musescore.cpp" line="4764"/>
         <source>Load Languages Failed:</source>
         <translation>Hizkuntza kargak huts egin du:</translation>
     </message>
@@ -22244,12 +22451,12 @@ Gainidatzi nahi duzu?</translation>
         <translation>Ziur zaude &apos;%1&apos; lan ingurunea ezabatu nahi duzula?</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette.cpp" line="310"/>
+        <location filename="../../mscore/palette.cpp" line="339"/>
         <source>Delete palette cell</source>
         <translation>Paleta gelaxka ezabatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/palette.cpp" line="311"/>
+        <location filename="../../mscore/palette.cpp" line="340"/>
         <source>Are you sure you want to delete palette cell &quot;%1&quot;?</source>
         <translation>Ziur zaude &quot;%1&quot; paleta gelaxka ezabatu nahi duzula?</translation>
     </message>
@@ -22324,7 +22531,7 @@ Gainidatzi nahi duzu?</translation>
 <context>
     <name>RecordButton</name>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="6402"/>
+        <location filename="../../mscore/musescore.cpp" line="6680"/>
         <source>Record</source>
         <translation>Grabatu</translation>
     </message>
@@ -26246,7 +26453,7 @@ failed</source>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1558"/>
-        <location filename="../../mscore/shortcut.cpp" line="3504"/>
+        <location filename="../../mscore/shortcut.cpp" line="3515"/>
         <source>Double whole note</source>
         <translation>Karratua</translation>
     </message>
@@ -26262,7 +26469,7 @@ failed</source>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1569"/>
-        <location filename="../../mscore/shortcut.cpp" line="3514"/>
+        <location filename="../../mscore/shortcut.cpp" line="3525"/>
         <source>Whole note</source>
         <translation>Biribila</translation>
     </message>
@@ -26278,7 +26485,7 @@ failed</source>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1580"/>
-        <location filename="../../mscore/shortcut.cpp" line="3524"/>
+        <location filename="../../mscore/shortcut.cpp" line="3535"/>
         <source>Half note</source>
         <translation>Zuria</translation>
     </message>
@@ -26294,7 +26501,7 @@ failed</source>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1591"/>
-        <location filename="../../mscore/shortcut.cpp" line="3534"/>
+        <location filename="../../mscore/shortcut.cpp" line="3545"/>
         <source>Quarter note</source>
         <translation>Beltza</translation>
     </message>
@@ -26310,7 +26517,7 @@ failed</source>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1602"/>
-        <location filename="../../mscore/shortcut.cpp" line="3544"/>
+        <location filename="../../mscore/shortcut.cpp" line="3555"/>
         <source>Eighth note</source>
         <translation>Kortxea</translation>
     </message>
@@ -26326,7 +26533,7 @@ failed</source>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1613"/>
-        <location filename="../../mscore/shortcut.cpp" line="3554"/>
+        <location filename="../../mscore/shortcut.cpp" line="3565"/>
         <source>16th note</source>
         <translation>Kortxeaerdia</translation>
     </message>
@@ -26342,7 +26549,7 @@ failed</source>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1624"/>
-        <location filename="../../mscore/shortcut.cpp" line="3564"/>
+        <location filename="../../mscore/shortcut.cpp" line="3575"/>
         <source>32nd note</source>
         <translation>Fusa</translation>
     </message>
@@ -26358,7 +26565,7 @@ failed</source>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1635"/>
-        <location filename="../../mscore/shortcut.cpp" line="3574"/>
+        <location filename="../../mscore/shortcut.cpp" line="3585"/>
         <source>64th note</source>
         <translation>Fusaerdia</translation>
     </message>
@@ -26374,7 +26581,7 @@ failed</source>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1646"/>
-        <location filename="../../mscore/shortcut.cpp" line="3584"/>
+        <location filename="../../mscore/shortcut.cpp" line="3595"/>
         <source>128th note</source>
         <translation>Garrapatea</translation>
     </message>
@@ -26844,109 +27051,109 @@ failed</source>
         <translation>PDF irudia erakutsi</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3140"/>
+        <location filename="../../mscore/shortcut.cpp" line="3151"/>
         <source>Score Comparison Tool</source>
         <translation>Partiturak konparatzeko tresna</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3141"/>
+        <location filename="../../mscore/shortcut.cpp" line="3152"/>
         <source>Score comparison tool</source>
         <translation>Partiturak konparatzeko tresna</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3154"/>
+        <location filename="../../mscore/shortcut.cpp" line="3165"/>
         <source>Split Measure Before Selected Note/Rest</source>
         <translation>Konpasa hautatutako nota/isilunearen aurretik banatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3155"/>
+        <location filename="../../mscore/shortcut.cpp" line="3166"/>
         <source>Split measure before selected note/rest</source>
         <translation>Konpasa hautatutako nota/isilunearen aurretik banatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3247"/>
+        <location filename="../../mscore/shortcut.cpp" line="3258"/>
         <source>&amp;Resource Manager…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3258"/>
+        <location filename="../../mscore/shortcut.cpp" line="3269"/>
         <source>PDF Transcribing Assistant</source>
         <translation>PDFak transkribatzeko morroia</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3259"/>
+        <location filename="../../mscore/shortcut.cpp" line="3270"/>
         <source>Show PDF transcribing assistant</source>
         <translation>PDFak transkribatzeko laguntzailea erakutsi</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3266"/>
+        <location filename="../../mscore/shortcut.cpp" line="3277"/>
         <source>Loop Playback</source>
         <translation>Begizta-erreprodukzioa</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3267"/>
+        <location filename="../../mscore/shortcut.cpp" line="3278"/>
         <source>Toggle &apos;Loop Playback&apos;</source>
         <translation>&apos;Begizta-erreproduzkioa&apos; trukatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3320"/>
+        <location filename="../../mscore/shortcut.cpp" line="3331"/>
         <source>Toggle &apos;Count-In&apos; playback</source>
         <translation>Klaketa trukatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3431"/>
+        <location filename="../../mscore/shortcut.cpp" line="3442"/>
         <source>Toggle &apos;View Mode&apos;</source>
         <translation>&apos;Ikuspegia&apos; trukatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3456"/>
+        <location filename="../../mscore/shortcut.cpp" line="3467"/>
         <source>Toggle &apos;Visibility&apos;</source>
         <translation>&apos;Ikusgarritasuna&apos; trukatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3865"/>
+        <location filename="../../mscore/shortcut.cpp" line="3876"/>
         <source>Add Brackets to Accidental</source>
         <translation>Alterazioari kortxeteak gehitu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3866"/>
+        <location filename="../../mscore/shortcut.cpp" line="3877"/>
         <source>Add brackets to accidental</source>
         <translation>Alterazioari kortxeteak gehitu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3875"/>
+        <location filename="../../mscore/shortcut.cpp" line="3886"/>
         <source>Add Parentheses to Element</source>
         <translation>Elementuari parentesiak gehitu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3876"/>
+        <location filename="../../mscore/shortcut.cpp" line="3887"/>
         <source>Add parentheses to element</source>
         <translation>Elementuari parentesiak gehitu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3895"/>
-        <location filename="../../mscore/shortcut.cpp" line="3896"/>
+        <location filename="../../mscore/shortcut.cpp" line="3906"/>
+        <location filename="../../mscore/shortcut.cpp" line="3907"/>
         <source>Toggle &apos;Create Multimeasure Rest&apos;</source>
         <translation>&apos;Konpas anitzeko isiluneak sortu&apos; trukatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3905"/>
-        <location filename="../../mscore/shortcut.cpp" line="3906"/>
+        <location filename="../../mscore/shortcut.cpp" line="3916"/>
+        <location filename="../../mscore/shortcut.cpp" line="3917"/>
         <source>Toggle &apos;Hide Empty Staves&apos;</source>
         <translation>&apos;Pentagrama hutsak ezkutatu&apos; trukatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4003"/>
+        <location filename="../../mscore/shortcut.cpp" line="4014"/>
         <source>Toggle &apos;Rhythmic Slash Notation&apos;</source>
         <translation>&apos;Barra zeiharreko notazio erritmikoa&apos; trukatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4012"/>
+        <location filename="../../mscore/shortcut.cpp" line="4023"/>
         <source>Add/Remove System Breaks…</source>
         <translation>Sistema jauziak gehitu/kendu…</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4013"/>
+        <location filename="../../mscore/shortcut.cpp" line="4024"/>
         <source>Add/remove system breaks</source>
         <translation>Sistema jauziak gehitu/kendu</translation>
     </message>
@@ -27422,7 +27629,7 @@ failed</source>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1657"/>
-        <location filename="../../mscore/shortcut.cpp" line="3594"/>
+        <location filename="../../mscore/shortcut.cpp" line="3605"/>
         <source>256th note</source>
         <translation>Garrapateaerdia</translation>
     </message>
@@ -27438,7 +27645,7 @@ failed</source>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1668"/>
-        <location filename="../../mscore/shortcut.cpp" line="3604"/>
+        <location filename="../../mscore/shortcut.cpp" line="3615"/>
         <source>512th note</source>
         <translation>Garrapatealaurdena</translation>
     </message>
@@ -27454,7 +27661,7 @@ failed</source>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1679"/>
-        <location filename="../../mscore/shortcut.cpp" line="3614"/>
+        <location filename="../../mscore/shortcut.cpp" line="3625"/>
         <source>1024th note</source>
         <translation>Garrapateazortzirena</translation>
     </message>
@@ -27752,7 +27959,7 @@ failed</source>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2239"/>
-        <location filename="../../mscore/shortcut.cpp" line="4139"/>
+        <location filename="../../mscore/shortcut.cpp" line="4150"/>
         <source>Feedback</source>
         <translation>Eman iritzia</translation>
     </message>
@@ -27977,52 +28184,52 @@ failed</source>
         <translation>Makil argibideak (sticking) gehitu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4132"/>
+        <location filename="../../mscore/shortcut.cpp" line="4143"/>
         <source>Apply Input State</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4133"/>
+        <location filename="../../mscore/shortcut.cpp" line="4144"/>
         <source>Apply input state</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4149"/>
+        <location filename="../../mscore/shortcut.cpp" line="4160"/>
         <source>Zoom In Horizontally</source>
         <translation>Horizontalki hurbildu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4150"/>
+        <location filename="../../mscore/shortcut.cpp" line="4161"/>
         <source>Zoom in horizontally - piano roll editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4158"/>
+        <location filename="../../mscore/shortcut.cpp" line="4169"/>
         <source>Zoom Out Horizontally</source>
         <translation>Horizontalki urrundu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4159"/>
+        <location filename="../../mscore/shortcut.cpp" line="4170"/>
         <source>Zoom out horizontally - piano roll editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4167"/>
+        <location filename="../../mscore/shortcut.cpp" line="4178"/>
         <source>Zoom In Vertically</source>
         <translation>Bertikalki hurbildu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4168"/>
+        <location filename="../../mscore/shortcut.cpp" line="4179"/>
         <source>Zoom in vertically - piano roll editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4176"/>
+        <location filename="../../mscore/shortcut.cpp" line="4187"/>
         <source>Zoom Out Vertically</source>
         <translation>Bertikalki urrundu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4177"/>
+        <location filename="../../mscore/shortcut.cpp" line="4188"/>
         <source>Zoom out vertically - piano roll editor</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28736,1161 +28943,1171 @@ failed</source>
         <translation>Piano teklatua</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3147"/>
+        <location filename="../../mscore/shortcut.cpp" line="3140"/>
+        <source>Piano Roll Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/shortcut.cpp" line="3141"/>
+        <source>Piano roll editor</source>
+        <translation type="unfinished">Piano bobinaren editorea</translation>
+    </message>
+    <message>
+        <location filename="../../mscore/shortcut.cpp" line="3158"/>
         <source>Additional Media…</source>
         <translation>Media gehigarria…</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3148"/>
+        <location filename="../../mscore/shortcut.cpp" line="3159"/>
         <source>Show media dialog</source>
         <translation>Media elkarrizketa erakutsi</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3161"/>
+        <location filename="../../mscore/shortcut.cpp" line="3172"/>
         <source>Join Selected Measures</source>
         <translation>Hautatutako konpasak elkartu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3162"/>
+        <location filename="../../mscore/shortcut.cpp" line="3173"/>
         <source>Join selected measures</source>
         <translation>Hautatutako konpasak elkartu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3168"/>
+        <location filename="../../mscore/shortcut.cpp" line="3179"/>
         <source>Page Settings…</source>
         <translation>Orrialdearen ezarpenak…</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3169"/>
+        <location filename="../../mscore/shortcut.cpp" line="3180"/>
         <source>Page settings</source>
         <translation>Orrialdearen ezarpenak</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3179"/>
+        <location filename="../../mscore/shortcut.cpp" line="3190"/>
         <source>Album…</source>
         <translation>Albuma…</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3180"/>
+        <location filename="../../mscore/shortcut.cpp" line="3191"/>
         <source>Album</source>
         <translation>Albuma</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3189"/>
+        <location filename="../../mscore/shortcut.cpp" line="3200"/>
         <source>Layers…</source>
         <translation>Geruzak…</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3190"/>
+        <location filename="../../mscore/shortcut.cpp" line="3201"/>
         <source>Layers</source>
         <translation>Geruzak</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3199"/>
+        <location filename="../../mscore/shortcut.cpp" line="3210"/>
         <source>Next Score</source>
         <translation>Hurrengo partitura</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3200"/>
+        <location filename="../../mscore/shortcut.cpp" line="3211"/>
         <source>Next score</source>
         <translation>Hurrengo partitura</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3209"/>
+        <location filename="../../mscore/shortcut.cpp" line="3220"/>
         <source>Previous Score</source>
         <translation>Aurreko partitura</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3210"/>
+        <location filename="../../mscore/shortcut.cpp" line="3221"/>
         <source>Previous score</source>
         <translation>Aurreko partitura</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3220"/>
+        <location filename="../../mscore/shortcut.cpp" line="3231"/>
         <source>Plugin Creator…</source>
         <translation>Plugin sortzailea…</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3221"/>
+        <location filename="../../mscore/shortcut.cpp" line="3232"/>
         <source>Plugin creator</source>
         <translation>Plugin sortzailea</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3230"/>
+        <location filename="../../mscore/shortcut.cpp" line="3241"/>
         <source>Plugin Manager…</source>
         <translation>Plugin kudeatzailea…</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3231"/>
+        <location filename="../../mscore/shortcut.cpp" line="3242"/>
         <source>Plugin manager</source>
         <translation>Plugin kudeatzailea</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3240"/>
+        <location filename="../../mscore/shortcut.cpp" line="3251"/>
         <source>Inspector</source>
         <translation>Ikuskatzailea</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3241"/>
+        <location filename="../../mscore/shortcut.cpp" line="3252"/>
         <source>Show inspector</source>
         <translation>Ikuskatzailea erakutsi</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3248"/>
+        <location filename="../../mscore/shortcut.cpp" line="3259"/>
         <source>Resource manager</source>
         <translation>Baliabide kudeatzailea</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3277"/>
+        <location filename="../../mscore/shortcut.cpp" line="3288"/>
         <source>Loop In</source>
         <translation>Begiztaren sarrera</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3278"/>
+        <location filename="../../mscore/shortcut.cpp" line="3289"/>
         <source>Set loop in position</source>
         <translation>Begiztaren hasiera puntua ezarri</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3287"/>
+        <location filename="../../mscore/shortcut.cpp" line="3298"/>
         <source>Loop Out</source>
         <translation>Begiztaren irteera</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3288"/>
+        <location filename="../../mscore/shortcut.cpp" line="3299"/>
         <source>Set loop out position</source>
         <translation>Begiztaren bukaera puntua ezarri</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3297"/>
+        <location filename="../../mscore/shortcut.cpp" line="3308"/>
         <source>Metronome</source>
         <translation>Metronomoa</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3298"/>
+        <location filename="../../mscore/shortcut.cpp" line="3309"/>
         <source>Toggle metronome playback</source>
         <translation>Metronomoa trukatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3299"/>
+        <location filename="../../mscore/shortcut.cpp" line="3310"/>
         <source>Play metronome during playback</source>
         <translation>Metronomoa erreprodukzioan jo</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3308"/>
+        <location filename="../../mscore/shortcut.cpp" line="3319"/>
         <source>Playback Highlight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3309"/>
+        <location filename="../../mscore/shortcut.cpp" line="3320"/>
         <source>Toggle playback highlight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3310"/>
+        <location filename="../../mscore/shortcut.cpp" line="3321"/>
         <source>Highlight notes during playback</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3319"/>
+        <location filename="../../mscore/shortcut.cpp" line="3330"/>
         <source>Count-In</source>
         <translation>Klaketa</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3321"/>
+        <location filename="../../mscore/shortcut.cpp" line="3332"/>
         <source>Play count-in at playback start</source>
         <translation>Erreprodukzioaren hasieran klaketa jo</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3330"/>
+        <location filename="../../mscore/shortcut.cpp" line="3341"/>
         <source>Independent Metronome</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3331"/>
+        <location filename="../../mscore/shortcut.cpp" line="3342"/>
         <source>Toggle independent metronome</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3332"/>
+        <location filename="../../mscore/shortcut.cpp" line="3343"/>
         <source>Play an independent metronome with optional score synchronization</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3341"/>
+        <location filename="../../mscore/shortcut.cpp" line="3352"/>
         <source>Increase Playback Speed</source>
         <translation>Erreproduzkio abiadura handiagotu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3342"/>
+        <location filename="../../mscore/shortcut.cpp" line="3353"/>
         <source>Increase playback speed</source>
         <translation>Erreproduzkio abiadura handiagotu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3343"/>
+        <location filename="../../mscore/shortcut.cpp" line="3354"/>
         <source>Increase the playback speed</source>
         <translation>Erreproduzkioaren abiadura handiagotu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3349"/>
+        <location filename="../../mscore/shortcut.cpp" line="3360"/>
         <source>Decrease Playback Speed</source>
         <translation>Erreproduzkio abiadura txikiagotu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3350"/>
+        <location filename="../../mscore/shortcut.cpp" line="3361"/>
         <source>Decrease playback speed</source>
         <translation>Erreproduzkio abiadura txikiagotu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3351"/>
+        <location filename="../../mscore/shortcut.cpp" line="3362"/>
         <source>Decrease the playback speed</source>
         <translation>Erreproduzkioaren abiadura txikiagotu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3357"/>
+        <location filename="../../mscore/shortcut.cpp" line="3368"/>
         <source>Reset Playback Speed</source>
         <translation>Erreproduzkio abiadura berrezarri</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3358"/>
+        <location filename="../../mscore/shortcut.cpp" line="3369"/>
         <source>Reset playback speed</source>
         <translation>Erreproduzkio abiadura berrezarri</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3359"/>
+        <location filename="../../mscore/shortcut.cpp" line="3370"/>
         <source>Reset the playback speed to 100%</source>
         <translation>Erreproduzkioaren abiadura %100era berrezarri</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3365"/>
+        <location filename="../../mscore/shortcut.cpp" line="3376"/>
         <source>Figured Bass</source>
         <translation>Baxu zifratua</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3366"/>
+        <location filename="../../mscore/shortcut.cpp" line="3377"/>
         <source>Add figured bass</source>
         <translation>Baxu zifratua gehitu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3376"/>
+        <location filename="../../mscore/shortcut.cpp" line="3387"/>
         <source>Transpose Up</source>
         <translation>Gorantz transposatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3377"/>
+        <location filename="../../mscore/shortcut.cpp" line="3388"/>
         <source>Transpose up</source>
         <translation>Gora transposatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3383"/>
+        <location filename="../../mscore/shortcut.cpp" line="3394"/>
         <source>Transpose Down</source>
         <translation>Beherantz transposatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3384"/>
+        <location filename="../../mscore/shortcut.cpp" line="3395"/>
         <source>Transpose down</source>
         <translation>Behera transposatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3390"/>
+        <location filename="../../mscore/shortcut.cpp" line="3401"/>
         <source>Master Palette…</source>
         <translation>Paleta nagusia…</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3391"/>
+        <location filename="../../mscore/shortcut.cpp" line="3402"/>
         <source>Show master palette</source>
         <translation>Paleta nagusia erakutsi</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3400"/>
+        <location filename="../../mscore/shortcut.cpp" line="3411"/>
         <source>Key Signatures…</source>
         <translation>Armadurak…</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3401"/>
+        <location filename="../../mscore/shortcut.cpp" line="3412"/>
         <source>Show key signature palette</source>
         <translation>Armaduren paleta erakutsi</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3410"/>
+        <location filename="../../mscore/shortcut.cpp" line="3421"/>
         <source>Time Signatures…</source>
         <translation>Konpas neurriak…</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3411"/>
+        <location filename="../../mscore/shortcut.cpp" line="3422"/>
         <source>Show time signature palette</source>
         <translation>Konpas neurrien paleta erakutsi</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3420"/>
+        <location filename="../../mscore/shortcut.cpp" line="3431"/>
         <source>Symbols…</source>
         <translation>Ikurrak…</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3421"/>
+        <location filename="../../mscore/shortcut.cpp" line="3432"/>
         <source>Show symbol palette</source>
         <translation>Ikurren paleta erakutsi</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3430"/>
+        <location filename="../../mscore/shortcut.cpp" line="3441"/>
         <source>Toggle View Mode</source>
         <translation>Ikuspegia trukatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3441"/>
+        <location filename="../../mscore/shortcut.cpp" line="3452"/>
         <source>Next Syllable</source>
         <translation>Hurrengo silaba</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3442"/>
+        <location filename="../../mscore/shortcut.cpp" line="3453"/>
         <source>Next syllable</source>
         <translation>Hurrengo silaba</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3448"/>
+        <location filename="../../mscore/shortcut.cpp" line="3459"/>
         <source>Previous Syllable</source>
         <translation>Aurreko silaba</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3449"/>
+        <location filename="../../mscore/shortcut.cpp" line="3460"/>
         <source>Previous syllable</source>
         <translation>Aurreko silaba</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3455"/>
+        <location filename="../../mscore/shortcut.cpp" line="3466"/>
         <source>Toggle Visibility</source>
         <translation>Ikusgarritasuna aldatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3462"/>
+        <location filename="../../mscore/shortcut.cpp" line="3473"/>
         <source>Set Visible</source>
         <translation>Ikusgai egin</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3463"/>
+        <location filename="../../mscore/shortcut.cpp" line="3474"/>
         <source>Set visible</source>
         <translation>Ikusgai egin</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3469"/>
+        <location filename="../../mscore/shortcut.cpp" line="3480"/>
         <source>Set Invisible</source>
         <translation>Ikusezin egin</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3470"/>
+        <location filename="../../mscore/shortcut.cpp" line="3481"/>
         <source>Set invisible</source>
         <translation>Ikusezin egin</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3476"/>
+        <location filename="../../mscore/shortcut.cpp" line="3487"/>
         <source>Note Anchored Line</source>
         <translation>Notari ainguratutako lerroa</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3477"/>
+        <location filename="../../mscore/shortcut.cpp" line="3488"/>
         <source>Note anchored line</source>
         <translation>Notari ainguratutako lerroa</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3483"/>
+        <location filename="../../mscore/shortcut.cpp" line="3494"/>
         <source>Lock Score</source>
         <translation>Partitura blokeatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3484"/>
+        <location filename="../../mscore/shortcut.cpp" line="3495"/>
         <source>Lock score</source>
         <translation>Partitura blokeatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3492"/>
+        <location filename="../../mscore/shortcut.cpp" line="3503"/>
         <source>Longa (TAB)</source>
         <translation>Longa (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3493"/>
+        <location filename="../../mscore/shortcut.cpp" line="3504"/>
         <source>Note duration: Longa (TAB)</source>
         <translation>Notaren iraupena: longa (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3494"/>
+        <location filename="../../mscore/shortcut.cpp" line="3505"/>
         <source>Longa note</source>
         <translation>Longa</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3502"/>
+        <location filename="../../mscore/shortcut.cpp" line="3513"/>
         <source>Double Whole Note (TAB)</source>
         <translation>Karratua (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3503"/>
+        <location filename="../../mscore/shortcut.cpp" line="3514"/>
         <source>Note duration: Double whole (TAB)</source>
         <translation>Notaren iraupena: karratua (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3512"/>
+        <location filename="../../mscore/shortcut.cpp" line="3523"/>
         <source>Whole Note (TAB)</source>
         <translation>Biribila (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3513"/>
+        <location filename="../../mscore/shortcut.cpp" line="3524"/>
         <source>Note duration: Whole (TAB)</source>
         <translation>Notaren iraupena: biribila (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3522"/>
+        <location filename="../../mscore/shortcut.cpp" line="3533"/>
         <source>Half Note (TAB)</source>
         <translation>Zuria (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3523"/>
+        <location filename="../../mscore/shortcut.cpp" line="3534"/>
         <source>Note duration: Half (TAB)</source>
         <translation>Notaren iraupena: zuria (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3532"/>
+        <location filename="../../mscore/shortcut.cpp" line="3543"/>
         <source>Quarter Note (TAB)</source>
         <translation>Beltza (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3533"/>
+        <location filename="../../mscore/shortcut.cpp" line="3544"/>
         <source>Note duration: Quarter (TAB)</source>
         <translation>Notaren iraupena: beltza (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3542"/>
+        <location filename="../../mscore/shortcut.cpp" line="3553"/>
         <source>Eighth Note (TAB)</source>
         <translation>Kortxea (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3543"/>
+        <location filename="../../mscore/shortcut.cpp" line="3554"/>
         <source>Note duration: Eighth (TAB)</source>
         <translation>Notaren iraupena: kortxea (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3552"/>
+        <location filename="../../mscore/shortcut.cpp" line="3563"/>
         <source>16th Note (TAB)</source>
         <translation>Kortxeaerdia (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3553"/>
+        <location filename="../../mscore/shortcut.cpp" line="3564"/>
         <source>Note duration: 16th (TAB)</source>
         <translation>Notaren iraupena: kortxeaerdia (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3562"/>
+        <location filename="../../mscore/shortcut.cpp" line="3573"/>
         <source>32nd Note (TAB)</source>
         <translation>Fusa (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3563"/>
+        <location filename="../../mscore/shortcut.cpp" line="3574"/>
         <source>Note duration: 32nd (TAB)</source>
         <translation>Notaren iraupena: fusa (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3572"/>
+        <location filename="../../mscore/shortcut.cpp" line="3583"/>
         <source>64th Note (TAB)</source>
         <translation>Fusaerdia (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3573"/>
+        <location filename="../../mscore/shortcut.cpp" line="3584"/>
         <source>Note duration: 64th (TAB)</source>
         <translation>Notaren iraupena: fusaerdia (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3582"/>
+        <location filename="../../mscore/shortcut.cpp" line="3593"/>
         <source>128th Note (TAB)</source>
         <translation>Fusalaurdena (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3583"/>
+        <location filename="../../mscore/shortcut.cpp" line="3594"/>
         <source>Note duration: 128th (TAB)</source>
         <translation>Notaren iraupena: garrapatea (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3592"/>
+        <location filename="../../mscore/shortcut.cpp" line="3603"/>
         <source>256th Note (TAB)</source>
         <translation>Garrapateaerdia (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3593"/>
+        <location filename="../../mscore/shortcut.cpp" line="3604"/>
         <source>Note duration: 256th (TAB)</source>
         <translation>Nota iraupena: garrapateaerdia (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3602"/>
+        <location filename="../../mscore/shortcut.cpp" line="3613"/>
         <source>512th Note (TAB)</source>
         <translation>Garrapatealaurdena (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3603"/>
+        <location filename="../../mscore/shortcut.cpp" line="3614"/>
         <source>Note duration: 512th (TAB)</source>
         <translation>Nota iraupena: garrapatealaurdena (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3612"/>
+        <location filename="../../mscore/shortcut.cpp" line="3623"/>
         <source>1024th Note (TAB)</source>
         <translation>Garrapateazortzirena (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3613"/>
+        <location filename="../../mscore/shortcut.cpp" line="3624"/>
         <source>Note duration: 1024th (TAB)</source>
         <translation>Nota iraupena: garrapateazortzirena (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3622"/>
+        <location filename="../../mscore/shortcut.cpp" line="3633"/>
         <source>Increase Active Duration (TAB)</source>
         <translation>Iraupen aktiboa handiagotu (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3623"/>
+        <location filename="../../mscore/shortcut.cpp" line="3634"/>
         <source>Increase active duration (TAB)</source>
         <translation>Iraupen aktiboa handiagotu (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3629"/>
+        <location filename="../../mscore/shortcut.cpp" line="3640"/>
         <source>Decrease Active Duration (TAB)</source>
         <translation>Iraupen aktiboa txikiagotu (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3630"/>
+        <location filename="../../mscore/shortcut.cpp" line="3641"/>
         <source>Decrease active duration (TAB)</source>
         <translation>Iraupen aktiboa txikiagotu (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3636"/>
-        <location filename="../../mscore/shortcut.cpp" line="3645"/>
+        <location filename="../../mscore/shortcut.cpp" line="3647"/>
+        <location filename="../../mscore/shortcut.cpp" line="3656"/>
         <source>Rest (TAB)</source>
         <translation>Isilunea (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3637"/>
+        <location filename="../../mscore/shortcut.cpp" line="3648"/>
         <source>Enter rest (TAB)</source>
         <translation>Isilunea sartu (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3646"/>
+        <location filename="../../mscore/shortcut.cpp" line="3657"/>
         <source>Note input: Rest (TAB)</source>
         <translation>Nota sarrera: isilunea (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3652"/>
+        <location filename="../../mscore/shortcut.cpp" line="3663"/>
         <source>String Above (TAB)</source>
         <translation>Gaineko soka (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3653"/>
+        <location filename="../../mscore/shortcut.cpp" line="3664"/>
         <source>Select string above (TAB only)</source>
         <translation>Gaineko soka hautatu (TAB bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3659"/>
+        <location filename="../../mscore/shortcut.cpp" line="3670"/>
         <source>String Below (TAB)</source>
         <translation>Azpiko soka (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3660"/>
+        <location filename="../../mscore/shortcut.cpp" line="3671"/>
         <source>Select string below (TAB only)</source>
         <translation>Azpiko soka hautatu (TAB bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3666"/>
+        <location filename="../../mscore/shortcut.cpp" line="3677"/>
         <source>Fret 0 (TAB)</source>
         <translation>0. trastea (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3667"/>
+        <location filename="../../mscore/shortcut.cpp" line="3678"/>
         <source>Add fret 0 on current string (TAB only)</source>
         <translation>Uneko sokan 0. trastea gehitu (TAB bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3673"/>
+        <location filename="../../mscore/shortcut.cpp" line="3684"/>
         <source>Fret 1 (TAB)</source>
         <translation>1. trastea (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3674"/>
+        <location filename="../../mscore/shortcut.cpp" line="3685"/>
         <source>Add fret 1 on current string (TAB only)</source>
         <translation>Uneko sokan 1. trastea gehitu (TAB bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3680"/>
+        <location filename="../../mscore/shortcut.cpp" line="3691"/>
         <source>Fret 2 (TAB)</source>
         <translation>2. trastea (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3681"/>
+        <location filename="../../mscore/shortcut.cpp" line="3692"/>
         <source>Add fret 2 on current string (TAB only)</source>
         <translation>Uneko sokan 2. trastea gehitu (TAB bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3687"/>
+        <location filename="../../mscore/shortcut.cpp" line="3698"/>
         <source>Fret 3 (TAB)</source>
         <translation>3. trastea (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3688"/>
+        <location filename="../../mscore/shortcut.cpp" line="3699"/>
         <source>Add fret 3 on current string (TAB only)</source>
         <translation>Uneko sokan 3. trastea gehitu (TAB bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3694"/>
+        <location filename="../../mscore/shortcut.cpp" line="3705"/>
         <source>Fret 4 (TAB)</source>
         <translation>4. trastea (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3695"/>
+        <location filename="../../mscore/shortcut.cpp" line="3706"/>
         <source>Add fret 4 on current string (TAB only)</source>
         <translation>Uneko sokan 4. trastea gehitu (TAB bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3701"/>
+        <location filename="../../mscore/shortcut.cpp" line="3712"/>
         <source>Fret 5 (TAB)</source>
         <translation>5. trastea (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3702"/>
+        <location filename="../../mscore/shortcut.cpp" line="3713"/>
         <source>Add fret 5 on current string (TAB only)</source>
         <translation>Uneko sokan 5. trastea gehitu (TAB bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3708"/>
+        <location filename="../../mscore/shortcut.cpp" line="3719"/>
         <source>Fret 6 (TAB)</source>
         <translation>6. trastea (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3709"/>
+        <location filename="../../mscore/shortcut.cpp" line="3720"/>
         <source>Add fret 6 on current string (TAB only)</source>
         <translation>Uneko sokan 6. trastea gehitu (TAB bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3715"/>
+        <location filename="../../mscore/shortcut.cpp" line="3726"/>
         <source>Fret 7 (TAB)</source>
         <translation>7. trastea (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3716"/>
+        <location filename="../../mscore/shortcut.cpp" line="3727"/>
         <source>Add fret 7 on current string (TAB only)</source>
         <translation>Uneko sokan 7. trastea gehitu (TAB bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3722"/>
+        <location filename="../../mscore/shortcut.cpp" line="3733"/>
         <source>Fret 8 (TAB)</source>
         <translation>8. trastea (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3723"/>
+        <location filename="../../mscore/shortcut.cpp" line="3734"/>
         <source>Add fret 8 on current string (TAB only)</source>
         <translation>Uneko sokan 8. trastea gehitu (TAB bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3729"/>
+        <location filename="../../mscore/shortcut.cpp" line="3740"/>
         <source>Fret 9 (TAB)</source>
         <translation>9. trastea (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3730"/>
+        <location filename="../../mscore/shortcut.cpp" line="3741"/>
         <source>Add fret 9 on current string (TAB only)</source>
         <translation>Uneko sokan 9. trastea gehitu (TAB bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3736"/>
+        <location filename="../../mscore/shortcut.cpp" line="3747"/>
         <source>Fret 10 (TAB)</source>
         <translation>10. trastea (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3737"/>
+        <location filename="../../mscore/shortcut.cpp" line="3748"/>
         <source>Add fret 10 on current string (TAB only)</source>
         <translation>Uneko sokan 10. trastea gehitu (TAB bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3743"/>
+        <location filename="../../mscore/shortcut.cpp" line="3754"/>
         <source>Fret 11 (TAB)</source>
         <translation>11. trastea (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3744"/>
+        <location filename="../../mscore/shortcut.cpp" line="3755"/>
         <source>Add fret 11 on current string (TAB only)</source>
         <translation>Uneko sokan 11. trastea gehitu (TAB bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3750"/>
+        <location filename="../../mscore/shortcut.cpp" line="3761"/>
         <source>Fret 12 (TAB)</source>
         <translation>12. trastea (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3751"/>
+        <location filename="../../mscore/shortcut.cpp" line="3762"/>
         <source>Add fret 12 on current string (TAB only)</source>
         <translation>Uneko sokan 12. trastea gehitu (TAB bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3757"/>
+        <location filename="../../mscore/shortcut.cpp" line="3768"/>
         <source>Fret 13 (TAB)</source>
         <translation>13. trastea (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3758"/>
+        <location filename="../../mscore/shortcut.cpp" line="3769"/>
         <source>Add fret 13 on current string (TAB only)</source>
         <translation>Uneko sokan 13. trastea gehitu (TAB bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3764"/>
+        <location filename="../../mscore/shortcut.cpp" line="3775"/>
         <source>Fret 14 (TAB)</source>
         <translation>14. trastea (TAB)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3765"/>
+        <location filename="../../mscore/shortcut.cpp" line="3776"/>
         <source>Add fret 14 on current string (TAB only)</source>
         <translation>Uneko sokan 14. trastea gehitu (TAB bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3774"/>
+        <location filename="../../mscore/shortcut.cpp" line="3785"/>
         <source>Longa Advance (F.B./Chord Symbol)</source>
         <translation>Longa aurrerapena (B.Z./Akorde ikurra)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3775"/>
+        <location filename="../../mscore/shortcut.cpp" line="3786"/>
         <source>Advance of a longa (Figured bass/Chord symbol only)</source>
         <translation>Longa baten aurrerapena (baxu zifratua/akorde ikurra bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3781"/>
+        <location filename="../../mscore/shortcut.cpp" line="3792"/>
         <source>Breve Advance (F.B./Chord Symbol)</source>
         <translation>Karratu aurrerapena (B.Z./Akorde ikurra)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3782"/>
+        <location filename="../../mscore/shortcut.cpp" line="3793"/>
         <source>Advance of a double whole note (Figured bass/Chord symbol only)</source>
         <translation>Karratu baten aurrerapena (baxu zifratua/akorde ikurra bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3788"/>
+        <location filename="../../mscore/shortcut.cpp" line="3799"/>
         <source>Whole Note Advance (F.B./Chord Symbol)</source>
         <translation>Biribil aurrerapena (B.Z./Akorde ikurra)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3789"/>
+        <location filename="../../mscore/shortcut.cpp" line="3800"/>
         <source>Advance of a whole note (Figured bass/Chord symbol only)</source>
         <translation>Biribil baten aurrerapena (baxu zifratua/akorde ikurra bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3795"/>
+        <location filename="../../mscore/shortcut.cpp" line="3806"/>
         <source>Half Note Advance (F.B./Chord Symbol)</source>
         <translation>Zuri aurrerapena (B.Z./Akorde ikurra)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3796"/>
+        <location filename="../../mscore/shortcut.cpp" line="3807"/>
         <source>Advance of a half note (Figured bass/Chord symbol only)</source>
         <translation>Zuri baten aurrerapena (baxu zifratua/akorde ikurra bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3802"/>
+        <location filename="../../mscore/shortcut.cpp" line="3813"/>
         <source>Quarter Note Advance (F.B./Chord Symbol)</source>
         <translation>Beltz aurrerapena (B.Z./Akorde ikurra)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3803"/>
+        <location filename="../../mscore/shortcut.cpp" line="3814"/>
         <source>Advance of a quarter note (Figured bass/Chord symbol only)</source>
         <translation>Beltz baten aurrerapena (baxu zifratua/akorde ikurra bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3809"/>
+        <location filename="../../mscore/shortcut.cpp" line="3820"/>
         <source>Eighth Note Advance (F.B./Chord Symbol)</source>
         <translation>Kortxea aurrerapena (B.Z./Akorde ikurra)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3810"/>
+        <location filename="../../mscore/shortcut.cpp" line="3821"/>
         <source>Advance of an eighth note (Figured bass/Chord symbol only)</source>
         <translation>Kortxea baten aurrerapena (baxu zifratua/akorde ikurra bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3816"/>
+        <location filename="../../mscore/shortcut.cpp" line="3827"/>
         <source>16th Note Advance (F.B./Chord Symbol)</source>
         <translation>Kortxeaerdi aurrerapena (B.Z./Akorde ikurra)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3817"/>
+        <location filename="../../mscore/shortcut.cpp" line="3828"/>
         <source>Advance of a 16th note (Figured bass/Chord symbol only)</source>
         <translation>Kortxeaerdi baten aurrerapena (baxu zifratua/akorde ikurra bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3823"/>
+        <location filename="../../mscore/shortcut.cpp" line="3834"/>
         <source>32nd Note Advance (F.B./Chord Symbol)</source>
         <translation>Fusa aurrerapena (B.Z./Akorde ikurra)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3824"/>
+        <location filename="../../mscore/shortcut.cpp" line="3835"/>
         <source>Advance of a 32nd note (Figured bass/Chord symbol only)</source>
         <translation>Fusa baten aurrerapena (baxu zifratua/akorde ikurra bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3830"/>
+        <location filename="../../mscore/shortcut.cpp" line="3841"/>
         <source>64th Note Advance (F.B./Chord Symbol)</source>
         <translation>Fusaerdi aurrerapena (B.Z./Akorde ikurra)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3831"/>
+        <location filename="../../mscore/shortcut.cpp" line="3842"/>
         <source>Advance of a 64th note (Figured bass/Chord symbol only)</source>
         <translation>Fusaerdi baten aurrerapena (baxu zifratua/akorde ikurra bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3837"/>
+        <location filename="../../mscore/shortcut.cpp" line="3848"/>
         <source>Previous Measure (F.B./Chord Symbol)</source>
         <translation>Aurreko konpasa (B.Z./Akorde ikurra)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3838"/>
+        <location filename="../../mscore/shortcut.cpp" line="3849"/>
         <source>Previous measure (Figured bass/Chord symbol only)</source>
         <translation>Aurreko konpasa (baxu zifratua/akorde ikurra bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3844"/>
+        <location filename="../../mscore/shortcut.cpp" line="3855"/>
         <source>Next Measure (F.B./Chord Symbol)</source>
         <translation>Hurrengo konpasa</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3845"/>
+        <location filename="../../mscore/shortcut.cpp" line="3856"/>
         <source>Next measure (Figured bass/Chord symbol only)</source>
         <translation>Hurrengo konpasa (baxu zifratua/akorde ikurra bakarrik)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3851"/>
+        <location filename="../../mscore/shortcut.cpp" line="3862"/>
         <source>Previous Beat (Chord Symbol)</source>
         <translation>Aurreko aldia (akorde ikurra)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3852"/>
+        <location filename="../../mscore/shortcut.cpp" line="3863"/>
         <source>Previous beat (Chord symbol)</source>
         <translation>Aurreko aldia (akorde ikurra)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3858"/>
+        <location filename="../../mscore/shortcut.cpp" line="3869"/>
         <source>Next Beat (Chord Symbol)</source>
         <translation>Hurrengo aldia (akorde ikurra)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3859"/>
+        <location filename="../../mscore/shortcut.cpp" line="3870"/>
         <source>Next beat (Chord symbol)</source>
         <translation>Hurrengo aldia (akorde ikurra)</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3885"/>
+        <location filename="../../mscore/shortcut.cpp" line="3896"/>
         <source>Add Braces to Element</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3886"/>
+        <location filename="../../mscore/shortcut.cpp" line="3897"/>
         <source>Add Braces to element</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3934"/>
+        <location filename="../../mscore/shortcut.cpp" line="3945"/>
         <source>Strike-through</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3972"/>
+        <location filename="../../mscore/shortcut.cpp" line="3983"/>
         <source>Realize Chord Symbols</source>
         <translation>Akorde ikurrak gauzatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3973"/>
+        <location filename="../../mscore/shortcut.cpp" line="3984"/>
         <source>Realize chord symbols</source>
         <translation>Akorde ikurrak gauzatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3974"/>
+        <location filename="../../mscore/shortcut.cpp" line="3985"/>
         <source>Convert chord symbols into notes</source>
         <translation>Akorde ikurrak notetan bihurtu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4044"/>
+        <location filename="../../mscore/shortcut.cpp" line="4055"/>
         <source>Start Center…</source>
         <translation>Hasiera-zentroa…</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4054"/>
+        <location filename="../../mscore/shortcut.cpp" line="4065"/>
         <source>Customize Toolbars…</source>
         <translation>Tresna-barrak pertsonalizatu…</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4055"/>
+        <location filename="../../mscore/shortcut.cpp" line="4066"/>
         <source>Customize toolbars</source>
         <translation>Tresna-barrak pertsonalizatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4064"/>
+        <location filename="../../mscore/shortcut.cpp" line="4075"/>
         <source>Remove Empty Trailing Measures</source>
         <translation>Isatseko konpas hutsak ezabatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4065"/>
+        <location filename="../../mscore/shortcut.cpp" line="4076"/>
         <source>Remove empty trailing measures</source>
         <translation>Isatseko konpas hutsak ezabatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4074"/>
-        <location filename="../../mscore/shortcut.cpp" line="4075"/>
+        <location filename="../../mscore/shortcut.cpp" line="4085"/>
+        <location filename="../../mscore/shortcut.cpp" line="4086"/>
         <source>Unroll Repeats</source>
         <translation>Errepikapenak zabaldu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4084"/>
+        <location filename="../../mscore/shortcut.cpp" line="4095"/>
         <source>Show Tours</source>
         <translation>Ibilaldiak erakutsi</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4085"/>
+        <location filename="../../mscore/shortcut.cpp" line="4096"/>
         <source>Show tours</source>
         <translation>Ibilaldiak erakutsi</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4086"/>
+        <location filename="../../mscore/shortcut.cpp" line="4097"/>
         <source>Toggle display of tours</source>
         <translation>Ibilaldiak bistaratzea trukatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4095"/>
+        <location filename="../../mscore/shortcut.cpp" line="4106"/>
         <source>Reset Tours</source>
         <translation>Ibilaldiak berrezarri</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4096"/>
+        <location filename="../../mscore/shortcut.cpp" line="4107"/>
         <source>Reset tours</source>
         <translation>Ibilaldiak berrezarri</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4105"/>
+        <location filename="../../mscore/shortcut.cpp" line="4116"/>
         <source>Toggle Automatic Placement</source>
         <translation>Kokapen automatikoa trukatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4106"/>
+        <location filename="../../mscore/shortcut.cpp" line="4117"/>
         <source>Toggle &apos;Automatic Placement&apos; for selected elements</source>
         <translation>Hautatutako elementuetarako &apos;Kokapen automatikoa&apos; trukatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4112"/>
+        <location filename="../../mscore/shortcut.cpp" line="4123"/>
         <source>Toggle Automatic Placement Globally</source>
         <translation>Kokapen automatikoa guztirako txandakatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4113"/>
+        <location filename="../../mscore/shortcut.cpp" line="4124"/>
         <source>Toggle &apos;Automatic Placement&apos; globally</source>
         <translation>&apos;Kokapen automatikoa&apos; guztirako txandakatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4122"/>
+        <location filename="../../mscore/shortcut.cpp" line="4133"/>
         <source>Report a Bug</source>
         <translation>Zorrien berri eman</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4123"/>
+        <location filename="../../mscore/shortcut.cpp" line="4134"/>
         <source>Report a bug</source>
         <translation>Zorrien berri eman</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4140"/>
+        <location filename="../../mscore/shortcut.cpp" line="4151"/>
         <source>Leave feedback</source>
         <translation>Eman iritzia</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4187"/>
+        <location filename="../../mscore/shortcut.cpp" line="4198"/>
         <source>Script Recorder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4188"/>
+        <location filename="../../mscore/shortcut.cpp" line="4199"/>
         <source>Script recorder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4198"/>
+        <location filename="../../mscore/shortcut.cpp" line="4209"/>
         <source>No Horizontal Stretch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4199"/>
+        <location filename="../../mscore/shortcut.cpp" line="4210"/>
         <source>No horizontal stretch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4208"/>
+        <location filename="../../mscore/shortcut.cpp" line="4219"/>
         <source>No Vertical Stretch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4209"/>
+        <location filename="../../mscore/shortcut.cpp" line="4220"/>
         <source>No vertical stretch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4218"/>
+        <location filename="../../mscore/shortcut.cpp" line="4229"/>
         <source>Show Segment Shapes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4219"/>
+        <location filename="../../mscore/shortcut.cpp" line="4230"/>
         <source>Show segment shapes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4228"/>
+        <location filename="../../mscore/shortcut.cpp" line="4239"/>
         <source>Show Skylines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4229"/>
+        <location filename="../../mscore/shortcut.cpp" line="4240"/>
         <source>Show skylines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4238"/>
+        <location filename="../../mscore/shortcut.cpp" line="4249"/>
         <source>Show Bounding Rectangles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4239"/>
+        <location filename="../../mscore/shortcut.cpp" line="4250"/>
         <source>Show bounding rectangles for selected elements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4248"/>
+        <location filename="../../mscore/shortcut.cpp" line="4259"/>
         <source>Show System Bounding Rectangles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4249"/>
+        <location filename="../../mscore/shortcut.cpp" line="4260"/>
         <source>Show bounding rectangles for systems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4258"/>
+        <location filename="../../mscore/shortcut.cpp" line="4269"/>
         <source>Show Corrupted Measures</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4259"/>
+        <location filename="../../mscore/shortcut.cpp" line="4270"/>
         <source>Show corrupted measures</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4268"/>
+        <location filename="../../mscore/shortcut.cpp" line="4279"/>
         <source>Re-Layout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4269"/>
+        <location filename="../../mscore/shortcut.cpp" line="4280"/>
         <source>Re-layout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4278"/>
+        <location filename="../../mscore/shortcut.cpp" line="4289"/>
         <source>Reload QML Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4279"/>
+        <location filename="../../mscore/shortcut.cpp" line="4290"/>
         <source>Reload QML code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3915"/>
+        <location filename="../../mscore/shortcut.cpp" line="3926"/>
         <source>Bold Face</source>
         <translation>Letra lodia</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3916"/>
+        <location filename="../../mscore/shortcut.cpp" line="3927"/>
         <source>Bold face</source>
         <translation>Letra lodia</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3922"/>
+        <location filename="../../mscore/shortcut.cpp" line="3933"/>
         <source>Italic</source>
         <translation>Etzana</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3928"/>
+        <location filename="../../mscore/shortcut.cpp" line="3939"/>
         <source>Underline</source>
         <translation>Azpimarratu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3940"/>
+        <location filename="../../mscore/shortcut.cpp" line="3951"/>
         <source>Move Word Left</source>
         <translation>Hitza ezkerrera mugitu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3941"/>
+        <location filename="../../mscore/shortcut.cpp" line="3952"/>
         <source>Move word left</source>
         <translation>Hitza ezkerrera mugitu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3951"/>
+        <location filename="../../mscore/shortcut.cpp" line="3962"/>
         <source>Move Word Right</source>
         <translation>Hitza eskuinera mugitu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3952"/>
+        <location filename="../../mscore/shortcut.cpp" line="3963"/>
         <source>Move word right</source>
         <translation>Hitza eskuinera mugitu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3962"/>
-        <location filename="../../mscore/shortcut.cpp" line="3963"/>
+        <location filename="../../mscore/shortcut.cpp" line="3973"/>
+        <location filename="../../mscore/shortcut.cpp" line="3974"/>
         <source>Explode</source>
         <translation>Esplotatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3964"/>
+        <location filename="../../mscore/shortcut.cpp" line="3975"/>
         <source>Explode contents of top selected staff into staves below</source>
         <translation>Goiko pentagramaren edukiak azpiko pentagrametan zabaldu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3982"/>
-        <location filename="../../mscore/shortcut.cpp" line="3983"/>
+        <location filename="../../mscore/shortcut.cpp" line="3993"/>
+        <location filename="../../mscore/shortcut.cpp" line="3994"/>
         <source>Implode</source>
         <translation>Kolapsatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3984"/>
+        <location filename="../../mscore/shortcut.cpp" line="3995"/>
         <source>Implode contents of selected staves into top selected staff</source>
         <translation>Hautatutako pentagramen edukiak hautatutako goiko pentagraman murriztu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3992"/>
+        <location filename="../../mscore/shortcut.cpp" line="4003"/>
         <source>Fill With Slashes</source>
         <translation>Barra zeiharrekin bete</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="3993"/>
+        <location filename="../../mscore/shortcut.cpp" line="4004"/>
         <source>Fill with slashes</source>
         <translation>Barra zeiharrekin bete</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4002"/>
+        <location filename="../../mscore/shortcut.cpp" line="4013"/>
         <source>Toggle Rhythmic Slash Notation</source>
         <translation>Barra zeiharreko notazio erritmikoa trukatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4023"/>
+        <location filename="../../mscore/shortcut.cpp" line="4034"/>
         <source>Resequence Rehearsal Marks</source>
         <translation>Entsegu gidak berzenbakitu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4024"/>
+        <location filename="../../mscore/shortcut.cpp" line="4035"/>
         <source>Resequence rehearsal marks</source>
         <translation>Entsegu gidak berzenbakitu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4033"/>
+        <location filename="../../mscore/shortcut.cpp" line="4044"/>
         <source>Copy Lyrics to Clipboard</source>
         <translation>Hitzak arbelera kopiatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4034"/>
+        <location filename="../../mscore/shortcut.cpp" line="4045"/>
         <source>Copy lyrics to clipboard</source>
         <translation>Hitzak arbelera kopiatu</translation>
     </message>
     <message>
-        <location filename="../../mscore/shortcut.cpp" line="4045"/>
+        <location filename="../../mscore/shortcut.cpp" line="4056"/>
         <source>Start center</source>
         <translation>Hasiera-zentroa</translation>
     </message>
@@ -29898,122 +30115,62 @@ failed</source>
 <context>
     <name>awlutils</name>
     <message>
-        <location filename="../../awl/utils.cpp" line="23"/>
-        <source>c</source>
-        <translation>do</translation>
-    </message>
-    <message>
-        <location filename="../../awl/utils.cpp" line="25"/>
-        <source>d</source>
-        <translation>re</translation>
-    </message>
-    <message>
         <location filename="../../awl/utils.cpp" line="24"/>
-        <source>c♯</source>
-        <translation>do♯</translation>
-    </message>
-    <message>
-        <location filename="../../awl/utils.cpp" line="26"/>
-        <source>d♯</source>
-        <translation>re♯</translation>
-    </message>
-    <message>
-        <location filename="../../awl/utils.cpp" line="27"/>
-        <source>e</source>
-        <translation>mi</translation>
-    </message>
-    <message>
-        <location filename="../../awl/utils.cpp" line="28"/>
-        <source>f</source>
-        <translation>fa</translation>
-    </message>
-    <message>
-        <location filename="../../awl/utils.cpp" line="29"/>
-        <source>f♯</source>
-        <translation>fa♯</translation>
-    </message>
-    <message>
-        <location filename="../../awl/utils.cpp" line="31"/>
-        <source>g♯</source>
-        <translation>sol♯</translation>
-    </message>
-    <message>
-        <location filename="../../awl/utils.cpp" line="33"/>
-        <source>a♯</source>
-        <translation>la♯</translation>
-    </message>
-    <message>
-        <location filename="../../awl/utils.cpp" line="38"/>
         <source>C♯</source>
         <translation>Do♯</translation>
     </message>
     <message>
-        <location filename="../../awl/utils.cpp" line="40"/>
+        <location filename="../../awl/utils.cpp" line="26"/>
         <source>D♯</source>
         <translation>re♯</translation>
     </message>
     <message>
-        <location filename="../../awl/utils.cpp" line="43"/>
+        <location filename="../../awl/utils.cpp" line="29"/>
         <source>F♯</source>
         <translation>Fa♯</translation>
     </message>
     <message>
-        <location filename="../../awl/utils.cpp" line="45"/>
+        <location filename="../../awl/utils.cpp" line="31"/>
         <source>G♯</source>
         <translation>sol♯</translation>
     </message>
     <message>
-        <location filename="../../awl/utils.cpp" line="47"/>
+        <location filename="../../awl/utils.cpp" line="33"/>
         <source>A♯</source>
         <translation>la♯</translation>
     </message>
     <message>
-        <location filename="../../awl/utils.cpp" line="30"/>
-        <source>g</source>
-        <translation>sol</translation>
-    </message>
-    <message>
-        <location filename="../../awl/utils.cpp" line="32"/>
-        <source>a</source>
-        <translation>la</translation>
-    </message>
-    <message>
-        <location filename="../../awl/utils.cpp" line="34"/>
-        <source>b</source>
-        <translation>si</translation>
-    </message>
-    <message>
-        <location filename="../../awl/utils.cpp" line="37"/>
+        <location filename="../../awl/utils.cpp" line="23"/>
         <source>C</source>
         <translation>Do</translation>
     </message>
     <message>
-        <location filename="../../awl/utils.cpp" line="39"/>
+        <location filename="../../awl/utils.cpp" line="25"/>
         <source>D</source>
         <translation>Re</translation>
     </message>
     <message>
-        <location filename="../../awl/utils.cpp" line="41"/>
+        <location filename="../../awl/utils.cpp" line="27"/>
         <source>E</source>
         <translation>Mi</translation>
     </message>
     <message>
-        <location filename="../../awl/utils.cpp" line="42"/>
+        <location filename="../../awl/utils.cpp" line="28"/>
         <source>F</source>
         <translation>Fa</translation>
     </message>
     <message>
-        <location filename="../../awl/utils.cpp" line="44"/>
+        <location filename="../../awl/utils.cpp" line="30"/>
         <source>G</source>
         <translation>Sol</translation>
     </message>
     <message>
-        <location filename="../../awl/utils.cpp" line="46"/>
+        <location filename="../../awl/utils.cpp" line="32"/>
         <source>A</source>
         <translation>La</translation>
     </message>
     <message>
-        <location filename="../../awl/utils.cpp" line="48"/>
+        <location filename="../../awl/utils.cpp" line="34"/>
         <source>B</source>
         <translation>Si</translation>
     </message>
@@ -32078,139 +32235,139 @@ failed</source>
 <context>
     <name>error</name>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="115"/>
+        <location filename="../../libmscore/mscore.cpp" line="119"/>
         <source>No chord/rest selected:
 Please select a chord or rest and retry</source>
         <translation>Ez da akorderik/isilunerik hautatu:
 Mesedez akorde edo isilune bat hautatu eta berriro saiatu</translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="116"/>
+        <location filename="../../libmscore/mscore.cpp" line="120"/>
         <source>No note or lyrics selected:
 Please select a note or lyrics and retry</source>
         <translation>Ez da nota edo hitzik hautatu:
 Mesedez nota edo hitzak hautatu eta berriro saiatu</translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="117"/>
+        <location filename="../../libmscore/mscore.cpp" line="121"/>
         <source>No note or rest selected:
 Please select a note or rest and retry</source>
         <translation>Ez da akorderik edo isilunerik hautatu:
 Mesedez akorde edo isilune bat hautatu eta berriro saiatu</translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="114"/>
+        <location filename="../../libmscore/mscore.cpp" line="118"/>
         <source>No note selected:
 Please select a note and retry</source>
         <translation>Ez da notarik hautatu:
 Mesedez nota bat hautatu eta berriro saiatua</translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="118"/>
+        <location filename="../../libmscore/mscore.cpp" line="122"/>
         <source>No flippable element selected:
 Please select an element that can be flipped and retry</source>
         <translation>Ez da elementu iraulgarririk hautatu:
 Mesedez, iraul daitekeen elementu bat hautatu eta berriro saiatu</translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="119"/>
+        <location filename="../../libmscore/mscore.cpp" line="123"/>
         <source>No staff selected:
 Please select one or more staves and retry</source>
         <translation>Ez da pentagramarik hautatu:
 Mesedez pentagrama bat edo gehiago hautatu eta berriro saiatu</translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="120"/>
+        <location filename="../../libmscore/mscore.cpp" line="124"/>
         <source>No note or figured bass selected:
 Please select a note or figured bass and retry</source>
         <translation>Ez da notarik edo baxu zifraturik hautatu:
 Mesedez nota edo baxu zifratu bat hautatu eta berriro saiatu</translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="122"/>
+        <location filename="../../libmscore/mscore.cpp" line="126"/>
         <source>Cannot insert chord/rest in tuplet</source>
         <translation>Ezin da akordea/isilunea n-kotxoan sartu</translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="123"/>
+        <location filename="../../libmscore/mscore.cpp" line="127"/>
         <source>Cannot split tuplet</source>
         <translation>Ezin da n-kotxoa banatu</translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="124"/>
+        <location filename="../../libmscore/mscore.cpp" line="128"/>
         <source>Cannot split measure here:
 First beat of measure</source>
         <translation>Ezin da konpasa hemen banatu:
 Konpasaren lehenengo aldia</translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="125"/>
+        <location filename="../../libmscore/mscore.cpp" line="129"/>
         <source>Cannot split measure here:
 Cannot split tuplet</source>
         <translation>Ezin da konpasa hemen banatu:
 Ezin da n-kotxoa banatu</translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="126"/>
+        <location filename="../../libmscore/mscore.cpp" line="130"/>
         <source>Cannot split measure here:
 Measure would be too short</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="128"/>
+        <location filename="../../libmscore/mscore.cpp" line="132"/>
         <source>No destination to paste</source>
         <translation>Itsasteko tokirik ez</translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="129"/>
+        <location filename="../../libmscore/mscore.cpp" line="133"/>
         <source>Cannot paste into tuplet</source>
         <translation>Ezin da n-kotxoan itsatsi</translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="130"/>
+        <location filename="../../libmscore/mscore.cpp" line="134"/>
         <source>Tuplet cannot cross barlines</source>
         <translation>N-kotxoak ezin du zatilerrorik zeharkatu</translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="131"/>
+        <location filename="../../libmscore/mscore.cpp" line="135"/>
         <source>Cannot paste in local time signature</source>
         <translation>Ezin da itsatsi hemengo konpas neurrian</translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="132"/>
+        <location filename="../../libmscore/mscore.cpp" line="136"/>
         <source>Cannot paste in tremolo</source>
         <translation>Ezin da tremoloan itsatsi</translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="133"/>
+        <location filename="../../libmscore/mscore.cpp" line="137"/>
         <source>Nothing to paste</source>
         <translation>Ez dago ezer itsasteko</translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="134"/>
+        <location filename="../../libmscore/mscore.cpp" line="138"/>
         <source>Destination is not a chord or rest</source>
         <translation>Helmuga ez da akorde edo isilunea</translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="135"/>
+        <location filename="../../libmscore/mscore.cpp" line="139"/>
         <source>Cannot change local time signature:
 Measure is not empty</source>
         <translation>Ezin da hemengo konpas neurria aldatu:
 Konpasa ez dago hutsik</translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="136"/>
+        <location filename="../../libmscore/mscore.cpp" line="140"/>
         <source>Cannot change local time signature:
 This score already has part scores. Changing local time signatures while part scores are present is not yet supported.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="139"/>
+        <location filename="../../libmscore/mscore.cpp" line="143"/>
         <source>Cannot change time signature in front of a corrupted measure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="435"/>
+        <location filename="../../libmscore/mscore.cpp" line="439"/>
         <source>Unknown error</source>
         <translation>Akats ezezaguna</translation>
     </message>
@@ -32433,19 +32590,19 @@ This score already has part scores. Changing local time signatures while part sc
 <context>
     <name>magTable</name>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2598"/>
+        <location filename="../../mscore/musescore.cpp" line="2629"/>
         <location filename="../../mscore/zoombox.cpp" line="47"/>
         <source>Page Width</source>
         <translation>Orrialde zabalera</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2599"/>
+        <location filename="../../mscore/musescore.cpp" line="2630"/>
         <location filename="../../mscore/zoombox.cpp" line="48"/>
         <source>Whole Page</source>
         <translation>Orrialde osoa</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2600"/>
+        <location filename="../../mscore/musescore.cpp" line="2631"/>
         <location filename="../../mscore/zoombox.cpp" line="49"/>
         <source>Two Pages</source>
         <translation>Bi orrialde</translation>
