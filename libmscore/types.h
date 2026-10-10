@@ -162,6 +162,12 @@ enum class AccidentalType : unsigned char{
       NATURAL_SHARP,
       SHARP_SHARP,
 
+      // Stein-Zimmermann
+      MIRRORED_FLAT,
+      MIRRORED_FLAT2,
+      SHARP_SLASH,
+      SHARP_SLASH4,
+
       // Gould arrow quartertone
       FLAT_ARROW_UP,
       FLAT_ARROW_DOWN,
@@ -175,12 +181,6 @@ enum class AccidentalType : unsigned char{
       FLAT2_ARROW_DOWN,
       ARROW_DOWN,
       ARROW_UP,
-
-      // Stein-Zimmermann
-      MIRRORED_FLAT,
-      MIRRORED_FLAT2,
-      SHARP_SLASH,
-      SHARP_SLASH4,
 
       // Arel-Ezgi-Uzdilek (AEU)
       FLAT_SLASH2,
