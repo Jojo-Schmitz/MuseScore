@@ -1001,7 +1001,7 @@ static const StyleType styleTypes[] {
       { Sid::rehearsalMarkFrameFgColor,     "rehearsalMarkFrameFgColor",    QColor(0, 0, 0, 255) },
       { Sid::rehearsalMarkFrameBgColor,     "rehearsalMarkFrameBgColor",    QColor(255, 255, 255, 0) },
       { Sid::rehearsalMarkPlacement,        "rehearsalMarkPlacement",       int(Placement::ABOVE) },
-      { Sid::rehearsalMarkPosAbove,         "rehearsalMarkPosAbove",        QPointF(.0, -3.0) },
+      { Sid::rehearsalMarkPosAbove,         "rehearsalMarkPosAbove",        QPointF(.0, -2.0) },
       { Sid::rehearsalMarkPosBelow,         "rehearsalMarkPosBelow",        QPointF(.0, 4.0) },
       { Sid::rehearsalMarkMinDistance,      "rehearsalMarkMinDistance",     Spatium(0.5) },
 
@@ -3787,6 +3787,11 @@ bool  MStyle::readProperties450(XmlReader& e, int mscVersion)
       else if (tag == "minLaissezVibLength"                         // Mu4.5+ only, let's skip
             || tag =="laissezVibUseSmuflSym")                       // Mu4.5+ only, let's skip
             e.skipCurrentElement();
+      else if (tag == "rehearsalMarkPosAbove") {                    // y: -3.0 -> -2.0
+            QPointF rehearsalMarkPosAbove = e.readPoint();
+            if (!qFuzzyCompare(rehearsalMarkPosAbove.y(), 2.0))     // Changed from 4.5+ default
+                  set(Sid::rehearsalMarkPosAbove, rehearsalMarkPosAbove);
+            }
       else if (tag.startsWith("noteLine"))                          // Mu4.5+ only, let's skip
             e.skipCurrentElement();
       else if (tag == "glissandoType"                               // Mu4.5+ only, let's skip
