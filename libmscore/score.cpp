@@ -1598,6 +1598,21 @@ void Score::removeElement(Element* element)
             }
       }
 
+bool Score::containsElement(const Element* element) const
+      {
+      if (!element)
+            return false;
+
+      Element* parent = element->parent();
+      if (!parent)
+            return false;
+
+      QVector<Element*> elements;
+      parent->scanElements(&elements, collectElements, false /*all*/);
+
+      return std::find(elements.cbegin(), elements.cend(), element) != elements.cend();
+      }
+
 //---------------------------------------------------------
 //   firstMeasure
 //---------------------------------------------------------
