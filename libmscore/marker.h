@@ -13,7 +13,7 @@
 #ifndef __MARKER_H__
 #define __MARKER_H__
 
-#include "text.h"
+#include "textbase.h"
 
 namespace Ms {
 
@@ -66,8 +66,6 @@ class Marker final : public TextBase {
       void undoSetLabel(const QString& s);
       void undoSetMarkerType(const Type t);
 
-      void styleChanged() override;
-
       QVariant getProperty(Pid propertyId) const override;
       bool setProperty(Pid propertyId, const QVariant&) override;
       QVariant propertyDefault(Pid) const override;
@@ -83,7 +81,9 @@ class Marker final : public TextBase {
 
 struct MarkerTypeItem {
       Marker::Type type;
-      QString name;
+      QString text;
+      QString label;
+      bool rightAligned;
       };
 
 extern const MarkerTypeItem markerTypeTable[];
