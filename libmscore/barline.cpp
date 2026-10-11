@@ -903,34 +903,43 @@ Element* BarLine::drop(EditData& data)
                   return 0;
                   }
 
-            // check if the new property can apply to this single bar line
-            BarLineType bt = BarLineType::START_REPEAT | BarLineType::END_REPEAT | BarLineType::END_START_REPEAT;
-            bool oldRepeat = barLineType()     & bt;
-            bool newRepeat = bl->barLineType() & bt;
-
-            // if ctrl was used and repeats are not involved,
-            // or if drop refers to span rather than subtype =>
-            // single bar line drop
-
-            if ((data.control() && !oldRepeat && !newRepeat) || (bl->spanFrom() || bl->spanTo()) ) {
-                  // if drop refers to span, update this bar line span
-                  if (bl->spanFrom() || bl->spanTo()) {
-                        // if dropped spanFrom or spanTo are below the middle of standard staff (5 lines)
-                        // adjust to the number of staff lines
-                        // TODO:barlines
-                        int spanFrom   = bl->spanFrom();
-                        int spanTo     = bl->spanTo();
-                        undoChangeProperty(Pid::BARLINE_SPAN, false);
-                        undoChangeProperty(Pid::BARLINE_SPAN_FROM, spanFrom);
-                        undoChangeProperty(Pid::BARLINE_SPAN_TO, spanTo);
-                        }
-                  // if drop refers to subtype, update this bar line subtype
-                  else {
-                        undoChangeBarLineType(this, st, false);
-                        }
+            if (segment()->segmentType() == SegmentType::BarLine) {
+                  // barline exists mid measure
+                  //undoChangeProperty(Pid::BARLINE_TYPE, st);
+                  undoChangeProperty(Pid::BARLINE_SPAN, false);
+                  undoChangeProperty(Pid::BARLINE_SPAN_FROM, bl->spanFrom());
+                  undoChangeProperty(Pid::BARLINE_SPAN_TO, bl->spanTo());
                   }
             else {
-                  undoChangeBarLineType(this, st, true);
+                  // check if the new property can apply to this single bar line
+                  BarLineType bt = BarLineType::START_REPEAT | BarLineType::END_REPEAT | BarLineType::END_START_REPEAT;
+                  bool oldRepeat = barLineType()     & bt;
+                  bool newRepeat = bl->barLineType() & bt;
+
+                  // if ctrl was used and repeats are not involved,
+                  // or if drop refers to span rather than subtype =>
+                  // single bar line drop
+
+                  if ((data.control() && !oldRepeat && !newRepeat) || (bl->spanFrom() || bl->spanTo()) ) {
+                        // if drop refers to span, update this bar line span
+                        if (bl->spanFrom() || bl->spanTo()) {
+                              // if dropped spanFrom or spanTo are below the middle of standard staff (5 lines)
+                              // adjust to the number of staff lines
+                              // TODO:barlines
+                              int spanFrom   = bl->spanFrom();
+                              int spanTo     = bl->spanTo();
+                              undoChangeProperty(Pid::BARLINE_SPAN, false);
+                              undoChangeProperty(Pid::BARLINE_SPAN_FROM, spanFrom);
+                              undoChangeProperty(Pid::BARLINE_SPAN_TO, spanTo);
+                              }
+                        // if drop refers to subtype, update this bar line subtype
+                        else {
+                              undoChangeBarLineType(this, st, false);
+                              }
+                        }
+                  else {
+                        undoChangeBarLineType(this, st, true);
+                        }
                   }
             delete e;
             }
@@ -1642,7 +1651,7 @@ bool BarLine::setProperty(Pid id, const QVariant& v)
 
 void BarLine::undoChangeProperty(Pid id, const QVariant& v, PropertyFlags ps)
       {
-      if (id == Pid::BARLINE_TYPE && segment()) {
+      if (id == Pid::BARLINE_TYPE && segment() && segment()->segmentType() != SegmentType::BarLine) {
             const BarLine* bl = this;
             BarLineType blType = v.value<BarLineType>();
             if (blType == BarLineType::START_REPEAT) { // change next measures endBarLine
