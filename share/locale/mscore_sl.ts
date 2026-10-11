@@ -18785,7 +18785,7 @@ je spodletelo: </translation>
     </message>
 </context>
 <context>
-    <name>PianorollEditor</name>
+    <name>Ms::PianorollEditor</name>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="161"/>
         <source>Editable staff</source>
