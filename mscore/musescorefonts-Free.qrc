@@ -1,8 +1,17 @@
 <RCC>
     <qresource prefix="/">
+        <file alias="fonts/FreeMono.ttf">../fonts/FreeMono.ttf</file>
+        <file alias="fonts/FreeMonoBold.ttf">../fonts/FreeMonoBold.ttf</file>
+        <file alias="fonts/FreeMonoOblique.ttf">../fonts/FreeMonoOblique.ttf</file>
+        <file alias="fonts/FreeMonoBoldOblique.ttf">../fonts/FreeMonoBoldOblique.ttf</file>
+        <file alias="fonts/FreeSans.ttf">../fonts/FreeSans.ttf</file>
+        <file alias="fonts/FreeSansBold.ttf">../fonts/FreeSansBold.ttf</file>
+        <file alias="fonts/FreeSansBoldTab.ttf">../fonts/FreeSansBoldTab.ttf</file>
+        <file alias="fonts/FreeSansOblique.ttf">../fonts/FreeSansOblique.ttf</file>
+        <file alias="fonts/FreeSansBoldOblique.ttf">../fonts/FreeSansBoldOblique.ttf</file>
+        <!--<file alias="fonts/FreeSerif.ttf">../fonts/FreeSerif.ttf</file>-->
         <file alias="fonts/FreeSerifBold.ttf">../fonts/FreeSerifBold.ttf</file>
         <file alias="fonts/FreeSerifItalic.ttf">../fonts/FreeSerifItalic.ttf</file>
         <file alias="fonts/FreeSerifBoldItalic.ttf">../fonts/FreeSerifBoldItalic.ttf</file>
-        <file alias="fonts/FreeSans.ttf">../fonts/FreeSans.ttf</file>
 	    </qresource>
 </RCC>

@@ -480,6 +480,7 @@ void StaffType::setDurationFontName(const QString& name)
       if (idx >= _durationFonts.size())
             idx = 0;          // if name not found, use first font
       _durationFont.setFamily(_durationFonts[idx].family);
+      _durationFont.setWeight(_fretFonts[idx].weight);
       _durationFontIdx = idx;
       _durationMetricsValid = false;
       }
@@ -497,6 +498,7 @@ void StaffType::setFretFontName(const QString& name)
       if (idx >= _fretFonts.size())
             idx = 0;          // if name not found, use first font
       _fretFont.setFamily(_fretFonts[idx].family);
+      _fretFont.setWeight(_fretFonts[idx].weight);
       _fretFontIdx = idx;
       _fretMetricsValid = false;
       }
@@ -1260,13 +1262,14 @@ QList<QString> StaffType::fontNames(bool bDuration)
 // any of the pointer parameter can be null, if that datum is not needed
 //---------------------------------------------------------
 
-bool StaffType::fontData(bool bDuration, int nIdx, QString* pFamily, QString* pDisplayName,
+bool StaffType::fontData(bool bDuration, int nIdx, QString* pFamily, QFont::Weight* pWeight, QString* pDisplayName,
    qreal* pSize, qreal* pYOff)
       {
       if (bDuration) {
             if (nIdx >= 0 && nIdx < _durationFonts.size()) {
                   TablatureDurationFont f = _durationFonts.at(nIdx);
                   if (pFamily)      *pFamily          = f.family;
+                  if (pWeight)      *pWeight          = f.weight;
                   if (pDisplayName) *pDisplayName     = f.displayName;
                   if (pSize)        *pSize            = f.defPitch;
                   if (pYOff)        *pYOff            = f.defYOffset;
@@ -1277,6 +1280,7 @@ bool StaffType::fontData(bool bDuration, int nIdx, QString* pFamily, QString* pD
             if (nIdx >= 0 && nIdx < _fretFonts.size()) {
                   TablatureFretFont f = _fretFonts.at(nIdx);
                   if (pFamily)      *pFamily          = f.family;
+                  if (pWeight)      *pWeight          = f.weight;
                   if (pDisplayName) *pDisplayName     = f.displayName;
                   if (pSize)        *pSize            = f.defPitch;
                   if (pYOff)        *pYOff            = f.defYOffset;
