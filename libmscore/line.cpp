@@ -745,6 +745,14 @@ QRectF LineSegment::drag(EditData& ed)
 //   SLine
 //---------------------------------------------------------
 
+SLine::SLine(ElementType type, Score* s, ElementFlags f)
+   : Spanner(s, f)
+      {
+      setTrack(0);
+      _type = type;
+      _lineWidth = 0.15 * spatium();
+      }
+
 SLine::SLine(Score* s, ElementFlags f)
    : Spanner(s, f)
       {

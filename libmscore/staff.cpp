@@ -1034,7 +1034,10 @@ const StaffType* Staff::staffTypeForElement(const Element* e) const
       {
       if (_staffTypeList.uniqueStaffType()) // optimize if one staff type spans for the entire staff
             return &_staffTypeList.staffType({0, 1});
-      return &_staffTypeList.staffType(e->tick());
+      // Handle items at the last tick of measures as StaffTypeList::staffType rounds up
+      const Measure* measure = e->findMeasure();
+      const Fraction tick = measure ? measure->tick() : e->tick();
+      return &_staffTypeList.staffType(tick);
       }
 
 //---------------------------------------------------------
