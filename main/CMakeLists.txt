@@ -473,6 +473,7 @@ if (APPLE)
       ../fonts/FreeSerifItalic.ttf
       ../fonts/FreeSerifBoldItalic.ttf
       ../fonts/FreeSans.ttf
+      ../fonts/FreeSansTabBold.ttf
       ../fonts/mscoreTab.ttf
       ../fonts/mscore-BC.ttf
       ../fonts/bravura/BravuraText.otf
