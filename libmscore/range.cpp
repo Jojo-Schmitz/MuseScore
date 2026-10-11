@@ -631,6 +631,8 @@ bool TrackList::write(Score* score, const Fraction& tick) const
                         tie->setEndNote(nn);
                         nn->setTieBack(tie);
                         }
+                  else
+                        score->undoRemoveElement(tie);
                   }
             if (s == segment)
                   break;
@@ -689,6 +691,21 @@ void ScoreRange::read(Segment* first, Segment* last, bool readSpanner)
                   dl->setTrack(track);
                   dl->read(first, last);
                   tracks.append(dl);
+                  }
+            }
+
+      // Make sure incoming ties are restored
+      Measure* m1 = first->measure();
+      for (int track = startTrack; track < endTrack; track++) {
+            Chord* startChord = m1->findChord(first->tick(), track);
+            if (!startChord)
+                  continue;
+            for (Note* note : startChord->notes()) {
+                  Tie* tie = note->tieBack();
+                  if (!tie)
+                        continue;
+                  startTies.push_back(tie->clone());
+                  score->undoRemoveElement(tie);
                   }
             }
       }
@@ -751,6 +768,18 @@ bool ScoreRange::write(Score* score, const Fraction& tick) const
                   score->undoAddElement(a.e);
                   }
             }
+
+      // Restore ties to the beginning of the first measure
+      for (Tie* tie : startTies) {
+            Note* endNote = searchTieNote(tie->startNote());
+            if (!endNote) {
+                  delete tie;
+                  continue;
+                  }
+            tie->setEndNote(endNote);
+            score->undoAddElement(tie);
+            }
+
       return true;
       }
 
