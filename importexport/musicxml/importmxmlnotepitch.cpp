@@ -116,23 +116,23 @@ void mxmlNotePitch::pitch(QXmlStreamReader& e)
 
       while (e.readNextStartElement()) {
             if (e.name() == "alter") {
-                  const QString alter = e.readElementText();
                   bool ok;
-                  _alter = MxmlSupport::stringToInt(alter, &ok);       // fractions not supported by mscore
-                  if (!ok || _alter < -2 || _alter > 2) {
+                  const double alter = e.readElementText().toDouble(&ok);
+                  _alter = qRound(alter);
+                  if (_alter < -3 || _alter > 3) {
                         _logger->logError(QString("invalid alter '%1'").arg(alter), &e);
-                        bool ok2;
-                        const double altervalue = alter.toDouble(&ok2);
-                        if (ok2 && (qAbs(altervalue) < 2.0) && (_accType == AccidentalType::NONE)) {
+                        if (ok && (qAbs(alter) < 2.0) && (_accType == AccidentalType::NONE)) {
                               // try to see if a microtonal accidental is needed
-                              _accType = microtonalGuess(altervalue);
+                              _accType = microtonalGuess(alter);
 
                               // If it's not a microtonal accidental we will use tuning
                               if (_accType == AccidentalType::NONE)
-                                    _tuning = 100 * altervalue;
+                                    _tuning = 100 * alter;
                               }
                         _alter = 0;
                         }
+                  if (_alter && _alter != alter )
+                        _tuning = 100 * (alter - _alter);
                   }
             else if (e.name() == "octave") {
                   const QString oct = e.readElementText();
