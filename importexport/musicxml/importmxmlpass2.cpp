@@ -8620,6 +8620,8 @@ static void addChordLine(const Notation& notation, Note* note,
                          MxmlLogger* logger, const QXmlStreamReader* const xmlreader)
       {
       const QString& chordLineType = notation.subType();
+      const QString lineType = notation.attribute("line-type");
+      const QString lineShape = notation.attribute("line-shape");
       if (!chordLineType.isEmpty()) {
             if (note) {
                   ChordLine* const chordline = new ChordLine(note->score());
@@ -8631,6 +8633,12 @@ static void addChordLine(const Notation& notation, Note* note,
                         chordline->setChordLineType(ChordLineType::PLOP);
                   else if (chordLineType == "scoop")
                         chordline->setChordLineType(ChordLineType::SCOOP);
+                  if (lineShape == "straight")
+                        chordline->setStraight(true);
+                  if (lineType == "wavy")
+                        chordline->setWavy(true);
+                  else if (!lineType.isEmpty() && lineType != "solid")
+                        logger->logError(QString("unsupported line-type: %1").arg(lineType), xmlreader);
                   chordline->setVisible(notation.visible());
                   colorItem(chordline, notation.attribute("color"));
                   note->chord()->add(chordline);

@@ -1181,19 +1181,19 @@ PalettePanel* MuseScore::newArpeggioPalettePanel()
 
       ChordLine* cl = new ChordLine(gscore);
       cl->setChordLineType(ChordLineType::FALL);
-      sp->append(cl, scorelineNames[0]);
+      sp->append(cl, chordlineNames[0]);
 
       cl = new ChordLine(gscore);
       cl->setChordLineType(ChordLineType::DOIT);
-      sp->append(cl, scorelineNames[1]);
+      sp->append(cl, chordlineNames[1]);
 
       cl = new ChordLine(gscore);
       cl->setChordLineType(ChordLineType::PLOP);
-      sp->append(cl, scorelineNames[2]);
+      sp->append(cl, chordlineNames[2]);
 
       cl = new ChordLine(gscore);
       cl->setChordLineType(ChordLineType::SCOOP);
-      sp->append(cl, scorelineNames[3]);
+      sp->append(cl, chordlineNames[3]);
 
       cl = new ChordLine(gscore);
       cl->setChordLineType(ChordLineType::FALL);
@@ -1214,6 +1214,26 @@ PalettePanel* MuseScore::newArpeggioPalettePanel()
       cl->setChordLineType(ChordLineType::SCOOP);
       cl->setStraight(true);
       sp->append(cl, QT_TRANSLATE_NOOP("Ms", "Slide in below"));
+
+      cl = new ChordLine(gscore);
+      cl->setChordLineType(ChordLineType::FALL);
+      cl->setWavy(true);
+      sp->append(cl, QT_TRANSLATE_NOOP("Ms", "Slide out down (rough)"));
+
+      cl = new ChordLine(gscore);
+      cl->setChordLineType(ChordLineType::DOIT);
+      cl->setWavy(true);
+      sp->append(cl, QT_TRANSLATE_NOOP("Ms", "Slide out up (rough)"));
+
+      cl = new ChordLine(gscore);
+      cl->setChordLineType(ChordLineType::PLOP);
+      cl->setWavy(true);
+      sp->append(cl, QT_TRANSLATE_NOOP("Ms", "Slide in above (rough)"));
+
+      cl = new ChordLine(gscore);
+      cl->setChordLineType(ChordLineType::SCOOP);
+      cl->setWavy(true);
+      sp->append(cl, QT_TRANSLATE_NOOP("Ms", "Slide in below (rough)"));
 
       return sp;
       }

@@ -343,6 +343,7 @@ static constexpr PropertyMetaData propertyList[] = {
       { Pid::ARPEGGIO_TYPE,             P_TYPE::INT,            true,  "subtype",                DUMMY_QT_TRANSLATE_NOOP("propertyName", "arpeggio type")                                 },
       { Pid::CHORD_LINE_TYPE,           P_TYPE::INT,            true,  "subtype",                DUMMY_QT_TRANSLATE_NOOP("propertyName", "chord line type")                               },
       { Pid::CHORD_LINE_STRAIGHT,       P_TYPE::BOOL,           true,  "straight",               DUMMY_QT_TRANSLATE_NOOP("propertyName", "straight chord line")                           },
+      { Pid::CHORD_LINE_WAVY,           P_TYPE::BOOL,           true,  "wavy",                   DUMMY_QT_TRANSLATE_NOOP("propertyName", "wavy chord line")                               },
       { Pid::TREMOLO_TYPE,              P_TYPE::INT,            true,  "subtype",                DUMMY_QT_TRANSLATE_NOOP("propertyName", "tremolo type")                                  },
       { Pid::TREMOLO_STYLE,             P_TYPE::INT,            true,  "strokeStyle",            DUMMY_QT_TRANSLATE_NOOP("propertyName", "tremolo style")                                 },
       { Pid::HARMONY_TYPE,              P_TYPE::INT,            true,  "harmonyType",            DUMMY_QT_TRANSLATE_NOOP("propertyName", "harmony type")                                  },
