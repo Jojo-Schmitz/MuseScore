@@ -27,7 +27,7 @@ enum class ArpeggioType : char {
 //   @@ Arpeggio
 //---------------------------------------------------------
 
-class Arpeggio final : public Element {
+class Arpeggio : public Element {
       ArpeggioType _arpeggioType;
       qreal _userLen1;
       qreal _userLen2;
@@ -45,7 +45,6 @@ class Arpeggio final : public Element {
       void spatiumChanged(qreal /*oldValue*/, qreal /*newValue*/) override;
       QVector<QLineF> dragAnchorLines() const override;
       QVector<QLineF> gripAnchorLines(Grip) const override;
-      void startEdit(EditData&) override;
 
       qreal calcTop() const;
       qreal calcBottom() const;
@@ -77,6 +76,7 @@ class Arpeggio final : public Element {
       bool isEditable() const override { return true; }
       void editDrag(EditData&) override;
       bool edit(EditData&) override;
+      void startEdit(EditData&) override;
 
       void read(XmlReader& e) override;
       void write(XmlWriter& xml) const override;

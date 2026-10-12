@@ -117,6 +117,7 @@ class Chord final : public ChordRest {
       void layoutStem1() override;
       void layoutStem();
       void layoutArpeggio2();
+      void layoutChordBrackets();
       void layoutSpanners();
       void layoutSpanners(System* system, const Fraction& stick);
 

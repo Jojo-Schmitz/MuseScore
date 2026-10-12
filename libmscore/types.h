@@ -138,6 +138,7 @@ enum class ElementType : char {
       OSSIA,
       BAGPIPE_EMBELLISHMENT,
       STICKING,
+      CHORD_BRACKET,
 
       MAXTYPE
       ///\}

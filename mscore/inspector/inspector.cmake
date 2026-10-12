@@ -9,6 +9,8 @@ set (INSPECTOR_SRC
     ${CMAKE_CURRENT_LIST_DIR}/inspectorAmbitus.h
     ${CMAKE_CURRENT_LIST_DIR}/inspectorArpeggio.cpp
     ${CMAKE_CURRENT_LIST_DIR}/inspectorArpeggio.h
+    ${CMAKE_CURRENT_LIST_DIR}/inspectorChordBracket.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/inspectorChordBracket.h
     ${CMAKE_CURRENT_LIST_DIR}/inspectorBarline.cpp
     ${CMAKE_CURRENT_LIST_DIR}/inspectorBarline.h
     ${CMAKE_CURRENT_LIST_DIR}/inspectorBase.cpp

@@ -241,11 +241,13 @@ void LayoutContext::layoutLinear()
                                           if (cc->beam() && cc->beam()->elements().front() == cc)
                                                 cc->beam()->layout();
                                           cc->layoutSpanners();
+                                          cc->layoutChordBrackets();
                                           for (Element* element : cc->el()) {
                                                 if (element->isSlur())
                                                       element->layout();
                                                 }
                                           }
+                                    c->layoutChordBrackets();
                                     c->layoutArpeggio2();
                                     c->layoutSpanners();
                                     if (c->tremolo()) {

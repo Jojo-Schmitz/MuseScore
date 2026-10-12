@@ -1661,6 +1661,12 @@ void Score::cmdFlip()
                   }
             };
       for (Element* e : el) {
+            if (e->isChordBracket()) {
+                  flipOnce(e, [e]() {
+                        e->undoChangeProperty(Pid::BRACKET_RIGHT_SIDE, !e->getProperty(Pid::BRACKET_RIGHT_SIDE).toBool());
+                        });
+                  continue;
+                  }
             if (e->isNote() || e->isStem() || e->isHook()) {
                   Chord* chord = nullptr;
                   if (e->isNote()) {
@@ -4755,6 +4761,7 @@ void Score::undoAddElement(Element* element)
       if (ostaff == 0 || (
          et    != ElementType::ARTICULATION
          && et != ElementType::CHORDLINE
+         && et != ElementType::CHORD_BRACKET
          && et != ElementType::LYRICS
          && et != ElementType::SLUR
          && et != ElementType::TIE
@@ -4773,6 +4780,7 @@ void Score::undoAddElement(Element* element)
          && et != ElementType::STICKING
          && et != ElementType::TREMOLO
          && et != ElementType::ARPEGGIO
+         && et != ElementType::CHORD_BRACKET
          && et != ElementType::SYMBOL
          && et != ElementType::IMAGE
          && et != ElementType::TREMOLOBAR
@@ -4932,7 +4940,7 @@ void Score::undoAddElement(Element* element)
                               }
                         undo(new AddElement(na));
                         }
-                  else if (element->isChordLine() || element->isLyrics()) {
+                  else if (element->isChordLine() || element->isChordBracket() || element->isLyrics()) {
                         ChordRest* cr    = toChordRest(element->parent());
                         Segment* segment = cr->segment();
                         Fraction tick    = segment->tick();

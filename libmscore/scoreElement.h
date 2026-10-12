@@ -106,6 +106,7 @@ class NoteHead;
 class FiguredBass;
 class StaffState;
 class Arpeggio;
+class ChordBracket;
 class Image;
 class ChordLine;
 class SlurTieSegment;
@@ -339,6 +340,7 @@ class ScoreElement {
       CONVERT(FiguredBass,   FIGURED_BASS)
       CONVERT(StaffState,    STAFF_STATE)
       CONVERT(Arpeggio,      ARPEGGIO)
+      CONVERT(ChordBracket,  CHORD_BRACKET)
       CONVERT(Image,         IMAGE)
       CONVERT(ChordLine,     CHORDLINE)
       CONVERT(FretDiagram,   FRET_DIAGRAM)
@@ -592,6 +594,7 @@ static inline const a* to##a(const ScoreElement* e) { Q_ASSERT(e == 0 || e->is##
       CONVERT(FiguredBass)
       CONVERT(StaffState)
       CONVERT(Arpeggio)
+      CONVERT(ChordBracket)
       CONVERT(Image)
       CONVERT(ChordLine)
       CONVERT(FretDiagram)

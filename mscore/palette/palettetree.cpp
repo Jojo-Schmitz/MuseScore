@@ -825,6 +825,8 @@ PalettePanel::Type PalettePanel::guessType() const
                   return Type::NoteHead;
             case ElementType::BAR_LINE:
                   return Type::BarLine;
+            case ElementType::CHORD_BRACKET:
+                  return Type::Line;
             case ElementType::ARPEGGIO:
             case ElementType::GLISSANDO:
                   return Type::Arpeggio;

@@ -18,6 +18,7 @@
 #include "accidental.h"
 #include "ambitus.h"
 #include "arpeggio.h"
+#include "chordbracket.h"
 #include "articulation.h"
 #include "bagpembell.h"
 #include "barline.h"
@@ -1077,6 +1078,7 @@ Element* Element::create(ElementType type, Score* score)
             case ElementType::BAR_LINE:          return new BarLine(score);
             case ElementType::SYSTEM_DIVIDER:    return new SystemDivider(score);
             case ElementType::ARPEGGIO:          return new Arpeggio(score);
+            case ElementType::CHORD_BRACKET:     return new ChordBracket(score);
             case ElementType::BREATH:            return new Breath(score);
             case ElementType::GLISSANDO:         return new Glissando(score);
             case ElementType::BRACKET:           return new Bracket(score);

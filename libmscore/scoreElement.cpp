@@ -132,7 +132,8 @@ static const ElementName elementNames[] = {
       { ElementType::ICON,                 "Icon",                 QT_TRANSLATE_NOOP("elementName", "Icon") },
       { ElementType::OSSIA,                "Ossia",                QT_TRANSLATE_NOOP("elementName", "Ossia") },
       { ElementType::BAGPIPE_EMBELLISHMENT,"BagpipeEmbellishment", QT_TRANSLATE_NOOP("elementName", "Bagpipe Embellishment") },
-      { ElementType::STICKING,             "Sticking",             QT_TRANSLATE_NOOP("elementName", "Sticking") }
+      { ElementType::STICKING,             "Sticking",             QT_TRANSLATE_NOOP("elementName", "Sticking") },
+      { ElementType::CHORD_BRACKET,        "ChordBracket",         QT_TRANSLATE_NOOP("elementName", "Chord Bracket") }
       };
 
 //---------------------------------------------------------

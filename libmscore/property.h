@@ -349,6 +349,9 @@ enum class Pid : short {
       MIN_DISTANCE,
 
       ARPEGGIO_TYPE,
+      BRACKET_HOOK_LEN,
+      BRACKET_HOOK_POS,
+      BRACKET_RIGHT_SIDE,
       CHORD_LINE_TYPE,
       CHORD_LINE_STRAIGHT,
       TREMOLO_TYPE,

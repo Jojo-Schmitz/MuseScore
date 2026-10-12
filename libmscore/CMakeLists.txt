@@ -19,7 +19,7 @@ endif (APPLE)
 add_library (libmscore STATIC
       ${INCS}
 
-      types.h accidental.h ambitus.h arpeggio.h articulation.h audio.h bagpembell.h barline.h beam.h bend.h
+      types.h accidental.h ambitus.h arpeggio.h chordbracket.h articulation.h audio.h bagpembell.h barline.h beam.h bend.h
       box.h bracket.h bracketItem.h breath.h bsp.h bsymbol.h changeMap.h chord.h chordline.h chordlist.h chordrest.h clef.h
       cleflist.h connector.h drumset.h dsp.h duration.h durationtype.h dynamic.h easeInOut.h element.h
       elementmap.h excerpt.h fermata.h fifo.h figuredbass.h fingering.h fraction.h fret.h glissando.h groups.h hairpin.h
@@ -34,7 +34,7 @@ add_library (libmscore STATIC
       tempotext.h text.h mmrestrange.h measurenumberbase.h measurenumber.h textbase.h textedit.h textframe.h textline.h textlinebase.h tie.h tiemap.h timesig.h
       tremolo.h tremolobar.h trill.h tuplet.h tupletmap.h types.h undo.h utils.h vibrato.h volta.h xml.h
 
-      segmentlist.cpp fingering.cpp accidental.cpp arpeggio.cpp
+      segmentlist.cpp fingering.cpp accidental.cpp arpeggio.cpp chordbracket.cpp
       fermata.cpp articulation.cpp barline.cpp beam.cpp bend.cpp box.cpp
       bracket.cpp breath.cpp bsp.cpp changeMap.cpp chord.cpp chordline.cpp
       chordlist.cpp chordrest.cpp clef.cpp cleflist.cpp

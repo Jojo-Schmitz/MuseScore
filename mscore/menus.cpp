@@ -30,6 +30,7 @@
 #include "libmscore/accidental.h"
 #include "libmscore/ambitus.h"
 #include "libmscore/arpeggio.h"
+#include "libmscore/chordbracket.h"
 #include "libmscore/articulation.h"
 #include "libmscore/bagpembell.h"
 #include "libmscore/barline.h"
@@ -1512,6 +1513,16 @@ PalettePanel* MuseScore::newLinesPalettePanel()
       pm->setLen(w);
       sp->append(pm, QT_TRANSLATE_NOOP("Palette", "Palm Mute"));
 
+      const char* brackets[] = {
+            QT_TRANSLATE_NOOP("Palette", "Chord bracket"),
+            QT_TRANSLATE_NOOP("Palette", "Chord bracket (play with left hand)"),
+            QT_TRANSLATE_NOOP("Palette", "Chord bracket (play with right hand)")
+            };
+      for (int i = 0; i < 3; ++i) {
+            ChordBracket* bracket = new ChordBracket(gscore);
+            bracket->setProperty(Pid::BRACKET_HOOK_POS, QVariant::fromValue(Direction(i)));
+            sp->append(bracket, brackets[i]);
+            }
       return sp;
       }
 

@@ -341,6 +341,9 @@ static constexpr PropertyMetaData propertyList[] = {
       { Pid::MIN_DISTANCE,              P_TYPE::SPATIUM,        false, "minDistance",            DUMMY_QT_TRANSLATE_NOOP("propertyName", "autoplace minimum distance")                    },
 
       { Pid::ARPEGGIO_TYPE,             P_TYPE::INT,            true,  "subtype",                DUMMY_QT_TRANSLATE_NOOP("propertyName", "arpeggio type")                                 },
+      { Pid::BRACKET_HOOK_LEN,          P_TYPE::SPATIUM,        true,  "bracketHookLen",         DUMMY_QT_TRANSLATE_NOOP("propertyName", "bracket hook length") },
+      { Pid::BRACKET_HOOK_POS,          P_TYPE::DIRECTION,      true,  "bracketHookPos",         DUMMY_QT_TRANSLATE_NOOP("propertyName", "bracket hook position") },
+      { Pid::BRACKET_RIGHT_SIDE,        P_TYPE::BOOL,           true,  "bracketRightSide",       DUMMY_QT_TRANSLATE_NOOP("propertyName", "bracket right side") },
       { Pid::CHORD_LINE_TYPE,           P_TYPE::INT,            true,  "subtype",                DUMMY_QT_TRANSLATE_NOOP("propertyName", "chord line type")                               },
       { Pid::CHORD_LINE_STRAIGHT,       P_TYPE::BOOL,           true,  "straight",               DUMMY_QT_TRANSLATE_NOOP("propertyName", "straight chord line")                           },
       { Pid::TREMOLO_TYPE,              P_TYPE::INT,            true,  "subtype",                DUMMY_QT_TRANSLATE_NOOP("propertyName", "tremolo type")                                  },

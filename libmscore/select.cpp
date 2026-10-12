@@ -442,7 +442,7 @@ bool SelectionFilter::canSelect(const Element* e) const
             return isFiltered(SelectionFilterType::OTTAVA);
       if (e->type() == ElementType::PEDAL)
             return isFiltered(SelectionFilterType::PEDAL_LINE);
-      if (e->type() == ElementType::ARPEGGIO)
+      if (e->isArpeggio() || e->isChordBracket())
             return isFiltered(SelectionFilterType::ARPEGGIO);
       if (e->type() == ElementType::GLISSANDO)
             return isFiltered(SelectionFilterType::GLISSANDO);
@@ -517,6 +517,10 @@ void Selection::appendChord(Chord* chord)
             _el.append(chord->stemSlash());
       if (chord->tremolo())
             appendFiltered(chord->tremolo());
+      for (Element* e : chord->el()) {
+            if (e->isChordBracket())
+                  appendFiltered(e);
+            }
       for (Note* note : chord->notes()) {
             _el.append(note);
             if (note->accidental()) _el.append(note->accidental());
@@ -967,6 +971,7 @@ Enabling copying of more element types requires enabling pasting in Score::paste
                   case ElementType::LINE:
                   case ElementType::BRACKET:
                   case ElementType::ARPEGGIO:
+                  case ElementType::CHORD_BRACKET:
                   case ElementType::ACCIDENTAL:
                   case ElementType::STEM:
                   case ElementType::NOTE:

@@ -12,6 +12,7 @@
 
 #include "accidental.h"
 #include "arpeggio.h"
+#include "chordbracket.h"
 #include "articulation.h"
 #include "beam.h"
 #include "chord.h"
@@ -291,12 +292,11 @@ Chord::Chord(const Chord& c, bool link)
             }
 
       for (Element* e : c.el()) {
-            if (e->isChordLine()) {
-                  ChordLine* cl = toChordLine(e);
-                  ChordLine* ncl = new ChordLine(*cl);
-                  add(ncl);
+            if (e->isChordLine() || e->isChordBracket()) {
+                  Element* copy = e->clone();
+                  add(copy);
                   if (link)
-                        score()->undo(new Link(ncl, cl));
+                        score()->undo(new Link(copy, e));
                   }
             }
       }
@@ -322,7 +322,7 @@ void Chord::undoUnlink()
             _tremolo->undoUnlink();
 
       for (Element* e : el()) {
-            if (e->type() == ElementType::CHORDLINE)
+            if (e->isChordLine() || e->isChordBracket())
                   e->undoUnlink();
             }
       }
@@ -572,6 +572,7 @@ void Chord::add(Element* e)
             case ElementType::HOOK:
                   _hook = toHook(e);
                   break;
+            case ElementType::CHORD_BRACKET:
             case ElementType::CHORDLINE:
                   el().push_back(e);
                   break;
@@ -661,6 +662,7 @@ void Chord::remove(Element* e)
                         score()->deselect(_stemSlash);
                   _stemSlash = 0;
                   break;
+            case ElementType::CHORD_BRACKET:
             case ElementType::CHORDLINE:
                   el().remove(e);
                   break;
@@ -1131,6 +1133,13 @@ bool Chord::readProperties(XmlReader& e)
             ;
       else if (tag == "noStem")
             _noStem = e.readInt();
+      else if (tag == "ChordBracket") {
+            ChordBracket* bracket = new ChordBracket(score());
+            bracket->setTrack(track());
+            bracket->setParent(this);
+            bracket->read(e);
+            add(bracket);
+            }
       else if (tag == "Arpeggio") {
             _arpeggio = new Arpeggio(score());
             _arpeggio->setTrack(track());
@@ -2575,6 +2584,24 @@ void Chord::crossMeasureSetup(bool on)
       }
 
 //---------------------------------------------------------
+//   layoutChordBrackets
+//    called after staff positions are final
+//---------------------------------------------------------
+
+void Chord::layoutChordBrackets()
+      {
+      bool hasBracket = false;
+      for (Element* e : el()) {
+            if (e->isChordBracket()) {
+                  toChordBracket(e)->layout2();
+                  hasBracket = true;
+                  }
+            }
+      if (hasBracket && segment())
+            segment()->createShapes();
+      }
+
+//---------------------------------------------------------
 //   layoutArpeggio2
 //    called after layout of page
 //---------------------------------------------------------
@@ -2699,6 +2726,7 @@ Element* Chord::drop(EditData& data)
                   return atr;
                   }
 
+            case ElementType::CHORD_BRACKET:
             case ElementType::CHORDLINE:
                   e->setParent(this);
                   e->setTrack(track());
