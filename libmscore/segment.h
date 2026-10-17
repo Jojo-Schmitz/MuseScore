@@ -174,10 +174,12 @@ class Segment final : public Element {
       void clearAnnotations();
       void removeAnnotation(Element* e);
       bool hasAnnotationOrElement(ElementType type, int minTrack, int maxTrack) const;
+      bool hasAnnotationOrElement(int staffIdx) const;
       Element* findAnnotation(ElementType type, int minTrack, int maxTrack);
       std::vector<Element*> findAnnotations(ElementType type, int minTrack, int maxTrack);
       bool hasElements() const;
       bool hasElements(int minTrack, int maxTrack) const;
+      bool hasElements(int staffIdx) const;
       bool allElementsInvisible() const;
 
       qreal dotPosX(int staffIdx) const          { return _dotPosX[staffIdx];  }
