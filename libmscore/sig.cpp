@@ -10,6 +10,8 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
+#include "global/log.h"
+
 #include "sig.h"
 #include "xml.h"
 
@@ -301,8 +303,12 @@ void TimeSigMap::tickValues(int t, int* bar, int* beat, int* tick) const
             return;
             }
       auto e = upper_bound(t);
-      if (empty() || e == begin()) {
-            qFatal("tickValue(0x%x) not found", t);
+      IF_ASSERT_FAILED(e != begin()) {
+            qDebug("tickValue(0x%x) not found", t);
+            *bar  = 0;
+            *beat = 0;
+            *tick = 0;
+            return;
             }
       --e;
       int delta  = t - e->first;
