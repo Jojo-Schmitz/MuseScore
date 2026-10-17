@@ -1089,6 +1089,13 @@ bool Segment::hasElements(int minTrack, int maxTrack) const
       return false;
       }
 
+bool Segment::hasElements(int staffIdx) const
+      {
+      int startTrack = staffIdx * VOICES;
+      int endTrack = startTrack + VOICES - 1;
+      return hasElements(startTrack, endTrack);
+      }
+
 //---------------------------------------------------------
 //   allElementsInvisible
 ///  return true if all elements in the segment are invisible
@@ -1118,6 +1125,14 @@ bool Segment::hasAnnotationOrElement(ElementType type, int minTrack, int maxTrac
             if (e->type() == type && e->track() >= minTrack && e->track() <= maxTrack)
                   return true;
       return hasElements(minTrack, maxTrack);
+      }
+
+bool Segment::hasAnnotationOrElement(int staffIdx) const
+      {
+      for (const Element* e : _annotations)
+            if (e->staffIdx() == staffIdx)
+                  return true;
+      return hasElements(staffIdx);
       }
 
 //---------------------------------------------------------
