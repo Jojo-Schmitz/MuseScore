@@ -43,7 +43,7 @@ const StaffType& StaffTypeList::staffType(const Fraction& tick) const
 
 StaffType& StaffTypeList::staffType(const Fraction& tick)
       {
-      IF_ASSERT(!tick.negative()) {
+      if (tick.negative()) {
             static StaffType st;
             return st;
             }
