@@ -15040,22 +15040,22 @@ Oturum geri yüklensin mi?</translation>
         <translation>Çalışma alanını sıfırla</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="32"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="33"/>
         <source>Save online</source>
         <translation type="unfinished">Çevrimiçi kaydet</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="32"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="34"/>
         <source>Saving scores online is disabled in this unstable prerelease version of MuseScore.</source>
         <translation type="unfinished">MuseScore&apos;un bu stabil olmayan yayın öncesi sürümünde partisyonları çevrimiçi kaydetme devre dışı bırakılmıştır.</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="39"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="41"/>
         <source>Upload Error</source>
         <translation type="unfinished">Yükleme Hatası</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="40"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="42"/>
         <source>This score cannot be saved online. Please fix the corrupted measures and try again.</source>
         <translation type="unfinished">Bu partisyon çevrimiçi olarak kaydedilemez. Lütfen bozuk ölçüleri düzeltip tekrar deneyin.</translation>
     </message>
@@ -17387,27 +17387,27 @@ Bu turu görmek ister misiniz?</translation>
 <context>
     <name>Ms::UploadScoreDialog</name>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="69"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="71"/>
         <source>Continue</source>
         <translation>Devam et</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="175"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="177"/>
         <source>Success</source>
         <translation>Başarılı</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="176"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="178"/>
         <source>Finished! %1Go to my score%2.</source>
         <translation>Bitti! %1 partisyonuma %2 git.</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="188"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="190"/>
         <source>Error</source>
         <translation>Hata</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="257"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="259"/>
         <source>Link</source>
         <translation>Bağlantı</translation>
     </message>

@@ -15025,22 +15025,22 @@ Phục hồi lại?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="32"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="33"/>
         <source>Save online</source>
         <translation type="unfinished">Lưu trực tuyến</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="32"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="34"/>
         <source>Saving scores online is disabled in this unstable prerelease version of MuseScore.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="39"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="41"/>
         <source>Upload Error</source>
         <translation type="unfinished">Tải lên lỗi</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="40"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="42"/>
         <source>This score cannot be saved online. Please fix the corrupted measures and try again.</source>
         <translation type="unfinished">Bản nhạc này không thể lưu trực tuyến. Vui lòng sửa các ô nhịp bị sai và thử lại.</translation>
     </message>
@@ -17370,27 +17370,27 @@ Vui lòng chọn một ô nhịp và thử lại lần nữa</translation>
 <context>
     <name>Ms::UploadScoreDialog</name>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="69"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="71"/>
         <source>Continue</source>
         <translation>Tiếp tục</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="175"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="177"/>
         <source>Success</source>
         <translation>Thành công</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="176"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="178"/>
         <source>Finished! %1Go to my score%2.</source>
         <translation>Đã hoàn tất! %1Mở bản nhạc nào%2.</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="188"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="190"/>
         <source>Error</source>
         <translation>Báo lỗi</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="257"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="259"/>
         <source>Link</source>
         <translation type="unfinished"></translation>
     </message>

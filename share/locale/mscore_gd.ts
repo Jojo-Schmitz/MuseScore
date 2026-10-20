@@ -15023,22 +15023,22 @@ A bheil thu airson an seisean aiseag?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="32"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="33"/>
         <source>Save online</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="32"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="34"/>
         <source>Saving scores online is disabled in this unstable prerelease version of MuseScore.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="39"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="41"/>
         <source>Upload Error</source>
         <translation type="unfinished">Mearachd leis an luchdadh suas</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="40"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="42"/>
         <source>This score cannot be saved online. Please fix the corrupted measures and try again.</source>
         <translation type="unfinished">Cha ghabh an sgòr seo a shàbhaladh air loidhne. Càirich na leagaidhean coirbte is feuch ris a-rithist.</translation>
     </message>
@@ -17368,27 +17368,27 @@ Tagh leagadh ’s feuch ris a-rithist</translation>
 <context>
     <name>Ms::UploadScoreDialog</name>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="69"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="71"/>
         <source>Continue</source>
         <translation>Lean air adhart</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="175"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="177"/>
         <source>Success</source>
         <translation>Shoirbhich leis</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="176"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="178"/>
         <source>Finished! %1Go to my score%2.</source>
         <translation>Deiseil! %1Rach dhan sgòr agam%2.</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="188"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="190"/>
         <source>Error</source>
         <translation>Mearachd</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="257"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="259"/>
         <source>Link</source>
         <translation type="unfinished"></translation>
     </message>

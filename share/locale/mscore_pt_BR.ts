@@ -15042,22 +15042,22 @@ Restaurar sessão?</translation>
         <translation>Redefinir área de trabalho</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="32"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="33"/>
         <source>Save online</source>
         <translation type="unfinished">Salvar online</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="32"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="34"/>
         <source>Saving scores online is disabled in this unstable prerelease version of MuseScore.</source>
         <translation type="unfinished">Salvar partituras online está disabilitado nesta pré-versão instável do MuseScore.</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="39"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="41"/>
         <source>Upload Error</source>
         <translation type="unfinished">Erro de Upload</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="40"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="42"/>
         <source>This score cannot be saved online. Please fix the corrupted measures and try again.</source>
         <translation type="unfinished">Esta partitura não pode ser salva online. 
 Por favor, corrija os compassos corrompidos e tente novamente.</translation>
@@ -17405,27 +17405,27 @@ Você gostaria de ver as guias?</translation>
 <context>
     <name>Ms::UploadScoreDialog</name>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="69"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="71"/>
         <source>Continue</source>
         <translation>Continuar</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="175"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="177"/>
         <source>Success</source>
         <translation>Sucesso</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="176"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="178"/>
         <source>Finished! %1Go to my score%2.</source>
         <translation>Terminado! %1Vá para minha partitura%2.</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="188"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="190"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="257"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="259"/>
         <source>Link</source>
         <translation>Vínculo</translation>
     </message>
