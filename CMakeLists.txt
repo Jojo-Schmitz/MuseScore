@@ -31,11 +31,6 @@ if(POLICY CMP0153)
       cmake_policy(SET CMP0153 OLD)
 endif(POLICY CMP0153)
 
-# Don't process generated source files with AUTOMOC
-if(POLICY CMP0071)
-      cmake_policy(SET CMP0071 OLD)
-endif(POLICY CMP0071)
-
 # Define MINGW for VS, as it appears not to be defined
 if (MSVC)
    set (MINGW false)
