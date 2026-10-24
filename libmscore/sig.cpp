@@ -301,8 +301,12 @@ void TimeSigMap::tickValues(int t, int* bar, int* beat, int* tick) const
             return;
             }
       auto e = upper_bound(t);
-      if (empty() || e == begin()) {
-            qFatal("tickValue(0x%x) not found", t);
+      if (e == begin()) {
+            qDebug("tickValue(0x%x) not found", t);
+            *bar  = 0;
+            *beat = 0;
+            *tick = 0;
+            return;
             }
       --e;
       int delta  = t - e->first;
