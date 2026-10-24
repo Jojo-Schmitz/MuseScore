@@ -127,6 +127,13 @@ apt_packages_runtime=(
   libxi-dev
   libxkbcommon-x11-0
   libxrandr2
+  libxcb-icccm4
+  libxcb-image0
+  libxcb-keysyms1
+  libxcb-randr0
+  libxcb-render-util0
+  libxcb-shape0
+  libxcb-xinerama0
   libxtst-dev
   libdrm-dev
   )
@@ -146,12 +153,6 @@ apt_packages_runtimeARM=( # adapt musescore 4. Apr20,2025 https://github.com/mus
   # 3 libxrandr2
   # 3 libxtst-dev
   # 3 libdrm-dev
-  libxcb-icccm4
-  libxcb-image0
-  libxcb-keysyms1
-  libxcb-randr0
-  libxcb-render-util0
-  libxcb-xinerama0
   # libxcb-xkb-dev # Added support Qt6.2 to Lin CI #21544 
   # libxkbcommon-dev # Added support Qt6.2 to Lin CI #21544 
   libopengl-dev # fix ARM startup bug   https://github.com/musescore/MuseScore/issues/24228 , qt5 and qt6 https://bugreports.qt.io/browse/QTBUG-89754 , libOpenGL.so.0 in make_appimage.sh 
@@ -187,31 +188,12 @@ echo "############################## GET QT ##############################"
 
 case "$PACKARCH" in
   x86_64)
-    # https://github.com/Jojo-Schmitz/MuseScore/commit/1e58c6a9f6d3971801d530098f813475a1b104fc
-    #   5.9 to 5.15
-    #   Mainly to fix https://musescore.org/en/node/317323 for macOS. but
-    #   updating the builds for Linux and Windows too.
-    # https://github.com/Jojo-Schmitz/MuseScore/commit/3a8e9017f13ad456ca2fa36f71d90bca53482b38
-    #   5.15 revert back to 5.9
-    #   Fix vtests build using a similar method as the mtest.
-    #   Doesn't work, so back to 5.9.8, for Linux, for now...
-
-    # qtselect="qt5"
-    # qt_version="5152"
-    # qt_dir="$BUILD_TOOLS/Qt/${qt_version}"
-    # if [[ ! -d "${qt_dir}" ]]; then
-    #   mkdir -p "${qt_dir}"
-    #   qt_url="https://s3.amazonaws.com/utils.musescore.org/Qt${qt_version}_gcc64.7z"
-    #   wget -q --show-progress -O qt5.7z "${qt_url}"
-    #   7z x -y qt5.7z -o"${qt_dir}"
-    # fi
-
     qtselect="qt5"
-    qt_version="598"
+    qt_version="5152"
     qt_dir="$BUILD_TOOLS/qt${qt_version}"
     if [[ ! -d "${qt_dir}" ]]; then
       mkdir -p "${qt_dir}"
-      qt_url="https://s3.amazonaws.com/utils.musescore.org/qt${qt_version}.zip"
+      qt_url="https://s3.amazonaws.com/utils.musescore.org/Qt${qt_version}_gcc64.7z"
       wget -q --show-progress -O qt5.zip "${qt_url}"
       7z x -y qt5.zip -o"${qt_dir}"
     fi
