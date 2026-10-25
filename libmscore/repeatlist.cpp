@@ -400,19 +400,11 @@ void RepeatList::collectRepeatListElements()
                               remainder = swap;
                               }
                         // Cross-section of the repeatList
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
                         std::list<int> endings(remainder->endings().begin(), remainder->endings().end());
-#else
-                        std::list<int> endings = remainder->endings().toStdList();
-#endif
                         endings.remove_if([&volta](const int & ending) {
                               return (!(volta->hasEnding(ending)));
                               });
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
                         remainder->setEndings(QList<int>(endings.begin(), endings.end()));
-#else
-                        remainder->setEndings(QList<int>::fromStdList(endings));
-#endif
                         // Split and merge done
                         preProcessedVoltas.push_back(remainder);
                         if (volta->endMeasure() != remainder->endMeasure()) {

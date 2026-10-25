@@ -195,9 +195,7 @@ extern Ms::Synthesizer* createZerberus();
 #endif
 #include "telemetrymanager.h"
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
 #define endl Qt::endl
-#endif
 
 #if defined(Q_OS_WIN)
 // for SystemParametersInfo(SPI_GETSCREENREADER), see screenReaderActive()

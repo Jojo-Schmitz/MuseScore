@@ -40,12 +40,9 @@ QString ApiInfo::apiInfoLocation()
 
 QByteArray ApiInfo::genClientId()
       {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 11, 0))
       QByteArray qtGeneratedId(QSysInfo::machineUniqueId());
       if (!qtGeneratedId.isEmpty())
             return qtGeneratedId;
-#endif
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
       long long randId = QRandomGenerator().bounded(INT_MAX);
       constexpr size_t randBytes = sizeof(decltype(QRandomGenerator().bounded(INT_MAX)));
       qDebug() << "randBytes =" << randBytes << "sizeof(randId)" << sizeof(randId);
@@ -53,15 +50,6 @@ QByteArray ApiInfo::genClientId()
             randId <<= 8 * randBytes;
             randId += QRandomGenerator().bounded(INT_MAX);
             }
-#else
-      long long randId = qrand();
-      constexpr size_t randBytes = sizeof(decltype(qrand()));
-      qDebug() << "randBytes =" << randBytes << "sizeof(randId)" << sizeof(randId);
-      for (size_t bytes = randBytes; bytes < sizeof(randId); bytes += randBytes) {
-            randId <<= 8 * randBytes;
-            randId += qrand();
-            }
-#endif
       qDebug() << randId << QString::number(randId, 2) << QString::number(randId, 16);
 
       return QString::number(randId, 16).toLatin1();
@@ -601,11 +589,7 @@ void LoginManager::onGetMediaUrlReply(QNetworkReply* reply, int code, const QJso
             QJsonValue urlValue = response.value("url");
             if (urlValue.isString()) {
                   _mediaUrl = urlValue.toString();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
                   QString mp3Path = QDir::tempPath() + QString("/temp_%1.mp3").arg(QRandomGenerator().bounded(100000));
-#else
-                  QString mp3Path = QDir::tempPath() + QString("/temp_%1.mp3").arg(qrand() % 100000);
-#endif
                   _mp3File = new QFile(mp3Path);
                   Score* score = mscore->currentScore()->masterScore();
                   int br = preferences.getInt(PREF_EXPORT_MP3_BITRATE);
@@ -712,11 +696,7 @@ void LoginManager::upload(const QString& path, int nid, const QString& title)
 
       QHttpPart filePart;
       filePart.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/octet-stream"));
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
       QString contentDisposition = QString("form-data; name=\"score_data\"; filename=\"temp_%1.mscz\"").arg(QRandomGenerator().bounded(100000));
-#else
-      QString contentDisposition = QString("form-data; name=\"score_data\"; filename=\"temp_%1.mscz\"").arg(qrand() % 100000);
-#endif
       filePart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant(contentDisposition));
       QFile *file = new QFile(path);
       file->open(QIODevice::ReadOnly);

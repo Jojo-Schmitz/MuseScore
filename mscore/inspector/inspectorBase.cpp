@@ -126,11 +126,7 @@ QVariant InspectorBase::getValue(const InspectorItem& ii) const
                   v = QVariant::fromValue<Direction>(Direction(v.toInt()));
                   break;
             case P_TYPE::INT_LIST: {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
                   QStringList sl = v.toString().split(",", Qt::SkipEmptyParts);
-#else
-                  QStringList sl = v.toString().split(",", QString::SkipEmptyParts);
-#endif
                   QList<int> il;
                   for (QString& l : sl) {
                         int i = l.simplified().toInt();

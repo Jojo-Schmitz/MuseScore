@@ -736,11 +736,7 @@ void GuitarPro::readLyrics()
       QString lyrics = readWordPascalString();
       lyrics.replace(QRegExp("\n"), " ");
       lyrics.replace(QRegExp("\r"), " ");
-#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
       auto sl = lyrics.split(" ", Qt::KeepEmptyParts);
-#else
-      auto sl = lyrics.split(" ", QString::KeepEmptyParts);
-#endif
       //gpLyrics.lyrics = lyrics.split(" ", QString::KeepEmptyParts);
       for (auto& str : sl) {
             /*while (str[0] == '-')

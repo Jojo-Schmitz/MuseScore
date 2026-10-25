@@ -441,11 +441,7 @@ QString Page::replaceTextMacros(const QString& s) const
                               {
                               QString creationDate = score()->metaTag("creationDate");
                               if (creationDate.isNull())
-#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
-                                    d += QLocale().toString(masterScore()->fileInfo()->created().date(), QLocale::ShortFormat);
-#else
                                     d += QLocale().toString(masterScore()->fileInfo()->birthTime().date(), QLocale::ShortFormat);
-#endif
                               else
                                     d += QLocale().toString(QDate::fromString(creationDate, Qt::ISODate), QLocale::ShortFormat);
                               }

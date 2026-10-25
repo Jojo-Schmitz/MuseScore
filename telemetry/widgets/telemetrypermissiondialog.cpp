@@ -18,13 +18,8 @@
 //=============================================================================
 
 #include <QQuickItem>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
 #include <QGuiApplication>
 #include <QScreen>
-#else
-#include <QApplication>
-#include <QDesktopWidget>
-#endif
 
 #include "telemetrypermissiondialog.h"
 
@@ -39,11 +34,7 @@ TelemetryPermissionDialog::TelemetryPermissionDialog(QQmlEngine* engine) : QQuic
 
       setFlags(Qt::Dialog | Qt::CustomizeWindowHint); ///@note Hidding a native frame with 'X' close button
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
       QRect desktopRect = QGuiApplication::primaryScreen()->availableGeometry();
-#else
-      QRect desktopRect = QApplication::desktop()->availableGeometry();
-#endif
       QPoint center = desktopRect.center();
 
       setPosition(center.x() - minimumWidth() * 0.5, center.y() - minimumHeight() * 0.5);

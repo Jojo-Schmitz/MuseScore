@@ -154,11 +154,7 @@ void ImportMidiPanel::fillCharsetList()
             _ui->comboBoxCharset->addItem(charset);
             if (charset == MidiCharset::defaultCharset())
                   _ui->comboBoxCharset->setCurrentIndex(idx);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
             int newWidth = fm.horizontalAdvance(charset);
-#else
-            int newWidth = fm.width(charset);
-#endif
             if (newWidth > maxWidth)
                   maxWidth = newWidth;
             ++idx;

@@ -7901,11 +7901,7 @@ bool ExportMusicXml::shouldWritePageNo(const Page* page)
       auto macroPrintPageNo = [&](const Text* text) -> bool {
             QString xmlText = text->xmlText();
             static const QRegularExpression pageNo("\\$([p|N|P])");
-#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
             QStringList results = xmlText.split(pageNo, Qt::SkipEmptyParts);
-#else
-            QStringList results = xmlText.split(pageNo, QString::SkipEmptyParts);
-#endif
             for (const QString& s : results) {
                   QChar c = s.at(0);
                   if ((c == 'P')

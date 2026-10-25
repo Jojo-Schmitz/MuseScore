@@ -3438,11 +3438,7 @@ int MusicXMLParserPass1::voiceToInt(const QString& voice)
       if (voice.isEmpty())
             voiceInt = 1;
       else if (!ok)
-#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
             voiceInt = qHash(voice);  // Handle the rare but technically in-spec case of a non-int voice
-#else //seeding with a real magic value ;-)
-            voiceInt = qHash(voice, 42);  // Handle the rare but technically in-spec case of a non-int voice
-#endif
       return voiceInt;
       }
 

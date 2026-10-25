@@ -3463,11 +3463,7 @@ void MusicXMLParserDirection::direction(const QString& partId,
                         static const QRegularExpression re("(<.*?>)");
                         rawWordsText.remove(re);
                         QString sep = !_metroText.isEmpty() && !rawWordsText.isEmpty()
-#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
                                     && rawWordsText.back()
-#else
-                                    && rawWordsText.at(rawWordsText.size() - 1)
-#endif
                                     != ' ' ? " " : QString();
                         t->setXmlText(_wordsText + sep + _metroText);
                         if (_tpoSound > 0.1) {
@@ -4171,11 +4167,7 @@ bool MusicXMLParserDirection::isLyricBracket() const
       if (_wordsText.isEmpty())
             return false;
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
       if (!(_wordsText.front() == '}' || _wordsText.back() == '{'))
-#else
-      if (!(_wordsText.at(0) == '}' || _wordsText.at(_wordsText.size() - 1) == '{'))
-#endif
             return false;
 
       return _rehearsalText.isEmpty()
@@ -5440,11 +5432,7 @@ void MusicXMLParserPass2::doEnding(const QString& partId, Measure* measure, cons
             else if (type.isEmpty())
                   _logger->logError("empty ending type", &_e);
             else {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
                   QStringList sl = number.split(",", Qt::SkipEmptyParts);
-#else
-                  QStringList sl = number.split(",", QString::SkipEmptyParts);
-#endif
                   QList<int> iEndingNumbers;
                   bool unsupported = false;
                   for (const QString& s : qAsConst(sl)) {

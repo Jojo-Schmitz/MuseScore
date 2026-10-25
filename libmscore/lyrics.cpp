@@ -402,11 +402,7 @@ void Lyrics::paste(EditData& ed)
       MuseScoreView* scoreview = ed.view;
       QString txt = QApplication::clipboard()->text();
       QString regex = QString("[^\\S") + QChar(0xa0) + QChar(0x202F) + "]+";
-#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
       QStringList sl = txt.split(QRegExp(regex), Qt::SkipEmptyParts);
-#else
-      QStringList sl = txt.split(QRegExp(regex), QString::SkipEmptyParts);
-#endif
       if (sl.empty())
             return;
 

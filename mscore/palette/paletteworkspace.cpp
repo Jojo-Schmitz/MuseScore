@@ -1017,13 +1017,9 @@ bool PaletteWorkspace::read(XmlReader& e)
 
 bool PaletteWorkspace::needsItemDestructionAccessibilityWorkaround() const
       {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 11, 0))
       // Qt switched to a new accessibility backend since 5.11
       // and no crashes are reported for 5.12 so presumably
       // the workaround is not needed since Qt 5.11.
       return false;
-#else
-      return QAccessible::isActive();
-#endif
       }
 } // namespace Ms

@@ -14,10 +14,8 @@
 #include "scoreElement.h"
 #include "xml.h"
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
 #define endl Qt::endl
 #define dec Qt::dec
-#endif
 
 namespace Ms {
 

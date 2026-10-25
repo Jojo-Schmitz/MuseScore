@@ -146,11 +146,7 @@ void Staff::swapBracket(int oldIdx, int newIdx)
       fillBrackets(idx);
       _brackets[oldIdx]->setColumn(newIdx);
       _brackets[newIdx]->setColumn(oldIdx);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
       _brackets.swapItemsAt(oldIdx, newIdx);
-#else
-      _brackets.swap(oldIdx, newIdx);
-#endif
       cleanBrackets();
       }
 
@@ -168,11 +164,7 @@ void Staff::changeBracketColumn(int oldColumn, int newColumn)
             int newIdx = i + step;
             _brackets[oldIdx]->setColumn(newIdx);
             _brackets[newIdx]->setColumn(oldIdx);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
             _brackets.swapItemsAt(oldIdx, newIdx);
-#else
-            _brackets.swap(oldIdx, newIdx);
-#endif
             }
       cleanBrackets();
       }
