@@ -27,6 +27,13 @@ then
     echo -e "universal_target ${MACOSX_DEPLOYMENT_TARGET}\nmacosx_deployment_target ${MACOSX_DEPLOYMENT_TARGET}\nmacosx_sdk_version ${MACOSX_DEPLOYMENT_TARGET}" | sudo tee -a /opt/local/etc/macports/macports.conf
     sudo port install pkgconfig
     sudo port install flac libogg libvorbis libopus mpg123 lame libsndfile portaudio jack
+
+    export QT_SHORT_VERSION=5.15.9
+    export QT_PATH=$HOME/Qt
+    export QT_MACOS=$QT_PATH/$QT_SHORT_VERSION/clang_64
+    export PATH=$PATH:$QT_MACOS/bin
+    echo "PATH=$PATH" >> $GITHUB_ENV
+    wget -nv -O qt5.zip https://s3.amazonaws.com/utils.musescore.org/Qt5159_mac.zip
 else # Intel
     export MACOSX_DEPLOYMENT_TARGET=10.13
 
@@ -105,14 +112,15 @@ else # Intel
     installBottleManually flac
     installBottleManually libsndfile
     installBottleManually portaudio
+
+    export QT_SHORT_VERSION=5.9
+    export QT_PATH=$HOME/Qt
+    export QT_MACOS=$QT_PATH/$QT_SHORT_VERSION/clang_64
+    export PATH=$PATH:$QT_MACOS/bin
+    echo "PATH=$PATH" >> $GITHUB_ENV
+    wget -nv -O qt5.zip https://s3.amazonaws.com/utils.musescore.org/qt598_mac.zip
 fi
 
-export QT_SHORT_VERSION=5.15.9
-export QT_PATH=$HOME/Qt
-export QT_MACOS=$QT_PATH/$QT_SHORT_VERSION/clang_64
-export PATH=$PATH:$QT_MACOS/bin
-echo "PATH=$PATH" >> $GITHUB_ENV
-wget -nv -O qt5.zip https://s3.amazonaws.com/utils.musescore.org/Qt5159_mac.zip
 mkdir -p $QT_MACOS
 unzip -qq qt5.zip -d $QT_MACOS
 rm qt5.zip
