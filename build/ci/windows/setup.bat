@@ -28,22 +28,6 @@ IF ERRORLEVEL 1 ( choco install -y 7zip.install )
 SET TEMP_DIR="c:\TEMP\musescore"
 MKDIR %TEMP_DIR%
 
-:: Install Qt
-ECHO "=== Install Qt ==="
-
-IF %TARGET_PROCESSOR_BITS% == 32 (
-    SET "Qt_ARCHIVE=qt599_msvc2015.7z"
-    SET "QT_DIR=C:\Qt\5.9.9"
-) ELSE (
-    SET "Qt_ARCHIVE=Qt5152_msvc2019_64.7z"
-    SET "QT_DIR=C:\Qt\5.15.2"
-)
-
-SET "QT_URL=https://s3.amazonaws.com/utils.musescore.org/%Qt_ARCHIVE%"
-
-CALL "curl.exe" -f -o "%TEMP_DIR%\%Qt_ARCHIVE%" "%QT_URL%"
-CALL "7z" x -y "%TEMP_DIR%\%Qt_ARCHIVE%" "-o%QT_DIR%"
-
 :: Install dependencies
 ECHO "=== Install dependencies ==="
 CALL "curl.exe" -f -o %TEMP_DIR%\musescore_dependencies_win32.7z "https://s3.amazonaws.com/utils.musescore.org/musescore_dependencies_win32.7z"

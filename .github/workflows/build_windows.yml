@@ -160,6 +160,15 @@ jobs:
         echo "DO_PUBLISH=$DO_PUBLISH" | tee -a $GITHUB_ENV
         echo "UPLOAD_ARTIFACT_NAME=$UPLOAD_ARTIFACT_NAME" | tee -a $GITHUB_ENV
 
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        #aqtversion: '==3.3.*'
+        version: 5.15.2
+        host: 'windows'
+        target: 'desktop'
+        arch: 'win64_msvc2019_64'
+        modules: 'qtnetworkauth qtwebengine'
     - name: Setup environment
       run: |
         build\ci\windows\setup.bat
@@ -238,6 +247,15 @@ jobs:
         echo "DO_PUBLISH=$DO_PUBLISH" | tee -a $GITHUB_ENV
         echo "UPLOAD_ARTIFACT_NAME=$UPLOAD_ARTIFACT_NAME" | tee -a $GITHUB_ENV
 
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        #aqtversion: '==3.3.*'
+        version: 5.15.2
+        host: 'windows'
+        target: 'desktop'
+        arch: 'win32_msvc2019'
+        modules: 'qtnetworkauth qtwebengine'
     - name: Setup environment
       run: |
         build\ci\windows\setup.bat -b 32
@@ -316,6 +334,15 @@ jobs:
         echo "DO_PUBLISH=$DO_PUBLISH" | tee -a $GITHUB_ENV
         echo "UPLOAD_ARTIFACT_NAME=$UPLOAD_ARTIFACT_NAME" | tee -a $GITHUB_ENV
 
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        #aqtversion: '==3.3.*'
+        version: 5.15.2
+        host: 'windows'
+        target: 'desktop'
+        arch: 'win32_msvc2019'
+        modules: 'qtnetworkauth qtwebengine'
     - name: Setup environment
       run: |
         build\ci\windows\setup.bat -b 32 --portable ON
@@ -393,6 +420,15 @@ jobs:
         echo "DO_PUBLISH=$DO_PUBLISH" | tee -a $GITHUB_ENV
         echo "UPLOAD_ARTIFACT_NAME=$UPLOAD_ARTIFACT_NAME" | tee -a $GITHUB_ENV
 
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        #aqtversion: '==3.3.*'
+        version: 5.15.2
+        host: 'windows'
+        target: 'desktop'
+        arch: 'win64_msvc2019_64'
+        modules: 'qtnetworkauth qtwebengine'
     - name: Setup environment
       run: |
         build\ci\windows\setup.bat --portable ON
