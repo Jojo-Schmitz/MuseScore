@@ -2347,11 +2347,17 @@ void ScoreView::cmd(const char* s)
                   // ??
                   }},
             {{"play"}, [](ScoreView* cv, const QByteArray&) {
+                  // Stopping must not go through canStart(): its collectEvents() moves
+                  // playPos, with Loop on to events.find(loopInTick), which is end() when
+                  // no event is on that tick. The audio thread then takes the stop for
+                  // the end of a whole-score loop and starts playing again ('4').
+                  if (cv->state == ViewState::PLAY) {
+                        cv->changeState(ViewState::NORMAL);
+                        return;
+                        }
                   if (seq && seq->canStart()) {
                         if (cv->state == ViewState::NORMAL || cv->state == ViewState::NOTE_ENTRY)
                               cv->changeState(ViewState::PLAY);
-                        else if (cv->state == ViewState::PLAY)
-                              cv->changeState(ViewState::NORMAL);
                         }
                   else
                         getAction("play")->setChecked(false);
