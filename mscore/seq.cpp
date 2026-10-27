@@ -751,6 +751,7 @@ void Seq::processMessages()
                         break;
                   case SeqMsgId::SEEK:
                         setPos(msg.intVal);
+                        loopSeekPending = false;
                         break;
                   case SeqMsgId::ALL_NOTE_OFF:
                         {
@@ -1146,6 +1147,7 @@ void Seq::process(unsigned framesPerPeriod, float* buffer)
                   initInstruments(true);
                   // Need to change state after calling collectEvents()
                   state = Transport::PLAY;
+                  loopSeekPending = false;
                   if (mscore->countIn() && cs->playMode() == PlayMode::SYNTHESIZER) {
                         countInEvents.clear();
                         inCountIn = true;
@@ -1155,6 +1157,7 @@ void Seq::process(unsigned framesPerPeriod, float* buffer)
             // Got a message from JACK Transport panel: Stop
             else if (state == Transport::PLAY && driverState == Transport::STOP) {
                   state = Transport::STOP;
+                  loopSeekPending = false;
                   // Muting all notes
                   stopNotes(-1, true);
                   initInstruments(true);
@@ -1253,8 +1256,13 @@ void Seq::process(unsigned framesPerPeriod, float* buffer)
                                                       seekRT((seekto > 0) ? seekto : 0 );
                                                       }
                                                 }
-                                          else {
-                                                emit toGui('3'); // calls loopStart()
+                                          else if (!loopSeekPending) {
+                                                // Until the seek lands, playPos stays at the loop end and
+                                                // this branch is taken again every period. Ask only once,
+                                                // otherwise the late duplicates seek again after playback
+                                                // has already restarted at the loop start.
+                                                loopSeekPending = true;
+                                                emit toGui('3'); // seeks to the loop start
                                                 }
                                           // Exit this function to avoid segmentation fault in Scoreview
                                           return;
@@ -1540,7 +1548,13 @@ void Seq::collectEvents(int utick)
             }
 
       updateEventsEnd();
-      playPos = mscore->loop() ? events.find(cs->loopInTick().ticks()) : events.cbegin();
+      // While playing, playPos belongs to the audio thread, which plays the
+      // current event and only then locks to step on; moving it from here can
+      // leave it at end() (find() is an exact match), which the audio thread
+      // then increments. During playback collectEvents() is only reached via
+      // seek(), whose SEEK message sets playPos on the audio thread anyway.
+      if (state != Transport::PLAY)
+            playPos = mscore->loop() ? events.find(cs->loopInTick().ticks()) : events.cbegin();
       playlistChanged = false;
       mutex.unlock();
       }
