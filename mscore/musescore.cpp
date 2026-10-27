@@ -430,7 +430,10 @@ static void printVersion(const char* prog)
             fprintf(stderr, "%s: Music Score Editor; Version %s; Build %s\n", prog, VERSION, qPrintable(revision));
       }
 
-static const int RECENT_LIST_SIZE = 20;
+static const int RECENT_LIST_SIZE = 20;     // how many recent scores are shown
+// How many are remembered. More than are shown, because already open scores are
+// not shown: with RECENT_LIST_SIZE or more scores open, the menu could be empty.
+static const int RECENT_HISTORY_SIZE = 60;
 
 //---------------------------------------------------------
 //   closeEvent
@@ -3025,7 +3028,7 @@ void MuseScore::addRecentScore(const QString& scorePath)
       CocoaBridge::addRecentFile(absoluteFilePath);
 #endif
 
-      while (_recentScores.size() > RECENT_LIST_SIZE)
+      while (_recentScores.size() > RECENT_HISTORY_SIZE)
             _recentScores.removeLast();
       }
 
@@ -3061,7 +3064,7 @@ void MuseScore::loadScoreList()
       if (useFactorySettings)
             return;
       QSettings s;
-      for (int i = RECENT_LIST_SIZE-1; i >= 0; --i) {
+      for (int i = RECENT_HISTORY_SIZE-1; i >= 0; --i) {
             QString path = s.value(QString("recent-%1").arg(i),"").toString();
             if (!path.isEmpty() && QFileInfo::exists(path)) {
                   _recentScores.removeAll(path);
@@ -3098,7 +3101,9 @@ void MuseScore::openRecentMenu()
             }
       else {
             // Don't leave the menu empty, but add a hint
-            QAction* hint = openRecent->addAction(tr("No recent files"));
+            QAction* hint = openRecent->addAction(_recentScores.isEmpty()
+               ? tr("No recent files")
+               : tr("All recent files are already open"));
             hint->setEnabled(false);
             }
       }
@@ -3899,6 +3904,12 @@ void MuseScore::removeTab(int i)
       midiPanelOnCloseFile(score->importedFilePath());
       scoreList.removeAt(i);
       scoreWasShown.remove(score);
+
+      // A closed score goes to the top of the recent list: files opened by
+      // session restore never got there otherwise. After checkDirty(), so a
+      // cancelled close adds nothing and Save As records the new name.
+      if (!scriptTestMode && !converterMode && !score->created())
+            addRecentScore(score);
 
       tab1->removeTab(i, /* noCurrentChangedSignals */ true);
       if (tab2)
@@ -5190,7 +5201,7 @@ void MuseScore::restoreDialogState(const char* name, QFileDialog* d)
 void MuseScore::writeSettings()
       {
       // save score list
-      for (int i = 0; i < RECENT_LIST_SIZE; ++i)
+      for (int i = 0; i < RECENT_HISTORY_SIZE; ++i)
             settings.setValue(QString("recent-%1").arg(i), _recentScores.value(i));
 
       settings.setValue("scores", scoreList.size());
@@ -7921,8 +7932,11 @@ QFileInfoList MuseScore::recentScores() const
                         break;
                         }
                   }
-            if (!alreadyLoaded && fi.exists())
+            if (!alreadyLoaded && fi.exists()) {
                   fil.append(fi);
+                  if (fil.size() >= RECENT_LIST_SIZE)
+                        break;
+                  }
             }
       return fil;
       }
