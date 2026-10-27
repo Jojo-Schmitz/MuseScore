@@ -127,6 +127,7 @@
 #define PREF_IO_OSC_PORTNUMBER                              "io/osc/portNumber"
 #define PREF_IO_OSC_USEREMOTECONTROL                        "io/osc/useRemoteControl"
 #define PREF_IO_PORTAUDIO_DEVICE                            "io/portAudio/device"
+#define PREF_IO_PORTAUDIO_HIGHLATENCY                       "io/portAudio/highLatency"
 #define PREF_IO_PORTAUDIO_USEPORTAUDIO                      "io/portAudio/usePortAudio"
 #define PREF_IO_PORTMIDI_INPUTBUFFERCOUNT                   "io/portMidi/inputBufferCount"
 #define PREF_IO_PORTMIDI_INPUTDEVICE                        "io/portMidi/inputDevice"

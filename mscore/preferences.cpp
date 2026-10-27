@@ -111,6 +111,16 @@ void Preferences::init(bool storeInMemoryOnly)
       defaultUsePortAudio = true;
 #endif
 
+#ifdef USE_PORTAUDIO
+#if defined(Q_OS_MAC)
+      // On macOS, PortAudio's low latency gives a CoreAudio buffer that is too small
+      // to be met reliably, which makes all audio on the machine crackle
+      const bool defaultPortAudioHighLatency = true;
+#else
+      const bool defaultPortAudioHighLatency = false;
+#endif
+#endif
+
 #if defined(Q_OS_MAC) && !defined(TESTROOT)
       const MuseScorePreferredStyleType defaultAppGlobalStyle = CocoaBridge::isSystemDarkModeSupported() ? MuseScorePreferredStyleType::FOLLOW_SYSTEM : MuseScorePreferredStyleType::LIGHT_FUSION;
 #else
@@ -230,6 +240,7 @@ void Preferences::init(bool storeInMemoryOnly)
             {PREF_IO_OSC_USEREMOTECONTROL,                         new BoolPreference(false, false)},
       #ifdef USE_PORTAUDIO
             {PREF_IO_PORTAUDIO_DEVICE,                             new IntPreference(-1, false)},
+            {PREF_IO_PORTAUDIO_HIGHLATENCY,                        new BoolPreference(defaultPortAudioHighLatency)},
             {PREF_IO_PORTAUDIO_USEPORTAUDIO,                       new BoolPreference(defaultUsePortAudio, false)},
       #endif
       #ifdef USE_PORTMIDI

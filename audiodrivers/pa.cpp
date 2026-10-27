@@ -124,7 +124,9 @@ bool Portaudio::init(bool)
       out.device           = idx;
       out.channelCount     = 2;
       out.sampleFormat     = paFloat32;
-      out.suggestedLatency = di->defaultLowOutputLatency;
+      // Low latency is meant for interactive performance, high latency for robust
+      // playback; why macOS defaults to high is noted in Preferences::init()
+      out.suggestedLatency = preferences.getBool(PREF_IO_PORTAUDIO_HIGHLATENCY) ? di->defaultHighOutputLatency : di->defaultLowOutputLatency;
       out.hostApiSpecificStreamInfo = 0;
 
       err = Pa_OpenStream(&stream, 0, &out, double(_sampleRate), 0, 0, paCallback, (void*)this);
