@@ -352,8 +352,9 @@ void XmlReader::checkTuplets()
 void XmlReader::htmlToString(int level, QString* s)
       {
       // MuseScore Studio 4.7+ now writes text line-breaks as <br/>!
-      // This will restore the literal newlines expected by the 3.x text layout parser:
-      if (name() == QLatin1String("br")) {
+      // This will restore the literal newlines expected by the 3.x text layout parser
+      // without disturbing 1.x' `html-data`:
+      if (name() == QLatin1String("br") && !s->contains(QLatin1String("<html"))) {
             *s += QChar::LineFeed;
             skipCurrentElement();
             return;
