@@ -659,10 +659,10 @@ int GuitarPro6::findNumMeasures(GPPartInfo* partInfo)
       //work out the number of measures (add 1 as couning from 0, and divide by number of parts)
       int numMeasures = (b.split(" ").last().toInt() + 1) / score->parts().length();
 
-      if (numMeasures > b.size()) {
-            qDebug("GuitarPro6:findNumMeasures: bars %d < numMeasures %d\n", b.size(), numMeasures);
+      if (numMeasures > bars.size()) {
+            qDebug("GuitarPro6:findNumMeasures: bars %d < numMeasures %d\n", bars.size(), numMeasures);
             // HACK (ws)
-            numMeasures = b.size();
+            numMeasures = bars.size();
             }
       return numMeasures;
       }
@@ -1805,7 +1805,7 @@ Fraction GuitarPro6::readBeats(QString beats, GPPartInfo* partInfo, Measure* mea
                         art->setAnchor(ArticulationAnchor::TOP_STAFF);
                         art->setPropertyFlags(Pid::ARTICULATION_ANCHOR, PropertyFlags::UNSTYLED);
                         auto seg = cr->segment()->prev1(SegmentType::ChordRest);
-                        if (seg && seg->cr(track)->isChord()) {
+                        if (seg && seg->cr(track) && seg->cr(track)->isChord()) {
                               seg->cr(track)->add(art);
                               }
                         else
