@@ -14829,7 +14829,7 @@ La réinitialisation ne supprimera aucune des partitions de votre ordinateur.
     <message>
         <location filename="../../mscore/musescore.cpp" line="3106"/>
         <source>All recent files are already open</source>
-        <translation type="unfinished"></translation>
+        <translation>Tous les fichiers récents sont déjà ouverts</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="4765"/>
