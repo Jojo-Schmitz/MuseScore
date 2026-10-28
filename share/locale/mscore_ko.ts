@@ -5768,7 +5768,7 @@ By default, they will be placed such as that their right end are at the same lev
 <context>
     <name>GreendotButton</name>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="6694"/>
+        <location filename="../../mscore/musescore.cpp" line="6703"/>
         <source>Record</source>
         <translation>녹음</translation>
     </message>
@@ -11167,12 +11167,12 @@ time and key signatures</source>
         <translation>모든 악기</translation>
     </message>
     <message>
-        <location filename="../../mscore/instrwidget.cpp" line="1363"/>
+        <location filename="../../mscore/instrwidget.cpp" line="1347"/>
         <source>%1 solo %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/instrwidget.cpp" line="1372"/>
+        <location filename="../../mscore/instrwidget.cpp" line="1356"/>
         <source>%1 solo</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11711,7 +11711,7 @@ Would you like to locate %2 now?</source>
     <message>
         <location filename="../../mscore/masterpalette.cpp" line="224"/>
         <location filename="../../mscore/masterpalette.cpp" line="267"/>
-        <location filename="../../mscore/musescore.cpp" line="7136"/>
+        <location filename="../../mscore/musescore.cpp" line="7145"/>
         <source>Symbols</source>
         <translation>기호</translation>
     </message>
@@ -13212,7 +13212,7 @@ failed: %2</source>
         <translation>인스펙터</translation>
     </message>
     <message>
-        <location filename="../../mscore/inspector/inspectorBase.cpp" line="573"/>
+        <location filename="../../mscore/inspector/inspectorBase.cpp" line="569"/>
         <source>Set as style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13609,12 +13609,12 @@ failed: %2</source>
         <translation>보표 종류</translation>
     </message>
     <message>
-        <location filename="../../mscore/instrwidget.cpp" line="1470"/>
+        <location filename="../../mscore/instrwidget.cpp" line="1454"/>
         <source>Undo soloist</source>
         <translation>독주악기 취소하기</translation>
     </message>
     <message>
-        <location filename="../../mscore/instrwidget.cpp" line="1472"/>
+        <location filename="../../mscore/instrwidget.cpp" line="1456"/>
         <source>Make soloist</source>
         <translation>독주악기 만들기</translation>
     </message>
@@ -13669,48 +13669,48 @@ failed: %2</source>
 <context>
     <name>Ms::LoginManager</name>
     <message>
-        <location filename="../../mscore/cloud/loginmanager.cpp" line="308"/>
+        <location filename="../../mscore/cloud/loginmanager.cpp" line="296"/>
         <source>Error</source>
         <translation>오류</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/loginmanager.cpp" line="404"/>
-        <location filename="../../mscore/cloud/loginmanager.cpp" line="470"/>
+        <location filename="../../mscore/cloud/loginmanager.cpp" line="392"/>
+        <location filename="../../mscore/cloud/loginmanager.cpp" line="458"/>
         <source>Wrong response from the server</source>
         <translation>서버로 부터 잘못된 응답</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/loginmanager.cpp" line="473"/>
+        <location filename="../../mscore/cloud/loginmanager.cpp" line="461"/>
         <source>Error while getting user info: %1</source>
         <translation>사용자 정보를 가져오는 중 오류 발생: %1</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/loginmanager.cpp" line="643"/>
+        <location filename="../../mscore/cloud/loginmanager.cpp" line="627"/>
         <source>Uploading…</source>
         <translation>업로드 중…</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/loginmanager.cpp" line="644"/>
+        <location filename="../../mscore/cloud/loginmanager.cpp" line="628"/>
         <source>Cancel</source>
         <translation>취소</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/loginmanager.cpp" line="680"/>
+        <location filename="../../mscore/cloud/loginmanager.cpp" line="664"/>
         <source>Upload Error</source>
         <translation>올리기 오류</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/loginmanager.cpp" line="681"/>
+        <location filename="../../mscore/cloud/loginmanager.cpp" line="665"/>
         <source>Sorry, MuseScore couldn&apos;t upload the audio file. Error %1</source>
         <translation>죄송합니다만, MuseScore는 이 오디오 파일을 업로드할 수 없습니다. Error %1</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/loginmanager.cpp" line="768"/>
+        <location filename="../../mscore/cloud/loginmanager.cpp" line="748"/>
         <source>An error occurred during the file transfer. Please try again</source>
         <translation>파일 전환중 오류가 발생하였습니다. 다시 시도하시기 바랍니다..</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/loginmanager.cpp" line="772"/>
+        <location filename="../../mscore/cloud/loginmanager.cpp" line="752"/>
         <source>Cannot upload: %1</source>
         <translation>업로드 할 수 없습니다: %1</translation>
     </message>
@@ -13961,82 +13961,82 @@ Sound: %5</source>
     <name>Ms::MuseScore</name>
     <message>
         <location filename="../../mscore/exportaudio.cpp" line="343"/>
-        <location filename="../../mscore/musescore.cpp" line="8128"/>
+        <location filename="../../mscore/musescore.cpp" line="8140"/>
         <source>Cancel</source>
         <translation>취소</translation>
     </message>
     <message>
         <location filename="../../mscore/exportaudio.cpp" line="344"/>
-        <location filename="../../mscore/musescore.cpp" line="8129"/>
+        <location filename="../../mscore/musescore.cpp" line="8141"/>
         <source>Exporting…</source>
         <translation>내보내는 중…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8050"/>
         <location filename="../../mscore/musescore.cpp" line="8062"/>
+        <location filename="../../mscore/musescore.cpp" line="8074"/>
         <source>Error Opening LAME library</source>
         <translation>LAME 라이브러리를 여는 중 오류</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8051"/>
+        <location filename="../../mscore/musescore.cpp" line="8063"/>
         <source>Could not open MP3 encoding library!</source>
         <translation>MP3 인코딩 라이브러리를 열 수 없습니다.</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8063"/>
+        <location filename="../../mscore/musescore.cpp" line="8075"/>
         <source>Not a valid or supported MP3 encoding library!</source>
         <translation>유효하거나 지원되는 MP3 인코딩 라이브러리가 아닙니다!</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8011"/>
-        <location filename="../../mscore/musescore.cpp" line="8087"/>
-        <location filename="../../mscore/musescore.cpp" line="8238"/>
+        <location filename="../../mscore/musescore.cpp" line="8023"/>
+        <location filename="../../mscore/musescore.cpp" line="8099"/>
+        <location filename="../../mscore/musescore.cpp" line="8250"/>
         <source>Encoding Error</source>
         <translation>인코딩 오류</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5040"/>
+        <location filename="../../mscore/musescore.cpp" line="5049"/>
         <source>Insert mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5064"/>
+        <location filename="../../mscore/musescore.cpp" line="5073"/>
         <source>Drumset input mode</source>
         <translation>드럼 세트 입력 모드</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="6841"/>
+        <location filename="../../mscore/musescore.cpp" line="6850"/>
         <source>Invalid Command</source>
         <translation>유효하지 않은 명령</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="6842"/>
+        <location filename="../../mscore/musescore.cpp" line="6851"/>
         <source>Command %1 not valid in current state</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7831"/>
+        <location filename="../../mscore/musescore.cpp" line="7840"/>
         <source>Find / Go to:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8088"/>
+        <location filename="../../mscore/musescore.cpp" line="8100"/>
         <source>Unable to initialize MP3 stream</source>
         <translation>MP3 스트림을 초기화할 수 없습니다.</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8012"/>
+        <location filename="../../mscore/musescore.cpp" line="8024"/>
         <source>Unable to open target file for writing</source>
         <translation>대상 파일을 쓰기용으로 열 수 없습니다.</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8239"/>
+        <location filename="../../mscore/musescore.cpp" line="8251"/>
         <source>Error %1 returned from MP3 encoder</source>
         <translation>MP3 인코더에서 오류 %1을 반환했습니다.</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="252"/>
-        <location filename="../../mscore/musescore.cpp" line="5969"/>
+        <location filename="../../mscore/musescore.cpp" line="5978"/>
         <location filename="../../mscore/plugin/mscorePlugins.cpp" line="444"/>
         <source>MuseScore</source>
         <translation>MuseScore</translation>
@@ -14157,7 +14157,7 @@ before closing?</source>
     <message>
         <location filename="../../mscore/file.cpp" line="1241"/>
         <location filename="../../mscore/file.cpp" line="1268"/>
-        <location filename="../../mscore/musescore.cpp" line="7298"/>
+        <location filename="../../mscore/musescore.cpp" line="7307"/>
         <source>Load Style</source>
         <translation>스타일 로드하기</translation>
     </message>
@@ -14170,7 +14170,7 @@ before closing?</source>
         <location filename="../../mscore/file.cpp" line="1248"/>
         <location filename="../../mscore/file.cpp" line="1285"/>
         <location filename="../../mscore/file.cpp" line="1368"/>
-        <location filename="../../mscore/musescore.cpp" line="7289"/>
+        <location filename="../../mscore/musescore.cpp" line="7298"/>
         <source>Save Style</source>
         <translation>스타일 저장</translation>
     </message>
@@ -14436,350 +14436,350 @@ Do you want to replace it?
         <translation>매뉴얼</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2670"/>
+        <location filename="../../mscore/musescore.cpp" line="2671"/>
         <source>&amp;Add</source>
         <translation>추가(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2671"/>
+        <location filename="../../mscore/musescore.cpp" line="2672"/>
         <source>&amp;Measures</source>
         <translation>마디(&amp;M)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2672"/>
+        <location filename="../../mscore/musescore.cpp" line="2673"/>
         <source>&amp;Frames</source>
         <translation>프레임(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2673"/>
+        <location filename="../../mscore/musescore.cpp" line="2674"/>
         <source>&amp;Text</source>
         <translation>텍스트(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2674"/>
+        <location filename="../../mscore/musescore.cpp" line="2675"/>
         <source>&amp;Lines</source>
         <translation>선(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="373"/>
+        <location filename="../../mscore/musescore.cpp" line="371"/>
         <source>No measure selected:
 Please select a measure and try again</source>
         <translation>아무 마디도 선택되지 않았슴:
 먼저 마디를 선택하고 다시 해보세요</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2594"/>
+        <location filename="../../mscore/musescore.cpp" line="2595"/>
         <source>Measure:Beat:Tick</source>
         <translation>마디:박:틱</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1565"/>
+        <location filename="../../mscore/musescore.cpp" line="1566"/>
         <source>Switch layer</source>
         <translation>레이어 전환</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1570"/>
+        <location filename="../../mscore/musescore.cpp" line="1571"/>
         <source>Switch play mode</source>
         <translation>재생 모드 전환</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2646"/>
+        <location filename="../../mscore/musescore.cpp" line="2647"/>
         <source>Show MIDI import panel</source>
         <translation>MIDI 가져오기 패널 표시</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2617"/>
+        <location filename="../../mscore/musescore.cpp" line="2618"/>
         <source>File Operations</source>
         <translation>파일 작업</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1107"/>
-        <location filename="../../mscore/musescore.cpp" line="2636"/>
+        <location filename="../../mscore/musescore.cpp" line="1108"/>
+        <location filename="../../mscore/musescore.cpp" line="2637"/>
         <source>View Mode</source>
         <translation>보기 모드</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1108"/>
-        <location filename="../../mscore/musescore.cpp" line="2637"/>
+        <location filename="../../mscore/musescore.cpp" line="1109"/>
+        <location filename="../../mscore/musescore.cpp" line="2638"/>
         <source>Page View</source>
         <translation>페이지 보기</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1110"/>
-        <location filename="../../mscore/musescore.cpp" line="2639"/>
+        <location filename="../../mscore/musescore.cpp" line="1111"/>
+        <location filename="../../mscore/musescore.cpp" line="2640"/>
         <source>Continuous View</source>
         <translation>이어 보기</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2618"/>
+        <location filename="../../mscore/musescore.cpp" line="2619"/>
         <source>Playback Controls</source>
         <translation>재생 제어</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2619"/>
+        <location filename="../../mscore/musescore.cpp" line="2620"/>
         <source>Concert Pitch</source>
         <translation>콘서트 피치</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2620"/>
+        <location filename="../../mscore/musescore.cpp" line="2621"/>
         <source>Image Capture</source>
         <translation>이미지 캡처</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2621"/>
+        <location filename="../../mscore/musescore.cpp" line="2622"/>
         <source>Note Input</source>
         <translation>음표 입력</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="666"/>
+        <location filename="../../mscore/musescore.cpp" line="667"/>
         <source>Note Entry Methods</source>
         <translation>음표 입력 방법</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2664"/>
+        <location filename="../../mscore/musescore.cpp" line="2665"/>
         <source>&amp;File</source>
         <translation>파일(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2665"/>
+        <location filename="../../mscore/musescore.cpp" line="2666"/>
         <source>Open &amp;Recent</source>
         <translation>최근 파일 열기(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2666"/>
+        <location filename="../../mscore/musescore.cpp" line="2667"/>
         <source>&amp;Edit</source>
         <translation>편집(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2682"/>
+        <location filename="../../mscore/musescore.cpp" line="2683"/>
         <source>&amp;Measure</source>
         <translation>마디(&amp;M)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2680"/>
+        <location filename="../../mscore/musescore.cpp" line="2681"/>
         <source>&amp;Tools</source>
         <translation>도구(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2681"/>
+        <location filename="../../mscore/musescore.cpp" line="2682"/>
         <source>&amp;Voices</source>
         <translation>성부(&amp;V)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2669"/>
+        <location filename="../../mscore/musescore.cpp" line="2670"/>
         <source>W&amp;orkspaces</source>
         <translation>작업공간(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2595"/>
+        <location filename="../../mscore/musescore.cpp" line="2596"/>
         <source>&amp;Preferences…</source>
         <translation>설정(&amp;P)…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2667"/>
+        <location filename="../../mscore/musescore.cpp" line="2668"/>
         <source>&amp;View</source>
         <translation>보기(&amp;V)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2668"/>
+        <location filename="../../mscore/musescore.cpp" line="2669"/>
         <source>&amp;Toolbars</source>
         <translation>도구 모음(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2677"/>
+        <location filename="../../mscore/musescore.cpp" line="2678"/>
         <source>T&amp;uplets</source>
         <translation>잇단음표(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2684"/>
+        <location filename="../../mscore/musescore.cpp" line="2685"/>
         <source>&amp;Plugins</source>
         <translation>플러그인(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2687"/>
+        <location filename="../../mscore/musescore.cpp" line="2688"/>
         <source>&amp;Help</source>
         <translation>도움말(&amp;H)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2607"/>
+        <location filename="../../mscore/musescore.cpp" line="2608"/>
         <source>&amp;Online Handbook</source>
         <translation>온라인 안내서(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2604"/>
+        <location filename="../../mscore/musescore.cpp" line="2605"/>
         <source>&amp;About…</source>
         <translation>정보(&amp;A)…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1111"/>
-        <location filename="../../mscore/musescore.cpp" line="2640"/>
+        <location filename="../../mscore/musescore.cpp" line="1112"/>
+        <location filename="../../mscore/musescore.cpp" line="2641"/>
         <source>Single Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1568"/>
+        <location filename="../../mscore/musescore.cpp" line="1569"/>
         <source>Synthesizer</source>
         <translation>신디사이저</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1569"/>
+        <location filename="../../mscore/musescore.cpp" line="1570"/>
         <source>Audio track</source>
         <translation>오디오 트랙</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2175"/>
-        <location filename="../../mscore/musescore.cpp" line="2679"/>
+        <location filename="../../mscore/musescore.cpp" line="2176"/>
+        <location filename="../../mscore/musescore.cpp" line="2680"/>
         <source>&amp;Stretch</source>
         <translation>늘이기(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2675"/>
+        <location filename="../../mscore/musescore.cpp" line="2676"/>
         <source>N&amp;otes</source>
         <translation>음표(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2676"/>
+        <location filename="../../mscore/musescore.cpp" line="2677"/>
         <source>&amp;Intervals</source>
         <translation>음정(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2678"/>
+        <location filename="../../mscore/musescore.cpp" line="2679"/>
         <source>F&amp;ormat</source>
         <translation>양식(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2688"/>
+        <location filename="../../mscore/musescore.cpp" line="2689"/>
         <source>&amp;Tours</source>
         <translation>둘러보기(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2605"/>
+        <location filename="../../mscore/musescore.cpp" line="2606"/>
         <source>About &amp;Qt…</source>
         <translation>&amp;Qt 정보(&amp;Q)…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2606"/>
+        <location filename="../../mscore/musescore.cpp" line="2607"/>
         <source>About &amp;MusicXML…</source>
         <translation>MusicXML 정보(&amp;M)…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2609"/>
+        <location filename="../../mscore/musescore.cpp" line="2610"/>
         <source>Check for &amp;Update</source>
         <translation>업데이트 확인(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2610"/>
+        <location filename="../../mscore/musescore.cpp" line="2611"/>
         <source>Ask for Help</source>
         <translation>도움 요청하기</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2611"/>
+        <location filename="../../mscore/musescore.cpp" line="2612"/>
         <source>Report a Bug</source>
         <translation>버그 신고하기</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2615"/>
+        <location filename="../../mscore/musescore.cpp" line="2616"/>
         <source>Revert to Factory Settings</source>
         <translation>초기 설정으로 되돌리기</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2613"/>
-        <location filename="../../mscore/musescore.cpp" line="2623"/>
+        <location filename="../../mscore/musescore.cpp" line="2614"/>
+        <location filename="../../mscore/musescore.cpp" line="2624"/>
         <source>Feedback</source>
         <translation>피드백</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="868"/>
+        <location filename="../../mscore/musescore.cpp" line="869"/>
         <source>Please wait; unpacking extension…</source>
         <translation>잠시만 기다려주세요; 확장 기능 압축 해제 중…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="947"/>
+        <location filename="../../mscore/musescore.cpp" line="948"/>
         <source>Please wait; loading SoundFonts…</source>
         <translation>잠시만 기다려주세요; 사운드 폰트 로딩 중…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1109"/>
-        <location filename="../../mscore/musescore.cpp" line="2638"/>
+        <location filename="../../mscore/musescore.cpp" line="1110"/>
+        <location filename="../../mscore/musescore.cpp" line="2639"/>
         <source>Double Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1113"/>
-        <location filename="../../mscore/musescore.cpp" line="2644"/>
+        <location filename="../../mscore/musescore.cpp" line="1114"/>
+        <location filename="../../mscore/musescore.cpp" line="2645"/>
         <source>Floating</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1170"/>
+        <location filename="../../mscore/musescore.cpp" line="1171"/>
         <source>BPM:</source>
         <translation type="unfinished">박/분:</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1179"/>
+        <location filename="../../mscore/musescore.cpp" line="1180"/>
         <source>Tempo in quarter notes per minute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1183"/>
+        <location filename="../../mscore/musescore.cpp" line="1184"/>
         <source>Time signature:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1215"/>
-        <location filename="../../mscore/musescore.cpp" line="1268"/>
+        <location filename="../../mscore/musescore.cpp" line="1216"/>
+        <location filename="../../mscore/musescore.cpp" line="1269"/>
         <source>Follow score</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1221"/>
+        <location filename="../../mscore/musescore.cpp" line="1222"/>
         <source>Beat accents</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1227"/>
+        <location filename="../../mscore/musescore.cpp" line="1228"/>
         <source>Use varying strengths for non-downbeat clicks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1267"/>
+        <location filename="../../mscore/musescore.cpp" line="1268"/>
         <source>Following score</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2512"/>
+        <location filename="../../mscore/musescore.cpp" line="2513"/>
         <source>No login credentials stored. Please sign in via the GUI.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="1630"/>
-        <location filename="../../mscore/musescore.cpp" line="2598"/>
-        <location filename="../../mscore/musescore.cpp" line="2600"/>
+        <location filename="../../mscore/musescore.cpp" line="1631"/>
+        <location filename="../../mscore/musescore.cpp" line="2599"/>
+        <location filename="../../mscore/musescore.cpp" line="2601"/>
         <source>Debug Log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2625"/>
+        <location filename="../../mscore/musescore.cpp" line="2626"/>
         <source>Alternative Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2626"/>
+        <location filename="../../mscore/musescore.cpp" line="2627"/>
         <source>Workspaces</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2686"/>
+        <location filename="../../mscore/musescore.cpp" line="2687"/>
         <source>Debug</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2844"/>
+        <location filename="../../mscore/musescore.cpp" line="2845"/>
         <source>Are you sure?</source>
         <translation>확실합니까?</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2845"/>
+        <location filename="../../mscore/musescore.cpp" line="2846"/>
         <source>This will reset all your preferences.
 Custom palettes, custom shortcuts, and the list of recent scores will be deleted. MuseScore will restart with its default settings.
 Reverting will not remove any scores from your computer.
@@ -14790,105 +14790,110 @@ Are you sure you want to proceed?</source>
 정말 계속하시겠습니까?</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="3098"/>
+        <location filename="../../mscore/musescore.cpp" line="3099"/>
         <source>Clear Recent Files</source>
         <translation>목록 비우기</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="3103"/>
+        <location filename="../../mscore/musescore.cpp" line="3105"/>
         <source>No recent files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4756"/>
+        <location filename="../../mscore/musescore.cpp" line="3106"/>
+        <source>All recent files are already open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../mscore/musescore.cpp" line="4765"/>
         <source>System</source>
         <extracomment>The default language of the operating system. NOT a music system.</extracomment>
         <translation>시스템</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4764"/>
+        <location filename="../../mscore/musescore.cpp" line="4773"/>
         <source>Error reading language file %s at line %d column %d: %s
 </source>
         <translation>언어 파일 일기 에러. 파일 %s , 라인 %d , 칼럼 %d: %s
 </translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5006"/>
+        <location filename="../../mscore/musescore.cpp" line="5015"/>
         <source>No score</source>
         <translation>악보 없음</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5012"/>
+        <location filename="../../mscore/musescore.cpp" line="5021"/>
         <source>Normal mode</source>
         <translation>일반 모드</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5020"/>
+        <location filename="../../mscore/musescore.cpp" line="5029"/>
         <source>Repitch input mode</source>
         <translation>음정 재입력 모드</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5025"/>
+        <location filename="../../mscore/musescore.cpp" line="5034"/>
         <source>Rhythm input mode</source>
         <translation>리듬 입력 모드</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5030"/>
+        <location filename="../../mscore/musescore.cpp" line="5039"/>
         <source>Realtime (automatic) note input mode</source>
         <translation>실시간 (자동) 음표 입력 모드</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5035"/>
+        <location filename="../../mscore/musescore.cpp" line="5044"/>
         <source>Realtime (manual) note input mode</source>
         <translation>실시간 (수동) 음표 입력 모드</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5045"/>
+        <location filename="../../mscore/musescore.cpp" line="5054"/>
         <source>Steptime note input mode</source>
         <translation>단계적 음표 입력 모드</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5086"/>
+        <location filename="../../mscore/musescore.cpp" line="5095"/>
         <source>TAB input mode</source>
         <translation>타브 입력 모드</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5089"/>
+        <location filename="../../mscore/musescore.cpp" line="5098"/>
         <source>Edit mode</source>
         <translation>편집 모드 </translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5092"/>
+        <location filename="../../mscore/musescore.cpp" line="5101"/>
         <source>Text edit mode</source>
         <translation>텍스트 편집 모드 </translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5095"/>
+        <location filename="../../mscore/musescore.cpp" line="5104"/>
         <source>Lyrics edit mode</source>
         <translation>가사 편집 모드 </translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5098"/>
+        <location filename="../../mscore/musescore.cpp" line="5107"/>
         <source>Chord symbol/figured bass edit mode</source>
         <translation>코드 심볼/화음을 나타내는 숫자 베이스 편집모드</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5101"/>
+        <location filename="../../mscore/musescore.cpp" line="5110"/>
         <source>Play</source>
         <translation>재생</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5104"/>
+        <location filename="../../mscore/musescore.cpp" line="5113"/>
         <source>Image capture mode</source>
         <translation>이미지 캡처 모드 </translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5108"/>
+        <location filename="../../mscore/musescore.cpp" line="5117"/>
         <source>Score locked</source>
         <translation>악보 잠김</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="5970"/>
+        <location filename="../../mscore/musescore.cpp" line="5979"/>
         <source>The previous session quit unexpectedly.
 
 Restore session?</source>
@@ -14897,93 +14902,93 @@ Restore session?</source>
 세션을 복구하시겠습니까?</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2602"/>
-        <location filename="../../mscore/musescore.cpp" line="6209"/>
+        <location filename="../../mscore/musescore.cpp" line="2603"/>
+        <location filename="../../mscore/musescore.cpp" line="6218"/>
         <source>Piano Roll Editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="6786"/>
+        <location filename="../../mscore/musescore.cpp" line="6795"/>
         <source>Invalid selection. Cannot realize chord symbol</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="6802"/>
+        <location filename="../../mscore/musescore.cpp" line="6811"/>
         <source>No chord symbol selected. Cannot realize chord symbol</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7299"/>
+        <location filename="../../mscore/musescore.cpp" line="7308"/>
         <source>MuseScore may not be able to load this style file: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7635"/>
+        <location filename="../../mscore/musescore.cpp" line="7644"/>
         <source>Warning</source>
         <translation>경고</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="7636"/>
+        <location filename="../../mscore/musescore.cpp" line="7645"/>
         <source>Cannot create tuplet: Note value is too short</source>
         <translation>잇단음표를 만들 수 없습니다. 음표 길이가 너무 짧습니다.</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="9017"/>
+        <location filename="../../mscore/musescore.cpp" line="9029"/>
         <source>Initializing sequencer and audio driver…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="9026"/>
+        <location filename="../../mscore/musescore.cpp" line="9038"/>
         <source>Loading SoundFonts…</source>
         <translation>사운드 폰트 로딩 중…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="9069"/>
+        <location filename="../../mscore/musescore.cpp" line="9081"/>
         <source>Initializing workspace…</source>
         <translation>작업 영역 초기화 중…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="9073"/>
+        <location filename="../../mscore/musescore.cpp" line="9085"/>
         <source>Creating main window…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="9090"/>
+        <location filename="../../mscore/musescore.cpp" line="9102"/>
         <source>Reading translations…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="9097"/>
+        <location filename="../../mscore/musescore.cpp" line="9109"/>
         <source>Initializing startup wizard…</source>
         <translation>시작 마법사 초기화 중…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="9113"/>
+        <location filename="../../mscore/musescore.cpp" line="9125"/>
         <source>Initializing preferences…</source>
         <translation>특성 초기화 중…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="9154"/>
+        <location filename="../../mscore/musescore.cpp" line="9166"/>
         <source>Initializing main window…</source>
         <translation>메인 창 초기화 중…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="9178"/>
+        <location filename="../../mscore/musescore.cpp" line="9190"/>
         <source>Restoring session…</source>
         <translation>세션 저장 중…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="9212"/>
+        <location filename="../../mscore/musescore.cpp" line="9224"/>
         <source>Loading scores…</source>
         <translation>악보 로딩 중…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="9223"/>
+        <location filename="../../mscore/musescore.cpp" line="9235"/>
         <source>Initializing start center…</source>
         <translation>시작 센터 초기화 중…</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="9245"/>
+        <location filename="../../mscore/musescore.cpp" line="9257"/>
         <source>Initializing tours…</source>
         <translation>둘러보기 초기화 중…</translation>
     </message>
@@ -15047,22 +15052,22 @@ This plugin requires an open score to run.</source>
 <context>
     <name>Ms::MuseScoreApplication</name>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8686"/>
+        <location filename="../../mscore/musescore.cpp" line="8698"/>
         <source>Must specify at least one score to save online.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8747"/>
+        <location filename="../../mscore/musescore.cpp" line="8759"/>
         <source>--run-test-script is incompatible with --diff and --raw-diff</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8782"/>
+        <location filename="../../mscore/musescore.cpp" line="8794"/>
         <source>Only two scores are needed for performing a comparison</source>
         <translation>비교를 수행하는 데 오직 두 개의 악보만 필요합니다.</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="8787"/>
+        <location filename="../../mscore/musescore.cpp" line="8799"/>
         <source>Please specify scripts to execute</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15407,57 +15412,57 @@ connection enabled</source>
 <context>
     <name>Ms::PianoView</name>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2578"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2566"/>
         <source>Cut notes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2582"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2570"/>
         <source>Copy notes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2586"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2574"/>
         <source>Paste notes here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2594"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2582"/>
         <source>Set Voice 1</source>
         <translation>목소리 1로 설정</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2598"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2586"/>
         <source>Set Voice 2</source>
         <translation type="unfinished">목소리 2로 설정</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2602"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2590"/>
         <source>Set Voice 3</source>
         <translation type="unfinished">목소리 3로 설정</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2606"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2594"/>
         <source>Set Voice 4</source>
         <translation type="unfinished">목소리 4로 설정</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2612"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2600"/>
         <source>Color…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2616"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2604"/>
         <source>Reset Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2622"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="2610"/>
         <source>Tuplets</source>
         <translation>잇단음표</translation>
     </message>
     <message>
-        <location filename="../../mscore/pianoroll/pianoview.cpp" line="6395"/>
+        <location filename="../../mscore/pianoroll/pianoview.cpp" line="6379"/>
         <source>Select Note Color</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15947,19 +15952,19 @@ This plugin requires an open score to run.</source>
     <name>Ms::PreferenceDialog</name>
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="77"/>
-        <location filename="../../mscore/prefsdialog.cpp" line="678"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="674"/>
         <source>Light</source>
         <translation>밝음</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="78"/>
-        <location filename="../../mscore/prefsdialog.cpp" line="679"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="675"/>
         <source>Dark</source>
         <translation>어두움</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="81"/>
-        <location filename="../../mscore/prefsdialog.cpp" line="682"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="678"/>
         <source>System</source>
         <translation>시스템</translation>
     </message>
@@ -16115,181 +16120,181 @@ This plugin requires an open score to run.</source>
         <translation>2페이지</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="827"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="823"/>
         <source>Action: %1; Shortcut: %2</source>
         <translation>동작: %1; 단축키: %2</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="829"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="825"/>
         <source>No shortcut defined</source>
         <translation>지정된 단축키 없음</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="872"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="868"/>
         <source>Save Shortcuts</source>
         <translation>단축키 저장</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="872"/>
-        <location filename="../../mscore/prefsdialog.cpp" line="883"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="868"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="879"/>
         <source>MuseScore Shortcuts File</source>
         <translation>MuseScore 단축키 파일</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="883"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="879"/>
         <source>Load Shortcuts</source>
         <translation>단축키 불러오기</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="959"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="955"/>
         <source>Choose Notepaper</source>
         <translation>메모지 고르기</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="972"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="968"/>
         <source>Choose Background Wallpaper</source>
         <translation>배경 벽지 고르기</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="985"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="981"/>
         <source>Choose Default Style</source>
         <translation>기본 스타일 고르기</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="996"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="992"/>
         <source>Choose Default Style for Parts</source>
         <translation>파트 기본 스타일 고르기</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1009"/>
-        <location filename="../../mscore/prefsdialog.cpp" line="1027"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1005"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1023"/>
         <source>Choose Instrument List</source>
         <translation>악기 목록 고르기</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1011"/>
-        <location filename="../../mscore/prefsdialog.cpp" line="1029"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1007"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1025"/>
         <source>Instrument List</source>
         <translation>악기 목록</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1045"/>
-        <location filename="../../mscore/prefsdialog.cpp" line="1063"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1041"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1059"/>
         <source>Choose Score Order List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1047"/>
-        <location filename="../../mscore/prefsdialog.cpp" line="1065"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1043"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1061"/>
         <source>Score Order List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1091"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1087"/>
         <source>Choose Starting Score</source>
         <translation>시작할 악보 고르기</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1093"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1089"/>
         <source>MuseScore Files</source>
         <translation>MuseScore 파일</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1093"/>
-        <location filename="../../mscore/prefsdialog.cpp" line="1113"/>
-        <location filename="../../mscore/prefsdialog.cpp" line="1136"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1089"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1109"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1132"/>
         <source>All</source>
         <translation>모두</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1109"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1105"/>
         <source>Choose Metronome Downbeat Sound</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1111"/>
-        <location filename="../../mscore/prefsdialog.cpp" line="1134"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1107"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1130"/>
         <source>Audio Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1132"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1128"/>
         <source>Choose Metronome Beat Sound</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1448"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1444"/>
         <source>Applying…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1541"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1537"/>
         <source>Possible MIDI Loopback</source>
         <translation>가능한 MIDI 루프 백</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1543"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1539"/>
         <source>Warning: You used the same CoreMIDI IAC bus for input and output. This will cause problematic loopback, whereby MuseScore&apos;s output MIDI messages will be sent back to MuseScore as input, causing confusion. To avoid this problem, access Audio MIDI Setup via Spotlight to create a dedicated virtual port for MuseScore&apos;s MIDI output, restart MuseScore, return to Preferences, and select your new virtual port for MuseScore&apos;s MIDI output. Other programs may then use that dedicated virtual port to receive MuseScore&apos;s MIDI output.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1583"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1579"/>
         <source>Apply</source>
         <translation>적용</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1611"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1607"/>
         <source>Choose Default Style for Imports</source>
         <translation>기본 가져오기 스타일 고르기</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1697"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1693"/>
         <source>Choose Score Folder</source>
         <translation>악보 폴더 고르기</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1713"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1709"/>
         <source>Choose Style Folder</source>
         <translation>스타일 폴더 고르기</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1729"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1725"/>
         <source>Choose Score Fonts Folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1745"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1741"/>
         <source>Choose Template Folder</source>
         <translation>템플릿 폴더 고르기</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1761"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1757"/>
         <source>Choose Plugin Folder</source>
         <translation>플러그인 폴더 고르기</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1777"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1773"/>
         <source>Choose Image Folder</source>
         <translation>이미지 폴더 고르기</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1792"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1788"/>
         <source>SoundFont Folders</source>
         <translation>사운드폰트 폴더 </translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1806"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1802"/>
         <source>Choose Extensions Folder</source>
         <translation>확장 폴더 선택</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1866"/>
-        <location filename="../../mscore/prefsdialog.cpp" line="1906"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1862"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1902"/>
         <source>MuseScore Shortcuts</source>
         <translation>MuseScore 단축키</translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1870"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1866"/>
         <source>Print Shortcuts</source>
         <translation>인쇄 단축키 </translation>
     </message>
@@ -16852,7 +16857,7 @@ failed: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/scoreview.cpp" line="5109"/>
+        <location filename="../../mscore/scoreview.cpp" line="5115"/>
         <source>No staves found:
 Please use the instruments dialog to
 first create some staves</source>
@@ -16869,14 +16874,14 @@ first create some staves</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/scoreview.cpp" line="2944"/>
+        <location filename="../../mscore/scoreview.cpp" line="2950"/>
         <source>No measures selected:
 Please select a range of measures to join and try again</source>
         <translation>아무 마디도 선택되지 않았슴:
 먼저 합칠 마디의 범위를 선택하고 다시 해보세요</translation>
     </message>
     <message>
-        <location filename="../../mscore/scoreview.cpp" line="5191"/>
+        <location filename="../../mscore/scoreview.cpp" line="5197"/>
         <source>No measure selected:
 Please select a measure and try again</source>
         <translation>아무 마디도 선택되지 않았슴:
@@ -17370,22 +17375,22 @@ Please select a measure and try again</source>
         <translation>계속</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="175"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="171"/>
         <source>Success</source>
         <translation>성공</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="176"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="172"/>
         <source>Finished! %1Go to my score%2.</source>
         <translation>완료! %1내 악보로 가기%2.</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="188"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="184"/>
         <source>Error</source>
         <translation>오류</translation>
     </message>
     <message>
-        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="257"/>
+        <location filename="../../mscore/cloud/uploadscoredialog.cpp" line="253"/>
         <source>Link</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17531,9 +17536,9 @@ please choose a different name:</source>
 <context>
     <name>Ms::ZoomBox</name>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2629"/>
         <location filename="../../mscore/musescore.cpp" line="2630"/>
         <location filename="../../mscore/musescore.cpp" line="2631"/>
+        <location filename="../../mscore/musescore.cpp" line="2632"/>
         <location filename="../../mscore/zoombox.cpp" line="95"/>
         <location filename="../../mscore/zoombox.cpp" line="96"/>
         <location filename="../../mscore/zoombox.cpp" line="97"/>
@@ -18042,7 +18047,7 @@ please choose a different name:</source>
     <message>
         <location filename="../../mscore/masterpalette.cpp" line="265"/>
         <location filename="../../mscore/menus.cpp" line="550"/>
-        <location filename="../../mscore/musescore.cpp" line="7132"/>
+        <location filename="../../mscore/musescore.cpp" line="7141"/>
         <source>Key Signatures</source>
         <translation>조표</translation>
     </message>
@@ -18643,7 +18648,7 @@ please choose a different name:</source>
     <message>
         <location filename="../../mscore/masterpalette.cpp" line="266"/>
         <location filename="../../mscore/menus.cpp" line="1778"/>
-        <location filename="../../mscore/musescore.cpp" line="7134"/>
+        <location filename="../../mscore/musescore.cpp" line="7143"/>
         <source>Time Signatures</source>
         <translation>박자표</translation>
     </message>
@@ -21233,7 +21238,7 @@ Adjusting latency can help synchronize your MIDI hardware with MuseScore&apos;s 
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../libmscore/chordlist.cpp" line="1856"/>
+        <location filename="../../libmscore/chordlist.cpp" line="1844"/>
         <source>Cannot open chord description:
 %1
 %2</source>
@@ -21242,14 +21247,14 @@ Adjusting latency can help synchronize your MIDI hardware with MuseScore&apos;s 
 %2</translation>
     </message>
     <message>
-        <location filename="../../libmscore/chordlist.cpp" line="1891"/>
+        <location filename="../../libmscore/chordlist.cpp" line="1879"/>
         <source>Open chord description
 %1
 failed: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/chordlist.cpp" line="1902"/>
+        <location filename="../../libmscore/chordlist.cpp" line="1890"/>
         <source>Write chord description failed: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21699,7 +21704,7 @@ MusicXML 파일을 열 수 없습니다.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/figuredbass.cpp" line="1491"/>
+        <location filename="../../libmscore/figuredbass.cpp" line="1487"/>
         <source>Cannot open figured bass description:
 %1
 %2</source>
@@ -21728,7 +21733,7 @@ MusicXML 파일을 열 수 없습니다.</translation>
         <translation>%1: 맞춤형</translation>
     </message>
     <message>
-        <location filename="../../mscore/plugin/api/qmlpluginapi.cpp" line="368"/>
+        <location filename="../../mscore/plugin/api/qmlpluginapi.cpp" line="350"/>
         <source>You can&apos;t create an enum</source>
         <translation>이넘을 만들 수 없습니다.</translation>
     </message>
@@ -21812,7 +21817,7 @@ MusicXML 파일을 열 수 없습니다.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/read206.cpp" line="3631"/>
+        <location filename="../../libmscore/read206.cpp" line="3627"/>
         <location filename="../../libmscore/read302.cpp" line="226"/>
         <source>XML read error at line %1, column %2: %3</source>
         <translation type="unfinished"></translation>
@@ -21823,55 +21828,55 @@ MusicXML 파일을 열 수 없습니다.</translation>
         <translation>%1; 길이: %2; %3</translation>
     </message>
     <message>
-        <location filename="../../libmscore/scorediff.cpp" line="1378"/>
+        <location filename="../../libmscore/scorediff.cpp" line="1373"/>
         <source>%1: removed element %2</source>
         <comment>scorediff</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/scorediff.cpp" line="1380"/>
+        <location filename="../../libmscore/scorediff.cpp" line="1375"/>
         <source>%1: inserted element %2</source>
         <comment>scorediff</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/scorediff.cpp" line="1382"/>
+        <location filename="../../libmscore/scorediff.cpp" line="1377"/>
         <source>%1: replaced element %2 with element %3</source>
         <comment>scorediff</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/scorediff.cpp" line="1385"/>
+        <location filename="../../libmscore/scorediff.cpp" line="1380"/>
         <source>%1: equal element %2</source>
         <comment>scorediff</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/scorediff.cpp" line="1419"/>
+        <location filename="../../libmscore/scorediff.cpp" line="1414"/>
         <source>%1: property %2 is turned off</source>
         <comment>scorediff</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/scorediff.cpp" line="1421"/>
+        <location filename="../../libmscore/scorediff.cpp" line="1416"/>
         <source>%1: property %2 is turned on</source>
         <comment>scorediff</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/scorediff.cpp" line="1428"/>
+        <location filename="../../libmscore/scorediff.cpp" line="1423"/>
         <source>%1: property %2 changed from %3 to %4</source>
         <comment>scorediff</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/scorediff.cpp" line="1457"/>
+        <location filename="../../libmscore/scorediff.cpp" line="1452"/>
         <source>%1: %2 changed from %3 to %4</source>
         <comment>scorediff</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/scorediff.cpp" line="1461"/>
+        <location filename="../../libmscore/scorediff.cpp" line="1456"/>
         <source>%1: markup changes: %2</source>
         <comment>scorediff</comment>
         <translation type="unfinished"></translation>
@@ -22013,7 +22018,7 @@ MusicXML 파일을 열 수 없습니다.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/harmony.cpp" line="2089"/>
+        <location filename="../../libmscore/harmony.cpp" line="2085"/>
         <location filename="../../libmscore/pitchspelling.cpp" line="281"/>
         <source>♭</source>
         <translation>내림표</translation>
@@ -22364,17 +22369,17 @@ MusicXML 파일을 열 수 없습니다.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1282"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1278"/>
         <source>Use local OMR engine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1284"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1280"/>
         <source>Installed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/prefsdialog.cpp" line="1286"/>
+        <location filename="../../mscore/prefsdialog.cpp" line="1282"/>
         <source>Not installed, needs internet connection for installing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22416,7 +22421,7 @@ MusicXML 파일을 열 수 없습니다.</translation>
         <location filename="../../importexport/capella/capella.cpp" line="2786"/>
         <location filename="../../importexport/midiimport/importmidi.cpp" line="1206"/>
         <location filename="../../mscore/instrdialog.cpp" line="166"/>
-        <location filename="../../mscore/musescore.cpp" line="4769"/>
+        <location filename="../../mscore/musescore.cpp" line="4778"/>
         <source>Quit</source>
         <translation>종료</translation>
     </message>
@@ -22468,65 +22473,65 @@ Do you want to overwrite it?</source>
         <translation>스타일 불러오기 실패</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="767"/>
-        <location filename="../../mscore/musescore.cpp" line="773"/>
-        <location filename="../../mscore/musescore.cpp" line="803"/>
-        <location filename="../../mscore/musescore.cpp" line="808"/>
-        <location filename="../../mscore/musescore.cpp" line="813"/>
-        <location filename="../../mscore/musescore.cpp" line="828"/>
-        <location filename="../../mscore/musescore.cpp" line="846"/>
-        <location filename="../../mscore/musescore.cpp" line="855"/>
-        <location filename="../../mscore/musescore.cpp" line="887"/>
+        <location filename="../../mscore/musescore.cpp" line="768"/>
+        <location filename="../../mscore/musescore.cpp" line="774"/>
+        <location filename="../../mscore/musescore.cpp" line="804"/>
+        <location filename="../../mscore/musescore.cpp" line="809"/>
+        <location filename="../../mscore/musescore.cpp" line="814"/>
+        <location filename="../../mscore/musescore.cpp" line="829"/>
+        <location filename="../../mscore/musescore.cpp" line="847"/>
+        <location filename="../../mscore/musescore.cpp" line="856"/>
+        <location filename="../../mscore/musescore.cpp" line="888"/>
         <source>Import Extension File</source>
         <translation>확장파일 불러오기</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="767"/>
+        <location filename="../../mscore/musescore.cpp" line="768"/>
         <source>Cannot import extension on read-only storage: %1</source>
         <translation>읽기 전용 저장소에 확장을 가져올 수 없습니다 : %1</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="773"/>
+        <location filename="../../mscore/musescore.cpp" line="774"/>
         <source>Cannot import extension: storage %1 is full</source>
         <translation>확장을 가져올 수 없습니다: 저장소 %1 는 공간이 없습니다</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="803"/>
+        <location filename="../../mscore/musescore.cpp" line="804"/>
         <source>Corrupted extension: no metadata.json</source>
         <translation>손상된 확장:  metadata.json 이 없습니다</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="808"/>
+        <location filename="../../mscore/musescore.cpp" line="809"/>
         <source>Corrupted extension: unsupported directories in root directory</source>
         <translation>손상된 확장 : 루트 디렉토리에서 지원되지 않는 디렉토리</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="813"/>
+        <location filename="../../mscore/musescore.cpp" line="814"/>
         <source>Corrupted extension: unsupported files in root directory</source>
         <translation>손상된 확장 : 루트 디렉토리에서 지원되지 않는 파일</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="828"/>
+        <location filename="../../mscore/musescore.cpp" line="829"/>
         <source>Corrupted extension: corrupted metadata.json</source>
         <translation>손상된 확장 : 손상된 metadata.json</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="846"/>
+        <location filename="../../mscore/musescore.cpp" line="847"/>
         <source>A newer version is already installed</source>
         <translation>최신 버전이 이미 설치되었습니다</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="855"/>
+        <location filename="../../mscore/musescore.cpp" line="856"/>
         <source>Error while deleting previous version of the extension: %1</source>
         <translation>이전 버전의 확장 %1을 삭제하는 동안 오류가 발생했습니다</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="887"/>
+        <location filename="../../mscore/musescore.cpp" line="888"/>
         <source>Unable to extract files from the extension</source>
         <translation>확장에서  파일을 추출 할 수 없습니다.</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="4767"/>
+        <location filename="../../mscore/musescore.cpp" line="4776"/>
         <source>Load Languages Failed:</source>
         <translation>언어 불러오기 실패:</translation>
     </message>
@@ -22621,7 +22626,7 @@ Do you want to overwrite it?</source>
 <context>
     <name>RecordButton</name>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="6683"/>
+        <location filename="../../mscore/musescore.cpp" line="6692"/>
         <source>Record</source>
         <translation>녹음</translation>
     </message>
@@ -32454,7 +32459,7 @@ This score already has part scores. Changing local time signatures while part sc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/mscore.cpp" line="439"/>
+        <location filename="../../libmscore/mscore.cpp" line="426"/>
         <source>Unknown error</source>
         <translation>알려지지 않은 에러</translation>
     </message>
@@ -32462,7 +32467,7 @@ This score already has part scores. Changing local time signatures while part sc
 <context>
     <name>extensions_directory</name>
     <message>
-        <location filename="../../mscore/preferences.cpp" line="143"/>
+        <location filename="../../mscore/preferences.cpp" line="153"/>
         <source>Extensions</source>
         <translation>확장</translation>
     </message>
@@ -32513,7 +32518,7 @@ This score already has part scores. Changing local time signatures while part sc
 <context>
     <name>images_directory</name>
     <message>
-        <location filename="../../mscore/preferences.cpp" line="135"/>
+        <location filename="../../mscore/preferences.cpp" line="145"/>
         <source>Images</source>
         <translation>이미지</translation>
     </message>
@@ -32677,19 +32682,19 @@ This score already has part scores. Changing local time signatures while part sc
 <context>
     <name>magTable</name>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2632"/>
+        <location filename="../../mscore/musescore.cpp" line="2633"/>
         <location filename="../../mscore/zoombox.cpp" line="47"/>
         <source>Page Width</source>
         <translation>페이지 너비</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2633"/>
+        <location filename="../../mscore/musescore.cpp" line="2634"/>
         <location filename="../../mscore/zoombox.cpp" line="48"/>
         <source>Whole Page</source>
         <translation>모든 페이지</translation>
     </message>
     <message>
-        <location filename="../../mscore/musescore.cpp" line="2634"/>
+        <location filename="../../mscore/musescore.cpp" line="2635"/>
         <location filename="../../mscore/zoombox.cpp" line="49"/>
         <source>Two Pages</source>
         <translation>2페이지</translation>
@@ -32746,25 +32751,25 @@ This score already has part scores. Changing local time signatures while part sc
 <context>
     <name>notation</name>
     <message>
-        <location filename="../../mscore/events.cpp" line="943"/>
+        <location filename="../../mscore/events.cpp" line="939"/>
         <source>‘</source>
         <extracomment>Single opening quotation mark</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/events.cpp" line="945"/>
+        <location filename="../../mscore/events.cpp" line="941"/>
         <source>’</source>
         <extracomment>Single closing quotation mark</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/events.cpp" line="947"/>
+        <location filename="../../mscore/events.cpp" line="943"/>
         <source>“</source>
         <extracomment>Double opening quotation mark</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../mscore/events.cpp" line="949"/>
+        <location filename="../../mscore/events.cpp" line="945"/>
         <source>”</source>
         <extracomment>Double closing quotation mark</extracomment>
         <translation type="unfinished"></translation>
@@ -33239,7 +33244,7 @@ This score already has part scores. Changing local time signatures while part sc
 <context>
     <name>plugins_directory</name>
     <message>
-        <location filename="../../mscore/preferences.cpp" line="136"/>
+        <location filename="../../mscore/preferences.cpp" line="146"/>
         <source>Plugins</source>
         <translation>플러그인</translation>
     </message>
@@ -33247,7 +33252,7 @@ This score already has part scores. Changing local time signatures while part sc
 <context>
     <name>scorefonts_directory</name>
     <message>
-        <location filename="../../mscore/preferences.cpp" line="137"/>
+        <location filename="../../mscore/preferences.cpp" line="147"/>
         <source>Score Fonts</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33255,7 +33260,7 @@ This score already has part scores. Changing local time signatures while part sc
 <context>
     <name>scores_directory</name>
     <message>
-        <location filename="../../mscore/preferences.cpp" line="138"/>
+        <location filename="../../mscore/preferences.cpp" line="148"/>
         <source>Scores</source>
         <translation>악보들</translation>
     </message>
@@ -33386,7 +33391,7 @@ This score already has part scores. Changing local time signatures while part sc
 <context>
     <name>shortcuts_directory</name>
     <message>
-        <location filename="../../mscore/preferences.cpp" line="140"/>
+        <location filename="../../mscore/preferences.cpp" line="150"/>
         <source>Shortcuts</source>
         <translation>바로가기</translation>
     </message>
@@ -33394,7 +33399,7 @@ This score already has part scores. Changing local time signatures while part sc
 <context>
     <name>soundfonts_directory</name>
     <message>
-        <location filename="../../mscore/preferences.cpp" line="139"/>
+        <location filename="../../mscore/preferences.cpp" line="149"/>
         <source>SoundFonts</source>
         <translation>사운드폰트</translation>
     </message>
@@ -33420,7 +33425,7 @@ This score already has part scores. Changing local time signatures while part sc
 <context>
     <name>styles_directory</name>
     <message>
-        <location filename="../../mscore/preferences.cpp" line="141"/>
+        <location filename="../../mscore/preferences.cpp" line="151"/>
         <source>Styles</source>
         <translation>스타일</translation>
     </message>
@@ -35396,7 +35401,7 @@ This score already has part scores. Changing local time signatures while part sc
 <context>
     <name>templates_directory</name>
     <message>
-        <location filename="../../mscore/preferences.cpp" line="142"/>
+        <location filename="../../mscore/preferences.cpp" line="152"/>
         <source>Templates</source>
         <translation>템플릿</translation>
     </message>
