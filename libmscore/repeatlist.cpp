@@ -265,18 +265,29 @@ void RepeatList::flatten()
       qDeleteAll(*this);
       clear();
 
-      Measure* m = _score->firstMeasure();
-      if (!m)
+      MeasureBase* mb = _score->firstMeasure();
+      if (!mb)
             return;
 
       RepeatSegment* s = new RepeatSegment(1);
       do {
-            s->addMeasure(m);
-            m = m->nextMeasure();
+            if (mb->isMeasure()) {
+                  s->addMeasure(toMeasure(mb));
+                  }
+            if (mb->sectionBreak()) {
+                  s->pause += mb->pause();
+                  push_back(s);
+                  s = new RepeatSegment(1);
+                  }
+            mb = mb->next();
             }
-      while (m);
-      push_back(s);
+      while (mb);
 
+      if (!s->isEmpty()) {
+            push_back(s);
+            }
+
+      updateTempo();
       _expanded = false;
       }
 
