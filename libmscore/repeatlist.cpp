@@ -271,9 +271,8 @@ void RepeatList::flatten()
 
       RepeatSegment* s = new RepeatSegment(1);
       do {
-            if (mb->isMeasure()) {
+            if (mb->isMeasure())
                   s->addMeasure(toMeasure(mb));
-                  }
             if (mb->sectionBreak()) {
                   s->pause += mb->pause();
                   push_back(s);
@@ -283,9 +282,10 @@ void RepeatList::flatten()
             }
       while (mb);
 
-      if (!s->isEmpty()) {
+      if (!s->isEmpty())
             push_back(s);
-            }
+      else
+            delete s;
 
       updateTempo();
       _expanded = false;
