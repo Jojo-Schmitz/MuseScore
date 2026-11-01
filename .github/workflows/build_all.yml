@@ -2,8 +2,8 @@ name: 'Build: All'
 #run-name: "Build: All - ${{ inputs.build_mode }}"
 
 on:
-  schedule: # scheduled workflows will only run on the default branch. edit default values under gen1 below
-    - cron: '20 1 * * *' # At 01:20 on every day-of-month
+  #schedule: # scheduled workflows will only run on the default branch. edit default values under gen1 below
+    #- cron: '20 1 * * *' # At 01:20 on every day-of-month
   push: # push.inputs field does not exist, use gen1 below
     branches:
       - 3.x
@@ -32,6 +32,11 @@ on:
         required: false
       publish:
         description: 'Publish to FTP when nightly generated (obsolete)'
+        default: 'off'
+        type: string
+        required: false
+      release:
+        description: 'Create continuous release on GitHub'
         default: 'off'
         type: string
         required: false
@@ -77,6 +82,11 @@ on:
         default: 'off'
         type: string
         required: false
+      release:
+        description: 'Create continuous release on GitHub'
+        default: 'off'
+        type: string
+        required: false
       notarize:
         description: 'Notarize (in macos yml): on, off'
         default: 'on'
@@ -107,6 +117,7 @@ jobs:
       runtest: ${{ steps.gen1.outputs.runtest }}
       runvisualtest: ${{ steps.gen1.outputs.runvisualtest }}
       publish: ${{ steps.gen1.outputs.publish }}
+      release: ${{ steps.gen1.outputs.release }}
       notarize: ${{ steps.gen1.outputs.notarize }}
       runtestjob: ${{ steps.gen1.outputs.runtestjob }}
       execfrom: ${{ steps.gen1.outputs.execfrom }}
@@ -116,13 +127,14 @@ jobs:
       run: |
         if [[ "${{ inputs.execfrom }}" == "publishdev" ]]; then
 
-          echo "triggered by on.push/pull_request/schedule of publishdev , on.workflow_call of build all"
+          echo "triggered by on.push/pull_request/schedule of publishdev, on.workflow_call of build all"
 
           echo "platforms=${{ inputs.platforms }}" | tee -a "$GITHUB_OUTPUT"
           echo "build_mode=${{ inputs.build_mode }}" | tee -a "$GITHUB_OUTPUT"
           echo "runtest=${{ inputs.runtest }}" | tee -a "$GITHUB_OUTPUT"
           echo "runvisualtest=${{ inputs.runvisualtest }}" | tee -a "$GITHUB_OUTPUT"
           echo "publish=${{ inputs.publish }}" | tee -a "$GITHUB_OUTPUT"
+          echo "release=${{ inputs.release }}" | tee -a "$GITHUB_OUTPUT"
           echo "notarize=${{ inputs.notarize }}" | tee -a "$GITHUB_OUTPUT"
           echo "runtestjob=${{ inputs.runtestjob }}" | tee -a "$GITHUB_OUTPUT"
           echo "execfrom=${{ inputs.execfrom }}" | tee -a "$GITHUB_OUTPUT"
@@ -136,6 +148,7 @@ jobs:
           echo "runtest=on" | tee -a "$GITHUB_OUTPUT"
           echo "runvisualtest=on" | tee -a "$GITHUB_OUTPUT"
           echo "publish=off" | tee -a "$GITHUB_OUTPUT"
+          echo "release=off" | tee -a "$GITHUB_OUTPUT"
           echo "notarize=off" | tee -a "$GITHUB_OUTPUT"                # pull_request notarize off
           echo "runtestjob=off" | tee -a "$GITHUB_OUTPUT"
           if [[ -z "${{ inputs.execfrom }}" ]]; then
@@ -153,6 +166,7 @@ jobs:
           echo "runtest=on" | tee -a "$GITHUB_OUTPUT"
           echo "runvisualtest=on" | tee -a "$GITHUB_OUTPUT"
           echo "publish=off" | tee -a "$GITHUB_OUTPUT"
+          echo "release=off" | tee -a "$GITHUB_OUTPUT"
           echo "notarize=on" | tee -a "$GITHUB_OUTPUT"
           echo "runtestjob=off" | tee -a "$GITHUB_OUTPUT"
           if [[ -z "${{ inputs.execfrom }}" ]]; then
@@ -170,6 +184,7 @@ jobs:
           echo "runtest=on" | tee -a "$GITHUB_OUTPUT"
           echo "runvisualtest=on" | tee -a "$GITHUB_OUTPUT"
           echo "publish=off" | tee -a "$GITHUB_OUTPUT"
+          echo "release=on" | tee -a "$GITHUB_OUTPUT"
           echo "notarize=on" | tee -a "$GITHUB_OUTPUT"
           echo "runtestjob=off" | tee -a "$GITHUB_OUTPUT"
           if [[ -z "${{ inputs.execfrom }}" ]]; then
@@ -185,6 +200,7 @@ jobs:
           echo "runtest=${{ inputs.runtest }}" | tee -a "$GITHUB_OUTPUT"
           echo "runvisualtest=${{ inputs.runvisualtest }}" | tee -a "$GITHUB_OUTPUT"
           echo "publish=${{ inputs.publish }}" | tee -a "$GITHUB_OUTPUT"
+          echo "release=off" | tee -a "$GITHUB_OUTPUT"
           echo "notarize=${{ inputs.notarize }}" | tee -a "$GITHUB_OUTPUT"
           echo "runtestjob=${{ inputs.runtestjob }}" | tee -a "$GITHUB_OUTPUT"
           echo "execfrom=${{ inputs.execfrom }}" | tee -a "$GITHUB_OUTPUT"
@@ -236,6 +252,32 @@ jobs:
       - plan
     uses: ./.github/workflows/check_visual_tests.yml
     secrets: inherit
+
+  upload:
+    name: Create release and upload artifacts
+    if: needs.plan.outputs.release == 'on'
+    needs:
+      - linux
+      - macos
+      - windows
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v8
+      - name: Inspect directory after downloading artifacts
+        run: ls -alFR
+      - name: Create release and upload artifacts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+            wget -q https://github.com/TheAssassin/pyuploadtool/releases/download/continuous/pyuploadtool-x86_64.AppImage
+            chmod +x pyuploadtool-x86_64.AppImage
+            #export APPIMAGE_EXTRACT_AND_RUN=1
+            #export GITHUB_CONTINUOUS_RELEASE_TYPE=stable # stable, prerelease
+            #export GITHUB_CONTINUOUS_RELEASE_TAG=continuous # continuous
+            #export GITHUB_CONTINUOUS_RELEASE_Name="Continuous Build" # "Continuous Build"
+            #export CHANGELOG_TYPE=standardA # none, standard, conventional
+            ./pyuploadtool-x86_64.AppImage ./Mu3.7_*/MuseScore*.{AppImage,paf.exe,7z,dmg}
 
   #commented out for better workflow graph on github
   # Dummy build for testing purposes.
