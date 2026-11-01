@@ -171,7 +171,7 @@ jobs:
         if [ "${{ github.event_name }}" == "pull_request" ]; then
           ADD_INFO="_${{ github.event.pull_request.number }}_$( tr '":<>|*?/\\’' '_' <<< "$PR_TITLE" )"
         fi
-        UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\’' '_' <<<"Mu3.7_${BUILD_NUMBER}_Lin_${ARCH}${ADD_INFO}")"
+        UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\’' '_' <<<"Mu3.7_${BUILD_NUMBER}_Linux_${ARCH}${ADD_INFO}")"
 
         echo "github.repository: ${{ github.repository }}"
         echo "BUILD_MODE=$BUILD_MODE" | tee -a $GITHUB_ENV
@@ -255,7 +255,7 @@ jobs:
         if [ "${{ github.event_name }}" == "pull_request" ]; then
           ADD_INFO="_${{ github.event.pull_request.number }}_$( tr '":<>|*?/\\’' '_' <<< "$PR_TITLE" )"
         fi
-        UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\’' '_' <<<"Mu3.7_${BUILD_NUMBER}_Lin_${ARCH}${ADD_INFO}")"
+        UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\’' '_' <<<"Mu3.7_${BUILD_NUMBER}_Linux_${ARCH}${ADD_INFO}")"
 
         echo "github.repository: ${{ github.repository }}"
         echo "BUILD_MODE=$BUILD_MODE" | tee -a $GITHUB_ENV
@@ -339,7 +339,7 @@ jobs:
         if [ "${{ github.event_name }}" == "pull_request" ]; then
           ADD_INFO="_${{ github.event.pull_request.number }}_$( tr '":<>|*?/\\’' '_' <<< "$PR_TITLE" )"
         fi
-        UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\’' '_' <<<"Mu3.7_${BUILD_NUMBER}_Lin_${ARCH}${ADD_INFO}")"
+        UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\’' '_' <<<"Mu3.7_${BUILD_NUMBER}_Linux_${ARCH}${ADD_INFO}")"
 
         echo "github.repository: ${{ github.repository }}"
         echo "BUILD_MODE=$BUILD_MODE" | tee -a $GITHUB_ENV

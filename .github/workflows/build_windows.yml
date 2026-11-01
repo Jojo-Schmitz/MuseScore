@@ -152,7 +152,7 @@ jobs:
         if [ "${{ github.event_name }}" == "pull_request" ]; then
           ADD_INFO="_${{ github.event.pull_request.number }}_${pull_request_title}"
         fi
-        UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\’' '_' <<<"Mu3.7_${BUILD_NUMBER}_Win64${ADD_INFO}")"
+        UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\’' '_' <<<"Mu3.7_${BUILD_NUMBER}_Windows_64${ADD_INFO}")"
 
         echo "github.repository: ${{ github.repository }}"
         echo "BUILD_MODE=$BUILD_MODE" | tee -a $GITHUB_ENV
@@ -239,7 +239,7 @@ jobs:
         if [ "${{ github.event_name }}" == "pull_request" ]; then
           ADD_INFO="_${{ github.event.pull_request.number }}_${pull_request_title}"
         fi
-        UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\’' '_' <<<"Mu3.7_${BUILD_NUMBER}_Win32${ADD_INFO}")"
+        UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\’' '_' <<<"Mu3.7_${BUILD_NUMBER}_Windows_32${ADD_INFO}")"
 
         echo "github.repository: ${{ github.repository }}"
         echo "BUILD_MODE=$BUILD_MODE" | tee -a $GITHUB_ENV
@@ -326,7 +326,7 @@ jobs:
         if [ "${{ github.event_name }}" == "pull_request" ]; then
           ADD_INFO="_${{ github.event.pull_request.number }}_${pull_request_title}"
         fi
-        UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\’' '_' <<<"Mu3.7_${BUILD_NUMBER}_Win32Portable${ADD_INFO}")"
+        UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\’' '_' <<<"Mu3.7_${BUILD_NUMBER}_Windows_32_PortableApp${ADD_INFO}")"
 
         echo "github.repository: ${{ github.repository }}"
         echo "BUILD_MODE=$BUILD_MODE" | tee -a $GITHUB_ENV
@@ -412,7 +412,7 @@ jobs:
         if [ "${{ github.event_name }}" == "pull_request" ]; then
           ADD_INFO="_${{ github.event.pull_request.number }}_${pull_request_title}"
         fi
-        UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\’' '_' <<<"Mu3.7_${BUILD_NUMBER}_Win64Portable${ADD_INFO}")"
+        UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\’' '_' <<<"Mu3.7_${BUILD_NUMBER}_Windows_64_PortableApp${ADD_INFO}")"
 
         echo "github.repository: ${{ github.repository }}"
         echo "BUILD_MODE=$BUILD_MODE" | tee -a $GITHUB_ENV

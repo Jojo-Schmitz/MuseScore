@@ -184,7 +184,7 @@ jobs:
           ADD_INFO="_${{ github.event.pull_request.number }}_${pull_request_title}"
         fi
         BUILD_ARCH="Apple"
-        UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\’' '_' <<<"Mu3.7_${BUILD_NUMBER}_Mac${ADD_INFO}_${BUILD_ARCH}")"
+        UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\’' '_' <<<"Mu3.7_${BUILD_NUMBER}_macOS_${BUILD_ARCH}${ADD_INFO}")"
 
         echo "github.repository: ${{ github.repository }}"
         echo "BUILD_MODE=$BUILD_MODE" | tee -a $GITHUB_ENV
@@ -269,7 +269,7 @@ jobs:
           ADD_INFO="_${{ github.event.pull_request.number }}_${pull_request_title}"
         fi
         BUILD_ARCH="Intel"
-        UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\’' '_' <<<"Mu3.7_${BUILD_NUMBER}_Mac${ADD_INFO}_${BUILD_ARCH}")"
+        UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\’' '_' <<<"Mu3.7_${BUILD_NUMBER}_macOS_${BUILD_ARCH}${ADD_INFO}")"
 
         echo "github.repository: ${{ github.repository }}"
         echo "BUILD_MODE=$BUILD_MODE" | tee -a $GITHUB_ENV
