@@ -54,7 +54,7 @@ function download_appimage_release()
 if [[ ! -d $BUILD_TOOLS/appimagetool ]]; then
   mkdir $BUILD_TOOLS/appimagetool
   cd $BUILD_TOOLS/appimagetool
-  download_appimage_release AppImage/appimagetool appimagetool 1.9.1 # use AppImage/appimagetool for the static runtime AppImage
+  download_appimage_release AppImage/appimagetool appimagetool continuous # use AppImage/appimagetool for the static runtime AppImage
   cd $ORIGIN_DIR
 fi
 export PATH="$BUILD_TOOLS/appimagetool:$PATH"
@@ -107,8 +107,41 @@ export EXTRA_PLATFORM_PLUGINS="libqoffscreen.so;libqwayland-egl.so;libqwayland-g
 # Qml files can be in different directories, the qmlimportscanner will go through everything recursively.
 export QML_SOURCES_PATHS=./
 
+# Ensure the destination exists before the Qt plugin creates translation links.
+mkdir -p "${appdir}/usr/translations"
+
 linuxdeploy --appdir "${appdir}" # adds all shared library dependencies
 linuxdeploy-plugin-qt --appdir "${appdir}" # adds all Qt dependencies
+
+# Restore the Qt SQL drivers.
+[ -f "${qt_sql_drivers_tmp}/libqsqlmysql.so" ] && mv "${qt_sql_drivers_tmp}/libqsqlmysql.so" "${qt_sql_drivers_path}/libqsqlmysql.so"
+[ -f "${qt_sql_drivers_tmp}/libqsqlpsql.so" ] && mv "${qt_sql_drivers_tmp}/libqsqlpsql.so" "${qt_sql_drivers_path}/libqsqlpsql.so"
+
+# Restore findlib.
+mv "${appdir}/../findlib" "${appdir}/bin/findlib"
+
+desktop_files=("${appdir}"/mscore*.desktop)
+if [[ ${#desktop_files[@]} -ne 1 || ! -f "${desktop_files[0]}" ]]; then
+  echo "Expected one MuseScore desktop file in ${appdir}" >&2
+  exit 1
+fi
+
+desktop_name="${desktop_files[0]##*/}"
+icon_target="share/icons/hicolor/64x64/apps/${desktop_name%.desktop}.png"
+
+if [[ ! -f "${appdir}/${icon_target}" ]]; then
+  echo "Missing AppDir icon: ${icon_target}" >&2
+  exit 1
+fi
+
+ln -sfn "${icon_target}" "${appdir}/.DirIcon"
+readlink "${appdir}/.DirIcon"
+test -f "${appdir}/.DirIcon"
+
+# check one of the translations files' symlinks,
+# assuming that then all others are there too
+readlink "${appdir}/usr/translations/instruments_eo.qm"
+test -f "${appdir}/usr/translations/instruments_eo.qm"
 
 # (unsure backport or not) file dialog https://github.com/musescore/MuseScore/issues/10836 The system must be used
 # if [ -f ${appdir}/lib/libglib-2.0.so.0 ]; then
@@ -116,13 +149,6 @@ linuxdeploy-plugin-qt --appdir "${appdir}" # adds all Qt dependencies
 # fi
 
 unset QML_SOURCES_PATHS EXTRA_PLATFORM_PLUGINS
-
-# Return the moved libraries back
-[ -f "${qt_sql_drivers_tmp}/libqsqlmysql.so" ] && mv "${qt_sql_drivers_tmp}/libqsqlmysql.so" "${qt_sql_drivers_path}/libqsqlmysql.so"
-[ -f "${qt_sql_drivers_tmp}/libqsqlpsql.so" ] && mv "${qt_sql_drivers_tmp}/libqsqlpsql.so" "${qt_sql_drivers_path}/libqsqlpsql.so"
-
-# Put the non-RUNPATH binaries back
-mv "${appdir}/../findlib" "${appdir}/bin/findlib"
 
 echo "############################## BUNDLE REMAINING DEPENDENCIES MANUALLY ##############################"
 
