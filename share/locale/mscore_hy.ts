@@ -21665,6 +21665,11 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
         <translation>Տակտ %1, նոտակիր %2, %3 ձայնը շատ երկար է: Սպասվում էր՝ %4: Հիմա՝ %5</translation>
     </message>
     <message>
+        <location filename="../../libmscore/check.cpp" line="224"/>
+        <source>Element outside measure: measure %1, staff %2. Found at: %3. Expected between 0 and %4.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../libmscore/chordrest.cpp" line="696"/>
         <source>Duplet</source>
         <translation>Դուօլ</translation>
@@ -21918,17 +21923,17 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2055"/>
+        <location filename="../../libmscore/segment.cpp" line="2070"/>
         <source>Annotations:</source>
         <translation>Ծանոթագրություններ՝</translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2077"/>
+        <location filename="../../libmscore/segment.cpp" line="2092"/>
         <source>Start of %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2091"/>
+        <location filename="../../libmscore/segment.cpp" line="2106"/>
         <source>End of %1</source>
         <translation type="unfinished"></translation>
     </message>

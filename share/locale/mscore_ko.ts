@@ -21629,6 +21629,11 @@ MusicXML 파일을 열 수 없습니다.</translation>
         <translation>마디 %1, 보표 %2, 성부 %3 은 너무 깁니다. 예상치: %4; 실제값: %5</translation>
     </message>
     <message>
+        <location filename="../../libmscore/check.cpp" line="224"/>
+        <source>Element outside measure: measure %1, staff %2. Found at: %3. Expected between 0 and %4.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../libmscore/chordrest.cpp" line="696"/>
         <source>Duplet</source>
         <translation>둘잇단음표</translation>
@@ -21882,17 +21887,17 @@ MusicXML 파일을 열 수 없습니다.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2055"/>
+        <location filename="../../libmscore/segment.cpp" line="2070"/>
         <source>Annotations:</source>
         <translation>주석:</translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2077"/>
+        <location filename="../../libmscore/segment.cpp" line="2092"/>
         <source>Start of %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2091"/>
+        <location filename="../../libmscore/segment.cpp" line="2106"/>
         <source>End of %1</source>
         <translation type="unfinished"></translation>
     </message>

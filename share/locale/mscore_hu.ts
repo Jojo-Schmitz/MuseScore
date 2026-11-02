@@ -21670,6 +21670,11 @@ Keresse fel a %1MuseScore honlapot%2 és töltse le a legújabb verziót.</trans
         <translation>%2. sor %1. ütem %3. szólam túl hosszú. Várt: %4; Kapott: %5</translation>
     </message>
     <message>
+        <location filename="../../libmscore/check.cpp" line="224"/>
+        <source>Element outside measure: measure %1, staff %2. Found at: %3. Expected between 0 and %4.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../libmscore/chordrest.cpp" line="696"/>
         <source>Duplet</source>
         <translation>Duola</translation>
@@ -21923,17 +21928,17 @@ Keresse fel a %1MuseScore honlapot%2 és töltse le a legújabb verziót.</trans
         <translation>%1: jelölés változások: %2</translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2055"/>
+        <location filename="../../libmscore/segment.cpp" line="2070"/>
         <source>Annotations:</source>
         <translation>Jegyzetek:</translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2077"/>
+        <location filename="../../libmscore/segment.cpp" line="2092"/>
         <source>Start of %1</source>
         <translation>%1 kezdete</translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2091"/>
+        <location filename="../../libmscore/segment.cpp" line="2106"/>
         <source>End of %1</source>
         <translation>%1 vége</translation>
     </message>

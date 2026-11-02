@@ -21689,6 +21689,11 @@ Odwiedź %1stronę internetową MuseScore&apos;a%2, aby pozyskać najnowszą wer
         <translation>Takt: %1; pięciolinia: %2; głos: %3 jest za długi. Spodziewany: %4; znaleziony: %5.</translation>
     </message>
     <message>
+        <location filename="../../libmscore/check.cpp" line="224"/>
+        <source>Element outside measure: measure %1, staff %2. Found at: %3. Expected between 0 and %4.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../libmscore/chordrest.cpp" line="696"/>
         <source>Duplet</source>
         <translation>Duola</translation>
@@ -21942,17 +21947,17 @@ Odwiedź %1stronę internetową MuseScore&apos;a%2, aby pozyskać najnowszą wer
         <translation>%1: zmiany znaczników: %2</translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2055"/>
+        <location filename="../../libmscore/segment.cpp" line="2070"/>
         <source>Annotations:</source>
         <translation>Objaśnienia:</translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2077"/>
+        <location filename="../../libmscore/segment.cpp" line="2092"/>
         <source>Start of %1</source>
         <translation>Początek %1</translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2091"/>
+        <location filename="../../libmscore/segment.cpp" line="2106"/>
         <source>End of %1</source>
         <translation>Koniec %1</translation>
     </message>

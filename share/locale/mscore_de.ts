@@ -21690,6 +21690,11 @@ Besuchen Sie die %1MuseScore Website%2, um die neueste Version zu erhalten.</tra
         <translation>Takt %1, Notenzeile %2, Stimme %3 zu lang. Erwartet: %4; Gefunden: %5</translation>
     </message>
     <message>
+        <location filename="../../libmscore/check.cpp" line="224"/>
+        <source>Element outside measure: measure %1, staff %2. Found at: %3. Expected between 0 and %4.</source>
+        <translation>Element außerhalb des Taktes: Takt %1, Notenzeile %2. Gefunden bei: %3. Erwartete zwischen 0 und %4.</translation>
+    </message>
+    <message>
         <location filename="../../libmscore/chordrest.cpp" line="696"/>
         <source>Duplet</source>
         <translation>Duole</translation>
@@ -21943,17 +21948,17 @@ Besuchen Sie die %1MuseScore Website%2, um die neueste Version zu erhalten.</tra
         <translation>%1: Markup Änderung: %2</translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2055"/>
+        <location filename="../../libmscore/segment.cpp" line="2070"/>
         <source>Annotations:</source>
         <translation>Anmerkungen:</translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2077"/>
+        <location filename="../../libmscore/segment.cpp" line="2092"/>
         <source>Start of %1</source>
         <translation>Anfang von %1</translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2091"/>
+        <location filename="../../libmscore/segment.cpp" line="2106"/>
         <source>End of %1</source>
         <translation>Ende von %1</translation>
     </message>

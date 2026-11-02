@@ -21687,6 +21687,11 @@ Visit the %1MuseScore website%2 to obtain the latest version.</translation>
         <translation>Bar %1, stave %2, voice %3 too long. Expected: %4; Found: %5</translation>
     </message>
     <message>
+        <location filename="../../libmscore/check.cpp" line="224"/>
+        <source>Element outside measure: measure %1, staff %2. Found at: %3. Expected between 0 and %4.</source>
+        <translation>Element outside bar: var %1, stave %2. Found at: %3. Expected between 0 and %4.</translation>
+    </message>
+    <message>
         <location filename="../../libmscore/chordrest.cpp" line="696"/>
         <source>Duplet</source>
         <translation>Duplet</translation>
@@ -21940,17 +21945,17 @@ Visit the %1MuseScore website%2 to obtain the latest version.</translation>
         <translation>%1: markup changes: %2</translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2055"/>
+        <location filename="../../libmscore/segment.cpp" line="2070"/>
         <source>Annotations:</source>
         <translation>Annotations:</translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2077"/>
+        <location filename="../../libmscore/segment.cpp" line="2092"/>
         <source>Start of %1</source>
         <translation>Start of %1</translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2091"/>
+        <location filename="../../libmscore/segment.cpp" line="2106"/>
         <source>End of %1</source>
         <translation>End of %1</translation>
     </message>
