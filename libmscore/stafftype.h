@@ -92,6 +92,7 @@ static const qreal GRID_STEM_DEF_WIDTH  = 0.125;
 
 struct TablatureFretFont {
       QString family;                           // the family of the physical font to use
+      QFont::Weight weight;                     // the weight of the physical font to use
       QString displayName;                      // the name to display to the user
       qreal   defPitch;                         // the default size of the font
       qreal   defYOffset;                       // the default Y displacement
@@ -136,6 +137,7 @@ enum class TablatureSymbolRepeat : char {
 
 struct TablatureDurationFont {
       QString family;                 // the family of the physical font to use
+      QFont::Weight weight;           // the weight of the physical font to use
       QString displayName;            // the name to display to the user
       qreal   defPitch;               // the default size of the font
       qreal   defYOffset;             // the default Y displacement
@@ -205,9 +207,11 @@ class StaffType {
 
       // TAB: configurable properties
       qreal _durationFontSize = 15.0;     // the size (in points) for the duration symbol font
+      bool _durationFontBold;
       qreal _durationFontUserY = 0.0;     // the vertical offset (spatium units) for the duration symb. font
                                           // user configurable
       qreal _fretFontSize  = 10.0;        // the size (in points) for the fret marks font
+      bool _fretFontBold;
       qreal _fretFontUserY = 0.0;         // additional vert. offset of fret marks with respect to
                                           // the string line (spatium unit); user configurable
       bool  _genDurations = false;        // whether duration symbols are drawn or not
@@ -348,9 +352,10 @@ class StaffType {
       const QFont&  durationFont() const     { return _durationFont;     }
       const QString durationFontName() const { return _durationFonts[_durationFontIdx].displayName; }
       qreal durationFontSize() const      { return _durationFontSize;   }
+      bool  durationFontBold() const      { return _durationFontBold;   }
       qreal durationFontUserY() const     { return _durationFontUserY;  }
-      qreal durationFontYOffset() const        { setDurationMetrics(); return _durationYOffset + _durationFontUserY * SPATIUM20; }
-      qreal durationGridYOffset() const        { setDurationMetrics(); return _durationGridYOffset;}
+      qreal durationFontYOffset() const   { setDurationMetrics(); return _durationYOffset + _durationFontUserY * SPATIUM20; }
+      qreal durationGridYOffset() const   { setDurationMetrics(); return _durationGridYOffset;}
       qreal fretBoxH() const              { setFretMetrics(); return _fretBoxH; }
       qreal fretBoxY() const              { setFretMetrics(); return _fretBoxY + _fretFontUserY * SPATIUM20; }
 
@@ -361,6 +366,7 @@ class StaffType {
       const QFont&  fretFont() const      { return _fretFont;           }
       const QString fretFontName() const  { return _fretFonts[_fretFontIdx].displayName; }
       qreal fretFontSize() const          { return _fretFontSize;       }
+      bool  fretFontBold() const          { return _fretFontBold;       }
       qreal fretFontUserY() const         { return _fretFontUserY;      }
       qreal fretFontYOffset() const       { setFretMetrics(); return _fretYOffset + _fretFontUserY * SPATIUM20; }
       bool  genDurations() const          { return _genDurations;       }
@@ -372,15 +378,17 @@ class StaffType {
       bool  stemsDown() const             { return _stemsDown;          }
       bool  stemThrough() const           { return _stemsThrough;       }
       bool  upsideDown() const            { return _upsideDown;         }
-      bool  showTabFingering() const            { return _showTabFingering;         }
+      bool  showTabFingering() const      { return _showTabFingering;   }
       bool  useNumbers() const            { return _useNumbers;         }
       bool  showBackTied() const          { return _showBackTied;       }
 
       // properties setters (setting some props invalidates metrics)
       void  setDurationFontName(const QString&);
+      void  setDurationFontBold(bool val) { _durationFontBold = val; };
       void  setDurationFontSize(qreal);
       void  setDurationFontUserY(qreal val)     { _durationFontUserY = val; }
       void  setFretFontName(const QString&);
+      void  setFretFontBold(bool val)     { _fretFontBold = val;        }
       void  setFretFontSize(qreal);
       void  setFretFontUserY(qreal val)   { _fretFontUserY = val;       }
       void  setGenDurations(bool val)     { _genDurations = val;        }
@@ -407,7 +415,7 @@ class StaffType {
       bool isDrumStaff() const { return _group == StaffGroup::PERCUSSION; }
       // static functions for font config files
       static QList<QString> fontNames(bool bDuration);
-      static bool fontData(bool bDuration, int nIdx, QString *pFamily, QString *pDisplayName, qreal * pSize, qreal *pYOff);
+      static bool fontData(bool bDuration, int nIdx, QString* pFamily, QFont::Weight* pWeight, QString* pDisplayName, qreal* pSize, qreal* pYOff);
 
       static void initStaffTypes();
       static const std::vector<StaffType>& presets() { return _presets; }
