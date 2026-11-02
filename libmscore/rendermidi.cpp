@@ -16,6 +16,7 @@
 */
 
 #include <set>
+#include <algorithm>
 
 #include "arpeggio.h"
 #include "articulation.h"
@@ -1136,7 +1137,7 @@ void MidiRenderer::renderSpanners(const Chunk& chunk, EventMap* events)
                               channelPedalEvents.at(channel).pop_back();
                               channelPedalEvents.at(channel).push_back(std::pair<int, std::pair<bool, int> >(st + tickOffset + (2 - MScore::pedalEventsMinTicks), std::pair<bool, int>(false, staff)));
                               }
-                        int a = st + tickOffset + (3 - MScore::pedalEventsMinTicks);
+                        int a = std::max(st + tickOffset + (3 - MScore::pedalEventsMinTicks), 0);
                         channelPedalEvents.at(channel).push_back(std::pair<int, std::pair<bool, int> >(a, std::pair<bool, int>(true, staff)));
                         }
                   if (s->tick2().ticks() >= tick1 && s->tick2().ticks() <= tick2) {
