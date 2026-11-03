@@ -217,6 +217,19 @@ bool Score::sanityCheck(const QString& name)
                               result = false;
                               }
                         }
+
+                  for (Segment* s = m->first(); s; s = s->next()) {
+                        const Fraction rtick = s->rtick();
+                        if ((rtick.negative() || rtick > mLen) && s->hasAnnotationOrElement(staffIdx)) {
+                              QString msg = QObject::tr("Element outside measure: measure %1, staff %2. Found at: %3. Expected between 0 and %4.")
+                                          .arg(mNumber).arg(staffIdx + 1).arg(rtick.toString(), mLen.toString());
+                              qDebug() << msg;
+                              error += QString("%1\n").arg(msg);
+                              m->setCorrupted(staffIdx, true);
+                              result = false;
+                              break;
+                              }
+                        }
                   }
             mNumber++;
             }

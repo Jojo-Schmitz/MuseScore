@@ -21683,6 +21683,11 @@ Navštivte %1stránky MuseScore%2 pro získání poslední verze.</translation>
         <translation>Takt %1 v osnově %2, hlas %3 je příliš dlouhý. Očekáváno: %4; Nalezeno: %5</translation>
     </message>
     <message>
+        <location filename="../../libmscore/check.cpp" line="224"/>
+        <source>Element outside measure: measure %1, staff %2. Found at: %3. Expected between 0 and %4.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../libmscore/chordrest.cpp" line="696"/>
         <source>Duplet</source>
         <translation>Duola</translation>
@@ -21936,17 +21941,17 @@ Navštivte %1stránky MuseScore%2 pro získání poslední verze.</translation>
         <translation>%1: změny značení: %2</translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2055"/>
+        <location filename="../../libmscore/segment.cpp" line="2070"/>
         <source>Annotations:</source>
         <translation>Poznámky:</translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2077"/>
+        <location filename="../../libmscore/segment.cpp" line="2092"/>
         <source>Start of %1</source>
         <translation>Začátek %1</translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2091"/>
+        <location filename="../../libmscore/segment.cpp" line="2106"/>
         <source>End of %1</source>
         <translation>Konec %1</translation>
     </message>

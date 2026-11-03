@@ -21637,6 +21637,11 @@ Tadhail air %1làrach-lìn MuseScore%2 gus an tionndadh as ùire fhaighinn.</tra
         <translation>Tha Leagadh %1 Cliath %2 guth %3 ro fhada. An dùil air: %4; Ach seo na tha ann: %5</translation>
     </message>
     <message>
+        <location filename="../../libmscore/check.cpp" line="224"/>
+        <source>Element outside measure: measure %1, staff %2. Found at: %3. Expected between 0 and %4.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../libmscore/chordrest.cpp" line="696"/>
         <source>Duplet</source>
         <translation>Dà-rinn</translation>
@@ -21890,17 +21895,17 @@ Tadhail air %1làrach-lìn MuseScore%2 gus an tionndadh as ùire fhaighinn.</tra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2055"/>
+        <location filename="../../libmscore/segment.cpp" line="2070"/>
         <source>Annotations:</source>
         <translation>Nòtachaidhean:</translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2077"/>
+        <location filename="../../libmscore/segment.cpp" line="2092"/>
         <source>Start of %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2091"/>
+        <location filename="../../libmscore/segment.cpp" line="2106"/>
         <source>End of %1</source>
         <translation type="unfinished"></translation>
     </message>

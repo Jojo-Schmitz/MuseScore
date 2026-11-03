@@ -21675,6 +21675,11 @@ Bezoek de %1MuseScore website%2 om de nieuwste versie te verkrijgen.</translatio
         <translation>Maat %1, notenbalk %2, stem %3 te lang. Verwacht: %4; Gevonden: %5</translation>
     </message>
     <message>
+        <location filename="../../libmscore/check.cpp" line="224"/>
+        <source>Element outside measure: measure %1, staff %2. Found at: %3. Expected between 0 and %4.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../libmscore/chordrest.cpp" line="696"/>
         <source>Duplet</source>
         <translation>Duool</translation>
@@ -21928,17 +21933,17 @@ Bezoek de %1MuseScore website%2 om de nieuwste versie te verkrijgen.</translatio
         <translation>%1: markeer wijzigingen: %2</translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2055"/>
+        <location filename="../../libmscore/segment.cpp" line="2070"/>
         <source>Annotations:</source>
         <translation>Annotaties:</translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2077"/>
+        <location filename="../../libmscore/segment.cpp" line="2092"/>
         <source>Start of %1</source>
         <translation>Begin van %1</translation>
     </message>
     <message>
-        <location filename="../../libmscore/segment.cpp" line="2091"/>
+        <location filename="../../libmscore/segment.cpp" line="2106"/>
         <source>End of %1</source>
         <translation>Einde van %1</translation>
     </message>

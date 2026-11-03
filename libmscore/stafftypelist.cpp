@@ -10,6 +10,8 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
+#include "global/log.h"
+
 #include "score.h"
 #include "stafftypelist.h"
 #include "xml.h"
@@ -43,7 +45,10 @@ const StaffType& StaffTypeList::staffType(const Fraction& tick) const
 
 StaffType& StaffTypeList::staffType(const Fraction& tick)
       {
-      Q_ASSERT(!tick.negative());
+      IF_ASSERT_FAILED(!tick.negative()) {
+            static StaffType st;
+            return st;
+            }
 
       if (staffTypeChanges.empty())
             return firstStaffType;
