@@ -21689,7 +21689,7 @@ Allez sur le %1site de MuseScore%2 pour télécharger la dernière version.</tra
     <message>
         <location filename="../../libmscore/check.cpp" line="224"/>
         <source>Element outside measure: measure %1, staff %2. Found at: %3. Expected between 0 and %4.</source>
-        <translation type="unfinished"></translation>
+        <translation>Élément en dehors de la mesure :  mesure %1, portée %2, trouvé à %3. Attendu entre 0 et %4.</translation>
     </message>
     <message>
         <location filename="../../libmscore/chordrest.cpp" line="696"/>
