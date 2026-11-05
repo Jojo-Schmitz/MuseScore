@@ -466,7 +466,7 @@ private:
       void dynamics();
       void otherDirection();
       void handleRepeats(Measure* measure, const int track, const Fraction tick);
-      QString matchRepeat() const;
+      QString matchRepeat(const QString& wordText) const;
       void handleNmiCmi(Measure* measure, const int track, const Fraction tick, DelayedDirectionsList& delayedDirections);
       void handleChordSym(const int track, const Fraction tick, HarmonyMap& harmonyMap);
       bool isLikelyFingering(const QString& fingeringStr) const;
