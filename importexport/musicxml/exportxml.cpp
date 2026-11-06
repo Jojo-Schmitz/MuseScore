@@ -78,6 +78,7 @@
 #include "libmscore/pitchspelling.h"
 #include "libmscore/rehearsalmark.h"
 #include "libmscore/rest.h"
+#include "libmscore/repeat.h"
 #include "libmscore/score.h"
 #include "libmscore/segment.h"
 #include "libmscore/sig.h"
@@ -212,7 +213,7 @@ class SlurHandler {
 
 public:
       SlurHandler();
-      void doSlurs(const ChordRest* chordRest, Notations& notations, XmlWriter& xml);
+      void doSlurs(const ChordRest* chordRest, Notations& notations, XmlWriter& xml, const Measure* within = nullptr);
 
 private:
       void doSlurStart(const Slur* s, Notations& notations, XmlWriter& xml);
@@ -305,6 +306,9 @@ class ExportMusicXml {
       TrillHash _trillStop;
       MxmlInstrumentMap instrMap;
       bool _isMxl = false;
+      const Measure* _repeatSource { nullptr };   // set while writing out a measure repeat
+
+      bool inRepeatSource(const Element* e) const;
 
       int findBracket(const TextLineBase* tl) const;
       int findDashes(const TextLineBase* tl) const;
@@ -313,6 +317,7 @@ class ExportMusicXml {
       int findTrill(const Trill* tl) const;
       void chord(Chord* chord, int staff, const std::vector<Lyrics*>* ll, bool useDrumset);
       void rest(Rest* chord, int staff, const std::vector<Lyrics*>* ll);
+      void repeatedMeasure(RepeatMeasure* rm, const Measure* m, int sstaff, bool useDrumset);
       void clef(int staff, const ClefType ct, const QString& extraAttributes = QString());
       void timesig(const TimeSig* tsig, int staff);
       void keysig(const KeySig* ks, ClefType ct, int staff = 0);
@@ -760,7 +765,7 @@ static const ChordRest* findFirstChordRest(const Slur* s)
 //   doSlurs
 //---------------------------------------------------------
 
-void SlurHandler::doSlurs(const ChordRest* chordRest, Notations& notations, XmlWriter& xml)
+void SlurHandler::doSlurs(const ChordRest* chordRest, Notations& notations, XmlWriter& xml, const Measure* within)
       {
       // loop over all slurs twice, first to handle the stops, then the starts
       for (int i = 0; i < 2; ++i) {
@@ -768,6 +773,13 @@ void SlurHandler::doSlurs(const ChordRest* chordRest, Notations& notations, XmlW
             for (const auto& it : chordRest->score()->spanner()) {
                   auto sp = it.second;
                   if (sp->generated() || !sp->isSlur())
+                        continue;
+                  // when writing out a measure repeat, only slurs lying wholly
+                  // inside the repeated measure can be written without leaving
+                  // an unpaired start or stop
+                  if (within && !(sp->startElement() && sp->endElement()
+                                  && within->tick() <= sp->startElement()->tick()
+                                  && sp->endElement()->tick() < within->endTick()))
                         continue;
                   if (chordRest == sp->startElement() || chordRest == sp->endElement()) {
                         const Slur* s = static_cast<const Slur*>(sp);
@@ -4017,7 +4029,10 @@ void ExportMusicXml::chord(Chord* chord, int staff, const std::vector<Lyrics*>* 
             _attr.doAttr(_xml, false);
             QString noteTag = QString("note");
 
-            noteTag += elementPosition(this, note);
+            // a written-out measure repeat has no layout of its own: the
+            // positions would be those of the source measure
+            if (!_repeatSource)
+                  noteTag += elementPosition(this, note);
 
             //TODO support for OFFSET_VAL
             if (note->veloType() == Note::ValueType::USER_VAL) {
@@ -4044,9 +4059,9 @@ void ExportMusicXml::chord(Chord* chord, int staff, const std::vector<Lyrics*>* 
                   _xml.tag("duration", calculateDurationInDivisions(chord->globalTicks(), div));
 
             if (!isCueNote(note)) {
-                  if (note->tieBack())
+                  if (note->tieBack() && inRepeatSource(note->tieBack()->startNote()))
                         _xml.tagE("tie type=\"stop\"");
-                  if (note->tieFor())
+                  if (note->tieFor() && inRepeatSource(note->tieFor()->endNote()))
                         _xml.tagE("tie type=\"start\"");
                   }
 
@@ -4106,7 +4121,7 @@ void ExportMusicXml::chord(Chord* chord, int staff, const std::vector<Lyrics*>* 
             Notations notations;
 
             const Tie* tieBack = note->tieBack();
-            if (tieBack) {
+            if (tieBack && inRepeatSource(tieBack->startNote())) {
                   notations.tag(_xml, tieBack);
                   _xml.tagE("tied type=\"stop\"");
                   }
@@ -4124,7 +4139,7 @@ void ExportMusicXml::chord(Chord* chord, int staff, const std::vector<Lyrics*>* 
                   _xml.tagE("tied type=\"let-ring\"");
                   }
             const Tie* tieFor = note->tieFor();
-            if (tieFor) {
+            if (tieFor && inRepeatSource(tieFor->endNote())) {
 #endif
                   notations.tag(_xml, tieFor);
                   QString rest = slurTieLineStyle(tieFor);
@@ -4135,7 +4150,7 @@ void ExportMusicXml::chord(Chord* chord, int staff, const std::vector<Lyrics*>* 
                   if (!grace)
                         tupletStartStop(chord, notations, _xml);
 
-                  sh.doSlurs(chord, notations, _xml);
+                  sh.doSlurs(chord, notations, _xml, _repeatSource);
 
                   chordAttributes(chord, notations, _trillStart, _trillStop);
                   }
@@ -4156,11 +4171,11 @@ void ExportMusicXml::chord(Chord* chord, int staff, const std::vector<Lyrics*>* 
                   arpeggiate(arp, note == nl.front(), note == nl.back(), _xml, notations);
                   }
             for (Spanner* spanner : note->spannerFor())
-                  if (spanner->isGlissando()) {
+                  if (spanner->isGlissando() && inRepeatSource(spanner->endElement())) {
                         gh.doGlissandoStart(static_cast<Glissando*>(spanner), notations, _xml);
                         }
             for (Spanner* spanner : note->spannerBack())
-                  if (spanner->isGlissando()) {
+                  if (spanner->isGlissando() && inRepeatSource(spanner->startElement())) {
                         gh.doGlissandoStop(static_cast<Glissando*>(spanner), notations, _xml);
                         }
             // write glissando (only for last note)
@@ -4179,6 +4194,78 @@ void ExportMusicXml::chord(Chord* chord, int staff, const std::vector<Lyrics*>* 
                   lyrics(ll, chord->track());
             _xml.etag();
             }
+      }
+
+//---------------------------------------------------------
+//   inRepeatSource
+//---------------------------------------------------------
+
+/**
+ Outside a measure repeat, always true. While a measure repeat is being
+ written out, true only if \a e lies in the measure being repeated, so that
+ a tie, slur or glissando is written only when both of its ends are.
+ */
+
+bool ExportMusicXml::inRepeatSource(const Element* e) const
+      {
+      if (!_repeatSource)
+            return true;
+      return e && _repeatSource->tick() <= e->tick() && e->tick() < _repeatSource->endTick();
+      }
+
+//---------------------------------------------------------
+//   repeatedMeasure
+//---------------------------------------------------------
+
+/**
+ Write the music a measure repeat sign stands for.
+
+ MusicXML requires the repeated music to be written out in full in every
+ measure that shows the sign; <measure-repeat> in <measure-style> (see
+ measureStyle()) only says how it is displayed.
+
+ The source measure is found the way playback finds it
+ (MidiRenderer::renderStaffChunk): the nearest earlier measure that is not
+ itself a measure repeat on this staff. Every voice of that staff is written,
+ shifted to this measure. Ties, slurs and glissandi are written only when
+ both ends lie in the source measure, and layout positions are left out.
+ Lyrics and directions are not repeated.
+ */
+
+void ExportMusicXml::repeatedMeasure(RepeatMeasure* rm, const Measure* m, int sstaff, bool useDrumset)
+      {
+      const Staff* staff = rm->staff();
+      const Measure* src = m->prevMeasure();
+      while (src && src->isRepeatMeasure(staff))
+            src = src->prevMeasure();
+      if (!src || src->ticks() != m->ticks()) {
+            // nothing usable to repeat (and nothing is played): a measure rest
+            rest(rm, sstaff, &rm->lyrics());
+            return;
+            }
+
+      static const std::vector<Lyrics*> noLyrics;
+      _repeatSource = src;
+      const int strack = staff->idx() * VOICES;
+      for (int track = strack; track < strack + VOICES; ++track) {
+            for (Segment* seg = src->first(SegmentType::ChordRest); seg; seg = seg->next(SegmentType::ChordRest)) {
+                  Element* el = seg->element(track);
+                  if (!el)
+                        continue;
+                  moveToTick(m->tick() + (seg->tick() - src->tick()));
+                  if (el->isChord()) {
+                        Chord* c = toChord(el);
+                        for (Chord* g : c->graceNotesBefore())
+                              chord(g, sstaff, &noLyrics, useDrumset);
+                        chord(c, sstaff, &noLyrics, useDrumset);
+                        for (Chord* g : c->graceNotesAfter())
+                              chord(g, sstaff, &noLyrics, useDrumset);
+                        }
+                  else if (el->isRest() && !toRest(el)->isGap())
+                        rest(toRest(el), sstaff, &noLyrics);
+                  }
+            }
+      _repeatSource = nullptr;
       }
 
 //---------------------------------------------------------
@@ -4201,7 +4288,8 @@ void ExportMusicXml::rest(Rest* rest, int staff, const std::vector<Lyrics*>* ll)
 
       QString noteTag = QString("note");
       noteTag += color2xml(rest);
-      noteTag += elementPosition(this, rest);
+      if (!_repeatSource)
+            noteTag += elementPosition(this, rest);
       if (!rest->visible()
           || (rest->staff() && rest->staff()->staffType(rest->tick())->isTabStaff()
               && !rest->staff()->staffType(rest->tick())->showRests()))
@@ -4319,7 +4407,7 @@ void ExportMusicXml::rest(Rest* rest, int staff, const std::vector<Lyrics*>* ll)
 
       wavyLineStartStop(rest, notations, _trillStart, _trillStop);
 
-      sh.doSlurs(rest, notations, _xml);
+      sh.doSlurs(rest, notations, _xml, _repeatSource);
 
       tupletStartStop(rest, notations, _xml);
       notations.etag(_xml);
@@ -5942,13 +6030,32 @@ static bool elementRighter(const Element* e1, const Element* e2)
 // note: for a normal measure, mmRest1 is the measure itself,
 // for a multi-meaure rest, it is the replacing measure
 
-static void measureStyle(XmlWriter& xml, Attributes& attr, const Measure* const m)
+static void measureStyle(XmlWriter& xml, Attributes& attr, const Measure* const m, const Part* const part)
       {
       const Measure* mmR1 = m->coveringMMRestOrThis();
       if (m != mmR1 && m == mmR1->mmRestFirst()) {
             attr.doAttr(xml, true);
             xml.stag("measure-style");
             xml.tag("multiple-rest", mmR1->mmRestCount());
+            xml.etag();
+            }
+
+      // measure repeats: start in the first measure showing the sign,
+      // stop in the first measure after the run that does not
+      const int staves = part->nstaves();
+      const Measure* prev = m->prevMeasure();
+      for (int i = 0; i < staves; ++i) {
+            const Staff* staff = part->staff(i);
+            const bool isRepeat = m->isRepeatMeasure(staff);
+            const bool prevIsRepeat = prev && prev->isRepeatMeasure(staff);
+            if (isRepeat == prevIsRepeat)
+                  continue;
+            attr.doAttr(xml, true);
+            xml.stag(staves > 1 ? QString("measure-style number=\"%1\"").arg(i + 1) : QString("measure-style"));
+            if (isRepeat)
+                  xml.tag("measure-repeat type=\"start\"", 1);
+            else
+                  xml.tagE("measure-repeat type=\"stop\"");
             xml.etag();
             }
       }
@@ -7282,6 +7389,9 @@ void ExportMusicXml::writeElement(Element* el, const Measure* m, int sstaff, boo
                   rest(r, sstaff, ll);
                   }
             }
+      else if (el->isRepeatMeasure()) {
+            repeatedMeasure(toRepeatMeasure(el), m, sstaff, useDrumset);
+            }
       else if (el->isBarLine()) {
             const BarLine* barln = toBarLine(el);
             if (tickIsInMiddleOfMeasure(barln->tick(), m))
@@ -7855,7 +7965,7 @@ void ExportMusicXml::writeMeasure(const Measure* const m,
       _hiddenStaves.clear();
 
       // output attribute at start of measure: measure-style
-      measureStyle(_xml, _attr, m);
+      measureStyle(_xml, _attr, m, part);
 
       // MuseScore limitation: repeats are always in the first part
       // and are implicitly placed at either measure start or stop
