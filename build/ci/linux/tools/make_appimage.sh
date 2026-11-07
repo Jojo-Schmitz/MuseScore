@@ -100,12 +100,7 @@ mkdir -p "$qt_sql_drivers_tmp"
 
 # Semicolon-separated list of platforms to deploy in addition to `libqxcb.so`.
 # Used by linuxdeploy-plugin-qt.
-if [[ "$PACKARCH" == x86_64 ]]; then # current x86_64 qt5.9 does not contain wayland, setup.sh L200
-  export EXTRA_PLATFORM_PLUGINS=""
-else
-  export EXTRA_PLATFORM_PLUGINS="libqwayland-egl.so;libqwayland-generic.so" # # todo: arm related, the current qt5.9 package does not support wayland, see setup.sh L200
-  # libqoffscreen.so not backported, it fixes musescore 4 headless regression https://github.com/musescore/MuseScore/issues/17247
-fi
+export EXTRA_PLATFORM_PLUGINS="libqoffscreen.so;libqwayland-egl.so;libqwayland-generic.so"
 
 # Colon-separated list of root directories containing QML files.
 # Needed for linuxdeploy-plugin-qt to scan for QML imports.
