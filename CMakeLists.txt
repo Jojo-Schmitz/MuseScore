@@ -334,7 +334,7 @@ endif (MINGW OR MSVC OR APPLE)
 # Download MuseScore SoundFont
 if (DOWNLOAD_SOUNDFONT)
   set (SF_VERSION_REMOTE_FILE ${PROJECT_BINARY_DIR}/SF_VERSION)
-  set (SF_VERSION_LOCAL_FILE ${PROJECT_SOURCE_DIR}/share/sound/VERSION)
+  set (SF_VERSION_LOCAL_FILE ${PROJECT_SOURCE_DIR}/share/sound/SF_VERSION)
   set (DOWNLOAD_URL_ROOT "https://ftp.osuosl.org/pub/musescore/soundfont/MuseScore_General")
   set (SOUND_DIRECTORY ${PROJECT_SOURCE_DIR}/share/sound)
 
@@ -350,8 +350,11 @@ if (DOWNLOAD_SOUNDFONT)
     endif ()
 
     string(COMPARE LESS ${SF_VERSION_LOCAL} ${SF_VERSION_REMOTE} DO_DOWNLOAD)
+    if (NOT EXISTS ${SOUND_DIRECTORY}/MuseScore_General.sf3)
+      set(DO_DOWNLOAD TRUE)
+    endif()
     if (DO_DOWNLOAD)
-      message("Version ${SF_VERSION_LOCAL} of the MuseScore SoundFont is outdated, downloading version ${SF_VERSION_REMOTE}.")
+      message("Downloading MuseScore SoundFont version ${SF_VERSION_REMOTE} (local version: ${SF_VERSION_LOCAL}).")
       # delete soundfont and download new version
       ## TODO check STATUS of downloads
       file (REMOVE ${SOUND_DIRECTORY}/MuseScore_General.sf3
