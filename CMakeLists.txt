@@ -349,26 +349,33 @@ if (DOWNLOAD_SOUNDFONT)
       file (STRINGS ${SF_VERSION_LOCAL_FILE} SF_VERSION_LOCAL)
     endif ()
 
-    string(COMPARE LESS ${SF_VERSION_LOCAL} ${SF_VERSION_REMOTE} DO_DOWNLOAD)
-    if (NOT EXISTS ${SOUND_DIRECTORY}/MuseScore_General.sf3)
+    set(DO_DOWNLOAD FALSE)
+    if (SF_VERSION_LOCAL VERSION_LESS SF_VERSION_REMOTE
+        OR NOT EXISTS "${SOUND_DIRECTORY}/MuseScore_General.sf3")
       set(DO_DOWNLOAD TRUE)
     endif()
     if (DO_DOWNLOAD)
       message("Downloading MuseScore SoundFont version ${SF_VERSION_REMOTE} (local version: ${SF_VERSION_LOCAL}).")
-      # delete soundfont and download new version
-      ## TODO check STATUS of downloads
-      file (REMOVE ${SOUND_DIRECTORY}/MuseScore_General.sf3
-                   ${SOUND_DIRECTORY}/MuseScore_General_License.md
-                   ${SOUND_DIRECTORY}/MuseScore_General_Changelog.md
-                   ${SOUND_DIRECTORY}/MuseScore_General_Readme.md)
-      file(DOWNLOAD ${DOWNLOAD_URL_ROOT}/MuseScore_General.sf3 ${SOUND_DIRECTORY}/MuseScore_General.sf3 SHOW_PROGRESS STATUS SF_DL_STATUS)
+      # Download to a temporary file to preserve the existing SoundFont on failure.
+      set(SF_TEMP_FILE ${SOUND_DIRECTORY}/MuseScore_General.sf3.tmp)
+
+      file(DOWNLOAD
+        ${DOWNLOAD_URL_ROOT}/MuseScore_General.sf3
+        ${SF_TEMP_FILE}
+        SHOW_PROGRESS
+        STATUS SF_DL_STATUS)
+
       list(GET SF_DL_STATUS 0 HTTP_STATUS)
+
       if (NOT HTTP_STATUS EQUAL 0)
         list(GET SF_DL_STATUS 1 HTTP_STATUS_TEXT)
+        file(REMOVE ${SF_TEMP_FILE})
         message(FATAL_ERROR "Cannot download new soundfont. Error: ${HTTP_STATUS_TEXT}")
       endif()
+
+      file(RENAME ${SF_TEMP_FILE} ${SOUND_DIRECTORY}/MuseScore_General.sf3)
       file(DOWNLOAD ${DOWNLOAD_URL_ROOT}/MuseScore_General_License.md ${SOUND_DIRECTORY}/MuseScore_General_License.md)
-      file(DOWNLOAD ${DOWNLOAD_URL_ROOT}/MuseScore_General_Changelog.md ${SOUND_DIRECTORY}/MuseScore_General_Changelog.txt)
+      file(DOWNLOAD ${DOWNLOAD_URL_ROOT}/MuseScore_General_Changelog.md ${SOUND_DIRECTORY}/MuseScore_General_Changelog.md)
       file(DOWNLOAD ${DOWNLOAD_URL_ROOT}/MuseScore_General_Readme.md ${SOUND_DIRECTORY}/MuseScore_General_Readme.md)
       # replace VERSION file (in any case, delete VERSION file)
       file (COPY ${SF_VERSION_REMOTE_FILE} DESTINATION ${SOUND_DIRECTORY})
