@@ -243,10 +243,11 @@ done
 # (AppImage inside AppImage).
 if [[ "${UPDATE_INFORMATION}" ]]; then
   if [[ ! -d $BUILD_TOOLS/appimageupdatetool ]]; then
+    appdir_parent="$PWD"
     mkdir $BUILD_TOOLS/appimageupdatetool
     cd $BUILD_TOOLS/appimageupdatetool
     download_appimage_release AppImage/AppImageUpdate appimageupdatetool continuous
-    cd $ORIGIN_DIR
+    cd "$appdir_parent"
   fi
 
   export PATH="$BUILD_TOOLS/appimageupdatetool:$PATH"
