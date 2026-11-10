@@ -277,7 +277,7 @@ jobs:
             #export GITHUB_CONTINUOUS_RELEASE_TAG=continuous # continuous
             #export GITHUB_CONTINUOUS_RELEASE_Name="Continuous Build" # "Continuous Build"
             #export CHANGELOG_TYPE=standardA # none, standard, conventional
-            ./pyuploadtool-x86_64.AppImage ./Mu3.7_*/MuseScore*.{AppImage,paf.exe,7z,dmg}
+            ./pyuploadtool-x86_64.AppImage ./Mu3.7_*/MuseScore*.{AppImage,paf.exe,7z,dmg,zsync}
 
   #commented out for better workflow graph on github
   # Dummy build for testing purposes.

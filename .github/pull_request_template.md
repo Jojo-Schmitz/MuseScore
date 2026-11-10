@@ -1,14 +1,17 @@
-Resolves: *(direct link to the issue)*
+Resolves: #NNNNN <!-- Replace `NNNNN` with a GitHub issue number, or a direct link if the issue is not on GitHub -->
 
-*(short description of the changes and the motivation to make the changes)*
+<!-- Add a short description of and motivation for the changes here -->
 
-<!-- Use "x" to fill the checkboxes below like [x] -->
+<!-- Replace `[ ]` with `[x]` to fill the checkboxes below (failure to complete this checklist accurately will result in the PR being closed) -->
 
-- [ ] I signed [CLA](https://musescore.org/en/cla)
-- [ ] I made sure the code in the PR follows [the coding rules](https://musescore.org/en/handbook/developers-handbook/finding-your-way-around/musescore-coding-rules)
-- [ ] I made sure the code compiles on my machine
-- [ ] I made sure there are no unnecessary changes in the code
-- [ ] I made sure the title of the PR reflects the core meaning of the issue you are solving
-- [ ] I made sure the commit message(s) contain a description and answer the question "Why do those changes fix that particular issue?" or "Why are those changes really necessary as improvements?"
-- [ ] I made sure the commit message title starts with "fix #424242:" if there is a related issue
-- [ ] I created the test (mtest, vtest, script test) to verify the changes I made
+- [ ] The title of the PR describes the problem it addresses.
+- [ ] The code in the PR follows [the coding rules](https://musescore.org/en/handbook/developers-handbook/finding-your-way-around/musescore-coding-rules).
+- [ ] There are no unnecessary changes.
+- [ ] Each commit's message describes its purpose and effects, and references the issue it resolves. If changes are extensive, there is a sequence of easily reviewable commits.
+- [ ] The code compiles and runs on my machine, preferably after each commit individually. I have manually tested and verified that my changes fulfil their intended purpose.
+- [ ] No prior attempts to resolve this problem exist, or if they do, I listed them in my PR description and described how I avoided repeating past mistakes.
+
+Complete only if applicable:
+- [ ] I created a unit test or vtest to verify the changes I made.
+- [ ] This PR was created using AI assistance; I have read, understood and complied following the [guidelines for AI-assisted contributions](https://github.com/Jojo-Schmitz/musescore/blob/main/AI_POLICY.md). The AI tool(s) I used are listed below.
+<!-- List all AI tools used in the creation of this PR here -->
