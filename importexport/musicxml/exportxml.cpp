@@ -565,6 +565,11 @@ void Notations::closeContainer(XmlWriter& xml)
       currentContainer = QString();
       }
 
+static QString color2Hex(const QColor& color)
+      {
+      return color.name(color.alpha() == 255 ? QColor::HexRgb : QColor::HexArgb).toUpper();
+      }
+
 //---------------------------------------------------------
 //   color2xml
 //---------------------------------------------------------
@@ -580,9 +585,9 @@ static QString color2xml(const Element* el)
             return color;
 
       if (el->color() != MScore::defaultColor)
-            color = QString(" color=\"%1\"").arg(el->color().name().toUpper());
+            color = QString(" color=\"%1\"").arg(color2Hex(el->color()));
       else if (el->isSLine() && ((SLine*)el)->lineColor() != MScore::defaultColor)
-            color = QString(" color=\"%1\"").arg(((SLine*)el)->lineColor().name().toUpper());
+            color = QString(" color=\"%1\"").arg(color2Hex(((SLine*)el)->lineColor()));
       return color;
       }
 
