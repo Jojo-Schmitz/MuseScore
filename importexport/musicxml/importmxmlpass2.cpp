@@ -7609,8 +7609,8 @@ void MusicXMLParserLyric::skipLogCurrElem()
 
 void MusicXMLParserLyric::readElision(QString& formattedText)
       {
-      const QString text = _e.readElementText();
       const QString smufl = _e.attributes().value("smufl").toString();
+      const QString text = _e.readElementText();
       if (!text.isEmpty())
             formattedText += text;
       else if (!smufl.isEmpty())

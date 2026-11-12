@@ -133,26 +133,8 @@
             <Lyrics>
               <text>ce<sym>lyricsElision</sym>e<sym>lyricsElision</sym>in</text>
               </Lyrics>
-            <StemDirection>down</StemDirection>
-            <Note>
-              <pitch>71</pitch>
-              <tpc>19</tpc>
-              </Note>
-            </Chord>
-          <Chord>
-            <durationType>quarter</durationType>
             <Lyrics>
-              <text>ce‿e in</text>
-              </Lyrics>
-            <StemDirection>down</StemDirection>
-            <Note>
-              <pitch>71</pitch>
-              <tpc>19</tpc>
-              </Note>
-            </Chord>
-          <Chord>
-            <durationType>quarter</durationType>
-            <Lyrics>
+              <no>1</no>
               <text>ce<sym>lyricsElision</sym>e<sym>lyricsElision</sym>in</text>
               </Lyrics>
             <StemDirection>down</StemDirection>
@@ -164,7 +146,41 @@
           <Chord>
             <durationType>quarter</durationType>
             <Lyrics>
-              <text>ce<sym>lyricsElision</sym>e‿in</text>
+              <text>ce‿e in</text>
+              </Lyrics>
+            <Lyrics>
+              <no>1</no>
+              <text>ce‿e in</text>
+              </Lyrics>
+            <StemDirection>down</StemDirection>
+            <Note>
+              <pitch>71</pitch>
+              <tpc>19</tpc>
+              </Note>
+            </Chord>
+          <Chord>
+            <durationType>quarter</durationType>
+            <Lyrics>
+              <text>ce<sym>lyricsHyphenBaseline</sym>e<sym>lyricsElision</sym>in</text>
+              </Lyrics>
+            <Lyrics>
+              <no>1</no>
+              <text>ce<sym>lyricsElisionNarrow</sym>e<sym>lyricsHyphenBaseline</sym>in</text>
+              </Lyrics>
+            <StemDirection>down</StemDirection>
+            <Note>
+              <pitch>71</pitch>
+              <tpc>19</tpc>
+              </Note>
+            </Chord>
+          <Chord>
+            <durationType>quarter</durationType>
+            <Lyrics>
+              <text>ce<sym>lyricsElisionWide</sym>e‿in</text>
+              </Lyrics>
+            <Lyrics>
+              <no>1</no>
+              <text>ce<sym>lyricsElisionWide</sym>e‿in</text>
               </Lyrics>
             <StemDirection>down</StemDirection>
             <Note>
