@@ -6195,23 +6195,25 @@ static void setNoteHead(Note* note, const QColor noteheadColor, const bool noteh
 
 static Beam::Mode computeBeamMode(const QMap<int, QString>& beamTypes)
       {
-      // Start with uniquely-handled beam modes
-      if (beamTypes.value(1) == "continue"
-          && beamTypes.value(2) == "begin")
+      const QString& b1 = beamTypes.value(1);
+      const QString& b2 = beamTypes.value(2);
+      const QString& b3 = beamTypes.value(3);
+
+      // Start with uniquely-handled secondary beam modes
+      if (b1 == "continue" && (b2 == "begin" || b2 == "forward hook"))
             return Beam::Mode::BEGIN32;
-      else if (beamTypes.value(1) == "continue"
-               && beamTypes.value(2) == "continue"
-               && beamTypes.value(3) == "begin")
+      else if (b1 == "continue" && b2 == "continue" && (b3 == "begin" || b3 == "forward hook"))
             return Beam::Mode::BEGIN64;
-      // Generic beam modes are naive to all except the first beam
-      else if (beamTypes.value(1) == "begin")
+      // Generic primary beam modes
+      else if (b1 == u"begin")
             return Beam::Mode::BEGIN;
-      else if (beamTypes.value(1) == "continue")
+      else if (b1 == "continue")
             return Beam::Mode::MID;
-      else if (beamTypes.value(1) == "end")
+      else if (b1 == "end")
             return Beam::Mode::END;
-      else
-            // backward-hook, forward-hook, and other unknown combinations
+      else if (b1 == "forward hook" || b1 == "backward hook")
+            return Beam::Mode::MID;
+      else  // unknown combinations
             return Beam::Mode::AUTO;
       }
 

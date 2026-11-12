@@ -55,6 +55,7 @@
 #include "libmscore/figuredbass.h"
 #include "libmscore/fret.h"
 #include "libmscore/glissando.h"
+#include "libmscore/groups.h"
 #include "libmscore/hairpin.h"
 #include "libmscore/harmony.h"
 #include "libmscore/image.h"
@@ -3558,6 +3559,7 @@ static void writeBeam(XmlWriter& xml, ChordRest* const cr, Beam* const b)
             const ChordRest* crst = elements[i];
             blp = crst->beams();
             }
+      const ChordRest* prevCr = (idx > 0) ? elements[idx - 1] : nullptr;
       // find beam level current chord or rest
       blc = cr->beams();
       bmc = cr->beamMode();
@@ -3570,22 +3572,54 @@ static void writeBeam(XmlWriter& xml, ChordRest* const cr, Beam* const b)
       // find beam type and write
       for (int i = 1; i <= blc; ++i) {
             QString text;
-            // TODO: correctly handle Beam::Mode::AUTO
-            // when equivalent to BEGIN32 or BEGIN64
-            if ((blp < i && bln >= i)
-                || (bmc == Beam::Mode::BEGIN32 && i > 1)
-                || (bmc == Beam::Mode::BEGIN64 && i > 2))
+            const bool isPrevBeamContinuous = (blp >= i) && !(bmc == Beam::Mode::BEGIN32 && i > 1) && !(bmc == Beam::Mode::BEGIN64 && i > 2);
+            const bool isNextBeamContinuous = (bln >= i) && !(bmn == Beam::Mode::BEGIN32 && i > 1) && !(bmn == Beam::Mode::BEGIN64 && i > 2);
+
+            if (!isPrevBeamContinuous && isNextBeamContinuous)
                   text = "begin";
-            else if (blp < i && bln < i) {
-                  if (bln > 0) text = "forward hook";
-                  else if (blp > 0) text = "backward hook";
-                  }
-            else if ((blp >= i && bln < i)
-                     || (bmn == Beam::Mode::BEGIN32 && i > 1)
-                     || (bmn == Beam::Mode::BEGIN64 && i > 2))
+            else if (isPrevBeamContinuous && !isNextBeamContinuous)
                   text = "end";
-            else if (blp >= i && bln >= i)
+            else if (isPrevBeamContinuous && isNextBeamContinuous)
                   text = "continue";
+            else {
+                  const Fraction subBeamUnit = cr->durationType().fraction();
+                  // Scale the position by an odd tuplet ratio, as libmscore/beam.cpp does.
+                  Fraction pos = cr->rtick();
+                  if (cr->tuplet() && (cr->tuplet()->ratio().numerator() & 1))
+                        pos = (cr->tick() - cr->tuplet()->tick()) * cr->tuplet()->ratio();
+                  const bool isOffBeat = subBeamUnit.isNotZero()
+                              && (pos.ticks() % (subBeamUnit.ticks() * 2) >= subBeamUnit.ticks());
+                  const bool nextStartsSubBeam =
+                              (bmn == Beam::Mode::BEGIN32 && i > 1)
+                              || (bmn == Beam::Mode::BEGIN64 && i > 2);
+                  const bool isTupletEnd = cr->tuplet()
+                              && cr == cr->tuplet()->elements().back();
+                  const bool isTupletStart = cr->tuplet()
+                              && cr == cr->tuplet()->elements().front();
+                  const ChordRest* nextCr = idx + 1 < elements.size() ? elements[idx + 1] : nullptr;
+                  bool countPointsBackward = false;
+                  if (prevCr && nextCr && cr->isChord()
+                              && prevCr->isChord() && nextCr->isChord()
+                              && !cr->isGrace() && !cr->tuplet()
+                              && !nextStartsSubBeam) {
+                        const Groups& groups = cr->staff()->group(cr->measure()->tick());
+                        const Fraction stretch = cr->staff()->timeStretch(cr->measure()->tick());
+                        const Beam::Mode mode = groups.beamMode(
+                                    (cr->rtick() * stretch).ticks(), cr->durationType().type());
+                        const int beamsIn = mode == Beam::Mode::BEGIN32 ? 1
+                                          : mode == Beam::Mode::BEGIN64 ? 2
+                                          : prevCr->beams();
+                        const int beamsOut = nextCr->beams();
+                        countPointsBackward = blc - beamsOut > 1
+                                    && beamsIn > beamsOut && blc > beamsIn;
+                        }
+                  if (blp > 0 && (countPointsBackward || (isOffBeat && !isTupletStart) || bln <= 0
+                                  || (nextStartsSubBeam && !isTupletStart)
+                                  || (isTupletEnd && !isTupletStart)))
+                        text = "backward hook";
+                  else if (bln > 0)
+                        text = "forward hook";
+                  }
             if (!text.isEmpty()) {
                   QString tag = "beam";
                   tag += QString(" number=\"%1\"").arg(i);
