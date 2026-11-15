@@ -50,6 +50,7 @@
 #include "stemslash.h"
 #include "sticking.h"
 #include "system.h"
+#include "systemtext.h"
 #include "tie.h"
 #include "tremolo.h"
 #include "tuplet.h"
@@ -1058,6 +1059,9 @@ Enabling copying of more element types requires enabling pasting in Score::paste
                         continue;
                   case ElementType::STAFF_TEXT:
                         seg = toStaffText(e)->segment();
+                        break;
+                  case ElementType::SYSTEM_TEXT:
+                        seg = toSystemText(e)->segment();
                         break;
                   case ElementType::STICKING:
                         seg = toSticking(e)->segment();
