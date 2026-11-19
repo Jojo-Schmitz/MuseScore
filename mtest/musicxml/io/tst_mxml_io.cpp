@@ -272,6 +272,7 @@ private slots:
       void numberedLyrics() { mxmlIoTestRef("testNumberedLyrics"); }
       void numerals() { mxmlIoTest("testNumerals"); }
       void octaveShift() { mxmlIoTest("testOctaveShift"); }
+      void octaveShiftPartTime() { mxmlImportTestRef("testOctaveShiftPartTime"); }
       void ornaments() { mxmlIoTest("testOrnaments"); }
       void overlappingSpanners() { mxmlIoTest("testOverlappingSpanners"); }
       void pageNumbers1() { mxmlMscxExportTestRefBreaks("testPageNumbers1"); }
