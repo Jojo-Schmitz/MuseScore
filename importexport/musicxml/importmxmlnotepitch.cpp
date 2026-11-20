@@ -118,7 +118,7 @@ void mxmlNotePitch::pitch(QXmlStreamReader& e)
             if (e.name() == "alter") {
                   const QString alter = e.readElementText();
                   bool ok;
-                  _alter = MxmlSupport::stringToInt(alter, &ok);       // fractions not supported by mscore
+                  _alter = MxmlSupport::stringToInt(alter, &ok);
                   if (!ok || _alter < -2 || _alter > 2) {
                         _logger->logError(QString("invalid alter '%1'").arg(alter), &e);
                         bool ok2;
