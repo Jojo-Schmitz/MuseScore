@@ -225,9 +225,9 @@ private:
 //---------------------------------------------------------
 
 class GlissandoHandler {
-      const Note* glissNote[MAX_NUMBER_LEVEL];
-      const Note* slideNote[MAX_NUMBER_LEVEL];
-      int findNote(const Note* note, int type) const;
+      const Glissando* _gliss[MAX_NUMBER_LEVEL];
+      const Glissando* _slide[MAX_NUMBER_LEVEL];
+      int findGlissando(const Glissando* gliss, int type) const;
 
 public:
       GlissandoHandler();
@@ -936,25 +936,27 @@ GlissandoHandler::GlissandoHandler()
 void GlissandoHandler::reset()
 {
     for (int i = 0; i < MAX_NUMBER_LEVEL; ++i) {
-        glissNote[i] = 0;
-        slideNote[i] = 0;
+        _gliss[i] = nullptr;
+        _slide[i] = nullptr;
     }
 }
 
 //---------------------------------------------------------
-//   findNote -- get index of Note in note table for subtype type
+//   findGlissando -- get index of Glissando in table for subtype type
 //   return -1 if not found
 //---------------------------------------------------------
 
-int GlissandoHandler::findNote(const Note* note, int type) const
+int GlissandoHandler::findGlissando(const Glissando* gliss, int type) const
       {
       if (type != 0 && type != 1) {
-            qDebug("GlissandoHandler::findNote: unknown glissando subtype %d", type);
+            qDebug("GlissandoHandler::findGlissando: unknown glissando subtype %d", type);
             return -1;
             }
       for (int i = 0; i < MAX_NUMBER_LEVEL; ++i) {
-            if (type == 0 && slideNote[i] == note) return i;
-            if (type == 1 && glissNote[i] == note) return i;
+            if (type == 0 && _slide[i] == gliss)
+                  return i;
+            if (type == 1 && _gliss[i] == gliss)
+                  return i;
             }
       return -1;
       }
@@ -970,24 +972,29 @@ void GlissandoHandler::doGlissandoStart(Glissando* gliss, Notations& notations, 
             qDebug("doGlissandoStart: unknown glissando subtype %d", int(type));
             return;
             }
-      Note* note = static_cast<Note*>(gliss->startElement());
-      // check if on chord list
-      int i = findNote(note, int(type));
+      int t = (type == GlissandoType::STRAIGHT) ? 0 : 1;
+      int i = findGlissando(gliss, int(type));
       if (i >= 0) {
-            // print error and remove from list
-            qDebug("doGlissandoStart: note for glissando/slide %p already on list", gliss);
-            if (type == GlissandoType::STRAIGHT) slideNote[i] = 0;
-            if (type == GlissandoType::WAVY) glissNote[i] = 0;
-            }
-      // find free slot to store it
-      i = findNote(0, int(type));
-      if (i >= 0) {
-            if (type == GlissandoType::STRAIGHT) slideNote[i] = note;
-            if (type == GlissandoType::WAVY) glissNote[i] = note;
+            // stop was already seen (out-of-order)
+            if (t == 0)
+                  _slide[i] = nullptr;
+            else
+                  _gliss[i] = nullptr;
             glissando(gliss, i + 1, true, notations, xml);
             }
-      else
-            qDebug("doGlissandoStart: no free slot");
+      else {
+            // find free slot
+            i = findGlissando(nullptr, t);
+            if (i >= 0) {
+                  if (t == 0)
+                        _slide[i] = gliss;
+                  else
+                        _gliss[i] = gliss;
+                  glissando(gliss, i + 1, true, notations, xml);
+                  }
+            else
+                  qDebug("doGlissandoStart: no free slot");
+            }
       }
 
 //---------------------------------------------------------
@@ -998,23 +1005,32 @@ void GlissandoHandler::doGlissandoStop(Glissando* gliss, Notations& notations, X
       {
       GlissandoType type = gliss->glissandoType();
       if (type != GlissandoType::STRAIGHT && type != GlissandoType::WAVY) {
-            qDebug("doGlissandoStart: unknown glissando subtype %d", int(type));
+            qDebug("doGlissandoStop: unknown glissando subtype %d", int(type));
             return;
             }
-      Note* note = static_cast<Note*>(gliss->startElement());
-      for (int i = 0; i < MAX_NUMBER_LEVEL; ++i) {
-            if (type == GlissandoType::STRAIGHT && slideNote[i] == note) {
-                  slideNote[i] = 0;
+      int t = (type == GlissandoType::STRAIGHT) ? 0 : 1;
+      int i = findGlissando(gliss, t);
+      if (i < 0) {
+            // start not seen yet (out-of-order)
+            i = findGlissando(nullptr, t);
+            if (i >= 0) {
+                  if (t == 0)
+                        _slide[i] = gliss;
+                  else
+                        _gliss[i] = gliss;
                   glissando(gliss, i + 1, false, notations, xml);
-                  return;
                   }
-            if (type == GlissandoType::WAVY && glissNote[i] == note) {
-                  glissNote[i] = 0;
-                  glissando(gliss, i + 1, false, notations, xml);
-                  return;
-                  }
+            else
+                  qDebug("doGlissandoStop: no free slot");
             }
-      qDebug("doGlissandoStop: glissando note %p not found", note);
+      else {
+            // found (already started), stop it and clear slot
+            if (t == 0)
+                  _slide[i] = nullptr;
+            else
+                  _gliss[i] = nullptr;
+            glissando(gliss, i + 1, false, notations, xml);
+            }
       }
 
 //---------------------------------------------------------
