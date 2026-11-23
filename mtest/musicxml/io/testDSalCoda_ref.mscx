@@ -321,8 +321,8 @@
           <style>Repeat Text Right</style>
           <text>D.S. al Coda</text>
           <jumpTo>segno</jumpTo>
-          <playUntil>end</playUntil>
-          <continueAt></continueAt>
+          <playUntil>coda</playUntil>
+          <continueAt>codab</continueAt>
           </Jump>
         <voice>
           <Chord>
