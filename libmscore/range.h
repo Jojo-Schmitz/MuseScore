@@ -25,7 +25,9 @@ class Spanner;
 class ScoreRange;
 class ChordRest;
 class Score;
+class Jump;
 
+class Marker;
 //---------------------------------------------------------
 //   TrackList
 //---------------------------------------------------------
@@ -73,13 +75,25 @@ struct Annotation {
 //---------------------------------------------------------
 
 class ScoreRange {
-      QList<TrackList*> tracks;
+      bool endOfMeasure(Element* e) const;
+      void backupJumpsAndMarkers(Segment* first, Segment* last);
+      void restoreJumpsAndMarkers(Score* score, const Fraction& tick) const;
+      void deleteJumpsAndMarkers();
+
+      struct JumpsMarkersBackup
+      {
+          Fraction sPosition;
+          Element* e = nullptr;
+      };
+
+      QList<TrackList*> _tracks;
+      QList<JumpsMarkersBackup> _jumpsMarkers;
       Segment* _first;
       Segment* _last;
 
    protected:
-      QList<Spanner*> spanner;
-      QList<Annotation> annotations;
+      QList<Spanner*> _spanner;
+      QList<Annotation> _annotations;
 
    public:
       ScoreRange() {}
