@@ -4,5 +4,6 @@
         <file alias="fonts/FreeSerifItalic.ttf">../fonts/FreeSerifItalic.ttf</file>
         <file alias="fonts/FreeSerifBoldItalic.ttf">../fonts/FreeSerifBoldItalic.ttf</file>
         <file alias="fonts/FreeSans.ttf">../fonts/FreeSans.ttf</file>
+        <file alias="fonts/FreeSansTabBold.ttf">../fonts/FreeSansTabBold.ttf</file>
 	    </qresource>
 </RCC>
