@@ -788,7 +788,7 @@ Note* searchTieNote(Note* note)
             // try to tie to next grace note
 
             int index = note->chord()->graceIndex();
-            for (Chord* c : chord->graceNotes()) {
+            for (Chord*& c : chord->graceNotes()) {
                   if (c->graceIndex() == index + 1) {
                         note2 = c->findNote(note->pitch());
                         if (note2) {
@@ -862,43 +862,6 @@ Note* searchTieNote(Note* note)
                                     }
                               else
                                     ++idx2;
-                              }
-                        }
-                  }
-            if (note2)
-                  break;
-            }
-      return note2;
-      }
-
-//---------------------------------------------------------
-//   searchTieNote114
-//    search Note to tie to "note", tie to next note in
-//    same voice
-//---------------------------------------------------------
-
-Note* searchTieNote114(Note* note)
-      {
-      Note* note2  = 0;
-      Chord* chord = note->chord();
-      Segment* seg = chord->segment();
-      Part* part   = chord->part();
-      int strack   = part->staves()->front()->idx() * VOICES;
-      int etrack   = strack + part->staves()->size() * VOICES;
-
-      while ((seg = seg->next1(SegmentType::ChordRest))) {
-            for (int track = strack; track < etrack; ++track) {
-                  Element* e = seg->element(track);
-                  if (e == 0 || (!e->isChord()) || (e->track() != chord->track()))
-                        continue;
-                  Chord* c = toChord(e);
-                  int staffIdx = c->staffIdx() + c->staffMove();
-                  if (staffIdx != chord->staffIdx() + chord->staffMove())  // cannot happen?
-                        continue;
-                  for (Note* n : c->notes()) {
-                        if (n->pitch() == note->pitch()) {
-                              if (note2 == 0 || c->track() == chord->track())
-                                    note2 = n;
                               }
                         }
                   }
