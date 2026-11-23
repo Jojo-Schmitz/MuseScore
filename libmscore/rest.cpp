@@ -76,7 +76,7 @@ Rest::Rest(const Rest& r, bool link)
       dotline  = r.dotline;
       _mmWidth = r._mmWidth;
       for (NoteDot* dot : r._dots)
-            add(new NoteDot(*dot));
+            Rest::add(new NoteDot(*dot));
       }
 
 //---------------------------------------------------------
