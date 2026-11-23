@@ -204,6 +204,8 @@ void TieSegment::computeBezier(QPointF shoulderOffset)
 
       QPointF tieStart = ups(Grip::START).p + ups(Grip::START).off;
       QPointF tieEnd = ups(Grip::END).p   + ups(Grip::END).off;
+      if (tieEnd.x() > tieStart.x() || qFuzzyCompare(tieEnd.x(), tieStart.x()))
+            return;
 
       QPointF tieEndNormalized = tieEnd - tieStart; // normalize to zero
       if (qFuzzyIsNull(tieEndNormalized.x())) {
