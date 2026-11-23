@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#MSCORE=../../../build.debug/mscore/mscore
+MSCORE=../../../build.release/main/mscore
+teffiles=`cat tst_tabledit_io.cpp | grep "{ tefReadTest" | awk -F\" '{print $2}' | sort`
+
+echo "updating TablEdit reference files ..."
+for f in $teffiles; do
+      echo "${f}.tef -> ${f}.ref.mscx"
+      $MSCORE -t ${f}.tef -o ${f}.ref.mscx &> /dev/null
+done

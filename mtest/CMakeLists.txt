@@ -55,6 +55,7 @@ include(${IMPORTEXPORT_DIR}/musicxml/musicxml.cmake)
 include(${IMPORTEXPORT_DIR}/guitarpro/guitarpro.cmake)
 include(${IMPORTEXPORT_DIR}/ove/ove.cmake)
 include(${IMPORTEXPORT_DIR}/midiimport/midiimport.cmake)
+include(${IMPORTEXPORT_DIR}/tabledit/tabledit.cmake)
 
 set (SOURCE_LIB
       testutils.cpp
@@ -67,6 +68,7 @@ set (SOURCE_LIB
       ${GUITARPRO_SRC}
       ${OVE_SRC}
       ${MIDIIMPORT_SRC}
+      ${TABLEDIT_SRC}
 
       ${PROJECT_SOURCE_DIR}/audio/exports/exportmidi.cpp
       ${PROJECT_SOURCE_DIR}/audio/exports/exportmidi.h
@@ -195,6 +197,7 @@ subdirs (
         biab
         musicxml
         guitarpro
+        tabledit
         scripting
         stringutils
 #        testoves
