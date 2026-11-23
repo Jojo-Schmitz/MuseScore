@@ -32,13 +32,17 @@ enum class ChordLineType : char {
 //---------------------------------------------------------
 
 class ChordLine final : public Element {
-      ChordLineType _chordLineType;
-      bool _straight;
+      bool _straight = false;
+      bool _wavy = false;
+
+      ChordLineType _chordLineType = ChordLineType::NOTYPE;
       QPainterPath path;
-      bool modified;
-      qreal _lengthX;
-      qreal _lengthY;
+      bool modified = false;
+      qreal _lengthX = 0.0;
+      qreal _lengthY = 0.0;
       const int _initialLength = 2;
+      static constexpr qreal _baseLength = 1.0;
+      static constexpr qreal _waveAngle = 20;
 
    public:
       ChordLine(Score*);
@@ -52,6 +56,8 @@ class ChordLine final : public Element {
       Chord* chord() const                      { return (Chord*)(parent()); }
       bool isStraight() const           { return _straight; }
       void setStraight(bool straight)   { _straight =  straight; }
+      bool isWavy() const               { return _wavy; }
+      void setWavy(bool wavy)           { _wavy = wavy; }
       void setLengthX(qreal length)     { _lengthX = length; }
       void setLengthY(qreal length)     { _lengthY = length; }
 
@@ -76,9 +82,11 @@ class ChordLine final : public Element {
       Grip defaultGrip() const override { return initialEditModeGrip(); }
       std::vector<QPointF> gripsPositions(const EditData&) const override;
 
+      bool isToTheLeft() const { return _chordLineType == ChordLineType::PLOP || _chordLineType == ChordLineType::SCOOP; }
+      bool isBelow() const { return _chordLineType == ChordLineType::SCOOP || _chordLineType == ChordLineType::FALL; }
       };
 
-extern const char* scorelineNames[];
+extern const char* chordlineNames[];
 
 }     // namespace Ms
 #endif

@@ -187,6 +187,7 @@ const std::initializer_list<Pid> PaletteElementScriptEntry::_pids {
       Pid::ARPEGGIO_TYPE,
       Pid::CHORD_LINE_TYPE,
       Pid::CHORD_LINE_STRAIGHT,
+      Pid::CHORD_LINE_WAVY,
       Pid::TREMOLO_TYPE,
 
       // TextLineBase descendants

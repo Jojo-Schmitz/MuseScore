@@ -354,6 +354,7 @@ enum class Pid : short {
       BRACKET_RIGHT_SIDE,
       CHORD_LINE_TYPE,
       CHORD_LINE_STRAIGHT,
+      CHORD_LINE_WAVY,
       TREMOLO_TYPE,
       TREMOLO_STYLE,
       HARMONY_TYPE,
