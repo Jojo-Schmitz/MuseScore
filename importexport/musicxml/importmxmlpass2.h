@@ -437,6 +437,8 @@ private:
       QString _sndFine;
       QString _sndSegno;
       QString _sndToCoda;
+      QString _codaId;
+      QString _segnoId;
       QString _placement;
       QString _play;
       bool _hasDefaultY;
@@ -466,6 +468,8 @@ private:
       void dynamics();
       void otherDirection();
       void handleRepeats(Measure* measure, const int track, const Fraction tick);
+      Marker* findMarker(const QString& repeat, Score* score);
+      Jump* findJump(const QString& repeat, Score* score);
       QString matchRepeat() const;
       void handleNmiCmi(Measure* measure, const int track, const Fraction tick, DelayedDirectionsList& delayedDirections);
       void handleChordSym(const int track, const Fraction tick, HarmonyMap& harmonyMap);
