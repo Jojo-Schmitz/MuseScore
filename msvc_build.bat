@@ -40,7 +40,7 @@ IF "%GENERATOR_NAME%"=="" (
 )
 
 IF "%GENERATOR_NAME%"=="" (
-   ECHO "No supported version of Microsoft Visual Studio (2017, 2019 or 2022) found."
+   ECHO "No supported version of Microsoft Visual Studio (2017, 2019, 2022, or 2026) found."
    GOTO :END
 )
 
