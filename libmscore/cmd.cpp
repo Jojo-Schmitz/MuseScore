@@ -490,9 +490,10 @@ void Score::expandVoice(Segment* s, int track)
       //
       Measure* m = s->measure();
       Fraction stick  = ps ?  ps->tick() : m->tick();
+      Fraction stretch = staff(track2staff(track))->timeStretch(stick);
       Fraction ticks  = s->tick() - stick;
       if (ticks.isNotZero())
-            setRest(stick, track, ticks, false, 0);
+            setRest(stick, track, ticks * stretch, false, 0);
 
       //
       // fill from s->tick() until next chord/rest in measure
@@ -506,7 +507,7 @@ void Score::expandVoice(Segment* s, int track)
       if (ticks == m->ticks())
             addRest(s, track, TDuration(TDuration::DurationType::V_MEASURE), 0);
       else
-            setRest(s->tick(), track, ticks, false, 0);
+            setRest(s->tick(), track, ticks * stretch, false, 0);
       }
 
 void Score::expandVoice()
