@@ -690,6 +690,13 @@
                    </widget>
                   </item>
                   <item>
+                   <widget class="QCheckBox" name="fretFontBold">
+                    <property name="text">
+                     <string>Bold</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
                    <spacer name="horizontalSpacer_6">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
@@ -1233,6 +1240,13 @@
                     </property>
                     <property name="text">
                      <string>Show rests</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="durFontBold">
+                    <property name="text">
+                     <string>Bold</string>
                     </property>
                    </widget>
                   </item>
