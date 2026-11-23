@@ -24,6 +24,8 @@ class Segment;
 class Spanner;
 class ScoreRange;
 class ChordRest;
+class Chord;
+class Note;
 class Score;
 
 //---------------------------------------------------------
@@ -32,14 +34,19 @@ class Score;
 
 class TrackList : public QList<Element*>
       {
+      typedef std::map<Chord*, Chord*> ClonedChordMap;
+
       Fraction _duration;
       ScoreRange* _range;
       int _track { 0 };
+      ClonedChordMap _clonedChord;
 
       Tuplet* writeTuplet(Tuplet* parent, Tuplet* tuplet, Measure*& measure, Fraction& rest) const;
       void append(Element*);
       void appendTuplet(Tuplet* srcTuplet, Tuplet* dstTuplet);
       void combineTuplet(Tuplet* dst, Tuplet* src);
+      Note* clonedNote(const Note* srcNote, ClonedChordMap& cChordMap) const;
+      void cloneAndRebuildSpanners(ClonedChordMap& cChordMap);
 
    public:
       TrackList(ScoreRange* r) { _range = r; }
