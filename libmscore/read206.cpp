@@ -3286,6 +3286,8 @@ static void readStaffContent(Score* score, XmlReader& e)
                         measure->checkMeasure(staff);
                         if (!measure->isMMRest()) {
                               score->measures()->add(measure);
+                              if (m && m->mmRest())
+                                    m->mmRest()->setNext(measure);
                               e.setLastMeasure(measure);
                               e.setTick(measure->endTick());
                               }
@@ -3297,6 +3299,7 @@ static void readStaffContent(Score* score, XmlReader& e)
                               if (lm) {
                                     lm->setMMRest(measure);
                                     measure->setTick(lm->tick());
+                                    measure->setPrev(lm->prev());
                                     }
                               }
                         }
