@@ -93,6 +93,8 @@ int main(int argc, char** argv)
       int argcFinal = argc;
       char** argvFinal = argv;
 #endif
-
+      (void)std::set_terminate([] {
+            std::abort();
+            });
       return Ms::runApplication(argcFinal, argvFinal);
       }
