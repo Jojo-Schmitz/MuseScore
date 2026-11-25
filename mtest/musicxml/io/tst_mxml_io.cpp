@@ -80,6 +80,7 @@ private slots:
       void beams1() { mxmlIoTest("testBeams1"); }
       void beams2() { mxmlIoTest("testBeams2"); }
       void beams3() { mxmlIoTestRef("testBeams3"); }
+      void beams5() { mxmlIoTest("testBeams5"); }
       void bracketTypes() { mxmlImportTestRef("testBracketTypes"); }
       void breaksImplExpl() { mxmlMscxExportTestRefBreaks("testBreaksImplExpl"); }
       void breaksMMRest() { mxmlMscxExportTestRefBreaks("testBreaksMMRest"); }
