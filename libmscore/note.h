@@ -292,6 +292,7 @@ class Note final : public Element {
       int _string         { -1 };
       mutable int _tpc[2] { Tpc::TPC_INVALID, Tpc::TPC_INVALID }; ///< tonal pitch class  (concert/transposing)
       mutable int _pitch  { 0  };   ///< Note pitch as midi value (0 - 127).
+      mutable qreal _centOffset = 0.0; // Pitch offset in cents (100 cents = 1 semitone)
 
       int _veloOffset     { 0 };    ///< velocity user offset in percent, or absolute velocity for this note
       int _fixedLine      { 0 };    // fixed line number if _fixed == true
@@ -378,6 +379,10 @@ class Note final : public Element {
       void setPitch(int val);
       void setPitch(int pitch, int tpc1, int tpc2);
       int pitch() const                   { return _pitch;    }
+
+      qreal centOffset() const            { return _centOffset; }
+      void setCentOffset(double v)        { _centOffset = v;  }
+
       int ottaveCapoFret() const;
       int ppitch() const;           ///< playback pitch
       int epitch() const;           ///< effective pitch

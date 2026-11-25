@@ -717,6 +717,7 @@ Note::Note(const Note& n, bool link)
       _ghost             = n._ghost;
       dragMode           = n.dragMode;
       _pitch             = n._pitch;
+      _centOffset        = n._centOffset;
       _tpc[0]            = n._tpc[0];
       _tpc[1]            = n._tpc[1];
       _dotsHidden        = n._dotsHidden;
