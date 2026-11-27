@@ -1020,6 +1020,7 @@ extern Score::FileError importLilypond(MasterScore*, const QString& name);
 extern Score::FileError importBB(MasterScore*, const QString& name);
 extern Score::FileError importCapella(MasterScore*, const QString& name);
 extern Score::FileError importCapXml(MasterScore*, const QString& name);
+extern Score::FileError importTef(MasterScore*, const QString& path);
 extern Score::FileError readScore(MasterScore* score, QString name, bool ignoreVersionError);
 
 int runApplication(int& argc, char** argv);

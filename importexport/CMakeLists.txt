@@ -27,6 +27,7 @@ include(${CMAKE_CURRENT_LIST_DIR}/musedata/musedata.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/bb/bb.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/capella/capella.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/bww/bww.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/tabledit/tabledit.cmake)
 
 add_library (${MODULE} STATIC
       ${MUSICXML_SRC}
@@ -37,6 +38,7 @@ add_library (${MODULE} STATIC
       ${BB_SRC}
       ${CAPELLA_SRC}
       ${BWW_SRC}
+      ${TABLEDIT_SRC}
       )
 
 add_subdirectory(../thirdparty/beatroot beatroot) # for midiimport
