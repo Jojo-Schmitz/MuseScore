@@ -43,6 +43,10 @@
 using namespace Ms;
 
 namespace tabledit {
+#if defined(Q_OS_WIN)
+using Ms::Chord;
+#endif
+
 int8_t TablEdit::readInt8()
 {
     char result {0};
